@@ -137,31 +137,27 @@
   .pillar p{font-size:0.9rem; color:rgba(27,24,54,0.62); line-height:1.55;}
 
   /* ZRR / LEADERSHIP */
-  .leader{padding:110px 0;}
+  .leader{padding:80px 0;}
   .leader-card{
     background:linear-gradient(135deg, var(--ink), #2b2555);
-    border-radius:28px; padding:64px; color:#fff;
-    display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:center;
+    border-radius:24px; padding:40px 44px; color:#fff;
     position:relative; overflow:hidden;
   }
   .leader-card::after{
-    content:"7"; position:absolute; right:-40px; bottom:-90px; font-family:'Poppins'; font-weight:900;
-    font-size:22rem; color:rgba(255,255,255,0.045); line-height:1;
+    content:"7"; position:absolute; right:-30px; bottom:-60px; font-family:'Poppins'; font-weight:900;
+    font-size:14rem; color:rgba(255,255,255,0.045); line-height:1;
   }
-  .leader-photo{
-    width:100%; aspect-ratio:1/1.05; border-radius:20px;
-    background:linear-gradient(160deg, var(--magenta), var(--magenta-deep));
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Poppins'; font-weight:800; font-size:5rem; color:rgba(255,255,255,0.85);
+  .leader-grid{
     position:relative; z-index:1;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:28px;
   }
-  .leader-text{position:relative; z-index:1;}
-  .leader-text .role{color:var(--gold); font-weight:700; font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:14px; display:block;}
-  .leader-text h3{font-size:1.9rem; margin-bottom:16px;}
-  .leader-text p{color:rgba(255,255,255,0.72); line-height:1.75; margin-bottom:14px;}
-  .leader-tags{display:flex; gap:10px; margin-top:22px; flex-wrap:wrap;}
-  .leader-tags span{
-    border:1px solid rgba(255,255,255,0.25); padding:8px 16px; border-radius:100px; font-size:0.82rem; font-weight:600;
+  .leader-item .role{
+    color:var(--gold); font-weight:700; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
+    margin-bottom:8px; display:block;
+  }
+  .leader-item h4{font-size:1.05rem; font-weight:700; font-family:'Poppins';}
+  @media (max-width:920px){
+    .leader-grid{grid-template-columns:repeat(2,1fr); row-gap:24px;}
   }
 
   /* CLUBS */
@@ -272,8 +268,6 @@
   @media (max-width:920px){
     .navlinks{display:none;}
     .about-grid{grid-template-columns:1fr;}
-    .leader-card{grid-template-columns:1fr; padding:40px 28px;}
-    .leader-photo{max-width:220px; margin:0 auto;}
     .clubs-grid{grid-template-columns:repeat(2,1fr);}
     .ig-grid{grid-template-columns:repeat(3,1fr);}
     .stat-row{grid-template-columns:repeat(2,1fr); row-gap:30px;}
@@ -350,18 +344,24 @@
 <section class="leader" id="leadership">
   <div class="wrap">
     <span class="section-tag">Zone Leadership · RY 2025&ndash;26</span>
-    <h2 style="margin-bottom:56px; max-width:600px;">Guided by the Zone Rotaract Representative.</h2>
+    <h2 style="margin-bottom:40px; max-width:600px;">Guided by the Zone 7 leadership team.</h2>
     <div class="leader-card">
-      <div class="leader-photo">ZRR</div>
-      <div class="leader-text">
-        <span class="role">Zone Rotaract Representative · Zone 7</span>
-        <h3>Rajay [Last Name]</h3>
-        <p>As Zone Rotaract Representative for Zone 7, District 3292 (Nepal-Bhutan), I work to connect clubs across the Kathmandu Valley &mdash; supporting joint projects, sharing resources, and helping every club in the zone grow stronger together.</p>
-        <p>If you're part of a Zone 7 club, or want to bring your club into the fold, reach out any time.</p>
-        <div class="leader-tags">
-          <span>Zone 7 · District 3292</span>
-          <span>Nepal &ndash; Bhutan</span>
-          <span>RY 2025&ndash;26</span>
+      <div class="leader-grid">
+        <div class="leader-item">
+          <span class="role">ZRR</span>
+          <h4>Rajay Bajracharya</h4>
+        </div>
+        <div class="leader-item">
+          <span class="role">ZS</span>
+          <h4>Peshal Basnet</h4>
+        </div>
+        <div class="leader-item">
+          <span class="role">ZFC</span>
+          <h4>Samrat Pandey</h4>
+        </div>
+        <div class="leader-item">
+          <span class="role">ZPIC</span>
+          <h4>Rishav Thapa</h4>
         </div>
       </div>
     </div>
@@ -392,7 +392,7 @@
         <span class="club-ig"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @kathmanduwest</span>
       </a>
       <a class="club-card" href="https://www.instagram.com/rackathmanduheight/" target="_blank" rel="noopener">
-        <div class="club-mark">KH</div><h4>Rotaract Club of Kathmandu Heights</h4><p>Kathmandu Valley · Zone 7</p>
+        <div class="club-mark">KH</div><h4>Rotaract Club of Kathmandu Height</h4><p>Kathmandu Valley · Zone 7</p>
         <span class="club-ig"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rackathmanduheight</span>
       </a>
       <div class="club-card no-link">
