@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Us | Zone 7 Rotaract</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B1836;
+    --magenta:#E11A6E;
+    --magenta-deep:#A80F52;
+    --gold:#F2A900;
+    --cream:#FFF8EF;
+    --paper:#FFFDF9;
+    --line: rgba(27,24,54,0.1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.disp{
+    font-family:'Poppins',sans-serif;
+    font-weight:800;
+    letter-spacing:-0.02em;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+  /* NAV */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(255,253,249,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Poppins'; font-weight:800; font-size:1.1rem;}
+  .brand .z{
+    background:var(--magenta); color:#fff; width:34px; height:34px; border-radius:8px;
+    display:flex; align-items:center; justify-content:center; font-size:1.05rem;
+  }
+  .nav-cta{
+    background:var(--ink); color:#fff !important; padding:10px 20px; border-radius:100px;
+    font-weight:700; font-size:0.85rem;
+  }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:160px 0 70px;
+    overflow:hidden;
+    background:
+      radial-gradient(1200px 500px at 85% -10%, rgba(225,26,110,0.10), transparent 60%),
+      var(--cream);
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--magenta-deep); background:rgba(225,26,110,0.09);
+    padding:8px 16px; border-radius:100px; margin-bottom:26px;
+  }
+  .eyebrow span.dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
+  .hero h1{
+    font-size:clamp(2.4rem, 5vw, 3.6rem);
+    line-height:1.05;
+    max-width:760px;
+  }
+  .hero h1 .hl{
+    background:linear-gradient(100deg, var(--magenta), var(--magenta-deep));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lead{
+    font-size:1.1rem; color:rgba(27,24,54,0.72); max-width:620px; margin-top:22px; line-height:1.65;
+  }
+
+  /* WHY JOIN STRIP */
+  .why-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px;
+  }
+  .why-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:24px;
+  }
+  .why-card .ico{
+    width:40px; height:40px; border-radius:10px; background:rgba(225,26,110,0.09); color:var(--magenta-deep);
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-family:'Poppins'; margin-bottom:14px;
+  }
+  .why-card h4{font-size:0.98rem; margin-bottom:6px;}
+  .why-card p{font-size:0.85rem; color:rgba(27,24,54,0.6); line-height:1.55;}
+
+  /* FORM SECTION */
+  .form-section{padding:70px 0 120px;}
+  .form-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:28px;
+    padding:56px; max-width:820px; margin:0 auto;
+  }
+  .form-card h2{font-size:1.6rem; margin-bottom:10px;}
+  .form-card p.intro{color:rgba(27,24,54,0.65); font-size:0.98rem; margin-bottom:40px; line-height:1.6;}
+
+  .form-group{margin-bottom:26px;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  label{
+    display:block; font-weight:700; font-size:0.86rem; margin-bottom:8px; color:var(--ink);
+  }
+  label .req{color:var(--magenta-deep);}
+  label .hint{display:block; font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5); margin-top:3px;}
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"], select, textarea{
+    width:100%; padding:13px 16px; border-radius:12px; border:1.5px solid var(--line);
+    background:#fff; font-family:'Inter'; font-size:0.95rem; color:var(--ink);
+    transition:border-color .2s;
+  }
+  input:focus, select:focus, textarea:focus{outline:none; border-color:var(--magenta);}
+  textarea{resize:vertical; min-height:110px; line-height:1.6;}
+  .field-note{font-size:0.78rem; color:rgba(27,24,54,0.5); margin-top:6px;}
+
+  fieldset{border:none; padding:0; margin:0;}
+  legend{
+    display:block; font-weight:700; font-size:0.86rem; margin-bottom:10px; color:var(--ink); padding:0;
+  }
+  .check-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .check-item{
+    display:flex; align-items:flex-start; gap:10px; background:var(--cream); border:1px solid var(--line);
+    border-radius:12px; padding:12px 14px; font-size:0.88rem;
+  }
+  .check-item input{width:auto; margin-top:3px;}
+
+  .radio-row{display:flex; gap:22px; flex-wrap:wrap;}
+  .radio-item{display:flex; align-items:center; gap:8px; font-size:0.9rem; font-weight:600;}
+  .radio-item input{width:auto;}
+
+  .btn-submit{
+    width:100%; padding:17px; border-radius:100px; border:none; cursor:pointer;
+    background:var(--ink); color:#fff; font-weight:700; font-size:1rem;
+    font-family:'Inter'; margin-top:10px; transition:transform .2s, box-shadow .2s;
+  }
+  .btn-submit:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(27,24,54,0.22);}
+  .btn-submit:disabled{opacity:0.6; cursor:not-allowed; transform:none; box-shadow:none;}
+
+  .form-status{
+    margin-top:20px; padding:16px 20px; border-radius:14px; font-size:0.92rem; font-weight:600; display:none;
+  }
+  .form-status.success{display:block; background:rgba(34,160,90,0.1); color:#1c8a4d;}
+  .form-status.error{display:block; background:rgba(225,26,110,0.1); color:var(--magenta-deep);}
+
+  .success-panel{display:none; text-align:center; padding:20px 0;}
+  .success-panel .mark{
+    width:64px; height:64px; border-radius:50%; background:rgba(34,160,90,0.12); color:#1c8a4d;
+    display:flex; align-items:center; justify-content:center; margin:0 auto 22px; font-size:1.8rem;
+  }
+  .success-panel h2{margin-bottom:10px;}
+  .success-panel p{color:rgba(27,24,54,0.65); max-width:480px; margin:0 auto;}
+
+  footer{background:var(--ink); color:#fff; padding:50px 0;}
+  footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;}
+  footer p{color:rgba(255,255,255,0.55); font-size:0.85rem;}
+  footer a.back{color:#fff; font-weight:700; font-size:0.9rem;}
+
+  @media (max-width:760px){
+    .why-grid{grid-template-columns:1fr;}
+    .form-card{padding:34px 22px;}
+    .form-row{grid-template-columns:1fr;}
+    .check-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="/"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>
+    <a href="/" class="btn nav-cta">← Back Home</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Membership · Zone 7, District 3292</div>
+    <h1>Fill this form, and you're <span class="hl">officially a Rotaractor.</span></h1>
+    <p class="lead">There's no long application process. Tell us a bit about yourself &mdash; including your age and a little about your health &mdash; and share why you want to serve, and a Zone 7 club will welcome you in as a member.</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="ico">01</div>
+        <h4>Real leadership, early</h4>
+        <p>Run projects, manage budgets and lead teams while still in college or early career &mdash; experience most people don't get for years.</p>
+      </div>
+      <div class="why-card">
+        <div class="ico">02</div>
+        <h4>Service that matters</h4>
+        <p>Join hands-on community projects in health, education and the environment across the Kathmandu Valley.</p>
+      </div>
+      <div class="why-card">
+        <div class="ico">03</div>
+        <h4>A lifelong network</h4>
+        <p>Connect with 5,500+ Rotaractors across District 3292, and Rotarians and Rotaractors worldwide.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="form-section">
+  <div class="wrap">
+    <div class="form-card">
+
+      <div id="form-wrap">
+        <h2>Zone 7 Rotaract Membership Form</h2>
+        <p class="intro">Rotaract membership is open to young adults aged 18&ndash;30. Fields marked <span class="req">*</span> are required. Your information is only used by Zone 7 and its clubs to process your membership &mdash; it is never sold or shared externally.</p>
+
+        <form name="join-rotaract" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="joinForm">
+          <input type="hidden" name="form-name" value="join-rotaract" />
+          <p style="position:absolute; left:-9999px;">
+            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+          </p>
+
+          <div class="form-group">
+            <label for="fullname">Full Name <span class="req">*</span></label>
+            <input type="text" id="fullname" name="fullname" required placeholder="As per your citizenship / ID">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address <span class="req">*</span></label>
+              <input type="email" id="email" name="email" required placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone / WhatsApp Number <span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" required placeholder="98XXXXXXXX">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="age">Age <span class="req">*</span><span class="hint">Rotaract membership is open to ages 18&ndash;30</span></label>
+              <input type="number" id="age" name="age" min="18" max="30" required placeholder="e.g. 22">
+            </div>
+            <div class="form-group">
+              <label for="dob">Date of Birth <span class="req">*</span></label>
+              <input type="date" id="dob" name="dob" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bloodgroup">Blood Group <span class="req">*</span><span class="hint">Used for club blood-donation drives & emergencies</span></label>
+              <select id="bloodgroup" name="bloodgroup" required>
+                <option value="" disabled selected>Select your blood group</option>
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+                <option>O+</option>
+                <option>O-</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="occupation">Current Occupation <span class="req">*</span></label>
+              <input type="text" id="occupation" name="occupation" required placeholder="Student, working professional, etc.">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="institution">College / Workplace</label>
+            <input type="text" id="institution" name="institution" placeholder="Name of your college or organization">
+          </div>
+
+          <div class="form-group">
+            <label for="preferred_club">Preferred Zone 7 Club <span class="hint">Leave blank if unsure &mdash; we'll help match you</span></label>
+            <input type="text" id="preferred_club" name="preferred_club" placeholder="e.g. Rotaract Club of ...">
+          </div>
+
+          <div class="form-group">
+            <fieldset>
+              <legend>Which areas of service interest you? <span class="req">*</span></legend>
+              <div class="check-grid">
+                <label class="check-item"><input type="checkbox" name="interests[]" value="Community Service"> Community Service</label>
+                <label class="check-item"><input type="checkbox" name="interests[]" value="Leadership Development"> Leadership Development</label>
+                <label class="check-item"><input type="checkbox" name="interests[]" value="Professional Development"> Professional Development</label>
+                <label class="check-item"><input type="checkbox" name="interests[]" value="International Service"> International Service</label>
+                <label class="check-item"><input type="checkbox" name="interests[]" value="Club Service & Fellowship"> Club Service &amp; Fellowship</label>
+                <label class="check-item"><input type="checkbox" name="interests[]" value="Health & Blood Donation Drives"> Health &amp; Blood Donation Drives</label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="form-group">
+            <label for="reason">Why do you want to join Rotaract? <span class="req">*</span><span class="hint">Tell us what draws you to service, leadership, or the Rotaract community &mdash; be as specific as you like</span></label>
+            <textarea id="reason" name="reason" required placeholder="e.g. I want to give back to my community, build leadership skills, meet like-minded young people, and take on real responsibility outside the classroom..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="contribution">What skills or experience could you bring to a club?</label>
+            <textarea id="contribution" name="contribution" placeholder="e.g. event planning, design, fundraising, teaching, medical background, social media..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <fieldset>
+              <legend>Have you been part of Interact, Rotaract, or Rotary before?</legend>
+              <div class="radio-row">
+                <label class="radio-item"><input type="radio" name="prior_experience" value="Yes" required> Yes</label>
+                <label class="radio-item"><input type="radio" name="prior_experience" value="No" required> No</label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="form-group">
+            <label for="referral">How did you hear about Zone 7 Rotaract?</label>
+            <input type="text" id="referral" name="referral" placeholder="Friend, Instagram, a club event, etc.">
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">Submit &amp; Become a Rotaractor</button>
+          <div class="form-status" id="formStatus"></div>
+        </form>
+      </div>
+
+      <div class="success-panel" id="successPanel">
+        <div class="mark">✓</div>
+        <h2>Welcome, Rotaractor!</h2>
+        <p>Thank you for filling out the form &mdash; you've officially taken the first step to becoming a Rotaractor. A Zone 7 club will be in touch with you shortly to complete your onboarding.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan.</p>
+    <a href="/" class="back">← Back to Home</a>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('joinForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const statusEl = document.getElementById('formStatus');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    statusEl.className = 'form-status';
+    statusEl.textContent = '';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    const data = new FormData(form);
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString(),
+    })
+      .then((response) => {
+        if (response.ok) {
+          document.getElementById('form-wrap').style.display = 'none';
+          document.getElementById('successPanel').style.display = 'block';
+        } else {
+          throw new Error('Submission failed');
+        }
+      })
+      .catch(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit & Become a Rotaractor';
+        statusEl.className = 'form-status error';
+        statusEl.textContent = "Something went wrong submitting the form. Please check your connection and try again.";
+      });
+  });
+</script>
+
+</body>
+</html>
