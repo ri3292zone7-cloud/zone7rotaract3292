@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Club Admin | Zone 7 Rotaract 3292</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
+    --cream:#FFF8EF; --paper:#FFFDF9; --line: rgba(27,24,54,0.1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink); min-height:100vh;}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:980px; margin:0 auto; padding:0 28px;}
+
+  nav{position:sticky; top:0; z-index:100; background:rgba(255,253,249,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Poppins'; font-weight:800; font-size:1.1rem;}
+  .brand .z{background:var(--magenta); color:#fff; width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center;}
+  .back{font-weight:700; font-size:0.88rem; color:var(--magenta-deep);}
+
+  /* LOGIN */
+  .login-wrap{min-height:calc(100vh - 76px); display:flex; align-items:center; justify-content:center; padding:40px 20px;}
+  .login-card{background:var(--paper); border:1px solid var(--line); border-radius:24px; padding:44px; max-width:420px; width:100%;}
+  .login-card h2{font-size:1.5rem; margin-bottom:8px;}
+  .login-card p.sub{color:rgba(27,24,54,0.6); font-size:0.9rem; margin-bottom:30px; line-height:1.6;}
+  label{display:block; font-weight:700; font-size:0.84rem; margin-bottom:8px;}
+  select, input[type="password"], input[type="text"], input[type="date"], textarea{
+    width:100%; padding:13px 16px; border-radius:12px; border:1.5px solid var(--line);
+    background:#fff; font-family:'Inter'; font-size:0.95rem; color:var(--ink); margin-bottom:20px;
+  }
+  select:focus, input:focus, textarea:focus{outline:none; border-color:var(--magenta);}
+  .btn{padding:14px 26px; border-radius:100px; font-weight:700; font-size:0.92rem; display:inline-flex; align-items:center; gap:8px; border:none; cursor:pointer; font-family:'Inter';}
+  .btn-primary{background:var(--ink); color:#fff; width:100%; justify-content:center; padding:15px;}
+  .btn-ghost{border:1.6px solid var(--ink); color:var(--ink); background:none;}
+  .btn-danger{background:rgba(225,26,110,0.1); color:var(--magenta-deep);}
+  .login-error{color:var(--magenta-deep); font-size:0.85rem; font-weight:600; margin:-10px 0 16px; display:none;}
+  .demo-note{margin-top:22px; font-size:0.76rem; color:rgba(27,24,54,0.45); line-height:1.6; border-left:3px solid var(--gold); padding-left:12px;}
+
+  /* DASHBOARD */
+  #dashboard{display:none;}
+  .dash-header{padding:44px 0 30px; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:20px; border-bottom:1px solid var(--line);}
+  .dash-header h2{font-size:1.6rem;}
+  .dash-header p{color:rgba(27,24,54,0.55); font-size:0.92rem; margin-top:6px;}
+
+  .dash-body{padding:40px 0 100px; display:grid; grid-template-columns:1fr 1.1fr; gap:36px; align-items:start;}
+  .panel{background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:30px;}
+  .panel h3{font-size:1.05rem; margin-bottom:20px;}
+
+  .proj-list{display:flex; flex-direction:column; gap:12px;}
+  .proj-item{
+    display:flex; gap:14px; align-items:center; background:#fff; border:1px solid var(--line);
+    border-radius:14px; padding:12px; cursor:pointer; transition:border-color .15s;
+  }
+  .proj-item:hover{border-color:var(--magenta);}
+  .proj-item img{width:56px; height:56px; border-radius:10px; object-fit:cover; background:var(--cream); flex-shrink:0;}
+  .proj-item .info h4{font-size:0.92rem; margin-bottom:3px;}
+  .proj-item .info span{font-size:0.76rem; color:rgba(27,24,54,0.5);}
+  .no-projects{color:rgba(27,24,54,0.5); font-size:0.9rem; padding:20px 0; text-align:center;}
+
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .img-upload{
+    border:1.8px dashed var(--line); border-radius:14px; padding:18px; text-align:center; cursor:pointer;
+    margin-bottom:20px; background:#fff;
+  }
+  .img-upload:hover{border-color:var(--magenta);}
+  .img-upload span{font-size:0.85rem; font-weight:600; color:rgba(27,24,54,0.55);}
+  .cover-preview{width:100%; aspect-ratio:16/9; border-radius:12px; object-fit:cover; margin-bottom:14px; display:none; background:var(--cream);}
+  .gallery-preview{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:16px;}
+  .gallery-preview .g-item{position:relative; aspect-ratio:1;}
+  .gallery-preview img{width:100%; height:100%; object-fit:cover; border-radius:8px;}
+  .gallery-preview .rm{
+    position:absolute; top:-6px; right:-6px; width:20px; height:20px; border-radius:50%; background:var(--ink); color:#fff;
+    font-size:0.7rem; display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .form-actions{display:flex; gap:12px; margin-top:6px;}
+  .toast{
+    position:fixed; bottom:26px; right:26px; background:var(--ink); color:#fff; padding:14px 22px; border-radius:12px;
+    font-size:0.88rem; font-weight:600; opacity:0; transform:translateY(10px); transition:all .25s; pointer-events:none; z-index:200;
+  }
+  .toast.show{opacity:1; transform:translateY(0);}
+
+  @media (max-width:860px){ .dash-body{grid-template-columns:1fr;} .field-row{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a href="index.html"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>
+  <a href="index.html" class="back">← Back to Site</a>
+</div></nav>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginView">
+  <div class="login-card">
+    <h2>Club Admin Login</h2>
+    <p class="sub">Sign in as your club to add, edit, or remove project posts shown on your club page.</p>
+    <form id="loginForm">
+      <label for="clubSelect">Select Your Club</label>
+      <select id="clubSelect" required></select>
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter club password" required>
+      <div class="login-error" id="loginError">Incorrect password for that club. Please try again.</div>
+      <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
+    <div class="demo-note">Demo login system: each club has a preset password (shared separately by the Zone 7 team). Data you add is saved to this browser/device only — see the note in the project's README for making this sync across devices.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="wrap">
+    <div class="dash-header">
+      <div>
+        <h2 id="dashClubName">Club Dashboard</h2>
+        <p>Manage the projects shown on your club's page.</p>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <a class="btn btn-ghost" id="viewClubBtn" target="_blank">View Club Page ↗</a>
+        <button class="btn btn-ghost" id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+
+    <div class="dash-body">
+      <div class="panel">
+        <h3>Your Projects</h3>
+        <div class="proj-list" id="projList"></div>
+        <button class="btn btn-primary" style="margin-top:18px;" id="newProjectBtn">+ New Project</button>
+      </div>
+
+      <div class="panel">
+        <h3 id="formTitle">New Project</h3>
+        <form id="projectForm">
+          <input type="hidden" id="projectId">
+
+          <label>Cover Image</label>
+          <img class="cover-preview" id="coverPreview">
+          <div class="img-upload" id="coverUpload">
+            <span>Click to upload a cover image (auto-resized)</span>
+          </div>
+          <input type="file" id="coverInput" accept="image/*" style="display:none;">
+
+          <label for="pTitle">Project Title</label>
+          <input type="text" id="pTitle" placeholder="e.g. Blood Donation Drive 2026" required>
+
+          <div class="field-row">
+            <div>
+              <label for="pCategory">Category</label>
+              <input type="text" id="pCategory" placeholder="e.g. Health, Education, Environment">
+            </div>
+            <div>
+              <label for="pDate">Project Date</label>
+              <input type="date" id="pDate">
+            </div>
+          </div>
+
+          <label for="pLocation">Location</label>
+          <input type="text" id="pLocation" placeholder="e.g. Baneshwor, Kathmandu">
+
+          <label for="pSummary">Short Summary <span style="font-weight:500; color:rgba(27,24,54,0.5);">(shown on the club page card)</span></label>
+          <textarea id="pSummary" rows="2" placeholder="One or two sentences about the project"></textarea>
+
+          <label for="pBody">Full Story <span style="font-weight:500; color:rgba(27,24,54,0.5);">(shown on the project's detail page)</span></label>
+          <textarea id="pBody" rows="7" placeholder="Write the full project story here — background, what was done, impact, and any highlights."></textarea>
+
+          <label>Gallery Photos</label>
+          <div class="gallery-preview" id="galleryPreview"></div>
+          <div class="img-upload" id="galleryUpload">
+            <span>Click to add gallery photos</span>
+          </div>
+          <input type="file" id="galleryInput" accept="image/*" multiple style="display:none;">
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Project</button>
+            <button type="button" class="btn btn-ghost" id="cancelEditBtn">Clear Form</button>
+            <button type="button" class="btn btn-danger" id="deleteBtn" style="display:none;">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="zone7-data.js"></script>
+<script>
+const clubSelect = document.getElementById("clubSelect");
+Object.keys(CLUB_DIRECTORY).forEach(slug => {
+  const opt = document.createElement("option");
+  opt.value = slug; opt.textContent = CLUB_DIRECTORY[slug].name;
+  clubSelect.appendChild(opt);
+});
+
+let currentClub = ZONE7_DB.currentClub();
+let galleryImages = [];
+let editingId = null;
+
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+async function enterDashboard(slug){
+  currentClub = slug;
+  document.getElementById("loginView").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
+  document.getElementById("dashClubName").textContent = CLUB_DIRECTORY[slug].name + " — Dashboard";
+  document.getElementById("viewClubBtn").href = `club.html?club=${slug}`;
+  await renderProjectList();
+  resetForm();
+}
+
+if(currentClub && CLUB_DIRECTORY[currentClub]){
+  enterDashboard(currentClub); // fire and forget — function is async internally
+}
+
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const slug = clubSelect.value;
+  const pw = document.getElementById("password").value;
+  if(ZONE7_DB.login(slug, pw)){
+    document.getElementById("loginError").style.display = "none";
+    await enterDashboard(slug);
+  } else {
+    document.getElementById("loginError").style.display = "block";
+  }
+});
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  ZONE7_DB.logout();
+  currentClub = null;
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("loginView").style.display = "flex";
+  document.getElementById("password").value = "";
+});
+
+async function renderProjectList(){
+  const list = document.getElementById("projList");
+  list.innerHTML = `<div class="no-projects">Loading projects…</div>`;
+  const projects = await ZONE7_DB.getProjects(currentClub);
+  if(!projects.length){
+    list.innerHTML = `<div class="no-projects">No projects yet — add your first one on the right.</div>`;
+    return;
+  }
+  list.innerHTML = projects.map(p => `
+    <div class="proj-item" data-id="${p.id}">
+      <img src="${p.cover || ''}" alt="">
+      <div class="info">
+        <h4>${p.title}</h4>
+        <span>${p.category || "Uncategorized"} · ${p.date || "No date"}</span>
+      </div>
+    </div>
+  `).join("");
+  list.querySelectorAll(".proj-item").forEach(el => {
+    el.addEventListener("click", () => loadProjectIntoForm(el.dataset.id));
+  });
+}
+
+function resetForm(){
+  editingId = null;
+  galleryImages = [];
+  document.getElementById("formTitle").textContent = "New Project";
+  document.getElementById("projectId").value = "";
+  document.getElementById("pTitle").value = "";
+  document.getElementById("pCategory").value = "";
+  document.getElementById("pDate").value = "";
+  document.getElementById("pLocation").value = "";
+  document.getElementById("pSummary").value = "";
+  document.getElementById("pBody").value = "";
+  document.getElementById("coverPreview").style.display = "none";
+  document.getElementById("coverPreview").src = "";
+  document.getElementById("coverPreview").dataset.value = "";
+  document.getElementById("deleteBtn").style.display = "none";
+  renderGalleryPreview();
+}
+
+async function loadProjectIntoForm(id){
+  const p = await ZONE7_DB.getProject(currentClub, id);
+  if(!p) return;
+  editingId = id;
+  galleryImages = [...(p.gallery || [])];
+  document.getElementById("formTitle").textContent = "Edit Project";
+  document.getElementById("projectId").value = p.id;
+  document.getElementById("pTitle").value = p.title || "";
+  document.getElementById("pCategory").value = p.category || "";
+  document.getElementById("pDate").value = p.date || "";
+  document.getElementById("pLocation").value = p.location || "";
+  document.getElementById("pSummary").value = p.summary || "";
+  document.getElementById("pBody").value = p.body || "";
+  const cp = document.getElementById("coverPreview");
+  if(p.cover){ cp.src = p.cover; cp.style.display = "block"; cp.dataset.value = p.cover; }
+  else { cp.style.display = "none"; cp.dataset.value = ""; }
+  document.getElementById("deleteBtn").style.display = "inline-flex";
+  renderGalleryPreview();
+  window.scrollTo({top: document.querySelector('.dash-body').offsetTop - 90, behavior:'smooth'});
+}
+
+document.getElementById("cancelEditBtn").addEventListener("click", resetForm);
+
+document.getElementById("coverUpload").addEventListener("click", () => document.getElementById("coverInput").click());
+document.getElementById("coverInput").addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+  const dataUrl = await zone7ReadImage(file, 1600, 0.82);
+  const cp = document.getElementById("coverPreview");
+  cp.src = dataUrl; cp.style.display = "block"; cp.dataset.value = dataUrl;
+});
+
+document.getElementById("galleryUpload").addEventListener("click", () => document.getElementById("galleryInput").click());
+document.getElementById("galleryInput").addEventListener("change", async (e) => {
+  const files = Array.from(e.target.files);
+  for(const file of files){
+    const dataUrl = await zone7ReadImage(file, 1200, 0.78);
+    galleryImages.push(dataUrl);
+  }
+  renderGalleryPreview();
+  e.target.value = "";
+});
+
+function renderGalleryPreview(){
+  const wrap = document.getElementById("galleryPreview");
+  wrap.innerHTML = galleryImages.map((src, i) => `
+    <div class="g-item"><img src="${src}"><div class="rm" data-i="${i}">✕</div></div>
+  `).join("");
+  wrap.querySelectorAll(".rm").forEach(btn => {
+    btn.addEventListener("click", () => {
+      galleryImages.splice(Number(btn.dataset.i), 1);
+      renderGalleryPreview();
+    });
+  });
+}
+
+document.getElementById("projectForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const title = document.getElementById("pTitle").value.trim();
+  if(!title) return;
+  const id = editingId || (zone7Slugify(title) + "-" + Date.now().toString(36));
+  const project = {
+    id,
+    title,
+    category: document.getElementById("pCategory").value.trim(),
+    date: document.getElementById("pDate").value,
+    location: document.getElementById("pLocation").value.trim(),
+    summary: document.getElementById("pSummary").value.trim(),
+    body: document.getElementById("pBody").value.trim(),
+    cover: document.getElementById("coverPreview").dataset.value || "",
+    gallery: galleryImages
+  };
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  submitBtn.disabled = true; submitBtn.textContent = "Saving…";
+  try{
+    await ZONE7_DB.saveProject(currentClub, project);
+    showToast("Project saved ✓");
+    await renderProjectList();
+    resetForm();
+  } catch(err){
+    console.error(err);
+    showToast("Save failed — check your Supabase setup.");
+  } finally {
+    submitBtn.disabled = false; submitBtn.textContent = "Save Project";
+  }
+});
+
+document.getElementById("deleteBtn").addEventListener("click", async () => {
+  if(!editingId) return;
+  if(confirm("Delete this project? This can't be undone.")){
+    try{
+      await ZONE7_DB.deleteProject(currentClub, editingId);
+      showToast("Project deleted");
+      await renderProjectList();
+      resetForm();
+    } catch(err){
+      console.error(err);
+      showToast("Delete failed — check your Supabase setup.");
+    }
+  }
+});
+</script>
+</body>
+</html>

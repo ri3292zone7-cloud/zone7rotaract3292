@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Club Profile | Zone 7 Rotaract 3292</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="zone7-data.js"></script>
+<style>
+  :root{
+    --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
+    --cream:#FFF8EF; --paper:#FFFDF9; --line: rgba(27,24,54,0.1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1000px; margin:0 auto; padding:0 28px;}
+  .wrap-wide{max-width:1180px; margin:0 auto; padding:0 28px;}
+  nav{position:sticky; top:0; z-index:100; background:rgba(255,253,249,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Poppins'; font-weight:800; font-size:1.1rem;}
+  .brand .z{background:var(--magenta); color:#fff; width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center;}
+  .back{font-weight:700; font-size:0.88rem; color:var(--magenta-deep);}
+
+  .hero{padding:70px 0 50px; border-bottom:1px solid var(--line);}
+  .club-mark-lg{
+    width:74px; height:74px; border-radius:18px; background:rgba(225,26,110,0.09); color:var(--magenta-deep);
+    display:flex; align-items:center; justify-content:center; font-family:'Poppins'; font-weight:800; font-size:1.5rem; margin-bottom:22px;
+  }
+  .hero h1{font-size:clamp(2rem,4.4vw,3rem); max-width:700px;}
+  .hero .loc{margin-top:12px; color:rgba(27,24,54,0.6); font-weight:600; font-size:0.95rem; max-width:640px; line-height:1.5;}
+  .hero .vision-tag{
+    display:inline-block; margin-top:18px; font-size:0.82rem; font-weight:700; color:var(--magenta-deep);
+    background:rgba(225,26,110,0.09); padding:8px 16px; border-radius:100px;
+  }
+
+  .meta-row{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:44px; padding-top:30px; border-top:1px solid var(--line);}
+  .meta b{display:block; font-family:'Poppins'; font-weight:800; font-size:1.3rem; color:var(--magenta-deep);}
+  .meta span{font-size:0.78rem; color:rgba(27,24,54,0.55); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;}
+
+  .section{padding:56px 0; border-bottom:1px solid var(--line);}
+  .section h3{font-size:1.3rem; margin-bottom:16px;}
+  .section p{color:rgba(27,24,54,0.72); line-height:1.85; font-size:1rem; max-width:740px;}
+  .section p + p{margin-top:14px;}
+
+  .info-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:8px;}
+  .info-card{background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:20px 22px;}
+  .info-card span.k{display:block; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:rgba(27,24,54,0.5); margin-bottom:6px;}
+  .info-card span.v{display:block; font-size:0.98rem; font-weight:700; color:var(--ink);}
+
+  .goals-list{display:flex; flex-direction:column; gap:10px; margin-top:8px;}
+  .goal-item{
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:14px 18px;
+  }
+  .goal-item p{margin:0; font-size:0.92rem; color:var(--ink); max-width:none;}
+  .goal-status{
+    font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em;
+    padding:5px 12px; border-radius:100px; white-space:nowrap; flex-shrink:0;
+  }
+  .goal-status.completed{background:rgba(34,160,90,0.12); color:#1c8a4d;}
+  .goal-status.inprogress{background:rgba(242,169,0,0.18); color:#8a6300;}
+  .goal-status.canceled{background:rgba(225,26,110,0.1); color:var(--magenta-deep);}
+  .goals-more{margin-top:12px; font-size:0.85rem; color:rgba(27,24,54,0.5);}
+
+  .placeholder-note{
+    display:inline-block; margin-top:14px; font-size:0.8rem; color:var(--gold);
+    background:rgba(242,169,0,0.14); padding:6px 12px; border-radius:100px; font-weight:600;
+  }
+  .proj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:20px;}
+  .proj-card{background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:20px;}
+  .proj-card h4{font-size:0.95rem; margin-bottom:6px;}
+  .proj-card p{font-size:0.85rem; color:rgba(27,24,54,0.55); margin:0;}
+
+  /* PROJECTS SHOWCASE */
+  .projects-section{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:60px 0 66px;}
+  .projects-showcase{display:flex; flex-direction:column; gap:26px; margin-top:24px;}
+  .proj-showcase-card{
+    display:grid; grid-template-columns:1fr 1fr; gap:0; background:var(--cream); border:1px solid var(--line);
+    border-radius:22px; overflow:hidden; cursor:pointer; transition:transform .25s, box-shadow .25s;
+  }
+  .proj-showcase-card:nth-child(even){grid-template-columns:1fr 1fr;}
+  .proj-showcase-card:nth-child(even) .psc-img{order:2;}
+  .proj-showcase-card:hover{transform:translateY(-4px); box-shadow:0 24px 48px rgba(27,24,54,0.12);}
+  .psc-img{aspect-ratio:4/3; background:linear-gradient(150deg, rgba(225,26,110,0.18), rgba(242,169,0,0.15)); overflow:hidden;}
+  .psc-img img{width:100%; height:100%; object-fit:cover;}
+  .psc-body{padding:36px 38px; display:flex; flex-direction:column; justify-content:center;}
+  .psc-tag{
+    display:inline-flex; width:fit-content; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:6px 14px; border-radius:100px; margin-bottom:14px;
+  }
+  .psc-body h4{font-size:1.28rem; margin-bottom:12px; line-height:1.25;}
+  .psc-body p{font-size:0.94rem; color:rgba(27,24,54,0.62); line-height:1.65; margin-bottom:18px;}
+  .psc-link{font-size:0.85rem; font-weight:700; color:var(--ink); display:inline-flex; align-items:center; gap:6px;}
+  .no-projects-note{
+    background:var(--cream); border:1px dashed var(--line); border-radius:18px; padding:36px; text-align:center;
+    color:rgba(27,24,54,0.55); font-size:0.92rem; margin-top:24px;
+  }
+  @media (max-width:760px){
+    .proj-showcase-card, .proj-showcase-card:nth-child(even){grid-template-columns:1fr;}
+    .proj-showcase-card:nth-child(even) .psc-img{order:0;}
+    .psc-body{padding:26px 24px;}
+  }
+
+  .cta-row{padding:60px 0; display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{padding:15px 30px; border-radius:100px; font-weight:700; font-size:0.95rem; display:inline-flex; align-items:center; gap:8px;}
+  .btn-primary{background:var(--ink); color:#fff;}
+  .btn-ghost{border:1.6px solid var(--ink); color:var(--ink);}
+
+  footer{background:var(--ink); color:rgba(255,255,255,0.5); padding:34px 0; text-align:center; font-size:0.85rem;}
+
+  @media (max-width:720px){ .meta-row{grid-template-columns:repeat(2,1fr); row-gap:24px;} .proj-grid{grid-template-columns:1fr;} .info-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="brand"><span class="z">7</span> Zone 7 Rotaract</div>
+  <a href="index.html#clubs" class="back">← All Clubs</a>
+</div></nav>
+
+<header class="hero wrap">
+  <div class="club-mark-lg" id="mark">--</div>
+  <h1 id="name">Loading club…</h1>
+  <div class="loc" id="loc"></div>
+  <div class="vision-tag" id="visionTag" style="display:none;"></div>
+</header>
+
+<section class="wrap">
+  <div class="meta-row">
+    <div class="meta"><b id="founded">—</b><span>Charter Date</span></div>
+    <div class="meta"><b id="active">—</b><span>Active Members</span></div>
+    <div class="meta"><b id="events">—</b><span>Events Logged</span></div>
+    <div class="meta"><b id="reports">—</b><span>Reports Filed</span></div>
+  </div>
+</section>
+
+<section class="section wrap">
+  <h3>About the Club</h3>
+  <p id="about">—</p>
+</section>
+
+<section class="section wrap">
+  <h3>Club Details</h3>
+  <div class="info-grid" id="infoGrid"></div>
+</section>
+
+<section class="section wrap">
+  <h3>Focus Areas &amp; Goals</h3>
+  <div class="goals-list" id="goals"></div>
+  <p class="goals-more" id="goalsMore"></p>
+</section>
+
+<section class="projects-section" id="projectsSection">
+  <div class="wrap">
+    <h3>Club Projects</h3>
+    <p style="color:rgba(27,24,54,0.6); font-size:0.95rem; margin-top:6px;">Recent and ongoing projects run by this club. Tap any project to see the full story.</p>
+    <div class="projects-showcase" id="projectsShowcase"></div>
+  </div>
+</section>
+
+<section class="cta-row wrap">
+  <a class="btn btn-primary" id="igLink" target="_blank" rel="noopener">Follow on Instagram →</a>
+  <a class="btn btn-ghost" href="mailto:" id="emailLink">Email the Club</a>
+  <a class="btn btn-ghost" href="join.html">Join a Zone 7 Club</a>
+</section>
+
+<footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan.</footer>
+
+<script>
+// ---- CLUB DATA ----
+// Sourced from each club's Rotaract 3292 club-management profile page.
+const CLUBS = {
+  balkumari: {
+    name:"Rotaract Club of Balkumari", ig:"rac_balkumari", email:"rotaractclubofbalkumari@gmail.com",
+    loc:"Chyasal Marg, Lalitpur, Bagmati Province · Zone VII",
+    founded:"18 Oct 2023", active:"15", inactive:"50", events:"7", reports:"144",
+    sponsor:"Rotary Club of Butwal",
+    twin:"Rotaract Club of Rudramati Babarmahal Kathmandu; Rotaract Club of KMC Duwakot",
+    intlTwin:"Rotaract Club of University of Sri Jayewardenepura, RID 3220",
+    interact:"N/A",
+    meetingType:"Evening", meetingDay:"Saturday", meetingTime:"2:30 PM",
+    vision:"Green Unity Advancement",
+    about:"Chartered on 18th October 2023 and sponsored by the Rotary Club of Butwal, the Rotaract Club of Balkumari is one of Zone 7's newer clubs, based out of Chyasal Marg in Lalitpur. In a short span the club has built real momentum — running 7 recorded events and filing 144 reports — while pursuing its vision of \"Green Unity Advancement.\" The club meets on Saturday evenings at 2:30 PM and holds an international twinning partnership with the Rotaract Club of University of Sri Jayewardenepura in Sri Lanka (RID 3220), alongside domestic twin partnerships with the Rotaract Clubs of Rudramati Babarmahal Kathmandu and KMC Duwakot.",
+    goals:[
+      {t:"Harmonizing Sustainability for a Better Future", s:"completed"},
+      {t:"Establish the Rotaract Club of Balkumari as a leading, vibrant force for community service and unity.", s:"completed"},
+      {t:"Boost club performance and sustainability while attracting a diverse and committed membership.", s:"completed"},
+      {t:"Enhance Rotary and Rotaract's image through impactful local partnerships.", s:"completed"},
+      {t:"Drive innovative projects that address needs and promote sustainability.", s:"completed"},
+      {t:"Foster leadership and use technology for unified and effective communication.", s:"completed"},
+      {t:"Collaborate on community service initiatives", s:"completed"},
+      {t:"Explore innovative digital out-reach strategies", s:"completed"},
+      {t:"Raise awareness and advocate for social responsibility", s:"completed"},
+      {t:"Showcase impactful projects and success stories", s:"completed"},
+      {t:"Develop impactful and innovative projects", s:"completed"},
+      {t:"Implement joint community impact projects", s:"completed"},
+      {t:"Identify and implement high-impact community projects", s:"canceled"},
+      {t:"Explore innovative digital out-reach strategies", s:"inprogress"},
+      {t:"Conduct leadership workshops and seminars", s:"inprogress"},
+      {t:"Organize educational workshops and awareness campaigns", s:"inprogress"},
+      {t:"Promote sustainable practices within the club", s:"inprogress"},
+      {t:"Execute community impact projects", s:"inprogress"}
+    ]
+  },
+  baneshwor: {
+    name:"Rotaract Club of Baneshwor", ig:"racbaneshwor", email:"rcbaneshwor@gmail.com",
+    loc:"Devkota Sadak, Kathmandu, Bagmati Province · Zone VII",
+    founded:"13 Oct 2020", active:"20", inactive:"61", events:"31", reports:"326",
+    sponsor:"Rotary Club of Baneshwor",
+    twin:"Rotaract Club of Central Siyari; Rotaract Club of Itahari",
+    intlTwin:"N/A",
+    interact:"Interact Club of Chelsea International Academy",
+    meetingType:"Morning", meetingDay:"Saturday", meetingTime:"10:00 AM",
+    vision:"To become a trusted and inspiring Rotaract Club that creates meaningful community impact through small, consistent acts of service, empowers future leaders, and builds lasting fellowship.",
+    about:"The Rotaract Club of Baneshwor is a club of enthusiastic youths committed to the welfare of society, sponsored by the Rotary Club of Baneshwor and chartered on 13th October 2020. Based on Devkota Sadak in Kathmandu, the club has been one of the zone's most active, logging 31 events and 326 reports to date. It meets Saturday mornings at 10:00 AM and works closely with its Interact partner, the Interact Club of Chelsea International Academy, alongside twin clubs in Central Siyari and Itahari. The club's vision centres on building meaningful community impact through small, consistent acts of service.",
+    goals:[
+      {t:"Community Impact Initiative", s:"inprogress"},
+      {t:"Lead with Purpose; Build Future Leaders", s:"inprogress"},
+      {t:"Together We Grow", s:"inprogress"},
+      {t:"Strategic Partnerships & Collaboration", s:"inprogress"},
+      {t:"Club Excellence", s:"inprogress"},
+      {t:"Networking & Global Connections", s:"inprogress"}
+    ]
+  },
+  liberty: {
+    name:"Rotaract Club of Liberty College", ig:"rotaractcluboflibertycollege", email:"raclibertycollege123@gmail.com",
+    loc:"Liberty College, Shanti Binayak Marg, Pushpa Nagar, Buddha Nagar, Kathmandu-10, Bagmati Province · Zone VII",
+    founded:"1 May 2012", active:"21", inactive:"140", events:"45", reports:"304",
+    sponsor:"Rotary Club of Nagarjun",
+    twin:"Rotaract Club of Central Lumbini",
+    intlTwin:"N/A",
+    interact:"N/A",
+    meetingType:"Midday", meetingDay:"Tuesday", meetingTime:"12:00 PM",
+    vision:"To realize the spirit of \"Empower to Impact\" by building an inclusive, innovative, and sustainable Rotaract Club where every member is empowered to lead with integrity, serve with purpose, and create lasting value for the community and future generations.",
+    about:"A college-based club housed at Liberty College in Buddha Nagar, Kathmandu, the Rotaract Club of Liberty College is one of the longest-standing clubs in Zone 7, chartered on 1st May 2012 and sponsored by the Rotary Club of Nagarjun. Over more than a decade the club has run 45 events and filed 304 reports, and is twinned with the Rotaract Club of Central Lumbini. Members meet on Tuesdays around midday, and the club's guiding theme, \"Empower to Impact,\" runs through its seven active goals — from strengthening its Rotary partnership to building a recognizable club brand.",
+    goals:[
+      {t:"Build a stronger, more engaged, and sustainable club.", s:"inprogress"},
+      {t:"Empower members with leadership, career, and entrepreneurial skills.", s:"inprogress"},
+      {t:"Deliver sustainable projects that address genuine community needs.", s:"inprogress"},
+      {t:"Expand global understanding through collaboration and cultural exchange.", s:"inprogress"},
+      {t:"Create a thriving membership experience from recruitment to leadership.", s:"inprogress"},
+      {t:"Strengthen the Rotary–Rotaract partnership through meaningful collaboration.", s:"inprogress"},
+      {t:"Build a professional and recognizable club brand.", s:"inprogress"}
+    ]
+  },
+  kathmanduwest: {
+    name:"Rotaract Club of Kathmandu West", ig:"kathmanduwest", email:"Kathmanduwest@rotaract3292.org",
+    loc:"Kathmandu Model College, Narayan Bilash Marg, Bhotahity, Baghbazar, Kathmandu, Bagmati Province · Zone VII",
+    founded:"10 Sep 2007", active:"24", inactive:"147", events:"16", reports:"455",
+    sponsor:"Rotary Club of Kathmandu West",
+    twin:"Rotaract Club of Mapusa; Rotaract Club of Madhyapur; Rotaract Club of Bharatpur; Rotaract Club of Pune Mideast",
+    intlTwin:"N/A",
+    interact:"N/A",
+    meetingType:"Morning", meetingDay:"Saturday", meetingTime:"10:00 AM",
+    vision:"To build a confident, capable and connected pool of young leaders whose service, learning and collaboration echo well beyond the RY 2026–27 term, strengthening the club's foundations, deepening ties with community and district, and leaving a sustainable legacy for the next generation of Rotaractors.",
+    about:"Chartered on 10th September 2007 and sponsored by the Rotary Club of Kathmandu West, this club is now well into its second decade of \"Rotaractivity,\" guided by the motto: \"Our task is not to fix the blame for the past, but fix the course for the future.\" Based at Kathmandu Model College in Baghbazar, it is one of the most prolific clubs in the zone by reporting volume, with 455 reports and 16 events logged. The club holds four twin-club partnerships — with clubs in Mapusa, Madhyapur, Bharatpur, and Pune Mideast — and meets Saturday mornings at 10:00 AM.",
+    goals:[
+      {t:"Strengthen Member Engagement, Initiative and Retention", s:"inprogress"},
+      {t:"Advance the Professional and Personal Development of Members", s:"inprogress"},
+      {t:"Deepen the Club's External Relations and Participation", s:"inprogress"},
+      {t:"Uphold Full Compliance with District Standards and Governance", s:"inprogress"},
+      {t:"Uplift Community Impact Through Awareness and a Culture of Service", s:"inprogress"}
+    ]
+  },
+  kathmanduheight: {
+    name:"Rotaract Club of Kathmandu Height", ig:"rackathmanduheight", email:"Kathmanduheight@rotaract3292.org",
+    loc:"New Summit College, Basuki Marg, Baneshwar, Kathmandu-31, Bagmati Province · Zone VII",
+    founded:"6 Jan 2026", active:"23", inactive:"0", events:"1", reports:"24",
+    sponsor:"Rotary Club of Kathmandu Height",
+    twin:"N/A", intlTwin:"N/A", interact:"N/A",
+    meetingType:"Morning", meetingDay:"Saturday", meetingTime:"10:00 AM",
+    vision:"Developing competent leaders for a brighter tomorrow.",
+    about:"The newest club in Zone 7, the Rotaract Club of Kathmandu Height was chartered on 6th January 2026 and is sponsored by the Rotary Club of Kathmandu Height. Based at New Summit College in Baneshwar, the club launched strong with 23 active members and no inactive members yet — a sign of an engaged founding cohort. In its first months it has already filed 24 reports. The club meets Saturday mornings at 10:00 AM and is guided by its vision of \"developing competent leaders for a brighter tomorrow,\" with five founding goals spanning fellowship, leadership, community service, youth engagement and personal development.",
+    goals:[
+      {t:"Foster Fellowship and Lasting Connections", s:"inprogress"},
+      {t:"Develop Competent Leaders", s:"inprogress"},
+      {t:"Promote Meaningful Community Service", s:"inprogress"},
+      {t:"Empower Youth Through Learning and Engagement", s:"inprogress"},
+      {t:"Advance Professional and Personal Development", s:"inprogress"}
+    ]
+  },
+  sankhu: {
+    name:"Rotaract Club of Sankhu", ig:"racsankhu", email:"Rotaractclubofsankhu@gmail.com",
+    loc:"Sankhu, Shankharapur-07, Shankharapur, Kathmandu, Bagmati Province · Zone VII",
+    founded:"25 Jun 2020", active:"19", inactive:"25", events:"17", reports:"178",
+    sponsor:"Rotary Club of Sankhu",
+    twin:"Rotaract Club of Kathmandu Metro",
+    intlTwin:"N/A",
+    interact:"Interact Club of Evergreen School",
+    meetingType:"Evening", meetingDay:"Wednesday", meetingTime:"5:00 PM",
+    vision:"Literate Sankhu",
+    about:"Chartered on 25th June 2020 and sponsored by the Rotary Club of Sankhu, this club serves the historic town of Sankhu in Shankharapur, Kathmandu. Guided by Rotary International's ethos to \"serve to change lives,\" the club focuses on enhancing members' knowledge and skills so they can tackle societal issues through sustainable projects. Its central vision, \"Literate Sankhu,\" reflects a strong focus on education in the local community, supported by its Interact partner, the Interact Club of Evergreen School, and twin club Rotaract Club of Kathmandu Metro. The club meets Wednesday evenings at 5:00 PM and has logged 17 events and 178 reports since chartering.",
+    goals:[
+      {t:"Support Literacy Mission", s:"inprogress"},
+      {t:"Hellos Period", s:"inprogress", pct:"75%"},
+      {t:"Membership Growth", s:"inprogress"}
+    ]
+  },
+  newroadcity: {
+    name:"Rotaract Club of New Road City Kathmandu", ig:"racnewroadcity1", email:"racnewroadcitykathmandu@gmail.com",
+    loc:"New Road, Makkhan Tol, Yetkha, Kathmandu, Bagmati Province · Zone VII",
+    founded:"1 Sep 2004", active:"14", inactive:"180", events:"33", reports:"186",
+    sponsor:"Rotary Club of New Road City",
+    twin:"N/A", intlTwin:"N/A",
+    interact:"Interact Club of New Road City",
+    meetingType:"Morning", meetingDay:"Saturday", meetingTime:"10:30 AM",
+    vision:"There is no active club vision on record.",
+    about:"One of the most established clubs in Zone 7, the Rotaract Club of New Road City Kathmandu was chartered on 1st September 2004 and is sponsored by the Rotary Club of New Road City. Based in the historic New Road / Makkhan Tol area of Kathmandu, the club has built a long track record with 33 events and 186 reports over two decades, and works alongside its own Interact Club of New Road City. Members meet Saturday mornings at 10:30 AM. The club does not currently have an active vision statement or goals logged on record.",
+    goals:[]
+  },
+  sukedhara: {
+    name:"Rotaract Club of Sukedhara", ig:"rac_sukedhara", email:"s.sukedhara@rotaract3292.org",
+    loc:"Kathmandu National School, Surya Bikram Gyawali Marga, Baneshwar, Kathmandu-31, Bagmati Province · Zone VII",
+    founded:"1 Jul 2019", active:"20", inactive:"68", events:"21", reports:"309",
+    sponsor:"Rotary Club of Nagarjun",
+    twin:"Rotaract Club of Damak; Rotaract Club of United Birgunj",
+    intlTwin:"N/A", interact:"N/A",
+    meetingType:"Morning", meetingDay:"Saturday", meetingTime:"10:00 AM",
+    vision:"To be a dynamic and impactful Rotaract Club that inspires positive change, develops compassionate leaders, and creates sustainable solutions that make a meaningful difference in our communities.",
+    about:"Chartered on 1st July 2019 and sponsored by the Rotary Club of Nagarjun, the Rotaract Club of Sukedhara meets at Kathmandu National School in Baneshwar. The club has grown steadily since chartering, logging 21 events and 309 reports, and holds twin-club partnerships with the Rotaract Clubs of Damak and United Birgunj. Meeting Saturday mornings at 10:00 AM, the club pursues a vision of inspiring positive change and developing compassionate leaders, structured around four active goals covering member engagement, partnerships, governance and leadership.",
+    goals:[
+      {t:"Member Engagement", s:"inprogress"},
+      {t:"Strategic Partnerships", s:"inprogress"},
+      {t:"Good Governance", s:"inprogress"},
+      {t:"Purposeful Leadership", s:"inprogress"}
+    ]
+  },
+  tripureswor: {
+    name:"Rotaract Club of Tripureswor", ig:"ractripureswor", email:"tripureshwor@rotaract3292.org",
+    loc:"Apex College, Devkota Sadak, Srijana Tole, Baneshwar, Kathmandu, Bagmati Province · Zone VII",
+    founded:"24 Nov 2003", active:"25", inactive:"219", events:"17", reports:"316",
+    sponsor:"Rotary Club of Tripureswor",
+    twin:"Rotaract Club of Tinau City; Rotaract Club of Tulsipur; Rotaract Club of Banepa",
+    intlTwin:"N/A",
+    interact:"Interact Club of Tripureswor",
+    meetingType:"Morning", meetingDay:"1st & 3rd Saturday", meetingTime:"11:00 AM",
+    vision:"To be a dynamic and inclusive Rotaract Club recognized for empowering youth, driving community transformation, and advancing global goodwill through service and leadership.",
+    about:"Chartered on 24th November 2003, the Rotaract Club of Tripureswor is one of Zone 7's oldest and largest clubs, meeting on the 1st and 3rd Saturday of every month at 11:00 AM at Apex College. Sponsored by the Rotary Club of Tripureswor, the club runs projects spanning club service, community activities, international service and professional development, and works alongside the Interact Club of Tripureswor. It maintains three twin-club partnerships — with clubs in Tinau City, Tulsipur, and Banepa — and has amassed 316 reports and 17 events over more than two decades of activity.",
+    goals:[
+      {t:"Community Service Goal", s:"inprogress", pct:"50%"},
+      {t:"Professional Development Goal", s:"inprogress", pct:"50%"},
+      {t:"Club Membership Growth & Retention Goal", s:"inprogress", pct:"50%"},
+      {t:"Public Image and Branding Goal", s:"inprogress", pct:"25%"},
+      {t:"International Service and TRF Support Goal", s:"completed"}
+    ]
+  }
+};
+
+const params = new URLSearchParams(location.search);
+const club = CLUBS[params.get("club")];
+
+if(club){(async () => {
+  document.title = club.name + " | Zone 7 Rotaract 3292";
+  document.getElementById("mark").textContent = club.name.replace(/Rotaract Club of /i,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
+  document.getElementById("name").textContent = club.name;
+  document.getElementById("loc").textContent = club.loc;
+  document.getElementById("founded").textContent = club.founded;
+  document.getElementById("active").textContent = club.active;
+  document.getElementById("events").textContent = club.events;
+  document.getElementById("reports").textContent = club.reports;
+  document.getElementById("about").textContent = club.about;
+
+  if(club.vision && club.vision !== "There is no active club vision on record."){
+    const vt = document.getElementById("visionTag");
+    vt.style.display = "inline-block";
+    vt.textContent = "Vision: " + club.vision;
+  }
+
+  const info = [
+    ["Sponsoring Rotary Club", club.sponsor],
+    ["Twin Club(s)", club.twin || "N/A"],
+    ["International Twin", club.intlTwin || "N/A"],
+    ["Interact Club", club.interact || "N/A"],
+    ["Meeting Schedule", `${club.meetingDay} · ${club.meetingTime} (${club.meetingType})`],
+    ["Inactive Members on Record", club.inactive],
+    ["Contact Email", club.email],
+    ["Zone", "Zone VII, District 3292"]
+  ];
+  document.getElementById("infoGrid").innerHTML = info.map(([k,v]) =>
+    `<div class="info-card"><span class="k">${k}</span><span class="v">${v}</span></div>`
+  ).join("");
+
+  const goalsEl = document.getElementById("goals");
+  if(club.goals && club.goals.length){
+    goalsEl.innerHTML = club.goals.slice(0,8).map(g =>
+      `<div class="goal-item"><p>${g.t}</p><span class="goal-status ${g.s}">${g.s === 'inprogress' ? (g.pct ? 'In Progress · '+g.pct : 'In Progress') : g.s}</span></div>`
+    ).join("");
+    if(club.goals.length > 8){
+      document.getElementById("goalsMore").textContent = `+ ${club.goals.length - 8} more goals on record.`;
+    }
+  } else {
+    goalsEl.innerHTML = `<p style="color:rgba(27,24,54,0.5); font-size:0.9rem;">No active club goals on record yet.</p>`;
+  }
+
+  if(club.ig){
+    document.getElementById("igLink").href = "https://www.instagram.com/" + club.ig + "/";
+    document.getElementById("igLink").textContent = "Follow @" + club.ig + " →";
+  } else {
+    document.getElementById("igLink").style.display = "none";
+    document.getElementById("placeholder-note-ig") // no-op guard
+  }
+  document.getElementById("emailLink").href = "mailto:" + club.email;
+  document.getElementById("emailLink").textContent = "Email the Club";
+
+  const clubSlug = params.get("club");
+  const showcase = document.getElementById("projectsShowcase");
+  showcase.innerHTML = `<div class="no-projects-note">Loading projects…</div>`;
+  const projects = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getProjects(clubSlug) : [];
+  if(projects.length){
+    showcase.innerHTML = projects.map(p => `
+      <div class="proj-showcase-card" onclick="location.href='project.html?club=${clubSlug}&id=${p.id}'">
+        <div class="psc-img"><img src="${p.cover || ''}" alt="${p.title}"></div>
+        <div class="psc-body">
+          <span class="psc-tag">${p.category || "Club Project"}</span>
+          <h4>${p.title}</h4>
+          <p>${(p.summary || (p.body || "").slice(0,160)) || "Tap to read the full project story."}</p>
+          <span class="psc-link">View Full Project →</span>
+        </div>
+      </div>
+    `).join("");
+  } else {
+    showcase.innerHTML = `<div class="no-projects-note">This club hasn't published any projects yet. Club officers can add projects from the <a href="admin.html" style="color:var(--magenta-deep); font-weight:700;">Club Admin panel</a>.</div>`;
+  }
+})();
+} else {
+  document.getElementById("name").textContent = "Club not found";
+  document.getElementById("about").textContent = "Go back to the clubs section and select a club.";
+  document.getElementById("igLink").style.display = "none";
+  document.getElementById("emailLink").style.display = "none";
+}
+</script>
+</body>
+</html>
