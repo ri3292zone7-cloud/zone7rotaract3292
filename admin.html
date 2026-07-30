@@ -116,9 +116,12 @@
 <div id="dashboard">
   <div class="wrap">
     <div class="dash-header">
-      <div>
-        <h2 id="dashClubName">Club Dashboard</h2>
-        <p>Manage the projects shown on your club's page.</p>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <img id="dashClubLogo" src="" alt="" style="width:48px; height:48px; border-radius:12px; border:1px solid var(--line); object-fit:contain; padding:6px; background:#fff; display:none;">
+        <div>
+          <h2 id="dashClubName">Club Dashboard</h2>
+          <p>Manage the projects shown on your club's page.</p>
+        </div>
       </div>
       <div style="display:flex; gap:10px;">
         <a class="btn btn-ghost" id="viewClubBtn" target="_blank">View Club Page ↗</a>
@@ -232,6 +235,9 @@ async function enterDashboard(slug){
   document.getElementById("loginView").style.display = "none";
   document.getElementById("dashboard").style.display = "block";
   document.getElementById("dashClubName").textContent = CLUB_DIRECTORY[slug].name + " — Dashboard";
+  const logoEl = document.getElementById("dashClubLogo");
+  if(CLUB_DIRECTORY[slug].logo){ logoEl.src = CLUB_DIRECTORY[slug].logo; logoEl.style.display = "block"; }
+  else { logoEl.style.display = "none"; }
   document.getElementById("viewClubBtn").href = `club.html?club=${slug}`;
   await renderProjectList();
   resetForm();

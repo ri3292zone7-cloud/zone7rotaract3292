@@ -14,15 +14,15 @@ const SUPABASE_URL = "https://pdlolyghlgztjrpxwytl.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_MNRC6w2H8lZ9OANmmntZaQ__OBFwqCj";
 
 const CLUB_DIRECTORY = {
-  balkumari:        { name:"Rotaract Club of Balkumari",              ig:"rac_balkumari" },
-  baneshwor:         { name:"Rotaract Club of Baneshwor",               ig:"racbaneshwor" },
-  liberty:           { name:"Rotaract Club of Liberty College",         ig:"rotaractcluboflibertycollege" },
-  kathmanduwest:     { name:"Rotaract Club of Kathmandu West",          ig:"kathmanduwest" },
-  kathmanduheight:   { name:"Rotaract Club of Kathmandu Height",        ig:"rackathmanduheight" },
-  sankhu:            { name:"Rotaract Club of Sankhu",                  ig:"racsankhu" },
-  newroadcity:       { name:"Rotaract Club of New Road City Kathmandu", ig:"racnewroadcity1" },
-  sukedhara:         { name:"Rotaract Club of Sukedhara",               ig:"rac_sukedhara" },
-  tripureswor:       { name:"Rotaract Club of Tripureswor",             ig:"ractripureswor" }
+  balkumari:        { name:"Rotaract Club of Balkumari",              ig:"rac_balkumari",              logo:"logos/balkumari.jpg" },
+  baneshwor:         { name:"Rotaract Club of Baneshwor",               ig:"racbaneshwor",                logo:"logos/baneshwor.jpg" },
+  liberty:           { name:"Rotaract Club of Liberty College",         ig:"rotaractcluboflibertycollege", logo:"logos/liberty.jpg" },
+  kathmanduwest:     { name:"Rotaract Club of Kathmandu West",          ig:"kathmanduwest",               logo:"logos/kathmanduwest.jpg" },
+  kathmanduheight:   { name:"Rotaract Club of Kathmandu Height",        ig:"rackathmanduheight",          logo:"logos/kathmanduheight.jpg" },
+  sankhu:            { name:"Rotaract Club of Sankhu",                  ig:"racsankhu",                   logo:"logos/sankhu.jpg" },
+  newroadcity:       { name:"Rotaract Club of New Road City Kathmandu", ig:"racnewroadcity1",             logo:"logos/newroadcity.jpg" },
+  sukedhara:         { name:"Rotaract Club of Sukedhara",               ig:"rac_sukedhara",               logo:"logos/sukedhara.jpg" },
+  tripureswor:       { name:"Rotaract Club of Tripureswor",             ig:"ractripureswor",              logo:"logos/tripureswor.jpg" }
 };
 
 /* Demo login gate — front-end only. Anyone who reads this file can see

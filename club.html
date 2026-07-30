@@ -27,9 +27,10 @@
 
   .hero{padding:70px 0 50px; border-bottom:1px solid var(--line);}
   .club-mark-lg{
-    width:74px; height:74px; border-radius:18px; background:rgba(225,26,110,0.09); color:var(--magenta-deep);
-    display:flex; align-items:center; justify-content:center; font-family:'Poppins'; font-weight:800; font-size:1.5rem; margin-bottom:22px;
+    width:88px; height:88px; border-radius:20px; background:#fff; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; margin-bottom:22px; overflow:hidden; padding:10px;
   }
+  .club-mark-lg img{width:100%; height:100%; object-fit:contain;}
   .hero h1{font-size:clamp(2rem,4.4vw,3rem); max-width:700px;}
   .hero .loc{margin-top:12px; color:rgba(27,24,54,0.6); font-weight:600; font-size:0.95rem; max-width:640px; line-height:1.5;}
   .hero .vision-tag{
@@ -175,7 +176,7 @@
 // Sourced from each club's Rotaract 3292 club-management profile page.
 const CLUBS = {
   balkumari: {
-    name:"Rotaract Club of Balkumari", ig:"rac_balkumari", email:"rotaractclubofbalkumari@gmail.com",
+    logo:"logos/balkumari.jpg", name:"Rotaract Club of Balkumari", ig:"rac_balkumari", email:"rotaractclubofbalkumari@gmail.com",
     loc:"Chyasal Marg, Lalitpur, Bagmati Province · Zone VII",
     founded:"18 Oct 2023", active:"15", inactive:"50", events:"7", reports:"144",
     sponsor:"Rotary Club of Butwal",
@@ -207,7 +208,7 @@ const CLUBS = {
     ]
   },
   baneshwor: {
-    name:"Rotaract Club of Baneshwor", ig:"racbaneshwor", email:"rcbaneshwor@gmail.com",
+    logo:"logos/baneshwor.jpg", name:"Rotaract Club of Baneshwor", ig:"racbaneshwor", email:"rcbaneshwor@gmail.com",
     loc:"Devkota Sadak, Kathmandu, Bagmati Province · Zone VII",
     founded:"13 Oct 2020", active:"20", inactive:"61", events:"31", reports:"326",
     sponsor:"Rotary Club of Baneshwor",
@@ -227,7 +228,7 @@ const CLUBS = {
     ]
   },
   liberty: {
-    name:"Rotaract Club of Liberty College", ig:"rotaractcluboflibertycollege", email:"raclibertycollege123@gmail.com",
+    logo:"logos/liberty.jpg", name:"Rotaract Club of Liberty College", ig:"rotaractcluboflibertycollege", email:"raclibertycollege123@gmail.com",
     loc:"Liberty College, Shanti Binayak Marg, Pushpa Nagar, Buddha Nagar, Kathmandu-10, Bagmati Province · Zone VII",
     founded:"1 May 2012", active:"21", inactive:"140", events:"45", reports:"304",
     sponsor:"Rotary Club of Nagarjun",
@@ -248,7 +249,7 @@ const CLUBS = {
     ]
   },
   kathmanduwest: {
-    name:"Rotaract Club of Kathmandu West", ig:"kathmanduwest", email:"Kathmanduwest@rotaract3292.org",
+    logo:"logos/kathmanduwest.jpg", name:"Rotaract Club of Kathmandu West", ig:"kathmanduwest", email:"Kathmanduwest@rotaract3292.org",
     loc:"Kathmandu Model College, Narayan Bilash Marg, Bhotahity, Baghbazar, Kathmandu, Bagmati Province · Zone VII",
     founded:"10 Sep 2007", active:"24", inactive:"147", events:"16", reports:"455",
     sponsor:"Rotary Club of Kathmandu West",
@@ -267,7 +268,7 @@ const CLUBS = {
     ]
   },
   kathmanduheight: {
-    name:"Rotaract Club of Kathmandu Height", ig:"rackathmanduheight", email:"Kathmanduheight@rotaract3292.org",
+    logo:"logos/kathmanduheight.jpg", name:"Rotaract Club of Kathmandu Height", ig:"rackathmanduheight", email:"Kathmanduheight@rotaract3292.org",
     loc:"New Summit College, Basuki Marg, Baneshwar, Kathmandu-31, Bagmati Province · Zone VII",
     founded:"6 Jan 2026", active:"23", inactive:"0", events:"1", reports:"24",
     sponsor:"Rotary Club of Kathmandu Height",
@@ -284,7 +285,7 @@ const CLUBS = {
     ]
   },
   sankhu: {
-    name:"Rotaract Club of Sankhu", ig:"racsankhu", email:"Rotaractclubofsankhu@gmail.com",
+    logo:"logos/sankhu.jpg", name:"Rotaract Club of Sankhu", ig:"racsankhu", email:"Rotaractclubofsankhu@gmail.com",
     loc:"Sankhu, Shankharapur-07, Shankharapur, Kathmandu, Bagmati Province · Zone VII",
     founded:"25 Jun 2020", active:"19", inactive:"25", events:"17", reports:"178",
     sponsor:"Rotary Club of Sankhu",
@@ -301,7 +302,7 @@ const CLUBS = {
     ]
   },
   newroadcity: {
-    name:"Rotaract Club of New Road City Kathmandu", ig:"racnewroadcity1", email:"racnewroadcitykathmandu@gmail.com",
+    logo:"logos/newroadcity.jpg", name:"Rotaract Club of New Road City Kathmandu", ig:"racnewroadcity1", email:"racnewroadcitykathmandu@gmail.com",
     loc:"New Road, Makkhan Tol, Yetkha, Kathmandu, Bagmati Province · Zone VII",
     founded:"1 Sep 2004", active:"14", inactive:"180", events:"33", reports:"186",
     sponsor:"Rotary Club of New Road City",
@@ -313,7 +314,7 @@ const CLUBS = {
     goals:[]
   },
   sukedhara: {
-    name:"Rotaract Club of Sukedhara", ig:"rac_sukedhara", email:"s.sukedhara@rotaract3292.org",
+    logo:"logos/sukedhara.jpg", name:"Rotaract Club of Sukedhara", ig:"rac_sukedhara", email:"s.sukedhara@rotaract3292.org",
     loc:"Kathmandu National School, Surya Bikram Gyawali Marga, Baneshwar, Kathmandu-31, Bagmati Province · Zone VII",
     founded:"1 Jul 2019", active:"20", inactive:"68", events:"21", reports:"309",
     sponsor:"Rotary Club of Nagarjun",
@@ -330,7 +331,7 @@ const CLUBS = {
     ]
   },
   tripureswor: {
-    name:"Rotaract Club of Tripureswor", ig:"ractripureswor", email:"tripureshwor@rotaract3292.org",
+    logo:"logos/tripureswor.jpg", name:"Rotaract Club of Tripureswor", ig:"ractripureswor", email:"tripureshwor@rotaract3292.org",
     loc:"Apex College, Devkota Sadak, Srijana Tole, Baneshwar, Kathmandu, Bagmati Province · Zone VII",
     founded:"24 Nov 2003", active:"25", inactive:"219", events:"17", reports:"316",
     sponsor:"Rotary Club of Tripureswor",
@@ -355,7 +356,7 @@ const club = CLUBS[params.get("club")];
 
 if(club){(async () => {
   document.title = club.name + " | Zone 7 Rotaract 3292";
-  document.getElementById("mark").textContent = club.name.replace(/Rotaract Club of /i,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
+  document.getElementById("mark").innerHTML = club.logo ? `<img src="${club.logo}" alt="${club.name} logo">` : club.name.replace(/Rotaract Club of /i,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
   document.getElementById("name").textContent = club.name;
   document.getElementById("loc").textContent = club.loc;
   document.getElementById("founded").textContent = club.founded;
