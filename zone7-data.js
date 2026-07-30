@@ -41,6 +41,12 @@ const CLUB_CREDENTIALS = {
   tripureswor:      "tripureswor2026"
 };
 
+/* Zonal team login — separate from club logins, used to manage the
+   shared Guides for Clubs resource page. Same "front-end gate" caveat
+   as club passwords above. */
+const ZONAL_PASSWORD = "zone7admin2026";
+
+const GUIDES_URL = `${SUPABASE_URL}/rest/v1/guides`;
 const REST_URL = `${SUPABASE_URL}/rest/v1/projects`;
 const EVENTS_URL = `${SUPABASE_URL}/rest/v1/events`;
 const REST_HEADERS = {
@@ -182,6 +188,56 @@ const ZONE7_DB = {
     };
   },
 
+  /* ---- guides (Guides for Clubs resource page) ---- */
+  async getGuides(){
+    try{
+      const res = await fetch(`${GUIDES_URL}?order=updated.desc`, { headers: REST_HEADERS });
+      if(!res.ok) throw new Error("Fetch failed: " + res.status);
+      return await res.json();
+    } catch(e){
+      console.error("ZONE7_DB.getGuides error", e);
+      return this._guidesCache || [];
+    }
+  },
+
+  async saveGuide(guide){
+    guide.updated = Date.now();
+    const res = await fetch(`${GUIDES_URL}?on_conflict=id`, {
+      method: "POST",
+      headers: { ...REST_HEADERS, "Prefer": "resolution=merge-duplicates,return=representation" },
+      body: JSON.stringify(guide)
+    });
+    if(!res.ok){
+      const errText = await res.text();
+      throw new Error("Save failed: " + res.status + " " + errText);
+    }
+    return true;
+  },
+
+  async deleteGuide(id){
+    const res = await fetch(`${GUIDES_URL}?id=eq.${encodeURIComponent(id)}`, {
+      method: "DELETE",
+      headers: REST_HEADERS
+    });
+    if(!res.ok) throw new Error("Delete failed: " + res.status);
+    return true;
+  },
+
+  /* ---- zonal team session (separate from club login) ---- */
+  loginZonal(password){
+    if(password === ZONAL_PASSWORD){
+      sessionStorage.setItem("zone7_zonal_session", "1");
+      return true;
+    }
+    return false;
+  },
+  logoutZonal(){
+    sessionStorage.removeItem("zone7_zonal_session");
+  },
+  isZonal(){
+    return sessionStorage.getItem("zone7_zonal_session") === "1";
+  },
+
   /* ---- auth (still a front-end password gate — see note above) ---- */
   login(clubSlug, password){
     if(CLUB_CREDENTIALS[clubSlug] && CLUB_CREDENTIALS[clubSlug] === password){
@@ -217,6 +273,18 @@ function zone7ReadImage(file, maxWidth = 1400, quality = 0.82){
       img.onerror = reject;
       img.src = e.target.result;
     };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+/* Read any file (docx, pdf, etc.) to a base64 data URL as-is, no resizing.
+   Used for Guides for Clubs uploads. Keep guide files reasonably small
+   (a few MB) since they're stored directly as text in Supabase. */
+function zone7ReadFile(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result);
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guides for Clubs | Zone 7 Rotaract 3292</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
+    --cream:#FFF8EF; --paper:#FFFDF9; --line: rgba(27,24,54,0.1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:980px; margin:0 auto; padding:0 28px;}
+
+  nav{position:sticky; top:0; z-index:100; background:rgba(255,253,249,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Poppins'; font-weight:800; font-size:1.1rem;}
+  .brand .z{background:var(--magenta); color:#fff; width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center;}
+  .back{font-weight:700; font-size:0.88rem; color:var(--magenta-deep);}
+
+  .hero{padding:64px 0 20px;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:8px 16px; border-radius:100px; margin-bottom:20px;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
+  .hero h1{font-size:clamp(2rem,4.4vw,2.8rem); max-width:640px;}
+  .hero p.sub{color:rgba(27,24,54,0.65); font-size:1.02rem; max-width:600px; margin-top:16px; line-height:1.65;}
+
+  .search-wrap{margin:36px 0 8px;}
+  #searchBox{
+    width:100%; padding:14px 18px; border-radius:14px; border:1.5px solid var(--line);
+    background:#fff; font-family:'Inter'; font-size:0.95rem; color:var(--ink);
+  }
+  #searchBox:focus{outline:none; border-color:var(--magenta);}
+
+  .chip-row{display:flex; gap:8px; flex-wrap:wrap; margin:16px 0 0;}
+  .chip{
+    font-size:0.8rem; font-weight:600; padding:7px 15px; border-radius:100px; border:1.5px solid var(--line);
+    background:#fff; cursor:pointer; color:rgba(27,24,54,0.6); transition:all .15s;
+  }
+  .chip.active{background:var(--ink); border-color:var(--ink); color:#fff;}
+
+  .guides-grid{display:grid; gap:16px; margin:30px 0 50px;}
+  .guide-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:24px 26px;
+    display:grid; grid-template-columns:1fr auto; gap:16px; align-items:center;
+  }
+  .guide-tag{display:inline-block; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:4px 11px; border-radius:100px; margin-bottom:10px;}
+  .guide-card h4{font-size:1.02rem; margin-bottom:6px;}
+  .guide-card p{font-size:0.88rem; color:rgba(27,24,54,0.6); line-height:1.55; max-width:560px;}
+  .dl-btn{
+    background:var(--ink); color:#fff; padding:11px 20px; border-radius:100px; font-weight:700; font-size:0.85rem;
+    display:inline-flex; align-items:center; gap:6px; white-space:nowrap; transition:transform .2s;
+  }
+  .dl-btn:hover{transform:translateY(-2px);}
+  .guide-actions{display:flex; gap:8px; align-items:center;}
+  .del-btn{
+    width:38px; height:38px; border-radius:50%; border:1.5px solid var(--line); background:#fff;
+    color:var(--magenta-deep); cursor:pointer; font-size:0.95rem; flex-shrink:0;
+  }
+  .del-btn:hover{background:var(--magenta); color:#fff; border-color:var(--magenta);}
+  @media (max-width:640px){ .guide-card{grid-template-columns:1fr;} .dl-btn{width:fit-content;} }
+
+  .zonal-section{padding:0 0 90px;}
+  .zonal-toggle{
+    font-size:0.85rem; font-weight:700; color:rgba(27,24,54,0.45); cursor:pointer; display:inline-flex; align-items:center; gap:6px;
+  }
+  .zonal-toggle:hover{color:var(--magenta-deep);}
+  .zonal-panel{
+    display:none; margin-top:20px; background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:30px;
+  }
+  .zonal-panel.open{display:block;}
+  .zonal-panel h3{font-size:1.1rem; margin-bottom:6px;}
+  .zonal-panel p.hint{font-size:0.85rem; color:rgba(27,24,54,0.55); margin-bottom:20px;}
+  .zonal-panel label{display:block; font-weight:700; font-size:0.82rem; margin-bottom:6px;}
+  .zonal-panel input[type="text"], .zonal-panel input[type="password"], .zonal-panel textarea{
+    width:100%; padding:12px 15px; border-radius:10px; border:1.5px solid var(--line); background:#fff;
+    font-family:'Inter'; font-size:0.9rem; color:var(--ink); margin-bottom:16px;
+  }
+  .zonal-panel textarea{resize:vertical; min-height:70px;}
+  .zonal-panel input:focus, .zonal-panel textarea:focus{outline:none; border-color:var(--magenta);}
+  .zonal-btn{background:var(--ink); color:#fff; padding:12px 22px; border-radius:100px; font-weight:700; font-size:0.88rem; border:none; cursor:pointer; font-family:'Inter';}
+  .zonal-btn:hover{opacity:0.9;}
+  .zonal-logout{background:none; border:1.5px solid var(--line); color:var(--ink); padding:12px 22px; border-radius:100px; font-weight:700; font-size:0.88rem; cursor:pointer; font-family:'Inter'; margin-left:10px;}
+  .zonal-msg{font-size:0.85rem; margin-top:10px; font-weight:600;}
+  .zonal-msg.err{color:var(--magenta-deep);}
+  .zonal-msg.ok{color:#1c8a4d;}
+
+  footer{background:var(--ink); color:rgba(255,255,255,0.5); padding:34px 0; text-align:center; font-size:0.85rem;}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a href="index.html"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>
+  <a href="index.html" class="back">← Back to Site</a>
+</div></nav>
+
+<header class="hero wrap">
+  <div class="eyebrow"><span class="dot"></span>District 3292 · Resource Library</div>
+  <h1>Guides for Clubs.</h1>
+  <p class="sub">Official templates, constitutions and planning guides from District 3292 &mdash; everything a Zone 7 club needs to run smoothly, in one place instead of scattered across old emails.</p>
+  <div class="search-wrap">
+    <input type="text" id="searchBox" placeholder="Search guides — e.g. constitution, membership, planning...">
+  </div>
+  <div class="chip-row" id="chipRow"></div>
+</header>
+
+<div class="wrap">
+  <div class="guides-grid" id="guidesGrid"></div>
+
+  <div class="zonal-section">
+    <span class="zonal-toggle" id="zonalToggle">Zonal Team Login →</span>
+    <div class="zonal-panel" id="zonalPanel">
+
+      <div id="zonalLoginView">
+        <h3>Zonal Team Login</h3>
+        <p class="hint">For the ZRR/zone team only, to add new guides to this page.</p>
+        <label for="zonalPw">Password</label>
+        <input type="password" id="zonalPw" placeholder="Enter zonal team password">
+        <button class="zonal-btn" id="zonalLoginBtn">Log In</button>
+        <div class="zonal-msg" id="zonalLoginMsg"></div>
+      </div>
+
+      <div id="zonalUploadView" style="display:none;">
+        <h3>Add a New Guide</h3>
+        <p class="hint">Uploads appear instantly on this page for every visitor.</p>
+        <label for="gTitle">Title</label>
+        <input type="text" id="gTitle" placeholder="e.g. District Financial Guideline 2026">
+        <label for="gCategory">Category</label>
+        <input type="text" id="gCategory" placeholder="e.g. Governance, Planning, Templates, Funding">
+        <label for="gDesc">Brief Overview</label>
+        <textarea id="gDesc" placeholder="1-2 sentences describing what this document is for"></textarea>
+        <label for="gFile">Document File</label>
+        <input type="file" id="gFile" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
+        <div style="margin-top:6px;">
+          <button class="zonal-btn" id="gUploadBtn">Upload Guide</button>
+          <button class="zonal-logout" id="zonalLogoutBtn">Log Out</button>
+        </div>
+        <div class="zonal-msg" id="gUploadMsg"></div>
+
+        <h3 style="margin-top:34px;">Uploaded Guides</h3>
+        <div id="zonalGuideList" style="margin-top:14px;"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. Documents sourced from the District 3292 website.</footer>
+
+<script src="zone7-data.js"></script>
+
+<script>
+const STATIC_GUIDES = [
+  { id:"s1", file:"guides/Standard-Rotaract-Club-Constitution.docx", tag:"Governance", title:"Standard Rotaract Club Constitution", desc:"The base constitution every Rotaract club operates under — covers name, purpose, membership, meetings and officer roles." },
+  { id:"s2", file:"guides/662_rotaract_club_recommended_bylaws_en.docx", tag:"Governance", title:"Recommended Club Bylaws", desc:"RI's model bylaws that supplement the constitution — customize these to set your own club's practices around dues, attendance and elections." },
+  { id:"s3", file:"guides/statement-of-policy.docx", tag:"Governance", title:"Statement of Policy", desc:"Rotary International's official policy on Rotaract — sponsorship, authority, and standards every club is expected to follow." },
+  { id:"s4", file:"guides/MOU-Document.doc", tag:"Governance", title:"MOU Document", desc:"Memorandum of Understanding template outlining the relationship and responsibilities between a Rotaract club and its sponsoring Rotary club." },
+  { id:"s5", file:"guides/Strategic-Planning-Guide.docx", tag:"Planning", title:"Strategic Planning Guide", desc:"A real district club's strategic plan, used as a template for setting a multi-year vision and goals for your own club." },
+  { id:"s6", file:"guides/Effective-Planning-Guide-to-Clubs.docx", tag:"Planning", title:"Effective Planning Guide for Clubs", desc:"A goal-setting worksheet to help clubs track membership trends and plan a strong Rotary year." },
+  { id:"s7", file:"guides/Rotaract_-Membership_Form.docx", tag:"Templates", title:"Membership Application Form", desc:"Standard form for onboarding new members — personal details, ID number and sponsoring club info." },
+  { id:"s8", file:"guides/Sample-GM-attendance-sheet.docx", tag:"Templates", title:"Sample GM Attendance Sheet", desc:"Ready-to-use attendance sheet for General Meetings, including guests, visiting Rotaractors and past presidents." },
+  { id:"s9", file:"guides/Sample-Agenda-Paper.doc", tag:"Templates", title:"Sample Agenda Paper", desc:"A template agenda format clubs can adapt for board meetings or general meetings." },
+  { id:"s10", file:"guides/Rotaract-Guidebook.pdf", tag:"Handbook", title:"Rotaract Guidebook (District 3292)", desc:"The district's full guidebook — starting a club, board roles, running meetings, elections, finances and working with the district, all in one reference." },
+  { id:"s11", file:"guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf", tag:"Funding", title:"District Fund (RDG) Grant Criterion", desc:"How to apply for the Rotaract District Grant — eligibility, evaluation criteria, funding installments and the application form/timeline." }
+];
+
+let allGuides = [...STATIC_GUIDES];
+let activeChip = "All";
+
+function render(){
+  const q = document.getElementById("searchBox").value.toLowerCase();
+  let list = allGuides.filter(g => (g.title+g.desc+g.tag).toLowerCase().includes(q));
+  if(activeChip !== "All") list = list.filter(g => g.tag === activeChip);
+
+  document.getElementById("guidesGrid").innerHTML = list.map(g => `
+    <div class="guide-card">
+      <div>
+        <span class="guide-tag">${zone7Esc(g.tag)}</span>
+        <h4>${zone7Esc(g.title)}</h4>
+        <p>${zone7Esc(g.desc)}</p>
+      </div>
+      <a class="dl-btn" href="${g.file}" download="${zone7Esc(g.fileName || '')}">Download ↓</a>
+    </div>
+  `).join("") || `<p style="color:rgba(27,24,54,0.5); padding:30px 0;">No guides match your search.</p>`;
+
+  const chips = ["All", ...new Set(STATIC_GUIDES.concat(allGuides.filter(g=>g.dynamic)).map(g => g.tag))];
+  document.getElementById("chipRow").innerHTML = chips.map(c =>
+    `<span class="chip${c===activeChip?' active':''}" data-c="${zone7Esc(c)}">${zone7Esc(c)}</span>`
+  ).join("");
+  document.querySelectorAll(".chip").forEach(el => el.addEventListener("click", () => {
+    activeChip = el.dataset.c; render();
+  }));
+}
+
+document.getElementById("searchBox").addEventListener("input", render);
+
+async function loadDynamicGuides(){
+  const rows = await ZONE7_DB.getGuides();
+  const dynamic = rows.map(r => ({
+    id: r.id, file: r.file_data, fileName: r.file_name,
+    tag: r.category || "Other", title: r.title, desc: r.description || "", dynamic: true
+  }));
+  allGuides = [...STATIC_GUIDES, ...dynamic];
+  render();
+}
+loadDynamicGuides();
+
+/* ---- Zonal team login + upload ---- */
+document.getElementById("zonalToggle").addEventListener("click", () => {
+  document.getElementById("zonalPanel").classList.toggle("open");
+  if(ZONE7_DB.isZonal()) showZonalUpload();
+});
+
+document.getElementById("zonalLoginBtn").addEventListener("click", () => {
+  const pw = document.getElementById("zonalPw").value;
+  if(ZONE7_DB.loginZonal(pw)){
+    showZonalUpload();
+  } else {
+    const m = document.getElementById("zonalLoginMsg");
+    m.textContent = "Incorrect password."; m.className = "zonal-msg err";
+  }
+});
+
+document.getElementById("zonalLogoutBtn").addEventListener("click", () => {
+  ZONE7_DB.logoutZonal();
+  document.getElementById("zonalLoginView").style.display = "block";
+  document.getElementById("zonalUploadView").style.display = "none";
+  document.getElementById("zonalPw").value = "";
+});
+
+async function showZonalUpload(){
+  document.getElementById("zonalLoginView").style.display = "none";
+  document.getElementById("zonalUploadView").style.display = "block";
+  renderZonalGuideList();
+}
+
+async function renderZonalGuideList(){
+  const rows = await ZONE7_DB.getGuides();
+  const wrap = document.getElementById("zonalGuideList");
+  if(!rows.length){ wrap.innerHTML = `<p style="color:rgba(27,24,54,0.45); font-size:0.85rem;">No uploads yet.</p>`; return; }
+  wrap.innerHTML = rows.map(r => `
+    <div class="guide-card" style="padding:14px 18px; margin-bottom:8px;">
+      <div><h4 style="font-size:0.9rem;">${zone7Esc(r.title)}</h4></div>
+      <button class="del-btn" data-id="${zone7Esc(r.id)}" title="Delete">✕</button>
+    </div>
+  `).join("");
+  wrap.querySelectorAll(".del-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      if(confirm("Delete this guide?")){
+        await ZONE7_DB.deleteGuide(btn.dataset.id);
+        await renderZonalGuideList();
+        await loadDynamicGuides();
+      }
+    });
+  });
+}
+
+document.getElementById("gUploadBtn").addEventListener("click", async () => {
+  const title = document.getElementById("gTitle").value.trim();
+  const file = document.getElementById("gFile").files[0];
+  const msg = document.getElementById("gUploadMsg");
+  if(!title || !file){ msg.textContent = "Title and a file are required."; msg.className = "zonal-msg err"; return; }
+  msg.textContent = "Uploading…"; msg.className = "zonal-msg";
+  try{
+    const fileData = await zone7ReadFile(file);
+    const id = zone7Slugify(title) + "-" + Date.now().toString(36);
+    await ZONE7_DB.saveGuide({
+      id, title,
+      category: document.getElementById("gCategory").value.trim() || "Other",
+      description: document.getElementById("gDesc").value.trim(),
+      file_name: file.name,
+      file_data: fileData
+    });
+    document.getElementById("gTitle").value = "";
+    document.getElementById("gCategory").value = "";
+    document.getElementById("gDesc").value = "";
+    document.getElementById("gFile").value = "";
+    msg.textContent = "Uploaded ✓"; msg.className = "zonal-msg ok";
+    await renderZonalGuideList();
+    await loadDynamicGuides();
+  } catch(err){
+    console.error(err);
+    msg.textContent = "Upload failed — check your Supabase setup."; msg.className = "zonal-msg err";
+  }
+});
+</script>
+</body>
+</html>

@@ -56,3 +56,29 @@ create policy "Anon can write events"
   on events for all
   using (true)
   with check (true);
+
+-- ===================================================================
+-- GUIDES TABLE — for the "Guides for Clubs" resource page
+-- Zonal team uploads live here; the original documents stay as
+-- static files in the /guides folder and don't need a database row.
+-- ===================================================================
+create table if not exists guides (
+  id text primary key,
+  title text not null,
+  category text,
+  description text,
+  file_name text,
+  file_data text,      -- base64 data URL of the uploaded document
+  updated bigint
+);
+
+alter table guides enable row level security;
+
+create policy "Public can view guides"
+  on guides for select
+  using (true);
+
+create policy "Anon can write guides"
+  on guides for all
+  using (true)
+  with check (true);
