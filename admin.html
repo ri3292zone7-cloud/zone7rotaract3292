@@ -251,11 +251,11 @@ async function renderProjectList(){
     return;
   }
   list.innerHTML = projects.map(p => `
-    <div class="proj-item" data-id="${p.id}">
-      <img src="${p.cover || ''}" alt="">
+    <div class="proj-item" data-id="${zone7Esc(p.id)}">
+      <img src="${zone7Esc(p.cover || '')}" alt="">
       <div class="info">
-        <h4>${p.title}</h4>
-        <span>${p.category || "Uncategorized"} · ${p.date || "No date"}</span>
+        <h4>${zone7Esc(p.title)}</h4>
+        <span>${zone7Esc(p.category || "Uncategorized")} · ${zone7Esc(p.date || "No date")}</span>
       </div>
     </div>
   `).join("");

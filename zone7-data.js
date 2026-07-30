@@ -174,6 +174,10 @@ function zone7ReadImage(file, maxWidth = 1400, quality = 0.82){
   });
 }
 
+function zone7Esc(str){
+  return String(str ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
 function zone7Slugify(str){
   return str.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') || ('project-' + Date.now());
 }

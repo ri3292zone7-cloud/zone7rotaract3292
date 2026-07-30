@@ -19,13 +19,13 @@
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
-    font-family:'Inter',sans-serif;
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background:var(--cream);
     color:var(--ink);
     overflow-x:hidden;
   }
   h1,h2,h3,h4,.disp{
-    font-family:'Poppins',sans-serif;
+    font-family:'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight:800;
     letter-spacing:-0.02em;
   }
@@ -57,7 +57,11 @@
     font-weight:700; font-size:0.85rem; color:var(--magenta-deep); opacity:0.85; transition:opacity .2s;
   }
   .nav-admin:hover{opacity:1;}
-  .burger{display:none;}
+  .burger{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+  .burger span{display:block; width:22px; height:2px; background:var(--ink); margin:5px 0; border-radius:2px;}
+  .mobile-menu{display:none; position:fixed; top:76px; left:0; right:0; background:var(--paper); border-bottom:1px solid var(--line); z-index:99; padding:18px 28px; flex-direction:column; gap:16px;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-weight:600; font-size:1rem; color:var(--ink);}
 
   /* HERO */
   .hero{
@@ -120,25 +124,25 @@
   .section{padding:110px 0;}
   .section-tag{
     font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
-    color:var(--magenta-deep); margin-bottom:14px; display:block;
+    color:var(--magenta-deep); margin-bottom:18px; display:block;
   }
-  .section h2{font-size:clamp(1.9rem,3.4vw,2.7rem); max-width:640px; margin-bottom:20px;}
-  .section p.sub{color:rgba(27,24,54,0.65); font-size:1.05rem; max-width:600px; line-height:1.7;}
+  .section h2{font-size:clamp(1.9rem,3.4vw,2.7rem); max-width:640px; margin-bottom:24px; line-height:1.15;}
+  .section p.sub{color:rgba(27,24,54,0.65); font-size:1.05rem; max-width:600px; line-height:1.75;}
 
   /* ABOUT */
   .about{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
-  .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px; align-items:start; margin-top:60px;}
-  .about-copy p{color:rgba(27,24,54,0.72); line-height:1.8; margin-bottom:18px; font-size:1.02rem;}
-  .pillars{display:grid; gap:18px;}
+  .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px; align-items:start; margin-top:72px;}
+  .about-copy p{color:rgba(27,24,54,0.72); line-height:1.85; margin-bottom:22px; font-size:1.02rem;}
+  .pillars{display:grid; gap:22px;}
   .pillar{
-    background:var(--cream); border:1px solid var(--line); border-radius:18px; padding:24px 26px;
-    display:flex; gap:18px; align-items:flex-start;
+    background:var(--cream); border:1px solid var(--line); border-radius:18px; padding:28px 30px;
+    display:flex; gap:20px; align-items:flex-start;
   }
   .pillar .num{
-    font-family:'Poppins'; font-weight:800; font-size:1.4rem; color:var(--gold); min-width:34px;
+    font-family:'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-weight:800; font-size:1.4rem; color:var(--gold); min-width:34px;
   }
-  .pillar h4{font-size:1.02rem; margin-bottom:6px;}
-  .pillar p{font-size:0.9rem; color:rgba(27,24,54,0.62); line-height:1.55;}
+  .pillar h4{font-size:1.02rem; margin-bottom:8px;}
+  .pillar p{font-size:0.9rem; color:rgba(27,24,54,0.62); line-height:1.6;}
 
   /* ZRR / LEADERSHIP */
   .leader{padding:80px 0;}
@@ -272,6 +276,7 @@
 
   @media (max-width:920px){
     .navlinks{display:none;}
+    .burger{display:block;}
     .about-grid{grid-template-columns:1fr;}
     .clubs-grid{grid-template-columns:repeat(2,1fr);}
     .ig-grid{grid-template-columns:repeat(3,1fr);}
@@ -296,9 +301,25 @@
     <div style="display:flex; align-items:center; gap:18px;">
       <a href="admin.html" class="nav-admin">Club Admin</a>
       <a href="join.html" class="btn nav-cta">Join Us</a>
+      <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#leadership">Leadership</a>
+    <a href="#clubs">Clubs</a>
+    <a href="#events">Events</a>
+    <a href="#connect">Connect</a>
+  </div>
 </nav>
+<script>
+  document.getElementById('burgerBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+  document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }));
+</script>
 
 <header class="hero">
   <div class="hero-seven">7</div>
@@ -351,7 +372,7 @@
 
 <section class="leader" id="leadership">
   <div class="wrap">
-    <span class="section-tag">Zone Leadership · RY 2025&ndash;26</span>
+    <span class="section-tag">Zone Leadership · RY 2026&ndash;27</span>
     <h2 style="margin-bottom:40px; max-width:600px;">Guided by the Zone 7 leadership team.</h2>
     <div class="leader-card">
       <div class="leader-grid">
@@ -453,21 +474,23 @@
     <span class="section-tag">Follow Along</span>
     <h2>@zone7rotaract3292</h2>
     <p class="sub">Carousel recaps, reels and club spotlights from across the zone.</p>
-    <div class="ig-grid">
-      <div class="ig-cell">Post</div>
-      <div class="ig-cell">Reel</div>
-      <div class="ig-cell">Post</div>
-      <div class="ig-cell">Post</div>
-      <div class="ig-cell">Reel</div>
-      <div class="ig-cell">Post</div>
+    <div style="margin-top:56px;">
+      <behold-widget feed-id="oACl7lyBKgqQ9BqPUEJt"></behold-widget>
     </div>
+    <script>
+      (() => {
+        if(window.__bhldScript)return;window.__bhldScript=true;
+        const d=document,s=d.createElement("script");s.type="module";
+        s.src="https://w.behold.so/widget.js";setTimeout(()=>{d.head.append(s);},0);
+      })();
+    </script>
     <a href="https://www.instagram.com/zone7rotaract3292/" target="_blank" class="ig-follow">Follow on Instagram →</a>
   </div>
 </section>
 
 <div class="logostrip">
   <div class="wrap">
-    <img src="zone7_logos.png" alt="Rotaract District 3292, Zone 7, and Integrity Vision Leadership logos" style="max-width:560px;">
+    <img src="zone7_logos.png" alt="Rotaract District 3292 Nepal-Bhutan logo" style="max-width:420px;">
   </div>
 </div>
 

@@ -106,23 +106,23 @@ if(project && club){
 
   document.getElementById("content").innerHTML = `
     <header class="p-hero">
-      <img class="p-hero-img" src="${project.cover || ''}" alt="${project.title}">
+      <img class="p-hero-img" src="${zone7Esc(project.cover || '')}" alt="${zone7Esc(project.title)}">
       <div class="p-hero-overlay">
         <div class="wrap p-hero-content">
-          <span class="p-tag">${project.category || "Club Project"}</span>
-          <h1>${project.title}</h1>
-          <div class="club-line">${club.name}</div>
+          <span class="p-tag">${zone7Esc(project.category || "Club Project")}</span>
+          <h1>${zone7Esc(project.title)}</h1>
+          <div class="club-line">${zone7Esc(club.name)}</div>
         </div>
       </div>
     </header>
 
     <section class="wrap">
       <div class="p-meta-row">
-        <div class="p-meta"><b>${dateStr}</b><span>Project Date</span></div>
-        <div class="p-meta"><b>${project.location || "Kathmandu Valley"}</b><span>Location</span></div>
-        <div class="p-meta"><b>${club.name}</b><span>Organized By</span></div>
+        <div class="p-meta"><b>${zone7Esc(dateStr)}</b><span>Project Date</span></div>
+        <div class="p-meta"><b>${zone7Esc(project.location || "Kathmandu Valley")}</b><span>Location</span></div>
+        <div class="p-meta"><b>${zone7Esc(club.name)}</b><span>Organized By</span></div>
       </div>
-      <div class="p-body">${(project.body || project.summary || "").replace(/</g,'&lt;')}</div>
+      <div class="p-body">${zone7Esc(project.body || project.summary || "")}</div>
     </section>
 
     ${project.gallery && project.gallery.length ? `
@@ -139,7 +139,7 @@ if(project && club){
 
   if(project.gallery && project.gallery.length){
     const grid = document.getElementById("galGrid");
-    grid.innerHTML = project.gallery.map(src => `<img src="${src}" alt="${project.title} photo">`).join("");
+    grid.innerHTML = project.gallery.map(src => `<img src="${zone7Esc(src)}" alt="${zone7Esc(project.title)} photo">`).join("");
     grid.querySelectorAll("img").forEach(img => {
       img.addEventListener("click", () => {
         document.getElementById("lightboxImg").src = img.src;

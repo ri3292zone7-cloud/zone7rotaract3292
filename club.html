@@ -412,12 +412,12 @@ if(club){(async () => {
   const projects = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getProjects(clubSlug) : [];
   if(projects.length){
     showcase.innerHTML = projects.map(p => `
-      <div class="proj-showcase-card" onclick="location.href='project.html?club=${clubSlug}&id=${p.id}'">
-        <div class="psc-img"><img src="${p.cover || ''}" alt="${p.title}"></div>
+      <div class="proj-showcase-card" onclick="location.href='project.html?club=${encodeURIComponent(clubSlug)}&id=${encodeURIComponent(p.id)}'">
+        <div class="psc-img"><img src="${zone7Esc(p.cover || '')}" alt="${zone7Esc(p.title)}"></div>
         <div class="psc-body">
-          <span class="psc-tag">${p.category || "Club Project"}</span>
-          <h4>${p.title}</h4>
-          <p>${(p.summary || (p.body || "").slice(0,160)) || "Tap to read the full project story."}</p>
+          <span class="psc-tag">${zone7Esc(p.category || "Club Project")}</span>
+          <h4>${zone7Esc(p.title)}</h4>
+          <p>${zone7Esc(p.summary || (p.body || "").slice(0,160)) || "Tap to read the full project story."}</p>
           <span class="psc-link">View Full Project →</span>
         </div>
       </div>
