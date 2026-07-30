@@ -73,14 +73,48 @@
       radial-gradient(1200px 500px at 85% -10%, rgba(225,26,110,0.10), transparent 60%),
       var(--cream);
   }
-  .hero-seven{
+  .hero-orbit{
     position:absolute;
-    right:-6%; top:50%; transform:translateY(-42%);
-    font-family:'Poppins'; font-weight:900; font-size:min(58vw, 720px);
-    line-height:1; color:transparent;
-    -webkit-text-stroke:1.5px rgba(27,24,54,0.08);
+    right:-2%; top:50%; transform:translateY(-50%);
+    width:min(54vw, 640px); height:min(54vw, 640px);
     z-index:0; user-select:none; pointer-events:none;
   }
+  .orbit-seven{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Poppins'; font-weight:900; font-size:min(40vw, 500px);
+    line-height:1; color:transparent;
+    -webkit-text-stroke:1.5px rgba(27,24,54,0.07);
+  }
+  .club-bubble{
+    position:absolute;
+    width:64px; height:64px; border-radius:50%;
+    background:#fff;
+    border:3px solid #fff;
+    box-shadow:0 6px 24px rgba(27,24,54,0.15);
+    overflow:hidden;
+    pointer-events:all; cursor:pointer;
+    transition:transform .25s, box-shadow .25s;
+  }
+  .club-bubble:hover{
+    transform:scale(1.18) !important;
+    box-shadow:0 10px 32px rgba(225,26,110,0.3);
+    z-index:10;
+  }
+  .club-bubble img{ width:100%; height:100%; object-fit:cover; border-radius:50%; }
+
+  @keyframes float0{0%,100%{transform:translate(0,0)} 33%{transform:translate(6px,-10px)} 66%{transform:translate(-5px,7px)}}
+  @keyframes float1{0%,100%{transform:translate(0,0)} 33%{transform:translate(-8px,9px)} 66%{transform:translate(7px,-6px)}}
+  @keyframes float2{0%,100%{transform:translate(0,0)} 33%{transform:translate(5px,11px)} 66%{transform:translate(-9px,-5px)}}
+  @keyframes float3{0%,100%{transform:translate(0,0)} 33%{transform:translate(-6px,-8px)} 66%{transform:translate(8px,6px)}}
+  @keyframes float4{0%,100%{transform:translate(0,0)} 33%{transform:translate(9px,7px)} 66%{transform:translate(-6px,-10px)}}
+  @keyframes float5{0%,100%{transform:translate(0,0)} 33%{transform:translate(-7px,10px)} 66%{transform:translate(5px,-8px)}}
+  @keyframes float6{0%,100%{transform:translate(0,0)} 33%{transform:translate(10px,-6px)} 66%{transform:translate(-8px,9px)}}
+  @keyframes float7{0%,100%{transform:translate(0,0)} 33%{transform:translate(-5px,-11px)} 66%{transform:translate(9px,5px)}}
+  @keyframes float8{0%,100%{transform:translate(0,0)} 33%{transform:translate(7px,8px)} 66%{transform:translate(-10px,-7px)}}
+
+  @media(max-width:920px){ .hero-orbit{ right:-10%; width:min(60vw,380px); height:min(60vw,380px); } .club-bubble{width:50px;height:50px;} }
+  @media(max-width:600px){ .hero-orbit{ display:none; } }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
     font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
@@ -322,9 +356,58 @@
     document.getElementById('mobileMenu').classList.remove('open');
   }));
 </script>
+<script>
+(function(){
+  const CLUBS_ORBIT = [
+    { slug:'balkumari',       logo:'logos/balkumari.jpg',       name:'Balkumari' },
+    { slug:'baneshwor',       logo:'logos/baneshwor.jpg',       name:'Baneshwor' },
+    { slug:'liberty',         logo:'logos/liberty.jpg',         name:'Liberty College' },
+    { slug:'kathmanduwest',   logo:'logos/kathmanduwest.jpg',   name:'Kathmandu West' },
+    { slug:'kathmanduheight', logo:'logos/kathmanduheight.jpg', name:'Kathmandu Height' },
+    { slug:'sankhu',          logo:'logos/sankhu.jpg',          name:'Sankhu' },
+    { slug:'newroadcity',     logo:'logos/newroadcity.jpg',     name:'New Road City' },
+    { slug:'sukedhara',       logo:'logos/sukedhara.jpg',       name:'Sukedhara' },
+    { slug:'tripureswor',     logo:'logos/tripureswor.jpg',     name:'Tripureswor' },
+  ];
+
+  // Fixed positions scattered around the 7 (% of container)
+  const positions = [
+    {left:8,  top:8 },
+    {left:72, top:5 },
+    {left:88, top:28},
+    {left:82, top:60},
+    {left:60, top:82},
+    {left:28, top:85},
+    {left:5,  top:62},
+    {left:3,  top:32},
+    {left:40, top:4 },
+  ];
+
+  const orbit = document.getElementById('heroOrbit');
+
+  CLUBS_ORBIT.forEach((club, i) => {
+    const pos = positions[i];
+    const a = document.createElement('a');
+    a.className = 'club-bubble';
+    a.href = `club.html?club=${club.slug}`;
+    a.title = club.name;
+    a.style.cssText = `left:${pos.left}%; top:${pos.top}%; animation:float${i} ${5+i*0.7}s ease-in-out infinite; animation-delay:${i*-0.8}s;`;
+
+    const img = document.createElement('img');
+    img.src = club.logo;
+    img.alt = club.name;
+    img.loading = 'lazy';
+    a.appendChild(img);
+    orbit.appendChild(a);
+  });
+})();
+</script>
 
 <header class="hero">
-  <div class="hero-seven">7</div>
+  <div class="hero-orbit" id="heroOrbit">
+    <div class="orbit-seven">7</div>
+    <!-- rings injected by JS -->
+  </div>
   <div class="wrap">
     <div class="eyebrow"><span class="dot"></span>Rotaract District 3292 · Nepal-Bhutan</div>
     <h1>Young leaders in the<br>Kathmandu Valley,<br><span class="hl">united as Zone 7.</span></h1>
