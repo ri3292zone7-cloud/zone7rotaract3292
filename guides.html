@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guides for Clubs | Zone 7 Rotaract 3292</title>
+<title>Rotaract Resources | Zone 7 Rotaract 3292</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -64,30 +64,7 @@
   .del-btn:hover{background:var(--magenta); color:#fff; border-color:var(--magenta);}
   @media (max-width:640px){ .guide-card{grid-template-columns:1fr;} .dl-btn{width:fit-content;} }
 
-  .zonal-section{padding:0 0 90px;}
-  .zonal-toggle{
-    font-size:0.85rem; font-weight:700; color:rgba(27,24,54,0.45); cursor:pointer; display:inline-flex; align-items:center; gap:6px;
-  }
-  .zonal-toggle:hover{color:var(--magenta-deep);}
-  .zonal-panel{
-    display:none; margin-top:20px; background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:30px;
-  }
-  .zonal-panel.open{display:block;}
-  .zonal-panel h3{font-size:1.1rem; margin-bottom:6px;}
-  .zonal-panel p.hint{font-size:0.85rem; color:rgba(27,24,54,0.55); margin-bottom:20px;}
-  .zonal-panel label{display:block; font-weight:700; font-size:0.82rem; margin-bottom:6px;}
-  .zonal-panel input[type="text"], .zonal-panel input[type="password"], .zonal-panel textarea{
-    width:100%; padding:12px 15px; border-radius:10px; border:1.5px solid var(--line); background:#fff;
-    font-family:'Inter'; font-size:0.9rem; color:var(--ink); margin-bottom:16px;
-  }
-  .zonal-panel textarea{resize:vertical; min-height:70px;}
-  .zonal-panel input:focus, .zonal-panel textarea:focus{outline:none; border-color:var(--magenta);}
-  .zonal-btn{background:var(--ink); color:#fff; padding:12px 22px; border-radius:100px; font-weight:700; font-size:0.88rem; border:none; cursor:pointer; font-family:'Inter';}
-  .zonal-btn:hover{opacity:0.9;}
-  .zonal-logout{background:none; border:1.5px solid var(--line); color:var(--ink); padding:12px 22px; border-radius:100px; font-weight:700; font-size:0.88rem; cursor:pointer; font-family:'Inter'; margin-left:10px;}
-  .zonal-msg{font-size:0.85rem; margin-top:10px; font-weight:600;}
-  .zonal-msg.err{color:var(--magenta-deep);}
-  .zonal-msg.ok{color:#1c8a4d;}
+
 
   footer{background:var(--ink); color:rgba(255,255,255,0.5); padding:34px 0; text-align:center; font-size:0.85rem;}
 </style>
@@ -101,8 +78,8 @@
 
 <header class="hero wrap">
   <div class="eyebrow"><span class="dot"></span>District 3292 · Resource Library</div>
-  <h1>Guides for Clubs.</h1>
-  <p class="sub">Official templates, constitutions and planning guides from District 3292 &mdash; everything a Zone 7 club needs to run smoothly, in one place instead of scattered across old emails.</p>
+  <h1>Rotaract Resources.</h1>
+  <p class="sub">Official templates, constitutions and planning guides from District 3292 &mdash; everything a Zone 7 club or any Rotaract club needs to run smoothly, in one place instead of scattered across old emails.</p>
   <div class="search-wrap">
     <input type="text" id="searchBox" placeholder="Search guides — e.g. constitution, membership, planning...">
   </div>
@@ -112,42 +89,7 @@
 <div class="wrap">
   <div class="guides-grid" id="guidesGrid"></div>
 
-  <div class="zonal-section">
-    <span class="zonal-toggle" id="zonalToggle">Zonal Team Login →</span>
-    <div class="zonal-panel" id="zonalPanel">
 
-      <div id="zonalLoginView">
-        <h3>Zonal Team Login</h3>
-        <p class="hint">For the ZRR/zone team only, to add new guides to this page.</p>
-        <label for="zonalPw">Password</label>
-        <input type="password" id="zonalPw" placeholder="Enter zonal team password">
-        <button class="zonal-btn" id="zonalLoginBtn">Log In</button>
-        <div class="zonal-msg" id="zonalLoginMsg"></div>
-      </div>
-
-      <div id="zonalUploadView" style="display:none;">
-        <h3>Add a New Guide</h3>
-        <p class="hint">Uploads appear instantly on this page for every visitor.</p>
-        <label for="gTitle">Title</label>
-        <input type="text" id="gTitle" placeholder="e.g. District Financial Guideline 2026">
-        <label for="gCategory">Category</label>
-        <input type="text" id="gCategory" placeholder="e.g. Governance, Planning, Templates, Funding">
-        <label for="gDesc">Brief Overview</label>
-        <textarea id="gDesc" placeholder="1-2 sentences describing what this document is for"></textarea>
-        <label for="gFile">Document File</label>
-        <input type="file" id="gFile" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
-        <div style="margin-top:6px;">
-          <button class="zonal-btn" id="gUploadBtn">Upload Guide</button>
-          <button class="zonal-logout" id="zonalLogoutBtn">Log Out</button>
-        </div>
-        <div class="zonal-msg" id="gUploadMsg"></div>
-
-        <h3 style="margin-top:34px;">Uploaded Guides</h3>
-        <div id="zonalGuideList" style="margin-top:14px;"></div>
-      </div>
-
-    </div>
-  </div>
 </div>
 
 <footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. Documents sourced from the District 3292 website.</footer>
@@ -210,84 +152,7 @@ async function loadDynamicGuides(){
 }
 loadDynamicGuides();
 
-/* ---- Zonal team login + upload ---- */
-document.getElementById("zonalToggle").addEventListener("click", () => {
-  document.getElementById("zonalPanel").classList.toggle("open");
-  if(ZONE7_DB.isZonal()) showZonalUpload();
-});
 
-document.getElementById("zonalLoginBtn").addEventListener("click", () => {
-  const pw = document.getElementById("zonalPw").value;
-  if(ZONE7_DB.loginZonal(pw)){
-    showZonalUpload();
-  } else {
-    const m = document.getElementById("zonalLoginMsg");
-    m.textContent = "Incorrect password."; m.className = "zonal-msg err";
-  }
-});
-
-document.getElementById("zonalLogoutBtn").addEventListener("click", () => {
-  ZONE7_DB.logoutZonal();
-  document.getElementById("zonalLoginView").style.display = "block";
-  document.getElementById("zonalUploadView").style.display = "none";
-  document.getElementById("zonalPw").value = "";
-});
-
-async function showZonalUpload(){
-  document.getElementById("zonalLoginView").style.display = "none";
-  document.getElementById("zonalUploadView").style.display = "block";
-  renderZonalGuideList();
-}
-
-async function renderZonalGuideList(){
-  const rows = await ZONE7_DB.getGuides();
-  const wrap = document.getElementById("zonalGuideList");
-  if(!rows.length){ wrap.innerHTML = `<p style="color:rgba(27,24,54,0.45); font-size:0.85rem;">No uploads yet.</p>`; return; }
-  wrap.innerHTML = rows.map(r => `
-    <div class="guide-card" style="padding:14px 18px; margin-bottom:8px;">
-      <div><h4 style="font-size:0.9rem;">${zone7Esc(r.title)}</h4></div>
-      <button class="del-btn" data-id="${zone7Esc(r.id)}" title="Delete">✕</button>
-    </div>
-  `).join("");
-  wrap.querySelectorAll(".del-btn").forEach(btn => {
-    btn.addEventListener("click", async () => {
-      if(confirm("Delete this guide?")){
-        await ZONE7_DB.deleteGuide(btn.dataset.id);
-        await renderZonalGuideList();
-        await loadDynamicGuides();
-      }
-    });
-  });
-}
-
-document.getElementById("gUploadBtn").addEventListener("click", async () => {
-  const title = document.getElementById("gTitle").value.trim();
-  const file = document.getElementById("gFile").files[0];
-  const msg = document.getElementById("gUploadMsg");
-  if(!title || !file){ msg.textContent = "Title and a file are required."; msg.className = "zonal-msg err"; return; }
-  msg.textContent = "Uploading…"; msg.className = "zonal-msg";
-  try{
-    const fileData = await zone7ReadFile(file);
-    const id = zone7Slugify(title) + "-" + Date.now().toString(36);
-    await ZONE7_DB.saveGuide({
-      id, title,
-      category: document.getElementById("gCategory").value.trim() || "Other",
-      description: document.getElementById("gDesc").value.trim(),
-      file_name: file.name,
-      file_data: fileData
-    });
-    document.getElementById("gTitle").value = "";
-    document.getElementById("gCategory").value = "";
-    document.getElementById("gDesc").value = "";
-    document.getElementById("gFile").value = "";
-    msg.textContent = "Uploaded ✓"; msg.className = "zonal-msg ok";
-    await renderZonalGuideList();
-    await loadDynamicGuides();
-  } catch(err){
-    console.error(err);
-    msg.textContent = "Upload failed — check your Supabase setup."; msg.className = "zonal-msg err";
-  }
-});
 </script>
 </body>
 </html>
