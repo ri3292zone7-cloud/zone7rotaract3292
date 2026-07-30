@@ -295,6 +295,7 @@
       <a href="#about">About</a>
       <a href="#leadership">Leadership</a>
       <a href="#clubs">Clubs</a>
+      <a href="#dcal">Calendar</a>
       <a href="#events">Events</a>
       <a href="#connect">Connect</a>
     </div>
@@ -308,6 +309,7 @@
     <a href="#about">About</a>
     <a href="#leadership">Leadership</a>
     <a href="#clubs">Clubs</a>
+    <a href="#dcal">Calendar</a>
     <a href="#events">Events</a>
     <a href="#connect">Connect</a>
   </div>
@@ -445,6 +447,59 @@
   </div>
 </section>
 
+<section class="section" id="dcal" style="padding-top:90px; padding-bottom:20px;">
+  <div class="wrap">
+    <span class="section-tag">District 3292 · RY 2026&ndash;27</span>
+    <h2>District event calendar.</h2>
+    <p class="sub">Swipe or use the arrows to browse the Rotary year, month by month.</p>
+    <div class="dcal-card" style="margin-top:40px;">
+      <div class="dcal-topbar">
+        <button class="dcal-nav" id="dcalPrev" aria-label="Previous month">&larr;</button>
+        <div class="dcal-title">
+          <h4 id="dcalMonthLabel"></h4>
+          <span class="theme" id="dcalTheme"></span>
+        </div>
+        <button class="dcal-nav" id="dcalNext" aria-label="Next month">&rarr;</button>
+      </div>
+      <div class="dcal-swipe" id="dcalSwipe">
+        <div class="dcal-inner">
+          <div class="dcal-grid" id="dcalGrid"></div>
+          <ul id="dcalList"></ul>
+        </div>
+      </div>
+      <div class="dcal-dots" id="dcalDots"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .dcal-card{background:var(--paper); border:1px solid var(--line); border-radius:20px; overflow:hidden;}
+  .dcal-topbar{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:22px 26px; border-bottom:1px solid var(--line);}
+  .dcal-title{text-align:center;}
+  .dcal-title h4{font-size:1.15rem; font-family:'Poppins'; font-weight:700;}
+  .dcal-title span.theme{font-size:0.82rem; color:var(--magenta-deep); font-weight:600;}
+  .dcal-nav{
+    width:38px; height:38px; border-radius:50%; border:1.5px solid var(--line); background:#fff;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem; color:var(--ink);
+    transition:background .2s, color .2s, border-color .2s; flex-shrink:0;
+  }
+  .dcal-nav:hover{background:var(--magenta); border-color:var(--magenta); color:#fff;}
+  .dcal-swipe{overflow:hidden; touch-action:pan-y;}
+  .dcal-inner{padding:26px; display:grid; grid-template-columns:280px 1fr; gap:34px;}
+  .dcal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:5px;}
+  .dcal-dow{font-size:0.66rem; font-weight:700; text-transform:uppercase; color:rgba(27,24,54,0.4); text-align:center; padding-bottom:4px;}
+  .dcal-cell{aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:0.8rem; border-radius:8px; color:rgba(27,24,54,0.55);}
+  .dcal-cell.hl{background:var(--magenta); color:#fff; font-weight:700;}
+  .dcal-cell.empty{visibility:hidden;}
+  #dcalList{list-style:none; padding:0; margin:0;}
+  #dcalList li{font-size:0.88rem; color:rgba(27,24,54,0.68); line-height:1.7; padding-left:16px; position:relative;}
+  #dcalList li::before{content:"•"; position:absolute; left:0; color:var(--gold);}
+  .dcal-dots{display:flex; justify-content:center; gap:7px; padding:0 0 22px;}
+  .dcal-dots span{width:6px; height:6px; border-radius:50%; background:var(--line); cursor:pointer;}
+  .dcal-dots span.active{background:var(--magenta);}
+  @media (max-width:760px){ .dcal-inner{grid-template-columns:1fr; padding:20px;} .dcal-grid{max-width:320px; margin:0 auto;} }
+</style>
+
 <section class="events" id="events">
   <div class="wrap">
     <span class="section-tag">What's Coming Up</span>
@@ -456,6 +511,70 @@
 </section>
 
 <script>
+const DISTRICT_CALENDAR = [
+[2026,6,"Maternal & Child Health Month",[1,2,7,11,30],["1 Jul – Club President & DG Installation","2 Jul – District Interact Rep. Installation","7 Jul – Guru Purnima","11 Jul – DRR Installation","30 Jul – International Friendship Day","Jul–Aug – Zonal COTS & Club Installation"]],
+[2026,7,"Membership & New Club Development Month",[1,12,19,28,29],["1 Aug – Grant Management Seminar","12 Aug – International Youth Day","19 Aug – World Photography Day","28 Aug – Janai Purnima (Raksha Bandhan)","29 Aug – Gai Jatra","Jul–Aug – Zonal COTS & Club Installation"]],
+[2026,8,"Basic Education & Literacy Month",[4,5,8,11,12,13,14,19,25,26],["From Sep – DRR Visit","4 Sep – Gaura Parba / Krishna Janmashtami","5 Sep – Int'l Day of Charity","8 Sep – Gen-Z Sahid Diwas","11–13 Sep – SEARIC Summit, Sri Lanka","14 Sep – Hartalika Teej (women only)","19 Sep – Constitution Day","19 Sep – Nationwide Inter College Quiz (Region-wise)","25–26 Sep – President Night 2026"]],
+[2026,9,"Community Economic Development Month",[5,10,11,16,17,18,19,20,21],["5 Oct – World Teachers' Day (UNESCO)","10 Oct – World Mental Health Day","11 Oct – Int'l Day of the Girl Child","11 Oct – Dashain (Ghatasthapana)","16 Oct – World Food Day","17–21 Oct – Dashain Week"]],
+[2026,10,"Rotary Foundation Month",[6,7,8,9,10,15,20,21,24,25,28],["6–10 Nov – Laxmi Puja to Bhai Tika","15 Nov – Chhath Parba","20 Nov – Universal Children's Day","21 Nov – 1st President-Secretary Meet","24 Nov – Guru Nanak Jayanti (Sikhs only)","25 Nov – Elimination of Violence Against Women","28 Nov – 13th Late Rtr. Sachin Memorial Blood Donation"]],
+[2026,11,"Disease Prevention & Treatment Month",[3,5,7,8,9,10,11,12,13,19,24,25,30],["3 Dec – Int'l Day of Disabled Persons","5 Dec – International Volunteer Day","7–13 Dec – Computer Science Education Week","10 Dec – Human Rights Day","19 Dec – Nationwide Futsal Tournament (Zonal Round)","24 Dec – Udauli Parwa / Yomari Purnima","25 Dec – Christmas (Christians only)","30 Dec – Tamu Lhosar","Dec – District Fundraiser: Rotaract Sahayatra"]],
+[2027,0,"Vocational Service Month",[1,11,14,29,30],["1 Jan – Gregorian New Year","11 Jan – Prithvi Jayanti","14 Jan – Maghe Sankranti","29 Jan – Nationwide Inter College Quiz (Final)","29–30 Jan – 19th Rotaract District Conference","30 Jan – Martyrs' Day","Jan – District Fundraiser: Rotaract Sahayatra"]],
+[2027,1,"Peacebuilding & Conflict Prevention Month",[4,5,6,7,11,19],["4–7 Feb – ROTASIA Indore","5–6 Feb – 19th District Rotary Conference","7 Feb – Sonam Lohsar","11 Feb – Saraswati Puja","19 Feb – Democracy Day","Feb – District Fundraiser: Rotaract Sahayatra"]],
+[2027,2,"Water, Sanitation & Hygiene Month",[6,8,9,13,21,22,27],["6 Mar – Maha Shivaratri","8 Mar – International Women's Day","8–14 Mar – Rotaract Week","9 Mar – Gyalpo Lohsar","13 Mar – World Rotaract Day","21–22 Mar – Holi Festival","22 Mar – World Water Day","27 Mar – 2nd PS Meet & PETS-SETS"]],
+[2027,3,"Environmental Month",[6,7,10,14,22,24],["6 Apr – Ghode Jatra","7 Apr – World Health Day","10 Apr – Late Rtr. Santosh Memorial ROTA Quiz (Zonal)","14 Apr – Nepali New Year + Bisket Jatra","22 Apr – World Earth Day","24 Apr – Nationwide Futsal Tournament (Regional)"]],
+[2027,4,"Youth Service Month",[1,8,20,29],["1 May – Labour Day","8 May – Late Rtr. Santosh Memorial ROTA Quiz (Cluster)","20 May – Buddha Jayanti","29 May – Nationwide Futsal Tournament (Final)","29 May – Republic Day"]],
+[2027,5,"Rotary Fellowships Month",[5,19,21,26,27,28,29,30],["5 Jun – World Environment Day","19 Jun – 20th Rotaract District Assembly, DLTS & Recognition","19 Jun – Late Rtr. Santosh Memorial ROTA Quiz (Final)","19 Jun – Nepal Investigative Journalism Award","21 Jun – International Day of Yoga","26–30 Jun – RI Convention 2027, Barcelona"]]
+];
+const DOW = ["S","M","T","W","T","F","S"];
+const MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+let dcalIndex = 0;
+
+function buildGrid(year, month, hlDays){
+  const firstDow = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  let cells = DOW.map(d => `<div class="dcal-dow">${d}</div>`).join("");
+  for(let i=0;i<firstDow;i++) cells += `<div class="dcal-cell empty">.</div>`;
+  for(let d=1; d<=daysInMonth; d++){
+    cells += `<div class="dcal-cell${hlDays.includes(d)?' hl':''}">${d}</div>`;
+  }
+  return cells;
+}
+
+function renderDCal(){
+  const [year, month, theme, hlDays, items] = DISTRICT_CALENDAR[dcalIndex];
+  document.getElementById("dcalMonthLabel").textContent = `${MONTH_NAMES[month]} ${year}`;
+  document.getElementById("dcalTheme").textContent = theme;
+  document.getElementById("dcalGrid").innerHTML = buildGrid(year, month, hlDays);
+  document.getElementById("dcalList").innerHTML = items.map(x => `<li>${x}</li>`).join("");
+  document.querySelectorAll(".dcal-dots span").forEach((d,i) => d.classList.toggle("active", i === dcalIndex));
+  document.getElementById("dcalPrev").disabled = dcalIndex === 0;
+  document.getElementById("dcalNext").disabled = dcalIndex === DISTRICT_CALENDAR.length - 1;
+}
+
+function goDCal(delta){
+  dcalIndex = Math.max(0, Math.min(DISTRICT_CALENDAR.length - 1, dcalIndex + delta));
+  renderDCal();
+}
+
+(function initDCal(){
+  document.getElementById("dcalDots").innerHTML = DISTRICT_CALENDAR.map((_,i) => `<span data-i="${i}"></span>`).join("");
+  document.querySelectorAll(".dcal-dots span").forEach(dot => {
+    dot.addEventListener("click", () => { dcalIndex = Number(dot.dataset.i); renderDCal(); });
+  });
+  document.getElementById("dcalPrev").addEventListener("click", () => goDCal(-1));
+  document.getElementById("dcalNext").addEventListener("click", () => goDCal(1));
+
+  const swipeEl = document.getElementById("dcalSwipe");
+  let touchStartX = 0;
+  swipeEl.addEventListener("touchstart", e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+  swipeEl.addEventListener("touchend", e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 40) goDCal(dx < 0 ? 1 : -1);
+  }, {passive:true});
+
+  renderDCal();
+})();
+
 (async () => {
   const list = document.getElementById("eventsList");
   const events = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getEvents() : [];
