@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>District 3292 Overview | Zone 7 Rotaract</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root{--ink:#1B1836;--magenta:#E11A6E;--magenta-deep:#A80F52;--gold:#F2A900;--cream:#FFF8EF;--paper:#FFFDF9;--line:rgba(27,24,54,0.1);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-0.02em;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Poppins';font-weight:800;}
+  .brand .z{background:var(--magenta);color:#fff;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;}
+  .back{font-weight:700;font-size:.85rem;color:var(--magenta-deep);}
+  .hero{padding:56px 0 10px;}
+  .eyebrow{display:inline-flex;gap:8px;align-items:center;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--magenta-deep);background:rgba(225,26,110,.09);padding:7px 15px;border-radius:100px;margin-bottom:16px;}
+  .hero h1{font-size:clamp(1.8rem,4vw,2.6rem);max-width:700px;}
+  .hero p{color:rgba(27,24,54,.65);max-width:640px;margin-top:12px;line-height:1.6;}
+  .grid{display:grid;gap:18px;margin:34px 0;}
+  .g2{grid-template-columns:1fr 1fr;}
+  .g3{grid-template-columns:repeat(3,1fr);}
+  .g4{grid-template-columns:repeat(4,1fr);}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px;}
+  .card h3{font-size:1rem;margin-bottom:14px;}
+  .stat{background:linear-gradient(135deg,var(--ink),#2b2555);color:#fff;border-radius:16px;padding:20px 22px;}
+  .stat b{display:block;font-family:'Poppins';font-weight:800;font-size:1.7rem;}
+  .stat span{font-size:.72rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.05em;font-weight:700;}
+  canvas{max-height:280px;}
+  .quote{background:var(--ink);color:#fff;border-radius:20px;padding:44px;margin:40px 0;text-align:center;}
+  .quote p{font-family:'Poppins';font-weight:700;font-size:1.3rem;line-height:1.5;}
+  .quote span{display:block;margin-top:14px;color:var(--gold);font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;}
+  .org-note{font-size:.82rem;color:rgba(27,24,54,.55);margin-top:6px;}
+  footer{background:var(--ink);color:rgba(255,255,255,.5);padding:30px 0;text-align:center;font-size:.82rem;margin-top:40px;}
+  @media (max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr 1fr;}}
+  @media (max-width:600px){.g2,.g3,.g4{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a href="index.html"><div class="brand"><span class="z">7</span>Zone 7 Rotaract</div></a>
+  <a href="admin.html" class="back">← Back to Admin</a>
+</div></nav>
+
+<header class="hero wrap">
+  <div class="eyebrow">Rotaract District 3292 · RY 2026&ndash;27</div>
+  <h1>Vision, Goals &amp; Budget at a Glance.</h1>
+  <p>A visual snapshot of the district's income &amp; expense plan, strategic goals, and leadership structure for the year &mdash; sourced directly from the official district documents.</p>
+</header>
+
+<div class="wrap">
+  <div class="quote">
+    <p>"The Vision is Clear. The Mission is Ours. The Future is Together."</p>
+    <span>Rotaract District 3292 · Nepal &amp; Bhutan</span>
+  </div>
+
+  <div class="grid g4" id="statRow"></div>
+
+  <div class="grid g2">
+    <div class="card"><h3>Income Sources (NPR)</h3><canvas id="incomeChart"></canvas></div>
+    <div class="card"><h3>Expense Breakdown (NPR)</h3><canvas id="expenseChart"></canvas></div>
+  </div>
+
+  <div class="grid" style="grid-template-columns:1fr;">
+    <div class="card"><h3>Income vs Expenses by Category</h3><canvas id="compareChart" style="max-height:320px;"></canvas></div>
+  </div>
+
+  <div class="grid" style="grid-template-columns:1fr;">
+    <div class="card">
+      <h3>10 Strategic Goals, RY 2026&ndash;27</h3>
+      <div class="grid g2" id="goalsGrid" style="margin:6px 0 0;"></div>
+    </div>
+  </div>
+
+  <div class="grid g3">
+    <div class="card"><h3>District Leadership Chain</h3><div id="orgChain"></div></div>
+    <div class="card"><h3>ADRR Zone Assignments</h3><div id="adrrList"></div></div>
+    <div class="card"><h3>RRC Zone Assignments</h3><div id="rrcList"></div></div>
+  </div>
+</div>
+
+<footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. Data sourced from official district RY 2026-27 documents.</footer>
+
+<script>
+const COLORS = ["#E11A6E","#A80F52","#F2A900","#1B1836","#8a6300","#1c8a4d","#3a3170","#c2185b"];
+
+// ---- Budget data (from District Budget Plan RY 2026-27) ----
+const income = {
+  "Membership Dues":1600000,"Multi District Dues":100000,"District Team Contribution":340000,
+  "Corporate Sponsorships":500000,"Merchandise Sales":280000,"Rotary District Support":200000,
+  "Partner/Sponsorship Funds":3000000,"Team Training Seminar":50000,"Rotaract Sahayatra Fundraiser":1800000
+};
+const expense = {
+  "Administration":484000,"Publication/Merchandise":3110000,"Programs & Events":1895000,
+  "Training":1150000,"Other Costs":1576000,"Contingency":255000
+};
+const totalIncome = Object.values(income).reduce((a,b)=>a+b,0);
+const totalExpense = Object.values(expense).reduce((a,b)=>a+b,0);
+
+document.getElementById("statRow").innerHTML = `
+  <div class="stat"><b>NPR ${(totalIncome/1e6).toFixed(2)}M</b><span>Total Projected Income</span></div>
+  <div class="stat"><b>NPR ${(totalExpense/1e6).toFixed(2)}M</b><span>Total Projected Expenses</span></div>
+  <div class="stat"><b>180+</b><span>Clubs Districtwide</span></div>
+  <div class="stat"><b>5,500+</b><span>Rotaractors, D3292</span></div>
+`;
+
+new Chart(document.getElementById("incomeChart"),{type:"doughnut",data:{
+  labels:Object.keys(income),datasets:[{data:Object.values(income),backgroundColor:COLORS}]
+},options:{plugins:{legend:{position:"bottom",labels:{font:{size:9}}}}}});
+
+new Chart(document.getElementById("expenseChart"),{type:"doughnut",data:{
+  labels:Object.keys(expense),datasets:[{data:Object.values(expense),backgroundColor:COLORS}]
+},options:{plugins:{legend:{position:"bottom",labels:{font:{size:9}}}}}});
+
+new Chart(document.getElementById("compareChart"),{type:"bar",data:{
+  labels:["Income","Expenses"],
+  datasets:[{label:"NPR",data:[totalIncome,totalExpense],backgroundColor:["#E11A6E","#1B1836"],borderRadius:8}]
+},options:{indexAxis:"y",plugins:{legend:{display:false}}}});
+
+// ---- Goals (from Vision/Mission/Goals RY 2026-27) ----
+const GOALS = [
+  "Strengthen Transparency & Accountability","Adopt Club-Centric Governance","Simplify Systems & Reporting",
+  "Reform Training Models & Build Capacity","Promote Ethical Leadership & Standards","Drive Membership Growth & Inclusion",
+  "Develop Certified Trainers & Quality Events","Build Reliable Partnerships & Member Benefits",
+  "Expand International Exposure & Global Linkages","Ensure Club Stability & District Grant Support"
+];
+document.getElementById("goalsGrid").innerHTML = GOALS.map((g,i)=>`
+  <div style="display:flex;gap:12px;align-items:center;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:12px 16px;">
+    <div style="font-family:'Poppins';font-weight:800;color:${COLORS[i%COLORS.length]};font-size:1.1rem;min-width:26px;">${String(i+1).padStart(2,'0')}</div>
+    <div style="font-size:.87rem;font-weight:600;">${g}</div>
+  </div>
+`).join("");
+
+// ---- Communication channel (org chain) ----
+document.getElementById("orgChain").innerHTML = `
+  <div style="font-size:.85rem;line-height:2;">
+    <strong>DRR</strong> (District Rotaract Representative)<br>
+    ├ District Finance Chair → DFO, Publication Chair<br>
+    ├ District Secretary → ZRR → Clubs<br>
+    ├ District Leadership Dev. Director → Training Team<br>
+    └ ADRR → Grant/CSR/IT Chairs, RRC → ZRR → Clubs
+  </div>
+  <p class="org-note">Full chart: IPDRR &amp; DRR Elect flank the DRR; each branch runs district-wide committees down to Zone Rotaract Representatives and clubs.</p>
+`;
+
+const ADRR = [
+  ["Zone I,II,VII,VIII","Rtr. Bappa Shah","Corporate Partnership Chair"],
+  ["Zone III,XIII,XIV,XV","Rtr. Amit Sharma","IT & Data Management Chair"],
+  ["Zone IV,V,IX,X","Rtr. Sheikh Dilnawaz Ali","CSR Projects Coordinator"],
+  ["Zone VI,XI,XII,XVI","Rtr. Sabin Raut","Grant Management Chair"],
+  ["Zone XVII-XX","Rtr. Nirajan Aryal","Regional Rotaract Coordinator"]
+];
+document.getElementById("adrrList").innerHTML = ADRR.map(([z,n,r])=>`
+  <div style="padding:9px 0;border-bottom:1px dashed var(--line);font-size:.83rem;">
+    <b>${z}</b><br><span style="color:var(--magenta-deep);">${n}</span><br><span style="color:rgba(27,24,54,.5);">${r}</span>
+  </div>`).join("");
+
+const RRC = [
+  ["Zone I, II","Rtr. Chandan Kumar Mahato"],
+  ["Zone IV, V, VI","Rtr. Anuj Giri"],
+  ["Zone VII, VIII, IX","Rtr. Sunisha Dhungana"],
+  ["Zone X, XI, XII, XIII","Rtr. Sandip Chhetri"],
+  ["Zone XV, XVI, XX","Rtr. Kushal Baral"]
+];
+document.getElementById("rrcList").innerHTML = RRC.map(([z,n])=>`
+  <div style="padding:9px 0;border-bottom:1px dashed var(--line);font-size:.83rem;">
+    <b>${z}</b><br><span style="color:var(--magenta-deep);">${n}</span>
+  </div>`).join("");
+</script>
+</body>
+</html>

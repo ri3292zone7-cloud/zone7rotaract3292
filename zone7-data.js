@@ -46,6 +46,152 @@ const CLUB_CREDENTIALS = {
    as club passwords above. */
 const ZONAL_PASSWORD = "zone7admin2026";
 
+/* Clubs that are University-Based (everyone else is Community-Based)
+   — this decides which barometer a club sees in the admin dashboard. */
+const UNIVERSITY_CLUBS = ["liberty"];
+
+/* ===================================================================
+   DISTRICT 3292 BAROMETER — RY 2026-27
+   Two variants: Community-Based Clubs & University-Based Clubs.
+   Items 1-7, 9-23, 25-27, 29-31(ish), 33-40 are shared/near-identical;
+   a handful of items differ in wording, points, or targets between the
+   two club types (noted per item). Each item can optionally carry an
+   "auto" key naming a rule zone7AutoCheck() knows how to evaluate from
+   a club's uploaded projects — everything else is self-reported by the
+   club and meant to be confirmed later by the ZRR / Recognition Committee.
+=================================================================== */
+const BAROMETER_THRESHOLDS = [
+  { min:96, max:100, label:"Star Excellence" },
+  { min:86, max:95,  label:"Diamond Excellence" },
+  { min:71, max:85,  label:"Premier Excellence" },
+  { min:60, max:70,  label:"Distinguished Excellence" }
+];
+
+function zone7BarometerCategory(score){
+  for(const t of BAROMETER_THRESHOLDS){ if(score >= t.min) return t.label; }
+  return "Not Yet Rated";
+}
+
+const BAROMETER_GROUPS = [
+  { key:"governance", label:"Governance & Foundations", icon:"🏛️" },
+  { key:"meetings",   label:"Meetings & Development",   icon:"🎓" },
+  { key:"reporting",  label:"Reporting & Compliance",    icon:"📋" },
+  { key:"projects",   label:"Projects & District Events", icon:"🤝" },
+  { key:"service",    label:"Service & Recognition",      icon:"🏆" }
+];
+function zone7BarometerGroup(id){
+  if(id <= 7) return "governance";
+  if(id <= 16) return "meetings";
+  if(id <= 24) return "reporting";
+  if(id <= 31) return "projects";
+  return "service";
+}
+
+const BAROMETER_COMMUNITY = [
+  {id:1,  points:2, verifier:"Zonal Rotaract Representative", text:"Form a strategic planning team to create a strategic plan with vision, mission and aligned yearly goals, update it in district software, and submit it by July 30, 2026."},
+  {id:2,  points:2, verifier:"Zonal Rotaract Representative", text:"Maintain and organize all club assets and records such as charter documents, collar, gong and gavel, attendance, minutes, reports, and official guidelines (Rotaract Handbook, Statement of Policy, Constitution and Standard Club Bylaws)."},
+  {id:3,  points:3, verifier:"Recognition Committee", text:"Update members' demographic details in the Rotaract Nepal Software and RI portal, assign mentors and committee roles, and verify through updates in the Members section of both platforms."},
+  {id:4,  points:2, verifier:"Zonal Rotaract Representative", text:"Update your Goal Mission in Rotary Central at My Rotary."},
+  {id:5,  points:2, verifier:"Zonal Rotaract Representative", text:"Form and appoint club committee members and conduct committee meetings as per the Club By-laws."},
+  {id:6,  points:2, verifier:"Zonal Rotaract Representative", text:"Establish financial guidelines to ensure transparent and responsible management of all club funds."},
+  {id:7,  points:2, verifier:"Zonal Rotaract Representative", text:"Prepare a realistic annual club budget and review it with feedback during the club assembly."},
+  {id:8,  points:3, verifier:"Zonal Rotaract Representative", text:"Conduct 24 General Meetings and 12 BOD Meetings."},
+  {id:9,  points:2, verifier:"Zonal Rotaract Representative", text:"Conduct at least two club assemblies."},
+  {id:10, points:2, verifier:"Zonal Rotaract Representative", text:"President Elect finalized within deadline."},
+  {id:11, points:2, verifier:"Zonal Rotaract Representative", text:"Complete the club installation within August."},
+  {id:12, points:2, verifier:"Zonal Rotaract Representative", text:"Increase membership by at least 20%."},
+  {id:13, points:2, verifier:"Zonal Rotaract Representative", text:"Maintain member retention at up to 80%."},
+  {id:14, points:1, verifier:"Zonal Rotaract Representative", text:"Participate in the PST Elect Learning Seminar."},
+  {id:15, points:3, verifier:"Zonal Rotaract Representative", text:"Ensure at least 10% member participation in Zonal COTS."},
+  {id:16, points:3, verifier:"Zonal Rotaract Representative", text:"Host a Club COTS."},
+  {id:17, points:4, verifier:"Recognition Committee", text:"Submit quarterly reports to the Rotaract District."},
+  {id:18, points:4, verifier:"Zonal Rotaract Representative", text:"Facilitate ZRR visits semi-annually."},
+  {id:19, points:4, verifier:"Zonal Rotaract Representative", text:"Conduct the DRR visit."},
+  {id:20, points:2, verifier:"Recognition Committee", text:"Achieve 100% access to My Rotary."},
+  {id:21, points:2, verifier:"Zonal Rotaract Representative", text:"Intra District Twin Club Formation."},
+  {id:22, points:4, verifier:"Zonal Rotaract Representative", text:"Payment of RI Dues + District Dues (within deadline, as per email)."},
+  {id:23, points:2, verifier:"Recognition Committee", text:"Participate in the Grant Management Seminar."},
+  {id:24, points:3, verifier:"Recognition Committee", text:"Invite experts from different sectors to speak at your meetings (minimum of 3 meetings)."},
+  {id:25, points:2, verifier:"Recognition Committee", text:"Conduct a project supporting the DRR Theme."},
+  {id:26, points:2, verifier:"Zonal Rotaract Representative", text:"Joint meeting and program with sponsoring/partner Rotary club."},
+  {id:27, points:2, verifier:"Recognition Committee", text:"Implement a club signature project."},
+  {id:28, points:3, verifier:"Recognition Committee", text:"Conduct at least two public fundraising events to support the club's activities."},
+  {id:29, points:4, verifier:"Recognition Committee", text:"Celebrate World Rotaract Week for 7 days."},
+  {id:30, points:5, verifier:"Recognition Committee", text:"Participate in five major district events."},
+  {id:31, points:2, verifier:"Recognition Committee", text:"Host / Collaborate / Co-Host / Support any Rotaract District Event."},
+  {id:32, points:2, verifier:"Recognition Committee", text:"Conduct the 13th Late Rtr. Sachin Memorial Nationwide Blood Donation, or at least one blood donation event during the year.", auto:"blood"},
+  {id:33, points:2, verifier:"Recognition Committee", text:"Participate in the Late Rtr. Santosh Memorial ROTA Quiz."},
+  {id:34, points:2, verifier:"Recognition Committee", text:"Participate in the Nationwide Futsal Tournament."},
+  {id:35, points:2, verifier:"Recognition Committee", text:"Conduct a joint project with another organization (other than Rotaract)."},
+  {id:36, points:4, verifier:"Recognition Committee", text:"Project based on Rotary's 7 Areas of Focus (at least projects across 4 focus areas).", auto:"focusareas"},
+  {id:37, points:2, verifier:"Zonal Rotaract Representative", text:"Project based on the International Avenue (Twinship + Project)."},
+  {id:38, points:2, verifier:"Recognition Committee", text:"Conduct a project focused on members' professional development."},
+  {id:39, points:2, verifier:"Recognition Committee", text:"Collaboration with other organizations for privilege cards and benefits."},
+  {id:40, points:2, verifier:"Recognition Committee", text:"Maintain the club's social media regularly."}
+].map(item => ({...item, group: zone7BarometerGroup(item.id)}));
+
+/* University-based variant — same numbering, differences vs. Community
+   noted inline (items 8, 12, 13, 24, 28, 29, 30, 31, 35 differ). */
+const BAROMETER_UNIVERSITY = BAROMETER_COMMUNITY.map(item => ({...item})).map(item => {
+  const overrides = {
+    8:  {points:4, text:"Conduct 18 General Meetings and 12 BOD Meetings."},
+    12: {text:"Increase membership by at least 50%."},
+    13: {text:"Maintain member retention at up to 40%."},
+    24: {points:4},
+    28: {points:2, text:"Conduct at least one public fundraising event to support the club's activities."},
+    29: {points:4, verifier:"Zonal Rotaract Representative", text:"Conduct at least two Goodwill Visits with Rotaract Clubs."},
+    30: {points:4, text:"Participate in any four major district events."},
+    31: {text:"Conduct a project based on Maternal Health or Child Health."},
+    35: {text:"Conduct a project based on Basic Education and TEACH."}
+  };
+  return overrides[item.id] ? {...item, ...overrides[item.id]} : item;
+});
+
+function zone7GetBarometer(clubSlug){
+  return UNIVERSITY_CLUBS.includes(clubSlug) ? BAROMETER_UNIVERSITY : BAROMETER_COMMUNITY;
+}
+
+/* Rotary's 7 Areas of Focus — used to auto-tally item 36. Matched loosely
+   against a project's category/title/summary/body text. */
+const ROTARY_FOCUS_AREAS = {
+  "Peacebuilding & Conflict Prevention": ["peace","conflict"],
+  "Disease Prevention & Treatment": ["disease","health camp","medical","vaccination"],
+  "Water, Sanitation & Hygiene": ["water","sanitation","hygiene","wash"],
+  "Maternal & Child Health": ["maternal","child health","mother","newborn"],
+  "Basic Education & Literacy": ["education","literacy","school","teach"],
+  "Community Economic Development": ["economic","livelihood","entrepreneur","income"],
+  "Environment": ["environment","tree","plantation","clean-up","cleanup","climate"]
+};
+
+/* Given a club's project list, auto-evaluate the handful of barometer
+   items that can be reasonably inferred from project data. Returns a
+   Set of item ids that should be considered satisfied. */
+function zone7AutoCheck(projects){
+  const satisfied = new Set();
+  const blob = p => `${p.title||""} ${p.category||""} ${p.summary||""} ${p.body||""}`.toLowerCase();
+
+  // item 32 — any project mentioning blood donation
+  if(projects.some(p => blob(p).includes("blood"))){
+    satisfied.add(32);
+  }
+
+  // item 36 — projects touching at least 4 of Rotary's 7 Areas of Focus
+  const matchedAreas = new Set();
+  projects.forEach(p => {
+    const text = blob(p);
+    Object.entries(ROTARY_FOCUS_AREAS).forEach(([area, keywords]) => {
+      if(keywords.some(k => text.includes(k))) matchedAreas.add(area);
+    });
+  });
+  if(matchedAreas.size >= 4){
+    satisfied.add(36);
+  }
+
+  return satisfied;
+}
+
+const BAROMETER_URL = `${SUPABASE_URL}/rest/v1/barometer`;
+
 const GUIDES_URL = `${SUPABASE_URL}/rest/v1/guides`;
 const REST_URL = `${SUPABASE_URL}/rest/v1/projects`;
 const EVENTS_URL = `${SUPABASE_URL}/rest/v1/events`;
@@ -186,6 +332,35 @@ const ZONE7_DB = {
       gallery: row.gallery || [],
       updated: row.updated
     };
+  },
+
+  /* ---- barometer (District 3292 club excellence checklist) ---- */
+  async getBarometer(clubSlug){
+    try{
+      const res = await fetch(`${BAROMETER_URL}?club_slug=eq.${encodeURIComponent(clubSlug)}`, { headers: REST_HEADERS });
+      if(!res.ok) throw new Error("Fetch failed: " + res.status);
+      const rows = await res.json();
+      return rows.length ? rows[0] : { club_slug: clubSlug, checked_items: [] };
+    } catch(e){
+      console.error("ZONE7_DB.getBarometer error", e);
+      return this._barometerCache && this._barometerCache[clubSlug] || { club_slug: clubSlug, checked_items: [] };
+    }
+  },
+
+  async saveBarometer(clubSlug, checkedItems){
+    const row = { club_slug: clubSlug, checked_items: checkedItems, updated: Date.now() };
+    this._barometerCache = this._barometerCache || {};
+    this._barometerCache[clubSlug] = row;
+    const res = await fetch(`${BAROMETER_URL}?on_conflict=club_slug`, {
+      method: "POST",
+      headers: { ...REST_HEADERS, "Prefer": "resolution=merge-duplicates,return=representation" },
+      body: JSON.stringify(row)
+    });
+    if(!res.ok){
+      const errText = await res.text();
+      throw new Error("Save failed: " + res.status + " " + errText);
+    }
+    return true;
   },
 
   /* ---- guides (Guides for Clubs resource page) ---- */

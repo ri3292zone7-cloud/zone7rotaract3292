@@ -82,3 +82,28 @@ create policy "Anon can write guides"
   on guides for all
   using (true)
   with check (true);
+
+-- ===================================================================
+-- BAROMETER TABLE — District 3292 club excellence checklist (RY 2026-27)
+-- One row per club, storing which criteria the club has self-checked
+-- off as complete. checked_items is a JSON array of criteria numbers,
+-- e.g. [1,2,5,8]. Auto-detected items (blood donation, 7 Areas of
+-- Focus) are computed live from the projects table and are NOT stored
+-- here — only the manually self-reported items are.
+-- ===================================================================
+create table if not exists barometer (
+  club_slug text primary key,
+  checked_items jsonb default '[]'::jsonb,
+  updated bigint
+);
+
+alter table barometer enable row level security;
+
+create policy "Public can view barometer"
+  on barometer for select
+  using (true);
+
+create policy "Anon can write barometer"
+  on barometer for all
+  using (true)
+  with check (true);

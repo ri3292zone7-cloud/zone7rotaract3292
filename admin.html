@@ -102,6 +102,114 @@
   .a-empty{color:rgba(27,24,54,0.45); font-size:0.85rem; padding:6px 0;}
 
   @media (max-width:860px){ .dash-body{grid-template-columns:1fr;} .field-row{grid-template-columns:1fr;} .analytics-stats{grid-template-columns:1fr;} }
+
+  /* BAROMETER PANEL */
+  .baro-summary{
+    display:grid; grid-template-columns:1fr 1fr 1.4fr; gap:16px; margin-bottom:28px; align-items:stretch;
+  }
+  .baro-score-card{
+    background:linear-gradient(135deg, var(--ink), #3a3170); color:#fff; border-radius:18px; padding:24px 26px;
+    display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden;
+  }
+  .baro-score-card::after{
+    content:"🎯"; position:absolute; right:-6px; bottom:-14px; font-size:4.4rem; opacity:0.12; transform:rotate(-8deg);
+  }
+  .baro-score-card b{font-family:'Poppins'; font-weight:800; font-size:2.2rem; display:block; position:relative; z-index:1;}
+  .baro-score-card span{font-size:0.74rem; color:rgba(255,255,255,0.65); font-weight:700; text-transform:uppercase; letter-spacing:0.06em; position:relative; z-index:1;}
+  .baro-badge-card{
+    background:linear-gradient(135deg, rgba(225,26,110,0.1), rgba(242,169,0,0.12)); border:1px solid rgba(225,26,110,0.18); border-radius:18px; padding:24px 26px;
+    display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden;
+  }
+  .baro-badge-card::after{content:"🏅"; position:absolute; right:-4px; bottom:-16px; font-size:4.2rem; opacity:0.14;}
+  .baro-badge-card b{font-family:'Poppins'; font-weight:800; font-size:1.2rem; color:var(--magenta-deep); display:block; margin-bottom:5px; position:relative; z-index:1;}
+  .baro-badge-card span{font-size:0.74rem; color:rgba(27,24,54,0.55); font-weight:700; text-transform:uppercase; letter-spacing:0.06em; position:relative; z-index:1;}
+  .baro-progress-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:22px 26px;
+    display:flex; flex-direction:column; justify-content:center; gap:12px;
+  }
+  .baro-progress-track{background:var(--cream); border:1px solid var(--line); border-radius:100px; height:16px; overflow:hidden; position:relative;}
+  .baro-progress-fill{height:100%; background:linear-gradient(90deg, var(--magenta), var(--gold)); border-radius:100px; transition:width .5s cubic-bezier(.4,0,.2,1);}
+  .baro-progress-labels{display:flex; justify-content:space-between; font-size:0.74rem; font-weight:800; color:var(--ink);}
+  .baro-progress-labels span:last-child{color:rgba(27,24,54,0.45); font-weight:600; text-transform:uppercase; letter-spacing:0.04em; font-size:0.68rem;}
+  .baro-thresholds{display:flex; gap:5px; flex-wrap:wrap; font-size:0.66rem; font-weight:700;}
+  .baro-thresholds span{padding:3px 9px; border-radius:100px; background:var(--cream); color:rgba(27,24,54,0.4); border:1px solid var(--line);}
+  .baro-thresholds span.hit{color:#fff; background:var(--magenta-deep); border-color:var(--magenta-deep);}
+
+  .baro-toolbar{
+    display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:24px; flex-wrap:wrap;
+    background:var(--cream); border:1px solid var(--line); border-radius:14px; padding:16px 20px;
+  }
+  .baro-toolbar .note{font-size:0.82rem; color:rgba(27,24,54,0.6); max-width:520px; line-height:1.55;}
+  .baro-toolbar .note strong{color:var(--magenta-deep);}
+  .baro-actions{display:flex; gap:10px; flex-shrink:0;}
+  .baro-actions .btn{padding:11px 20px; font-size:0.85rem;}
+
+  .baro-group{margin-bottom:26px;}
+  .baro-group:last-child{margin-bottom:0;}
+  .baro-group-head{
+    display:flex; align-items:center; gap:10px; margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid var(--line);
+  }
+  .baro-group-icon{font-size:1.15rem;}
+  .baro-group-title{font-family:'Poppins'; font-weight:700; font-size:0.92rem; color:var(--ink);}
+  .baro-group-count{
+    margin-left:auto; font-size:0.72rem; font-weight:700; color:var(--magenta-deep); background:rgba(225,26,110,0.08);
+    padding:3px 11px; border-radius:100px;
+  }
+
+  .baro-list{display:flex; flex-direction:column; gap:10px;}
+  .baro-item{
+    display:grid; grid-template-columns:auto 1fr auto; gap:16px; align-items:center;
+    padding:14px 18px; background:#fff; border:1px solid var(--line); border-radius:14px;
+    border-left:4px solid var(--line); transition:border-color .2s, background .2s, transform .15s;
+  }
+  .baro-item:hover{transform:translateX(2px); border-color:rgba(225,26,110,0.25);}
+  .baro-item.checked{background:rgba(34,160,90,0.045); border-left-color:#22a05a;}
+  .baro-item.auto{background:rgba(242,169,0,0.07); border-left-color:var(--gold);}
+  .baro-check-wrap{
+    width:26px; height:26px; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  }
+  .baro-check{
+    width:20px; height:20px; accent-color:var(--magenta-deep); cursor:pointer; flex-shrink:0;
+  }
+  .baro-check:disabled{cursor:default;}
+  .baro-text{font-size:0.9rem; color:var(--ink); line-height:1.55;}
+  .baro-text .num{font-weight:800; color:rgba(27,24,54,0.3); margin-right:6px; font-size:0.82rem;}
+  .baro-tag{
+    font-size:0.64rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:#8a6300;
+    background:rgba(242,169,0,0.22); padding:3px 9px; border-radius:100px; white-space:nowrap; margin-left:8px; display:inline-flex; align-items:center; gap:4px;
+  }
+  .baro-meta{display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex-shrink:0; min-width:78px;}
+  .baro-pts{font-family:'Poppins'; font-weight:800; color:var(--magenta-deep); font-size:1rem;}
+  .baro-verifier{font-size:0.66rem; color:rgba(27,24,54,0.42); font-weight:600; text-align:right; white-space:nowrap;}
+  @media (max-width:700px){
+    .baro-summary{grid-template-columns:1fr;}
+    .baro-toolbar{flex-direction:column; align-items:flex-start;}
+    .baro-item{grid-template-columns:auto 1fr;}
+    .baro-meta{grid-column:1 / -1; flex-direction:row; justify-content:space-between; width:100%; margin-top:8px; align-items:center;}
+  }
+
+  /* SIDEBAR NAV */
+  .admin-sidebar{
+    position:fixed; top:76px; left:0; width:230px; height:calc(100vh - 76px); overflow-y:auto;
+    background:var(--paper); border-right:1px solid var(--line); padding:26px 16px; z-index:50;
+  }
+  .admin-sidebar .sb-label{font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:rgba(27,24,54,0.4); margin:18px 10px 8px;}
+  .admin-sidebar .sb-label:first-child{margin-top:0;}
+  .sb-item{
+    display:flex; align-items:center; gap:11px; padding:11px 14px; border-radius:12px; font-size:0.9rem; font-weight:700;
+    color:var(--ink); cursor:pointer; margin-bottom:4px; transition:background .15s, color .15s;
+  }
+  .sb-item:hover{background:rgba(225,26,110,0.07);}
+  .sb-item.active{background:var(--ink); color:#fff;}
+  .sb-item .ic{font-size:1.05rem; width:20px; text-align:center; flex-shrink:0;}
+  body.has-sidebar #dashboard > .wrap, body.has-sidebar #guidesPanel{margin-left:230px; max-width:none; padding-right:28px;}
+  .view{display:none;}
+  .view.active{display:block;}
+  @media (max-width:900px){
+    .admin-sidebar{position:static; width:auto; height:auto; border-right:none; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:6px; padding:14px 20px;}
+    .admin-sidebar .sb-label{display:none;}
+    body.has-sidebar #dashboard > .wrap, body.has-sidebar #guidesPanel{margin-left:0; padding-right:0;}
+  }
 </style>
 </head>
 <body>
@@ -145,6 +253,16 @@
 
 <!-- DASHBOARD -->
 <div id="dashboard">
+  <nav class="admin-sidebar" id="adminSidebar">
+    <div class="sb-label">Club</div>
+    <div class="sb-item active" data-view="projects"><span class="ic">📁</span>Projects</div>
+    <div class="sb-item" data-view="barometer"><span class="ic">🎯</span>District Barometer</div>
+    <div class="sb-item" data-view="events"><span class="ic">📅</span>Zone Events</div>
+    <div class="sb-item" data-view="analytics"><span class="ic">📊</span>Analytics</div>
+    <div class="sb-item" data-view="guides"><span class="ic">📚</span>Guides (Zonal)</div>
+    <div class="sb-label">Explore</div>
+    <a class="sb-item" href="district-overview.html" target="_blank"><span class="ic">🌏</span>District Overview</a>
+  </nav>
   <div class="wrap">
     <div class="dash-header">
       <div style="display:flex; align-items:center; gap:14px;">
@@ -160,7 +278,7 @@
       </div>
     </div>
 
-    <div class="dash-body">
+    <div class="dash-body view active" id="view-projects">
       <div class="panel">
         <h3>Your Projects</h3>
         <div class="proj-list" id="projList"></div>
@@ -218,7 +336,8 @@
       </div>
     </div>
 
-    <div class="panel" style="margin-top:36px;">
+    <div class="view" id="view-analytics">
+    <div class="panel">
       <h3>Zone 7 Analytics <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(zone-wide, live from Supabase)</span></h3>
       <div class="analytics-stats" id="analyticsStats"><div class="no-projects">Loading analytics…</div></div>
 
@@ -231,8 +350,39 @@
       <h4 class="a-subhead">Monthly Trend <span style="font-weight:500; font-size:0.72rem; color:rgba(27,24,54,0.45); text-transform:none; letter-spacing:0;">(projects added this Rotary year, Jul&ndash;Jun)</span></h4>
       <div class="analytics-table-wrap" id="analyticsTrendWrap"></div>
     </div>
+    </div>
 
-    <div class="panel" style="margin-top:36px;">
+    <div class="view" id="view-barometer">
+    <div class="panel" id="barometerPanel">
+      <h3 id="baroTitle">District Barometer <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(RY 2026-27, self-tracked)</span></h3>
+      <div class="baro-summary">
+        <div class="baro-score-card">
+          <b id="baroScore">0 / 100</b>
+          <span>Your Score So Far</span>
+        </div>
+        <div class="baro-badge-card">
+          <b id="baroBadge">Not Yet Rated</b>
+          <span>Projected Recognition Category</span>
+        </div>
+        <div class="baro-progress-card">
+          <div class="baro-progress-labels"><span id="baroPct">0%</span><span>of 100 points</span></div>
+          <div class="baro-progress-track"><div class="baro-progress-fill" id="baroProgressFill" style="width:0%;"></div></div>
+          <div class="baro-thresholds" id="baroThresholds"></div>
+        </div>
+      </div>
+      <div class="baro-toolbar">
+        <p class="note">Tick off criteria as your club completes them. Items tagged <strong>Auto-detected</strong> are pulled automatically from your uploaded projects — everything else is self-reported here and confirmed later by the ZRR / Recognition Committee.</p>
+        <div class="baro-actions">
+          <button class="btn btn-ghost" id="baroPdfBtn" type="button">Download PDF ↓</button>
+          <button class="btn btn-primary" id="baroSaveBtn" type="button">Save Progress</button>
+        </div>
+      </div>
+      <div class="baro-list" id="baroList"></div>
+    </div>
+    </div>
+
+    <div class="view" id="view-events">
+    <div class="panel">
       <h3>Zone Events <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(shown on the homepage — visible to all clubs)</span></h3>
       <div class="proj-list" id="eventList" style="margin-bottom:20px;"></div>
       <div class="field-row">
@@ -250,11 +400,13 @@
         <button type="button" class="btn btn-danger" id="deleteEventBtn" style="display:none;">Delete</button>
       </div>
     </div>
+    </div>
   </div>
 </div>
 
     <!-- GUIDES PANEL (zonal team only) -->
-    <div class="panel" id="guidesPanel" style="margin-top:36px; display:none;">
+    <div class="view" id="view-guides">
+    <div class="panel" id="guidesPanel">
       <h3>Guides for Clubs <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(shown on guides.html — visible to all clubs)</span></h3>
       <div class="proj-list" id="guideList" style="margin-bottom:20px;"></div>
       <div class="field-row">
@@ -269,6 +421,7 @@
         <button type="button" class="btn btn-primary" id="gUploadBtn">Upload Guide</button>
       </div>
       <div style="font-size:0.85rem; margin-top:10px; font-weight:600; display:none;" id="gUploadMsg"></div>
+    </div>
     </div>
   </div>
 </div>
@@ -295,10 +448,21 @@ function showToast(msg){
   setTimeout(() => t.classList.remove("show"), 2200);
 }
 
+function switchView(name){
+  document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === "view-" + name));
+  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.classList.toggle("active", el.dataset.view === name));
+}
+document.querySelectorAll(".sb-item[data-view]").forEach(el => {
+  el.addEventListener("click", () => switchView(el.dataset.view));
+});
+
 async function enterDashboard(slug){
   currentClub = slug;
   document.getElementById("loginView").style.display = "none";
   document.getElementById("dashboard").style.display = "block";
+  document.body.classList.add("has-sidebar");
+  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (el.dataset.view === "guides" ? "none" : "flex"));
+  switchView("projects");
   document.getElementById("dashClubName").textContent = CLUB_DIRECTORY[slug].name + " — Dashboard";
   const logoEl = document.getElementById("dashClubLogo");
   if(CLUB_DIRECTORY[slug].logo){ logoEl.src = CLUB_DIRECTORY[slug].logo; logoEl.style.display = "block"; }
@@ -307,7 +471,166 @@ async function enterDashboard(slug){
   await renderProjectList();
   resetForm();
   loadAnalytics();
+  loadBarometer();
 }
+
+/* ---- District Barometer ---- */
+let baroCheckedItems = [];
+let baroCriteria = [];
+
+async function loadBarometer(){
+  baroCriteria = zone7GetBarometer(currentClub);
+  const isUni = UNIVERSITY_CLUBS.includes(currentClub);
+  document.getElementById("baroTitle").innerHTML = `District Barometer <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(${isUni ? "University-Based Clubs" : "Community-Based Clubs"} · RY 2026-27, self-tracked)</span>`;
+
+  const [row, projects] = await Promise.all([
+    ZONE7_DB.getBarometer(currentClub),
+    ZONE7_DB.getProjects(currentClub)
+  ]);
+  baroCheckedItems = row.checked_items || [];
+  const autoIds = zone7AutoCheck(projects);
+  renderBarometer(autoIds);
+}
+
+function renderBarometer(autoIds){
+  const list = document.getElementById("baroList");
+  const checkedSet = new Set(baroCheckedItems);
+
+  list.innerHTML = BAROMETER_GROUPS.map(grp => {
+    const items = baroCriteria.filter(item => item.group === grp.key);
+    if(!items.length) return "";
+    const doneCount = items.filter(item => (item.auto && autoIds.has(item.id)) || checkedSet.has(item.id)).length;
+
+    const itemsHtml = items.map(item => {
+      const isAuto = item.auto && autoIds.has(item.id);
+      const isChecked = isAuto || checkedSet.has(item.id);
+      return `
+        <div class="baro-item${isChecked ? ' checked':''}${isAuto ? ' auto':''}" data-id="${item.id}">
+          <div class="baro-check-wrap"><input type="checkbox" class="baro-check" data-id="${item.id}" ${isChecked ? 'checked':''} ${isAuto ? 'disabled':''}></div>
+          <div class="baro-text"><span class="num">${item.id}.</span>${zone7Esc(item.text)}${isAuto ? '<span class="baro-tag">✨ Auto-detected</span>' : ''}</div>
+          <div class="baro-meta">
+            <span class="baro-pts">${item.points} pt${item.points>1?'s':''}</span>
+            <span class="baro-verifier">${zone7Esc(item.verifier)}</span>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    return `
+      <div class="baro-group">
+        <div class="baro-group-head">
+          <span class="baro-group-icon">${grp.icon}</span>
+          <span class="baro-group-title">${grp.label}</span>
+          <span class="baro-group-count">${doneCount}/${items.length}</span>
+        </div>
+        <div class="baro-list">${itemsHtml}</div>
+      </div>
+    `;
+  }).join("");
+
+  list.querySelectorAll(".baro-check:not(:disabled)").forEach(cb => {
+    cb.addEventListener("change", () => {
+      const id = Number(cb.dataset.id);
+      if(cb.checked) baroCheckedItems.push(id);
+      else baroCheckedItems = baroCheckedItems.filter(x => x !== id);
+      cb.closest(".baro-item").classList.toggle("checked", cb.checked);
+      renderBarometer(autoIds);
+    });
+  });
+
+  updateBarometerScore();
+}
+
+function currentBarometerState(){
+  const autoIds = [];
+  document.querySelectorAll(".baro-item.auto").forEach(el => autoIds.push(Number(el.dataset.id)));
+  const manualChecked = new Set(baroCheckedItems);
+  const allChecked = new Set([...autoIds, ...manualChecked]);
+  const total = baroCriteria.reduce((sum,item) => sum + (allChecked.has(item.id) ? item.points : 0), 0);
+  const maxTotal = baroCriteria.reduce((sum,item) => sum + item.points, 0);
+  return { total, maxTotal, allChecked };
+}
+
+function updateBarometerScore(){
+  const { total, maxTotal } = currentBarometerState();
+  const pct = maxTotal ? Math.round((total/maxTotal)*100) : 0;
+  document.getElementById("baroScore").textContent = `${total} / ${maxTotal}`;
+  document.getElementById("baroPct").textContent = `${pct}%`;
+  document.getElementById("baroProgressFill").style.width = `${Math.min(100,pct)}%`;
+  document.getElementById("baroBadge").textContent = zone7BarometerCategory(pct);
+
+  document.getElementById("baroThresholds").innerHTML = BAROMETER_THRESHOLDS.slice().reverse().map(t =>
+    `<span class="${pct >= t.min ? 'hit' : ''}">${t.label} ${t.min}-${t.max}</span>`
+  ).join("");
+}
+
+document.getElementById("baroSaveBtn").addEventListener("click", async () => {
+  const btn = document.getElementById("baroSaveBtn");
+  btn.disabled = true; btn.textContent = "Saving…";
+  try{
+    await ZONE7_DB.saveBarometer(currentClub, baroCheckedItems);
+    showToast("Barometer progress saved ✓");
+  } catch(err){
+    console.error(err);
+    showToast("Save failed — check your Supabase setup.");
+  } finally {
+    btn.disabled = false; btn.textContent = "Save Progress";
+  }
+});
+
+document.getElementById("baroPdfBtn").addEventListener("click", () => {
+  const { total, maxTotal, allChecked } = currentBarometerState();
+  const pct = maxTotal ? Math.round((total/maxTotal)*100) : 0;
+  const badge = zone7BarometerCategory(pct);
+  const clubName = CLUB_DIRECTORY[currentClub] ? CLUB_DIRECTORY[currentClub].name : currentClub;
+  const isUni = UNIVERSITY_CLUBS.includes(currentClub);
+
+  const rows = BAROMETER_GROUPS.map(grp => {
+    const items = baroCriteria.filter(item => item.group === grp.key);
+    if(!items.length) return "";
+    const groupRows = items.map(item => `
+      <tr>
+        <td style="text-align:center;">${item.id}</td>
+        <td>${zone7Esc(item.text)}</td>
+        <td style="text-align:center;">${item.points}</td>
+        <td style="text-align:center;">${allChecked.has(item.id) ? '✓' : ''}</td>
+        <td style="font-size:0.78rem; color:#555;">${zone7Esc(item.verifier)}</td>
+      </tr>
+    `).join("");
+    return `<tr><td colspan="5" style="background:#FFF8EF; font-weight:700; color:#A80F52;">${grp.icon} ${grp.label}</td></tr>${groupRows}`;
+  }).join("");
+
+  const win = window.open("", "_blank");
+  win.document.write(`
+    <html><head><title>${clubName} — District Barometer</title>
+    <style>
+      body{font-family:Arial,Helvetica,sans-serif; padding:30px; color:#1B1836;}
+      h1{font-size:1.4rem; margin-bottom:2px;}
+      h2{font-size:1rem; font-weight:600; color:#A80F52; margin-bottom:18px;}
+      table{width:100%; border-collapse:collapse; font-size:0.82rem;}
+      th,td{border:1px solid #ccc; padding:7px 9px; vertical-align:top;}
+      th{background:#1B1836; color:#fff; text-align:left;}
+      .summary{margin:14px 0 20px; padding:14px 18px; background:#FFF8EF; border:1px solid #eee; border-radius:8px;}
+      .summary b{color:#A80F52;}
+      @media print{ .noprint{display:none;} }
+    </style>
+    </head><body>
+      <h1>Rotaract District 3292, Nepal-Bhutan</h1>
+      <h2>Barometer for ${isUni ? "University" : "Community"} Based Clubs, RY 2026-27 — ${zone7Esc(clubName)}</h2>
+      <div class="summary">
+        <b>${total} / ${maxTotal} points</b> — Projected Recognition Category: <b>${badge}</b><br>
+        Generated ${new Date().toLocaleDateString()} · Self-reported by the club; subject to ZRR / Recognition Committee verification.
+      </div>
+      <table>
+        <tr><th>#</th><th>Criteria</th><th>Points</th><th>Done</th><th>Verified By</th></tr>
+        ${rows}
+      </table>
+      <p class="noprint" style="margin-top:22px;"><button onclick="window.print()">Print / Save as PDF</button></p>
+      <` + `script>window.onload = () => setTimeout(() => window.print(), 300);<` + `/script>
+    </body></html>
+  `);
+  win.document.close();
+});
 
 async function loadAnalytics(){
   const statsEl = document.getElementById("analyticsStats");
@@ -650,10 +973,9 @@ document.getElementById("zonalLoginBtn").addEventListener("click", () => {
     document.getElementById("dashClubName").textContent = "Zone 7 Team — Dashboard";
     document.getElementById("dashClubLogo").style.display = "none";
     document.getElementById("viewClubBtn").style.display = "none";
-    document.getElementById("guidesPanel").style.display = "block";
-    // hide club-specific panels
-    document.querySelector(".dash-body").style.display = "none";
-    document.querySelector("[style*='margin-top:36px']").style.display = "none";
+    document.body.classList.add("has-sidebar");
+    document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (el.dataset.view === "guides" ? "flex" : "none"));
+    switchView("guides");
     renderGuideList();
   } else {
     const e = document.getElementById("zonalLoginError");
@@ -724,8 +1046,9 @@ if(ZONE7_DB.isZonal()){
   document.getElementById("dashClubName").textContent = "Zone 7 Team — Dashboard";
   document.getElementById("dashClubLogo").style.display = "none";
   document.getElementById("viewClubBtn").style.display = "none";
-  document.getElementById("guidesPanel").style.display = "block";
-  document.querySelector(".dash-body").style.display = "none";
+  document.body.classList.add("has-sidebar");
+  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (el.dataset.view === "guides" ? "flex" : "none"));
+  switchView("guides");
   renderGuideList();
 }
 
@@ -734,11 +1057,11 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
   ZONE7_DB.logoutZonal();
   currentClub = null;
   document.getElementById("dashboard").style.display = "none";
+  document.body.classList.remove("has-sidebar");
   document.getElementById("loginView").style.display = "flex";
   document.getElementById("password").value = "";
   document.getElementById("zonalPassword").value = "";
-  document.getElementById("guidesPanel").style.display = "none";
-  document.querySelector(".dash-body").style.display = "grid";
+  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (el.dataset.view === "guides" ? "none" : "flex"));
   document.getElementById("viewClubBtn").style.display = "inline-flex";
 }, {once: false});
 </script>

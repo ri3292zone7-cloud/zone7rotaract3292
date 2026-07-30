@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guides for Clubs | Zone 7 Rotaract 3292</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
+    --cream:#FFF8EF; --paper:#FFFDF9; --line: rgba(27,24,54,0.1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:960px; margin:0 auto; padding:0 28px;}
+
+  nav{position:sticky; top:0; z-index:100; background:rgba(255,253,249,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Poppins'; font-weight:800; font-size:1.1rem;}
+  .brand .z{background:var(--magenta); color:#fff; width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center;}
+  .back{font-weight:700; font-size:0.88rem; color:var(--magenta-deep);}
+
+  .hero{padding:60px 0 10px; position:relative; overflow:hidden;}
+  .hero::before{
+    content:""; position:absolute; top:-140px; right:-140px; width:360px; height:360px; border-radius:50%;
+    background:radial-gradient(circle, rgba(225,26,110,0.12), transparent 70%); z-index:0;
+  }
+  .eyebrow{position:relative; z-index:1; display:inline-flex; align-items:center; gap:8px; font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:8px 16px; border-radius:100px; margin-bottom:20px;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
+  .hero h1{position:relative; z-index:1; font-size:clamp(2rem,4.4vw,2.8rem); max-width:640px;}
+  .hero p.sub{position:relative; z-index:1; color:rgba(27,24,54,0.65); font-size:1.02rem; max-width:640px; margin-top:16px; line-height:1.65;}
+  .hero .note{
+    position:relative; z-index:1; margin-top:20px; font-size:0.82rem; color:rgba(27,24,54,0.55); border-left:3px solid var(--gold);
+    padding-left:14px; max-width:600px; line-height:1.6;
+  }
+
+  /* QUICK-GLANCE ICON GRID */
+  .quickgrid{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin:40px 0 8px; position:relative; z-index:1;
+  }
+  .quick-item{
+    background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 12px;
+    text-align:center; transition:transform .2s, box-shadow .2s, border-color .2s; cursor:pointer;
+  }
+  .quick-item:hover{transform:translateY(-4px); box-shadow:0 14px 28px rgba(27,24,54,0.08); border-color:transparent;}
+  .quick-icon{
+    width:42px; height:42px; border-radius:12px; margin:0 auto 10px; display:flex; align-items:center; justify-content:center;
+  }
+  .quick-item span{font-size:0.74rem; font-weight:700; line-height:1.35; color:var(--ink); display:block;}
+  @media (max-width:760px){ .quickgrid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:460px){ .quickgrid{grid-template-columns:repeat(2,1fr);} }
+
+  .guide-list{margin:44px 0 60px; display:flex; flex-direction:column; gap:16px;}
+  .guide-block{
+    background:var(--paper); border:1px solid var(--line); border-radius:20px; overflow:hidden;
+    scroll-margin-top:100px; transition:box-shadow .2s;
+  }
+  .guide-block.open{box-shadow:0 20px 46px rgba(27,24,54,0.08);}
+  .guide-head{
+    padding:22px 26px; display:flex; align-items:center; justify-content:space-between; gap:16px; cursor:pointer;
+  }
+  .guide-head-left{display:flex; align-items:center; gap:16px;}
+  .guide-icon{
+    width:46px; height:46px; border-radius:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .guide-head h3{font-size:1.05rem;}
+  .guide-head p.tagline{font-size:0.82rem; color:rgba(27,24,54,0.5); margin-top:3px; font-weight:500;}
+  .guide-chevron{
+    width:30px; height:30px; border-radius:50%; border:1.5px solid var(--line); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; transition:transform .25s, background .2s, border-color .2s;
+  }
+  .guide-block.open .guide-chevron{transform:rotate(45deg); background:var(--magenta); border-color:var(--magenta);}
+  .guide-block.open .guide-chevron svg path{stroke:#fff;}
+
+  .guide-body{
+    max-height:0; overflow:hidden; transition:max-height .4s ease;
+  }
+  .guide-block.open .guide-body{max-height:1400px;}
+  .guide-body-inner{padding:0 26px 28px; border-top:1px solid var(--line); padding-top:22px;}
+  .guide-body-inner p.intro{font-size:0.96rem; color:rgba(27,24,54,0.74); line-height:1.75; margin-bottom:18px;}
+
+  .guide-stat{
+    display:flex; align-items:center; gap:14px; background:rgba(242,169,0,0.08); border:1px solid rgba(242,169,0,0.2);
+    border-radius:14px; padding:14px 18px; margin-bottom:20px;
+  }
+  .guide-stat .g-icon{font-size:1.3rem; flex-shrink:0;}
+  .guide-stat p{font-size:0.86rem; color:var(--ink); font-weight:600; line-height:1.5; margin:0;}
+  .guide-stat p span{color:var(--magenta-deep);}
+
+  .guide-checklist-label{font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:rgba(27,24,54,0.45); margin-bottom:10px;}
+  .guide-checklist{list-style:none; margin-bottom:20px;}
+  .guide-checklist li{
+    font-size:0.9rem; color:var(--ink); padding:9px 0 9px 30px; position:relative; line-height:1.5;
+    border-bottom:1px dashed var(--line);
+  }
+  .guide-checklist li:last-child{border-bottom:none;}
+  .guide-checklist li::before{
+    content:"✓"; position:absolute; left:0; top:9px; width:20px; height:20px; border-radius:50%;
+    background:rgba(225,26,110,0.1); color:var(--magenta-deep); font-weight:700; font-size:0.68rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  .guide-links{margin-top:6px;}
+  .guide-links-label{font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:rgba(27,24,54,0.45); margin-bottom:10px;}
+  .guide-link{
+    display:inline-flex; align-items:center; gap:6px; font-size:0.85rem; font-weight:700; color:var(--magenta-deep);
+    background:rgba(225,26,110,0.07); padding:8px 14px; border-radius:100px; margin:0 8px 8px 0;
+  }
+  .guide-link:hover{background:rgba(225,26,110,0.14);}
+  .guide-link svg{flex-shrink:0;}
+
+  .guide-original-tag{
+    display:inline-flex; align-items:center; gap:5px; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;
+    color:rgba(27,24,54,0.45); background:rgba(27,24,54,0.05); padding:4px 10px; border-radius:100px; margin-bottom:16px;
+  }
+
+  footer{background:var(--ink); color:rgba(255,255,255,0.5); padding:34px 0; text-align:center; font-size:0.85rem;}
+
+  @media (max-width:640px){
+    .guide-head{padding:18px 20px;}
+    .guide-body-inner{padding:0 20px 22px; padding-top:20px;}
+  }
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a href="index.html"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>
+  <a href="index.html" class="back">← Back to Site</a>
+</div></nav>
+
+<header class="hero wrap">
+  <div class="eyebrow"><span class="dot"></span>Zone 7 · Knowledge Base</div>
+  <h1>Guides for Clubs.</h1>
+  <p class="sub">Not the paperwork — the playbook. Where <a href="guides.html" style="color:var(--magenta-deep); font-weight:700;">Rotaract Resources</a> holds the official constitutions, forms and district documents, this is the "how do we actually pull this off" side of running a great Rotaract year — ten topics, ten tabs, zero boring policy language.</p>
+  <p class="note">Each section mixes original Zone 7 guidance with pointers to Rotary International's own official material, clearly marked — so you always know what's our take and what's straight from RI.</p>
+
+  <div class="quickgrid" id="quickGrid"></div>
+</header>
+
+<div class="wrap">
+  <div class="guide-list" id="guideList"></div>
+</div>
+
+<footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan.</footer>
+
+<script>
+const CHEVRON_SVG = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="#1B1836" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const LINK_SVG = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 3h4v4M13 3L7 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+// simple line-icon set, one per category
+const ICONS = {
+  leadership: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V4a1 1 0 011-1h9l4 4v6l-4 4H8l-4 4z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+  target: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="4.5" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="1" fill="#fff"/></svg>`,
+  coin: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="7" rx="8" ry="3.2" stroke="#fff" stroke-width="1.6"/><path d="M4 7v5c0 1.77 3.58 3.2 8 3.2s8-1.43 8-3.2V7M4 12v5c0 1.77 3.58 3.2 8 3.2s8-1.43 8-3.2v-5" stroke="#fff" stroke-width="1.6"/></svg>`,
+  megaphone: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 10v4a1 1 0 001 1h2l4 4V5L6 9H4a1 1 0 00-1 1z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 8a5 5 0 010 8M17.5 5.5a9.5 9.5 0 010 13" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  cap: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4L2 9l10 5 10-5-10-5z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M6 11.5V17c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+  globe: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#fff" stroke-width="1.6"/><path d="M3.5 12h17M12 3.5c2.5 2.4 4 5.3 4 8.5s-1.5 6.1-4 8.5c-2.5-2.4-4-5.3-4-8.5s1.5-6.1 4-8.5z" stroke="#fff" stroke-width="1.6"/></svg>`,
+  trophy: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 4h10v5a5 5 0 01-10 0V4z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 5H4v2a4 4 0 004 4M17 5h3v2a4 4 0 01-4 4M10 18h4M12 14v4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  handshake: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 11l4-4 4 2 4-2 4 4M6 13l3.5 3.5a1.5 1.5 0 002.1 0l.2-.2M13 13l1.5 1.5a1.5 1.5 0 002.1 0M17 9l3 3-3 3" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  laptop: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="10" rx="1.2" stroke="#fff" stroke-width="1.6"/><path d="M2 19h20M9 19l1-2h4l1 2" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  heart: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.4-9.5-9C.8 7.5 3 4 6.5 4c2 0 3.3 1 5.5 3.2C14.2 5 15.5 4 17.5 4 21 4 23.2 7.5 21.5 11c-2.5 4.6-9.5 9-9.5 9z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>`
+};
+
+const COLORS = ["var(--magenta)","var(--magenta-deep)","#8a6300","var(--magenta)","var(--magenta-deep)","#1c8a4d","var(--magenta)","var(--magenta-deep)","#1B1836","var(--magenta)"];
+
+const GUIDES = [
+  {
+    id:"leadership", icon:"leadership",
+    title:"Leadership & Officer Transition",
+    tagline:"Handoffs, training and keeping the story going",
+    body:`<p class="intro">Every Rotaract year lives or dies in the first two weeks of July. That's when a brand-new board either inherits a running club — or inherits a mystery. The single biggest cause of a slow start is a new officer getting the title but not the context. Fix it with a real handoff, not a hallway chat the week before installation.</p>`,
+    stat:{icon:"⏱️", text:`Clubs that do a <span>formal handoff meeting</span> before installation consistently hit the ground running by August — the ones that don't often spend their first two months just figuring out where things are.`},
+    checklist:[
+      "Schedule a formal handoff meeting between outgoing and incoming officers before the new Rotary year starts",
+      "Pass on login credentials, shared drives, financial records and ongoing project files as a package, not piecemeal",
+      "Write a one-page 'state of the club' brief: what's working, what's stuck, who the key contacts are",
+      "Have new officers attend District Leadership Training (DLTS) and Certificate of Training Seminars (COTS) before taking office",
+      "Keep the President and VP working as a team through the transition — succession works best when the VP has been shadowing all year"
+    ],
+    links:[
+      { label:"Rotary Learning Center (rotary.org/learn)", url:"https://my.rotary.org/en/learning-reference" },
+      { label:"Rotaract South Asia MDIO Library (DRR/officer workbooks)", url:"https://library.rsamdio.org/" }
+    ]
+  },
+  {
+    id:"projects", icon:"target",
+    title:"Service Project Execution",
+    tagline:"Turning a good idea into one that actually lasts",
+    body:`<p class="intro">A project proposal form tells you <em>what</em> a club plans to do. It doesn't tell you <em>how</em> to make sure it works — or sticks around after the banner comes down. That's a separate skill: needs assessment, community buy-in, and actually measuring whether anything changed. RI has literally built two frameworks for this, and they're gold even outside a grant application.</p>`,
+    stat:{icon:"🎯", text:`Projects built around <span>2-3 measurable outcomes</span> set before the event — not just an activity count — are far easier to report on, fund again, and be proud of a year later.`},
+    checklist:[
+      "Start with a real needs assessment — talk to the community before deciding on the solution",
+      "Use RI's Six Steps to Sustainability to check a project will create lasting change, not a one-off photo-op",
+      "Partner early with a Rotary club, another Rotaract club, or a local organization for capacity and credibility",
+      "Define 2-3 measurable outcomes before you start (e.g. '40 trees planted', not just 'we did a tree-planting event')",
+      "Document as you go — photos, numbers, quotes — so reporting and storytelling aren't a scramble afterward"
+    ],
+    links:[
+      { label:"Six Steps to Sustainability & Project Lifecycle Kit (rotary.org)", url:"https://www.rotary.org/en/get-involved/rotaract-clubs/details" }
+    ]
+  },
+  {
+    id:"finance", icon:"coin",
+    title:"Finance & Fundraising",
+    tagline:"Running the money side without the drama",
+    body:`<p class="intro">Most club finance problems aren't fraud — they're just messy handoffs and a budget nobody actually checks. A boring, consistently-used system beats a fancy one nobody follows. This one's home-grown Zone 7 wisdom, since there's no single RI manual for day-to-day club treasury life.</p>`,
+    stat:{icon:"💸", text:`Clubs that share a simple <span>income/expense summary at every board meeting</span> — not just at year-end — catch problems in weeks instead of finding out in June.`},
+    checklist:[
+      "Set an annual budget at the start of the year, split by category (projects, events, admin, contingency)",
+      "Require two signatories or approvals for any spending above a set threshold your club agrees on",
+      "Reconcile and share a simple income/expense summary at every board meeting, not just at year-end",
+      "Separate project-specific fundraising (earmarked) from general club dues in your records",
+      "Build a one-page sponsorship pitch template so members aren't reinventing the ask every time"
+    ],
+    original:true,
+    links:[]
+  },
+  {
+    id:"publicimage", icon:"megaphone",
+    title:"Public Image & Communications",
+    tagline:"Making your work visible, credible and on-brand",
+    body:`<p class="intro">A great project nobody hears about doesn't grow your club, attract members, or convince a sponsor to fund the next one. Public image isn't vanity — for a youth-led org competing for attention, it's literally how one project becomes a reputation.</p>`,
+    stat:{icon:"📸", text:`Clubs that post <span>consistently, not just after big events</span>, feel far more "alive" to prospective members scrolling their page for the first time.`},
+    checklist:[
+      "Photograph and document every event — before, during, and the people impacted, not just the group photo",
+      "Post consistently rather than only after big events; small updates keep a page feeling alive",
+      "Use RI's official Rotaract/Rotary logo and brand assets rather than freehand versions",
+      "Turn each project into a short story — problem, action, outcome — rather than just an announcement",
+      "Tag your sponsoring Rotary club and district in posts to reinforce the partnership publicly"
+    ],
+    links:[
+      { label:"Rotaract overview & brand context (rotary.org)", url:"https://www.rotary.org/en/get-involved/rotaract-clubs" }
+    ]
+  },
+  {
+    id:"profdev", icon:"cap",
+    title:"Professional Development",
+    tagline:"The other reason people join — building real skills",
+    body:`<p class="intro">Rotaract's fourth Avenue of Service is Professional Development, and it's often the most slept-on. Members join for service and fellowship, but skills-building is what keeps early-career members coming back year after year — and it's free to run if you use what RI already built for you.</p>`,
+    stat:{icon:"🎓", text:`Rotary's Learning Center has <span>600+ free courses</span> — enough ready-made workshop content to run one every month without writing a single slide yourself.`},
+    checklist:[
+      "Run at least one skills workshop per quarter — public speaking, resume/interview prep, negotiation, project management",
+      "Pair newer members with a Rotarian mentor from your sponsoring club for career guidance",
+      "Use Rotary's Learning Center courses as ready-made workshop content instead of building from scratch",
+      "Rotate who leads each session so facilitation skills spread across the club, not just the VP",
+      "Track attendance at development sessions the same way you track service hours — it signals it matters"
+    ],
+    links:[
+      { label:"Rotary Learning Center — 600+ courses (rotary.org/learn)", url:"https://my.rotary.org/en/learning-reference" }
+    ]
+  },
+  {
+    id:"international", icon:"globe",
+    title:"International & Inter-club Relations",
+    tagline:"Twin clubs, MDIOs, and life beyond your own city",
+    body:`<p class="intro">Some Zone 7 clubs already hold twin-club partnerships abroad — doors to joint projects, cultural exchange and international service credit. But only if someone actively tends the relationship instead of letting it go quiet right after the charter photo.</p>`,
+    stat:{icon:"🌏", text:`One <span>joint project a year</span> with your twin club — even a small one — keeps an international partnership genuinely alive instead of a name on a certificate.`},
+    checklist:[
+      "Assign one board member to own each twin-club relationship — regular contact, not just an annual message",
+      "Look for a joint project each year, even a small one, to keep the partnership active and mutually useful",
+      "Connect with your MDIO (multidistrict information organization) for regional idea-sharing and networking",
+      "Consider dual Rotary-Rotaract membership pathways for members transitioning between organizations",
+      "Use inter-club visits (attending another club's meeting) as a low-cost way to build the relationship"
+    ],
+    links:[
+      { label:"Rotaract South Asia MDIO Library", url:"https://library.rsamdio.org/" }
+    ]
+  },
+  {
+    id:"recognition", icon:"trophy",
+    title:"Recognition & Events",
+    tagline:"Celebrating the year, and making members feel seen",
+    body:`<p class="intro">Recognition isn't just a nice-to-have — it's basically a retention hack. Members who feel their work is actually seen stick around longer. RI backs a couple of official recognition moments worth anchoring your calendar around.</p>`,
+    stat:{icon:"🏆", text:`Clubs that run a <span>proper year-end celebration</span> instead of just fading out in June report noticeably higher member return rates the following year.`},
+    checklist:[
+      "Mark World Rotaract Week each March with at least one signature club activity",
+      "Use RI's official Certificate of Recognition to formally acknowledge outstanding projects or members",
+      "Run a President's Night or year-end celebration to close the Rotary year with intention, not a fade-out",
+      "Recognize small contributions too — attendance streaks, first-time project leads — not only the big wins",
+      "Nominate standout projects for district or RI-level awards; the application itself is a great reflection exercise"
+    ],
+    links:[
+      { label:"World Rotaract Week & Certificate of Recognition (rotary.org)", url:"https://www.rotary.org/en/get-involved/rotaract-clubs/details" }
+    ]
+  },
+  {
+    id:"sponsor", icon:"handshake",
+    title:"Sponsor Relationship Management",
+    tagline:"Getting the most out of your Rotary sponsor club",
+    body:`<p class="intro">Since 2020, Rotaract clubs can technically stand alone — but most Zone 7 clubs still have a Rotary sponsor, and a well-run one is one of the most underrated resources a club has: funding help, mentorship, credibility, institutional memory. Home-grown Zone 7 guidance here, since every sponsor relationship looks a little different.</p>`,
+    stat:{icon:"🤝", text:`A quick <span>public thank-you</span> after a joint project costs nothing and is often the single biggest reason a sponsor club stays engaged year after year.`},
+    checklist:[
+      "Invite your Rotary advisor to attend meetings regularly, not just for ceremonial events",
+      "Set clear, mutual expectations early — how often you'll communicate, and what support looks like",
+      "Loop your sponsor in on major decisions and project plans before they're finalized, not after",
+      "Encourage informal mentoring between individual Rotarians and Rotaractors, not just club-to-club contact",
+      "Say thank-you publicly — sponsor clubs that feel valued stay invested for longer"
+    ],
+    original:true,
+    links:[]
+  },
+  {
+    id:"digital", icon:"laptop",
+    title:"Digital Tools & Tech",
+    tagline:"Staying organized without 6 confusing WhatsApp groups",
+    body:`<p class="intro">Most club knowledge quietly dies in old WhatsApp threads and someone's personal Google Drive that nobody else can access. A little structure early on saves enormous pain at every handoff. General good practice here, not an official RI standard — take what fits your club's size.</p>`,
+    stat:{icon:"💾", text:`One <span>shared drive as the single source of truth</span> saves more headaches at officer handoff than any other single habit on this page.`},
+    checklist:[
+      "Keep one shared drive as the single source of truth for constitution, financials, and project records",
+      "Separate communication channels: one for official business, one for social/casual chat",
+      "Use a shared calendar for meetings, deadlines and events that every member can see",
+      "Standardize file naming (e.g. date + project name) so nothing gets lost between officer terms",
+      "Back up financial and membership records outside of any one person's personal device"
+    ],
+    original:true,
+    links:[]
+  },
+  {
+    id:"wellbeing", icon:"heart",
+    title:"Wellbeing & Culture",
+    tagline:"Keeping the club a place people actually want to show up to",
+    body:`<p class="intro">Burnout is the quiet reason clubs lose good members — not lack of interest, just too much ask with too little balance. A club's culture gets built on purpose, the same way its projects do. Zone 7 original guidance, drawn from common patterns across youth-led organizations everywhere.</p>`,
+    stat:{icon:"💛", text:`Clubs that keep the same <span>3 people running everything</span> lose them to burnout fastest — spreading ownership around is the single best insurance policy against it.`},
+    checklist:[
+      "Balance the calendar — not every meeting needs to be a project planning session; leave room for pure fellowship",
+      "Watch for over-reliance on a small core group; spread ownership so the same people aren't running everything",
+      "Address conflict directly and early rather than letting it fester into silent disengagement",
+      "Respect that most members are also students or early-career professionals — build in flexibility, not guilt",
+      "Celebrate small wins regularly; morale compounds the same way burnout does"
+    ],
+    original:true,
+    links:[]
+  }
+];
+
+function render(){
+  document.getElementById("quickGrid").innerHTML = GUIDES.map((g,i) => `
+    <a class="quick-item" href="#${g.id}" data-i="${i}">
+      <div class="quick-icon" style="background:${COLORS[i]};">${ICONS[g.icon]}</div>
+      <span>${g.title}</span>
+    </a>
+  `).join("");
+
+  document.getElementById("guideList").innerHTML = GUIDES.map((g,i) => `
+    <div class="guide-block" id="${g.id}">
+      <div class="guide-head" data-i="${i}">
+        <div class="guide-head-left">
+          <div class="guide-icon" style="background:${COLORS[i]};">${ICONS[g.icon]}</div>
+          <div>
+            <h3>${g.title}</h3>
+            <p class="tagline">${g.tagline}</p>
+          </div>
+        </div>
+        <div class="guide-chevron">${CHEVRON_SVG}</div>
+      </div>
+      <div class="guide-body">
+        <div class="guide-body-inner">
+          ${g.original ? `<div class="guide-original-tag">✏️ Zone 7 original guidance</div>` : ""}
+          ${g.body}
+          <div class="guide-stat"><div class="g-icon">${g.stat.icon}</div><p>${g.stat.text}</p></div>
+          <div class="guide-checklist-label">Quick-Start Checklist</div>
+          <ul class="guide-checklist">
+            ${g.checklist.map(c => `<li>${c}</li>`).join("")}
+          </ul>
+          ${g.links.length ? `
+            <div class="guide-links">
+              <div class="guide-links-label">Official RI Resources</div>
+              ${g.links.map(l => `<a class="guide-link" href="${l.url}" target="_blank" rel="noopener">${LINK_SVG} ${l.label}</a>`).join("")}
+            </div>
+          ` : ""}
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  document.querySelectorAll(".guide-head").forEach(el => {
+    el.addEventListener("click", () => {
+      el.closest(".guide-block").classList.toggle("open");
+    });
+  });
+
+  document.querySelectorAll(".quick-item").forEach(el => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = document.getElementById(el.getAttribute("href").slice(1));
+      if(target){
+        target.classList.add("open");
+        target.scrollIntoView({behavior:"smooth", block:"start"});
+      }
+    });
+  });
+
+  if(location.hash){
+    const target = document.querySelector(location.hash);
+    if(target){ target.classList.add("open"); setTimeout(() => target.scrollIntoView({behavior:"smooth", block:"start"}), 150); }
+  }
+}
+render();
+</script>
+</body>
+</html>
