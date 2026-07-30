@@ -88,6 +88,19 @@ const ZONE7_DB = {
     return true;
   },
 
+  async getAllProjects(){
+    try{
+      const res = await fetch(`${REST_URL}?select=id,club_slug,title,category,date,updated`, { headers: REST_HEADERS });
+      if(!res.ok) throw new Error("Fetch failed: " + res.status);
+      const rows = await res.json();
+      this._allCache = rows;
+      return rows;
+    } catch(e){
+      console.error("ZONE7_DB.getAllProjects error", e);
+      return this._allCache || [];
+    }
+  },
+
   async getProjects(clubSlug){
     try{
       const res = await fetch(`${REST_URL}?club_slug=eq.${encodeURIComponent(clubSlug)}&order=updated.desc`, {

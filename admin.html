@@ -85,7 +85,23 @@
   }
   .toast.show{opacity:1; transform:translateY(0);}
 
-  @media (max-width:860px){ .dash-body{grid-template-columns:1fr;} .field-row{grid-template-columns:1fr;} }
+  .analytics-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:22px;}
+  .a-stat{background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px;}
+  .a-stat b{display:block; font-family:'Poppins'; font-weight:800; font-size:1.5rem; color:var(--magenta-deep);}
+  .a-stat span{font-size:0.76rem; color:rgba(27,24,54,0.55); font-weight:600; text-transform:uppercase; letter-spacing:0.04em;}
+  .a-table{width:100%; border-collapse:collapse; font-size:0.88rem;}
+  .a-table th, .a-table td{text-align:left; padding:9px 10px; border-bottom:1px solid var(--line);}
+  .a-table th{color:rgba(27,24,54,0.5); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.04em;}
+  .a-table tr.me{background:rgba(225,26,110,0.06);}
+  .a-subhead{font-size:0.8rem; text-transform:uppercase; letter-spacing:0.05em; color:rgba(27,24,54,0.5); margin:26px 0 12px; font-family:'Inter'; font-weight:700;}
+  .a-bar-row{display:flex; align-items:center; gap:10px; padding:7px 0;}
+  .a-bar-label{flex:0 0 150px; font-size:0.85rem; font-weight:600; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .a-bar-track{flex:1; background:var(--cream); border-radius:100px; height:10px; overflow:hidden;}
+  .a-bar-fill{height:100%; background:linear-gradient(90deg, var(--magenta), var(--magenta-deep)); border-radius:100px;}
+  .a-bar-count{flex:0 0 26px; text-align:right; font-size:0.82rem; font-weight:700; color:var(--magenta-deep);}
+  .a-empty{color:rgba(27,24,54,0.45); font-size:0.85rem; padding:6px 0;}
+
+  @media (max-width:860px){ .dash-body{grid-template-columns:1fr;} .field-row{grid-template-columns:1fr;} .analytics-stats{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
@@ -188,6 +204,20 @@
     </div>
 
     <div class="panel" style="margin-top:36px;">
+      <h3>Zone 7 Analytics <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(zone-wide, live from Supabase)</span></h3>
+      <div class="analytics-stats" id="analyticsStats"><div class="no-projects">Loading analytics…</div></div>
+
+      <h4 class="a-subhead">Projects by Club</h4>
+      <div class="analytics-table-wrap" id="analyticsTableWrap"></div>
+
+      <h4 class="a-subhead">Projects by Category</h4>
+      <div class="analytics-table-wrap" id="analyticsCategoryWrap"></div>
+
+      <h4 class="a-subhead">Monthly Trend <span style="font-weight:500; font-size:0.72rem; color:rgba(27,24,54,0.45); text-transform:none; letter-spacing:0;">(projects added this Rotary year, Jul&ndash;Jun)</span></h4>
+      <div class="analytics-table-wrap" id="analyticsTrendWrap"></div>
+    </div>
+
+    <div class="panel" style="margin-top:36px;">
       <h3>Zone Events <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(shown on the homepage — visible to all clubs)</span></h3>
       <div class="proj-list" id="eventList" style="margin-bottom:20px;"></div>
       <div class="field-row">
@@ -241,6 +271,84 @@ async function enterDashboard(slug){
   document.getElementById("viewClubBtn").href = `club.html?club=${slug}`;
   await renderProjectList();
   resetForm();
+  loadAnalytics();
+}
+
+async function loadAnalytics(){
+  const statsEl = document.getElementById("analyticsStats");
+  const tableEl = document.getElementById("analyticsTableWrap");
+  const catEl = document.getElementById("analyticsCategoryWrap");
+  const trendEl = document.getElementById("analyticsTrendWrap");
+  const all = await ZONE7_DB.getAllProjects();
+
+  // --- per-club counts + most recent activity ---
+  const counts = {}, lastUpdated = {};
+  Object.keys(CLUB_DIRECTORY).forEach(s => { counts[s] = 0; lastUpdated[s] = 0; });
+  all.forEach(p => {
+    if(counts[p.club_slug] !== undefined){
+      counts[p.club_slug]++;
+      if((p.updated||0) > lastUpdated[p.club_slug]) lastUpdated[p.club_slug] = p.updated || 0;
+    }
+  });
+  const events = await ZONE7_DB.getEvents();
+
+  statsEl.innerHTML = `
+    <div class="a-stat"><b>${all.length}</b><span>Total Projects, Zone-wide</span></div>
+    <div class="a-stat"><b>${counts[currentClub] || 0}</b><span>Your Club's Projects</span></div>
+    <div class="a-stat"><b>${events.length}</b><span>Zone Events Posted</span></div>
+  `;
+
+  const rows = Object.keys(CLUB_DIRECTORY)
+    .map(slug => ({ slug, name: CLUB_DIRECTORY[slug].name, count: counts[slug] || 0, last: lastUpdated[slug] }))
+    .sort((a,b) => b.count - a.count);
+  const maxCount = Math.max(1, ...rows.map(r => r.count));
+
+  tableEl.innerHTML = rows.map(r => `
+    <div class="a-bar-row${r.slug === currentClub ? ' me' : ''}">
+      <div class="a-bar-label">${zone7Esc(r.name.replace('Rotaract Club of ',''))}</div>
+      <div class="a-bar-track"><div class="a-bar-fill" style="width:${(r.count/maxCount*100).toFixed(0)}%"></div></div>
+      <div class="a-bar-count">${r.count}</div>
+    </div>
+  `).join("");
+
+  // --- category breakdown ---
+  const catCounts = {};
+  all.forEach(p => {
+    const c = (p.category || "").trim() || "Uncategorized";
+    catCounts[c] = (catCounts[c] || 0) + 1;
+  });
+  const catRows = Object.entries(catCounts).sort((a,b) => b[1]-a[1]);
+  const maxCat = Math.max(1, ...catRows.map(r => r[1]));
+  catEl.innerHTML = catRows.length ? catRows.map(([name,count]) => `
+    <div class="a-bar-row">
+      <div class="a-bar-label">${zone7Esc(name)}</div>
+      <div class="a-bar-track"><div class="a-bar-fill" style="width:${(count/maxCat*100).toFixed(0)}%"></div></div>
+      <div class="a-bar-count">${count}</div>
+    </div>
+  `).join("") : `<div class="a-empty">No projects logged yet.</div>`;
+
+  // --- monthly trend, Rotary year Jul–Jun ---
+  const now = new Date();
+  const ryStartYear = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
+  const monthLabels = ["Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun"];
+  const monthCounts = new Array(12).fill(0);
+  all.forEach(p => {
+    if(!p.date) return;
+    const d = new Date(p.date);
+    if(isNaN(d)) return;
+    const y = d.getFullYear(), m = d.getMonth();
+    const idx = m >= 6 ? m - 6 : m + 6;
+    const yearForIdx = m >= 6 ? y : y - 1;
+    if(yearForIdx === ryStartYear) monthCounts[idx]++;
+  });
+  const maxMonth = Math.max(1, ...monthCounts);
+  trendEl.innerHTML = monthCounts.some(c => c > 0) ? monthLabels.map((label,i) => `
+    <div class="a-bar-row">
+      <div class="a-bar-label">${label} ${i < 6 ? ryStartYear : ryStartYear+1}</div>
+      <div class="a-bar-track"><div class="a-bar-fill" style="width:${(monthCounts[i]/maxMonth*100).toFixed(0)}%"></div></div>
+      <div class="a-bar-count">${monthCounts[i]}</div>
+    </div>
+  `).join("") : `<div class="a-empty">No dated projects logged for RY ${ryStartYear}-${String(ryStartYear+1).slice(2)} yet.</div>`;
 }
 
 if(currentClub && CLUB_DIRECTORY[currentClub]){
