@@ -33,3 +33,26 @@ create policy "Anon can write projects"
   on projects for all
   using (true)
   with check (true);
+
+-- ===================================================================
+-- EVENTS TABLE — for the "Zone 7 events & meets" section on index.html
+-- ===================================================================
+create table if not exists events (
+  id text primary key,
+  title text not null,
+  event_date text,       -- e.g. "2026-03-15" or "TBD"
+  description text,
+  rsvp_link text,
+  updated bigint
+);
+
+alter table events enable row level security;
+
+create policy "Public can view events"
+  on events for select
+  using (true);
+
+create policy "Anon can write events"
+  on events for all
+  using (true)
+  with check (true);

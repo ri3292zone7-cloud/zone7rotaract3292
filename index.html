@@ -6,6 +6,7 @@
 <title>Zone 7 Rotaract | District 3292 Nepal-Bhutan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="zone7-data.js"></script>
 <style>
   :root{
     --ink:#1B1836;
@@ -449,25 +450,34 @@
   <div class="wrap">
     <span class="section-tag">What's Coming Up</span>
     <h2>Zone 7 events &amp; meets.</h2>
-    <div class="events-list">
-      <div class="event-row">
-        <div class="event-date">TBD<small>2026</small></div>
-        <div class="event-info"><h4>Zone 7 Assembly</h4><p>Zone-wide meet for club presidents &amp; boards &mdash; add date, venue and RSVP link.</p></div>
-        <div class="event-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="#1B1836" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="event-row">
-        <div class="event-date">TBD<small>2026</small></div>
-        <div class="event-info"><h4>Joint Service Project</h4><p>Cross-club community service day &mdash; add project focus, location and partner clubs.</p></div>
-        <div class="event-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="#1B1836" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="event-row">
-        <div class="event-date">TBD<small>2026</small></div>
-        <div class="event-info"><h4>Zone Installation Ceremony</h4><p>Handover &amp; installation of incoming club and zone leadership.</p></div>
-        <div class="event-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="#1B1836" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
+    <div class="events-list" id="eventsList">
+      <p style="padding:30px 0; color:rgba(27,24,54,0.5); font-size:0.9rem;">Loading events…</p>
     </div>
   </div>
 </section>
+
+<script>
+(async () => {
+  const list = document.getElementById("eventsList");
+  const events = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getEvents() : [];
+  if(!events.length){
+    list.innerHTML = `<p style="padding:30px 0; color:rgba(27,24,54,0.5); font-size:0.9rem;">No upcoming events posted yet — check back soon.</p>`;
+    return;
+  }
+  list.innerHTML = events.map(ev => {
+    const [year, ...rest] = (ev.event_date || "TBD").split("-");
+    const label = ev.event_date && ev.event_date !== "TBD" ? new Date(ev.event_date).toLocaleDateString('en-US',{month:'short', day:'numeric'}) : "TBD";
+    const yr = ev.event_date && ev.event_date !== "TBD" ? new Date(ev.event_date).getFullYear() : (year || "2026");
+    const href = ev.rsvp_link || "#";
+    return `
+      <a class="event-row" href="${zone7Esc(href)}" ${ev.rsvp_link ? 'target="_blank" rel="noopener"' : ''} style="text-decoration:none; color:inherit; display:grid;">
+        <div class="event-date">${zone7Esc(label)}<small>${zone7Esc(String(yr))}</small></div>
+        <div class="event-info"><h4>${zone7Esc(ev.title)}</h4><p>${zone7Esc(ev.description || "")}</p></div>
+        <div class="event-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="#1B1836" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </a>`;
+  }).join("");
+})();
+</script>
 
 <section class="social" id="connect">
   <div class="wrap">

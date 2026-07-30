@@ -42,6 +42,7 @@ const CLUB_CREDENTIALS = {
 };
 
 const REST_URL = `${SUPABASE_URL}/rest/v1/projects`;
+const EVENTS_URL = `${SUPABASE_URL}/rest/v1/events`;
 const REST_HEADERS = {
   "apikey": SUPABASE_ANON_KEY,
   "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
@@ -52,6 +53,40 @@ const REST_HEADERS = {
 const ZONE7_DB = {
   _sessionKey: "zone7_admin_session",
   _cache: {}, // clubSlug -> [projects], fallback if a fetch fails
+
+  async getEvents(){
+    try{
+      const res = await fetch(`${EVENTS_URL}?order=event_date.asc`, { headers: REST_HEADERS });
+      if(!res.ok) throw new Error("Fetch failed: " + res.status);
+      return await res.json();
+    } catch(e){
+      console.error("ZONE7_DB.getEvents error", e);
+      return this._eventsCache || [];
+    }
+  },
+
+  async saveEvent(event){
+    event.updated = Date.now();
+    const res = await fetch(`${EVENTS_URL}?on_conflict=id`, {
+      method: "POST",
+      headers: { ...REST_HEADERS, "Prefer": "resolution=merge-duplicates,return=representation" },
+      body: JSON.stringify(event)
+    });
+    if(!res.ok){
+      const errText = await res.text();
+      throw new Error("Save failed: " + res.status + " " + errText);
+    }
+    return true;
+  },
+
+  async deleteEvent(id){
+    const res = await fetch(`${EVENTS_URL}?id=eq.${encodeURIComponent(id)}`, {
+      method: "DELETE",
+      headers: REST_HEADERS
+    });
+    if(!res.ok) throw new Error("Delete failed: " + res.status);
+    return true;
+  },
 
   async getProjects(clubSlug){
     try{

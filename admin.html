@@ -183,6 +183,25 @@
         </form>
       </div>
     </div>
+
+    <div class="panel" style="margin-top:36px;">
+      <h3>Zone Events <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(shown on the homepage — visible to all clubs)</span></h3>
+      <div class="proj-list" id="eventList" style="margin-bottom:20px;"></div>
+      <div class="field-row">
+        <div><label for="evTitle">Event Title</label><input type="text" id="evTitle" placeholder="e.g. Zone 7 Assembly"></div>
+        <div><label for="evDate">Date</label><input type="date" id="evDate"></div>
+      </div>
+      <label for="evDesc">Description</label>
+      <textarea id="evDesc" rows="2" placeholder="Short description shown under the title"></textarea>
+      <label for="evLink">RSVP / Details Link (optional)</label>
+      <input type="text" id="evLink" placeholder="https://...">
+      <input type="hidden" id="evId">
+      <div class="form-actions">
+        <button type="button" class="btn btn-primary" id="saveEventBtn">Save Event</button>
+        <button type="button" class="btn btn-ghost" id="clearEventBtn">Clear Form</button>
+        <button type="button" class="btn btn-danger" id="deleteEventBtn" style="display:none;">Delete</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -383,6 +402,91 @@ document.getElementById("deleteBtn").addEventListener("click", async () => {
     }
   }
 });
+
+/* ---- Zone Events panel ---- */
+let editingEventId = null;
+
+async function renderEventList(){
+  const list = document.getElementById("eventList");
+  list.innerHTML = `<div class="no-projects">Loading events…</div>`;
+  const events = await ZONE7_DB.getEvents();
+  if(!events.length){
+    list.innerHTML = `<div class="no-projects">No zone events yet — add one below.</div>`;
+    return;
+  }
+  list.innerHTML = events.map(ev => `
+    <div class="proj-item" data-id="${zone7Esc(ev.id)}">
+      <div class="info">
+        <h4>${zone7Esc(ev.title)}</h4>
+        <span>${zone7Esc(ev.event_date || "No date")}</span>
+      </div>
+    </div>
+  `).join("");
+  list.querySelectorAll(".proj-item").forEach(el => {
+    el.addEventListener("click", async () => {
+      const ev = events.find(e => e.id === el.dataset.id);
+      if(!ev) return;
+      editingEventId = ev.id;
+      document.getElementById("evId").value = ev.id;
+      document.getElementById("evTitle").value = ev.title || "";
+      document.getElementById("evDate").value = (ev.event_date && ev.event_date !== "TBD") ? ev.event_date : "";
+      document.getElementById("evDesc").value = ev.description || "";
+      document.getElementById("evLink").value = ev.rsvp_link || "";
+      document.getElementById("deleteEventBtn").style.display = "inline-flex";
+    });
+  });
+}
+
+function resetEventForm(){
+  editingEventId = null;
+  document.getElementById("evId").value = "";
+  document.getElementById("evTitle").value = "";
+  document.getElementById("evDate").value = "";
+  document.getElementById("evDesc").value = "";
+  document.getElementById("evLink").value = "";
+  document.getElementById("deleteEventBtn").style.display = "none";
+}
+
+document.getElementById("saveEventBtn").addEventListener("click", async () => {
+  const title = document.getElementById("evTitle").value.trim();
+  if(!title) return showToast("Event title is required");
+  const id = editingEventId || (zone7Slugify(title) + "-" + Date.now().toString(36));
+  const event = {
+    id,
+    title,
+    event_date: document.getElementById("evDate").value || "TBD",
+    description: document.getElementById("evDesc").value.trim(),
+    rsvp_link: document.getElementById("evLink").value.trim()
+  };
+  try{
+    await ZONE7_DB.saveEvent(event);
+    showToast("Event saved ✓");
+    await renderEventList();
+    resetEventForm();
+  } catch(err){
+    console.error(err);
+    showToast("Save failed — check your Supabase setup.");
+  }
+});
+
+document.getElementById("clearEventBtn").addEventListener("click", resetEventForm);
+
+document.getElementById("deleteEventBtn").addEventListener("click", async () => {
+  if(!editingEventId) return;
+  if(confirm("Delete this event?")){
+    try{
+      await ZONE7_DB.deleteEvent(editingEventId);
+      showToast("Event deleted");
+      await renderEventList();
+      resetEventForm();
+    } catch(err){
+      console.error(err);
+      showToast("Delete failed — check your Supabase setup.");
+    }
+  }
+});
+
+renderEventList();
 </script>
 </body>
 </html>
