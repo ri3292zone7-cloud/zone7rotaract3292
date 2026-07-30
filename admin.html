@@ -125,6 +125,21 @@
       <button type="submit" class="btn btn-primary">Log In</button>
     </form>
     <div class="demo-note">Demo login system: each club has a preset password (shared separately by the Zone 7 team). Data you add is saved to this browser/device only — see the note in the project's README for making this sync across devices.</div>
+    <div style="margin-top:18px; text-align:center;">
+      <span style="font-size:0.78rem; color:rgba(27,24,54,0.4);">Zone team? <a href="#" id="switchToZonal" style="color:var(--magenta-deep); font-weight:700;">Log in here →</a></span>
+    </div>
+  </div>
+
+  <div class="login-card" id="zonalLoginCard" style="display:none;">
+    <h2>Zone Team Login</h2>
+    <p class="sub">For the ZRR and zone team — manage guides and zone-wide resources.</p>
+    <label for="zonalPassword">Password</label>
+    <input type="password" id="zonalPassword" placeholder="Enter zone team password">
+    <div class="login-error" id="zonalLoginError">Incorrect password. Please try again.</div>
+    <button type="button" class="btn btn-primary" id="zonalLoginBtn">Log In</button>
+    <div style="margin-top:18px; text-align:center;">
+      <span style="font-size:0.78rem; color:rgba(27,24,54,0.4);"><a href="#" id="switchToClub" style="color:var(--magenta-deep); font-weight:700;">← Back to Club Login</a></span>
+    </div>
   </div>
 </div>
 
@@ -234,6 +249,26 @@
         <button type="button" class="btn btn-ghost" id="clearEventBtn">Clear Form</button>
         <button type="button" class="btn btn-danger" id="deleteEventBtn" style="display:none;">Delete</button>
       </div>
+    </div>
+  </div>
+</div>
+
+    <!-- GUIDES PANEL (zonal team only) -->
+    <div class="panel" id="guidesPanel" style="margin-top:36px; display:none;">
+      <h3>Guides for Clubs <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(shown on guides.html — visible to all clubs)</span></h3>
+      <div class="proj-list" id="guideList" style="margin-bottom:20px;"></div>
+      <div class="field-row">
+        <div><label for="gTitle">Guide Title</label><input type="text" id="gTitle" placeholder="e.g. District Financial Guideline 2026"></div>
+        <div><label for="gCategory">Category</label><input type="text" id="gCategory" placeholder="e.g. Governance, Planning, Templates"></div>
+      </div>
+      <label for="gDesc">Brief Overview</label>
+      <textarea id="gDesc" rows="2" placeholder="1-2 sentences describing what this document is for"></textarea>
+      <label for="gFile">Document File</label>
+      <input type="file" id="gFile" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" style="margin-bottom:20px;">
+      <div class="form-actions">
+        <button type="button" class="btn btn-primary" id="gUploadBtn">Upload Guide</button>
+      </div>
+      <div style="font-size:0.85rem; margin-top:10px; font-weight:600; display:none;" id="gUploadMsg"></div>
     </div>
   </div>
 </div>
@@ -367,13 +402,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   }
 });
 
-document.getElementById("logoutBtn").addEventListener("click", () => {
-  ZONE7_DB.logout();
-  currentClub = null;
-  document.getElementById("dashboard").style.display = "none";
-  document.getElementById("loginView").style.display = "flex";
-  document.getElementById("password").value = "";
-});
+// logout handled below
 
 async function renderProjectList(){
   const list = document.getElementById("projList");
@@ -601,6 +630,117 @@ document.getElementById("deleteEventBtn").addEventListener("click", async () => 
 });
 
 renderEventList();
+
+/* ---- Zonal login toggle ---- */
+document.getElementById("switchToZonal").addEventListener("click", (e) => {
+  e.preventDefault();
+  document.querySelector(".login-card").style.display = "none";
+  document.getElementById("zonalLoginCard").style.display = "block";
+});
+document.getElementById("switchToClub").addEventListener("click", (e) => {
+  e.preventDefault();
+  document.getElementById("zonalLoginCard").style.display = "none";
+  document.querySelector(".login-card").style.display = "block";
+});
+document.getElementById("zonalLoginBtn").addEventListener("click", () => {
+  const pw = document.getElementById("zonalPassword").value;
+  if(ZONE7_DB.loginZonal(pw)){
+    document.getElementById("loginView").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+    document.getElementById("dashClubName").textContent = "Zone 7 Team — Dashboard";
+    document.getElementById("dashClubLogo").style.display = "none";
+    document.getElementById("viewClubBtn").style.display = "none";
+    document.getElementById("guidesPanel").style.display = "block";
+    // hide club-specific panels
+    document.querySelector(".dash-body").style.display = "none";
+    document.querySelector("[style*='margin-top:36px']").style.display = "none";
+    renderGuideList();
+  } else {
+    const e = document.getElementById("zonalLoginError");
+    e.style.display = "block";
+  }
+});
+
+/* ---- Guides management (zonal) ---- */
+async function renderGuideList(){
+  const list = document.getElementById("guideList");
+  list.innerHTML = `<div class="no-projects">Loading guides…</div>`;
+  const guides = await ZONE7_DB.getGuides();
+  if(!guides.length){ list.innerHTML = `<div class="no-projects">No uploaded guides yet — add one below.</div>`; return; }
+  list.innerHTML = guides.map(g => `
+    <div class="proj-item">
+      <div class="info">
+        <h4>${zone7Esc(g.title)}</h4>
+        <span>${zone7Esc(g.category || "Other")}</span>
+      </div>
+      <button class="btn btn-danger" data-id="${zone7Esc(g.id)}" style="margin-left:auto; padding:8px 14px; font-size:0.8rem;">Delete</button>
+    </div>
+  `).join("");
+  list.querySelectorAll(".btn-danger").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      if(confirm("Delete this guide?")){
+        await ZONE7_DB.deleteGuide(btn.dataset.id);
+        showToast("Guide deleted");
+        renderGuideList();
+      }
+    });
+  });
+}
+
+document.getElementById("gUploadBtn").addEventListener("click", async () => {
+  const title = document.getElementById("gTitle").value.trim();
+  const file = document.getElementById("gFile").files[0];
+  const msg = document.getElementById("gUploadMsg");
+  msg.style.display = "none";
+  if(!title || !file){ msg.textContent = "Title and a file are required."; msg.style.display = "block"; msg.style.color = "var(--magenta-deep)"; return; }
+  msg.textContent = "Uploading…"; msg.style.display = "block"; msg.style.color = "inherit";
+  try{
+    const fileData = await zone7ReadFile(file);
+    const id = zone7Slugify(title) + "-" + Date.now().toString(36);
+    await ZONE7_DB.saveGuide({
+      id, title,
+      category: document.getElementById("gCategory").value.trim() || "Other",
+      description: document.getElementById("gDesc").value.trim(),
+      file_name: file.name,
+      file_data: fileData
+    });
+    document.getElementById("gTitle").value = "";
+    document.getElementById("gCategory").value = "";
+    document.getElementById("gDesc").value = "";
+    document.getElementById("gFile").value = "";
+    msg.textContent = "Uploaded ✓"; msg.style.color = "#1c8a4d";
+    showToast("Guide uploaded ✓");
+    renderGuideList();
+  } catch(err){
+    console.error(err);
+    msg.textContent = "Upload failed — check your Supabase setup."; msg.style.color = "var(--magenta-deep)";
+  }
+});
+
+// Check if already logged in as zonal on page load
+if(ZONE7_DB.isZonal()){
+  document.getElementById("loginView").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
+  document.getElementById("dashClubName").textContent = "Zone 7 Team — Dashboard";
+  document.getElementById("dashClubLogo").style.display = "none";
+  document.getElementById("viewClubBtn").style.display = "none";
+  document.getElementById("guidesPanel").style.display = "block";
+  document.querySelector(".dash-body").style.display = "none";
+  renderGuideList();
+}
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  ZONE7_DB.logout();
+  ZONE7_DB.logoutZonal();
+  currentClub = null;
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("loginView").style.display = "flex";
+  document.getElementById("password").value = "";
+  document.getElementById("zonalPassword").value = "";
+  document.getElementById("guidesPanel").style.display = "none";
+  document.querySelector(".dash-body").style.display = "grid";
+  document.getElementById("viewClubBtn").style.display = "inline-flex";
+}, {once: false});
 </script>
 </body>
 </html>
