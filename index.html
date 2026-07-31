@@ -179,8 +179,8 @@
     background:radial-gradient(circle, rgba(225,26,110,0.06), transparent 70%); pointer-events:none;
   }
   .mosaic-columns{
-    position:relative; display:flex; align-items:flex-end; gap:3px; overflow-x:auto; overflow-y:hidden;
-    padding:6px 2px 18px; scrollbar-width:thin;
+    position:relative; display:flex; flex-wrap:wrap; align-items:flex-end; align-content:flex-end;
+    gap:10px 3px; padding:6px 2px 18px; justify-content:flex-start;
   }
   .mosaic-col{
     display:flex; flex-direction:column; align-items:center; flex:0 0 auto; width:32px;
