@@ -58,6 +58,15 @@
     border-radius:14px; padding:12px; cursor:pointer; transition:border-color .15s;
   }
   .proj-item:hover{border-color:var(--magenta);}
+  .proj-item.selected{border-color:var(--magenta); background:rgba(225,26,110,0.06); box-shadow:0 0 0 2px rgba(225,26,110,0.15);}
+  .editing-banner{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    background:rgba(225,26,110,0.08); border:1px solid rgba(225,26,110,0.25); color:var(--magenta-deep);
+    font-weight:700; font-size:0.85rem; padding:10px 16px; border-radius:12px; margin-bottom:18px;
+  }
+  .editing-banner button{
+    background:none; border:none; color:var(--magenta-deep); font-weight:700; font-size:0.8rem; cursor:pointer; text-decoration:underline;
+  }
   .proj-item img{width:56px; height:56px; border-radius:10px; object-fit:cover; background:var(--cream); flex-shrink:0;}
   .proj-item .info h4{font-size:0.92rem; margin-bottom:3px;}
   .proj-item .info span{font-size:0.76rem; color:rgba(27,24,54,0.5);}
@@ -289,6 +298,10 @@
 
       <div class="panel">
         <h3 id="formTitle">New Project</h3>
+        <div class="editing-banner" id="editingBanner" style="display:none;">
+          <span id="editingBannerText"></span>
+          <button type="button" id="editingBannerClear">Clear / New Project</button>
+        </div>
         <form id="projectForm">
           <input type="hidden" id="projectId">
 
@@ -803,7 +816,11 @@ async function renderProjectList(){
     </div>
   `).join("");
   list.querySelectorAll(".proj-item").forEach(el => {
-    el.addEventListener("click", () => loadProjectIntoForm(el.dataset.id));
+    el.addEventListener("click", () => {
+      list.querySelectorAll(".proj-item").forEach(x => x.classList.remove("selected"));
+      el.classList.add("selected");
+      loadProjectIntoForm(el.dataset.id);
+    });
   });
 }
 
@@ -822,6 +839,7 @@ function resetForm(){
   document.getElementById("coverPreview").src = "";
   document.getElementById("coverPreview").dataset.value = "";
   document.getElementById("deleteBtn").style.display = "none";
+  document.getElementById("editingBanner").style.display = "none";
   renderGalleryPreview();
 }
 
@@ -843,10 +861,24 @@ async function loadProjectIntoForm(id){
   else { cp.style.display = "none"; cp.dataset.value = ""; }
   document.getElementById("deleteBtn").style.display = "inline-flex";
   renderGalleryPreview();
-  window.scrollTo({top: document.querySelector('.dash-body').offsetTop - 90, behavior:'smooth'});
+
+  const banner = document.getElementById("editingBanner");
+  document.getElementById("editingBannerText").textContent = `Editing: ${p.title}`;
+  banner.style.display = "flex";
+
+  const formPanel = document.getElementById("formTitle").closest(".panel");
+  window.scrollTo({top: formPanel.offsetTop - 90, behavior:'smooth'});
 }
 
-document.getElementById("cancelEditBtn").addEventListener("click", resetForm);
+document.getElementById("editingBannerClear").addEventListener("click", () => {
+  document.querySelectorAll("#projList .proj-item").forEach(x => x.classList.remove("selected"));
+  resetForm();
+});
+
+document.getElementById("cancelEditBtn").addEventListener("click", () => {
+  document.querySelectorAll("#projList .proj-item").forEach(x => x.classList.remove("selected"));
+  resetForm();
+});
 
 document.getElementById("coverUpload").addEventListener("click", () => document.getElementById("coverInput").click());
 document.getElementById("coverInput").addEventListener("change", async (e) => {
@@ -902,6 +934,7 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
   try{
     await ZONE7_DB.saveProject(currentClub, project);
     showToast("Project saved ✓");
+    document.getElementById("editingBanner").style.display = "none";
     await renderProjectList();
     resetForm();
   } catch(err){
