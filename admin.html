@@ -261,6 +261,7 @@
     <div class="sb-item" data-view="analytics"><span class="ic">📊</span>Analytics</div>
     <div class="sb-item" data-view="guides"><span class="ic">📚</span>Guides (Zonal)</div>
     <div class="sb-item" data-view="zrr"><span class="ic">🏛️</span>ZRR History (Zonal)</div>
+    <div class="sb-item" data-view="leadership"><span class="ic">⭐</span>Zonal Team (Zonal)</div>
     <div class="sb-label">Explore</div>
     <a class="sb-item" href="district-overview.html" target="_blank"><span class="ic">🌏</span>District Overview</a>
   </nav>
@@ -451,6 +452,32 @@
         <button type="button" class="btn btn-primary" id="zrrSaveBtn">Save ZRR</button>
         <button type="button" class="btn btn-ghost" id="zrrClearBtn">Clear Form</button>
         <button type="button" class="btn btn-danger" id="zrrDeleteBtn" style="display:none;">Delete</button>
+      </div>
+    </div>
+    </div>
+    <!-- ZONAL TEAM PANEL (zonal team only) -->
+    <div class="view" id="view-leadership">
+    <div class="panel" id="leadershipPanel">
+      <h3>Zonal Team <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(shown on homepage leadership card)</span></h3>
+      <div class="proj-list" id="leaderList" style="margin-bottom:20px;"></div>
+
+      <input type="hidden" id="leaderId">
+      <div class="field-row">
+        <div><label for="leaderRole">Short Role Code</label><input type="text" id="leaderRole" placeholder="e.g. ZRR, ZS, ZFC, ZPIC"></div>
+        <div><label for="leaderRoleFull">Full Title</label><input type="text" id="leaderRoleFull" placeholder="e.g. Zonal Rotaract Representative"></div>
+      </div>
+      <label for="leaderName">Name</label>
+      <input type="text" id="leaderName" placeholder="e.g. Rajay Bajracharya">
+      <label for="leaderBio">Bio <span style="font-weight:500; color:rgba(27,24,54,0.5);">(shown in their popup card)</span></label>
+      <textarea id="leaderBio" rows="3" placeholder="Short bio describing their role and tenure…"></textarea>
+      <label>Photo <span style="font-weight:500; color:rgba(27,24,54,0.5);">(optional, auto-resized)</span></label>
+      <img class="cover-preview" id="leaderPhotoPreview" style="width:120px; aspect-ratio:1/1; border-radius:50%; object-fit:cover; max-width:120px;">
+      <div class="img-upload" id="leaderPhotoUpload"><span>Click to upload a photo</span></div>
+      <input type="file" id="leaderPhotoInput" accept="image/*" style="display:none;">
+      <div class="form-actions" style="margin-top:16px;">
+        <button type="button" class="btn btn-primary" id="leaderSaveBtn">Save Member</button>
+        <button type="button" class="btn btn-ghost" id="leaderClearBtn">Clear Form</button>
+        <button type="button" class="btn btn-danger" id="leaderDeleteBtn" style="display:none;">Delete</button>
       </div>
     </div>
     </div>
@@ -1005,10 +1032,11 @@ document.getElementById("zonalLoginBtn").addEventListener("click", () => {
     document.getElementById("dashClubLogo").style.display = "none";
     document.getElementById("viewClubBtn").style.display = "none";
     document.body.classList.add("has-sidebar");
-    document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr"].includes(el.dataset.view) ? "flex" : "none"));
+    document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership"].includes(el.dataset.view) ? "flex" : "none"));
     switchView("guides");
     renderGuideList();
     renderZRRList();
+    renderLeaderList();
   } else {
     const e = document.getElementById("zonalLoginError");
     e.style.display = "block";
@@ -1202,10 +1230,11 @@ if(ZONE7_DB.isZonal()){
   document.getElementById("dashClubLogo").style.display = "none";
   document.getElementById("viewClubBtn").style.display = "none";
   document.body.classList.add("has-sidebar");
-  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr"].includes(el.dataset.view) ? "flex" : "none"));
+  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership"].includes(el.dataset.view) ? "flex" : "none"));
   switchView("guides");
   renderGuideList();
   renderZRRList();
+  renderLeaderList();
 }
 
 document.getElementById("logoutBtn").addEventListener("click", () => {
@@ -1217,9 +1246,109 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
   document.getElementById("loginView").style.display = "flex";
   document.getElementById("password").value = "";
   document.getElementById("zonalPassword").value = "";
-  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr"].includes(el.dataset.view) ? "none" : "flex"));
+  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership"].includes(el.dataset.view) ? "none" : "flex"));
   document.getElementById("viewClubBtn").style.display = "inline-flex";
 }, {once: false});
+
+/* ---- Zonal Team / Leadership management ---- */
+let editingLeaderId = null;
+let leaderPhotoValue = "";
+
+async function renderLeaderList(){
+  const list = document.getElementById("leaderList");
+  list.innerHTML = `<div class="no-projects">Loading team…</div>`;
+  const leaders = await ZONE7_DB.getLeadership();
+  if(!leaders.length){ list.innerHTML = `<div class="no-projects">No team members yet — add one below.</div>`; return; }
+  list.innerHTML = leaders.map(l => `
+    <div class="proj-item" data-id="${zone7Esc(l.id)}">
+      ${l.photo ? `<img src="${zone7Esc(l.photo)}" alt="" style="border-radius:50%;">` : ""}
+      <div class="info">
+        <h4>${zone7Esc(l.role)} — ${zone7Esc(l.name)}</h4>
+        <span>${zone7Esc(l.role_full)}</span>
+      </div>
+    </div>
+  `).join("");
+  list.querySelectorAll(".proj-item").forEach(el => {
+    el.addEventListener("click", () => {
+      const l = leaders.find(x => x.id === el.dataset.id);
+      if(l) loadLeaderIntoForm(l);
+    });
+  });
+}
+
+function loadLeaderIntoForm(l){
+  editingLeaderId = l.id;
+  leaderPhotoValue = l.photo || "";
+  document.getElementById("leaderId").value = l.id;
+  document.getElementById("leaderRole").value = l.role || "";
+  document.getElementById("leaderRoleFull").value = l.role_full || "";
+  document.getElementById("leaderName").value = l.name || "";
+  document.getElementById("leaderBio").value = l.bio || "";
+  const preview = document.getElementById("leaderPhotoPreview");
+  if(leaderPhotoValue){ preview.src = leaderPhotoValue; preview.style.display = "block"; }
+  else { preview.style.display = "none"; }
+  document.getElementById("leaderDeleteBtn").style.display = "inline-flex";
+  window.scrollTo({top: document.getElementById("leadershipPanel").offsetTop - 90, behavior:"smooth"});
+}
+
+function resetLeaderForm(){
+  editingLeaderId = null;
+  leaderPhotoValue = "";
+  ["leaderId","leaderRole","leaderRoleFull","leaderName","leaderBio"].forEach(id => document.getElementById(id).value = "");
+  document.getElementById("leaderPhotoPreview").style.display = "none";
+  document.getElementById("leaderPhotoInput").value = "";
+  document.getElementById("leaderDeleteBtn").style.display = "none";
+}
+
+document.getElementById("leaderPhotoUpload").addEventListener("click", () => document.getElementById("leaderPhotoInput").click());
+document.getElementById("leaderPhotoInput").addEventListener("change", async (e) => {
+  const file = e.target.files[0]; if(!file) return;
+  leaderPhotoValue = await zone7ReadImage(file, 500, 0.85);
+  const p = document.getElementById("leaderPhotoPreview");
+  p.src = leaderPhotoValue; p.style.display = "block";
+});
+
+document.getElementById("leaderSaveBtn").addEventListener("click", async () => {
+  const name = document.getElementById("leaderName").value.trim();
+  const role = document.getElementById("leaderRole").value.trim();
+  if(!name || !role){ showToast("Name and role code are required"); return; }
+  const btn = document.getElementById("leaderSaveBtn");
+  btn.disabled = true; btn.textContent = "Saving…";
+  try{
+    const existing = await ZONE7_DB.getLeadership();
+    const id = editingLeaderId || ("leader-" + zone7Slugify(role) + "-" + Date.now().toString(36));
+    const maxOrder = existing.reduce((m,l) => Math.max(m, l.sort_order || 0), 0);
+    const sortOrder = editingLeaderId
+      ? (existing.find(l => l.id === id)?.sort_order ?? maxOrder + 1)
+      : maxOrder + 1;
+    await ZONE7_DB.saveLeader({ id, role, role_full: document.getElementById("leaderRoleFull").value.trim(), name, bio: document.getElementById("leaderBio").value.trim(), photo: leaderPhotoValue, sort_order: sortOrder });
+    showToast("Team member saved ✓");
+    await renderLeaderList();
+    resetLeaderForm();
+  } catch(err){
+    console.error(err);
+    showToast("Save failed — check your Supabase setup.");
+  } finally {
+    btn.disabled = false; btn.textContent = "Save Member";
+  }
+});
+
+document.getElementById("leaderClearBtn").addEventListener("click", resetLeaderForm);
+
+document.getElementById("leaderDeleteBtn").addEventListener("click", async () => {
+  if(!editingLeaderId) return;
+  if(confirm("Remove this team member?")){
+    try{
+      await ZONE7_DB.deleteLeader(editingLeaderId);
+      showToast("Member removed");
+      await renderLeaderList();
+      resetLeaderForm();
+    } catch(err){
+      console.error(err);
+      showToast("Delete failed — check your Supabase setup.");
+    }
+  }
+});
 </script>
 </body>
 </html>

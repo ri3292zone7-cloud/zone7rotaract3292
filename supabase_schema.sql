@@ -109,6 +109,33 @@ create policy "Anon can write barometer"
   with check (true);
 
 -- ===================================================================
+-- LEADERSHIP TABLE — Current Zone 7 zonal team (ZRR, Secretary, etc.)
+-- Managed from the Zone Team admin panel. Shown on index.html instead
+-- of the hardcoded ZONE_LEADERSHIP array.
+-- ===================================================================
+create table if not exists leadership (
+  id text primary key,
+  role text not null,          -- short code, e.g. "ZRR"
+  role_full text not null,     -- full title
+  name text not null,
+  bio text,
+  photo text,                  -- optional base64 data URL
+  sort_order int default 0,
+  updated bigint
+);
+
+alter table leadership enable row level security;
+
+create policy "Public can view leadership"
+  on leadership for select
+  using (true);
+
+create policy "Anon can write leadership"
+  on leadership for all
+  using (true)
+  with check (true);
+
+-- ===================================================================
 -- ZRRS TABLE — Zone 7 ZRR (Zone Rotaract Representative) history,
 -- shown as the "Line of Leadership" timeline on index.html.
 -- Managed by the zonal team from the Guides admin panel.

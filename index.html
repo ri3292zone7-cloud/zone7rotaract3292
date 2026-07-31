@@ -724,41 +724,44 @@ if(typeof zone7Esc !== "function"){
     return String(str ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   };
 }
-const ZONE_LEADERSHIP = [
-  { role:"ZRR", roleFull:"Zonal Rotaract Representative", name:"Rajay Bajracharya",
-    bio:"Rajay Bajracharya serves as Zone 7's Rotaract Representative for RY 2026–27, guiding the zone's clubs and coordinating between Zone 7 and the wider District 3292 leadership." },
-  { role:"ZS", roleFull:"Zonal Secretary", name:"Peshal Basnet",
-    bio:"Peshal Basnet serves as Zone 7's Secretary for RY 2026–27, supporting the zone's administration, communication and record-keeping across its clubs." },
-  { role:"ZFC", roleFull:"Zonal Fellowship Chair", name:"Samrat Pandey",
-    bio:"Samrat Pandey serves as Zone 7's Fellowship Chair for RY 2026–27, organizing fellowship activities that bring Zone 7's clubs together." },
-  { role:"ZPIC", roleFull:"Zonal Public Image Chair", name:"Rishav Thapa",
-    bio:"Rishav Thapa serves as Zone 7's Public Image Chair for RY 2026–27, leading how the zone and its clubs are represented publicly." }
-];
-
-document.getElementById("leaderGrid").innerHTML = ZONE_LEADERSHIP.map((p,i) => `
-  <button type="button" class="leader-item" data-i="${i}" title="${zone7Esc(p.name)}, ${zone7Esc(p.roleFull)}">
-    <span class="role">${zone7Esc(p.role)}</span>
-    <h4>${zone7Esc(p.name)}</h4>
-    <span class="role-full">${zone7Esc(p.roleFull)}</span>
-  </button>
-`).join("");
-
+let ZONE_LEADERSHIP = [];
 const leaderOverlay = document.getElementById("leaderModalOverlay");
+
+function renderLeaderGrid(leaders){
+  ZONE_LEADERSHIP = leaders;
+  document.getElementById("leaderGrid").innerHTML = leaders.map((p,i) => `
+    <button type="button" class="leader-item" data-i="${i}" title="${zone7Esc(p.name)}, ${zone7Esc(p.role_full || p.roleFull || '')}">
+      <span class="role">${zone7Esc(p.role)}</span>
+      <h4>${zone7Esc(p.name)}</h4>
+      <span class="role-full">${zone7Esc(p.role_full || p.roleFull || '')}</span>
+    </button>
+  `).join("");
+  document.querySelectorAll(".leader-item").forEach(btn => {
+    btn.addEventListener("click", () => openLeaderModal(Number(btn.dataset.i)));
+  });
+}
+
 function openLeaderModal(i){
   const p = ZONE_LEADERSHIP[i];
-  document.getElementById("leaderModalAvatar").textContent = p.name.split(" ").map(w => w[0]).join("").slice(0,2).toUpperCase();
+  const avatarEl = document.getElementById("leaderModalAvatar");
+  avatarEl.innerHTML = p.photo
+    ? `<img src="${zone7Esc(p.photo)}" alt="${zone7Esc(p.name)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+    : p.name.split(" ").map(w => w[0]).join("").slice(0,2).toUpperCase();
   document.getElementById("leaderModalRoleTag").textContent = p.role;
   document.getElementById("leaderModalName").textContent = p.name;
-  document.getElementById("leaderModalRoleFull").textContent = p.roleFull;
-  document.getElementById("leaderModalBody").textContent = p.bio;
+  document.getElementById("leaderModalRoleFull").textContent = p.role_full || p.roleFull || "";
+  document.getElementById("leaderModalBody").textContent = p.bio || "";
   leaderOverlay.classList.add("open");
 }
-document.querySelectorAll(".leader-item").forEach(btn => {
-  btn.addEventListener("click", () => openLeaderModal(Number(btn.dataset.i)));
-});
+
 document.getElementById("leaderModalClose").addEventListener("click", () => leaderOverlay.classList.remove("open"));
 leaderOverlay.addEventListener("click", (e) => { if(e.target === leaderOverlay) leaderOverlay.classList.remove("open"); });
 document.addEventListener("keydown", (e) => { if(e.key === "Escape") leaderOverlay.classList.remove("open"); });
+
+(async () => {
+  const leaders = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getLeadership() : [];
+  renderLeaderGrid(leaders);
+})();
 </script>
 
 <script>

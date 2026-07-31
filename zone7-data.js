@@ -191,6 +191,7 @@ function zone7AutoCheck(projects){
 }
 
 const BAROMETER_URL = `${SUPABASE_URL}/rest/v1/barometer`;
+const LEADERSHIP_URL = `${SUPABASE_URL}/rest/v1/leadership`;
 
 const GUIDES_URL = `${SUPABASE_URL}/rest/v1/guides`;
 const ZRRS_URL = `${SUPABASE_URL}/rest/v1/zrrs`;
@@ -414,7 +415,13 @@ const ZONE7_DB = {
       const res = await fetch(`${ZRRS_URL}?order=sort_order.asc`, { headers: REST_HEADERS });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
       const rows = await res.json();
-      return rows.length ? rows : this._zrrFallback;
+      if(rows.length){ this._zrrCache = rows; return rows; }
+      // Seed the fallback history into Supabase so it persists
+      for(const z of this._zrrFallback){
+        await this.saveZRR({...z});
+      }
+      this._zrrCache = this._zrrFallback;
+      return this._zrrFallback;
     } catch(e){
       console.error("ZONE7_DB.getZRRs error", e);
       return this._zrrCache || this._zrrFallback;
@@ -440,6 +447,47 @@ const ZONE7_DB = {
       method: "DELETE",
       headers: REST_HEADERS
     });
+    if(!res.ok) throw new Error("Delete failed: " + res.status);
+    return true;
+  },
+
+  /* ---- current zonal team / leadership (editable from admin) ---- */
+  _leadershipFallback: [
+    { id:"leader-zrr",  role:"ZRR",  role_full:"Zonal Rotaract Representative", name:"Rajay Bajracharya", bio:"Rajay Bajracharya serves as Zone 7's Rotaract Representative for RY 2026–27, guiding the zone's clubs and coordinating between Zone 7 and the wider District 3292 leadership.", photo:"", sort_order:1 },
+    { id:"leader-zs",   role:"ZS",   role_full:"Zonal Secretary",               name:"Peshal Basnet",     bio:"Peshal Basnet serves as Zone 7's Secretary for RY 2026–27, supporting the zone's administration, communication and record-keeping across its clubs.", photo:"", sort_order:2 },
+    { id:"leader-zfc",  role:"ZFC",  role_full:"Zonal Fellowship Chair",         name:"Samrat Pandey",    bio:"Samrat Pandey serves as Zone 7's Fellowship Chair for RY 2026–27, organizing fellowship activities that bring Zone 7's clubs together.", photo:"", sort_order:3 },
+    { id:"leader-zpic", role:"ZPIC", role_full:"Zonal Public Image Chair",       name:"Rishav Thapa",     bio:"Rishav Thapa serves as Zone 7's Public Image Chair for RY 2026–27, leading how the zone and its clubs are represented publicly.", photo:"", sort_order:4 }
+  ],
+
+  async getLeadership(){
+    try{
+      const res = await fetch(`${LEADERSHIP_URL}?order=sort_order.asc`, { headers: REST_HEADERS });
+      if(!res.ok) throw new Error("Fetch failed: " + res.status);
+      const rows = await res.json();
+      if(rows.length){ this._leadershipCache = rows; return rows; }
+      // Seed fallback
+      for(const l of this._leadershipFallback){ await this.saveLeader({...l}); }
+      this._leadershipCache = this._leadershipFallback;
+      return this._leadershipFallback;
+    } catch(e){
+      console.error("ZONE7_DB.getLeadership error", e);
+      return this._leadershipCache || this._leadershipFallback;
+    }
+  },
+
+  async saveLeader(leader){
+    leader.updated = Date.now();
+    const res = await fetch(`${LEADERSHIP_URL}?on_conflict=id`, {
+      method: "POST",
+      headers: { ...REST_HEADERS, "Prefer": "resolution=merge-duplicates,return=representation" },
+      body: JSON.stringify(leader)
+    });
+    if(!res.ok){ const t = await res.text(); throw new Error("Save failed: " + res.status + " " + t); }
+    return true;
+  },
+
+  async deleteLeader(id){
+    const res = await fetch(`${LEADERSHIP_URL}?id=eq.${encodeURIComponent(id)}`, { method:"DELETE", headers: REST_HEADERS });
     if(!res.ok) throw new Error("Delete failed: " + res.status);
     return true;
   },
