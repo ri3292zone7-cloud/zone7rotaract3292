@@ -183,11 +183,12 @@
     gap:10px 3px; padding:6px 2px 18px; justify-content:flex-start;
   }
   .mosaic-col{
-    display:flex; flex-direction:column; align-items:center; flex:0 0 auto; width:32px;
+    display:flex; flex-direction:column; align-items:center; flex:0 0 auto; width:auto; min-width:32px;
     transition:opacity .25s;
   }
   .mosaic-columns.dim .mosaic-col{opacity:0.25;}
   .mosaic-columns.dim .mosaic-col.hi{opacity:1;}
+  .mosaic-substacks{display:flex; align-items:flex-end; gap:3px;}
   .mosaic-stack{display:flex; flex-direction:column-reverse; gap:2px; position:relative; z-index:1;}
   .mosaic-tile{
     width:32px; height:32px; border-radius:7px; cursor:pointer;
@@ -549,6 +550,7 @@
       <h3>Every Zone 7 project, one skyline.</h3>
       <div class="mosaic-tabs" id="mosaicTabs">
         <span class="mt active" data-mode="category">By Category</span>
+        <span class="mt" data-mode="avenue">By Avenue</span>
         <span class="mt" data-mode="club">By Club</span>
         <span class="mt" data-mode="az">A&ndash;Z</span>
       </div>
@@ -572,6 +574,24 @@
     Tripureswor:"TRIP", "Kathmandu West":"KTMW", "Kathmandu Height":"KTMH", "New Road City":"NRC"
   };
   const codeFor=(label,mode)=> mode==="az" ? label : (CODES[label] || label.replace(/[^A-Za-z]/g,"").slice(0,4).toUpperCase());
+
+  const AVENUES=["Membership Development","Club Administration","Service Project","International Service","Professional Development","Finance","The Rotary Foundation","Public Image","Young Leaders Contact"];
+  Object.assign(CODES,{"Membership Development":"MBRD","Club Administration":"ADMN","Service Project":"SERV","International Service":"INTL","Professional Development":"PDEV","Finance":"FNCE","The Rotary Foundation":"TRF","Public Image":"PIMG","Young Leaders Contact":"YLC"});
+  const AVENUE_KW={
+    "Membership Development":["membership","member growth","retention"],
+    "Club Administration":["administration","installation","bod","assembly","drr visit","governance","transition"],
+    "International Service":["international","twin","goodwill visit","exchange","mother language"],
+    "Professional Development":["professional","career","skill","workshop","training","seminar","counsel"],
+    "Finance":["finance","fundrais","budget","carnival"],
+    "The Rotary Foundation":["rotary foundation","trf","grant"],
+    "Public Image":["public image","publicity","social media","photowalk","public relation"],
+    "Young Leaders Contact":["interact","young leader","youth leader"]
+  };
+  function avenueFor(p){
+    const text=(p.c+" "+p.t).toLowerCase();
+    for(const av in AVENUE_KW) if(AVENUE_KW[av].some(k=>text.includes(k))) return av;
+    return "Service Project";
+  }
 
   const MOCK_DEMO=[ // shown only until real clubs have uploaded projects
     {t:"Blood Donation Drive",c:"Health",club:"balkumari",cn:"Balkumari",id:"mock-1"},
@@ -625,11 +645,11 @@
   const combos=[];
   ICONS.forEach(ic=>COLORS.forEach(c=>combos.push({ic,c})));
   for(let i=combos.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [combos[i],combos[j]]=[combos[j],combos[i]]; }
-  MOSAIC.forEach((p,i)=>{ const combo=combos[i%combos.length]; p.ic=combo.ic; p.bg=combo.c; });
+  MOSAIC.forEach((p,i)=>{ const combo=combos[i%combos.length]; p.ic=combo.ic; p.bg=combo.c; p.av=avenueFor(p); });
 
   const cols=document.getElementById("mosaicColumns");
   const pop=document.getElementById("mosaicPopup"), mpTag=document.getElementById("mpTag"), mpTitle=document.getElementById("mpTitle"), mpClub=document.getElementById("mpClub");
-  const keyFor={ category:p=>p.c, club:p=>p.cn, az:p=>p.t[0].toUpperCase() };
+  const keyFor={ category:p=>p.c, club:p=>p.cn, az:p=>p.t[0].toUpperCase(), avenue:p=>p.av };
   const noteEl=document.querySelector(".mosaic-note");
   if(noteEl) noteEl.textContent = isLive
     ? `Live — ${MOSAIC.length} project${MOSAIC.length===1?"":"s"} uploaded by Zone 7 clubs.`
@@ -640,15 +660,23 @@
     const groups={};
     MOSAIC.slice().sort((a,b)=> mode==="az" ? a.t.localeCompare(b.t) : 0)
       .forEach(p=>{ const k=key(p); (groups[k]=groups[k]||[]).push(p); });
-    cols.innerHTML=Object.entries(groups).map(([label,items],ci)=>`
-      <div class="mosaic-col" data-ci="${ci}">
-        <div class="mosaic-stack">${items.map(p=>{
+    const ROWCAP=6;
+    cols.innerHTML=Object.entries(groups).map(([label,items],ci)=>{
+      const chunks=[];
+      for(let i=0;i<items.length;i+=ROWCAP) chunks.push(items.slice(i,i+ROWCAP));
+      const stacksHtml=chunks.map(chunk=>`
+        <div class="mosaic-stack">${chunk.map(p=>{
           const gi=MOSAIC.indexOf(p);
           return `<div class="mosaic-tile" style="background:${p.bg}" data-i="${gi}">${p.ic}</div>`;
         }).join("")}</div>
-        <div class="mosaic-col-code" title="${label}">${codeFor(label,mode)}</div>
-      </div>
-    `).join("");
+      `).join("");
+      return `
+        <div class="mosaic-col" data-ci="${ci}">
+          <div class="mosaic-substacks">${stacksHtml}</div>
+          <div class="mosaic-col-code" title="${label}">${codeFor(label,mode)}</div>
+        </div>
+      `;
+    }).join("");
 
     cols.querySelectorAll(".mosaic-col").forEach(colEl=>{
       colEl.addEventListener("mouseenter",()=>{ cols.classList.add("dim"); colEl.classList.add("hi"); });
