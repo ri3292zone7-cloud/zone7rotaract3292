@@ -158,9 +158,64 @@
     background:linear-gradient(100deg, var(--magenta), var(--magenta-deep));
     -webkit-background-clip:text; background-clip:text; color:transparent;
   }
-  .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px; align-items:start; margin-top:72px;}
   .about-copy p{color:rgba(27,24,54,0.72); line-height:1.85; margin-bottom:22px; font-size:1.02rem;}
-  .pillars{display:grid; gap:22px;}
+
+  /* SKYLINE PROJECT MOSAIC — refined */
+  .mosaic-head{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:14px; margin:36px 0 22px;}
+  .mosaic-head h3{font-size:1.2rem;}
+  .mosaic-tabs{display:flex; gap:6px; background:var(--paper); border:1px solid var(--line); border-radius:100px; padding:4px;}
+  .mt{
+    font-size:0.74rem; font-weight:700; color:rgba(27,24,54,0.45); cursor:pointer; text-transform:uppercase;
+    letter-spacing:0.04em; padding:7px 14px; border-radius:100px; transition:background .2s, color .2s;
+  }
+  .mt.active{color:#fff; background:var(--ink);}
+  .mt:hover:not(.active){color:var(--magenta-deep);}
+  .mosaic-frame{
+    background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:28px 24px 20px;
+    position:relative; overflow:hidden;
+  }
+  .mosaic-frame::before{
+    content:""; position:absolute; top:-80px; right:-60px; width:280px; height:280px; border-radius:50%;
+    background:radial-gradient(circle, rgba(225,26,110,0.06), transparent 70%); pointer-events:none;
+  }
+  .mosaic-columns{
+    position:relative; display:flex; align-items:flex-end; gap:3px; overflow-x:auto; overflow-y:hidden;
+    padding:6px 2px 18px; scrollbar-width:thin;
+  }
+  .mosaic-col{
+    display:flex; flex-direction:column; align-items:center; flex:0 0 auto; width:32px;
+    transition:opacity .25s;
+  }
+  .mosaic-columns.dim .mosaic-col{opacity:0.25;}
+  .mosaic-columns.dim .mosaic-col.hi{opacity:1;}
+  .mosaic-stack{display:flex; flex-direction:column-reverse; gap:2px; position:relative; z-index:1;}
+  .mosaic-tile{
+    width:32px; height:32px; border-radius:7px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.88rem;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -2px 4px rgba(0,0,0,0.12);
+    transition:transform .18s cubic-bezier(.34,1.4,.64,1), box-shadow .18s, filter .18s;
+  }
+  .mosaic-tile:hover{
+    transform:translateY(-5px) scale(1.16); z-index:3; filter:brightness(1.08);
+    box-shadow:0 12px 20px rgba(27,24,54,0.32), inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+  .mosaic-col-code{
+    margin-top:10px; padding-top:8px; width:100%; text-align:center; border-top:1px solid var(--line);
+    font-family:'Poppins'; font-size:0.62rem; font-weight:800; color:rgba(27,24,54,0.4);
+    letter-spacing:0.06em; white-space:nowrap;
+  }
+  .mosaic-col:hover .mosaic-col-code{color:var(--magenta-deep);}
+  .mosaic-note{margin-top:14px; font-size:0.78rem; color:rgba(27,24,54,0.4);}
+  .mosaic-popup{
+    position:fixed; z-index:500; width:230px; background:var(--paper); border:1px solid var(--line);
+    border-radius:14px; padding:14px 16px; box-shadow:0 20px 40px rgba(27,24,54,0.22); pointer-events:none;
+    opacity:0; transform:translateY(6px); transition:opacity .15s, transform .15s;
+  }
+  .mosaic-popup.show{opacity:1; transform:translateY(0);}
+  .mosaic-popup .mp-tag{font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:3px 9px; border-radius:100px; display:inline-block; margin-bottom:8px;}
+  .mosaic-popup h5{font-size:0.9rem; margin-bottom:4px; font-family:'Poppins'; font-weight:700;}
+  .mosaic-popup p{font-size:0.76rem; color:rgba(27,24,54,0.55); margin:0;}
+  @media (max-width:600px){ .mosaic-tile,.mosaic-col{width:26px;} .mosaic-tile{height:26px; font-size:0.72rem;} .mosaic-frame{padding:20px 14px 14px;} }
   .pillar{
     background:var(--cream); border:1px solid var(--line); border-radius:18px; padding:28px 30px;
     display:flex; gap:20px; align-items:flex-start;
@@ -393,7 +448,7 @@
     .hero{padding:130px 0 70px;}
     .section{padding:70px 0;}
     .leader{padding:50px 0 20px;}
-    .about-grid{grid-template-columns:1fr; gap:40px;}
+    .mosaic-head{margin-top:36px;}
     .clubs-grid{grid-template-columns:repeat(2,1fr);}
     .ig-grid{grid-template-columns:repeat(3,1fr);}
     .stat-row{grid-template-columns:repeat(2,1fr); row-gap:30px; margin-top:50px;}
@@ -488,31 +543,142 @@
   <div class="wrap">
     <span class="section-tag">Who we are</span>
     <h2>Service above self, <span class="mark">led by youth.</span></h2>
-    <p class="sub">Rotaract is Rotary International's club for young adults aged 18&ndash;30, sponsored by local Rotary clubs but entirely run by Rotaractors themselves &mdash; from what projects to take on, to how the club is organized.</p>
+    <p class="sub">Rotaract is Rotary International's club for young adults aged 18&ndash;30 &mdash; sponsored by local Rotary clubs, entirely run by Rotaractors. Zone 7 unites 9 such clubs across the Kathmandu Valley under District 3292.</p>
 
-    <div class="about-grid">
-      <div class="about-copy">
-        <p>Rotaract District 3292 covers Nepal and Bhutan, and is one of the most active Rotaract movements in the region &mdash; with a history spanning more than three decades and a membership of over 5,500 young leaders across 180+ clubs.</p>
-        <p>Zone 7 is one of the district's zones, made up of Rotaract clubs based in and around the Kathmandu Valley. Guided each Rotary year by a Zone Rotaract Representative (ZRR), Zone 7 clubs meet, collaborate on joint service projects, and support each other's growth &mdash; acting as a bridge between individual clubs and the wider District 3292 leadership.</p>
-        <p>Together, Zone 7 clubs run service projects in education, health, environment and community development, while giving members real leadership and professional-development experience along the way.</p>
-      </div>
-      <div class="pillars">
-        <div class="pillar">
-          <div class="num">01</div>
-          <div><h4>Integrity</h4><p>Transparent leadership and accountable club operations across the zone.</p></div>
-        </div>
-        <div class="pillar">
-          <div class="num">02</div>
-          <div><h4>Vision</h4><p>Long-term thinking that connects club projects to the district's yearly theme.</p></div>
-        </div>
-        <div class="pillar">
-          <div class="num">03</div>
-          <div><h4>Leadership</h4><p>Hands-on experience running clubs, projects and events from day one.</p></div>
-        </div>
+    <div class="mosaic-head">
+      <h3>Every Zone 7 project, one skyline.</h3>
+      <div class="mosaic-tabs" id="mosaicTabs">
+        <span class="mt active" data-mode="category">By Category</span>
+        <span class="mt" data-mode="club">By Club</span>
+        <span class="mt" data-mode="az">A&ndash;Z</span>
       </div>
     </div>
+    <div class="mosaic-frame"><div class="mosaic-columns" id="mosaicColumns"></div></div>
+    <p class="mosaic-note">Mockup preview &mdash; live club-uploaded projects populate this automatically.</p>
   </div>
 </section>
+<div class="mosaic-popup" id="mosaicPopup"><span class="mp-tag" id="mpTag"></span><h5 id="mpTitle"></h5><p id="mpClub"></p></div>
+<script>
+(async function(){
+  // curated, brand-adjacent palette — no raw neon, everything sits in the same tonal family
+  const COLORS=["#E11A6E","#A80F52","#F2A900","#8a6300","#1c8a4d","#3a3170","#1B1836","#c1502e"];
+  const ICONS=["🩸","📚","🌳","💧","🎓","🤝","🎤","🌍","🧺","🎨","⚽","🏥","🧵","🔥","📷","🎗️"];
+
+  // short display codes so column width never depends on label length
+  const CODES={
+    Health:"HLTH", International:"INTL", Fellowship:"FLWS", Education:"EDU", Leadership:"LEAD",
+    Community:"CMTY", Environment:"ENVR", WASH:"WASH", "Prof. Dev.":"PDEV", "Public Image":"PIMG", Fundraising:"FUND",
+    Uncategorized:"UNCT", Balkumari:"BALK", Baneshwor:"BANE", Sankhu:"SANK", "Liberty College":"LIBC", Sukedhara:"SUKD",
+    Tripureswor:"TRIP", "Kathmandu West":"KTMW", "Kathmandu Height":"KTMH", "New Road City":"NRC"
+  };
+  const codeFor=(label,mode)=> mode==="az" ? label : (CODES[label] || label.replace(/[^A-Za-z]/g,"").slice(0,4).toUpperCase());
+
+  const MOCK_DEMO=[ // shown only until real clubs have uploaded projects
+    {t:"Blood Donation Drive",c:"Health",club:"balkumari",cn:"Balkumari",id:"mock-1"},
+    {t:"Twin Club Meet",c:"International",club:"balkumari",cn:"Balkumari",id:"mock-2"},
+    {t:"Fellowship Night",c:"Fellowship",club:"balkumari",cn:"Balkumari",id:"mock-3"},
+    {t:"School Repaint",c:"Education",club:"baneshwor",cn:"Baneshwor",id:"mock-4"},
+    {t:"Youth Leadership Camp",c:"Leadership",club:"baneshwor",cn:"Baneshwor",id:"mock-5"},
+    {t:"Community Meal Drive",c:"Community",club:"baneshwor",cn:"Baneshwor",id:"mock-6"},
+    {t:"River Clean-Up",c:"Environment",club:"sankhu",cn:"Sankhu",id:"mock-7"},
+    {t:"Water Aid Project",c:"WASH",club:"sankhu",cn:"Sankhu",id:"mock-8"},
+    {t:"Literacy Drive",c:"Education",club:"sankhu",cn:"Sankhu",id:"mock-9"},
+    {t:"Career Talk Series",c:"Prof. Dev.",club:"liberty",cn:"Liberty College",id:"mock-10"},
+    {t:"Entrepreneurship Bootcamp",c:"Prof. Dev.",club:"liberty",cn:"Liberty College",id:"mock-11"},
+    {t:"Cultural Exchange Meet",c:"International",club:"liberty",cn:"Liberty College",id:"mock-12"},
+    {t:"Elder Home Visit",c:"Community",club:"sukedhara",cn:"Sukedhara",id:"mock-13"},
+    {t:"Sports Fest",c:"Fellowship",club:"sukedhara",cn:"Sukedhara",id:"mock-14"},
+    {t:"Health Camp",c:"Health",club:"sukedhara",cn:"Sukedhara",id:"mock-15"},
+    {t:"Tree Plantation",c:"Environment",club:"tripureswor",cn:"Tripureswor",id:"mock-16"},
+    {t:"Public Image Photowalk",c:"Public Image",club:"tripureswor",cn:"Tripureswor",id:"mock-17"},
+    {t:"District Grant Project",c:"Fundraising",club:"tripureswor",cn:"Tripureswor",id:"mock-18"},
+    {t:"Menstrual Health Camp",c:"Health",club:"kathmanduwest",cn:"Kathmandu West",id:"mock-19"},
+    {t:"Joint Rotary Meeting",c:"Fellowship",club:"kathmanduwest",cn:"Kathmandu West",id:"mock-20"},
+    {t:"Skill Development Workshop",c:"Prof. Dev.",club:"kathmanduwest",cn:"Kathmandu West",id:"mock-21"},
+    {t:"Literacy Workshop",c:"Education",club:"kathmanduheight",cn:"Kathmandu Height",id:"mock-22"},
+    {t:"Installation Ceremony",c:"Fellowship",club:"kathmanduheight",cn:"Kathmandu Height",id:"mock-23"},
+    {t:"Sapling Distribution",c:"Environment",club:"kathmanduheight",cn:"Kathmandu Height",id:"mock-24"},
+    {t:"Fundraiser Gala",c:"Fundraising",club:"newroadcity",cn:"New Road City",id:"mock-25"},
+    {t:"Interact Mentorship Day",c:"Leadership",club:"newroadcity",cn:"New Road City",id:"mock-26"},
+    {t:"Public Image Campaign",c:"Public Image",club:"newroadcity",cn:"New Road City",id:"mock-27"}
+  ];
+
+  // Pull every real project every club has uploaded via the Club Admin panel (Supabase-backed,
+  // same source club.html/project.html read from) — falls back to the mock set only if empty.
+  let MOSAIC=MOCK_DEMO, isLive=false;
+  try{
+    const live=(typeof ZONE7_DB!=="undefined") ? await ZONE7_DB.getAllProjects() : [];
+    if(live && live.length){
+      MOSAIC=live.map(p=>({
+        t:p.title || "Untitled Project",
+        c:(p.category||"").trim() || "Uncategorized",
+        club:p.club_slug,
+        cn:(CLUB_DIRECTORY[p.club_slug] && CLUB_DIRECTORY[p.club_slug].name.replace(/^Rotaract Club of /i,"")) || p.club_slug,
+        id:p.id
+      }));
+      isLive=true;
+    }
+  } catch(e){ console.error("Mosaic: falling back to demo projects", e); }
+
+  // Shuffle every (icon,color) combo, then hand out one unique pair per project —
+  // guarantees no two tiles ever repeat the same icon+color combination.
+  const combos=[];
+  ICONS.forEach(ic=>COLORS.forEach(c=>combos.push({ic,c})));
+  for(let i=combos.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [combos[i],combos[j]]=[combos[j],combos[i]]; }
+  MOSAIC.forEach((p,i)=>{ const combo=combos[i%combos.length]; p.ic=combo.ic; p.bg=combo.c; });
+
+  const cols=document.getElementById("mosaicColumns");
+  const pop=document.getElementById("mosaicPopup"), mpTag=document.getElementById("mpTag"), mpTitle=document.getElementById("mpTitle"), mpClub=document.getElementById("mpClub");
+  const keyFor={ category:p=>p.c, club:p=>p.cn, az:p=>p.t[0].toUpperCase() };
+  const noteEl=document.querySelector(".mosaic-note");
+  if(noteEl) noteEl.textContent = isLive
+    ? `Live — ${MOSAIC.length} project${MOSAIC.length===1?"":"s"} uploaded by Zone 7 clubs.`
+    : "Mockup preview — real club-uploaded projects will populate this automatically.";
+
+  function render(mode){
+    const key=keyFor[mode];
+    const groups={};
+    MOSAIC.slice().sort((a,b)=> mode==="az" ? a.t.localeCompare(b.t) : 0)
+      .forEach(p=>{ const k=key(p); (groups[k]=groups[k]||[]).push(p); });
+    cols.innerHTML=Object.entries(groups).map(([label,items],ci)=>`
+      <div class="mosaic-col" data-ci="${ci}">
+        <div class="mosaic-stack">${items.map(p=>{
+          const gi=MOSAIC.indexOf(p);
+          return `<div class="mosaic-tile" style="background:${p.bg}" data-i="${gi}">${p.ic}</div>`;
+        }).join("")}</div>
+        <div class="mosaic-col-code" title="${label}">${codeFor(label,mode)}</div>
+      </div>
+    `).join("");
+
+    cols.querySelectorAll(".mosaic-col").forEach(colEl=>{
+      colEl.addEventListener("mouseenter",()=>{ cols.classList.add("dim"); colEl.classList.add("hi"); });
+      colEl.addEventListener("mouseleave",()=>{ cols.classList.remove("dim"); colEl.classList.remove("hi"); });
+    });
+    cols.querySelectorAll(".mosaic-tile").forEach(el=>{
+      const p=MOSAIC[el.dataset.i];
+      el.addEventListener("mousemove",e=>{
+        pop.style.left=Math.min(e.clientX+16,window.innerWidth-246)+"px";
+        pop.style.top=Math.min(e.clientY+16,window.innerHeight-100)+"px";
+      });
+      el.addEventListener("mouseenter",()=>{
+        mpTag.textContent=p.c; mpTitle.textContent=p.t; mpClub.textContent="Rotaract Club of "+p.cn;
+        pop.classList.add("show");
+      });
+      el.addEventListener("mouseleave",()=>pop.classList.remove("show"));
+      el.addEventListener("click",()=>{ location.href=`project.html?club=${p.club}&id=${encodeURIComponent(p.id)}`; });
+    });
+  }
+
+  document.querySelectorAll(".mt").forEach(tab=>{
+    tab.addEventListener("click",()=>{
+      document.querySelectorAll(".mt").forEach(t=>t.classList.remove("active"));
+      tab.classList.add("active");
+      render(tab.dataset.mode);
+    });
+  });
+  render("category");
+})();
+</script>
 
 <section class="leader" id="leadership">
   <div class="wrap">
