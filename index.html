@@ -142,7 +142,22 @@
   .section p.sub{color:rgba(27,24,54,0.65); font-size:1.05rem; max-width:600px; line-height:1.75;}
 
   /* ABOUT */
-  .about{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .about{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line); position:relative; overflow:hidden;}
+  .about::before{
+    content:""; position:absolute; top:-120px; left:50%; transform:translateX(-50%); width:600px; height:600px;
+    background:radial-gradient(circle, rgba(225,26,110,0.07), transparent 65%); z-index:0; pointer-events:none;
+  }
+  .about .wrap{position:relative; z-index:1;}
+  .about .section-tag{
+    display:inline-flex; align-items:center; gap:8px; background:rgba(225,26,110,0.09); color:var(--magenta-deep);
+    padding:7px 16px; border-radius:100px; margin-bottom:0;
+  }
+  .about .section-tag::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--gold); display:inline-block;}
+  .about h2{margin-top:18px;}
+  .about h2 .mark{
+    background:linear-gradient(100deg, var(--magenta), var(--magenta-deep));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
   .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px; align-items:start; margin-top:72px;}
   .about-copy p{color:rgba(27,24,54,0.72); line-height:1.85; margin-bottom:22px; font-size:1.02rem;}
   .pillars{display:grid; gap:22px;}
@@ -175,7 +190,14 @@
     color:var(--gold); font-weight:700; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
     margin-bottom:8px; display:block;
   }
-  .leader-item h4{font-size:1.05rem; font-weight:700; font-family:'Poppins';}
+  .leader-item{
+    background:none; border:none; padding:0; text-align:left; font-family:inherit; cursor:pointer; width:100%; color:#fff;
+  }
+  .leader-item h4{font-size:1.05rem; font-weight:700; font-family:'Poppins'; transition:color .2s;}
+  .leader-item:hover h4{color:var(--gold);}
+  .leader-item .role-full{
+    display:block; font-size:0.74rem; font-weight:500; color:rgba(255,255,255,0.5); margin-top:4px;
+  }
   @media (max-width:920px){
     .leader-grid{grid-template-columns:repeat(2,1fr); row-gap:24px;}
   }
@@ -465,7 +487,7 @@
 <section class="about" id="about">
   <div class="wrap">
     <span class="section-tag">Who we are</span>
-    <h2>Service above self, led by youth.</h2>
+    <h2>Service above self, <span class="mark">led by youth.</span></h2>
     <p class="sub">Rotaract is Rotary International's club for young adults aged 18&ndash;30, sponsored by local Rotary clubs but entirely run by Rotaractors themselves &mdash; from what projects to take on, to how the club is organized.</p>
 
     <div class="about-grid">
@@ -497,24 +519,7 @@
     <span class="section-tag">Zone Leadership · RY 2026&ndash;27</span>
     <h2 style="margin-bottom:40px; max-width:600px;">Guided by the Zone 7 leadership team.</h2>
     <div class="leader-card">
-      <div class="leader-grid">
-        <div class="leader-item">
-          <span class="role">ZRR</span>
-          <h4>Rajay Bajracharya</h4>
-        </div>
-        <div class="leader-item">
-          <span class="role">ZS</span>
-          <h4>Peshal Basnet</h4>
-        </div>
-        <div class="leader-item">
-          <span class="role">ZFC</span>
-          <h4>Samrat Pandey</h4>
-        </div>
-        <div class="leader-item">
-          <span class="role">ZPIC</span>
-          <h4>Rishav Thapa</h4>
-        </div>
-      </div>
+      <div class="leader-grid" id="leaderGrid"></div>
     </div>
 
     <div class="zrr-timeline">
@@ -535,6 +540,60 @@
     <p class="zrr-modal-body" id="zrrModalBody"></p>
   </div>
 </div>
+
+<div class="zrr-modal-overlay" id="leaderModalOverlay">
+  <div class="zrr-modal">
+    <div class="zrr-modal-close" id="leaderModalClose">✕</div>
+    <div class="zrr-modal-avatar" id="leaderModalAvatar"></div>
+    <span class="zrr-modal-year" id="leaderModalRoleTag"></span>
+    <h3 id="leaderModalName"></h3>
+    <p class="zrr-modal-role" id="leaderModalRoleFull"></p>
+    <p class="zrr-modal-body" id="leaderModalBody"></p>
+  </div>
+</div>
+
+<script>
+if(typeof zone7Esc !== "function"){
+  window.zone7Esc = function(str){
+    return String(str ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  };
+}
+const ZONE_LEADERSHIP = [
+  { role:"ZRR", roleFull:"Zonal Rotaract Representative", name:"Rajay Bajracharya",
+    bio:"Rajay Bajracharya serves as Zone 7's Rotaract Representative for RY 2026–27, guiding the zone's clubs and coordinating between Zone 7 and the wider District 3292 leadership." },
+  { role:"ZS", roleFull:"Zonal Secretary", name:"Peshal Basnet",
+    bio:"Peshal Basnet serves as Zone 7's Secretary for RY 2026–27, supporting the zone's administration, communication and record-keeping across its clubs." },
+  { role:"ZFC", roleFull:"Zonal Fellowship Chair", name:"Samrat Pandey",
+    bio:"Samrat Pandey serves as Zone 7's Fellowship Chair for RY 2026–27, organizing fellowship activities that bring Zone 7's clubs together." },
+  { role:"ZPIC", roleFull:"Zonal Public Image Chair", name:"Rishav Thapa",
+    bio:"Rishav Thapa serves as Zone 7's Public Image Chair for RY 2026–27, leading how the zone and its clubs are represented publicly." }
+];
+
+document.getElementById("leaderGrid").innerHTML = ZONE_LEADERSHIP.map((p,i) => `
+  <button type="button" class="leader-item" data-i="${i}" title="${zone7Esc(p.name)}, ${zone7Esc(p.roleFull)}">
+    <span class="role">${zone7Esc(p.role)}</span>
+    <h4>${zone7Esc(p.name)}</h4>
+    <span class="role-full">${zone7Esc(p.roleFull)}</span>
+  </button>
+`).join("");
+
+const leaderOverlay = document.getElementById("leaderModalOverlay");
+function openLeaderModal(i){
+  const p = ZONE_LEADERSHIP[i];
+  document.getElementById("leaderModalAvatar").textContent = p.name.split(" ").map(w => w[0]).join("").slice(0,2).toUpperCase();
+  document.getElementById("leaderModalRoleTag").textContent = p.role;
+  document.getElementById("leaderModalName").textContent = p.name;
+  document.getElementById("leaderModalRoleFull").textContent = p.roleFull;
+  document.getElementById("leaderModalBody").textContent = p.bio;
+  leaderOverlay.classList.add("open");
+}
+document.querySelectorAll(".leader-item").forEach(btn => {
+  btn.addEventListener("click", () => openLeaderModal(Number(btn.dataset.i)));
+});
+document.getElementById("leaderModalClose").addEventListener("click", () => leaderOverlay.classList.remove("open"));
+leaderOverlay.addEventListener("click", (e) => { if(e.target === leaderOverlay) leaderOverlay.classList.remove("open"); });
+document.addEventListener("keydown", (e) => { if(e.key === "Escape") leaderOverlay.classList.remove("open"); });
+</script>
 
 <script>
 let ZRR_HISTORY = [];
