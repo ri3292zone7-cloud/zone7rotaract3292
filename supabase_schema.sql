@@ -107,3 +107,30 @@ create policy "Anon can write barometer"
   on barometer for all
   using (true)
   with check (true);
+
+-- ===================================================================
+-- ZRRS TABLE — Zone 7 ZRR (Zone Rotaract Representative) history,
+-- shown as the "Line of Leadership" timeline on index.html.
+-- Managed by the zonal team from the Guides admin panel.
+-- ===================================================================
+create table if not exists zrrs (
+  id text primary key,
+  name text not null,
+  years text not null,       -- e.g. "26-27" (display label)
+  sort_order int default 0,  -- controls left-to-right order on the timeline
+  is_current boolean default false,
+  bio text,                  -- optional short note about their tenure
+  photo text,                -- optional base64 data URL headshot
+  updated bigint
+);
+
+alter table zrrs enable row level security;
+
+create policy "Public can view zrrs"
+  on zrrs for select
+  using (true);
+
+create policy "Anon can write zrrs"
+  on zrrs for all
+  using (true)
+  with check (true);

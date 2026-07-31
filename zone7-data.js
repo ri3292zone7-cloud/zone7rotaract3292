@@ -193,6 +193,7 @@ function zone7AutoCheck(projects){
 const BAROMETER_URL = `${SUPABASE_URL}/rest/v1/barometer`;
 
 const GUIDES_URL = `${SUPABASE_URL}/rest/v1/guides`;
+const ZRRS_URL = `${SUPABASE_URL}/rest/v1/zrrs`;
 const REST_URL = `${SUPABASE_URL}/rest/v1/projects`;
 const EVENTS_URL = `${SUPABASE_URL}/rest/v1/events`;
 const REST_HEADERS = {
@@ -391,6 +392,51 @@ const ZONE7_DB = {
 
   async deleteGuide(id){
     const res = await fetch(`${GUIDES_URL}?id=eq.${encodeURIComponent(id)}`, {
+      method: "DELETE",
+      headers: REST_HEADERS
+    });
+    if(!res.ok) throw new Error("Delete failed: " + res.status);
+    return true;
+  },
+
+  /* ---- ZRR history (Line of Leadership timeline on index.html) ---- */
+  _zrrFallback: [
+    { id:"zrr-2122", name:"Binaya Maharjan", years:"21-22", sort_order:1, is_current:false },
+    { id:"zrr-2223", name:"Ankush Adhikari", years:"22-23", sort_order:2, is_current:false },
+    { id:"zrr-2324", name:"Gopal Shah", years:"23-24", sort_order:3, is_current:false },
+    { id:"zrr-2425", name:"Subina Kuickel", years:"24-25", sort_order:4, is_current:false },
+    { id:"zrr-2526", name:"Nitesh Thakur", years:"25-26", sort_order:5, is_current:false },
+    { id:"zrr-2627", name:"Rajay Bajracharya", years:"26-27", sort_order:6, is_current:true }
+  ],
+
+  async getZRRs(){
+    try{
+      const res = await fetch(`${ZRRS_URL}?order=sort_order.asc`, { headers: REST_HEADERS });
+      if(!res.ok) throw new Error("Fetch failed: " + res.status);
+      const rows = await res.json();
+      return rows.length ? rows : this._zrrFallback;
+    } catch(e){
+      console.error("ZONE7_DB.getZRRs error", e);
+      return this._zrrCache || this._zrrFallback;
+    }
+  },
+
+  async saveZRR(zrr){
+    zrr.updated = Date.now();
+    const res = await fetch(`${ZRRS_URL}?on_conflict=id`, {
+      method: "POST",
+      headers: { ...REST_HEADERS, "Prefer": "resolution=merge-duplicates,return=representation" },
+      body: JSON.stringify(zrr)
+    });
+    if(!res.ok){
+      const errText = await res.text();
+      throw new Error("Save failed: " + res.status + " " + errText);
+    }
+    return true;
+  },
+
+  async deleteZRR(id){
+    const res = await fetch(`${ZRRS_URL}?id=eq.${encodeURIComponent(id)}`, {
       method: "DELETE",
       headers: REST_HEADERS
     });
