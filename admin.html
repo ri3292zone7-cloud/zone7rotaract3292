@@ -202,13 +202,13 @@
   .sb-item:hover{background:rgba(225,26,110,0.07);}
   .sb-item.active{background:var(--ink); color:#fff;}
   .sb-item .ic{font-size:1.05rem; width:20px; text-align:center; flex-shrink:0;}
-  body.has-sidebar #dashboard > .wrap, body.has-sidebar #guidesPanel{margin-left:230px; max-width:none; padding-right:28px;}
+  body.has-sidebar #dashboard > .wrap{margin-left:230px; max-width:none; padding-right:28px;}
   .view{display:none;}
   .view.active{display:block;}
   @media (max-width:900px){
     .admin-sidebar{position:static; width:auto; height:auto; border-right:none; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:6px; padding:14px 20px;}
     .admin-sidebar .sb-label{display:none;}
-    body.has-sidebar #dashboard > .wrap, body.has-sidebar #guidesPanel{margin-left:0; padding-right:0;}
+    body.has-sidebar #dashboard > .wrap{margin-left:0; padding-right:0;}
   }
 </style>
 </head>
@@ -402,8 +402,6 @@
       </div>
     </div>
     </div>
-  </div>
-</div>
 
     <!-- GUIDES PANEL (zonal team only) -->
     <div class="view" id="view-guides">
@@ -439,7 +437,7 @@
       <label for="zrrBio">Short Note <span style="font-weight:500; color:rgba(27,24,54,0.5);">(optional — shown in their popup card; leave blank for a default line)</span></label>
       <textarea id="zrrBio" rows="2" placeholder="e.g. Led Zone 7 through a record membership growth year."></textarea>
       <label for="zrrPhoto">Photo <span style="font-weight:500; color:rgba(27,24,54,0.5);">(optional — shown in their popup card; auto-resized)</span></label>
-      <img class="cover-preview" id="zrrPhotoPreview" style="aspect-ratio:1/1; max-width:160px;">
+      <img class="cover-preview" id="zrrPhotoPreview" style="width:120px; aspect-ratio:1/1; border-radius:50%; object-fit:cover; max-width:120px;">
       <div class="img-upload" id="zrrPhotoUpload">
         <span>Click to upload a photo</span>
       </div>
