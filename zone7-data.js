@@ -163,10 +163,31 @@ const ROTARY_FOCUS_AREAS = {
   "Environment": ["environment","tree","plantation","clean-up","cleanup","climate"]
 };
 
+/* Is a project's date within Rotary Year 2026-27 (1 Jul 2026 – 30 Jun 2027)? */
+function zone7InRY2627(dateStr){
+  if(!dateStr) return false;
+  const d = new Date(dateStr);
+  if(isNaN(d)) return false;
+  return d >= new Date('2026-07-01') && d <= new Date('2027-06-30T23:59:59');
+}
+
+/* Deterministic 4-digit confirmation code per club+barometer-item, so a
+   club can "fill in the code" to confirm a criterion instead of just
+   self-ticking a box. Not real security — same front-end-gate caveat as
+   the rest of this file — just a lightweight confirm-to-check step. */
+function zone7ItemCode(clubSlug, itemId){
+  const str = `${clubSlug}-${itemId}-zone7`;
+  let h = 0;
+  for(let i=0;i<str.length;i++){ h = (h*31 + str.charCodeAt(i)) >>> 0; }
+  return String(1000 + (h % 9000));
+}
+
 /* Given a club's project list, auto-evaluate the handful of barometer
-   items that can be reasonably inferred from project data. Returns a
-   Set of item ids that should be considered satisfied. */
-function zone7AutoCheck(projects){
+   items that can be reasonably inferred from project data. Only projects
+   dated within RY 2026-27 count. Returns a Set of item ids that should
+   be considered satisfied. */
+function zone7AutoCheck(allProjects){
+  const projects = allProjects.filter(p => zone7InRY2627(p.date));
   const satisfied = new Set();
   const blob = p => `${p.title||""} ${p.category||""} ${p.summary||""} ${p.body||""}`.toLowerCase();
 

@@ -575,11 +575,13 @@ function renderBarometer(autoIds){
     const itemsHtml = items.map(item => {
       const isAuto = item.auto && autoIds.has(item.id);
       const isChecked = isAuto || checkedSet.has(item.id);
+      const code = zone7ItemCode(currentClub, item.id);
       return `
         <div class="baro-item${isChecked ? ' checked':''}${isAuto ? ' auto':''}" data-id="${item.id}">
-          <div class="baro-check-wrap"><input type="checkbox" class="baro-check" data-id="${item.id}" ${isChecked ? 'checked':''} ${isAuto ? 'disabled':''}></div>
-          <div class="baro-text"><span class="num">${item.id}.</span>${zone7Esc(item.text)}${isAuto ? '<span class="baro-tag">✨ Auto-detected</span>' : ''}</div>
+          <div class="baro-check-wrap"><input type="checkbox" class="baro-check" data-id="${item.id}" ${isChecked ? 'checked':''} disabled></div>
+          <div class="baro-text"><span class="num">${item.id}.</span>${zone7Esc(item.text)}${isAuto ? '<span class="baro-tag">✨ Auto-detected</span>' : `<span class="baro-tag" style="color:var(--magenta-deep); background:rgba(225,26,110,0.09);">Code: ${code}</span>`}</div>
           <div class="baro-meta">
+            ${isAuto ? "" : `<input type="text" class="baro-code-input" data-id="${item.id}" maxlength="4" placeholder="Code" value="${isChecked ? code : ''}" style="width:64px; padding:6px 8px; border-radius:8px; border:1.5px solid var(--line); font-size:0.82rem; text-align:center; margin-bottom:4px;">`}
             <span class="baro-pts">${item.points} pt${item.points>1?'s':''}</span>
             <span class="baro-verifier">${zone7Esc(item.verifier)}</span>
           </div>
@@ -599,12 +601,12 @@ function renderBarometer(autoIds){
     `;
   }).join("");
 
-  list.querySelectorAll(".baro-check:not(:disabled)").forEach(cb => {
-    cb.addEventListener("change", () => {
-      const id = Number(cb.dataset.id);
-      if(cb.checked) baroCheckedItems.push(id);
-      else baroCheckedItems = baroCheckedItems.filter(x => x !== id);
-      cb.closest(".baro-item").classList.toggle("checked", cb.checked);
+  list.querySelectorAll(".baro-code-input").forEach(inp => {
+    inp.addEventListener("input", () => {
+      const id = Number(inp.dataset.id);
+      const correct = inp.value.trim() === zone7ItemCode(currentClub, id);
+      baroCheckedItems = baroCheckedItems.filter(x => x !== id);
+      if(correct) baroCheckedItems.push(id);
       renderBarometer(autoIds);
     });
   });

@@ -1,6 +1,9 @@
--- Run this once in your Supabase project's SQL Editor
--- (Dashboard → SQL Editor → New Query → paste → Run)
+-- Run this in your Supabase project's SQL Editor.
+-- Safe to re-run: uses IF NOT EXISTS for tables and drops policies before recreating them.
 
+-- ===================================================================
+-- PROJECTS
+-- ===================================================================
 create table if not exists projects (
   id text primary key,
   club_slug text not null,
@@ -14,53 +17,31 @@ create table if not exists projects (
   gallery jsonb default '[]'::jsonb,
   updated bigint
 );
-
--- Enable Row Level Security
 alter table projects enable row level security;
-
--- Anyone (including anonymous visitors) can READ projects — needed so
--- club.html / project.html can show them to the public.
-create policy "Public can view projects"
-  on projects for select
-  using (true);
-
--- Anyone with the anon key can INSERT/UPDATE/DELETE.
--- This matches the current front-end-only password gate in admin.html
--- (the club password check happens in the browser, not the database).
--- If you want real per-club write security later, this is the policy
--- to tighten — e.g. by adding Supabase Auth and checking auth.uid().
-create policy "Anon can write projects"
-  on projects for all
-  using (true)
-  with check (true);
+drop policy if exists "Public can view projects" on projects;
+drop policy if exists "Anon can write projects" on projects;
+create policy "Public can view projects" on projects for select using (true);
+create policy "Anon can write projects" on projects for all using (true) with check (true);
 
 -- ===================================================================
--- EVENTS TABLE — for the "Zone 7 events & meets" section on index.html
+-- EVENTS
 -- ===================================================================
 create table if not exists events (
   id text primary key,
   title text not null,
-  event_date text,       -- e.g. "2026-03-15" or "TBD"
+  event_date text,
   description text,
   rsvp_link text,
   updated bigint
 );
-
 alter table events enable row level security;
-
-create policy "Public can view events"
-  on events for select
-  using (true);
-
-create policy "Anon can write events"
-  on events for all
-  using (true)
-  with check (true);
+drop policy if exists "Public can view events" on events;
+drop policy if exists "Anon can write events" on events;
+create policy "Public can view events" on events for select using (true);
+create policy "Anon can write events" on events for all using (true) with check (true);
 
 -- ===================================================================
--- GUIDES TABLE — for the "Guides for Clubs" resource page
--- Zonal team uploads live here; the original documents stay as
--- static files in the /guides folder and don't need a database row.
+-- GUIDES
 -- ===================================================================
 create table if not exists guides (
   id text primary key,
@@ -68,96 +49,63 @@ create table if not exists guides (
   category text,
   description text,
   file_name text,
-  file_data text,      -- base64 data URL of the uploaded document
+  file_data text,
   updated bigint
 );
-
 alter table guides enable row level security;
-
-create policy "Public can view guides"
-  on guides for select
-  using (true);
-
-create policy "Anon can write guides"
-  on guides for all
-  using (true)
-  with check (true);
+drop policy if exists "Public can view guides" on guides;
+drop policy if exists "Anon can write guides" on guides;
+create policy "Public can view guides" on guides for select using (true);
+create policy "Anon can write guides" on guides for all using (true) with check (true);
 
 -- ===================================================================
--- BAROMETER TABLE — District 3292 club excellence checklist (RY 2026-27)
--- One row per club, storing which criteria the club has self-checked
--- off as complete. checked_items is a JSON array of criteria numbers,
--- e.g. [1,2,5,8]. Auto-detected items (blood donation, 7 Areas of
--- Focus) are computed live from the projects table and are NOT stored
--- here — only the manually self-reported items are.
+-- BAROMETER
 -- ===================================================================
 create table if not exists barometer (
   club_slug text primary key,
   checked_items jsonb default '[]'::jsonb,
   updated bigint
 );
-
 alter table barometer enable row level security;
-
-create policy "Public can view barometer"
-  on barometer for select
-  using (true);
-
-create policy "Anon can write barometer"
-  on barometer for all
-  using (true)
-  with check (true);
+drop policy if exists "Public can view barometer" on barometer;
+drop policy if exists "Anon can write barometer" on barometer;
+create policy "Public can view barometer" on barometer for select using (true);
+create policy "Anon can write barometer" on barometer for all using (true) with check (true);
 
 -- ===================================================================
--- LEADERSHIP TABLE — Current Zone 7 zonal team (ZRR, Secretary, etc.)
--- Managed from the Zone Team admin panel. Shown on index.html instead
--- of the hardcoded ZONE_LEADERSHIP array.
+-- LEADERSHIP — current zonal team (ZRR, Secretary, etc.)
 -- ===================================================================
 create table if not exists leadership (
   id text primary key,
-  role text not null,          -- short code, e.g. "ZRR"
-  role_full text not null,     -- full title
+  role text not null,
+  role_full text not null,
   name text not null,
   bio text,
-  photo text,                  -- optional base64 data URL
+  photo text,
   sort_order int default 0,
   updated bigint
 );
-
 alter table leadership enable row level security;
-
-create policy "Public can view leadership"
-  on leadership for select
-  using (true);
-
-create policy "Anon can write leadership"
-  on leadership for all
-  using (true)
-  with check (true);
+drop policy if exists "Public can view leadership" on leadership;
+drop policy if exists "Anon can write leadership" on leadership;
+create policy "Public can view leadership" on leadership for select using (true);
+create policy "Anon can write leadership" on leadership for all using (true) with check (true);
 
 -- ===================================================================
--- ZRRS TABLE — Zone 7 ZRR (Zone Rotaract Representative) history,
--- shown as the "Line of Leadership" timeline on index.html.
--- Managed by the zonal team from the Guides admin panel.
+-- ZRRS — ZRR history timeline
 -- ===================================================================
 create table if not exists zrrs (
   id text primary key,
   name text not null,
-  years text not null,       -- e.g. "26-27" (display label)
-  sort_order int default 0,  -- controls left-to-right order on the timeline
+  years text not null,
+  sort_order int default 0,
   is_current boolean default false,
-  bio text,                  -- optional short note about their tenure
-  photo text,                -- optional base64 data URL headshot
+  bio text,
+  photo text,
   updated bigint
 );
-
 alter table zrrs enable row level security;
-
-create policy "Public can view zrrs"
-  on zrrs for select
-  using (true);
-
-create policy "Anon can write zrrs"
-  on zrrs for all
-  using (true)
-  with check (true);
+drop policy if exists "Public can view zrrs" on zrrs;
+drop policy if exists "Anon can write zrrs" on zrrs;
+create policy "Public can view zrrs" on zrrs for select using (true);
+create policy "Anon can write zrrs" on zrrs for all using (true) with check (true);

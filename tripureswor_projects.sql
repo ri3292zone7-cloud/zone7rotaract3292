@@ -1,0 +1,101 @@
+insert into projects (id, club_slug, title, category, date, location, summary, body, cover, gallery, updated)
+values
+(
+  'blood-donation-2026',
+  'tripureswor',
+  'Blood Donation 2026',
+  'Blood Donation',
+  '2026-06-12',
+  'Apex College, Mid-Baneswor',
+  '62 pints of blood collected in collaboration with Apex HEAT, Rotary Club of Tripureswor, and Nepal Red Cross Society.',
+  'The Rotaract Club of Tripureswor, in collaboration with Apex HEAT and with the support of the Rotary Club of Tripureswor, successfully organized "Blood Donation 2026" on 12 June 2026 at Six Sigma Hall, Apex College, Mid-Baneshwor. The program ran from 9:30 AM to 2:00 PM with enthusiastic participation from students, community members, and well-wishers, and was conducted with technical support from the Nepal Red Cross Society to ensure a safe and systematic collection process. Members of Apex HEAT and the Rotaract Club of Tripureswor served as volunteers managing donor registration, guiding participants, and coordinating logistics. All donors were awarded Certificates of Appreciation, and a total of 62 pints of blood were collected. The event concluded with a fellowship lunch for volunteers, health workers, and organizers. 5 Rotaractors, 3 Rotarians, and 100 other visitors took part over 4.5 hours, contributing 80 volunteering hours, with a total expense of NRs. 9,185.',
+  '',
+  '[]'::jsonb,
+  1750000000000
+),
+(
+  'international-mother-language-day-2026',
+  'tripureswor',
+  'International Mother Language Day Celebration',
+  'Virtual Activity',
+  '2026-02-21',
+  'Google Meet',
+  'Joint virtual event with the Rotaract Club of Mumbai Nova celebrating linguistic diversity.',
+  'On February 21, the Rotaract Club of Tripureswor and the Rotaract Club of Mumbai Nova collaborated to host a joint virtual event via Google Meet to commemorate International Mother Language Day. From Tripureswor, Rtr. Buddha presented on the linguistic landscape of Nepal and the cultural significance of the Nepali language and indigenous dialects. President Rtr. Vidhi from Mumbai Nova presented on the linguistic tapestry of India, highlighting languages such as Marathi and the concept of "linguistic hybridity" in cosmopolitan cities. The event fostered global citizenship and an appreciation of mother tongues as repositories of history, emotion, and identity. 10 Rotaractors and 3 other visitors took part over 1.5 hours, contributing 25 volunteering hours.',
+  '',
+  '[]'::jsonb,
+  1750000000000
+),
+(
+  'comedy-with-chiya-2025',
+  'tripureswor',
+  'Comedy With Chiya 2.0',
+  'Public Relation',
+  '2025-11-22',
+  'Chiya Anubhav, Tinkune',
+  'Charity entertainment event raising funds for hospital food distribution, jointly hosted with several clubs.',
+  '"Comedy With Chiya" was successfully organized on 22 November 2025 at Chiya Anubhav, Tinkune, as a charity entertainment event jointly hosted with the Rotaract Club of Kathmandu North East and the Rotaract Club of Pashupati Nepal Law Campus, aimed at raising support for food distribution initiatives in hospitals. The program combined comedy, music, and social responsibility, featuring performers including Comedy Champion Season 3 runner-up Rishav Kafle, comedian Deepesh Ghimire, and rapper Rich Samir Poudel. Through ticket sales, contributions, and community participation, the event generated support for providing food assistance to hospital patients and their attendants. 12 Rotaractors and 120 other visitors took part over 4.5 hours, contributing 14 volunteering hours, with a total expense of NRs. 700.',
+  '',
+  '[]'::jsonb,
+  1750000000000
+),
+(
+  'your-vote-your-future-2026',
+  'tripureswor',
+  'Your Vote, Your Future: Strengthening Democracy in Nepal',
+  'RNLM (TEACH)',
+  '2026-03-02',
+  'Google Meet',
+  'Civic education session on democracy and voting rights, co-hosted with four other Rotaract clubs.',
+  'The Rotaract Club of Tripureswor organized "Your Vote, Your Future: Strengthening Democracy in Nepal" on 2 March 2026 via Google Meet, in partnership with the Rotaract Clubs of Liberty College, Kshitiz International College, Biratnagar Central, and Balkumari. The session, facilitated by Adv. Yagya Raj Pandey, covered democratic values, constitutional rights, civic responsibilities, and the electoral process, and created an interactive environment for discussion and questions. More than 50 Rotaractors and non-Rotaractors benefited from the session, which encouraged youth participation in democratic processes and strengthened collaboration among the co-host clubs. 50 Rotaractors and 15 other visitors took part over 1.5 hours, contributing 80 volunteering hours.',
+  '',
+  '[]'::jsonb,
+  1750000000000
+),
+(
+  'deusi-bhailo-2025',
+  'tripureswor',
+  'Together in Tradition – Deusi Bhailo Program',
+  'Fund Raising',
+  '2025-10-21',
+  'Various Rotarians'' Residences',
+  'Traditional Deusi-Bhailo cultural program performed at Rotarians’ homes during the festive season.',
+  'The Rotaract Club of Tripureswor organized the "Together in Tradition -- Deusi Bhailo Program" on 21 October 2025 in collaboration with the Rotary Club of Tripureswor, celebrating Nepalese culture, unity, and fellowship during the festive season. The program was conducted at the homes of different Rotarians, where around 15 members performed traditional Deusi-Bhailo songs and dances in traditional attire. The event strengthened relationships between Rotaractors and Rotarians while preserving and promoting Nepal''s cultural heritage. 9 Rotarians took part over 11 hours, contributing 125 volunteering hours, with a total expense of NRs. 20,000.',
+  '',
+  '[]'::jsonb,
+  1750000000000
+),
+(
+  'grant-management-seminar-2025',
+  'tripureswor',
+  'Grant Management Training Seminar',
+  'Training / Workshops',
+  '2025-06-13',
+  'Ullens IB School, Lalitpur',
+  'District-organized seminar on grant management and sustainable project design.',
+  'On 13 June 2025, the Rotaract Club of Tripureswor participated in the Grant Management Seminar held at Ullens School, Lalitpur, organized in collaboration with Rotaract District 3292. The session provided insights into designing, implementing, and evaluating service projects with sustainable and measurable impact, and helped align future club initiatives with Rotary International''s global vision and grant application procedures. The session ran for 3 hours, contributing 2 volunteering hours.',
+  '',
+  '[]'::jsonb,
+  1750000000000
+),
+(
+  'serving-the-sacred-nandi-feed-2026',
+  'tripureswor',
+  'Serving the Sacred - Nandi Feed',
+  'DRR Thematic Area',
+  '2026-03-08',
+  'Nandi Sewa, Gaushala',
+  'Animal welfare initiative feeding and caring for sacred bulls, under DRR Thematic Area 5: Social Support & Diversity.',
+  '"Serving the Sacred: Nandi Feed" was a community service initiative organized by the Rotaract Club of Tripureswor on 8 March 2026 at Nandi Sewa, Gaushala, under DRR Thematic Area 5: Social Support & Diversity, supporting campaigns focused on animal welfare. Club members fed and cared for the sacred bulls (Nandi) residing at the shelter, promoting compassion, empathy, and responsibility toward animals within the community, and reinforcing Rotaract''s commitment to inclusive service beyond human-centered initiatives. 5 other visitors took part over 2 hours, contributing 15 volunteering hours, with a total expense of NRs. 2,000.',
+  '',
+  '[]'::jsonb,
+  1750000000000
+)
+on conflict (id) do update set
+  title = excluded.title,
+  category = excluded.category,
+  date = excluded.date,
+  location = excluded.location,
+  summary = excluded.summary,
+  body = excluded.body,
+  updated = excluded.updated;
