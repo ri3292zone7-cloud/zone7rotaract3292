@@ -596,6 +596,13 @@ function initReveal(){
 }
 
 if(club){(async () => {
+  const profile = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getClubProfile(clubSlug) : null;
+  if(profile){
+    if(profile.board && profile.board.length) club.board = profile.board;
+    if(profile.about) club.about = profile.about;
+    if(profile.vision) club.vision = profile.vision;
+    if(profile.goals && profile.goals.length) club.goals = profile.goals;
+  }
   document.title = club.name + " | Zone 7 Rotaract 3292";
   const initials = club.name.replace(/Rotaract Club of /i,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
 

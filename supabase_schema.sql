@@ -36,6 +36,23 @@ create policy "Public can view projects" on projects for select using (true);
 create policy "Anon can write projects" on projects for all using (true) with check (true);
 
 -- ===================================================================
+-- CLUB PROFILES — editable BOD, about, vision, goals per club
+-- ===================================================================
+create table if not exists club_profiles (
+  club_slug text primary key,
+  board jsonb default '[]'::jsonb,
+  about text,
+  vision text,
+  goals jsonb default '[]'::jsonb,
+  updated bigint
+);
+alter table club_profiles enable row level security;
+drop policy if exists "Public can view club_profiles" on club_profiles;
+drop policy if exists "Anon can write club_profiles" on club_profiles;
+create policy "Public can view club_profiles" on club_profiles for select using (true);
+create policy "Anon can write club_profiles" on club_profiles for all using (true) with check (true);
+
+-- ===================================================================
 -- EVENTS
 -- ===================================================================
 create table if not exists events (

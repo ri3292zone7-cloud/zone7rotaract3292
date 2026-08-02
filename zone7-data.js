@@ -211,6 +211,7 @@ function zone7AutoCheck(allProjects){
   return satisfied;
 }
 
+const CLUB_PROFILES_URL = `${SUPABASE_URL}/rest/v1/club_profiles`;
 const BAROMETER_URL = `${SUPABASE_URL}/rest/v1/barometer`;
 const LEADERSHIP_URL = `${SUPABASE_URL}/rest/v1/leadership`;
 
@@ -365,6 +366,30 @@ const ZONE7_DB = {
       host_status: row.host_status || "",
       updated: row.updated
     };
+  },
+
+  /* ---- club profile (BOD + editable about/vision/goals) ---- */
+  async getClubProfile(clubSlug){
+    try{
+      const res = await fetch(`${CLUB_PROFILES_URL}?club_slug=eq.${encodeURIComponent(clubSlug)}`, { headers: REST_HEADERS });
+      if(!res.ok) throw new Error("Fetch failed: " + res.status);
+      const rows = await res.json();
+      return rows.length ? rows[0] : null;
+    } catch(e){
+      console.error("ZONE7_DB.getClubProfile error", e);
+      return null;
+    }
+  },
+
+  async saveClubProfile(clubSlug, data){
+    const row = { club_slug: clubSlug, board: data.board || [], about: data.about || "", vision: data.vision || "", goals: data.goals || [], updated: Date.now() };
+    const res = await fetch(`${CLUB_PROFILES_URL}?on_conflict=club_slug`, {
+      method: "POST",
+      headers: { ...REST_HEADERS, "Prefer": "resolution=merge-duplicates,return=representation" },
+      body: JSON.stringify(row)
+    });
+    if(!res.ok){ const t = await res.text(); throw new Error("Save failed: " + res.status + " " + t); }
+    return true;
   },
 
   /* ---- barometer (District 3292 club excellence checklist) ---- */

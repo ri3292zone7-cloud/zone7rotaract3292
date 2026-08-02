@@ -265,6 +265,7 @@
   <nav class="admin-sidebar" id="adminSidebar">
     <div class="sb-label">Club</div>
     <div class="sb-item active" data-view="projects"><span class="ic">📁</span>Projects</div>
+    <div class="sb-item" data-view="clubpage"><span class="ic">🏠</span>Club Page (BOD &amp; About)</div>
     <div class="sb-item" data-view="barometer"><span class="ic">🎯</span>District Barometer</div>
     <div class="sb-item" data-view="events"><span class="ic">📅</span>Zone Events</div>
     <div class="sb-item" data-view="analytics"><span class="ic">📊</span>Analytics</div>
@@ -349,6 +350,28 @@
           </div>
         </form>
       </div>
+    </div>
+
+    <div class="view" id="view-clubpage">
+    <div class="panel">
+      <h3>Board of Directors <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(shown on your club page)</span></h3>
+      <div class="proj-list" id="boardList" style="margin-bottom:14px;"></div>
+      <button class="btn btn-ghost" id="addBoardBtn" type="button">+ Add Board Member</button>
+
+      <h3 style="margin-top:32px;">About &amp; Vision</h3>
+      <label for="cpAbout">About Text</label>
+      <textarea id="cpAbout" rows="5" placeholder="Paragraph shown in the club's 'About' section"></textarea>
+      <label for="cpVision">Vision Statement</label>
+      <input type="text" id="cpVision" placeholder="Your club's vision statement">
+
+      <h3 style="margin-top:32px;">Club Goals</h3>
+      <div class="proj-list" id="goalsList" style="margin-bottom:14px;"></div>
+      <button class="btn btn-ghost" id="addGoalBtn" type="button">+ Add Goal</button>
+
+      <div class="form-actions" style="margin-top:26px;">
+        <button class="btn btn-primary" id="cpSaveBtn" type="button">Save Club Page</button>
+      </div>
+    </div>
     </div>
 
     <div class="view" id="view-analytics">
@@ -559,7 +582,105 @@ async function enterDashboard(slug){
   resetForm();
   loadAnalytics();
   loadBarometer();
+  loadClubPage();
 }
+
+/* ---- Club Page: BOD + About/Vision/Goals ---- */
+let cpBoard = [], cpGoals = [];
+
+async function loadClubPage(){
+  const p = await ZONE7_DB.getClubProfile(currentClub);
+  cpBoard = (p && p.board) || [];
+  cpGoals = (p && p.goals) || [];
+  document.getElementById("cpAbout").value = (p && p.about) || "";
+  document.getElementById("cpVision").value = (p && p.vision) || "";
+  renderBoardList();
+  renderGoalsList();
+}
+
+function renderBoardList(){
+  const list = document.getElementById("boardList");
+  list.innerHTML = cpBoard.length ? cpBoard.map((m,i) => `
+    <div class="proj-item" style="cursor:default;">
+      <img src="${m.photo||''}" style="${m.photo?'':'display:none;'}">
+      <div class="img-upload" data-i="${i}" style="margin:0; padding:8px 10px; ${m.photo?'display:none;':''}"><span style="font-size:0.75rem;">+ Photo</span></div>
+      <div class="info" style="flex:1;">
+        <input type="text" value="${zone7Esc(m.name||'')}" placeholder="Name" data-i="${i}" data-f="name" style="margin-bottom:6px;">
+        <input type="text" value="${zone7Esc(m.role||'')}" placeholder="Role (e.g. President)" data-i="${i}" data-f="role">
+      </div>
+      <button class="btn btn-danger" data-rm="${i}" style="padding:8px 12px; font-size:0.78rem;">✕</button>
+    </div>
+  `).join("") : `<div class="no-projects">No board members added yet.</div>`;
+
+  list.querySelectorAll("input[data-f]").forEach(inp => inp.addEventListener("input", () => {
+    cpBoard[inp.dataset.i][inp.dataset.f] = inp.value;
+  }));
+  list.querySelectorAll("[data-rm]").forEach(btn => btn.addEventListener("click", () => {
+    cpBoard.splice(Number(btn.dataset.rm), 1); renderBoardList();
+  }));
+  list.querySelectorAll(".img-upload").forEach(el => el.addEventListener("click", () => {
+    const inp = document.createElement("input"); inp.type = "file"; inp.accept = "image/*";
+    inp.onchange = async () => {
+      if(!inp.files[0]) return;
+      cpBoard[el.dataset.i].photo = await zone7ReadImage(inp.files[0], 500, 0.85);
+      renderBoardList();
+    };
+    inp.click();
+  }));
+}
+
+document.getElementById("addBoardBtn").addEventListener("click", () => {
+  cpBoard.push({ name:"", role:"", photo:"" });
+  renderBoardList();
+});
+
+function renderGoalsList(){
+  const list = document.getElementById("goalsList");
+  list.innerHTML = cpGoals.length ? cpGoals.map((g,i) => `
+    <div class="proj-item" style="cursor:default; gap:10px;">
+      <input type="text" value="${zone7Esc(g.t||'')}" placeholder="Goal text" data-i="${i}" data-f="t" style="flex:1;">
+      <select data-i="${i}" data-f="s" style="width:130px; margin:0;">
+        <option value="inprogress" ${g.s==='inprogress'?'selected':''}>In Progress</option>
+        <option value="completed" ${g.s==='completed'?'selected':''}>Completed</option>
+        <option value="canceled" ${g.s==='canceled'?'selected':''}>Canceled</option>
+      </select>
+      <button class="btn btn-danger" data-rm="${i}" style="padding:8px 12px; font-size:0.78rem;">✕</button>
+    </div>
+  `).join("") : `<div class="no-projects">No goals added yet.</div>`;
+
+  list.querySelectorAll("[data-f]").forEach(el => el.addEventListener("input", () => {
+    cpGoals[el.dataset.i][el.dataset.f] = el.value;
+  }));
+  list.querySelectorAll("select[data-f]").forEach(el => el.addEventListener("change", () => {
+    cpGoals[el.dataset.i][el.dataset.f] = el.value;
+  }));
+  list.querySelectorAll("[data-rm]").forEach(btn => btn.addEventListener("click", () => {
+    cpGoals.splice(Number(btn.dataset.rm), 1); renderGoalsList();
+  }));
+}
+
+document.getElementById("addGoalBtn").addEventListener("click", () => {
+  cpGoals.push({ t:"", s:"inprogress" });
+  renderGoalsList();
+});
+
+document.getElementById("cpSaveBtn").addEventListener("click", async () => {
+  const btn = document.getElementById("cpSaveBtn");
+  btn.disabled = true; btn.textContent = "Saving…";
+  try{
+    await ZONE7_DB.saveClubProfile(currentClub, {
+      board: cpBoard, goals: cpGoals,
+      about: document.getElementById("cpAbout").value.trim(),
+      vision: document.getElementById("cpVision").value.trim()
+    });
+    showToast("Club page saved ✓");
+  } catch(err){
+    console.error(err);
+    showToast("Save failed — check your Supabase setup.");
+  } finally {
+    btn.disabled = false; btn.textContent = "Save Club Page";
+  }
+});
 
 /* ---- District Barometer ---- */
 let baroCheckedItems = [];
