@@ -130,8 +130,12 @@
   .qf:last-child{border-bottom:none;}
   .qf:hover{background:var(--cream);}
   .qf .k{font-size:.74rem;font-weight:600;color:rgba(27,24,54,.5);flex-shrink:0;}
-  .qf .v{font-size:.86rem;font-weight:700;color:var(--ink);text-align:right;}
+  .qf .v{font-size:.86rem;font-weight:700;color:var(--ink);text-align:right;min-width:0;overflow-wrap:anywhere;}
   @media(max-width:900px){.about-grid{grid-template-columns:1fr;}}
+  @media(max-width:480px){
+    .qf{flex-direction:column;align-items:flex-start;gap:4px;}
+    .qf .v{text-align:left;}
+  }
 
   /* GOALS */
   .goals-sec{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
@@ -180,6 +184,8 @@
     .goal-row{flex-wrap:wrap; padding:15px 18px;}
     .goal-row .g-progress{order:3; width:100%; margin-left:46px;}
     .goal-row .g-status{order:2;}
+    .goals-summary{width:100%;}
+    .goals-head-row{align-items:flex-start;}
   }
 
   /* LEADERSHIP / BOARD */
