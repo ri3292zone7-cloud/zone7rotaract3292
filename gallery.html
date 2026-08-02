@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery | Zone 7 Rotaract 3292</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="zone7-data.js"></script>
+<style>
+  :root{--ink:#1B1836;--magenta:#E11A6E;--magenta-deep:#A80F52;--gold:#F2A900;--cream:#FFF8EF;--paper:#FFFDF9;--line:rgba(27,24,54,0.1);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);}
+  h1,h2,h3{font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-0.02em;}
+  a{color:inherit;text-decoration:none;} img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  nav{position:sticky;top:0;z-index:100;background:rgba(255,253,249,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Poppins';font-weight:800;}
+  .brand .z{background:var(--magenta);color:#fff;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;}
+  .back{font-weight:700;font-size:.88rem;color:var(--magenta-deep);}
+  .hero{padding:56px 0 6px;}
+  .eyebrow{display:inline-flex;gap:8px;align-items:center;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--magenta-deep);background:rgba(225,26,110,.09);padding:8px 16px;border-radius:100px;margin-bottom:22px;}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);}
+  .hero h1{font-size:clamp(2rem,4.4vw,2.9rem);max-width:680px;}
+  .hero p{color:rgba(27,24,54,.65);font-size:1.02rem;max-width:600px;margin-top:14px;line-height:1.6;}
+  .chip-row{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 8px;}
+  .chip{font-size:.8rem;font-weight:700;padding:8px 16px;border-radius:100px;border:1.5px solid var(--line);background:#fff;cursor:pointer;color:rgba(27,24,54,.6);transition:all .15s;}
+  .chip.active{background:var(--ink);border-color:var(--ink);color:#fff;}
+  .g-count{font-size:.82rem;color:rgba(27,24,54,.45);margin:10px 0 26px;}
+  .masonry{column-count:4;column-gap:14px;padding-bottom:80px;}
+  .g-item{break-inside:avoid;margin-bottom:14px;border-radius:16px;overflow:hidden;position:relative;cursor:pointer;background:var(--paper);border:1px solid var(--line);}
+  .g-item img{width:100%;display:block;transition:transform .3s;}
+  .g-item:hover img{transform:scale(1.04);}
+  .g-cap{position:absolute;left:0;right:0;bottom:0;padding:16px 14px 12px;background:linear-gradient(0deg,rgba(27,24,54,.88),transparent);opacity:0;transition:opacity .2s;}
+  .g-item:hover .g-cap{opacity:1;}
+  .g-cap b{color:#fff;font-size:.86rem;display:block;font-family:'Poppins';line-height:1.3;}
+  .g-cap span{color:rgba(255,255,255,.7);font-size:.72rem;font-weight:600;}
+  .empty{padding:100px 28px;text-align:center;color:rgba(27,24,54,.5);}
+  @media(max-width:980px){.masonry{column-count:3;}}
+  @media(max-width:680px){.masonry{column-count:2;}}
+  @media(max-width:420px){.masonry{column-count:1;}}
+  .lightbox{position:fixed;inset:0;background:rgba(10,8,20,.92);display:none;align-items:center;justify-content:center;z-index:999;padding:30px;cursor:zoom-out;}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:92vw;max-height:88vh;border-radius:10px;object-fit:contain;}
+  footer{background:var(--ink);color:rgba(255,255,255,.5);padding:34px 0;text-align:center;font-size:.85rem;}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a href="index.html"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>
+  <a href="index.html" class="back">← Back to Site</a>
+</div></nav>
+<header class="hero wrap">
+  <div class="eyebrow"><span class="dot"></span>Zone 7 · In Pictures</div>
+  <h1>Every project, one gallery.</h1>
+  <p>Photos from projects and reports across all nine Zone 7 clubs — pulled straight from what each club has uploaded. Tap any photo for the full story.</p>
+  <div class="chip-row" id="chipRow"></div>
+  <p class="g-count" id="gCount"></p>
+</header>
+<div class="wrap"><div class="masonry" id="masonry"><p style="padding:40px 0;color:rgba(27,24,54,.5);">Loading gallery…</p></div></div>
+<div class="lightbox" id="lightbox"><img id="lightboxImg" src="" alt=""></div>
+<footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan.</footer>
+<script>
+let PHOTOS = [], activeClub = "All";
+function esc(s){return zone7Esc(s);}
+
+async function loadGallery(){
+  const slugs = Object.keys(CLUB_DIRECTORY);
+  const lists = await Promise.all(slugs.map(s => ZONE7_DB.getProjects(s)));
+  lists.forEach((projects, i) => {
+    const slug = slugs[i];
+    projects.forEach(p => {
+      const imgs = [p.cover, ...(p.gallery||[])].filter(Boolean);
+      imgs.forEach(src => PHOTOS.push({src, title:p.title, club:slug, clubName:CLUB_DIRECTORY[slug].name.replace('Rotaract Club of ',''), id:p.id, cat:p.category||"Project"}));
+    });
+  });
+  // shuffle for a lively, non-club-clustered wall
+  for(let i=PHOTOS.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[PHOTOS[i],PHOTOS[j]]=[PHOTOS[j],PHOTOS[i]];}
+
+  const chips = ["All", ...new Set(slugs.filter(s => lists[slugs.indexOf(s)].length))];
+  document.getElementById("chipRow").innerHTML = chips.map(c => `<span class="chip${c===activeClub?' active':''}" data-c="${c}">${c==="All"?"All Clubs":CLUB_DIRECTORY[c].name.replace('Rotaract Club of ','')}</span>`).join("");
+  document.querySelectorAll(".chip").forEach(el => el.addEventListener("click", () => { activeClub = el.dataset.c; render(); }));
+  render();
+}
+
+function render(){
+  document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c.dataset.c === activeClub));
+  const list = activeClub === "All" ? PHOTOS : PHOTOS.filter(p => p.club === activeClub);
+  const m = document.getElementById("masonry");
+  document.getElementById("gCount").textContent = list.length ? `${list.length} photo${list.length===1?"":"s"} across ${activeClub==="All"?"Zone 7":"this club"}.` : "";
+  if(!list.length){ m.innerHTML = `<div class="empty">No photos uploaded yet${activeClub==="All"?"":" for this club"} — check back once clubs add projects via the Club Admin panel.</div>`; return; }
+  m.innerHTML = list.map((p,i) => `
+    <div class="g-item" data-i="${i}">
+      <img src="${esc(p.src)}" alt="${esc(p.title)}" loading="lazy">
+      <div class="g-cap"><b>${esc(p.title)}</b><span>${esc(p.clubName)} · ${esc(p.cat)}</span></div>
+    </div>
+  `).join("");
+  m.querySelectorAll(".g-item").forEach(el => {
+    const p = list[el.dataset.i];
+    el.addEventListener("click", () => location.href = `project.html?club=${p.club}&id=${encodeURIComponent(p.id)}`);
+  });
+}
+loadGallery();
+</script>
+</body>
+</html>
