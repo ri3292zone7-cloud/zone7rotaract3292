@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Zone 7 | Rotaract District 3292 Nepal-Bhutan</title>
+<meta name="description" content="Zone 7 unites nine Rotaract clubs across the Kathmandu Valley under District 3292 — young leaders turning service, fellowship and leadership into action.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="zone7-data.js"></script>
+<style>
+  :root{
+    --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
+    --cream:#FFF8EF; --paper:#FFFDF9; --line: rgba(27,24,54,0.1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink); overflow-x:hidden;}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+  /* NAV (matches site) */
+  nav{position:sticky; top:0; z-index:100; background:rgba(255,253,249,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Poppins'; font-weight:800; font-size:1.1rem;}
+  .brand .z{background:var(--magenta); color:#fff; width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center;}
+  .back{font-weight:700; font-size:0.88rem; color:var(--magenta-deep);}
+  .nav-cta{background:var(--ink); color:#fff !important; padding:10px 20px; border-radius:100px; font-weight:700; font-size:0.85rem;}
+
+  /* HERO */
+  .hero{position:relative; padding:88px 0 78px; overflow:hidden;}
+  .hero::before{
+    content:""; position:absolute; top:-160px; right:-10%; width:600px; height:600px; border-radius:50%;
+    background:radial-gradient(circle, rgba(225,26,110,0.10), transparent 68%); pointer-events:none;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px; font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:8px 16px; border-radius:100px; margin-bottom:24px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
+  .hero h1{position:relative; z-index:1; font-size:clamp(2.4rem,5.4vw,4rem); line-height:1.04; max-width:820px;}
+  .hero h1 .hl{background:linear-gradient(100deg,var(--magenta),var(--magenta-deep)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.lead{position:relative; z-index:1; font-size:1.14rem; color:rgba(27,24,54,0.7); max-width:640px; margin-top:22px; line-height:1.7;}
+  .hero-stats{position:relative; z-index:1; display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:56px; padding-top:32px; border-top:1px solid var(--line); max-width:920px;}
+  .hero-stats .stat b{display:block; font-family:'Poppins'; font-weight:800; font-size:2rem; color:var(--magenta-deep);}
+  .hero-stats .stat span{font-size:0.8rem; color:rgba(27,24,54,0.58); font-weight:600;}
+
+  /* SECTION PATTERN */
+  .section{padding:88px 0;}
+  .section-tag{font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--magenta-deep); margin-bottom:16px; display:inline-block;}
+  .section h2{font-size:clamp(1.8rem,3.2vw,2.5rem); max-width:660px; margin-bottom:20px; line-height:1.16;}
+  .section p.sub{color:rgba(27,24,54,0.65); font-size:1.03rem; max-width:640px; line-height:1.75;}
+
+  /* WHAT IS ROTARACT */
+  .rot-explain{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .rot-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-top:8px;}
+  .rot-copy p{color:rgba(27,24,54,0.74); line-height:1.9; font-size:1.02rem; margin-bottom:18px;}
+  .rot-copy p b{color:var(--ink);}
+  .pillars{display:flex; flex-direction:column; gap:14px;}
+  .pillar{
+    background:var(--cream); border:1px solid var(--line); border-radius:16px; padding:22px 24px;
+    display:flex; gap:18px; align-items:flex-start;
+  }
+  .pillar .ico{
+    width:44px; height:44px; border-radius:12px; background:rgba(225,26,110,0.09); color:var(--magenta-deep);
+    display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0;
+  }
+  .pillar h4{font-size:0.98rem; margin-bottom:6px;}
+  .pillar p{font-size:0.88rem; color:rgba(27,24,54,0.6); line-height:1.6; margin:0;}
+
+  /* PULL QUOTE */
+  .pullquote{padding:70px 0;}
+  .pullquote-card{
+    background:linear-gradient(135deg, var(--ink), #2b2555); color:#fff; border-radius:26px; padding:60px 64px;
+    text-align:center; position:relative; overflow:hidden;
+  }
+  .pullquote-card::after{content:"7"; position:absolute; right:-30px; bottom:-70px; font-family:'Poppins'; font-weight:900; font-size:15rem; color:rgba(255,255,255,0.045); line-height:1;}
+  .pullquote-card p{position:relative; z-index:1; font-family:'Poppins'; font-weight:700; font-size:clamp(1.3rem,2.6vw,1.7rem); line-height:1.45; max-width:760px; margin:0 auto;}
+  .pullquote-card span{position:relative; z-index:1; display:block; margin-top:20px; color:var(--gold); font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;}
+  @media (max-width:760px){ .pullquote-card{padding:44px 26px;} }
+
+  /* WHAT WE DO */
+  .do-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:44px;}
+  .do-card{background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:26px 22px; transition:transform .2s, box-shadow .2s;}
+  .do-card:hover{transform:translateY(-5px); box-shadow:0 18px 36px rgba(27,24,54,0.08);}
+  .do-card .ico{font-size:1.6rem; margin-bottom:14px; display:block;}
+  .do-card h4{font-size:0.98rem; margin-bottom:8px;}
+  .do-card p{font-size:0.85rem; color:rgba(27,24,54,0.58); line-height:1.6;}
+
+  /* PURPOSE / ABOUT US */
+  .purpose{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .purpose-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center;}
+  .purpose-copy p{color:rgba(27,24,54,0.74); line-height:1.9; font-size:1.02rem; margin-bottom:18px;}
+  .purpose-list{display:flex; flex-direction:column; gap:16px; margin-top:8px;}
+  .purpose-item{display:flex; gap:16px; align-items:flex-start;}
+  .purpose-item .n{font-family:'Poppins'; font-weight:800; font-size:1.1rem; color:var(--gold); min-width:30px;}
+  .purpose-item h5{font-size:0.96rem; margin-bottom:4px;}
+  .purpose-item p{font-size:0.86rem; color:rgba(27,24,54,0.58); line-height:1.6; margin:0;}
+  .purpose-card{
+    background:linear-gradient(135deg, var(--magenta), var(--magenta-deep)); border-radius:24px; padding:44px 40px; color:#fff;
+    position:relative; overflow:hidden;
+  }
+  .purpose-card::after{content:"7"; position:absolute; left:-30px; top:-50px; font-family:'Poppins'; font-weight:900; font-size:13rem; color:rgba(255,255,255,0.09); line-height:1;}
+  .purpose-card .k{position:relative; z-index:1; font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:rgba(255,255,255,0.7); margin-bottom:10px; display:block;}
+  .purpose-card h3{position:relative; z-index:1; font-size:1.5rem; margin-bottom:14px; color:#fff; line-height:1.3;}
+  .purpose-card p{position:relative; z-index:1; color:rgba(255,255,255,0.88); font-size:0.94rem; line-height:1.7;}
+
+  /* JOURNEY / ZRR TIMELINE */
+  .journey{padding:96px 0;}
+  .journey-head{text-align:center; max-width:680px; margin:0 auto;}
+  .journey-track{display:flex; flex-direction:column; gap:0; margin-top:60px; max-width:880px; margin-left:auto; margin-right:auto;}
+  .journey-item{
+    display:grid; grid-template-columns:64px 1fr; gap:24px; position:relative; padding-bottom:44px;
+  }
+  .journey-item:last-child{padding-bottom:0;}
+  .journey-rail{position:relative; display:flex; flex-direction:column; align-items:center;}
+  .journey-rail .line{position:absolute; top:56px; bottom:-44px; width:2px; background:var(--line);}
+  .journey-item:last-child .journey-rail .line{display:none;}
+  .journey-avatar{
+    width:56px; height:56px; border-radius:50%; background:var(--paper); border:2.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-family:'Poppins'; font-weight:800; color:var(--magenta-deep);
+    font-size:0.9rem; overflow:hidden; position:relative; z-index:1; flex-shrink:0;
+  }
+  .journey-item.current .journey-avatar{border-color:var(--magenta); box-shadow:0 0 0 6px rgba(225,26,110,0.14);}
+  .journey-avatar img{width:100%; height:100%; object-fit:cover;}
+  .journey-body{
+    background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:22px 26px;
+  }
+  .journey-item.current .journey-body{border-color:rgba(225,26,110,0.3); background:#fff;}
+  .journey-meta{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:6px;}
+  .journey-years{font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:4px 11px; border-radius:100px;}
+  .journey-tag{font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#fff; background:var(--magenta); padding:4px 11px; border-radius:100px;}
+  .journey-body h4{font-size:1.05rem; margin-bottom:3px;}
+  .journey-club{font-size:0.8rem; font-weight:600; color:rgba(27,24,54,0.5); margin-bottom:10px;}
+  .journey-body p.bio{font-size:0.88rem; color:rgba(27,24,54,0.62); line-height:1.65; margin:0;}
+  @media (max-width:600px){ .journey-item{grid-template-columns:44px 1fr; gap:14px;} .journey-avatar{width:44px; height:44px; font-size:0.74rem;} .journey-rail .line{top:44px;} .journey-body{padding:18px 18px;} }
+
+  /* CURRENT TEAM */
+  .team-strip{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .team-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:44px;}
+  .team-card{background:var(--cream); border:1px solid var(--line); border-radius:18px; padding:22px; text-align:center;}
+  .team-avatar{
+    width:64px; height:64px; border-radius:50%; margin:0 auto 14px; background:linear-gradient(135deg,var(--magenta),var(--magenta-deep));
+    color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Poppins'; font-weight:800; font-size:1.1rem; overflow:hidden;
+  }
+  .team-avatar img{width:100%; height:100%; object-fit:cover;}
+  .team-card .role{font-size:0.68rem; font-weight:800; letter-spacing:0.06em; text-transform:uppercase; color:var(--gold-deep,#8a6300); background:rgba(242,169,0,0.16); padding:3px 10px; border-radius:100px; display:inline-block; margin-bottom:10px;}
+  .team-card h4{font-size:0.96rem; margin-bottom:3px;}
+  .team-card .rolefull{font-size:0.76rem; color:rgba(27,24,54,0.5); font-weight:600; margin-bottom:6px;}
+  .team-card .club{font-size:0.74rem; color:var(--magenta-deep); font-weight:700;}
+
+  /* CLUBS */
+  .clubs-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:44px;}
+  .club-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:20px; display:flex; gap:14px; align-items:center;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .club-card:hover{transform:translateY(-4px); box-shadow:0 16px 32px rgba(27,24,54,0.08);}
+  .club-mark{width:44px; height:44px; border-radius:12px; background:#fff; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; padding:6px; flex-shrink:0;}
+  .club-mark img{width:100%; height:100%; object-fit:contain;}
+  .club-card h4{font-size:0.9rem; margin-bottom:2px;}
+  .club-card p{font-size:0.76rem; color:rgba(27,24,54,0.5);}
+
+  /* CTA */
+  .join-cta{padding:96px 0;}
+  .join-card{
+    background:linear-gradient(120deg, var(--magenta), var(--magenta-deep)); border-radius:28px; padding:64px 60px; color:#fff; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .join-card::after{content:"7"; position:absolute; left:-40px; top:-60px; font-family:'Poppins'; font-weight:900; font-size:16rem; color:rgba(255,255,255,0.08); line-height:1;}
+  .join-card h2{position:relative; z-index:1; max-width:none; color:#fff; margin-bottom:14px;}
+  .join-card p{position:relative; z-index:1; color:rgba(255,255,255,0.85); max-width:540px; margin:0 auto 32px; font-size:1.02rem; line-height:1.65;}
+  .btn{padding:15px 30px; border-radius:100px; font-weight:700; font-size:0.95rem; display:inline-flex; align-items:center; gap:8px; transition:transform .2s, box-shadow .2s;}
+  .btn-primary{background:#fff; color:var(--magenta-deep); position:relative; z-index:1;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(0,0,0,0.22);}
+  @media (max-width:760px){ .join-card{padding:46px 26px;} }
+
+  footer{background:var(--ink); color:rgba(255,255,255,0.5); padding:40px 0; text-align:center; font-size:0.85rem;}
+  footer a{color:rgba(255,255,255,0.75); font-weight:700;}
+
+  @media (max-width:980px){
+    .rot-grid, .purpose-grid{grid-template-columns:1fr; gap:36px;}
+    .do-grid{grid-template-columns:repeat(2,1fr);}
+    .team-grid{grid-template-columns:repeat(2,1fr);}
+    .clubs-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:600px){
+    .hero{padding:56px 0 50px;}
+    .hero-stats{grid-template-columns:1fr 1fr; row-gap:26px;}
+    .section{padding:60px 0;}
+    .do-grid{grid-template-columns:1fr;}
+    .team-grid{grid-template-columns:1fr;}
+    .clubs-grid{grid-template-columns:1fr;}
+    .pullquote-card{padding:36px 22px;}
+  }
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a href="index.html"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>
+  <div style="display:flex; align-items:center; gap:18px;">
+    <a href="index.html" class="back">← Back to Site</a>
+    <a href="join.html" class="btn nav-cta">Join Us</a>
+  </div>
+</div></nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Rotaract District 3292 · Nepal-Bhutan</div>
+    <h1>Nine clubs, one valley,<br><span class="hl">one purpose: service.</span></h1>
+    <p class="lead">Zone 7 is the zonal home for Rotaract clubs across the Kathmandu Valley — a network of young leaders aged 18–30 who run their own clubs, fund their own projects, and show up for their communities without waiting to be told how.</p>
+    <div class="hero-stats">
+      <div class="stat"><b>9</b><span>Clubs in Zone 7</span></div>
+      <div class="stat"><b>180+</b><span>Clubs districtwide</span></div>
+      <div class="stat"><b>5,500+</b><span>Rotaractors, D3292</span></div>
+      <div class="stat"><b>6</b><span>ZRRs since 2021-22</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="section rot-explain">
+  <div class="wrap">
+    <span class="section-tag">The Basics</span>
+    <h2>What Rotaract actually is.</h2>
+    <div class="rot-grid">
+      <div class="rot-copy">
+        <p><b>Rotaract is Rotary International's club for young adults aged 18–30.</b> Each Rotaract club is sponsored by a local Rotary club — a partnership that brings mentorship, credibility and institutional memory — but the club itself is entirely planned, funded and run by its own members. Nobody hands a Rotaract club its agenda; the members decide what problems to tackle and how.</p>
+        <p>That distinction matters. It's why a 21-year-old college student in Baneshwor can be running a district-recognized blood donation drive, and why a Rotaractor in their first year of a job can be managing a club's annual budget. Rotaract isn't a volunteering program you sign up for — it's a leadership training ground that happens to run entirely on real community service.</p>
+        <p>Since 2020, Rotaract clubs can technically operate independently of a Rotary sponsor, but most Zone 7 clubs still keep that relationship — it's one of the most underused resources a young club has.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="ico">🤝</div>
+          <div><h4>Run by members, for members</h4><p>Every officer role — President, Secretary, Treasurer — is held by a Rotaractor, elected by the club, for a one-year term.</p></div>
+        </div>
+        <div class="pillar">
+          <div class="ico">🎓</div>
+          <div><h4>Service <em>and</em> skill-building</h4><p>Projects double as leadership practice — budgeting, public speaking, negotiation and event execution, all learned on the job.</p></div>
+        </div>
+        <div class="pillar">
+          <div class="ico">🌏</div>
+          <div><h4>Locally rooted, globally connected</h4><p>Every club sits inside a Rotary district and a worldwide network — twin clubs, international exchanges, and a shared set of values.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote wrap">
+  <div class="pullquote-card">
+    <p>"The Vision is Clear. The Mission is Ours. The Future is Together."</p>
+    <span>Rotaract District 3292 · Nepal &amp; Bhutan, RY 2026&ndash;27</span>
+  </div>
+</section>
+
+<section class="section" id="whatwedo">
+  <div class="wrap">
+    <span class="section-tag">What Zone 7 Does</span>
+    <h2>Real projects, run by real clubs, every week of the year.</h2>
+    <p class="sub">Across Zone 7's nine clubs, service work spans a wide range of causes — each one logged, reported and counted toward District 3292's official club-excellence barometer. This is what a Rotary year in Zone 7 actually looks like on the ground.</p>
+    <div class="do-grid">
+      <div class="do-card"><span class="ico">🩸</span><h4>Health &amp; Blood Donation</h4><p>Blood drives run with the Nepal Red Cross Society, health camps, and hygiene-awareness sessions for schoolchildren.</p></div>
+      <div class="do-card"><span class="ico">📚</span><h4>Education &amp; Literacy</h4><p>Literacy drives, school workshops, and mentorship programs under Rotaract's Basic Education &amp; Literacy focus area.</p></div>
+      <div class="do-card"><span class="ico">🌳</span><h4>Environment</h4><p>Tree plantations run alongside sponsoring Rotary clubs, from Tarkeshwor Nagarpalika to river and neighborhood clean-ups.</p></div>
+      <div class="do-card"><span class="ico">🎓</span><h4>Professional Development</h4><p>Career talks, entrepreneurship bootcamps and skill workshops — Rotaract's fourth Avenue of Service, and one of the most valued.</p></div>
+      <div class="do-card"><span class="ico">🌍</span><h4>International Service</h4><p>Twin-club partnerships and joint virtual events — like a Mother Language Day session run jointly with a club in Mumbai.</p></div>
+      <div class="do-card"><span class="ico">🤝</span><h4>Fellowship &amp; Fundraising</h4><p>Installation ceremonies, goodwill visits between clubs, and public fundraisers like carnivals and comedy nights for local causes.</p></div>
+      <div class="do-card"><span class="ico">🏛️</span><h4>Club Administration</h4><p>DRR visits, club assemblies, and governance work that keeps all nine clubs compliant with District 3292's standards.</p></div>
+      <div class="do-card"><span class="ico">📣</span><h4>Public Image</h4><p>Documenting and sharing every project so the work reaches beyond the people in the room — social media, photography, storytelling.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section purpose">
+  <div class="wrap">
+    <span class="section-tag">About Us</span>
+    <h2 style="margin-bottom:0;">Why Zone 7 exists.</h2>
+    <div class="purpose-grid" style="margin-top:44px;">
+      <div class="purpose-copy">
+        <p>District 3292 spans Nepal and Bhutan and is split into zones so that clubs get support at a scale that actually works — close enough for a Zonal Rotaract Representative to know every club president by name, small enough that a shared calendar and a WhatsApp group can hold it together, but connected enough to plug into 180+ clubs and 5,500+ Rotaractors districtwide.</p>
+        <p><b>Zone 7 is that layer for the Kathmandu Valley.</b> It exists to do three things well: keep nine independently-run clubs coordinated instead of siloed, carry district standards and opportunities down to club level, and carry club achievements back up so they get recognized.</p>
+        <div class="purpose-list">
+          <div class="purpose-item"><span class="n">01</span><div><h5>Coordinate, don't control</h5><p>Each club sets its own goals and runs its own projects — Zone 7's job is to connect them, not direct them.</p></div></div>
+          <div class="purpose-item"><span class="n">02</span><div><h5>Raise the floor</h5><p>Shared training (COTS), shared events, and a shared barometer mean even the newest club can hit district standards fast.</p></div></div>
+          <div class="purpose-item"><span class="n">03</span><div><h5>Make the work visible</h5><p>From this site's project mosaic to the DRR visit reports, Zone 7 makes sure what clubs actually do doesn't stay invisible.</p></div></div>
+        </div>
+      </div>
+      <div class="purpose-card">
+        <span class="k">RY 2026–27 District Theme</span>
+        <h3>10 Strategic Goals, One District</h3>
+        <p>District 3292's year runs on ten goals — from strengthening transparency and adopting club-centric governance, to driving membership growth and expanding international exposure. Every Zone 7 club's barometer score ties back to this same list, so a project logged in Baneshwor and a project logged in Sankhu are working toward the exact same district-wide picture.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="journey wrap" id="journey">
+  <div class="journey-head">
+    <span class="section-tag">A Line of Leadership</span>
+    <h2>Zone 7's journey, told through its ZRRs.</h2>
+    <p class="sub" style="margin:0 auto;">Every Rotary year, one Rotaractor takes on the Zonal Rotaract Representative role — the person who holds Zone 7's nine clubs together for that year. Here's who's carried it so far.</p>
+  </div>
+  <div class="journey-track" id="journeyTrack">
+    <div style="text-align:center; color:rgba(27,24,54,0.4); font-size:0.9rem; padding:30px 0;">Loading Zone 7's leadership history…</div>
+  </div>
+</section>
+
+<section class="section team-strip">
+  <div class="wrap">
+    <span class="section-tag">RY 2026&ndash;27</span>
+    <h2 style="margin-bottom:0;">This year's Zone 7 team.</h2>
+    <div class="team-grid" id="teamGrid">
+      <div style="grid-column:1/-1; text-align:center; color:rgba(27,24,54,0.4); font-size:0.9rem; padding:20px 0;">Loading team…</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="allclubs">
+  <div class="wrap">
+    <span class="section-tag">The Nine</span>
+    <h2>Every club that makes up Zone 7.</h2>
+    <p class="sub">Each one independently run, each one chartered in a different year, all nine reporting into the same zone. Tap any club to see its full profile and project history.</p>
+    <div class="clubs-grid" id="allClubsGrid"></div>
+  </div>
+</section>
+
+<section class="join-cta wrap">
+  <div class="join-card">
+    <h2>Want to be part of the next chapter?</h2>
+    <p>Membership is open to anyone aged 18–30 in the Kathmandu Valley. Fill out one short form and a Zone 7 club will welcome you in.</p>
+    <a href="join.html" class="btn btn-primary">Fill the Join Form →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    © 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. &nbsp;·&nbsp; <a href="index.html">Back to Home</a>
+  </div>
+</footer>
+
+<script>
+function initials(name){
+  return String(name||"").replace(/^Rtr\.\s*/,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
+}
+
+(async () => {
+  // ---- ZRR journey timeline ----
+  const track = document.getElementById("journeyTrack");
+  const zrrs = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getZRRs() : [];
+  if(zrrs.length){
+    track.innerHTML = zrrs.map(z => `
+      <div class="journey-item${z.is_current ? ' current' : ''}">
+        <div class="journey-rail">
+          <div class="journey-avatar">${z.photo ? `<img src="${zone7Esc(z.photo)}" alt="${zone7Esc(z.name)}">` : initials(z.name)}</div>
+          <div class="line"></div>
+        </div>
+        <div class="journey-body">
+          <div class="journey-meta">
+            <span class="journey-years">RY 20${zone7Esc(z.years.replace("-","–20"))}</span>
+            ${z.is_current ? '<span class="journey-tag">Current ZRR</span>' : ''}
+          </div>
+          <h4>Rtr. ${zone7Esc(z.name)}</h4>
+          ${z.club ? `<div class="journey-club">${zone7Esc(z.club)}</div>` : ''}
+          <p class="bio">${zone7Esc(z.bio) || (z.is_current
+            ? `Currently serving as Zone 7's Rotaract Representative, guiding the zone's nine clubs through this year's goals and events.`
+            : `Served as Zone 7's Rotaract Representative, guiding the zone's clubs through that Rotary year.`)}</p>
+        </div>
+      </div>
+    `).join("");
+  } else {
+    track.innerHTML = `<div style="text-align:center; color:rgba(27,24,54,0.4); font-size:0.9rem; padding:30px 0;">ZRR history will appear here once added by the zone team.</div>`;
+  }
+
+  // ---- Current team ----
+  const teamGrid = document.getElementById("teamGrid");
+  const leaders = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getLeadership() : [];
+  teamGrid.innerHTML = leaders.length ? leaders.map(p => `
+    <div class="team-card">
+      <div class="team-avatar">${p.photo ? `<img src="${zone7Esc(p.photo)}" alt="${zone7Esc(p.name)}">` : initials(p.name)}</div>
+      <span class="role">${zone7Esc(p.role)}</span>
+      <h4>${zone7Esc(p.name)}</h4>
+      <div class="rolefull">${zone7Esc(p.role_full || '')}</div>
+      ${p.club ? `<div class="club">${zone7Esc(p.club)}</div>` : ''}
+    </div>
+  `).join("") : `<div style="grid-column:1/-1; text-align:center; color:rgba(27,24,54,0.4); font-size:0.9rem; padding:20px 0;">Team info will appear here once added by the zone team.</div>`;
+
+  // ---- All clubs grid ----
+  document.getElementById("allClubsGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
+    <a class="club-card" href="club.html?club=${slug}">
+      <div class="club-mark"><img src="${c.logo}" alt="${zone7Esc(c.name)} logo" loading="lazy"></div>
+      <div><h4>${zone7Esc(c.name.replace('Rotaract Club of ',''))}</h4><p>@${zone7Esc(c.ig)}</p></div>
+    </a>
+  `).join("");
+})();
+</script>
+</body>
+</html>

@@ -47,9 +47,52 @@
     background:var(--magenta); color:#fff; width:34px; height:34px; border-radius:8px;
     display:flex; align-items:center; justify-content:center; font-size:1.05rem;
   }
-  .navlinks{display:flex; gap:34px; font-weight:600; font-size:0.92rem;}
-  .navlinks a{position:relative; padding:4px 0; color:var(--ink); opacity:0.75; transition:opacity .2s;}
-  .navlinks a:hover{opacity:1;}
+  .navlinks{display:flex; gap:34px; font-weight:600; font-size:0.92rem; align-items:center;}
+  .navlinks > a{position:relative; padding:4px 0; color:var(--ink); opacity:0.75; transition:opacity .2s;}
+  .navlinks > a:hover{opacity:1;}
+
+  /* NAV DROPDOWNS */
+  .nav-drop{position:relative;}
+  .nav-drop-trigger{
+    display:flex; align-items:center; gap:5px; background:none; border:none; cursor:pointer;
+    font-family:'Inter'; font-weight:600; font-size:0.92rem; color:var(--ink); opacity:0.75; padding:4px 0; transition:opacity .2s;
+  }
+  .nav-drop-trigger svg{transition:transform .2s;}
+  .nav-drop:hover .nav-drop-trigger, .nav-drop.open .nav-drop-trigger{opacity:1;}
+  .nav-drop.open .nav-drop-trigger svg{transform:rotate(180deg);}
+  .nav-drop-panel{
+    position:absolute; top:calc(100% + 18px); left:50%; transform:translateX(-50%) translateY(6px);
+    background:var(--paper); border:1px solid var(--line); border-radius:18px; box-shadow:0 24px 48px rgba(27,24,54,0.14);
+    padding:14px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; z-index:60;
+  }
+  .nav-drop:hover .nav-drop-panel, .nav-drop.open .nav-drop-panel{opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);}
+  .nav-drop-panel::before{
+    content:""; position:absolute; top:-6px; left:50%; transform:translateX(-50%) rotate(45deg);
+    width:12px; height:12px; background:var(--paper); border-left:1px solid var(--line); border-top:1px solid var(--line);
+  }
+  .clubs-drop-panel{width:420px;}
+  .clubs-drop-grid{display:grid; grid-template-columns:1fr 1fr; gap:4px;}
+  .clubs-drop-item{
+    display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:12px; transition:background .15s;
+  }
+  .clubs-drop-item:hover{background:rgba(225,26,110,0.07);}
+  .clubs-drop-item img{width:28px; height:28px; border-radius:8px; object-fit:contain; background:#fff; border:1px solid var(--line); padding:3px; flex-shrink:0;}
+  .clubs-drop-item span{font-size:0.82rem; font-weight:600; color:var(--ink); line-height:1.25;}
+  .clubs-drop-foot{
+    display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:10px; padding-top:10px;
+    border-top:1px solid var(--line);
+  }
+  .clubs-drop-foot a{font-size:0.8rem; font-weight:700; color:var(--magenta-deep);}
+  .res-drop-panel{width:290px;}
+  .res-drop-item{display:flex; gap:12px; padding:11px 10px; border-radius:12px; transition:background .15s; align-items:flex-start;}
+  .res-drop-item:hover{background:rgba(225,26,110,0.07);}
+  .res-drop-ico{
+    width:34px; height:34px; border-radius:10px; background:rgba(225,26,110,0.09); color:var(--magenta-deep);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:1rem;
+  }
+  .res-drop-item h5{font-size:0.86rem; font-weight:700; color:var(--ink); margin-bottom:2px;}
+  .res-drop-item p{font-size:0.74rem; color:rgba(27,24,54,0.5); line-height:1.4; margin:0;}
+  @media (max-width:920px){ .nav-drop{display:none;} }
   .nav-cta{
     background:var(--ink); color:#fff !important; padding:10px 20px; border-radius:100px;
     font-weight:700; font-size:0.85rem; opacity:1 !important;
@@ -497,12 +540,40 @@
   <div class="wrap">
     <div class="brand"><span class="z">7</span> Zone 7 Rotaract</div>
     <div class="navlinks">
-      <a href="#about">About</a>
+      <a href="about.html">About</a>
       <a href="#leadership">Leadership</a>
-      <a href="#clubs">Clubs</a>
+
+      <div class="nav-drop" id="clubsDrop">
+        <button type="button" class="nav-drop-trigger">Clubs <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-drop-panel clubs-drop-panel" id="clubsDropPanel">
+          <div class="clubs-drop-grid" id="clubsDropGrid"></div>
+          <div class="clubs-drop-foot">
+            <span style="font-size:0.74rem; color:rgba(27,24,54,0.45);">9 clubs in Zone 7</span>
+            <a href="#clubs">See all on homepage →</a>
+          </div>
+        </div>
+      </div>
+
       <a href="#dcal">Calendar</a>
       <a href="#events">Events</a>
-      <a href="#connect">Connect</a>
+
+      <div class="nav-drop" id="resDrop">
+        <button type="button" class="nav-drop-trigger">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-drop-panel res-drop-panel">
+          <a class="res-drop-item" href="guides.html">
+            <div class="res-drop-ico">📄</div>
+            <div><h5>Rotaract Resources</h5><p>Official constitutions, forms & district documents</p></div>
+          </a>
+          <a class="res-drop-item" href="club-guides.html">
+            <div class="res-drop-ico">📚</div>
+            <div><h5>Guides for Clubs</h5><p>The playbook — leadership, finance, projects & more</p></div>
+          </a>
+          <a class="res-drop-item" href="#connect">
+            <div class="res-drop-ico">📷</div>
+            <div><h5>Follow Along</h5><p>Recaps and reels from across the zone</p></div>
+          </a>
+        </div>
+      </div>
     </div>
     <div style="display:flex; align-items:center; gap:18px;">
       <a href="admin.html" class="nav-admin">Club Admin</a>
@@ -511,14 +582,36 @@
     </div>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#about">About</a>
+    <a href="about.html">About</a>
     <a href="#leadership">Leadership</a>
     <a href="#clubs">Clubs</a>
     <a href="#dcal">Calendar</a>
     <a href="#events">Events</a>
+    <a href="guides.html">Rotaract Resources</a>
+    <a href="club-guides.html">Guides for Clubs</a>
     <a href="#connect">Connect</a>
   </div>
 </nav>
+<script>
+  document.getElementById("clubsDropGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
+    <a class="clubs-drop-item" href="club.html?club=${slug}">
+      <img src="${c.logo}" alt="" loading="lazy">
+      <span>${c.name.replace('Rotaract Club of ','')}</span>
+    </a>
+  `).join("");
+  // Click-to-toggle for touch/keyboard users alongside the CSS hover
+  document.querySelectorAll(".nav-drop-trigger").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const drop = btn.closest(".nav-drop");
+      const wasOpen = drop.classList.contains("open");
+      document.querySelectorAll(".nav-drop").forEach(d => d.classList.remove("open"));
+      if(!wasOpen) drop.classList.add("open");
+    });
+  });
+  document.addEventListener("click", (e) => {
+    if(!e.target.closest(".nav-drop")) document.querySelectorAll(".nav-drop").forEach(d => d.classList.remove("open"));
+  });
+</script>
 <script>
   document.getElementById('burgerBtn').addEventListener('click', () => {
     document.getElementById('mobileMenu').classList.toggle('open');
@@ -557,7 +650,7 @@
   <div class="wrap">
     <span class="section-tag">Who we are</span>
     <h2>Service above self, <span class="mark">led by youth.</span></h2>
-    <p class="sub">Rotaract is Rotary International's club for young adults aged 18&ndash;30 &mdash; sponsored by local Rotary clubs, entirely run by Rotaractors. Zone 7 unites 9 such clubs across the Kathmandu Valley under District 3292.</p>
+    <p class="sub">Rotaract is Rotary International's club for young adults aged 18&ndash;30 &mdash; sponsored by local Rotary clubs, entirely run by Rotaractors. Zone 7 unites 9 such clubs across the Kathmandu Valley under District 3292. <a href="about.html" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Read our full story →</a></p>
 
     <div class="mosaic-head">
       <h3>Every Zone 7 project, one skyline.</h3>
