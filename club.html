@@ -30,9 +30,16 @@
 
   /* HERO */
   .chero{position:relative;padding:90px 0 80px;overflow:hidden;background:var(--ink);color:#fff;}
-  .chero-blob1{position:absolute;top:-160px;right:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(225,26,110,.35),transparent 68%);filter:blur(10px);}
-  .chero-blob2{position:absolute;bottom:-200px;left:-140px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(242,169,0,.22),transparent 65%);}
-  .chero-7{position:absolute;right:-10px;bottom:-70px;font-family:'Poppins';font-weight:900;font-size:20rem;color:rgba(255,255,255,.04);line-height:1;}
+  .chero-blob1{position:absolute;top:-160px;right:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(225,26,110,.35),transparent 68%);filter:blur(10px);transition:background 1.2s ease;}
+  .chero-blob2{position:absolute;bottom:-200px;left:-140px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(242,169,0,.22),transparent 65%);transition:background 1.2s ease;}
+  .chero-pattern{position:absolute;inset:0;opacity:.7;pointer-events:none;}
+  .chero-7{position:absolute;right:-10px;bottom:-70px;font-family:'Poppins';font-weight:900;font-size:16rem;color:rgba(255,255,255,.05);line-height:1;}
+  .chero-identity{
+    display:inline-flex; align-items:center; gap:8px; margin-top:16px; font-size:.8rem; font-weight:700;
+    color:#fff; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22); padding:7px 16px 7px 12px;
+    border-radius:100px; position:relative; z-index:1;
+  }
+  .chero-identity .ic{font-size:.95rem;}
   .chero .wrap{position:relative;z-index:1;}
   .chero-top{display:flex;align-items:center;gap:18px;margin-bottom:26px;}
   .chero-mark{width:64px;height:64px;border-radius:16px;background:#fff;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:8px;flex-shrink:0;}
@@ -64,38 +71,62 @@
   /* ABOUT */
   .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:start;margin-top:36px;}
   .about-grid p{color:rgba(27,24,54,.72);line-height:1.9;font-size:1.04rem;}
-  .quickfacts{display:flex;flex-direction:column;gap:10px;}
-  .qf{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 20px;transition:transform .2s,box-shadow .2s;}
-  .qf:hover{transform:translateX(4px);box-shadow:0 10px 22px rgba(27,24,54,.06);}
-  .qf .k{display:block;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:rgba(27,24,54,.45);margin-bottom:4px;}
-  .qf .v{display:block;font-size:.92rem;font-weight:700;color:var(--ink);}
+  .quickfacts{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;}
+  .qf{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 22px;border-bottom:1px solid var(--line);transition:background .15s;}
+  .qf:last-child{border-bottom:none;}
+  .qf:hover{background:var(--cream);}
+  .qf .k{font-size:.74rem;font-weight:600;color:rgba(27,24,54,.5);flex-shrink:0;}
+  .qf .v{font-size:.86rem;font-weight:700;color:var(--ink);text-align:right;}
   @media(max-width:900px){.about-grid{grid-template-columns:1fr;}}
 
   /* GOALS */
   .goals-sec{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
-  .goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px;}
-  .goal-card{
-    background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 24px;transition:transform .25s,box-shadow .25s;
-    position:relative;overflow:hidden;display:flex;gap:16px;align-items:flex-start;
+  .goals-head-row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;}
+  .goals-summary{
+    display:flex; align-items:center; gap:16px; background:#fff; border:1px solid var(--line); border-radius:100px;
+    padding:8px 22px 8px 8px; flex-shrink:0;
   }
-  .goal-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(27,24,54,.1);}
-  .goal-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--magenta),var(--gold));}
-  .goal-card.completed::before{background:#1c8a4d;}
-  .goal-card.canceled::before{background:rgba(225,26,110,.35);}
-  .goal-ico{
-    width:38px;height:38px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;
-    background:rgba(225,26,110,.09);color:var(--magenta-deep);
+  .goals-summary .gs-ring{
+    width:46px; height:46px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    font-family:'Poppins'; font-weight:800; font-size:.78rem; color:#fff; background:conic-gradient(#1c8a4d calc(var(--pct)*1%), var(--line) 0);
+    position:relative;
   }
-  .goal-card.completed .goal-ico{background:rgba(28,138,77,.12);color:#1c8a4d;}
-  .goal-card.canceled .goal-ico{background:rgba(225,26,110,.08);color:rgba(225,26,110,.6);}
-  .goal-card p{font-size:.94rem;font-weight:700;margin-bottom:12px;color:var(--ink);line-height:1.4;}
-  .goal-bar-track{background:var(--cream);border-radius:100px;height:9px;overflow:hidden;margin-bottom:9px;}
-  .goal-bar-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--magenta),var(--gold));width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px rgba(225,26,110,.35);}
-  .goal-card.completed .goal-bar-fill{background:#1c8a4d;box-shadow:0 0 10px rgba(28,138,77,.3);}
-  .goal-card.canceled .goal-bar-fill{background:rgba(225,26,110,.4);box-shadow:none;}
-  .goal-status{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:rgba(27,24,54,.4);}
-  .goal-card.completed .goal-status{color:#1c8a4d;}
-  @media(max-width:760px){.goal-grid{grid-template-columns:1fr;}}
+  .goals-summary .gs-ring::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff;}
+  .goals-summary .gs-ring span{position:relative;z-index:1;color:var(--ink);}
+  .goals-summary .gs-text{font-size:.82rem;color:rgba(27,24,54,.6);font-weight:600;line-height:1.4;}
+  .goals-summary .gs-text b{color:var(--ink);font-family:'Poppins';font-weight:700;}
+
+  .goals-list{
+    background:#fff; border:1px solid var(--line); border-radius:20px; overflow:hidden; margin-top:30px;
+  }
+  .goal-row{
+    display:flex; align-items:center; gap:16px; padding:16px 24px; border-bottom:1px solid var(--line);
+    transition:background .15s;
+  }
+  .goal-row:last-child{border-bottom:none;}
+  .goal-row:hover{background:var(--cream);}
+  .goal-row .g-ic{
+    width:30px; height:30px; border-radius:9px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    font-size:.76rem; font-weight:800; background:rgba(225,26,110,.08); color:var(--magenta-deep);
+  }
+  .goal-row.completed .g-ic{background:rgba(28,138,77,.1); color:#1c8a4d;}
+  .goal-row.canceled .g-ic{background:rgba(27,24,54,.06); color:rgba(27,24,54,.32);}
+  .goal-row .g-text{flex:1; min-width:0; font-size:.92rem; font-weight:600; color:var(--ink); line-height:1.45;}
+  .goal-row.canceled .g-text{color:rgba(27,24,54,.42); text-decoration:line-through; text-decoration-color:rgba(27,24,54,.22);}
+  .goal-row .g-progress{flex-shrink:0; width:96px; display:flex; align-items:center; gap:8px;}
+  .goal-row .g-bar-track{flex:1; height:5px; border-radius:100px; background:var(--cream); overflow:hidden;}
+  .goal-row .g-bar-fill{height:100%; border-radius:100px; background:var(--gold); width:0; transition:width 1s cubic-bezier(.4,0,.2,1);}
+  .goal-row .g-pct{font-size:.68rem; font-weight:800; color:rgba(27,24,54,.45); flex-shrink:0; width:30px; text-align:right;}
+  .goal-row .g-status{
+    flex-shrink:0; font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:rgba(27,24,54,.35);
+    min-width:74px; text-align:right;
+  }
+  .goal-row.completed .g-status{color:#1c8a4d;}
+  @media(max-width:640px){
+    .goal-row{flex-wrap:wrap; padding:15px 18px;}
+    .goal-row .g-progress{order:3; width:100%; margin-left:46px;}
+    .goal-row .g-status{order:2;}
+  }
 
   /* LEADERSHIP / BOARD */
   .board-sec{padding:80px 0;}
@@ -339,6 +370,75 @@ const CLUBS = {
 };
 
 
+/* Each club gets its own accent palette + hero motif, chosen to reflect
+   its real vision/name rather than a random reskin — this is what makes
+   every club page feel like its own "room" while staying one site. */
+const CLUB_THEMES = {
+  balkumari: {
+    icon:"🌿", identity:"The Sustainability Club",
+    c1:"#1c8a4d", c2:"#12633a", gold:"#9ecb4a",
+    blob1:"radial-gradient(circle, rgba(28,138,77,.4), transparent 68%)",
+    blob2:"radial-gradient(circle, rgba(158,203,74,.24), transparent 65%)",
+    pattern:"repeating-radial-gradient(circle at 10% 10%, rgba(158,203,74,.16) 0, rgba(158,203,74,.16) 2px, transparent 3px, transparent 42px)"
+  },
+  baneshwor: {
+    icon:"🌅", identity:"The Steady-Impact Club",
+    c1:"#d9822b", c2:"#a8531a", gold:"#f2c94c",
+    blob1:"radial-gradient(circle, rgba(217,130,43,.38), transparent 68%)",
+    blob2:"radial-gradient(circle, rgba(242,201,76,.22), transparent 65%)",
+    pattern:"radial-gradient(rgba(242,201,76,.16) 1.6px, transparent 1.6px)", bgSize:"26px 26px"
+  },
+  liberty: {
+    icon:"⚡", identity:"The Empowerment Club",
+    c1:"#5b4fd1", c2:"#382c9e", gold:"#7fd8ff",
+    blob1:"radial-gradient(circle, rgba(91,79,209,.42), transparent 68%)",
+    blob2:"radial-gradient(circle, rgba(127,216,255,.22), transparent 65%)",
+    pattern:"repeating-linear-gradient(115deg, rgba(127,216,255,.14) 0 2px, transparent 2px 34px)"
+  },
+  kathmanduwest: {
+    icon:"🧭", identity:"The Legacy Club",
+    c1:"#8a6300", c2:"#5c4300", gold:"#d4af37",
+    blob1:"radial-gradient(circle, rgba(138,99,0,.4), transparent 68%)",
+    blob2:"radial-gradient(circle, rgba(212,175,55,.24), transparent 65%)",
+    pattern:"repeating-radial-gradient(circle at 82% 18%, rgba(212,175,55,.14) 0, rgba(212,175,55,.14) 1px, transparent 2px, transparent 30px)"
+  },
+  kathmanduheight: {
+    icon:"⛰️", identity:"The Rising Club",
+    c1:"#1c8fa0", c2:"#0f5c68", gold:"#6fe7c4",
+    blob1:"radial-gradient(circle, rgba(28,143,160,.4), transparent 68%)",
+    blob2:"radial-gradient(circle, rgba(111,231,196,.24), transparent 65%)",
+    pattern:"repeating-linear-gradient(62deg, rgba(111,231,196,.14) 0 2px, transparent 2px 36px)"
+  },
+  sankhu: {
+    icon:"📖", identity:"The Literacy Club",
+    c1:"#b5651d", c2:"#7a3e0f", gold:"#e0a72e",
+    blob1:"radial-gradient(circle, rgba(181,101,29,.4), transparent 68%)",
+    blob2:"radial-gradient(circle, rgba(224,167,46,.22), transparent 65%)",
+    pattern:"repeating-linear-gradient(0deg, rgba(224,167,46,.13) 0 1px, transparent 1px 18px)"
+  },
+  newroadcity: {
+    icon:"🏮", identity:"The Heritage Club",
+    c1:"#8a1538", c2:"#5c0d24", gold:"#cba135",
+    blob1:"radial-gradient(circle, rgba(138,21,56,.42), transparent 68%)",
+    blob2:"radial-gradient(circle, rgba(203,161,53,.22), transparent 65%)",
+    pattern:"repeating-linear-gradient(45deg, rgba(203,161,53,.10) 0 1px, transparent 1px 24px), repeating-linear-gradient(-45deg, rgba(203,161,53,.10) 0 1px, transparent 1px 24px)"
+  },
+  sukedhara: {
+    icon:"🫂", identity:"The Compassion Club",
+    c1:"#e0475f", c2:"#a82f43", gold:"#ffb86b",
+    blob1:"radial-gradient(circle, rgba(224,71,95,.4), transparent 68%)",
+    blob2:"radial-gradient(circle, rgba(255,184,107,.24), transparent 65%)",
+    pattern:"radial-gradient(circle at 75% 30%, rgba(255,184,107,.2), transparent 55%), radial-gradient(circle at 20% 80%, rgba(224,71,95,.14), transparent 50%)"
+  },
+  tripureswor: {
+    icon:"🌐", identity:"The Flagship Club",
+    c1:"#6a3fa0", c2:"#452869", gold:"#d4af37",
+    blob1:"radial-gradient(circle, rgba(106,63,160,.42), transparent 68%)",
+    blob2:"radial-gradient(circle, rgba(212,175,55,.22), transparent 65%)",
+    pattern:"repeating-linear-gradient(0deg, rgba(212,175,55,.09) 0 1px, transparent 1px 40px), repeating-linear-gradient(90deg, rgba(212,175,55,.09) 0 1px, transparent 1px 40px)"
+  }
+};
+
 const params = new URLSearchParams(location.search);
 const club = CLUBS[params.get("club")];
 const clubSlug = params.get("club");
@@ -354,7 +454,7 @@ function animateCount(el, target, suffix){
 function initReveal(){
   const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add("show"); obs.unobserve(e.target); } }), {threshold:0.12});
   document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
-  document.querySelectorAll(".goal-bar-fill").forEach(el => {
+  document.querySelectorAll(".g-bar-fill").forEach(el => {
     const obs2 = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.style.width = e.target.dataset.pct; obs2.unobserve(e.target); } }), {threshold:0.3});
     obs2.observe(el);
   });
@@ -367,6 +467,16 @@ function initReveal(){
 if(club){(async () => {
   document.title = club.name + " | Zone 7 Rotaract 3292";
   const initials = club.name.replace(/Rotaract Club of /i,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
+
+  // Re-skin the page's accent palette to this club's identity. Everything else
+  // (buttons, tags, progress bars, badges) already reads from these CSS vars,
+  // so one swap here re-themes the whole page consistently.
+  const theme = CLUB_THEMES[clubSlug] || null;
+  if(theme){
+    document.documentElement.style.setProperty("--magenta", theme.c1);
+    document.documentElement.style.setProperty("--magenta-deep", theme.c2);
+    document.documentElement.style.setProperty("--gold", theme.gold);
+  }
 
   const facts = [
     ["Sponsoring Rotary Club", club.sponsor],
@@ -385,7 +495,7 @@ if(club){(async () => {
 
   document.getElementById("content").innerHTML = `
     <header class="chero">
-      <div class="chero-blob1"></div><div class="chero-blob2"></div><div class="chero-7">7</div>
+      <div class="chero-blob1" id="cheroBlob1"></div><div class="chero-blob2" id="cheroBlob2"></div><div class="chero-pattern" id="cheroPattern"></div><div class="chero-7" id="cheroWatermark">7</div>
       <div class="wrap">
         <div class="chero-top">
           <div class="chero-mark">${club.logo ? `<img src="${esc(club.logo)}" alt="">` : initials}</div>
@@ -393,6 +503,7 @@ if(club){(async () => {
         </div>
         <h1>${esc(club.name)}</h1>
         <div class="loc">📍 ${esc(club.loc)}</div>
+        ${theme ? `<div class="chero-identity"><span class="ic">${theme.icon}</span>${esc(theme.identity)}</div>` : ""}
         ${hasVision ? `<div class="chero-vision">"${esc(club.vision)}"</div>` : ""}
         <div class="chero-actions">
           ${club.ig ? `<a class="btn btn-primary" href="https://www.instagram.com/${esc(club.ig)}/" target="_blank" rel="noopener">Follow @${esc(club.ig)} →</a>` : ""}
@@ -435,16 +546,22 @@ if(club){(async () => {
 
     <section class="csec goals-sec" id="goals">
       <div class="wrap">
-        <span class="csec-tag reveal">Focus &amp; Direction</span>
-        <h2 class="reveal">Goals ${club.name.replace('Rotaract Club of ','')} is working toward.</h2>
-        ${goals.length ? `<div class="goal-grid">${goals.slice(0,8).map(g => `
-          <div class="goal-card reveal ${g.s}">
-            <div class="goal-ico">${g.s==='completed'?'✓':g.s==='canceled'?'✕':'◐'}</div>
-            <div style="flex:1;">
-              <p>${esc(g.t)}</p>
-              <div class="goal-bar-track"><div class="goal-bar-fill" data-pct="${pctFor(g)}"></div></div>
-              <span class="goal-status">${g.s === 'inprogress' ? (g.pct ? 'In Progress · '+g.pct : 'In Progress') : g.s}</span>
-            </div>
+        <div class="goals-head-row">
+          <div>
+            <span class="csec-tag reveal">Focus &amp; Direction</span>
+            <h2 class="reveal" style="margin-bottom:0;">Goals ${esc(club.name.replace('Rotaract Club of ',''))} is working toward.</h2>
+          </div>
+          ${goals.length ? `<div class="goals-summary reveal">
+            <div class="gs-ring" style="--pct:${Math.round((goals.filter(g=>g.s==='completed').length/goals.length)*100)};"><span>${Math.round((goals.filter(g=>g.s==='completed').length/goals.length)*100)}%</span></div>
+            <div class="gs-text"><b>${goals.filter(g=>g.s==='completed').length}</b> of <b>${goals.length}</b> goals<br>completed this term</div>
+          </div>` : ""}
+        </div>
+        ${goals.length ? `<div class="goals-list reveal">${goals.slice(0,8).map(g => `
+          <div class="goal-row ${g.s}">
+            <div class="g-ic">${g.s==='completed'?'✓':g.s==='canceled'?'✕':'◐'}</div>
+            <div class="g-text">${esc(g.t)}</div>
+            ${g.s==='inprogress' ? `<div class="g-progress"><div class="g-bar-track"><div class="g-bar-fill" data-pct="${pctFor(g)}"></div></div><span class="g-pct">${g.pct || '55%'}</span></div>` : ""}
+            <span class="g-status">${g.s === 'inprogress' ? 'In Progress' : g.s}</span>
           </div>`).join("")}</div>` : `<p class="no-goals reveal">No active club goals on record yet.</p>`}
       </div>
     </section>
@@ -466,6 +583,16 @@ if(club){(async () => {
       </div>
     </section>
   `;
+
+  if(theme){
+    document.getElementById("cheroBlob1").style.background = theme.blob1;
+    document.getElementById("cheroBlob2").style.background = theme.blob2;
+    const patternEl = document.getElementById("cheroPattern");
+    patternEl.style.backgroundImage = theme.pattern;
+    if(theme.bgSize) patternEl.style.backgroundSize = theme.bgSize;
+    document.getElementById("cheroWatermark").textContent = theme.icon;
+    document.getElementById("cheroWatermark").style.fontSize = "13rem";
+  }
 
   const pm = document.getElementById("pmasonry");
   const projects = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getProjects(clubSlug) : [];
