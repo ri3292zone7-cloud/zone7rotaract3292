@@ -47,7 +47,7 @@
   .org-node.flank{background:var(--cream); border:1px dashed var(--line); color:rgba(27,24,54,0.55); font-size:0.72rem; font-weight:700; padding:9px 14px; white-space:nowrap;}
   .org-stem{width:2px; height:22px; background:var(--line);}
   .org-branches{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:14px; width:100%; margin-top:0; position:relative;
+    display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; width:100%; margin-top:0; position:relative; align-items:start;
   }
   .org-branches::before{
     content:""; position:absolute; top:-22px; left:12.5%; right:12.5%; height:2px; background:var(--line);
@@ -63,6 +63,10 @@
     font-size:0.76rem; font-weight:700; color:var(--ink); background:var(--cream); border:1px solid var(--line);
     border-radius:9px; padding:7px 10px; margin-top:6px;
   }
+  .org-chain-item.small{font-size:0.7rem; font-weight:600; padding:6px 9px;}
+  .org-subgroup{margin-top:10px; padding-top:10px; border-top:1px dashed var(--line);}
+  .org-subgroup-label{font-size:0.6rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:rgba(27,24,54,0.4); margin-bottom:6px;}
+  .org-cols-2{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
   .org-arrow-down{font-size:0.7rem; color:rgba(27,24,54,0.3); line-height:1.4;}
   .org-note{font-size:.82rem; color:rgba(27,24,54,.55); margin-top:22px; text-align:center; max-width:640px;}
   .zoneperson-list{display:flex; flex-direction:column; gap:10px; margin-top:6px;}
@@ -204,47 +208,73 @@ document.getElementById("orgChain").innerHTML = `
     </div>
     <div class="org-stem"></div>
     <div class="org-branches">
+
       <div class="org-branch">
         <div class="org-stem-top"></div>
         <div class="org-branch-card">
-          <div class="role">District Finance Chair</div>
+          <div class="role">District Finance Chair (DFC)</div>
           <div class="org-arrow-down">↓</div>
-          <div class="org-chain-item">DFO</div>
-          <div class="org-chain-item">Publication Chair</div>
+          <div class="org-chain-item">District Finance Officer (DFO)</div>
+          <div class="org-chain-item">District Publication Chair</div>
         </div>
       </div>
+
       <div class="org-branch">
         <div class="org-stem-top"></div>
         <div class="org-branch-card">
-          <div class="role">District Secretary</div>
+          <div class="role">District Secretary (DS)</div>
           <div class="org-arrow-down">↓</div>
           <div class="org-chain-item">ZRR</div>
           <div class="org-arrow-down">↓</div>
           <div class="org-chain-item">Clubs</div>
+          <div class="org-chain-item">District Membership Development Director (DMDD)</div>
+          <div class="org-subgroup">
+            <div class="org-subgroup-label">District Administration Officer (DAO)</div>
+            <div class="org-chain-item small">District Governance &amp; Compliance Officer (DGCO)</div>
+            <div class="org-chain-item small">District Service Project Chair (DSPC)</div>
+            <div class="org-chain-item small">District International Relation Chair (DIRC)</div>
+            <div class="org-chain-item small">District Women Empowerment Chair (DWEC)</div>
+            <div class="org-chain-item small">Chief Protocol &amp; Ceremonial Officer (CPCO)</div>
+          </div>
         </div>
       </div>
+
       <div class="org-branch">
         <div class="org-stem-top"></div>
         <div class="org-branch-card">
-          <div class="role">District Leadership Dev. Director</div>
+          <div class="role">District Leadership Development Director (DLDD)</div>
           <div class="org-arrow-down">↓</div>
-          <div class="org-chain-item">Training Team</div>
+          <div class="org-chain-item">District Training Development Officer (DTDO)</div>
+          <div class="org-chain-item">Rotaract Training Team (RTT)</div>
         </div>
       </div>
+
       <div class="org-branch">
         <div class="org-stem-top"></div>
         <div class="org-branch-card">
           <div class="role">ADRR</div>
           <div class="org-arrow-down">↓</div>
-          <div class="org-chain-item">Grant / CSR / IT Chairs</div>
-          <div class="org-chain-item">RRC</div>
-          <div class="org-arrow-down">↓</div>
-          <div class="org-chain-item">ZRR → Clubs</div>
+          <div class="org-cols-2">
+            <div>
+              <div class="org-chain-item small">District Grant Management Chair (DGMC)</div>
+              <div class="org-chain-item small">District Corporate Partnership Chair</div>
+              <div class="org-chain-item small">District CSR Projects Coordinator</div>
+              <div class="org-chain-item small">District IT &amp; Data Management Chair</div>
+            </div>
+            <div>
+              <div class="org-chain-item small">Regional Rotaract Coordinator (RRC)</div>
+              <div class="org-arrow-down">↓</div>
+              <div class="org-chain-item small">ZRR</div>
+              <div class="org-arrow-down">↓</div>
+              <div class="org-chain-item small">Clubs</div>
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
-  <p class="org-note">IPDRR and DRR Elect flank the DRR; each branch runs district-wide committees down to Zone Rotaract Representatives and clubs.</p>
+  <p class="org-note">IPDRR and DRR Elect flank the DRR; each branch runs district-wide committees down to Zone Rotaract Representatives and clubs. Source: Rotaract District 3292 Communication Channel, RY 2026&ndash;27.</p>
 `;
 
 const initials = name => name.replace(/^Rtr\.\s*/,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
