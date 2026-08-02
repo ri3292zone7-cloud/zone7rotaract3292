@@ -6,6 +6,7 @@
 <title>Join Us | Zone 7 Rotaract</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="zone7-data.js"></script>
 <style>
   :root{
     --ink:#1B1836;
@@ -50,6 +51,43 @@
     background:var(--ink); color:#fff !important; padding:10px 20px; border-radius:100px;
     font-weight:700; font-size:0.85rem;
   }
+  .navlinks{display:flex;gap:34px;font-weight:600;font-size:.92rem;align-items:center;}
+  .navlinks > a{position:relative;padding:4px 0;color:var(--ink);opacity:.75;transition:opacity .2s;}
+  .navlinks > a:hover{opacity:1;}
+  .navlinks > a.current{opacity:1;color:var(--magenta-deep);}
+  .nav-drop{position:relative;}
+  .nav-drop-trigger{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Inter';font-weight:600;font-size:.92rem;color:var(--ink);opacity:.75;padding:4px 0;transition:opacity .2s;}
+  .nav-drop-trigger svg{transition:transform .2s;}
+  .nav-drop:hover .nav-drop-trigger,.nav-drop.open .nav-drop-trigger{opacity:1;}
+  .nav-drop.open .nav-drop-trigger svg{transform:rotate(180deg);}
+  .nav-drop-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:16px;opacity:0;pointer-events:none;transition:opacity .18s;z-index:60;}
+  .nav-drop:hover .nav-drop-panel,.nav-drop.open .nav-drop-panel{opacity:1;pointer-events:auto;}
+  .nav-drop-panel-inner{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 48px rgba(27,24,54,.14);padding:14px;transform:translateY(6px);transition:transform .18s;position:relative;}
+  .nav-drop:hover .nav-drop-panel-inner,.nav-drop.open .nav-drop-panel-inner{transform:translateY(0);}
+  .nav-drop-panel-inner::before{content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:var(--paper);border-left:1px solid var(--line);border-top:1px solid var(--line);}
+  .clubs-drop-panel{width:420px;}
+  .clubs-drop-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+  .clubs-drop-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;transition:background .15s;}
+  .clubs-drop-item:hover{background:rgba(225,26,110,.07);}
+  .clubs-drop-item img{width:28px;height:28px;border-radius:8px;object-fit:contain;background:#fff;border:1px solid var(--line);padding:3px;flex-shrink:0;}
+  .clubs-drop-item span{font-size:.82rem;font-weight:600;color:var(--ink);line-height:1.25;}
+  .clubs-drop-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);}
+  .clubs-drop-foot a{font-size:.8rem;font-weight:700;color:var(--magenta-deep);}
+  .res-drop-panel{width:290px;}
+  .res-drop-item{display:flex;gap:12px;padding:11px 10px;border-radius:12px;transition:background .15s;align-items:flex-start;}
+  .res-drop-item:hover{background:rgba(225,26,110,.07);}
+  .res-drop-ico{width:34px;height:34px;border-radius:10px;background:rgba(225,26,110,.09);color:var(--magenta-deep);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;}
+  .res-drop-item h5{font-size:.86rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
+  .res-drop-item p{font-size:.74rem;color:rgba(27,24,54,.5);line-height:1.4;margin:0;}
+  @media (max-width:920px){ .nav-drop,.navlinks{display:none;} }
+  .nav-admin{font-weight:700;font-size:.85rem;color:var(--magenta-deep);opacity:.85;transition:opacity .2s;}
+  .nav-admin:hover{opacity:1;}
+  .burger{display:none;background:none;border:none;cursor:pointer;padding:6px;}
+  .burger span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;border-radius:2px;}
+  .mobile-menu{display:none;position:fixed;top:76px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);z-index:99;padding:18px 28px;flex-direction:column;gap:16px;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-weight:600;font-size:1rem;color:var(--ink);}
+  @media(max-width:920px){ .burger{display:block;} }
 
   /* HERO */
   .hero{
@@ -174,9 +212,77 @@
 <nav>
   <div class="wrap">
     <a href="index.html"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>
-    <a href="index.html" class="btn nav-cta">← Back Home</a>
+    <div class="navlinks">
+      <a href="about.html">About</a>
+      <div class="nav-drop" id="clubsDrop">
+        <button type="button" class="nav-drop-trigger">Clubs <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-drop-panel clubs-drop-panel">
+          <div class="nav-drop-panel-inner">
+            <div class="clubs-drop-grid" id="clubsDropGrid"></div>
+            <div class="clubs-drop-foot">
+              <span style="font-size:.74rem;color:rgba(27,24,54,.45);">9 clubs in Zone 7</span>
+              <a href="index.html#clubs">See all on homepage →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="gallery.html">Gallery</a>
+      <div class="nav-drop" id="resDrop">
+        <button type="button" class="nav-drop-trigger">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-drop-panel res-drop-panel">
+          <div class="nav-drop-panel-inner">
+            <a class="res-drop-item" href="guides.html">
+              <div class="res-drop-ico">📄</div>
+              <div><h5>Rotaract Resources</h5><p>Official constitutions, forms &amp; district documents</p></div>
+            </a>
+            <a class="res-drop-item" href="club-guides.html">
+              <div class="res-drop-ico">📚</div>
+              <div><h5>Guides for Clubs</h5><p>The playbook — leadership, finance, projects &amp; more</p></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <a href="admin.html" class="nav-admin">Club Admin</a>
+      <a href="index.html" class="btn nav-cta">← Back Home</a>
+      <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="about.html">About</a>
+    <a href="index.html#clubs">Clubs</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="guides.html">Rotaract Resources</a>
+    <a href="club-guides.html">Guides for Clubs</a>
+    <a href="admin.html">Club Admin</a>
   </div>
 </nav>
+<script>
+  document.getElementById("clubsDropGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
+    <a class="clubs-drop-item" href="club.html?club=${slug}">
+      <img src="${c.logo}" alt="" loading="lazy">
+      <span>${c.name.replace('Rotaract Club of ','')}</span>
+    </a>
+  `).join("");
+  document.querySelectorAll(".nav-drop-trigger").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const drop = btn.closest(".nav-drop");
+      const wasOpen = drop.classList.contains("open");
+      document.querySelectorAll(".nav-drop").forEach(d => d.classList.remove("open"));
+      if(!wasOpen) drop.classList.add("open");
+    });
+  });
+  document.addEventListener("click", (e) => {
+    if(!e.target.closest(".nav-drop")) document.querySelectorAll(".nav-drop").forEach(d => d.classList.remove("open"));
+  });
+  document.getElementById('burgerBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+  document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }));
+</script>
 
 <header class="hero">
   <div class="wrap">
