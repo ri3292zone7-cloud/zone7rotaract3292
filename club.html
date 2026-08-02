@@ -3,190 +3,164 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Club Profile | Zone 7 Rotaract 3292</title>
+<title>Club | Zone 7 Rotaract 3292</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="zone7-data.js"></script>
 <style>
-  :root{
-    --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
-    --cream:#FFF8EF; --paper:#FFFDF9; --line: rgba(27,24,54,0.1);
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  body{font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
-  h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
-  a{color:inherit; text-decoration:none;}
-  img{max-width:100%; display:block;}
-  .wrap{max-width:1000px; margin:0 auto; padding:0 28px;}
-  .wrap-wide{max-width:1180px; margin:0 auto; padding:0 28px;}
-  nav{position:sticky; top:0; z-index:100; background:rgba(255,253,249,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
-  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
-  .brand{display:flex; align-items:center; gap:10px; font-family:'Poppins'; font-weight:800; font-size:1.1rem;}
-  .brand .z{background:var(--magenta); color:#fff; width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center;}
-  .back{font-weight:700; font-size:0.88rem; color:var(--magenta-deep);}
+  :root{--ink:#1B1836;--magenta:#E11A6E;--magenta-deep:#A80F52;--gold:#F2A900;--cream:#FFF8EF;--paper:#FFFDF9;--line:rgba(27,24,54,0.1);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-0.02em;}
+  a{color:inherit;text-decoration:none;} img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.show{opacity:1;transform:none;}
 
-  .hero{padding:70px 0 50px; border-bottom:1px solid var(--line);}
-  .club-mark-lg{
-    width:88px; height:88px; border-radius:20px; background:#fff; border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center; margin-bottom:22px; overflow:hidden; padding:10px;
-  }
-  .club-mark-lg img{width:100%; height:100%; object-fit:contain;}
-  .hero h1{font-size:clamp(2rem,4.4vw,3rem); max-width:700px;}
-  .hero .loc{margin-top:12px; color:rgba(27,24,54,0.6); font-weight:600; font-size:0.95rem; max-width:640px; line-height:1.5;}
-  .hero .vision-tag{
-    display:inline-block; margin-top:18px; font-size:0.82rem; font-weight:700; color:var(--magenta-deep);
-    background:rgba(225,26,110,0.09); padding:8px 16px; border-radius:100px;
-  }
+  /* NAV */
+  nav{position:sticky;top:0;z-index:100;background:rgba(255,253,249,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px;gap:20px;}
+  .brand{display:flex;align-items:center;gap:9px;font-family:'Poppins';font-weight:800;font-size:1rem;flex-shrink:0;}
+  .brand .z{background:var(--magenta);color:#fff;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;}
+  .jumpnav{display:flex;gap:24px;font-size:.85rem;font-weight:600;}
+  .jumpnav a{opacity:.6;transition:opacity .2s;} .jumpnav a:hover{opacity:1;}
+  .back{font-weight:700;font-size:.85rem;color:var(--magenta-deep);flex-shrink:0;}
+  @media(max-width:820px){.jumpnav{display:none;}}
 
-  .meta-row{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:44px; padding-top:30px; border-top:1px solid var(--line);}
-  .meta b{display:block; font-family:'Poppins'; font-weight:800; font-size:1.3rem; color:var(--magenta-deep);}
-  .meta span{font-size:0.78rem; color:rgba(27,24,54,0.55); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;}
-
-  .section{padding:56px 0; border-bottom:1px solid var(--line);}
-  .section h3{font-size:1.3rem; margin-bottom:16px;}
-  .section p{color:rgba(27,24,54,0.72); line-height:1.85; font-size:1rem; max-width:740px;}
-  .section p + p{margin-top:14px;}
-
-  .info-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:8px;}
-  .info-card{background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:20px 22px;}
-  .info-card span.k{display:block; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:rgba(27,24,54,0.5); margin-bottom:6px;}
-  .info-card span.v{display:block; font-size:0.98rem; font-weight:700; color:var(--ink);}
-
-  .goals-list{display:flex; flex-direction:column; gap:10px; margin-top:8px;}
-  .goal-item{
-    display:flex; align-items:center; justify-content:space-between; gap:14px;
-    background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:14px 18px;
+  /* HERO */
+  .chero{position:relative;padding:90px 0 80px;overflow:hidden;background:var(--ink);color:#fff;}
+  .chero-blob1{position:absolute;top:-160px;right:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(225,26,110,.35),transparent 68%);filter:blur(10px);}
+  .chero-blob2{position:absolute;bottom:-200px;left:-140px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(242,169,0,.22),transparent 65%);}
+  .chero-7{position:absolute;right:-10px;bottom:-70px;font-family:'Poppins';font-weight:900;font-size:20rem;color:rgba(255,255,255,.04);line-height:1;}
+  .chero .wrap{position:relative;z-index:1;}
+  .chero-top{display:flex;align-items:center;gap:18px;margin-bottom:26px;}
+  .chero-mark{width:64px;height:64px;border-radius:16px;background:#fff;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:8px;flex-shrink:0;}
+  .chero-mark img{width:100%;height:100%;object-fit:contain;}
+  .chero-eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);}
+  .chero h1{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.05;max-width:820px;}
+  .chero .loc{margin-top:14px;color:rgba(255,255,255,.6);font-size:.95rem;font-weight:500;max-width:640px;}
+  .chero-vision{
+    margin-top:26px;font-family:'Poppins';font-weight:700;font-size:1.15rem;line-height:1.5;max-width:700px;
+    padding:18px 24px;border-left:3px solid var(--magenta);background:rgba(255,255,255,.05);border-radius:0 14px 14px 0;
   }
-  .goal-item p{margin:0; font-size:0.92rem; color:var(--ink); max-width:none;}
-  .goal-status{
-    font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em;
-    padding:5px 12px; border-radius:100px; white-space:nowrap; flex-shrink:0;
-  }
-  .goal-status.completed{background:rgba(34,160,90,0.12); color:#1c8a4d;}
-  .goal-status.inprogress{background:rgba(242,169,0,0.18); color:#8a6300;}
-  .goal-status.canceled{background:rgba(225,26,110,0.1); color:var(--magenta-deep);}
-  .goals-more{margin-top:12px; font-size:0.85rem; color:rgba(27,24,54,0.5);}
+  .chero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;}
+  .btn{padding:14px 26px;border-radius:100px;font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;gap:8px;transition:transform .2s,box-shadow .2s;}
+  .btn-primary{background:var(--magenta);color:#fff;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(225,26,110,.3);}
+  .btn-ghost-dark{border:1.6px solid rgba(255,255,255,.35);color:#fff;}
+  .btn-ghost-dark:hover{background:#fff;color:var(--ink);}
 
-  .placeholder-note{
-    display:inline-block; margin-top:14px; font-size:0.8rem; color:var(--gold);
-    background:rgba(242,169,0,0.14); padding:6px 12px; border-radius:100px; font-weight:600;
-  }
-  .proj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:20px;}
-  .proj-card{background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:20px;}
-  .proj-card h4{font-size:0.95rem; margin-bottom:6px;}
-  .proj-card p{font-size:0.85rem; color:rgba(27,24,54,0.55); margin:0;}
+  .stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;padding-top:34px;border-top:1px solid rgba(255,255,255,.14);position:relative;z-index:1;}
+  .stat-strip .s b{display:block;font-family:'Poppins';font-weight:800;font-size:2.2rem;color:var(--gold);}
+  .stat-strip .s span{font-size:.76rem;color:rgba(255,255,255,.55);font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
+  @media(max-width:700px){.stat-strip{grid-template-columns:1fr 1fr;row-gap:24px;}}
 
-  /* PROJECTS SHOWCASE */
-  .projects-section{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:60px 0 66px;}
-  .projects-showcase{display:flex; flex-direction:column; gap:26px; margin-top:24px;}
-  .proj-showcase-card{
-    display:grid; grid-template-columns:1fr 1fr; gap:0; background:var(--cream); border:1px solid var(--line);
-    border-radius:22px; overflow:hidden; cursor:pointer; transition:transform .25s, box-shadow .25s;
-  }
-  .proj-showcase-card:nth-child(even){grid-template-columns:1fr 1fr;}
-  .proj-showcase-card:nth-child(even) .psc-img{order:2;}
-  .proj-showcase-card:hover{transform:translateY(-4px); box-shadow:0 24px 48px rgba(27,24,54,0.12);}
-  .psc-img{aspect-ratio:4/3; background:linear-gradient(150deg, rgba(225,26,110,0.18), rgba(242,169,0,0.15)); overflow:hidden; position:relative;}
-  .psc-img img{width:100%; height:100%; object-fit:cover;}
-  .psc-img-badges{position:absolute; top:14px; left:14px; right:14px; display:flex; justify-content:space-between; gap:8px; pointer-events:none;}
-  .psc-badge{
-    font-size:0.68rem; font-weight:800; letter-spacing:0.03em; padding:6px 13px; border-radius:100px;
-    background:rgba(255,253,249,0.92); color:var(--ink); backdrop-filter:blur(4px); white-space:nowrap;
-  }
-  .psc-badge.host{background:var(--magenta-deep); color:#fff;}
-  .psc-body{padding:36px 38px; display:flex; flex-direction:column; justify-content:center;}
-  .psc-tag{
-    display:inline-flex; width:fit-content; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
-    color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:6px 14px; border-radius:100px; margin-bottom:14px;
-  }
-  .psc-meta{display:flex; gap:16px; flex-wrap:wrap; font-size:0.8rem; color:rgba(27,24,54,0.55); font-weight:600; margin-bottom:10px;}
-  .psc-meta span{display:inline-flex; align-items:center; gap:5px;}
-  .psc-body h4{font-size:1.28rem; margin-bottom:12px; line-height:1.25;}
-  .psc-body p{font-size:0.94rem; color:rgba(27,24,54,0.62); line-height:1.65; margin-bottom:14px;}
-  .psc-stats{display:flex; gap:18px; flex-wrap:wrap; margin-bottom:16px;}
-  .psc-stat{display:inline-flex; align-items:center; gap:6px; font-size:0.86rem; font-weight:800; color:var(--magenta-deep);}
-  .psc-stat small{font-weight:600; color:rgba(27,24,54,0.5); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.03em;}
-  .psc-joint{font-size:0.8rem; color:rgba(27,24,54,0.55); margin-bottom:16px; line-height:1.5;}
-  .psc-joint b{color:var(--ink);}
-  .psc-link{font-size:0.85rem; font-weight:700; color:var(--ink); display:inline-flex; align-items:center; gap:6px;}
-  .no-projects-note{
-    background:var(--cream); border:1px dashed var(--line); border-radius:18px; padding:36px; text-align:center;
-    color:rgba(27,24,54,0.55); font-size:0.92rem; margin-top:24px;
-  }
-  @media (max-width:760px){
-    .proj-showcase-card, .proj-showcase-card:nth-child(even){grid-template-columns:1fr;}
-    .proj-showcase-card:nth-child(even) .psc-img{order:0;}
-    .psc-body{padding:26px 24px;}
-  }
+  /* SECTION HEAD */
+  .csec{padding:80px 0;}
+  .csec-tag{font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--magenta-deep);margin-bottom:14px;display:inline-block;}
+  .csec h2{font-size:clamp(1.6rem,3vw,2.2rem);max-width:600px;margin-bottom:8px;}
 
-  .cta-row{padding:60px 0; display:flex; gap:16px; flex-wrap:wrap;}
-  .btn{padding:15px 30px; border-radius:100px; font-weight:700; font-size:0.95rem; display:inline-flex; align-items:center; gap:8px;}
-  .btn-primary{background:var(--ink); color:#fff;}
-  .btn-ghost{border:1.6px solid var(--ink); color:var(--ink);}
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:start;margin-top:36px;}
+  .about-grid p{color:rgba(27,24,54,.72);line-height:1.9;font-size:1.04rem;}
+  .quickfacts{display:flex;flex-direction:column;gap:10px;}
+  .qf{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 20px;transition:transform .2s,box-shadow .2s;}
+  .qf:hover{transform:translateX(4px);box-shadow:0 10px 22px rgba(27,24,54,.06);}
+  .qf .k{display:block;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:rgba(27,24,54,.45);margin-bottom:4px;}
+  .qf .v{display:block;font-size:.92rem;font-weight:700;color:var(--ink);}
+  @media(max-width:900px){.about-grid{grid-template-columns:1fr;}}
 
-  footer{background:var(--ink); color:rgba(255,255,255,0.5); padding:34px 0; text-align:center; font-size:0.85rem;}
+  /* GOALS */
+  .goals-sec{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px;}
+  .goal-card{
+    background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 24px;transition:transform .25s,box-shadow .25s;
+    position:relative;overflow:hidden;display:flex;gap:16px;align-items:flex-start;
+  }
+  .goal-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(27,24,54,.1);}
+  .goal-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--magenta),var(--gold));}
+  .goal-card.completed::before{background:#1c8a4d;}
+  .goal-card.canceled::before{background:rgba(225,26,110,.35);}
+  .goal-ico{
+    width:38px;height:38px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;
+    background:rgba(225,26,110,.09);color:var(--magenta-deep);
+  }
+  .goal-card.completed .goal-ico{background:rgba(28,138,77,.12);color:#1c8a4d;}
+  .goal-card.canceled .goal-ico{background:rgba(225,26,110,.08);color:rgba(225,26,110,.6);}
+  .goal-card p{font-size:.94rem;font-weight:700;margin-bottom:12px;color:var(--ink);line-height:1.4;}
+  .goal-bar-track{background:var(--cream);border-radius:100px;height:9px;overflow:hidden;margin-bottom:9px;}
+  .goal-bar-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--magenta),var(--gold));width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px rgba(225,26,110,.35);}
+  .goal-card.completed .goal-bar-fill{background:#1c8a4d;box-shadow:0 0 10px rgba(28,138,77,.3);}
+  .goal-card.canceled .goal-bar-fill{background:rgba(225,26,110,.4);box-shadow:none;}
+  .goal-status{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:rgba(27,24,54,.4);}
+  .goal-card.completed .goal-status{color:#1c8a4d;}
+  @media(max-width:760px){.goal-grid{grid-template-columns:1fr;}}
 
-  @media (max-width:720px){ .meta-row{grid-template-columns:repeat(2,1fr); row-gap:24px;} .proj-grid{grid-template-columns:1fr;} .info-grid{grid-template-columns:1fr;} }
+  /* LEADERSHIP / BOARD */
+  .board-sec{padding:80px 0;}
+  .board-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;}
+  .board-track{display:flex;gap:18px;overflow-x:auto;padding:36px 4px 14px;scroll-snap-type:x mandatory;}
+  .board-track::-webkit-scrollbar{height:6px;}
+  .board-track::-webkit-scrollbar-thumb{background:var(--line);border-radius:10px;}
+  .board-card{
+    flex:0 0 220px;scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;
+    transition:transform .25s,box-shadow .25s;cursor:default;
+  }
+  .board-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(27,24,54,.12);}
+  .board-card.featured{flex:0 0 260px;border:2.5px solid var(--magenta);box-shadow:0 20px 44px rgba(225,26,110,.2);}
+  .board-photo{aspect-ratio:4/5;background:linear-gradient(150deg,rgba(225,26,110,.15),rgba(242,169,0,.12));position:relative;overflow:hidden;}
+  .board-photo img{width:100%;height:100%;object-fit:cover;}
+  .board-crown{position:absolute;top:12px;left:12px;background:var(--magenta);color:#fff;font-size:.68rem;font-weight:800;padding:5px 12px;border-radius:100px;display:flex;align-items:center;gap:5px;}
+  .board-info{padding:14px 16px 18px;}
+  .board-info h5{font-size:.92rem;font-weight:700;font-family:'Poppins';margin-bottom:3px;}
+  .board-info span{font-size:.76rem;font-weight:700;color:var(--magenta-deep);}
+  .board-empty{background:var(--paper);border:1px dashed var(--line);border-radius:18px;padding:44px;text-align:center;color:rgba(27,24,54,.5);font-size:.92rem;margin-top:28px;}
+  .board-empty b{color:var(--magenta-deep);}
+  .no-goals{color:rgba(27,24,54,.5);font-size:.92rem;margin-top:20px;}
+
+  /* PROJECTS MASONRY */
+  .pmasonry{column-count:3;column-gap:16px;margin-top:36px;}
+  .pcard{break-inside:avoid;margin-bottom:16px;border-radius:18px;overflow:hidden;position:relative;cursor:pointer;background:var(--ink);}
+  .pcard img{width:100%;display:block;transition:transform .35s;opacity:.92;}
+  .pcard:hover img{transform:scale(1.06);}
+  .pcard-cap{position:absolute;left:0;right:0;bottom:0;padding:20px 18px 14px;background:linear-gradient(0deg,rgba(10,8,20,.92),transparent);}
+  .pcard-cap b{color:#fff;font-family:'Poppins';font-size:.95rem;display:block;line-height:1.3;}
+  .pcard-cap span{color:rgba(255,255,255,.65);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;}
+  @media(max-width:900px){.pmasonry{column-count:2;}}
+  @media(max-width:560px){.pmasonry{column-count:1;}}
+  .no-projects-note{background:var(--paper);border:1px dashed var(--line);border-radius:18px;padding:40px;text-align:center;color:rgba(27,24,54,.55);font-size:.92rem;margin-top:24px;}
+
+  /* TWIN / SPONSOR STRIP */
+  .link-strip{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;}
+  .link-chip{background:var(--paper);border:1px solid var(--line);border-radius:100px;padding:9px 18px;font-size:.82rem;font-weight:700;color:var(--magenta-deep);}
+
+  /* CTA */
+  .join-cta{padding:90px 0;}
+  .join-card{background:linear-gradient(120deg,var(--magenta),var(--magenta-deep));border-radius:28px;padding:64px 50px;color:#fff;text-align:center;position:relative;overflow:hidden;}
+  .join-card::after{content:"7";position:absolute;left:-30px;top:-50px;font-family:'Poppins';font-weight:900;font-size:14rem;color:rgba(255,255,255,.08);}
+  .join-card h2{position:relative;z-index:1;color:#fff;max-width:none;margin-bottom:14px;}
+  .join-card p{position:relative;z-index:1;color:rgba(255,255,255,.85);max-width:520px;margin:0 auto 30px;}
+  .join-card .btn-primary{position:relative;z-index:1;background:#fff;color:var(--magenta-deep);}
+  .join-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.5);padding:34px 0;text-align:center;font-size:.85rem;}
+  .empty-state{padding:120px 28px;text-align:center;}
 </style>
 </head>
 <body>
 
 <nav><div class="wrap">
-  <div class="brand"><span class="z">7</span> Zone 7 Rotaract</div>
+  <a href="index.html"><div class="brand"><span class="z">7</span>Zone 7 Rotaract</div></a>
+  <div class="jumpnav"><a href="#about">About</a><a href="#board">Board</a><a href="#goals">Goals</a><a href="#projects">Projects</a></div>
   <a href="index.html#clubs" class="back">← All Clubs</a>
 </div></nav>
 
-<header class="hero wrap">
-  <div class="club-mark-lg" id="mark">--</div>
-  <h1 id="name">Loading club…</h1>
-  <div class="loc" id="loc"></div>
-  <div class="vision-tag" id="visionTag" style="display:none;"></div>
-</header>
-
-<section class="wrap">
-  <div class="meta-row">
-    <div class="meta"><b id="founded">—</b><span>Charter Date</span></div>
-    <div class="meta"><b id="active">—</b><span>Active Members</span></div>
-    <div class="meta"><b id="events">—</b><span>Events Logged</span></div>
-    <div class="meta"><b id="reports">—</b><span>Reports Filed</span></div>
-  </div>
-</section>
-
-<section class="section wrap">
-  <h3>About the Club</h3>
-  <p id="about">—</p>
-</section>
-
-<section class="section wrap">
-  <h3>Club Details</h3>
-  <div class="info-grid" id="infoGrid"></div>
-</section>
-
-<section class="section wrap">
-  <h3>Focus Areas &amp; Goals</h3>
-  <div class="goals-list" id="goals"></div>
-  <p class="goals-more" id="goalsMore"></p>
-</section>
-
-<section class="projects-section" id="projectsSection">
-  <div class="wrap">
-    <h3>Club Projects</h3>
-    <p style="color:rgba(27,24,54,0.6); font-size:0.95rem; margin-top:6px;">Recent and ongoing projects run by this club. Tap any project to see the full story.</p>
-    <div class="projects-showcase" id="projectsShowcase"></div>
-  </div>
-</section>
-
-<section class="cta-row wrap">
-  <a class="btn btn-primary" id="igLink" target="_blank" rel="noopener">Follow on Instagram →</a>
-  <a class="btn btn-ghost" href="mailto:" id="emailLink">Email the Club</a>
-  <a class="btn btn-ghost" href="join.html">Join a Zone 7 Club</a>
-</section>
+<div id="content"><div class="empty-state"><h2>Loading club…</h2></div></div>
 
 <footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan.</footer>
 
 <script>
-// ---- CLUB DATA ----
-// Sourced from each club's Rotaract 3292 club-management profile page.
 const CLUBS = {
   balkumari: {
     logo:"logos/balkumari.jpg", name:"Rotaract Club of Balkumari", ig:"rac_balkumari", email:"rotaractclubofbalkumari@gmail.com",
@@ -364,103 +338,151 @@ const CLUBS = {
   }
 };
 
+
 const params = new URLSearchParams(location.search);
 const club = CLUBS[params.get("club")];
+const clubSlug = params.get("club");
+function esc(s){return zone7Esc(s);}
+function animateCount(el, target, suffix){
+  const isNum = /^\d+/.test(target);
+  if(!isNum){ el.textContent = target; return; }
+  const num = parseInt(target, 10);
+  const rest = target.replace(/^\d+/, "");
+  let cur = 0; const step = Math.max(1, Math.ceil(num/40));
+  const t = setInterval(() => { cur += step; if(cur >= num){ cur = num; clearInterval(t); } el.textContent = cur + rest; }, 25);
+}
+function initReveal(){
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add("show"); obs.unobserve(e.target); } }), {threshold:0.12});
+  document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+  document.querySelectorAll(".goal-bar-fill").forEach(el => {
+    const obs2 = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.style.width = e.target.dataset.pct; obs2.unobserve(e.target); } }), {threshold:0.3});
+    obs2.observe(el);
+  });
+  document.querySelectorAll(".stat-strip .s b").forEach(el => {
+    const obs3 = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ animateCount(e.target, e.target.dataset.val); obs3.unobserve(e.target); } }), {threshold:0.4});
+    obs3.observe(el);
+  });
+}
 
 if(club){(async () => {
   document.title = club.name + " | Zone 7 Rotaract 3292";
-  document.getElementById("mark").innerHTML = club.logo ? `<img src="${club.logo}" alt="${club.name} logo">` : club.name.replace(/Rotaract Club of /i,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
-  document.getElementById("name").textContent = club.name;
-  document.getElementById("loc").textContent = club.loc;
-  document.getElementById("founded").textContent = club.founded;
-  document.getElementById("active").textContent = club.active;
-  document.getElementById("events").textContent = club.events;
-  document.getElementById("reports").textContent = club.reports;
-  document.getElementById("about").textContent = club.about;
+  const initials = club.name.replace(/Rotaract Club of /i,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
 
-  if(club.vision && club.vision !== "There is no active club vision on record."){
-    const vt = document.getElementById("visionTag");
-    vt.style.display = "inline-block";
-    vt.textContent = "Vision: " + club.vision;
-  }
-
-  const info = [
+  const facts = [
     ["Sponsoring Rotary Club", club.sponsor],
-    ["Twin Club(s)", club.twin || "N/A"],
-    ["International Twin", club.intlTwin || "N/A"],
-    ["Interact Club", club.interact || "N/A"],
     ["Meeting Schedule", `${club.meetingDay} · ${club.meetingTime} (${club.meetingType})`],
+    ["Interact Club", club.interact || "N/A"],
+    ["International Twin", club.intlTwin || "N/A"],
     ["Inactive Members on Record", club.inactive],
     ["Contact Email", club.email],
-    ["Zone", "Zone VII, District 3292"]
+    ["Zone", "Zone VII, District 3292"],
+    ["Charter Date", club.founded]
   ];
-  document.getElementById("infoGrid").innerHTML = info.map(([k,v]) =>
-    `<div class="info-card"><span class="k">${k}</span><span class="v">${v}</span></div>`
-  ).join("");
 
-  const goalsEl = document.getElementById("goals");
-  if(club.goals && club.goals.length){
-    goalsEl.innerHTML = club.goals.slice(0,8).map(g =>
-      `<div class="goal-item"><p>${g.t}</p><span class="goal-status ${g.s}">${g.s === 'inprogress' ? (g.pct ? 'In Progress · '+g.pct : 'In Progress') : g.s}</span></div>`
-    ).join("");
-    if(club.goals.length > 8){
-      document.getElementById("goalsMore").textContent = `+ ${club.goals.length - 8} more goals on record.`;
-    }
-  } else {
-    goalsEl.innerHTML = `<p style="color:rgba(27,24,54,0.5); font-size:0.9rem;">No active club goals on record yet.</p>`;
-  }
+  const hasVision = club.vision && club.vision !== "There is no active club vision on record.";
+  const goals = club.goals || [];
+  const pctFor = g => g.s === "completed" ? "100%" : g.s === "canceled" ? "100%" : (g.pct || "55%");
 
-  if(club.ig){
-    document.getElementById("igLink").href = "https://www.instagram.com/" + club.ig + "/";
-    document.getElementById("igLink").textContent = "Follow @" + club.ig + " →";
-  } else {
-    document.getElementById("igLink").style.display = "none";
-    document.getElementById("placeholder-note-ig") // no-op guard
-  }
-  document.getElementById("emailLink").href = "mailto:" + club.email;
-  document.getElementById("emailLink").textContent = "Email the Club";
+  document.getElementById("content").innerHTML = `
+    <header class="chero">
+      <div class="chero-blob1"></div><div class="chero-blob2"></div><div class="chero-7">7</div>
+      <div class="wrap">
+        <div class="chero-top">
+          <div class="chero-mark">${club.logo ? `<img src="${esc(club.logo)}" alt="">` : initials}</div>
+          <span class="chero-eyebrow">Zone VII · District 3292 · Chartered ${esc(club.founded)}</span>
+        </div>
+        <h1>${esc(club.name)}</h1>
+        <div class="loc">📍 ${esc(club.loc)}</div>
+        ${hasVision ? `<div class="chero-vision">"${esc(club.vision)}"</div>` : ""}
+        <div class="chero-actions">
+          ${club.ig ? `<a class="btn btn-primary" href="https://www.instagram.com/${esc(club.ig)}/" target="_blank" rel="noopener">Follow @${esc(club.ig)} →</a>` : ""}
+          <a class="btn btn-ghost-dark" href="mailto:${esc(club.email)}">Email the Club</a>
+          <a class="btn btn-ghost-dark" href="join.html">Join This Club</a>
+        </div>
+        <div class="stat-strip">
+          <div class="s"><b data-val="${esc(club.active)}">0</b><span>Active Members</span></div>
+          <div class="s"><b data-val="${esc(club.events)}">0</b><span>Events Logged</span></div>
+          <div class="s"><b data-val="${esc(club.reports)}">0</b><span>Reports Filed</span></div>
+          <div class="s"><b data-val="${esc(club.founded.split(' ').pop())}">0</b><span>Chartered</span></div>
+        </div>
+      </div>
+    </header>
 
-  const clubSlug = params.get("club");
-  const showcase = document.getElementById("projectsShowcase");
-  showcase.innerHTML = `<div class="no-projects-note">Loading projects…</div>`;
+    <section class="csec wrap" id="about">
+      <span class="csec-tag reveal">The Club</span>
+      <h2 class="reveal">About ${esc(club.name.replace('Rotaract Club of ',''))}.</h2>
+      <div class="about-grid">
+        <div class="reveal"><p>${esc(club.about)}</p>
+          ${(club.twin && club.twin !== "N/A") ? `<div class="link-strip">${club.twin.split(";").map(t=>`<span class="link-chip">🔗 ${esc(t.trim())}</span>`).join("")}</div>` : ""}
+        </div>
+        <div class="quickfacts reveal" id="facts">${facts.map(([k,v])=>`<div class="qf"><span class="k">${esc(k)}</span><span class="v">${esc(v)}</span></div>`).join("")}</div>
+      </div>
+    </section>
+
+    <section class="csec board-sec wrap" id="board">
+      <div class="board-head">
+        <div>
+          <span class="csec-tag reveal">Leadership</span>
+          <h2 class="reveal">Meet the club's board.</h2>
+        </div>
+      </div>
+      ${(club.board && club.board.length) ? `<div class="board-track reveal">${club.board.map((m,i) => `
+        <div class="board-card${i===0?' featured':''}">
+          <div class="board-photo">${m.photo ? `<img src="${esc(m.photo)}" alt="${esc(m.name)}">` : ""}${i===0?'<span class="board-crown">👑 '+esc(m.role)+'</span>':''}</div>
+          <div class="board-info"><h5>${esc(m.name)}</h5><span>${esc(m.role)}</span></div>
+        </div>`).join("")}</div>` : `<div class="board-empty reveal">This club hasn't added its board lineup yet. <b>Club officers</b> can add photos and roles for the President and team via the Club Admin panel.</div>`}
+    </section>
+
+    <section class="csec goals-sec" id="goals">
+      <div class="wrap">
+        <span class="csec-tag reveal">Focus &amp; Direction</span>
+        <h2 class="reveal">Goals ${club.name.replace('Rotaract Club of ','')} is working toward.</h2>
+        ${goals.length ? `<div class="goal-grid">${goals.slice(0,8).map(g => `
+          <div class="goal-card reveal ${g.s}">
+            <div class="goal-ico">${g.s==='completed'?'✓':g.s==='canceled'?'✕':'◐'}</div>
+            <div style="flex:1;">
+              <p>${esc(g.t)}</p>
+              <div class="goal-bar-track"><div class="goal-bar-fill" data-pct="${pctFor(g)}"></div></div>
+              <span class="goal-status">${g.s === 'inprogress' ? (g.pct ? 'In Progress · '+g.pct : 'In Progress') : g.s}</span>
+            </div>
+          </div>`).join("")}</div>` : `<p class="no-goals reveal">No active club goals on record yet.</p>`}
+      </div>
+    </section>
+
+    <section class="csec wrap" id="projects">
+      <span class="csec-tag reveal">In Action</span>
+      <h2 class="reveal">Projects run by this club.</h2>
+      <div class="pmasonry" id="pmasonry"><p style="color:rgba(27,24,54,.5);">Loading projects…</p></div>
+    </section>
+
+    <section class="join-cta wrap">
+      <div class="join-card reveal">
+        <h2>Want to join ${esc(club.name)}?</h2>
+        <p>Membership is open to anyone aged 18–30. Fill out one short form and this club will welcome you in.</p>
+        <div class="join-actions">
+          <a class="btn btn-primary" href="join.html">Fill the Join Form →</a>
+          <a class="btn btn-ghost-dark" style="border-color:rgba(255,255,255,.5);" href="index.html#clubs">Explore Other Clubs</a>
+        </div>
+      </div>
+    </section>
+  `;
+
+  const pm = document.getElementById("pmasonry");
   const projects = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getProjects(clubSlug) : [];
   if(projects.length){
-    const fmtDate = d => { if(!d) return ""; const dt = new Date(d); return isNaN(dt) ? d : dt.toLocaleDateString('en-US', {day:'numeric', month:'short', year:'numeric'}); };
-    showcase.innerHTML = projects.map(p => `
-      <div class="proj-showcase-card" onclick="location.href='project.html?club=${encodeURIComponent(clubSlug)}&id=${encodeURIComponent(p.id)}'">
-        <div class="psc-img">
-          <img src="${zone7Esc(p.cover || '')}" alt="${zone7Esc(p.title)}">
-          <div class="psc-img-badges">
-            <span class="psc-badge">${zone7Esc(p.category || "Club Project")}</span>
-            ${p.host_status ? `<span class="psc-badge host">${zone7Esc(p.host_status)}</span>` : ""}
-          </div>
-        </div>
-        <div class="psc-body">
-          <div class="psc-meta">
-            ${p.date ? `<span>📅 ${zone7Esc(fmtDate(p.date))}</span>` : ""}
-            ${p.location ? `<span>📍 ${zone7Esc(p.location)}</span>` : ""}
-          </div>
-          <h4>${zone7Esc(p.title)}</h4>
-          <p>${zone7Esc(p.summary || (p.body || "").slice(0,160)) || "Tap to read the full project story."}</p>
-          ${(p.attendees || p.volunteer_hours) ? `
-          <div class="psc-stats">
-            ${p.attendees ? `<span class="psc-stat">📈 ${zone7Esc(String(p.attendees))} <small>Attendees</small></span>` : ""}
-            ${p.volunteer_hours ? `<span class="psc-stat">⏱️ ${zone7Esc(String(p.volunteer_hours))} <small>Volunteer Hrs</small></span>` : ""}
-          </div>` : ""}
-          ${p.jointly_with ? `<div class="psc-joint"><b>Jointly with:</b> ${zone7Esc(p.jointly_with)}</div>` : ""}
-          <span class="psc-link">View Full Project →</span>
-        </div>
+    pm.innerHTML = projects.map(p => `
+      <div class="pcard" onclick="location.href='project.html?club=${encodeURIComponent(clubSlug)}&id=${encodeURIComponent(p.id)}'">
+        <img src="${esc(p.cover || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600')}" alt="${esc(p.title)}" loading="lazy">
+        <div class="pcard-cap"><b>${esc(p.title)}</b><span>${esc(p.category || 'Project')} · ${esc(p.date || '')}</span></div>
       </div>
     `).join("");
   } else {
-    showcase.innerHTML = `<div class="no-projects-note">This club hasn't published any projects yet. Club officers can add projects from the <a href="admin.html" style="color:var(--magenta-deep); font-weight:700;">Club Admin panel</a>.</div>`;
+    pm.innerHTML = `<div class="no-projects-note">This club hasn't published any projects yet. Club officers can add projects from the <a href="admin.html" style="color:var(--magenta-deep); font-weight:700;">Club Admin panel</a>.</div>`;
   }
+  initReveal();
 })();
 } else {
-  document.getElementById("name").textContent = "Club not found";
-  document.getElementById("about").textContent = "Go back to the clubs section and select a club.";
-  document.getElementById("igLink").style.display = "none";
-  document.getElementById("emailLink").style.display = "none";
+  document.getElementById("content").innerHTML = `<div class="empty-state"><h2>Club not found</h2><p style="color:rgba(27,24,54,.6);margin-top:10px;">Go back and select a club from the homepage.</p></div>`;
 }
 </script>
 </body>
