@@ -329,38 +329,6 @@
           <label for="pLocation">Location</label>
           <input type="text" id="pLocation" placeholder="e.g. Baneshwor, Kathmandu">
 
-          <div class="field-row">
-            <div>
-              <label for="pAttendees">Attendees <span style="font-weight:500; color:rgba(27,24,54,0.5);">(total headcount)</span></label>
-              <input type="text" inputmode="numeric" id="pAttendees" placeholder="e.g. 70">
-            </div>
-            <div>
-              <label for="pVolunteerHours">Volunteering Hours</label>
-              <input type="text" inputmode="numeric" id="pVolunteerHours" placeholder="e.g. 29">
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div>
-              <label for="pDuration">Duration</label>
-              <input type="text" id="pDuration" placeholder="e.g. 1 hour 45 minutes">
-            </div>
-            <div>
-              <label for="pHostStatus">Hosted / Collaborated</label>
-              <select id="pHostStatus">
-                <option value="">— Not specified —</option>
-                <option value="Hosted">Hosted</option>
-                <option value="Co-Hosted">Co-Hosted</option>
-                <option value="Collaborated">Collaborated</option>
-                <option value="Supported">Supported</option>
-                <option value="Participated">Participated</option>
-              </select>
-            </div>
-          </div>
-
-          <label for="pJointlyWith">Jointly With <span style="font-weight:500; color:rgba(27,24,54,0.5);">(other clubs/partners, comma-separated)</span></label>
-          <input type="text" id="pJointlyWith" placeholder="e.g. RAC Liberty College, RAC Balkumari">
-
           <label for="pSummary">Short Summary <span style="font-weight:500; color:rgba(27,24,54,0.5);">(shown on the club page card)</span></label>
           <textarea id="pSummary" rows="2" placeholder="One or two sentences about the project"></textarea>
 
@@ -552,6 +520,10 @@ function showToast(msg){
 }
 
 function switchView(name){
+  const zonalOnly = ["guides","zrr","leadership"];
+  if(zonalOnly.includes(name) && !ZONE7_DB.isZonal()){
+    name = "projects"; // club admins can never open zonal-only panels
+  }
   document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === "view-" + name));
   document.querySelectorAll(".sb-item[data-view]").forEach(el => el.classList.toggle("active", el.dataset.view === name));
 }
@@ -564,7 +536,7 @@ async function enterDashboard(slug){
   document.getElementById("loginView").style.display = "none";
   document.getElementById("dashboard").style.display = "block";
   document.body.classList.add("has-sidebar");
-  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr"].includes(el.dataset.view) ? "none" : "flex"));
+  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership"].includes(el.dataset.view) ? "none" : "flex"));
   switchView("projects");
   document.getElementById("dashClubName").textContent = CLUB_DIRECTORY[slug].name + " — Dashboard";
   const logoEl = document.getElementById("dashClubLogo");
@@ -867,11 +839,6 @@ function resetForm(){
   document.getElementById("pCategory").value = "";
   document.getElementById("pDate").value = "";
   document.getElementById("pLocation").value = "";
-  document.getElementById("pAttendees").value = "";
-  document.getElementById("pVolunteerHours").value = "";
-  document.getElementById("pDuration").value = "";
-  document.getElementById("pHostStatus").value = "";
-  document.getElementById("pJointlyWith").value = "";
   document.getElementById("pSummary").value = "";
   document.getElementById("pBody").value = "";
   document.getElementById("coverPreview").style.display = "none";
@@ -893,11 +860,6 @@ async function loadProjectIntoForm(id){
   document.getElementById("pCategory").value = p.category || "";
   document.getElementById("pDate").value = p.date || "";
   document.getElementById("pLocation").value = p.location || "";
-  document.getElementById("pAttendees").value = p.attendees ?? "";
-  document.getElementById("pVolunteerHours").value = p.volunteer_hours ?? "";
-  document.getElementById("pDuration").value = p.duration || "";
-  document.getElementById("pHostStatus").value = p.host_status || "";
-  document.getElementById("pJointlyWith").value = p.jointly_with || "";
   document.getElementById("pSummary").value = p.summary || "";
   document.getElementById("pBody").value = p.body || "";
   const cp = document.getElementById("coverPreview");
@@ -968,11 +930,6 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
     category: document.getElementById("pCategory").value.trim(),
     date: document.getElementById("pDate").value,
     location: document.getElementById("pLocation").value.trim(),
-    attendees: document.getElementById("pAttendees").value.trim(),
-    volunteer_hours: document.getElementById("pVolunteerHours").value.trim(),
-    duration: document.getElementById("pDuration").value.trim(),
-    host_status: document.getElementById("pHostStatus").value,
-    jointly_with: document.getElementById("pJointlyWith").value.trim(),
     summary: document.getElementById("pSummary").value.trim(),
     body: document.getElementById("pBody").value.trim(),
     cover: document.getElementById("coverPreview").dataset.value || "",
