@@ -300,6 +300,12 @@
   .leader-item{
     background:none; border:none; padding:0; text-align:left; font-family:inherit; cursor:pointer; width:100%; color:#fff;
   }
+  .leader-avatar{
+    width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,0.1); border:1.5px solid rgba(255,255,255,0.18);
+    display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:14px;
+    font-family:'Poppins'; font-weight:800; font-size:1rem; color:rgba(255,255,255,0.7);
+  }
+  .leader-avatar img{width:100%; height:100%; object-fit:cover;}
   .leader-item h4{font-size:1.05rem; font-weight:700; font-family:'Poppins'; transition:color .2s;}
   .leader-item:hover h4{color:var(--gold);}
   .leader-item .role-full{
@@ -332,9 +338,17 @@
     position:relative; z-index:1; flex:1; display:flex; flex-direction:column; align-items:center;
     text-align:center; cursor:pointer; background:none; border:none; font-family:inherit; padding:0;
   }
+  .zrr-avatar{
+    width:46px; height:46px; border-radius:50%; background:var(--paper); border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:10px; flex-shrink:0;
+    font-family:'Poppins'; font-weight:800; font-size:0.78rem; color:var(--magenta-deep); transition:border-color .25s, box-shadow .25s;
+  }
+  .zrr-avatar img{width:100%; height:100%; object-fit:cover;}
+  .zrr-node:hover .zrr-avatar, .zrr-node:focus-visible .zrr-avatar{border-color:var(--magenta-deep); box-shadow:0 0 0 5px rgba(225,26,110,0.12);}
+  .zrr-node.current .zrr-avatar{border-color:var(--magenta); box-shadow:0 0 0 5px rgba(225,26,110,0.16);}
   .zrr-dot{
     width:15px; height:15px; border-radius:50%; background:var(--paper); border:2.5px solid var(--magenta-deep);
-    transition:transform .25s, background .25s, box-shadow .25s; margin-bottom:14px; flex-shrink:0;
+    transition:transform .25s, background .25s, box-shadow .25s; margin-bottom:14px; flex-shrink:0; display:none;
   }
   .zrr-node:hover .zrr-dot, .zrr-node:focus-visible .zrr-dot{transform:scale(1.35); background:var(--magenta-deep); box-shadow:0 0 0 6px rgba(225,26,110,0.14);}
   .zrr-node.current .zrr-dot{
@@ -541,7 +555,6 @@
     <div class="brand"><span class="z">7</span> Zone 7 Rotaract</div>
     <div class="navlinks">
       <a href="about.html">About</a>
-      <a href="#leadership">Leadership</a>
 
       <div class="nav-drop" id="clubsDrop">
         <button type="button" class="nav-drop-trigger">Clubs <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -553,9 +566,6 @@
           </div>
         </div>
       </div>
-
-      <a href="#dcal">Calendar</a>
-      <a href="#events">Events</a>
 
       <div class="nav-drop" id="resDrop">
         <button type="button" class="nav-drop-trigger">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -583,10 +593,7 @@
   </div>
   <div class="mobile-menu" id="mobileMenu">
     <a href="about.html">About</a>
-    <a href="#leadership">Leadership</a>
     <a href="#clubs">Clubs</a>
-    <a href="#dcal">Calendar</a>
-    <a href="#events">Events</a>
     <a href="guides.html">Rotaract Resources</a>
     <a href="club-guides.html">Guides for Clubs</a>
     <a href="#connect">Connect</a>
@@ -867,6 +874,7 @@ function renderLeaderGrid(leaders){
   ZONE_LEADERSHIP = leaders;
   document.getElementById("leaderGrid").innerHTML = leaders.map((p,i) => `
     <button type="button" class="leader-item" data-i="${i}" title="${zone7Esc(p.name)}, ${zone7Esc(p.role_full || p.roleFull || '')}">
+      <div class="leader-avatar">${p.photo ? `<img src="${zone7Esc(p.photo)}" alt="${zone7Esc(p.name)}">` : zone7Esc((p.name||'').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase())}</div>
       <span class="role">${zone7Esc(p.role)}</span>
       <h4>${zone7Esc(p.name)}</h4>
       <span class="role-full">${zone7Esc(p.role_full || p.roleFull || '')}</span>
@@ -919,6 +927,7 @@ let ZRR_HISTORY = [];
   document.getElementById("zrrTrack").innerHTML = ZRR_HISTORY.map((z,i) => `
     <button type="button" class="zrr-node${z.current ? ' current' : ''}" data-i="${i}" title="Rtr. ${zone7Esc(z.name)}, ${zone7Esc(z.years)}">
       <div class="zrr-year">${zone7Esc(z.years)}</div>
+      <div class="zrr-avatar">${z.photo ? `<img src="${zone7Esc(z.photo)}" alt="${zone7Esc(z.name)}">` : zone7Esc(z.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase())}</div>
       <div class="zrr-dot"></div>
       <div class="zrr-name">Rtr. ${zone7Esc(z.name)}</div>
       ${z.club ? `<div class="zrr-club">${zone7Esc(z.club)}</div>` : ''}
