@@ -267,6 +267,7 @@
     <div class="sb-item active" data-view="projects"><span class="ic">📁</span>Projects</div>
     <div class="sb-item" data-view="clubpage"><span class="ic">🏠</span>Club Page (BOD &amp; About)</div>
     <div class="sb-item" data-view="barometer"><span class="ic">🎯</span>District Barometer</div>
+    <div class="sb-item" data-view="dues"><span class="ic">💵</span>RI &amp; District Dues</div>
     <div class="sb-item" data-view="events"><span class="ic">📅</span>Zone Events</div>
     <div class="sb-item" data-view="analytics"><span class="ic">📊</span>Analytics</div>
     <div class="sb-item" data-view="guides"><span class="ic">📚</span>Guides (Zonal)</div>
@@ -416,6 +417,33 @@
         </div>
       </div>
       <div class="baro-list" id="baroList"></div>
+    </div>
+    </div>
+
+    <div class="view" id="view-dues">
+    <div class="panel">
+      <h3>RI &amp; District Dues Calculator <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(RY 2026-27 · collection opens 1 July)</span></h3>
+      <div class="baro-toolbar" style="margin-bottom:24px;">
+        <p class="note">Rotary International charges <strong id="duesRateRI">$0</strong>/member for your club type. Rotaract District 3292 charges a flat <strong>NRs 200</strong>/member. Both are due before the district's payment deadline — check your district email for the exact date.</p>
+      </div>
+
+      <label for="duesMembers">Number of Paying Members</label>
+      <input type="number" id="duesMembers" min="0" placeholder="e.g. 22" style="max-width:220px;">
+
+      <div class="analytics-stats" style="margin-top:22px;">
+        <div class="a-stat"><b id="duesClubType">—</b><span>Club Type</span></div>
+        <div class="a-stat"><b id="duesRIOut">$0</b><span>RI Dues Owed (USD)</span></div>
+        <div class="a-stat"><b id="duesDistOut">NRs 0</b><span>District Dues Owed (NPR)</span></div>
+      </div>
+
+      <div class="editing-banner" style="margin-top:6px;" id="duesTotalBanner">
+        <span>Total to remit: <b id="duesTotalText">—</b></span>
+      </div>
+
+      <p style="font-size:0.78rem; color:rgba(27,24,54,0.5); margin-top:18px; line-height:1.6;">
+        RI Dues rate: <strong>University-based clubs pay $5/member</strong> · <strong>Community-based clubs pay $8/member</strong> to Rotary International.
+        District Dues: <strong>NRs 200/member</strong> to Rotaract District 3292. Figures here are for planning only — always confirm final amounts against the official district invoice.
+      </p>
     </div>
     </div>
 
@@ -583,6 +611,25 @@ async function enterDashboard(slug){
   loadAnalytics();
   loadBarometer();
   loadClubPage();
+  initDuesCalc();
+}
+
+function initDuesCalc(){
+  const isUni = UNIVERSITY_CLUBS.includes(currentClub);
+  const rate = isUni ? 5 : 8;
+  document.getElementById("duesRateRI").textContent = `$${rate}`;
+  document.getElementById("duesClubType").textContent = isUni ? "University" : "Community";
+  const inp = document.getElementById("duesMembers");
+  function recalc(){
+    const n = Math.max(0, parseInt(inp.value, 10) || 0);
+    const ri = n * rate;
+    const dist = n * 200;
+    document.getElementById("duesRIOut").textContent = `$${ri}`;
+    document.getElementById("duesDistOut").textContent = `NRs ${dist.toLocaleString()}`;
+    document.getElementById("duesTotalText").textContent = `$${ri} (RI) + NRs ${dist.toLocaleString()} (District) for ${n} member${n===1?'':'s'}`;
+  }
+  inp.oninput = recalc;
+  recalc();
 }
 
 /* ---- Club Page: BOD + About/Vision/Goals ---- */
