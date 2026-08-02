@@ -448,6 +448,8 @@
         <div><label for="zrrName">Name</label><input type="text" id="zrrName" placeholder="e.g. Rajay Bajracharya (no need to add 'Rtr.')"></div>
         <div><label for="zrrYears">Rotary Year</label><input type="text" id="zrrYears" placeholder="e.g. 26-27"></div>
       </div>
+      <label for="zrrClub">Home Club <span style="font-weight:500; color:rgba(27,24,54,0.5);">(optional)</span></label>
+      <input type="text" id="zrrClub" placeholder="e.g. Rotaract Club of Sukedhara">
       <label for="zrrBio">Short Note <span style="font-weight:500; color:rgba(27,24,54,0.5);">(optional — shown in their popup card; leave blank for a default line)</span></label>
       <textarea id="zrrBio" rows="2" placeholder="e.g. Led Zone 7 through a record membership growth year."></textarea>
       <label for="zrrPhoto">Photo <span style="font-weight:500; color:rgba(27,24,54,0.5);">(optional — shown in their popup card; auto-resized)</span></label>
@@ -481,6 +483,8 @@
       </div>
       <label for="leaderName">Name</label>
       <input type="text" id="leaderName" placeholder="e.g. Rajay Bajracharya">
+      <label for="leaderClub">Home Club <span style="font-weight:500; color:rgba(27,24,54,0.5);">(optional)</span></label>
+      <input type="text" id="leaderClub" placeholder="e.g. Rotaract Club of Sukedhara">
       <label for="leaderBio">Bio <span style="font-weight:500; color:rgba(27,24,54,0.5);">(shown in their popup card)</span></label>
       <textarea id="leaderBio" rows="3" placeholder="Short bio describing their role and tenure…"></textarea>
       <label>Photo <span style="font-weight:500; color:rgba(27,24,54,0.5);">(optional, auto-resized)</span></label>
@@ -1180,6 +1184,7 @@ function loadZrrIntoForm(z){
   document.getElementById("zrrId").value = z.id;
   document.getElementById("zrrName").value = z.name || "";
   document.getElementById("zrrYears").value = z.years || "";
+  document.getElementById("zrrClub").value = z.club || "";
   document.getElementById("zrrBio").value = z.bio || "";
   document.getElementById("zrrCurrent").checked = !!z.is_current;
   zrrPhotoValue = z.photo || "";
@@ -1196,6 +1201,7 @@ function resetZrrForm(){
   document.getElementById("zrrId").value = "";
   document.getElementById("zrrName").value = "";
   document.getElementById("zrrYears").value = "";
+  document.getElementById("zrrClub").value = "";
   document.getElementById("zrrBio").value = "";
   document.getElementById("zrrCurrent").checked = false;
   document.getElementById("zrrPhotoPreview").style.display = "none";
@@ -1237,6 +1243,7 @@ document.getElementById("zrrSaveBtn").addEventListener("click", async () => {
     await ZONE7_DB.saveZRR({
       id, name, years,
       is_current: isCurrent,
+      club: document.getElementById("zrrClub").value.trim(),
       bio: document.getElementById("zrrBio").value.trim(),
       photo: zrrPhotoValue,
       sort_order: sortOrder
@@ -1330,6 +1337,7 @@ function loadLeaderIntoForm(l){
   document.getElementById("leaderRole").value = l.role || "";
   document.getElementById("leaderRoleFull").value = l.role_full || "";
   document.getElementById("leaderName").value = l.name || "";
+  document.getElementById("leaderClub").value = l.club || "";
   document.getElementById("leaderBio").value = l.bio || "";
   const preview = document.getElementById("leaderPhotoPreview");
   if(leaderPhotoValue){ preview.src = leaderPhotoValue; preview.style.display = "block"; }
@@ -1341,7 +1349,7 @@ function loadLeaderIntoForm(l){
 function resetLeaderForm(){
   editingLeaderId = null;
   leaderPhotoValue = "";
-  ["leaderId","leaderRole","leaderRoleFull","leaderName","leaderBio"].forEach(id => document.getElementById(id).value = "");
+  ["leaderId","leaderRole","leaderRoleFull","leaderName","leaderClub","leaderBio"].forEach(id => document.getElementById(id).value = "");
   document.getElementById("leaderPhotoPreview").style.display = "none";
   document.getElementById("leaderPhotoInput").value = "";
   document.getElementById("leaderDeleteBtn").style.display = "none";
@@ -1368,7 +1376,7 @@ document.getElementById("leaderSaveBtn").addEventListener("click", async () => {
     const sortOrder = editingLeaderId
       ? (existing.find(l => l.id === id)?.sort_order ?? maxOrder + 1)
       : maxOrder + 1;
-    await ZONE7_DB.saveLeader({ id, role, role_full: document.getElementById("leaderRoleFull").value.trim(), name, bio: document.getElementById("leaderBio").value.trim(), photo: leaderPhotoValue, sort_order: sortOrder });
+    await ZONE7_DB.saveLeader({ id, role, role_full: document.getElementById("leaderRoleFull").value.trim(), name, club: document.getElementById("leaderClub").value.trim(), bio: document.getElementById("leaderBio").value.trim(), photo: leaderPhotoValue, sort_order: sortOrder });
     showToast("Team member saved ✓");
     await renderLeaderList();
     resetLeaderForm();

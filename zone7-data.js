@@ -433,12 +433,12 @@ const ZONE7_DB = {
 
   /* ---- ZRR history (Line of Leadership timeline on index.html) ---- */
   _zrrFallback: [
-    { id:"zrr-2122", name:"Binaya Maharjan", years:"21-22", sort_order:1, is_current:false },
-    { id:"zrr-2223", name:"Ankush Adhikari", years:"22-23", sort_order:2, is_current:false },
-    { id:"zrr-2324", name:"Gopal Shah", years:"23-24", sort_order:3, is_current:false },
-    { id:"zrr-2425", name:"Subina Kuickel", years:"24-25", sort_order:4, is_current:false },
-    { id:"zrr-2526", name:"Nitesh Thakur", years:"25-26", sort_order:5, is_current:false },
-    { id:"zrr-2627", name:"Rajay Bajracharya", years:"26-27", sort_order:6, is_current:true }
+    { id:"zrr-2122", name:"Binaya Maharjan", years:"21-22", sort_order:1, is_current:false, club:"Rotaract Club of Liberty College" },
+    { id:"zrr-2223", name:"Ankush Adhikari", years:"22-23", sort_order:2, is_current:false, club:"Rotaract Club of Tripureswor" },
+    { id:"zrr-2324", name:"Gopal Shah", years:"23-24", sort_order:3, is_current:false, club:"Rotaract Club of Baneshwor" },
+    { id:"zrr-2425", name:"Subina Kuickel", years:"24-25", sort_order:4, is_current:false, club:"Rotaract Club of Sankhu" },
+    { id:"zrr-2526", name:"Nitesh Thakur", years:"25-26", sort_order:5, is_current:false, club:"Rotaract Club of Balkumari" },
+    { id:"zrr-2627", name:"Rajay Bajracharya", years:"26-27", sort_order:6, is_current:true, club:"Rotaract Club of Sukedhara" }
   ],
 
   async getZRRs(){
@@ -484,10 +484,10 @@ const ZONE7_DB = {
 
   /* ---- current zonal team / leadership (editable from admin) ---- */
   _leadershipFallback: [
-    { id:"leader-zrr",  role:"ZRR",  role_full:"Zonal Rotaract Representative", name:"Rajay Bajracharya", bio:"Rajay Bajracharya serves as Zone 7's Rotaract Representative for RY 2026–27, guiding the zone's clubs and coordinating between Zone 7 and the wider District 3292 leadership.", photo:"", sort_order:1 },
-    { id:"leader-zs",   role:"ZS",   role_full:"Zonal Secretary",               name:"Peshal Basnet",     bio:"Peshal Basnet serves as Zone 7's Secretary for RY 2026–27, supporting the zone's administration, communication and record-keeping across its clubs.", photo:"", sort_order:2 },
-    { id:"leader-zfc",  role:"ZFC",  role_full:"Zonal Fellowship Chair",         name:"Samrat Pandey",    bio:"Samrat Pandey serves as Zone 7's Fellowship Chair for RY 2026–27, organizing fellowship activities that bring Zone 7's clubs together.", photo:"", sort_order:3 },
-    { id:"leader-zpic", role:"ZPIC", role_full:"Zonal Public Image Chair",       name:"Rishav Thapa",     bio:"Rishav Thapa serves as Zone 7's Public Image Chair for RY 2026–27, leading how the zone and its clubs are represented publicly.", photo:"", sort_order:4 }
+    { id:"leader-zrr",  role:"ZRR",  role_full:"Zonal Rotaract Representative", name:"Rajay Bajracharya", club:"Rotaract Club of Sukedhara",         bio:"Rajay Bajracharya serves as Zone 7's Rotaract Representative for RY 2026–27, guiding the zone's clubs and coordinating between Zone 7 and the wider District 3292 leadership.", photo:"", sort_order:1 },
+    { id:"leader-zs",   role:"ZS",   role_full:"Zonal Secretary",               name:"Peshal Basnet",     club:"Rotaract Club of Liberty College",   bio:"Peshal Basnet serves as Zone 7's Secretary for RY 2026–27, supporting the zone's administration, communication and record-keeping across its clubs.", photo:"", sort_order:2 },
+    { id:"leader-zfc",  role:"ZFC",  role_full:"Zonal Fellowship Chair",         name:"Samrat Pandey",    club:"Rotaract Club of Tripureswor",       bio:"Samrat Pandey serves as Zone 7's Fellowship Chair for RY 2026–27, organizing fellowship activities that bring Zone 7's clubs together.", photo:"", sort_order:3 },
+    { id:"leader-zpic", role:"ZPIC", role_full:"Zonal Public Image Chair",       name:"Rishav Thapa",     club:"Rotaract Club of Kathmandu Height",  bio:"Rishav Thapa serves as Zone 7's Public Image Chair for RY 2026–27, leading how the zone and its clubs are represented publicly.", photo:"", sort_order:4 }
   ],
 
   async getLeadership(){

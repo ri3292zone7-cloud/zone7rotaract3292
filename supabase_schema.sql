@@ -92,12 +92,14 @@ create table if not exists leadership (
   role text not null,
   role_full text not null,
   name text not null,
+  club text,
   bio text,
   photo text,
   sort_order int default 0,
   updated bigint
 );
 alter table leadership enable row level security;
+alter table leadership add column if not exists club text;
 drop policy if exists "Public can view leadership" on leadership;
 drop policy if exists "Anon can write leadership" on leadership;
 create policy "Public can view leadership" on leadership for select using (true);
@@ -112,11 +114,13 @@ create table if not exists zrrs (
   years text not null,
   sort_order int default 0,
   is_current boolean default false,
+  club text,
   bio text,
   photo text,
   updated bigint
 );
 alter table zrrs enable row level security;
+alter table zrrs add column if not exists club text;
 drop policy if exists "Public can view zrrs" on zrrs;
 drop policy if exists "Anon can write zrrs" on zrrs;
 create policy "Public can view zrrs" on zrrs for select using (true);
