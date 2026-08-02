@@ -44,12 +44,26 @@
   .p-meta b{display:block; font-family:'Poppins'; font-size:0.95rem; color:var(--magenta-deep);}
   .p-meta span{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:rgba(27,24,54,0.5); font-weight:700;}
 
-  .p-stats-strip{
-    margin-top:24px; background:var(--paper); border:1px solid var(--line); border-radius:14px;
-    padding:16px 22px; font-size:0.92rem; color:rgba(27,24,54,0.75); line-height:1.8;
+  /* ---- Stats pills — the prominent display ---- */
+  .p-stats-pills{
+    display:flex; flex-wrap:wrap; gap:10px; margin-top:22px;
   }
-  .p-stats-strip b{color:var(--ink);}
-  .p-stats-strip .sep{color:var(--line); margin:0 4px;}
+  .p-pill{
+    display:inline-flex; flex-direction:column; align-items:flex-start;
+    background:var(--ink); color:#fff; border-radius:16px; padding:14px 20px; min-width:110px;
+  }
+  .p-pill b{font-family:'Poppins'; font-weight:800; font-size:1.35rem; line-height:1.1; color:#fff;}
+  .p-pill span{font-size:0.66rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:rgba(255,255,255,0.55); margin-top:4px;}
+  .p-pill.accent{background:linear-gradient(135deg, var(--magenta), var(--magenta-deep));}
+  .p-pill.gold{background:linear-gradient(135deg, #b07d00, var(--gold)); color:var(--ink);}
+  .p-pill.gold b{color:var(--ink);}
+  .p-pill.gold span{color:rgba(27,24,54,0.55);}
+
+  .p-jointly{
+    margin-top:14px; display:inline-flex; align-items:center; gap:8px; font-size:0.85rem; font-weight:700;
+    color:var(--magenta-deep); background:rgba(225,26,110,0.08); padding:9px 16px; border-radius:100px;
+  }
+
   .p-host-badge{
     display:inline-flex; margin-top:18px; font-size:0.78rem; font-weight:800; letter-spacing:0.03em;
     color:#fff; background:var(--magenta-deep); padding:6px 15px; border-radius:100px;
@@ -80,7 +94,7 @@
 
   footer{background:var(--ink); color:rgba(255,255,255,0.5); padding:34px 0; text-align:center; font-size:0.85rem;}
 
-  @media (max-width:720px){ .gal-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:720px){ .gal-grid{grid-template-columns:repeat(2,1fr);} .p-pill{min-width:90px;} }
 </style>
 </head>
 <body>
@@ -98,6 +112,59 @@
 
 <script src="zone7-data.js"></script>
 <script>
+/* ------------------------------------------------------------------ *
+ * parseStatsFromText — extracts numeric stats from project body text
+ * when structured fields (attendees, volunteer_hours, duration,
+ * expense) are absent. Falls back gracefully if nothing matches.
+ * ------------------------------------------------------------------ */
+function parseStatsFromText(text){
+  if(!text) return {};
+  const s = {};
+
+  // Rotaractors / attendees
+  // "40 Rotaractors", "50 Rotaractors and 15 other visitors"
+  const rotM = text.match(/(\d+(?:,\d+)?)\s+Rotaractors?/i);
+  if(rotM) s.rotaractors = rotM[1];
+
+  // Other visitors
+  const visM = text.match(/(\d+(?:,\d+)?)\s+other\s+visitors?/i);
+  if(visM) s.visitors = visM[1];
+
+  // Rotarians
+  const rotarianM = text.match(/(\d+(?:,\d+)?)\s+Rotarians?/i);
+  if(rotarianM) s.rotarians = rotarianM[1];
+
+  // Total attendees fallback (if no Rotaractor split found)
+  if(!s.rotaractors){
+    const attM = text.match(/(\d+(?:,\d+)?)\s+(?:attendees?|participants?|people)/i);
+    if(attM) s.attendees = attM[1];
+  }
+
+  // Duration: "over 2 hours", "4.5 hours", "for 3 hours"
+  const durM = text.match(/(?:over|for|ran\s+for|spanning)\s+([\d.]+(?:\s*\.\s*\d+)?)\s+hours?/i)
+    || text.match(/([\d.]+)\s+hours?\s+(?:long|duration)/i);
+  if(durM) s.duration = durM[1] + " hrs";
+
+  // Volunteering hours: "contributing X volunteering hours"
+  const volM = text.match(/contributing\s+([\d,]+(?:\.\d+)?)\s+(?:total\s+)?volunteering\s+hours?/i)
+    || text.match(/([\d,]+(?:\.\d+)?)\s+(?:total\s+)?volunteer(?:ing)?\s+hours?/i);
+  if(volM) s.vol_hours = volM[1];
+
+  // Expense: "NRs. 2,000" or "NRs 5,000" or "Rs. 2000"
+  const expM = text.match(/NRs?\.?\s*([\d,]+)/i) || text.match(/Rs\.?\s*([\d,]+)/i);
+  if(expM) s.expense = "NRs " + expM[1];
+
+  // Trees planted
+  const treeM = text.match(/(\d+(?:,\d+)?)\s+trees?\s+(?:were\s+)?planted/i);
+  if(treeM) s.trees = treeM[1];
+
+  // Blood pints
+  const bloodM = text.match(/(\d+(?:,\d+)?)\s+pints?\s+of\s+blood/i);
+  if(bloodM) s.blood_pints = bloodM[1];
+
+  return s;
+}
+
 const params = new URLSearchParams(location.search);
 const clubSlug = params.get("club");
 const projectId = params.get("id");
@@ -113,6 +180,41 @@ if(project && club){
   document.title = project.title + " | " + club.name;
 
   const dateStr = project.date ? new Date(project.date).toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}) : "Date not set";
+
+  // Merge structured fields with text-parsed fallbacks
+  const bodyText = project.body || project.summary || "";
+  const parsed = parseStatsFromText(bodyText);
+
+  const attendees  = project.attendees    || null;
+  const volHours   = project.volunteer_hours ? String(project.volunteer_hours) : (parsed.vol_hours || null);
+  const duration   = project.duration     || (parsed.duration || null);
+  const jointly    = project.jointly_with || null;
+
+  // Build pills array
+  const pills = [];
+  if(attendees)          pills.push({val: attendees,         label:"Attendees",         style:""});
+  else if(parsed.rotaractors) {
+    pills.push({val: parsed.rotaractors, label:"Rotaractors", style:"accent"});
+    if(parsed.rotarians) pills.push({val: parsed.rotarians,  label:"Rotarians",         style:""});
+    if(parsed.visitors)  pills.push({val: parsed.visitors,   label:"Other Visitors",    style:""});
+  } else if(parsed.attendees) {
+    pills.push({val: parsed.attendees,   label:"Participants",  style:""});
+  }
+  if(duration)  pills.push({val: duration,  label:"Duration",           style:""});
+  if(volHours)  pills.push({val: volHours,  label:"Volunteering Hours", style:"accent"});
+  if(parsed.trees)       pills.push({val: parsed.trees,      label:"Trees Planted",     style:"gold"});
+  if(parsed.blood_pints) pills.push({val: parsed.blood_pints,label:"Pints of Blood",   style:"accent"});
+  if(parsed.expense)     pills.push({val: parsed.expense,    label:"Total Expense",     style:""});
+
+  const pillsHTML = pills.length
+    ? `<div class="p-stats-pills">${pills.map(p =>
+        `<div class="p-pill${p.style ? ' '+p.style : ''}"><b>${zone7Esc(p.val)}</b><span>${zone7Esc(p.label)}</span></div>`
+      ).join("")}</div>`
+    : "";
+
+  const jointlyHTML = jointly
+    ? `<div class="p-jointly">🤝 Jointly with: ${zone7Esc(jointly)}</div>`
+    : "";
 
   document.getElementById("content").innerHTML = `
     <header class="p-hero">
@@ -133,15 +235,9 @@ if(project && club){
         <div class="p-meta"><b>${zone7Esc(club.name)}</b><span>Organized By</span></div>
       </div>
       ${project.host_status ? `<span class="p-host-badge">${zone7Esc(project.host_status)}</span>` : ""}
-      ${(project.duration || project.volunteer_hours || project.attendees || project.jointly_with) ? `
-      <div class="p-stats-strip">
-        ${dateStr ? `<b>Date:</b> ${zone7Esc(dateStr)}` : ""}
-        ${project.duration ? `<span class="sep">|</span><b>Duration:</b> ${zone7Esc(project.duration)}` : ""}
-        ${project.volunteer_hours ? `<span class="sep">|</span><b>Volunteering Hours:</b> ${zone7Esc(String(project.volunteer_hours))}` : ""}
-        ${project.attendees ? `<span class="sep">|</span><b>Attendees:</b> ${zone7Esc(String(project.attendees))}` : ""}
-        ${project.jointly_with ? `<span class="sep">|</span><b>Jointly with:</b> ${zone7Esc(project.jointly_with)}` : ""}
-      </div>` : ""}
-      <div class="p-body">${zone7Esc(project.body || project.summary || "")}</div>
+      ${pillsHTML}
+      ${jointlyHTML}
+      <div class="p-body">${zone7Esc(bodyText)}</div>
     </section>
 
     ${project.gallery && project.gallery.length ? `
