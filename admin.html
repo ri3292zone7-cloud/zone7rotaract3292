@@ -272,7 +272,7 @@
     <div class="sb-item" data-view="zrr"><span class="ic">🏛️</span>ZRR History (Zonal)</div>
     <div class="sb-item" data-view="leadership"><span class="ic">⭐</span>Zonal Team (Zonal)</div>
     <div class="sb-label">Explore</div>
-    <a class="sb-item" href="district-overview.html" target="_blank"><span class="ic">🌏</span>District Overview</a>
+    <div class="sb-item" data-view="district"><span class="ic">🌏</span>District Overview</div>
   </nav>
   <div class="wrap">
     <div class="dash-header">
@@ -492,6 +492,14 @@
         <button type="button" class="btn btn-ghost" id="leaderClearBtn">Clear Form</button>
         <button type="button" class="btn btn-danger" id="leaderDeleteBtn" style="display:none;">Delete</button>
       </div>
+    </div>
+    </div>
+
+    <!-- DISTRICT OVERVIEW (embedded, all logins) -->
+    <div class="view" id="view-district">
+    <div class="panel" style="padding:0; overflow:hidden;">
+      <iframe id="districtFrame" src="district-overview.html?embed=1" title="District 3292 Overview"
+        style="width:100%; height:2600px; border:none; display:block; background:var(--cream);" loading="lazy"></iframe>
     </div>
     </div>
   </div>
@@ -1071,7 +1079,7 @@ document.getElementById("zonalLoginBtn").addEventListener("click", () => {
     document.getElementById("dashClubLogo").style.display = "none";
     document.getElementById("viewClubBtn").style.display = "none";
     document.body.classList.add("has-sidebar");
-    document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership"].includes(el.dataset.view) ? "flex" : "none"));
+    document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership","district"].includes(el.dataset.view) ? "flex" : "none"));
     switchView("guides");
     renderGuideList();
     renderZRRList();
@@ -1269,7 +1277,7 @@ if(ZONE7_DB.isZonal()){
   document.getElementById("dashClubLogo").style.display = "none";
   document.getElementById("viewClubBtn").style.display = "none";
   document.body.classList.add("has-sidebar");
-  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership"].includes(el.dataset.view) ? "flex" : "none"));
+  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership","district"].includes(el.dataset.view) ? "flex" : "none"));
   switchView("guides");
   renderGuideList();
   renderZRRList();
