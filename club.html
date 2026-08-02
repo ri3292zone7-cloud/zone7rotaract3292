@@ -86,15 +86,28 @@
   .proj-showcase-card:nth-child(even){grid-template-columns:1fr 1fr;}
   .proj-showcase-card:nth-child(even) .psc-img{order:2;}
   .proj-showcase-card:hover{transform:translateY(-4px); box-shadow:0 24px 48px rgba(27,24,54,0.12);}
-  .psc-img{aspect-ratio:4/3; background:linear-gradient(150deg, rgba(225,26,110,0.18), rgba(242,169,0,0.15)); overflow:hidden;}
+  .psc-img{aspect-ratio:4/3; background:linear-gradient(150deg, rgba(225,26,110,0.18), rgba(242,169,0,0.15)); overflow:hidden; position:relative;}
   .psc-img img{width:100%; height:100%; object-fit:cover;}
+  .psc-img-badges{position:absolute; top:14px; left:14px; right:14px; display:flex; justify-content:space-between; gap:8px; pointer-events:none;}
+  .psc-badge{
+    font-size:0.68rem; font-weight:800; letter-spacing:0.03em; padding:6px 13px; border-radius:100px;
+    background:rgba(255,253,249,0.92); color:var(--ink); backdrop-filter:blur(4px); white-space:nowrap;
+  }
+  .psc-badge.host{background:var(--magenta-deep); color:#fff;}
   .psc-body{padding:36px 38px; display:flex; flex-direction:column; justify-content:center;}
   .psc-tag{
     display:inline-flex; width:fit-content; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
     color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:6px 14px; border-radius:100px; margin-bottom:14px;
   }
+  .psc-meta{display:flex; gap:16px; flex-wrap:wrap; font-size:0.8rem; color:rgba(27,24,54,0.55); font-weight:600; margin-bottom:10px;}
+  .psc-meta span{display:inline-flex; align-items:center; gap:5px;}
   .psc-body h4{font-size:1.28rem; margin-bottom:12px; line-height:1.25;}
-  .psc-body p{font-size:0.94rem; color:rgba(27,24,54,0.62); line-height:1.65; margin-bottom:18px;}
+  .psc-body p{font-size:0.94rem; color:rgba(27,24,54,0.62); line-height:1.65; margin-bottom:14px;}
+  .psc-stats{display:flex; gap:18px; flex-wrap:wrap; margin-bottom:16px;}
+  .psc-stat{display:inline-flex; align-items:center; gap:6px; font-size:0.86rem; font-weight:800; color:var(--magenta-deep);}
+  .psc-stat small{font-weight:600; color:rgba(27,24,54,0.5); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.03em;}
+  .psc-joint{font-size:0.8rem; color:rgba(27,24,54,0.55); margin-bottom:16px; line-height:1.5;}
+  .psc-joint b{color:var(--ink);}
   .psc-link{font-size:0.85rem; font-weight:700; color:var(--ink); display:inline-flex; align-items:center; gap:6px;}
   .no-projects-note{
     background:var(--cream); border:1px dashed var(--line); border-radius:18px; padding:36px; text-align:center;
@@ -412,13 +425,29 @@ if(club){(async () => {
   showcase.innerHTML = `<div class="no-projects-note">Loading projects…</div>`;
   const projects = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getProjects(clubSlug) : [];
   if(projects.length){
+    const fmtDate = d => { if(!d) return ""; const dt = new Date(d); return isNaN(dt) ? d : dt.toLocaleDateString('en-US', {day:'numeric', month:'short', year:'numeric'}); };
     showcase.innerHTML = projects.map(p => `
       <div class="proj-showcase-card" onclick="location.href='project.html?club=${encodeURIComponent(clubSlug)}&id=${encodeURIComponent(p.id)}'">
-        <div class="psc-img"><img src="${zone7Esc(p.cover || '')}" alt="${zone7Esc(p.title)}"></div>
+        <div class="psc-img">
+          <img src="${zone7Esc(p.cover || '')}" alt="${zone7Esc(p.title)}">
+          <div class="psc-img-badges">
+            <span class="psc-badge">${zone7Esc(p.category || "Club Project")}</span>
+            ${p.host_status ? `<span class="psc-badge host">${zone7Esc(p.host_status)}</span>` : ""}
+          </div>
+        </div>
         <div class="psc-body">
-          <span class="psc-tag">${zone7Esc(p.category || "Club Project")}</span>
+          <div class="psc-meta">
+            ${p.date ? `<span>📅 ${zone7Esc(fmtDate(p.date))}</span>` : ""}
+            ${p.location ? `<span>📍 ${zone7Esc(p.location)}</span>` : ""}
+          </div>
           <h4>${zone7Esc(p.title)}</h4>
           <p>${zone7Esc(p.summary || (p.body || "").slice(0,160)) || "Tap to read the full project story."}</p>
+          ${(p.attendees || p.volunteer_hours) ? `
+          <div class="psc-stats">
+            ${p.attendees ? `<span class="psc-stat">📈 ${zone7Esc(String(p.attendees))} <small>Attendees</small></span>` : ""}
+            ${p.volunteer_hours ? `<span class="psc-stat">⏱️ ${zone7Esc(String(p.volunteer_hours))} <small>Volunteer Hrs</small></span>` : ""}
+          </div>` : ""}
+          ${p.jointly_with ? `<div class="psc-joint"><b>Jointly with:</b> ${zone7Esc(p.jointly_with)}</div>` : ""}
           <span class="psc-link">View Full Project →</span>
         </div>
       </div>

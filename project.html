@@ -44,6 +44,16 @@
   .p-meta b{display:block; font-family:'Poppins'; font-size:0.95rem; color:var(--magenta-deep);}
   .p-meta span{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:rgba(27,24,54,0.5); font-weight:700;}
 
+  .p-stats-strip{
+    margin-top:24px; background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:16px 22px; font-size:0.92rem; color:rgba(27,24,54,0.75); line-height:1.8;
+  }
+  .p-stats-strip b{color:var(--ink);}
+  .p-stats-strip .sep{color:var(--line); margin:0 4px;}
+  .p-host-badge{
+    display:inline-flex; margin-top:18px; font-size:0.78rem; font-weight:800; letter-spacing:0.03em;
+    color:#fff; background:var(--magenta-deep); padding:6px 15px; border-radius:100px;
+  }
   .p-body{padding:46px 0; font-size:1.05rem; line-height:1.9; color:rgba(27,24,54,0.78); max-width:760px; white-space:pre-line;}
 
   .p-gallery{padding:10px 0 60px;}
@@ -122,6 +132,15 @@ if(project && club){
         <div class="p-meta"><b>${zone7Esc(project.location || "Kathmandu Valley")}</b><span>Location</span></div>
         <div class="p-meta"><b>${zone7Esc(club.name)}</b><span>Organized By</span></div>
       </div>
+      ${project.host_status ? `<span class="p-host-badge">${zone7Esc(project.host_status)}</span>` : ""}
+      ${(project.duration || project.volunteer_hours || project.attendees || project.jointly_with) ? `
+      <div class="p-stats-strip">
+        ${dateStr ? `<b>Date:</b> ${zone7Esc(dateStr)}` : ""}
+        ${project.duration ? `<span class="sep">|</span><b>Duration:</b> ${zone7Esc(project.duration)}` : ""}
+        ${project.volunteer_hours ? `<span class="sep">|</span><b>Volunteering Hours:</b> ${zone7Esc(String(project.volunteer_hours))}` : ""}
+        ${project.attendees ? `<span class="sep">|</span><b>Attendees:</b> ${zone7Esc(String(project.attendees))}` : ""}
+        ${project.jointly_with ? `<span class="sep">|</span><b>Jointly with:</b> ${zone7Esc(project.jointly_with)}` : ""}
+      </div>` : ""}
       <div class="p-body">${zone7Esc(project.body || project.summary || "")}</div>
     </section>
 

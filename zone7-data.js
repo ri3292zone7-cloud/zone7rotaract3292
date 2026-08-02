@@ -319,6 +319,11 @@ const ZONE7_DB = {
       body: project.body || "",
       cover: project.cover || "",
       gallery: project.gallery || [],
+      attendees: project.attendees !== "" && project.attendees != null ? Number(project.attendees) : null,
+      volunteer_hours: project.volunteer_hours !== "" && project.volunteer_hours != null ? Number(project.volunteer_hours) : null,
+      duration: project.duration || "",
+      jointly_with: project.jointly_with || "",
+      host_status: project.host_status || "",
       updated: project.updated
     };
     const res = await fetch(`${REST_URL}?on_conflict=id`, {
@@ -353,6 +358,11 @@ const ZONE7_DB = {
       body: row.body,
       cover: row.cover,
       gallery: row.gallery || [],
+      attendees: row.attendees ?? null,
+      volunteer_hours: row.volunteer_hours ?? null,
+      duration: row.duration || "",
+      jointly_with: row.jointly_with || "",
+      host_status: row.host_status || "",
       updated: row.updated
     };
   },

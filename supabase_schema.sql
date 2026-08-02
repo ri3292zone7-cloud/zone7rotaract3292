@@ -15,9 +15,21 @@ create table if not exists projects (
   body text,
   cover text,
   gallery jsonb default '[]'::jsonb,
+  attendees int,
+  volunteer_hours numeric,
+  duration text,
+  jointly_with text,
+  host_status text,
   updated bigint
 );
 alter table projects enable row level security;
+
+-- If projects already existed before this update, run these once:
+-- alter table projects add column if not exists attendees int;
+-- alter table projects add column if not exists volunteer_hours numeric;
+-- alter table projects add column if not exists duration text;
+-- alter table projects add column if not exists jointly_with text;
+-- alter table projects add column if not exists host_status text;
 drop policy if exists "Public can view projects" on projects;
 drop policy if exists "Anon can write projects" on projects;
 create policy "Public can view projects" on projects for select using (true);
