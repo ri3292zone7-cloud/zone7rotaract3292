@@ -400,17 +400,33 @@ const ZONE7_DB = {
       const res = await fetch(`${BAROMETER_URL}?club_slug=eq.${encodeURIComponent(clubSlug)}`, { headers: REST_HEADERS });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
       const rows = await res.json();
-      return rows.length ? rows[0] : { club_slug: clubSlug, checked_items: [] };
+      return rows.length ? rows[0] : { club_slug: clubSlug, checked_items: [], checked_items_quick: [] };
     } catch(e){
       console.error("ZONE7_DB.getBarometer error", e);
-      return this._barometerCache && this._barometerCache[clubSlug] || { club_slug: clubSlug, checked_items: [] };
+      return this._barometerCache && this._barometerCache[clubSlug] || { club_slug: clubSlug, checked_items: [], checked_items_quick: [] };
     }
   },
 
   async saveBarometer(clubSlug, checkedItems){
     const row = { club_slug: clubSlug, checked_items: checkedItems, updated: Date.now() };
     this._barometerCache = this._barometerCache || {};
-    this._barometerCache[clubSlug] = row;
+    this._barometerCache[clubSlug] = { ...(this._barometerCache[clubSlug]||{}), ...row };
+    const res = await fetch(`${BAROMETER_URL}?on_conflict=club_slug`, {
+      method: "POST",
+      headers: { ...REST_HEADERS, "Prefer": "resolution=merge-duplicates,return=representation" },
+      body: JSON.stringify(row)
+    });
+    if(!res.ok){
+      const errText = await res.text();
+      throw new Error("Save failed: " + res.status + " " + errText);
+    }
+    return true;
+  },
+
+  async saveBarometerQuick(clubSlug, checkedItems){
+    const row = { club_slug: clubSlug, checked_items_quick: checkedItems, updated: Date.now() };
+    this._barometerCache = this._barometerCache || {};
+    this._barometerCache[clubSlug] = { ...(this._barometerCache[clubSlug]||{}), ...row };
     const res = await fetch(`${BAROMETER_URL}?on_conflict=club_slug`, {
       method: "POST",
       headers: { ...REST_HEADERS, "Prefer": "resolution=merge-duplicates,return=representation" },
