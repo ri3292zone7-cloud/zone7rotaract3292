@@ -1,0 +1,13 @@
+{
+  "rewrites": [
+    { "source": "/balkumari", "destination": "/club.html?club=balkumari" },
+    { "source": "/baneshwor", "destination": "/club.html?club=baneshwor" },
+    { "source": "/liberty", "destination": "/club.html?club=liberty" },
+    { "source": "/kathmanduwest", "destination": "/club.html?club=kathmanduwest" },
+    { "source": "/kathmanduheight", "destination": "/club.html?club=kathmanduheight" },
+    { "source": "/sankhu", "destination": "/club.html?club=sankhu" },
+    { "source": "/newroadcity", "destination": "/club.html?club=newroadcity" },
+    { "source": "/sukedhara", "destination": "/club.html?club=sukedhara" },
+    { "source": "/tripureswor", "destination": "/club.html?club=tripureswor" }
+  ]
+}
