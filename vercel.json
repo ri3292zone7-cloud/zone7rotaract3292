@@ -1,5 +1,10 @@
 {
   "rewrites": [
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/gallery", "destination": "/gallery.html" },
+    { "source": "/guides", "destination": "/guides.html" },
+    { "source": "/club-guides", "destination": "/club-guides.html" },
+    { "source": "/join", "destination": "/join.html" },
     { "source": "/balkumari", "destination": "/club.html?club=balkumari" },
     { "source": "/baneshwor", "destination": "/club.html?club=baneshwor" },
     { "source": "/liberty", "destination": "/club.html?club=liberty" },

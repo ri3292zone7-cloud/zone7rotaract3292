@@ -254,9 +254,9 @@
 
 <nav>
   <div class="wrap">
-    <a href="index.html"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>
+    <a href="/"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>
     <div class="navlinks">
-      <a href="about.html">About</a>
+      <a href="/about">About</a>
       <div class="nav-drop" id="clubsDrop">
         <button type="button" class="nav-drop-trigger">Clubs <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="nav-drop-panel clubs-drop-panel">
@@ -264,21 +264,21 @@
             <div class="clubs-drop-grid" id="clubsDropGrid"></div>
             <div class="clubs-drop-foot">
               <span style="font-size:.74rem;color:rgba(27,24,54,.45);">9 clubs in Zone 7</span>
-              <a href="index.html#clubs">See all on homepage →</a>
+              <a href="/#clubs">See all on homepage →</a>
             </div>
           </div>
         </div>
       </div>
-      <a href="gallery.html">Gallery</a>
+      <a href="/gallery">Gallery</a>
       <div class="nav-drop" id="resDrop">
         <button type="button" class="nav-drop-trigger">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="nav-drop-panel res-drop-panel">
           <div class="nav-drop-panel-inner">
-            <a class="res-drop-item" href="guides.html">
+            <a class="res-drop-item" href="/guides">
               <div class="res-drop-ico">📄</div>
               <div><h5>Rotaract Resources</h5><p>Official constitutions, forms &amp; district documents</p></div>
             </a>
-            <a class="res-drop-item" href="club-guides.html">
+            <a class="res-drop-item" href="/club-guides">
               <div class="res-drop-ico">📚</div>
               <div><h5>Guides for Clubs</h5><p>The playbook — leadership, finance, projects &amp; more</p></div>
             </a>
@@ -288,16 +288,16 @@
     </div>
     <div style="display:flex;align-items:center;gap:16px;">
       <a href="admin.html" class="nav-admin" style="display:none;" id="navAdminLink">Club Admin</a>
-      <a href="join.html" class="btn nav-cta">Join Us</a>
+      <a href="/join" class="btn nav-cta">Join Us</a>
       <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="about.html">About</a>
-    <a href="index.html#clubs">All Clubs</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="guides.html">Rotaract Resources</a>
-    <a href="club-guides.html">Guides for Clubs</a>
+    <a href="/about">About</a>
+    <a href="/#clubs">All Clubs</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/guides">Rotaract Resources</a>
+    <a href="/club-guides">Guides for Clubs</a>
     <a href="admin.html">Club Admin</a>
   </div>
 </nav>
@@ -658,7 +658,7 @@ if(club){(async () => {
         <div class="chero-actions">
           ${club.ig ? `<a class="btn btn-primary" href="https://www.instagram.com/${esc(club.ig)}/" target="_blank" rel="noopener">Follow @${esc(club.ig)} →</a>` : ""}
           <a class="btn btn-ghost-dark" href="mailto:${esc(club.email)}">Email the Club</a>
-          <a class="btn btn-ghost-dark" href="join.html">Join This Club</a>
+          <a class="btn btn-ghost-dark" href="/join">Join This Club</a>
         </div>
         <div class="stat-strip">
           <div class="s"><b data-val="${esc(club.active)}">0</b><span>Active Members</span></div>
@@ -727,8 +727,8 @@ if(club){(async () => {
         <h2>Want to join ${esc(club.name)}?</h2>
         <p>Membership is open to anyone aged 18–30. Fill out one short form and this club will welcome you in.</p>
         <div class="join-actions">
-          <a class="btn btn-primary" href="join.html">Fill the Join Form →</a>
-          <a class="btn btn-ghost-dark" style="border-color:rgba(255,255,255,.5);" href="index.html#clubs">Explore Other Clubs</a>
+          <a class="btn btn-primary" href="/join">Fill the Join Form →</a>
+          <a class="btn btn-ghost-dark" style="border-color:rgba(255,255,255,.5);" href="/#clubs">Explore Other Clubs</a>
         </div>
       </div>
     </section>
