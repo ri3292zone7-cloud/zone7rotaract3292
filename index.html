@@ -146,11 +146,16 @@
     line-height:1; color:transparent;
     background:linear-gradient(160deg, rgba(225,26,110,0.22), rgba(168,15,82,0.08) 45%, rgba(242,169,0,0.16));
     -webkit-background-clip:text; background-clip:text;
-    filter:drop-shadow(0 20px 44px rgba(225,26,110,0.1));
+    animation:sevenBreathe 7s ease-in-out infinite;
+    transform-origin:center;
   }
-
+  @keyframes sevenBreathe{
+    0%, 100%{ transform:scale(1); filter:drop-shadow(0 20px 44px rgba(225,26,110,0.1)); }
+    50%{ transform:scale(1.06); filter:drop-shadow(0 26px 60px rgba(225,26,110,0.16)); }
+  }
   @media(max-width:920px){ .hero-orbit{ right:-10%; width:min(60vw,380px); height:min(60vw,380px); } }
   @media(max-width:600px){ .hero-orbit{ display:none; } }
+  @media (prefers-reduced-motion: reduce){ .orbit-seven{ animation:none; } }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
     font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
@@ -800,12 +805,13 @@
 </script>
 
 <header class="hero">
+  <canvas id="heroDots" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
   <div class="hero-orbit" id="heroOrbit">
     <div class="orbit-seven">7</div>
   </div>
   <div class="wrap">
     <div class="eyebrow"><span class="dot"></span>Rotaract District 3292 · Nepal-Bhutan</div>
-    <h1>Young leaders in the<br>Kathmandu Valley,<br><span class="hl">united as Zone 7.</span></h1>
+    <h1 id="heroHeading">Young leaders in the<br>Kathmandu Valley,<br><span class="hl">united as Zone 7.</span></h1>
     <p class="lead">Zone 7 brings together Rotaract clubs across the Kathmandu Valley under District 3292, turning service, fellowship and leadership into action &mdash; one project at a time.</p>
     <div class="hero-actions">
       <a href="join.html" class="btn btn-primary">Fill the Form, Become a Rotaractor →</a>
@@ -823,6 +829,161 @@
     </div>
   </div>
 </header>
+<script>
+(function(){
+  const hero = document.querySelector(".hero");
+  const canvas = document.getElementById("heroDots");
+  if(!hero || !canvas) return;
+  if(window.matchMedia("(max-width:760px)").matches) return;
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const ctx = canvas.getContext("2d");
+  let dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let w = 0, h = 0;
+  const SPACING = 26;
+  const RADIUS = 130;     // how far the wave reaches from the cursor
+  const PUSH = 14;        // max px a dot is pushed
+  let mouse = null;       // lerped cursor pos, {x,y} or null
+  let target = null;
+  let rafId = null;
+
+  function resize(){
+    w = hero.clientWidth; h = hero.clientHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    canvas.style.width = w + "px"; canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "rgba(27,24,54,0.14)";
+    const cols = Math.ceil(w / SPACING) + 1;
+    const rows = Math.ceil(h / SPACING) + 1;
+    for(let i = 0; i < cols; i++){
+      for(let j = 0; j < rows; j++){
+        let x = i * SPACING, y = j * SPACING;
+        if(mouse){
+          const dx = x - mouse.x, dy = y - mouse.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if(dist < RADIUS && dist > 0.01){
+            const t = 1 - dist / RADIUS;               // 0..1, closer = stronger
+            const wave = Math.sin(t * Math.PI) * PUSH;  // smooth push, eases to 0 at edges
+            x += (dx / dist) * wave;
+            y += (dy / dist) * wave;
+          }
+        }
+        ctx.beginPath();
+        ctx.arc(x, y, 1.4, 0, Math.PI*2);
+        ctx.fill();
+      }
+    }
+  }
+
+  function loop(){
+    if(target){
+      if(!mouse) mouse = {...target};
+      mouse.x += (target.x - mouse.x) * 0.15;
+      mouse.y += (target.y - mouse.y) * 0.15;
+    }
+    draw();
+    rafId = requestAnimationFrame(loop);
+  }
+
+  hero.addEventListener("mousemove", (e) => {
+    const r = hero.getBoundingClientRect();
+    target = { x: e.clientX - r.left, y: e.clientY - r.top };
+    if(!rafId) rafId = requestAnimationFrame(loop);
+  });
+  hero.addEventListener("mouseleave", () => {
+    target = null; mouse = null;
+    if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
+    draw();
+  });
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 150);
+  });
+
+  resize();
+})();
+</script>
+
+<script>
+/* Magnetic text: split the hero heading into per-letter spans, and push/shear
+   each letter away from the cursor based on distance — eases back to rest
+   when the cursor moves off. Whitespace stays as plain text so line wraps
+   and word spacing behave normally. */
+(function(){
+  const h1 = document.getElementById("heroHeading");
+  if(!h1) return;
+  if(window.matchMedia("(max-width:760px)").matches) return;
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if(window.matchMedia("(hover:none)").matches) return;
+
+  // Wrap every text node's characters in spans, preserving <br> and the .hl span.
+  function wrap(node){
+    node.childNodes.forEach(child => {
+      if(child.nodeType === 3){ // text node
+        const frag = document.createDocumentFragment();
+        [...child.textContent].forEach(ch => {
+          if(ch === " "){ frag.appendChild(document.createTextNode(" ")); return; }
+          const span = document.createElement("span");
+          span.className = "mag-letter";
+          span.textContent = ch;
+          span.style.display = "inline-block";
+          span.style.willChange = "transform";
+          frag.appendChild(span);
+        });
+        child.replaceWith(frag);
+      } else if(child.nodeType === 1 && child.tagName !== "BR"){
+        wrap(child);
+      }
+    });
+  }
+  wrap(h1);
+
+  const letters = [...h1.querySelectorAll(".mag-letter")];
+  let mouse = null, rafId = null;
+  const RADIUS = 120;
+  const PUSH = 16;
+
+  function update(){
+    letters.forEach(el => {
+      if(!mouse){ el.style.transform = ""; return; }
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width/2, cy = r.top + r.height/2;
+      const dx = cx - mouse.x, dy = cy - mouse.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if(dist < RADIUS){
+        const t = 1 - dist / RADIUS;
+        const push = t * PUSH;
+        const angle = Math.atan2(dy, dx);
+        const tx = Math.cos(angle) * push;
+        const ty = Math.sin(angle) * push;
+        const skew = (dx / RADIUS) * t * 6; // subtle shear toward/away from cursor
+        el.style.transform = `translate(${tx}px, ${ty}px) skewX(${skew}deg)`;
+      } else {
+        el.style.transform = "";
+      }
+    });
+    rafId = requestAnimationFrame(update);
+  }
+
+  h1.closest("header.hero").addEventListener("mousemove", (e) => {
+    mouse = { x: e.clientX, y: e.clientY };
+    if(!rafId) rafId = requestAnimationFrame(update);
+  });
+  h1.closest("header.hero").addEventListener("mouseleave", () => {
+    mouse = null;
+    if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
+    letters.forEach(el => { el.style.transition = "transform .4s ease"; el.style.transform = ""; });
+    setTimeout(() => letters.forEach(el => el.style.transition = ""), 420);
+  });
+})();
+</script>
 
 <section class="about" id="about">
   <div class="wrap">
