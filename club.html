@@ -302,7 +302,7 @@
   </div>
 </nav>
 <script>
-  const _navClubSlug = new URLSearchParams(location.search).get("club");
+  const _navClubSlug = new URLSearchParams(location.search).get("club") || location.pathname.replace(/^\/+|\/+$/g,"");
   document.getElementById("clubsDropGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
     <a class="clubs-drop-item${slug===_navClubSlug?' current':''}" href="club.html?club=${slug}">
       <img src="${c.logo}" alt="" loading="lazy">
@@ -582,8 +582,9 @@ const CLUB_THEMES = {
 };
 
 const params = new URLSearchParams(location.search);
-const club = CLUBS[params.get("club")];
-const clubSlug = params.get("club");
+const pathSlug = location.pathname.replace(/^\/+|\/+$/g, "");
+const clubSlug = params.get("club") || (CLUBS[pathSlug] ? pathSlug : null);
+const club = CLUBS[clubSlug];
 function esc(s){return zone7Esc(s);}
 function animateCount(el, target, suffix){
   const isNum = /^\d+/.test(target);
