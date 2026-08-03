@@ -249,6 +249,27 @@
   .baro-multi-item{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--ink);}
   .baro-multi-item input{width:auto;margin:0;}
   .baro-multi-count{font-size:.68rem;font-weight:700;color:rgba(27,24,54,0.45);margin-top:4px;}
+  .baro-acc-toggle{
+    display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%; max-width:360px;
+    margin-top:6px; padding:8px 12px; border-radius:9px; border:1.5px solid var(--line); background:#fff;
+    font-family:'Inter'; font-size:.78rem; font-weight:700; color:var(--magenta-deep); cursor:pointer;
+  }
+  .baro-acc-toggle:hover{border-color:var(--magenta-deep);}
+  .baro-acc-chevron{transition:transform .2s; font-size:.7rem;}
+  .baro-acc-toggle.open .baro-acc-chevron{transform:rotate(180deg);}
+  .baro-acc-body{margin-top:8px; max-width:360px; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:10px 12px;}
+  .baro-tag.min-tag{color:#1c6e3a; background:rgba(28,138,77,0.1);}
+  .baro-minutes-row{margin-top:8px;}
+  .baro-minutes-upload{
+    padding:7px 14px; border-radius:100px; border:1.5px dashed var(--line); background:#fff; cursor:pointer;
+    font-family:'Inter'; font-size:.76rem; font-weight:700; color:rgba(27,24,54,0.6);
+  }
+  .baro-minutes-upload:hover{border-color:var(--magenta-deep); color:var(--magenta-deep);}
+  .baro-minutes-file{
+    display:inline-flex; align-items:center; gap:8px; font-size:.78rem; font-weight:600; color:var(--ink);
+    background:rgba(28,138,77,0.08); border:1px solid rgba(28,138,77,0.2); padding:6px 12px; border-radius:100px;
+  }
+  .baro-minutes-rm{background:none; border:none; color:var(--magenta-deep); font-weight:800; cursor:pointer; font-size:.75rem;}
   @media (max-width:700px){
     .baro-summary{flex-direction:column;}
     .baro-toolbar{flex-direction:column; align-items:flex-start;}
@@ -817,13 +838,17 @@ document.getElementById("cpSaveBtn").addEventListener("click", async () => {
 /* ---- District Barometer ---- */
 let baroCheckedItems = [];
 let baroLinkedProjects = {};  // { itemId: [ {id,title,code}, ... ] }
+let baroMinutes = {};         // { itemId: { name, data } }
 let baroCriteria = [];
 let baroClubProjects = [];
 
 // Items that require pointing to at least one uploaded project as proof.
-const BARO_NEEDS_PROJECT = new Set([21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38]);
+const BARO_NEEDS_PROJECT = new Set([9,14,16,18,19,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38]);
 // Items needing more than one linked project, with the minimum count.
-const BARO_MULTI_PROJECT = { 30: 5 };
+const BARO_MULTI_PROJECT = { 9:2, 18:2, 29:7, 30:5 };
+// Items that also require a supporting document upload (e.g. meeting minutes).
+const BARO_NEEDS_MINUTES = new Set([9]);
+const BARO_MINUTES_LABEL = { 9: "Meeting Minutes" };
 
 async function loadBarometer(){
   baroCriteria = zone7GetBarometer(currentClub);
@@ -839,11 +864,13 @@ async function loadBarometer(){
   const raw = row.checked_items || [];
   baroCheckedItems = [];
   baroLinkedProjects = {};
+  baroMinutes = {};
   raw.forEach(entry => {
     if(typeof entry === 'object' && entry !== null){
       baroCheckedItems.push(Number(entry.id));
       if(entry.projects && entry.projects.length) baroLinkedProjects[entry.id] = entry.projects;
       else if(entry.projId) baroLinkedProjects[entry.id] = [{ id: entry.projId, title: entry.projTitle || '', code: entry.projCode || '' }];
+      if(entry.minutes) baroMinutes[entry.id] = entry.minutes;
     } else {
       baroCheckedItems.push(Number(entry));
     }
@@ -858,7 +885,9 @@ function baroIsDone(id, autoIds){
   if(autoIds.has(id)) return true;
   if(BARO_NEEDS_PROJECT.has(id)){
     const linked = baroLinkedProjects[id] || [];
-    return linked.length >= baroMinFor(id);
+    if(linked.length < baroMinFor(id)) return false;
+    if(BARO_NEEDS_MINUTES.has(id) && !baroMinutes[id]) return false;
+    return true;
   }
   return new Set(baroCheckedItems).has(id);
 }
@@ -875,18 +904,21 @@ function renderBarometer(autoIds){
       const isAuto = item.auto && autoIds.has(item.id);
       const needsProj = BARO_NEEDS_PROJECT.has(item.id) && !isAuto;
       const isMulti = needsProj && baroMinFor(item.id) > 1;
+      const needsMinutes = BARO_NEEDS_MINUTES.has(item.id) && !isAuto;
       const linked = baroLinkedProjects[item.id] || [];
+      const minutesFile = baroMinutes[item.id];
       const isChecked = baroIsDone(item.id, autoIds);
 
-      let checkHtml, badgeHtml = '', bodyExtra = '';
+      let checkHtml, badges = [], bodyExtra = '';
       if(isAuto){
         checkHtml = `<input type="checkbox" class="baro-check" checked disabled>`;
-        badgeHtml = `<span class="baro-tag auto-tag">✨ Auto</span>`;
+        badges.push(`<span class="baro-tag auto-tag">✨ Auto</span>`);
       } else if(needsProj){
         checkHtml = `<input type="checkbox" class="baro-check" ${isChecked?'checked':''} disabled>`;
-        badgeHtml = isMulti
+        badges.push(isMulti
           ? `<span class="baro-tag proj-tag">📎 ${baroMinFor(item.id)} projects required</span>`
-          : `<span class="baro-tag proj-tag">📎 Project required</span>`;
+          : `<span class="baro-tag proj-tag">📎 Project required</span>`);
+        if(needsMinutes) badges.push(`<span class="baro-tag min-tag">📝 ${zone7Esc(BARO_MINUTES_LABEL[item.id] || "Document")} required</span>`);
 
         if(isMulti){
           const optionsHtml = baroClubProjects.map(p => {
@@ -897,8 +929,13 @@ function renderBarometer(autoIds){
             </label>`;
           }).join("");
           bodyExtra = `
-            <div class="baro-multi-list">${optionsHtml || '<span class="a-empty">No projects uploaded yet.</span>'}</div>
-            <div class="baro-multi-count">${linked.length} / ${baroMinFor(item.id)} selected</div>`;
+            <button type="button" class="baro-acc-toggle" data-acc="${item.id}">
+              <span>${linked.length} / ${baroMinFor(item.id)} projects selected — choose projects</span>
+              <span class="baro-acc-chevron">▾</span>
+            </button>
+            <div class="baro-acc-body" id="baro-acc-${item.id}" style="display:none;">
+              <div class="baro-multi-list">${optionsHtml || '<span class="a-empty">No projects uploaded yet.</span>'}</div>
+            </div>`;
         } else {
           const opts = baroClubProjects.map(p =>
             `<option value="${zone7Esc(p.id)}" data-title="${zone7Esc(p.title)}" data-code="${zone7Esc(p.project_code||'')}">${zone7Esc(p.project_code || '—')} · ${zone7Esc(p.title)}${p.date ? ' ('+p.date+')' : ''}</option>`
@@ -909,6 +946,16 @@ function renderBarometer(autoIds){
               ${opts}
             </select>`;
         }
+
+        if(needsMinutes){
+          bodyExtra += `
+            <div class="baro-minutes-row" data-id="${item.id}">
+              ${minutesFile
+                ? `<span class="baro-minutes-file">📄 ${zone7Esc(minutesFile.name)} <button type="button" class="baro-minutes-rm" data-id="${item.id}">✕</button></span>`
+                : `<button type="button" class="baro-minutes-upload" data-id="${item.id}">+ Upload ${zone7Esc(BARO_MINUTES_LABEL[item.id] || "Document")}</button>`}
+              <input type="file" class="baro-minutes-input" data-id="${item.id}" accept=".pdf,.doc,.docx,image/*" style="display:none;">
+            </div>`;
+        }
       } else {
         checkHtml = `<input type="checkbox" class="baro-check baro-self-check" data-id="${item.id}" ${isChecked?'checked':''}>`;
       }
@@ -917,7 +964,7 @@ function renderBarometer(autoIds){
         <div class="baro-item${isChecked?' checked':''}${isAuto?' auto':''}${(needsProj && linked.length)?' proj-linked':''}" data-id="${item.id}">
           <div class="baro-check-col">${checkHtml}</div>
           <div class="baro-text-col">
-            <div class="baro-text"><span class="num">${item.id}.</span>${zone7Esc(item.text)}${badgeHtml}</div>
+            <div class="baro-text"><span class="num">${item.id}.</span>${zone7Esc(item.text)}${badges.join("")}</div>
             ${bodyExtra}
           </div>
           <div class="baro-meta-col">
@@ -939,6 +986,16 @@ function renderBarometer(autoIds){
       </div>
     `;
   }).join("");
+
+  // Accordion toggles
+  list.querySelectorAll(".baro-acc-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const body = document.getElementById("baro-acc-" + btn.dataset.acc);
+      const open = body.style.display !== "none";
+      body.style.display = open ? "none" : "block";
+      btn.classList.toggle("open", !open);
+    });
+  });
 
   // Single-project dropdowns
   list.querySelectorAll(".baro-proj-select").forEach(sel => {
@@ -969,6 +1026,28 @@ function renderBarometer(autoIds){
         if(idx > -1) cur.splice(idx, 1);
       }
       if(cur.length) baroLinkedProjects[id] = cur; else delete baroLinkedProjects[id];
+      renderBarometer(autoIds);
+    });
+  });
+
+  // Minutes / document upload
+  list.querySelectorAll(".baro-minutes-upload").forEach(btn => {
+    btn.addEventListener("click", () => {
+      list.querySelector(`.baro-minutes-input[data-id="${btn.dataset.id}"]`).click();
+    });
+  });
+  list.querySelectorAll(".baro-minutes-input").forEach(inp => {
+    inp.addEventListener("change", async () => {
+      const file = inp.files[0];
+      if(!file) return;
+      const dataUrl = await zone7ReadFile(file);
+      baroMinutes[Number(inp.dataset.id)] = { name: file.name, data: dataUrl };
+      renderBarometer(autoIds);
+    });
+  });
+  list.querySelectorAll(".baro-minutes-rm").forEach(btn => {
+    btn.addEventListener("click", () => {
+      delete baroMinutes[Number(btn.dataset.id)];
       renderBarometer(autoIds);
     });
   });
@@ -1011,13 +1090,18 @@ document.getElementById("baroSaveBtn").addEventListener("click", async () => {
   const btn = document.getElementById("baroSaveBtn");
   btn.disabled = true; btn.textContent = "Saving…";
   try{
-    const toSave = [
-      ...baroCheckedItems.filter(id => !baroLinkedProjects[id]).map(id => ({ id })),
-      ...Object.entries(baroLinkedProjects).map(([id, projects]) => ({ id: Number(id), projects }))
-    ];
-    const seen = new Set(); const deduped = [];
-    toSave.reverse().forEach(e => { if(!seen.has(e.id)){ seen.add(e.id); deduped.push(e); } });
-    await ZONE7_DB.saveBarometer(currentClub, deduped.reverse());
+    const ids = new Set([
+      ...baroCheckedItems,
+      ...Object.keys(baroLinkedProjects).map(Number),
+      ...Object.keys(baroMinutes).map(Number)
+    ]);
+    const toSave = [...ids].map(id => {
+      const entry = { id };
+      if(baroLinkedProjects[id]) entry.projects = baroLinkedProjects[id];
+      if(baroMinutes[id]) entry.minutes = baroMinutes[id];
+      return entry;
+    });
+    await ZONE7_DB.saveBarometer(currentClub, toSave);
     showToast("Barometer saved ✓");
   } catch(err){
     console.error(err);
@@ -1039,11 +1123,16 @@ document.getElementById("baroPdfBtn").addEventListener("click", () => {
     if(!items.length) return "";
     const groupRows = items.map(item => {
       const linked = (baroLinkedProjects[item.id] || []);
+      const minutesFile = baroMinutes[item.id];
       const done = allChecked.has(item.id);
+      const proof = [
+        linked.length ? `📎 ${linked.map(l=>zone7Esc(l.code||l.title)).join(', ')}` : '',
+        minutesFile ? `📝 ${zone7Esc(minutesFile.name)}` : ''
+      ].filter(Boolean).join('<br>');
       return `
       <tr>
         <td style="text-align:center;">${item.id}</td>
-        <td>${zone7Esc(item.text)}${linked.length ? `<br><span style="font-size:0.75rem; color:#A80F52; font-weight:600;">📎 ${linked.map(l=>zone7Esc(l.code||l.title)).join(', ')}</span>` : ''}</td>
+        <td>${zone7Esc(item.text)}${proof ? `<br><span style="font-size:0.75rem; color:#A80F52; font-weight:600;">${proof}</span>` : ''}</td>
         <td style="text-align:center;">${item.points}</td>
         <td style="text-align:center;">${done ? '✓' : ''}</td>
         <td style="font-size:0.78rem; color:#555;">${zone7Esc(item.verifier)}</td>
