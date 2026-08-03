@@ -173,6 +173,9 @@
     background:linear-gradient(100deg, var(--magenta), var(--magenta-deep));
     -webkit-background-clip:text; background-clip:text; color:transparent;
   }
+  .hero h1 .hl .mag-word-boost{
+    background:inherit; -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
   .hero p.lead{
     position:relative; z-index:1;
     font-size:1.18rem; color:rgba(27,24,54,0.72); max-width:560px; margin-top:26px; line-height:1.65;
@@ -862,7 +865,7 @@
     for(let i = 0; i < cols; i++){
       for(let j = 0; j < rows; j++){
         let x = i * SPACING, y = j * SPACING;
-        let radius = 1.4, alpha = 0.14;
+        let radius = 1.2, alpha = 0.08;
         if(mouse){
           const dx = x - mouse.x, dy = y - mouse.y;
           const dist = Math.sqrt(dx*dx + dy*dy);
@@ -871,8 +874,8 @@
             const wave = Math.sin(t * Math.PI) * PUSH;  // smooth push, eases to 0 at edges
             x += (dx / dist) * wave;
             y += (dy / dist) * wave;
-            radius = 1.4 + t * 2.2;   // pop up in size near the cursor
-            alpha = 0.14 + t * 0.5;   // and go noticeably darker
+            radius = 1.2 + t * 1.8;
+            alpha = 0.08 + t * 0.3;
           }
         }
         ctx.beginPath();
@@ -948,7 +951,7 @@
       }
     });
   }
-  wrap(h1, false);
+  wrap(h1.querySelector(".hl"), true);
 
   const words = [...h1.querySelectorAll(".mag-word")];
   let mouse = null, rafId = null;
