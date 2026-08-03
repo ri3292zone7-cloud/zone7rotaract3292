@@ -137,17 +137,21 @@
     position:absolute;
     right:-2%; top:50%; transform:translateY(-50%);
     width:min(54vw, 640px); height:min(54vw, 640px);
-    z-index:0; user-select:none; pointer-events:none;
+    z-index:0; user-select:none; cursor:default;
+  }
+  .orbit-seven-anim{
+    position:absolute; inset:0;
+    transform-origin:center;
+    animation:sevenBreathe 7s ease-in-out infinite;
   }
   .orbit-seven{
     position:absolute; inset:0;
     display:flex; align-items:center; justify-content:center;
     font-family:'Poppins'; font-weight:900; font-size:min(40vw, 500px);
     line-height:1; color:transparent;
-    background:linear-gradient(160deg, rgba(225,26,110,0.22), rgba(168,15,82,0.08) 45%, rgba(242,169,0,0.16));
+    pointer-events:none;
+    background:linear-gradient(165deg, rgba(225,26,110,0.16) 0%, rgba(168,15,82,0.10) 100%);
     -webkit-background-clip:text; background-clip:text;
-    animation:sevenBreathe 7s ease-in-out infinite;
-    transform-origin:center;
   }
   @keyframes sevenBreathe{
     0%, 100%{ transform:scale(1); filter:drop-shadow(0 20px 44px rgba(225,26,110,0.1)); }
@@ -155,7 +159,10 @@
   }
   @media(max-width:920px){ .hero-orbit{ right:-10%; width:min(60vw,380px); height:min(60vw,380px); } }
   @media(max-width:600px){ .hero-orbit{ display:none; } }
-  @media (prefers-reduced-motion: reduce){ .orbit-seven{ animation:none; } }
+  @media (prefers-reduced-motion: reduce){ .orbit-seven-anim{ animation:none; } }
+  @media (prefers-reduced-motion: reduce){
+    #rpSeven{ animation:none; opacity:1; transform:none; clip-path:none; }
+  }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
     font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
@@ -551,7 +558,9 @@
     footer{padding:56px 0 26px;}
   }
 
-  /* ROTARY WHEEL PRELOADER */
+  /* ROTARY WHEEL PRELOADER — clean, confident entrance: wordmark stack
+     fades/rises in, the "7" wipes in from the left edge with a soft
+     gradient, and a thin progress bar ties the hold time together. */
   #rotaryPreloader{
     position:fixed; inset:0; z-index:9999; background:var(--ink);
     display:flex; align-items:center; justify-content:center;
@@ -560,9 +569,6 @@
   }
   #rotaryPreloader.hide{ opacity:0; visibility:hidden; pointer-events:none; transform:scale(1.02); }
 
-  /* One balanced composition: content + "7" grouped as a single unit and
-     centered together — instead of two isolated elements pulling the eye
-     to opposite edges with a dead void between them. */
   #rpStage{
     position:relative; z-index:1;
     display:flex; align-items:center; justify-content:center;
@@ -575,29 +581,19 @@
     width:clamp(180px, 30vh, 340px); height:clamp(220px, 42vh, 460px);
     flex-shrink:0;
   }
-  /* Same gradient treatment as .orbit-seven on the homepage hero, for
-     brand consistency — but now sized to sit fully inside its own frame
-     rather than bleeding almost entirely off-canvas. */
   #rpSeven{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
     font-family:'Poppins', sans-serif; font-weight:900;
     font-size:clamp(220px, 42vh, 460px); line-height:1; white-space:nowrap;
-    background:linear-gradient(160deg, var(--magenta), var(--magenta-deep) 45%, var(--gold));
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    opacity:0; transform:scale(0.9);
-    animation:rpSevenIn 1s cubic-bezier(.16,1,.3,1) forwards .15s, rpSevenDrift 50s ease-in-out infinite 1.2s;
     user-select:none; pointer-events:none;
+    background:linear-gradient(165deg, #FF2E87 0%, #E11A6E 24%, #A80F52 52%, #C2410C 76%, #F2A900 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter:drop-shadow(0 18px 40px rgba(225,26,110,0.25));
+    clip-path:inset(0 100% 0 0);
+    animation:rpSevenWipe .9s cubic-bezier(.22,.61,.36,1) forwards .2s;
   }
-  @keyframes rpSevenIn{ to{ opacity:1; transform:scale(1); } }
-  @keyframes rpSevenDrift{
-    0%, 100%{ transform:scale(1) rotate(0deg); }
-    50%{ transform:scale(1.015) rotate(0.8deg); }
-  }
-  #rpGlow{
-    position:absolute; inset:0; z-index:-1; pointer-events:none;
-    background:radial-gradient(circle, rgba(225,26,110,0.2), transparent 72%);
-    opacity:0; animation:rpGlowIn 1.6s ease forwards .15s;
-  }
-  @keyframes rpGlowIn{ to{ opacity:1; } }
+  @keyframes rpSevenWipe{ to{ clip-path:inset(0 0 0 0); } }
 
   #rpContent{
     position:relative;
@@ -695,8 +691,7 @@
       <div id="rpBarTrack"><div id="rpBarFill"></div></div>
     </div>
     <div id="rpSevenWrap">
-      <div id="rpGlow"></div>
-      <div id="rpSeven">7</div>
+      <div id="rpSeven" aria-hidden="true">7</div>
     </div>
   </div>
 </div>
@@ -710,7 +705,7 @@
     return;
   }
 
-  const HOLD_MS = 2600;
+  const HOLD_MS = 2900;
   document.getElementById("rpBarFill").style.transitionDuration = HOLD_MS + "ms";
 
   window.addEventListener("load", () => {
@@ -810,7 +805,9 @@
 <header class="hero">
   <canvas id="heroDots" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
   <div class="hero-orbit" id="heroOrbit">
-    <div class="orbit-seven">7</div>
+    <div class="orbit-seven-anim">
+      <div class="orbit-seven">7</div>
+    </div>
   </div>
   <div class="wrap">
     <div class="eyebrow"><span class="dot"></span>Rotaract District 3292 · Nepal-Bhutan</div>
