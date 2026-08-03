@@ -127,6 +127,17 @@
 
   @media (max-width:860px){ .dash-body{grid-template-columns:1fr;} .field-row{grid-template-columns:1fr;} .analytics-stats{grid-template-columns:1fr;} }
 
+  /* MINUTES BUILDER */
+  .sec-title{font-weight:800; font-size:0.85rem; margin:24px 0 6px; color:var(--magenta-deep); border-bottom:1px solid var(--line); padding-bottom:6px; text-transform:uppercase; letter-spacing:0.03em;}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;}
+  .row4{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
+  .dyn-row{display:flex; gap:8px; margin-bottom:8px; align-items:flex-start;}
+  .dyn-row input, .dyn-row textarea{flex:1; margin-bottom:0;}
+  .btn.small{padding:7px 14px; font-size:0.78rem;}
+  .rm-x{background:none; border:none; color:var(--magenta-deep); font-weight:800; cursor:pointer; flex-shrink:0; padding:8px 4px; font-size:0.9rem;}
+  @media (max-width:860px){ .row3, .row4{grid-template-columns:1fr 1fr;} }
+
   .a-chart-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:18px; margin-top:8px;}
   .a-chart-card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 22px;}
   .a-chart-card .a-subhead{margin:0 0 14px;}
@@ -577,43 +588,92 @@
 
     <div class="view" id="view-minutes">
     <div class="panel">
-      <h3>Meeting Minutes <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(generate &amp; download official-format minutes)</span></h3>
-      <div class="field-row">
-        <div><label for="mmSponsor">Sponsoring Rotary Club</label><input type="text" id="mmSponsor" placeholder="Rotary Club of ..."></div>
-        <div><label for="mmChartered">Chartered On</label><input type="text" id="mmChartered" placeholder="e.g. 5th November 1997"></div>
+      <h3>Meeting Minutes <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(builds the full official Rotaract minutes format, section by section)</span></h3>
+
+      <div class="sec-title">Club Letterhead <span style="font-weight:500; color:rgba(27,24,54,0.5); text-transform:none; letter-spacing:0;">(saved once, reused every time)</span></div>
+      <div class="row3">
+        <div><label>Sponsoring Rotary Club</label><input type="text" id="mmSponsor" placeholder="Rotary Club of ..."></div>
+        <div><label>Chartered On</label><input type="text" id="mmChartered" placeholder="e.g. 5th November 1997"></div>
+        <div><label>RI District</label><input type="text" id="mmDistrict" value="3292 Nepal and Bhutan"></div>
       </div>
-      <div class="field-row">
-        <div><label for="mmMotto">Club Motto</label><input type="text" id="mmMotto" placeholder='e.g. "Unleashing possibilities"'></div>
-        <div><label for="mmRY">Rotary Year</label><input type="text" id="mmRY" value="2026-27"></div>
+      <div class="row2">
+        <div><label>Club Motto</label><input type="text" id="mmMotto" placeholder='e.g. "Unleashing possibilities"'></div>
+        <div><label>Rotary Year</label><input type="text" id="mmRY" value="2026-27"></div>
       </div>
-      <div class="field-row">
-        <div><label for="mmTitle">Meeting Title / No.</label><input type="text" id="mmTitle" placeholder="Regular Meeting #674"></div>
-        <div><label for="mmDate">Date</label><input type="date" id="mmDate"></div>
+
+      <div class="sec-title">Meeting Details</div>
+      <div class="row3">
+        <div><label>Minutes Title</label><input type="text" id="mmTitle" placeholder="Regular Meeting #674"></div>
+        <div><label>Date</label><input type="date" id="mmDate"></div>
+        <div><label>Day</label><input type="text" id="mmDay" placeholder="e.g. Sunday"></div>
       </div>
-      <div class="field-row">
-        <div><label for="mmVenue">Venue</label><input type="text" id="mmVenue"></div>
-        <div><label for="mmChair">Chaired By (President)</label><input type="text" id="mmChair" placeholder="President Rtr. ..."></div>
+      <div class="row3">
+        <div><label>Venue</label><input type="text" id="mmVenue"></div>
+        <div><label>Time Started</label><input type="time" id="mmStart"></div>
+        <div><label>Time Ended</label><input type="time" id="mmEnd"></div>
       </div>
-      <label for="mmSecretary">Recorded By (Secretary)</label>
-      <input type="text" id="mmSecretary">
-      <label for="mmAgenda">Agenda &amp; Discussion <span style="font-weight:500; color:rgba(27,24,54,0.5);">(one item per line)</span></label>
-      <textarea id="mmAgenda" rows="5" placeholder="Club Activities Review and Updates&#10;Upcoming Project Planning&#10;..."></textarea>
-      <label for="mmRemarks">Remarks / Guests <span style="font-weight:500; color:rgba(27,24,54,0.5);">(ZRR, DRR, mentor, etc.)</span></label>
-      <textarea id="mmRemarks" rows="2"></textarea>
-      <label>Attendance</label>
-      <div class="field-row">
-        <input type="number" id="mmAGen" placeholder="General Members">
-        <input type="number" id="mmABoard" placeholder="Board Members">
+      <div class="row2">
+        <div><label>Chaired By (President)</label><input type="text" id="mmChair" placeholder="President Rtr. ..."></div>
+        <div><label>Recorded By (Secretary)</label><input type="text" id="mmSecretary"></div>
       </div>
-      <div class="field-row" style="margin-top:10px;">
-        <input type="number" id="mmAGuest" placeholder="Guests">
-        <input type="number" id="mmAVis" placeholder="Visiting Rotaractors/Rotarians">
+
+      <div class="sec-title">Opening <span style="font-weight:500; color:rgba(27,24,54,0.5); text-transform:none; letter-spacing:0;">(lettered a, b, c... — SAA, quorum, silence, guests acknowledged)</span></div>
+      <div id="mmOpenList"></div>
+      <button class="btn btn-ghost small" type="button" data-mmadd="open">+ Add Opening Note</button>
+
+      <div class="sec-title">Happy Moments Sharing</div>
+      <div id="mmHappyList"></div>
+      <button class="btn btn-ghost small" type="button" data-mmadd="happy">+ Add Happy Moment</button>
+
+      <div class="sec-title">Agenda of the Meeting</div>
+      <div id="mmAgendaList"></div>
+      <button class="btn btn-ghost small" type="button" data-mmadd="agenda">+ Add Agenda Item</button>
+
+      <div class="row2" style="margin-top:16px;">
+        <div><label>Apologies</label><textarea id="mmApologies" rows="2" placeholder="Apologies received from ... due to ..."></textarea></div>
+        <div><label>Previous Minutes Approval</label><textarea id="mmPrevApproval" rows="2" placeholder="Minutes of meeting no. X were circulated and passed by members present."></textarea></div>
       </div>
-      <label for="mmNext" style="margin-top:16px;">Next Meeting / Closing</label>
-      <input type="text" id="mmNext" placeholder="Meeting no. 675 will be held on ... / Adjourned at 8:00 PM">
+
+      <div class="sec-title">Meeting Discussions &amp; Decisions <span style="font-weight:500; color:rgba(27,24,54,0.5); text-transform:none; letter-spacing:0;">(numbered, one per topic)</span></div>
+      <div id="mmDiscList"></div>
+      <button class="btn btn-ghost small" type="button" data-mmadd="disc">+ Add Discussion Item</button>
+
+      <div class="sec-title">Remarks <span style="font-weight:500; color:rgba(27,24,54,0.5); text-transform:none; letter-spacing:0;">(guests / officials — ZRR, DRR, mentor)</span></div>
+      <div id="mmRemarkList"></div>
+      <button class="btn btn-ghost small" type="button" data-mmadd="remark">+ Add Remark</button>
+
+      <div class="sec-title">Information Sharing</div>
+      <div id="mmInfoList"></div>
+      <button class="btn btn-ghost small" type="button" data-mmadd="info">+ Add Info Item</button>
+
+      <div class="row2" style="margin-top:16px;">
+        <div><label>Vote of Thanks</label><textarea id="mmThanks" rows="2" placeholder="Joint Secretary / SAA acknowledged the presence of..."></textarea></div>
+        <div><label>Sergeant-at-Arms Announcement</label><textarea id="mmSaa" rows="2" placeholder="Presented by Acting SAA Rtr. ..."></textarea></div>
+      </div>
+
+      <div class="sec-title">Attendance</div>
+      <div class="row4">
+        <div><label>General Members</label><input type="number" id="mmAGen" value="0"></div>
+        <div><label>Board Members</label><input type="number" id="mmABoard" value="0"></div>
+        <div><label>Guests</label><input type="number" id="mmAGuest" value="0"></div>
+        <div><label>Visiting Rotaractors</label><input type="number" id="mmAVisRac" value="0"></div>
+      </div>
+      <div class="row4">
+        <div><label>Visiting Rotarians</label><input type="number" id="mmAVisRot" value="0"></div>
+        <div><label>District Officials</label><input type="number" id="mmADist" value="0"></div>
+        <div><label>Special Sunshine</label><input type="text" id="mmSpecial" placeholder="Rs. 3000/- (name)"></div>
+        <div><label>Total Sunshine Collected</label><input type="text" id="mmTotalSunshine" placeholder="Rs. 3300/-"></div>
+      </div>
+
+      <div class="sec-title">Closing</div>
+      <div class="row2">
+        <div><label>Next Meeting No. &amp; Date</label><input type="text" id="mmNext" placeholder="Meeting no. 675 will be held on ..."></div>
+        <div><label>Adjourned At</label><input type="time" id="mmAdjourn"></div>
+      </div>
+
       <div class="form-actions">
-        <button class="btn btn-primary" id="mmSaveBtn" type="button">Save Draft</button>
-        <button class="btn btn-ghost" id="mmPdfBtn" type="button">Download PDF</button>
+        <button class="btn btn-primary" id="mmPdfBtn" type="button">Download PDF</button>
+        <button class="btn btn-ghost" id="mmSaveBtn" type="button">Save Draft</button>
         <button class="btn btn-ghost" id="mmClearBtn" type="button">Clear Form</button>
       </div>
       <h3 style="margin-top:30px;">Saved Minutes</h3>
@@ -2061,8 +2121,51 @@ document.getElementById("leaderDeleteBtn").addEventListener("click", async () =>
   }
 });
 
-/* ---- Meeting Minutes ---- */
+/* ---- Meeting Minutes (full official format) ---- */
 let mmEditId = null;
+const mmStrLists = { open:[], happy:[], agenda:[], info:[] };
+const mmStrListEl = { open:"mmOpenList", happy:"mmHappyList", agenda:"mmAgendaList", info:"mmInfoList" };
+const mmStrPlaceholder = {
+  open:"e.g. SAA Rtr. X notified all attendees the meeting has started.",
+  happy:"e.g. Rtr. X was happy to attend the meeting after 4 months and see new faces.",
+  agenda:"e.g. Club Activities Review and Updates",
+  info:"e.g. Rotaract ID cards have arrived at the club."
+};
+function renderMMStrList(k){
+  document.getElementById(mmStrListEl[k]).innerHTML = mmStrLists[k].map((v,i) => `
+    <div class="dyn-row"><textarea rows="2" data-k="${k}" data-i="${i}" class="mm-str-inp" placeholder="${mmStrPlaceholder[k]}">${zone7Esc(v)}</textarea><button type="button" class="rm-x" data-rmk="${k}" data-rmi="${i}">✕</button></div>
+  `).join("");
+  document.querySelectorAll(`.mm-str-inp[data-k="${k}"]`).forEach(el => el.addEventListener("input", () => mmStrLists[k][el.dataset.i] = el.value));
+  document.querySelectorAll(`[data-rmk="${k}"]`).forEach(el => el.addEventListener("click", () => { mmStrLists[k].splice(Number(el.dataset.rmi),1); renderMMStrList(k); }));
+}
+let mmDiscItems = [], mmRemarks = [];
+function renderMMDisc(){
+  document.getElementById("mmDiscList").innerHTML = mmDiscItems.map((it,i) => `
+    <div class="dyn-row"><div style="flex:1;">
+      <input type="text" placeholder="Topic (e.g. Charter's Day Celebration)" value="${zone7Esc(it.t||'')}" data-i="${i}" data-f="t" class="mm-disc-inp" style="margin-bottom:6px;">
+      <textarea placeholder="Full discussion / decision text" data-i="${i}" data-f="d" class="mm-disc-inp" rows="3">${zone7Esc(it.d||'')}</textarea>
+    </div><button type="button" class="rm-x" data-rm="${i}">✕</button></div>
+  `).join("");
+  document.querySelectorAll(".mm-disc-inp").forEach(el => el.addEventListener("input", () => mmDiscItems[el.dataset.i][el.dataset.f] = el.value));
+  document.querySelectorAll("#mmDiscList .rm-x").forEach(el => el.addEventListener("click", () => { mmDiscItems.splice(Number(el.dataset.rm),1); renderMMDisc(); }));
+}
+function renderMMRemarks(){
+  document.getElementById("mmRemarkList").innerHTML = mmRemarks.map((r,i) => `
+    <div class="dyn-row"><div style="flex:1;">
+      <input type="text" placeholder="Name & role (e.g. ZRR Rtr. Sunil Shahi)" value="${zone7Esc(r.who||'')}" data-i="${i}" data-f="who" class="mm-rem-inp" style="margin-bottom:6px;">
+      <textarea placeholder="What they said" data-i="${i}" data-f="text" class="mm-rem-inp" rows="2">${zone7Esc(r.text||'')}</textarea>
+    </div><button type="button" class="rm-x" data-rm="${i}">✕</button></div>
+  `).join("");
+  document.querySelectorAll(".mm-rem-inp").forEach(el => el.addEventListener("input", () => mmRemarks[el.dataset.i][el.dataset.f] = el.value));
+  document.querySelectorAll("#mmRemarkList .rm-x").forEach(el => el.addEventListener("click", () => { mmRemarks.splice(Number(el.dataset.rm),1); renderMMRemarks(); }));
+}
+document.querySelectorAll("[data-mmadd]").forEach(btn => btn.addEventListener("click", () => {
+  const k = btn.dataset.mmadd;
+  if(k === "disc"){ mmDiscItems.push({t:"",d:""}); renderMMDisc(); }
+  else if(k === "remark"){ mmRemarks.push({who:"",text:""}); renderMMRemarks(); }
+  else { mmStrLists[k].push(""); renderMMStrList(k); }
+}));
+
 async function loadMinutesPanel(){ renderMMSaved(); }
 async function renderMMSaved(){
   const list = document.getElementById("mmSavedList");
@@ -2089,18 +2192,31 @@ async function renderMMSaved(){
 }
 function collectMM(){
   return {
-    sponsor:mmSponsor.value, chartered:mmChartered.value, motto:mmMotto.value, ry:mmRY.value,
-    title:mmTitle.value, date:mmDate.value, venue:mmVenue.value, chair:mmChair.value, secretary:mmSecretary.value,
-    agenda:mmAgenda.value, remarks:mmRemarks.value,
-    aGen:mmAGen.value, aBoard:mmABoard.value, aGuest:mmAGuest.value, aVis:mmAVis.value, next:mmNext.value
+    sponsor:mmSponsor.value, chartered:mmChartered.value, district:mmDistrict.value, motto:mmMotto.value, ry:mmRY.value,
+    title:mmTitle.value, date:mmDate.value, day:mmDay.value, venue:mmVenue.value, start:mmStart.value, end:mmEnd.value,
+    chair:mmChair.value, secretary:mmSecretary.value,
+    open:mmStrLists.open.filter(Boolean), happy:mmStrLists.happy.filter(Boolean), agenda:mmStrLists.agenda.filter(Boolean),
+    apologies:mmApologies.value, prevApproval:mmPrevApproval.value,
+    disc:mmDiscItems.filter(d => d.t||d.d), remarks:mmRemarks.filter(r => r.who||r.text), info:mmStrLists.info.filter(Boolean),
+    thanks:mmThanks.value, saa:mmSaa.value,
+    aGen:mmAGen.value, aBoard:mmABoard.value, aGuest:mmAGuest.value, aVisRac:mmAVisRac.value, aVisRot:mmAVisRot.value, aDist:mmADist.value,
+    sSpecial:mmSpecial.value, sTotal:mmTotalSunshine.value, next:mmNext.value, adjourn:mmAdjourn.value
   };
 }
 function fillMM(id, m){
   mmEditId = id;
-  mmSponsor.value=m.sponsor||""; mmChartered.value=m.chartered||""; mmMotto.value=m.motto||""; mmRY.value=m.ry||"2026-27";
-  mmTitle.value=m.title||""; mmDate.value=m.date||""; mmVenue.value=m.venue||""; mmChair.value=m.chair||""; mmSecretary.value=m.secretary||"";
-  mmAgenda.value=m.agenda||""; mmRemarks.value=m.remarks||"";
-  mmAGen.value=m.aGen||""; mmABoard.value=m.aBoard||""; mmAGuest.value=m.aGuest||""; mmAVis.value=m.aVis||""; mmNext.value=m.next||"";
+  mmSponsor.value=m.sponsor||""; mmChartered.value=m.chartered||""; mmDistrict.value=m.district||"3292 Nepal and Bhutan";
+  mmMotto.value=m.motto||""; mmRY.value=m.ry||"2026-27";
+  mmTitle.value=m.title||""; mmDate.value=m.date||""; mmDay.value=m.day||"";
+  mmVenue.value=m.venue||""; mmStart.value=m.start||""; mmEnd.value=m.end||"";
+  mmChair.value=m.chair||""; mmSecretary.value=m.secretary||"";
+  mmStrLists.open=m.open||[]; mmStrLists.happy=m.happy||[]; mmStrLists.agenda=m.agenda||[]; mmStrLists.info=m.info||[];
+  ["open","happy","agenda","info"].forEach(renderMMStrList);
+  mmApologies.value=m.apologies||""; mmPrevApproval.value=m.prevApproval||"";
+  mmDiscItems=m.disc||[]; mmRemarks=m.remarks||[]; renderMMDisc(); renderMMRemarks();
+  mmThanks.value=m.thanks||""; mmSaa.value=m.saa||"";
+  mmAGen.value=m.aGen||0; mmABoard.value=m.aBoard||0; mmAGuest.value=m.aGuest||0; mmAVisRac.value=m.aVisRac||0; mmAVisRot.value=m.aVisRot||0; mmADist.value=m.aDist||0;
+  mmSpecial.value=m.sSpecial||""; mmTotalSunshine.value=m.sTotal||""; mmNext.value=m.next||""; mmAdjourn.value=m.adjourn||"";
 }
 document.getElementById("mmClearBtn").addEventListener("click", () => fillMM(null, {}));
 document.getElementById("mmSaveBtn").addEventListener("click", async () => {
@@ -2120,38 +2236,110 @@ document.getElementById("mmSaveBtn").addEventListener("click", async () => {
     btn.disabled = false; btn.textContent = "Save Draft";
   }
 });
+
 document.getElementById("mmPdfBtn").addEventListener("click", () => {
   const m = collectMM();
-  const clubName = CLUB_DIRECTORY[currentClub].name;
+  const clubName = CLUB_DIRECTORY[currentClub].name.toUpperCase();
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF(); const W = 182; let y = 16;
-  function h(t,s=11){ if(y>278){doc.addPage();y=16;} doc.setFontSize(s); doc.setFont(undefined,"bold"); doc.text(t,14,y); y+=s*0.6; }
-  function p(t,s=9.5){ if(!t) return; doc.setFontSize(s); doc.setFont(undefined,"normal");
-    doc.splitTextToSize(t,W).forEach(l=>{ if(y>280){doc.addPage();y=16;} doc.text(l,14,y); y+=s*0.55; }); y+=1.5; }
-  doc.setFontSize(9); doc.setFont(undefined,"italic"); doc.text(m.motto||"",105,y,{align:"center"}); y+=5;
-  doc.setFontSize(12); doc.setFont(undefined,"bold"); doc.text(clubName.toUpperCase(),105,y,{align:"center"}); y+=6;
-  doc.setFontSize(9); doc.setFont(undefined,"normal");
-  if(m.sponsor){doc.text("Sponsored by: "+m.sponsor,105,y,{align:"center"});y+=5;}
-  if(m.chartered){doc.text("Chartered on "+m.chartered,105,y,{align:"center"});y+=5;}
-  doc.text("RI District 3292 Nepal and Bhutan",105,y,{align:"center"}); y+=6;
-  doc.setLineWidth(0.5); doc.line(14,y,196,y); y+=8;
-  h(m.title||"Meeting Minutes");
-  p("Date: "+(m.date||"-")+"   Venue: "+(m.venue||"-"));
-  p("Chaired by: "+(m.chair||"-")+"   Secretary: "+(m.secretary||"-")); y+=2;
-  if(m.agenda){ h("Agenda & Discussion:"); m.agenda.split("\n").filter(Boolean).forEach((l,i)=>p((i+1)+". "+l)); }
-  if(m.remarks){ h("Remarks:"); p(m.remarks); }
-  const total = [m.aGen,m.aBoard,m.aGuest,m.aVis].reduce((s,v)=>s+(Number(v)||0),0);
-  h("Attendance:");
-  p(`General: ${m.aGen||0}   Board: ${m.aBoard||0}   Guests: ${m.aGuest||0}   Visiting: ${m.aVis||0}`);
-  p(`Total attendees: ${total}`);
-  if(m.next){ h("Next Meeting / Closing:"); p(m.next); }
-  y+=16; if(y>260){doc.addPage();y=30;}
+  const doc = new jsPDF();
+  const W = 182; let y = 16;
+
+  function h(t,s=11){ if(y>278){doc.addPage();y=16;} doc.setFontSize(s); doc.setFont(undefined,"bold"); doc.text(t,14,y); y+=s*0.65; }
+  function p(t,s=9.7,bold=false){ if(!t) return; doc.setFontSize(s); doc.setFont(undefined,bold?"bold":"normal");
+    doc.splitTextToSize(t,W).forEach(l=>{ if(y>280){doc.addPage();y=16;} doc.text(l,14,y); y+=s*0.55; }); y+=2; }
+  function letterList(items){
+    items.forEach((it,i)=>{
+      doc.setFontSize(9.7); doc.setFont(undefined,"normal");
+      const letter = String.fromCharCode(97+i) + ". ";
+      const lines = doc.splitTextToSize(letter+it, W-4);
+      lines.forEach((l,li)=>{ if(y>280){doc.addPage();y=16;} doc.text(l, li===0?14:19, y); y+=5.3; });
+    });
+    y+=1.5;
+  }
+  function bulletList(items, sym="\u2794"){
+    items.forEach(it=>{
+      const lines = doc.splitTextToSize(sym+" "+it, W-4);
+      lines.forEach((l,li)=>{ if(y>280){doc.addPage();y=16;} doc.text(l, li===0?14:19, y); y+=5.3; });
+    });
+    y+=1.5;
+  }
+  function numList(items){
+    items.forEach((it,i)=>{
+      const lines = doc.splitTextToSize((i+1)+". "+it, W-4);
+      lines.forEach((l,li)=>{ if(y>280){doc.addPage();y=16;} doc.text(l, li===0?14:19, y); y+=5.3; });
+    });
+    y+=1.5;
+  }
+  function label(k,v){
+    if(!v) return;
+    if(y>278){doc.addPage();y=16;}
+    doc.setFontSize(9.7); doc.setFont(undefined,"bold"); doc.text(k,20,y);
+    doc.setFont(undefined,"normal");
+    const lines = doc.splitTextToSize(v,140);
+    doc.text(lines,55,y); y += Math.max(5.3,lines.length*5.3);
+  }
+
+  // ---- Letterhead ----
+  doc.setFontSize(10); doc.setFont(undefined,"bolditalic");
+  doc.text(m.motto ? `"${m.motto}"` : "", 105, y, {align:"center"}); y += 5.5;
+  doc.setFontSize(12.5); doc.setFont(undefined,"bold");
+  doc.text("ROTARACT CLUB OF " + clubName.replace(/^ROTARACT CLUB OF /i,""), 105, y, {align:"center"}); y += 6.5;
+  doc.setFontSize(9.5); doc.setFont(undefined,"normal");
+  if(m.sponsor){ doc.text("Sponsored by: "+m.sponsor, 105, y, {align:"center"}); y+=5; }
+  if(m.chartered){ doc.text("Chartered on "+m.chartered, 105, y, {align:"center"}); y+=5; }
+  doc.text("RI District: "+(m.district||"3292 Nepal and Bhutan"), 105, y, {align:"center"}); y+=6;
+  doc.setLineWidth(0.6); doc.line(14,y,196,y); y+=9;
+
+  // ---- Meeting info table ----
+  label("Minutes", m.title || "-");
+  label("Date", (m.date||"-") + (m.day ? " ("+m.day+")" : ""));
+  label("Venue", m.venue || "-");
+  label("Time", (m.start||"-") + " to " + (m.end||"-"));
+  y += 4;
+
+  p(`The meeting was chaired by ${m.chair||"the President"} on the above details.`);
+  if(m.open.length) letterList(m.open);
+
+  if(m.happy.length){ h("Happy moments sharing:"); p("The general meeting geared up with happy moments sharing:"); bulletList(m.happy); }
+  if(m.agenda.length){ h("Agenda of the meeting:"); numList(m.agenda); }
+  if(m.apologies){ h("Apologies:"); p(m.apologies); }
+  if(m.prevApproval){ h("Previous meeting minutes approval:"); p(m.prevApproval); }
+
+  if(m.disc.length){
+    h("Meeting discussions and decisions:");
+    m.disc.forEach((d,i)=>{ p((i+1)+". "+(d.t||""), 9.7, true); p(d.d||""); });
+  }
+  if(m.remarks.length){
+    h("Remarks:");
+    m.remarks.forEach(r=>{ p(r.who||"", 9.7, true); p(r.text||""); });
+  }
+  if(m.info.length){ h("Information Sharing:"); bulletList(m.info, "\u2756"); }
+  if(m.thanks){ h("Vote of thanks:"); p(m.thanks); }
+  if(m.saa){ h("Sergeant-at-arms announcement:"); p(m.saa); }
+
+  const total = [m.aGen,m.aBoard,m.aGuest,m.aVisRac,m.aVisRot,m.aDist].reduce((s,v)=>s+(Number(v)||0),0);
+  h("Sergeant-at-arms statistics:");
+  p(`General members: ${m.aGen||0}   Board members: ${m.aBoard||0}   Guests: ${m.aGuest||0}`);
+  p(`Visiting Rotaractors: ${m.aVisRac||0}   Visiting Rotarians: ${m.aVisRot||0}   District Officials: ${m.aDist||0}`);
+  p(`Total attendees: ${total}`, 9.7, true);
+  if(m.sSpecial || m.sTotal){
+    y+=1;
+    if(m.sSpecial) p("Special Sunshine: "+m.sSpecial);
+    if(m.sTotal) p("Total Sunshine collected: "+m.sTotal);
+  }
+
+  y+=2;
+  if(m.next){ h("Secretary announcement:"); p(m.next); }
+  p(`The meeting was formally adjourned at ${m.adjourn||"-"}.`);
+
+  y+=16; if(y>258){doc.addPage(); y=30;}
   doc.setFont(undefined,"normal"); doc.setFontSize(9.5);
   doc.text("_____________________",20,y); doc.text("_____________________",120,y); y+=6;
   doc.setFont(undefined,"bold");
   doc.text(m.secretary||"Secretary",20,y); doc.text(m.chair||"President",120,y); y+=5;
   doc.setFont(undefined,"normal");
   doc.text("Secretary, RY "+(m.ry||""),20,y); doc.text("President, RY "+(m.ry||""),120,y);
+
   doc.save(`${currentClub}-minutes-${m.date||'draft'}.pdf`);
 });
 
