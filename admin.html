@@ -125,6 +125,12 @@
 
   @media (max-width:860px){ .dash-body{grid-template-columns:1fr;} .field-row{grid-template-columns:1fr;} .analytics-stats{grid-template-columns:1fr;} }
 
+  .a-chart-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:18px; margin-top:8px;}
+  .a-chart-card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 22px;}
+  .a-chart-card .a-subhead{margin:0 0 14px;}
+  .a-chart-wrap{position:relative; width:100%;}
+  @media (max-width:860px){ .a-chart-grid{grid-template-columns:1fr;} }
+
   .dues-input-wrap{position:relative; display:flex; align-items:center;}
   .dues-input-ico{
     position:absolute; left:14px; font-size:0.95rem; color:var(--magenta-deep); opacity:0.7; pointer-events:none;
@@ -400,14 +406,21 @@
       <h3>Zone 7 Analytics <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(zone-wide, live from Supabase)</span></h3>
       <div class="analytics-stats" id="analyticsStats"><div class="no-projects">Loading analytics…</div></div>
 
-      <h4 class="a-subhead">Projects by Club</h4>
-      <div class="analytics-table-wrap" id="analyticsTableWrap"></div>
+      <div class="a-chart-grid">
+        <div class="a-chart-card wide">
+          <h4 class="a-subhead">Projects by Club</h4>
+          <div class="a-chart-wrap" style="height:340px;"><canvas id="clubChart"></canvas></div>
+        </div>
+        <div class="a-chart-card">
+          <h4 class="a-subhead">Projects by Category</h4>
+          <div class="a-chart-wrap" style="height:340px;"><canvas id="categoryChart"></canvas></div>
+        </div>
+      </div>
 
-      <h4 class="a-subhead">Projects by Category</h4>
-      <div class="analytics-table-wrap" id="analyticsCategoryWrap"></div>
-
-      <h4 class="a-subhead">Monthly Trend <span style="font-weight:500; font-size:0.72rem; color:rgba(27,24,54,0.45); text-transform:none; letter-spacing:0;">(projects added this Rotary year, Jul&ndash;Jun)</span></h4>
-      <div class="analytics-table-wrap" id="analyticsTrendWrap"></div>
+      <div class="a-chart-card" style="margin-top:18px;">
+        <h4 class="a-subhead">Monthly Trend <span style="font-weight:500; font-size:0.72rem; color:rgba(27,24,54,0.45); text-transform:none; letter-spacing:0;">(projects added this Rotary year, Jul&ndash;Jun)</span></h4>
+        <div class="a-chart-wrap" style="height:280px;"><canvas id="trendChart"></canvas></div>
+      </div>
     </div>
     </div>
 
@@ -591,6 +604,7 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="zone7-data.js"></script>
 <script>
 const clubSelect = document.getElementById("clubSelect");
@@ -923,22 +937,17 @@ document.getElementById("baroPdfBtn").addEventListener("click", () => {
   win.document.close();
 });
 
+let _clubChart = null, _categoryChart = null, _trendChart = null;
+const CHART_PALETTE = ["#E11A6E","#A80F52","#F2A900","#1B1836","#8a6300","#1c8a4d","#3a3170","#c2185b","#5b4fd1","#d9822b"];
+
 async function loadAnalytics(){
   const statsEl = document.getElementById("analyticsStats");
-  const tableEl = document.getElementById("analyticsTableWrap");
-  const catEl = document.getElementById("analyticsCategoryWrap");
-  const trendEl = document.getElementById("analyticsTrendWrap");
   const all = await ZONE7_DB.getAllProjects();
 
-  // --- per-club counts + most recent activity ---
-  const counts = {}, lastUpdated = {};
-  Object.keys(CLUB_DIRECTORY).forEach(s => { counts[s] = 0; lastUpdated[s] = 0; });
-  all.forEach(p => {
-    if(counts[p.club_slug] !== undefined){
-      counts[p.club_slug]++;
-      if((p.updated||0) > lastUpdated[p.club_slug]) lastUpdated[p.club_slug] = p.updated || 0;
-    }
-  });
+  // --- per-club counts ---
+  const counts = {};
+  Object.keys(CLUB_DIRECTORY).forEach(s => { counts[s] = 0; });
+  all.forEach(p => { if(counts[p.club_slug] !== undefined) counts[p.club_slug]++; });
   const events = await ZONE7_DB.getEvents();
 
   statsEl.innerHTML = `
@@ -947,38 +956,51 @@ async function loadAnalytics(){
     <div class="a-stat"><b>${events.length}</b><span>Zone Events Posted</span></div>
   `;
 
-  const rows = Object.keys(CLUB_DIRECTORY)
-    .map(slug => ({ slug, name: CLUB_DIRECTORY[slug].name, count: counts[slug] || 0, last: lastUpdated[slug] }))
-    .sort((a,b) => b.count - a.count);
-  const maxCount = Math.max(1, ...rows.map(r => r.count));
+  // --- Projects by Club: horizontal bar chart ---
+  const clubRows = Object.keys(CLUB_DIRECTORY)
+    .map(slug => ({ slug, name: CLUB_DIRECTORY[slug].name.replace('Rotaract Club of ',''), count: counts[slug] || 0 }))
+    .sort((a,b) => a.count - b.count); // ascending so highest bar lands at top visually
+  const clubColors = clubRows.map(r => r.slug === currentClub ? "#E11A6E" : "#A80F52");
 
-  tableEl.innerHTML = `<div class="a-scroll">${rows.map((r,i) => `
-    <div class="a-bar-row${r.slug === currentClub ? ' me' : ''}">
-      <div class="a-bar-rank">${i+1}</div>
-      <div class="a-bar-label" title="${zone7Esc(r.name)}">${zone7Esc(r.name.replace('Rotaract Club of ',''))}</div>
-      <div class="a-bar-track"><div class="a-bar-fill" style="width:${(r.count/maxCount*100).toFixed(0)}%"></div></div>
-      <div class="a-bar-count">${r.count}</div>
-    </div>
-  `).join("")}</div>`;
+  if(_clubChart) _clubChart.destroy();
+  _clubChart = new Chart(document.getElementById("clubChart"), {
+    type: "bar",
+    data: {
+      labels: clubRows.map(r => r.name),
+      datasets: [{ data: clubRows.map(r => r.count), backgroundColor: clubColors, borderRadius: 6, barThickness: 18 }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display:false }, tooltip: { callbacks: { label: c => ` ${c.raw} project${c.raw===1?'':'s'}` } } },
+      scales: { x: { beginAtZero:true, ticks:{ precision:0 } } }
+    }
+  });
 
-  // --- category breakdown ---
+  // --- Projects by Category: doughnut ---
   const catCounts = {};
   all.forEach(p => {
     const c = (p.category || "").trim() || "Uncategorized";
     catCounts[c] = (catCounts[c] || 0) + 1;
   });
-  const catRows = Object.entries(catCounts).sort((a,b) => b[1]-a[1]);
-  const maxCat = Math.max(1, ...catRows.map(r => r[1]));
-  catEl.innerHTML = catRows.length ? `<div class="a-scroll">${catRows.map(([name,count],i) => `
-    <div class="a-bar-row">
-      <div class="a-bar-rank">${i+1}</div>
-      <div class="a-bar-label" title="${zone7Esc(name)}">${zone7Esc(name)}</div>
-      <div class="a-bar-track"><div class="a-bar-fill" style="width:${(count/maxCat*100).toFixed(0)}%"></div></div>
-      <div class="a-bar-count">${count}</div>
-    </div>
-  `).join("")}</div>` : `<div class="a-empty">No projects logged yet.</div>`;
+  const catEntries = Object.entries(catCounts).sort((a,b) => b[1]-a[1]);
 
-  // --- monthly trend, Rotary year Jul–Jun ---
+  if(_categoryChart) _categoryChart.destroy();
+  if(catEntries.length){
+    _categoryChart = new Chart(document.getElementById("categoryChart"), {
+      type: "doughnut",
+      data: {
+        labels: catEntries.map(e => e[0]),
+        datasets: [{ data: catEntries.map(e => e[1]), backgroundColor: CHART_PALETTE, borderWidth: 2, borderColor: "#fff" }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } } }
+      }
+    });
+  }
+
+  // --- Monthly Trend: line chart, Rotary year Jul–Jun ---
   const now = new Date();
   const ryStartYear = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
   const monthLabels = ["Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun"];
@@ -992,14 +1014,23 @@ async function loadAnalytics(){
     const yearForIdx = m >= 6 ? y : y - 1;
     if(yearForIdx === ryStartYear) monthCounts[idx]++;
   });
-  const maxMonth = Math.max(1, ...monthCounts);
-  trendEl.innerHTML = monthCounts.some(c => c > 0) ? `<div class="a-scroll">${monthLabels.map((label,i) => `
-    <div class="a-bar-row">
-      <div class="a-bar-label">${label} ${i < 6 ? ryStartYear : ryStartYear+1}</div>
-      <div class="a-bar-track"><div class="a-bar-fill" style="width:${(monthCounts[i]/maxMonth*100).toFixed(0)}%"></div></div>
-      <div class="a-bar-count">${monthCounts[i]}</div>
-    </div>
-  `).join("")}</div>` : `<div class="a-empty">No dated projects logged for RY ${ryStartYear}-${String(ryStartYear+1).slice(2)} yet.</div>`;
+
+  if(_trendChart) _trendChart.destroy();
+  _trendChart = new Chart(document.getElementById("trendChart"), {
+    type: "line",
+    data: {
+      labels: monthLabels.map((l,i) => `${l} ${i<6 ? ryStartYear : ryStartYear+1}`),
+      datasets: [{
+        data: monthCounts, borderColor: "#E11A6E", backgroundColor: "rgba(225,26,110,0.12)",
+        fill: true, tension: 0.35, pointRadius: 4, pointBackgroundColor: "#A80F52"
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display:false } },
+      scales: { y: { beginAtZero:true, ticks:{ precision:0 } } }
+    }
+  });
 }
 
 if(currentClub && CLUB_DIRECTORY[currentClub]){
