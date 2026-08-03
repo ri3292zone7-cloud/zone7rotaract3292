@@ -29,6 +29,21 @@ const CLUB_DIRECTORY = {
    these, so treat them as "keep casual visitors out," not real security.
    For real per-club security, move to Supabase Auth (happy to wire up
    if you want that later). */
+/* Per-club letterhead defaults — used to auto-fill Meeting Minutes so
+   secretaries don't retype sponsor/charter-date every time. Sourced from
+   the same real club data shown on each club's public page. */
+const CLUB_LETTERHEAD = {
+  balkumari:       { sponsor:"Rotary Club of Butwal",         chartered:"18th October 2023" },
+  baneshwor:       { sponsor:"Rotary Club of Baneshwor",      chartered:"13th October 2020" },
+  liberty:         { sponsor:"Rotary Club of Nagarjun",       chartered:"1st May 2012" },
+  kathmanduwest:   { sponsor:"Rotary Club of Kathmandu West", chartered:"10th September 2007" },
+  kathmanduheight: { sponsor:"Rotary Club of Kathmandu Height", chartered:"6th January 2026" },
+  sankhu:          { sponsor:"Rotary Club of Sankhu",         chartered:"25th June 2020" },
+  newroadcity:     { sponsor:"Rotary Club of New Road City",  chartered:"1st September 2004" },
+  sukedhara:       { sponsor:"Rotary Club of Nagarjun",       chartered:"1st July 2019" },
+  tripureswor:     { sponsor:"Rotary Club of Tripureswor",    chartered:"24th November 2003" }
+};
+
 const CLUB_CREDENTIALS = {
   balkumari:       "balkumari2026",
   baneshwor:        "baneshwor2026",

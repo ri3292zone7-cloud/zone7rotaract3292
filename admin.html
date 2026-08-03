@@ -2166,7 +2166,43 @@ document.querySelectorAll("[data-mmadd]").forEach(btn => btn.addEventListener("c
   else { mmStrLists[k].push(""); renderMMStrList(k); }
 }));
 
-async function loadMinutesPanel(){ renderMMSaved(); }
+async function loadMinutesPanel(){
+  await renderMMSaved();
+  await prefillMMLetterhead();
+}
+
+async function prefillMMLetterhead(){
+  // Only prefill an empty form (never overwrite something the user is mid-editing)
+  if(mmEditId) return;
+  const rows = await ZONE7_DB.getMinutes(currentClub);
+  const latest = rows[0]; // getMinutes orders by updated.desc
+  const lh = CLUB_LETTERHEAD[currentClub] || {};
+  const profile = await ZONE7_DB.getClubProfile(currentClub);
+  const board = (profile && profile.board) || [];
+  const president = board.find(b => /president/i.test(b.role||"") && !/vice/i.test(b.role||""));
+  const secretary = board.find(b => /secretary/i.test(b.role||"") && !/joint/i.test(b.role||""));
+
+  mmSponsor.value      = (latest && latest.data.sponsor)   || lh.sponsor || "";
+  mmChartered.value    = (latest && latest.data.chartered) || lh.chartered || "";
+  mmDistrict.value     = (latest && latest.data.district)  || "3292 Nepal and Bhutan";
+  mmMotto.value         = (latest && latest.data.motto)     || "";
+  mmRY.value            = (latest && latest.data.ry)         || "2026-27";
+  mmChair.value         = (latest && latest.data.chair)      || (president ? `President Rtr. ${president.name}` : "");
+  mmSecretary.value     = (latest && latest.data.secretary)  || (secretary ? `Rtr. ${secretary.name}` : "");
+  mmDay.dataset.auto    = "1"; // marks the Day field as auto-computed until the user types in it
+}
+
+// Auto-fill the Day field from the Date picker — still fully editable after.
+document.getElementById("mmDate").addEventListener("change", () => {
+  if(!mmDate.value) return;
+  if(mmDay.value && mmDay.dataset.auto !== "1") return; // user already typed a custom day
+  const d = new Date(mmDate.value + "T00:00:00");
+  if(!isNaN(d)){
+    mmDay.value = d.toLocaleDateString("en-US", { weekday: "long" });
+    mmDay.dataset.auto = "1";
+  }
+});
+document.getElementById("mmDay").addEventListener("input", () => { mmDay.dataset.auto = "0"; });
 async function renderMMSaved(){
   const list = document.getElementById("mmSavedList");
   list.innerHTML = `<div class="no-projects">Loading…</div>`;
@@ -2218,7 +2254,7 @@ function fillMM(id, m){
   mmAGen.value=m.aGen||0; mmABoard.value=m.aBoard||0; mmAGuest.value=m.aGuest||0; mmAVisRac.value=m.aVisRac||0; mmAVisRot.value=m.aVisRot||0; mmADist.value=m.aDist||0;
   mmSpecial.value=m.sSpecial||""; mmTotalSunshine.value=m.sTotal||""; mmNext.value=m.next||""; mmAdjourn.value=m.adjourn||"";
 }
-document.getElementById("mmClearBtn").addEventListener("click", () => fillMM(null, {}));
+document.getElementById("mmClearBtn").addEventListener("click", () => { fillMM(null, {}); prefillMMLetterhead(); });
 document.getElementById("mmSaveBtn").addEventListener("click", async () => {
   const m = collectMM();
   const id = mmEditId || ("min-" + Date.now().toString(36));
