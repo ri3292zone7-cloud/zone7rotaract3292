@@ -9,6 +9,7 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   :root{
     --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
@@ -369,6 +370,9 @@
     <div class="sb-item" data-view="dues"><span class="ic">💵</span>RI &amp; District Dues</div>
     <div class="sb-item" data-view="events"><span class="ic">📅</span>Zone Events</div>
     <div class="sb-item" data-view="analytics"><span class="ic">📊</span>Analytics</div>
+    <div class="sb-label">Club Administration</div>
+    <div class="sb-item" data-view="minutes"><span class="ic">📝</span>Meeting Minutes</div>
+    <div class="sb-item" data-view="finance"><span class="ic">💰</span>Treasury</div>
     <div class="sb-item" data-view="guides"><span class="ic">📚</span>Guides (Zonal)</div>
     <div class="sb-item" data-view="zrr"><span class="ic">🏛️</span>ZRR History (Zonal)</div>
     <div class="sb-item" data-view="leadership"><span class="ic">⭐</span>Zonal Team (Zonal)</div>
@@ -571,6 +575,84 @@
     </div>
     </div>
 
+    <div class="view" id="view-minutes">
+    <div class="panel">
+      <h3>Meeting Minutes <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(generate &amp; download official-format minutes)</span></h3>
+      <div class="field-row">
+        <div><label for="mmSponsor">Sponsoring Rotary Club</label><input type="text" id="mmSponsor" placeholder="Rotary Club of ..."></div>
+        <div><label for="mmChartered">Chartered On</label><input type="text" id="mmChartered" placeholder="e.g. 5th November 1997"></div>
+      </div>
+      <div class="field-row">
+        <div><label for="mmMotto">Club Motto</label><input type="text" id="mmMotto" placeholder='e.g. "Unleashing possibilities"'></div>
+        <div><label for="mmRY">Rotary Year</label><input type="text" id="mmRY" value="2026-27"></div>
+      </div>
+      <div class="field-row">
+        <div><label for="mmTitle">Meeting Title / No.</label><input type="text" id="mmTitle" placeholder="Regular Meeting #674"></div>
+        <div><label for="mmDate">Date</label><input type="date" id="mmDate"></div>
+      </div>
+      <div class="field-row">
+        <div><label for="mmVenue">Venue</label><input type="text" id="mmVenue"></div>
+        <div><label for="mmChair">Chaired By (President)</label><input type="text" id="mmChair" placeholder="President Rtr. ..."></div>
+      </div>
+      <label for="mmSecretary">Recorded By (Secretary)</label>
+      <input type="text" id="mmSecretary">
+      <label for="mmAgenda">Agenda &amp; Discussion <span style="font-weight:500; color:rgba(27,24,54,0.5);">(one item per line)</span></label>
+      <textarea id="mmAgenda" rows="5" placeholder="Club Activities Review and Updates&#10;Upcoming Project Planning&#10;..."></textarea>
+      <label for="mmRemarks">Remarks / Guests <span style="font-weight:500; color:rgba(27,24,54,0.5);">(ZRR, DRR, mentor, etc.)</span></label>
+      <textarea id="mmRemarks" rows="2"></textarea>
+      <label>Attendance</label>
+      <div class="field-row">
+        <input type="number" id="mmAGen" placeholder="General Members">
+        <input type="number" id="mmABoard" placeholder="Board Members">
+      </div>
+      <div class="field-row" style="margin-top:10px;">
+        <input type="number" id="mmAGuest" placeholder="Guests">
+        <input type="number" id="mmAVis" placeholder="Visiting Rotaractors/Rotarians">
+      </div>
+      <label for="mmNext" style="margin-top:16px;">Next Meeting / Closing</label>
+      <input type="text" id="mmNext" placeholder="Meeting no. 675 will be held on ... / Adjourned at 8:00 PM">
+      <div class="form-actions">
+        <button class="btn btn-primary" id="mmSaveBtn" type="button">Save Draft</button>
+        <button class="btn btn-ghost" id="mmPdfBtn" type="button">Download PDF</button>
+        <button class="btn btn-ghost" id="mmClearBtn" type="button">Clear Form</button>
+      </div>
+      <h3 style="margin-top:30px;">Saved Minutes</h3>
+      <div class="proj-list" id="mmSavedList"></div>
+    </div>
+    </div>
+
+    <div class="view" id="view-finance">
+    <div class="panel">
+      <h3>Treasury <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(track club income &amp; expenses)</span></h3>
+      <div class="analytics-stats">
+        <div class="a-stat"><b id="txIncome">NRs 0</b><span>Total Income</span></div>
+        <div class="a-stat"><b id="txExpense">NRs 0</b><span>Total Expense</span></div>
+        <div class="a-stat"><b id="txBalance">NRs 0</b><span>Balance</span></div>
+      </div>
+      <div class="field-row">
+        <div><label for="txDate">Date</label><input type="date" id="txDate"></div>
+        <div><label for="txType">Type</label>
+          <select id="txType"><option value="income">Income</option><option value="expense">Expense</option></select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div><label for="txCategory">Category</label><input type="text" id="txCategory" placeholder="e.g. Project, Dues, Fundraiser, Admin"></div>
+        <div><label for="txAmount">Amount (NRs)</label><input type="number" id="txAmount" placeholder="0"></div>
+      </div>
+      <label for="txDesc">Description</label>
+      <input type="text" id="txDesc" placeholder="e.g. Blood donation banner printing">
+      <div class="form-actions">
+        <button class="btn btn-primary" id="txAddBtn" type="button">Add Entry</button>
+        <button class="btn btn-ghost" id="txCsvBtn" type="button">Export CSV</button>
+        <button class="btn btn-ghost" id="txPdfBtn" type="button">Export PDF</button>
+      </div>
+      <table class="a-table" style="margin-top:20px;">
+        <thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Description</th><th>Amount</th><th></th></tr></thead>
+        <tbody id="txTbody"></tbody>
+      </table>
+    </div>
+    </div>
+
     <div class="view" id="view-events">
     <div class="panel">
       <h3>Zone Events <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(shown on the homepage — visible to all clubs)</span></h3>
@@ -737,6 +819,8 @@ async function enterDashboard(slug){
   loadBarometer();
   loadClubPage();
   initDuesCalc();
+  loadMinutesPanel();
+  renderLedger();
 }
 
 function initDuesCalc(){
@@ -1975,6 +2059,162 @@ document.getElementById("leaderDeleteBtn").addEventListener("click", async () =>
       showToast("Delete failed — check your Supabase setup.");
     }
   }
+});
+
+/* ---- Meeting Minutes ---- */
+let mmEditId = null;
+async function loadMinutesPanel(){ renderMMSaved(); }
+async function renderMMSaved(){
+  const list = document.getElementById("mmSavedList");
+  list.innerHTML = `<div class="no-projects">Loading…</div>`;
+  const rows = await ZONE7_DB.getMinutes(currentClub);
+  list.innerHTML = rows.length ? rows.map(r => `
+    <div class="proj-item" data-id="${zone7Esc(r.id)}">
+      <div class="info"><h4>${zone7Esc(r.data.title||'Untitled')}</h4><span>${zone7Esc(r.data.date||'No date')}</span></div>
+      <button class="btn btn-danger" data-del="${zone7Esc(r.id)}" style="margin-left:auto; padding:8px 12px; font-size:0.78rem;">✕</button>
+    </div>`).join("") : `<div class="no-projects">No saved drafts yet.</div>`;
+  list.querySelectorAll(".proj-item").forEach(el => el.addEventListener("click", (e) => {
+    if(e.target.closest("[data-del]")) return;
+    const r = rows.find(x => x.id === el.dataset.id);
+    if(r) fillMM(r.id, r.data);
+  }));
+  list.querySelectorAll("[data-del]").forEach(btn => btn.addEventListener("click", async (e) => {
+    e.stopPropagation();
+    if(confirm("Delete this draft?")){
+      await ZONE7_DB.deleteMinutes(btn.dataset.del);
+      showToast("Draft deleted");
+      renderMMSaved();
+    }
+  }));
+}
+function collectMM(){
+  return {
+    sponsor:mmSponsor.value, chartered:mmChartered.value, motto:mmMotto.value, ry:mmRY.value,
+    title:mmTitle.value, date:mmDate.value, venue:mmVenue.value, chair:mmChair.value, secretary:mmSecretary.value,
+    agenda:mmAgenda.value, remarks:mmRemarks.value,
+    aGen:mmAGen.value, aBoard:mmABoard.value, aGuest:mmAGuest.value, aVis:mmAVis.value, next:mmNext.value
+  };
+}
+function fillMM(id, m){
+  mmEditId = id;
+  mmSponsor.value=m.sponsor||""; mmChartered.value=m.chartered||""; mmMotto.value=m.motto||""; mmRY.value=m.ry||"2026-27";
+  mmTitle.value=m.title||""; mmDate.value=m.date||""; mmVenue.value=m.venue||""; mmChair.value=m.chair||""; mmSecretary.value=m.secretary||"";
+  mmAgenda.value=m.agenda||""; mmRemarks.value=m.remarks||"";
+  mmAGen.value=m.aGen||""; mmABoard.value=m.aBoard||""; mmAGuest.value=m.aGuest||""; mmAVis.value=m.aVis||""; mmNext.value=m.next||"";
+}
+document.getElementById("mmClearBtn").addEventListener("click", () => fillMM(null, {}));
+document.getElementById("mmSaveBtn").addEventListener("click", async () => {
+  const m = collectMM();
+  const id = mmEditId || ("min-" + Date.now().toString(36));
+  const btn = document.getElementById("mmSaveBtn");
+  btn.disabled = true; btn.textContent = "Saving…";
+  try{
+    await ZONE7_DB.saveMinutes(currentClub, id, m);
+    mmEditId = id;
+    showToast("Draft saved ✓");
+    renderMMSaved();
+  } catch(err){
+    console.error(err);
+    showToast("Save failed — check your Supabase setup.");
+  } finally {
+    btn.disabled = false; btn.textContent = "Save Draft";
+  }
+});
+document.getElementById("mmPdfBtn").addEventListener("click", () => {
+  const m = collectMM();
+  const clubName = CLUB_DIRECTORY[currentClub].name;
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF(); const W = 182; let y = 16;
+  function h(t,s=11){ if(y>278){doc.addPage();y=16;} doc.setFontSize(s); doc.setFont(undefined,"bold"); doc.text(t,14,y); y+=s*0.6; }
+  function p(t,s=9.5){ if(!t) return; doc.setFontSize(s); doc.setFont(undefined,"normal");
+    doc.splitTextToSize(t,W).forEach(l=>{ if(y>280){doc.addPage();y=16;} doc.text(l,14,y); y+=s*0.55; }); y+=1.5; }
+  doc.setFontSize(9); doc.setFont(undefined,"italic"); doc.text(m.motto||"",105,y,{align:"center"}); y+=5;
+  doc.setFontSize(12); doc.setFont(undefined,"bold"); doc.text(clubName.toUpperCase(),105,y,{align:"center"}); y+=6;
+  doc.setFontSize(9); doc.setFont(undefined,"normal");
+  if(m.sponsor){doc.text("Sponsored by: "+m.sponsor,105,y,{align:"center"});y+=5;}
+  if(m.chartered){doc.text("Chartered on "+m.chartered,105,y,{align:"center"});y+=5;}
+  doc.text("RI District 3292 Nepal and Bhutan",105,y,{align:"center"}); y+=6;
+  doc.setLineWidth(0.5); doc.line(14,y,196,y); y+=8;
+  h(m.title||"Meeting Minutes");
+  p("Date: "+(m.date||"-")+"   Venue: "+(m.venue||"-"));
+  p("Chaired by: "+(m.chair||"-")+"   Secretary: "+(m.secretary||"-")); y+=2;
+  if(m.agenda){ h("Agenda & Discussion:"); m.agenda.split("\n").filter(Boolean).forEach((l,i)=>p((i+1)+". "+l)); }
+  if(m.remarks){ h("Remarks:"); p(m.remarks); }
+  const total = [m.aGen,m.aBoard,m.aGuest,m.aVis].reduce((s,v)=>s+(Number(v)||0),0);
+  h("Attendance:");
+  p(`General: ${m.aGen||0}   Board: ${m.aBoard||0}   Guests: ${m.aGuest||0}   Visiting: ${m.aVis||0}`);
+  p(`Total attendees: ${total}`);
+  if(m.next){ h("Next Meeting / Closing:"); p(m.next); }
+  y+=16; if(y>260){doc.addPage();y=30;}
+  doc.setFont(undefined,"normal"); doc.setFontSize(9.5);
+  doc.text("_____________________",20,y); doc.text("_____________________",120,y); y+=6;
+  doc.setFont(undefined,"bold");
+  doc.text(m.secretary||"Secretary",20,y); doc.text(m.chair||"President",120,y); y+=5;
+  doc.setFont(undefined,"normal");
+  doc.text("Secretary, RY "+(m.ry||""),20,y); doc.text("President, RY "+(m.ry||""),120,y);
+  doc.save(`${currentClub}-minutes-${m.date||'draft'}.pdf`);
+});
+
+/* ---- Treasury ---- */
+async function renderLedger(){
+  const tx = await ZONE7_DB.getTransactions(currentClub);
+  document.getElementById("txTbody").innerHTML = tx.length ? tx.map(t => `
+    <tr>
+      <td>${zone7Esc(t.date)}</td><td>${zone7Esc(t.type)}</td><td>${zone7Esc(t.category)}</td><td>${zone7Esc(t.description)}</td>
+      <td>${t.type==='income'?'+':'-'}NRs ${Number(t.amount||0).toLocaleString()}</td>
+      <td><button class="btn btn-danger" data-del="${zone7Esc(t.id)}" style="padding:5px 9px; font-size:.72rem;">✕</button></td>
+    </tr>`).join("") : `<tr><td colspan="6" class="no-projects">No entries yet.</td></tr>`;
+  document.querySelectorAll("#txTbody [data-del]").forEach(btn => btn.addEventListener("click", async () => {
+    await ZONE7_DB.deleteTransaction(btn.dataset.del);
+    showToast("Entry deleted");
+    renderLedger();
+  }));
+  const income = tx.filter(t=>t.type==="income").reduce((s,t)=>s+Number(t.amount||0),0);
+  const expense = tx.filter(t=>t.type==="expense").reduce((s,t)=>s+Number(t.amount||0),0);
+  document.getElementById("txIncome").textContent = "NRs "+income.toLocaleString();
+  document.getElementById("txExpense").textContent = "NRs "+expense.toLocaleString();
+  document.getElementById("txBalance").textContent = "NRs "+(income-expense).toLocaleString();
+  return tx;
+}
+document.getElementById("txAddBtn").addEventListener("click", async () => {
+  const amount = Number(document.getElementById("txAmount").value);
+  if(!amount) return showToast("Enter an amount.");
+  try{
+    await ZONE7_DB.saveTransaction(currentClub, {
+      date:document.getElementById("txDate").value, type:document.getElementById("txType").value,
+      category:document.getElementById("txCategory").value, desc:document.getElementById("txDesc").value, amount
+    });
+    ["txDate","txAmount","txCategory","txDesc"].forEach(id => document.getElementById(id).value = "");
+    showToast("Entry added ✓");
+    renderLedger();
+  } catch(err){
+    console.error(err);
+    showToast("Save failed — check your Supabase setup.");
+  }
+});
+document.getElementById("txCsvBtn").addEventListener("click", async () => {
+  const tx = await ZONE7_DB.getTransactions(currentClub);
+  let csv = "Date,Type,Category,Description,Amount\n";
+  tx.forEach(t => csv += `${t.date},${t.type},${t.category},"${(t.description||'').replace(/"/g,'""')}",${t.amount}\n`);
+  const blob = new Blob([csv],{type:"text/csv"});
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `${currentClub}-ledger.csv`; a.click();
+});
+document.getElementById("txPdfBtn").addEventListener("click", async () => {
+  const tx = await ZONE7_DB.getTransactions(currentClub);
+  const { jsPDF } = window.jspdf; const doc = new jsPDF(); let y = 18;
+  doc.setFontSize(13); doc.setFont(undefined,"bold");
+  doc.text(`${CLUB_DIRECTORY[currentClub].name} — Financial Ledger`,14,y); y+=8;
+  doc.setFontSize(9); doc.setFont(undefined,"normal");
+  tx.forEach(t => {
+    if(y>280){doc.addPage();y=18;}
+    doc.text(`${(t.date||'-').padEnd(10)} ${t.type.padEnd(9)} ${(t.category||'-').slice(0,16).padEnd(18)} ${(t.description||'-').slice(0,32).padEnd(34)} ${t.type==='income'?'+':'-'}${Number(t.amount||0).toLocaleString()}`,14,y);
+    y+=5;
+  });
+  const income = tx.filter(t=>t.type==="income").reduce((s,t)=>s+Number(t.amount||0),0);
+  const expense = tx.filter(t=>t.type==="expense").reduce((s,t)=>s+Number(t.amount||0),0);
+  y+=6; doc.setFont(undefined,"bold");
+  doc.text(`Total Income: NRs ${income.toLocaleString()}   Total Expense: NRs ${expense.toLocaleString()}   Balance: NRs ${(income-expense).toLocaleString()}`,14,y);
+  doc.save(`${currentClub}-ledger.pdf`);
 });
 </script>
 </body>

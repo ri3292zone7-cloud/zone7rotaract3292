@@ -566,6 +566,54 @@ const ZONE7_DB = {
     return true;
   },
 
+  /* ---- Meeting Minutes ---- */
+  async getMinutes(clubSlug){
+    try{
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/club_minutes?club_slug=eq.${encodeURIComponent(clubSlug)}&order=updated.desc`, { headers: REST_HEADERS });
+      if(!res.ok) throw new Error("Fetch failed: " + res.status);
+      return await res.json();
+    } catch(e){ console.error("getMinutes error", e); return []; }
+  },
+  async saveMinutes(clubSlug, id, data){
+    const row = { id, club_slug: clubSlug, data, updated: Date.now() };
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/club_minutes?on_conflict=id`, {
+      method: "POST",
+      headers: { ...REST_HEADERS, "Prefer": "resolution=merge-duplicates,return=representation" },
+      body: JSON.stringify(row)
+    });
+    if(!res.ok){ const t = await res.text(); throw new Error("Save failed: " + res.status + " " + t); }
+    return true;
+  },
+  async deleteMinutes(id){
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/club_minutes?id=eq.${encodeURIComponent(id)}`, { method:"DELETE", headers: REST_HEADERS });
+    if(!res.ok) throw new Error("Delete failed: " + res.status);
+    return true;
+  },
+
+  /* ---- Treasury / Transactions ---- */
+  async getTransactions(clubSlug){
+    try{
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/club_transactions?club_slug=eq.${encodeURIComponent(clubSlug)}&order=date.desc`, { headers: REST_HEADERS });
+      if(!res.ok) throw new Error("Fetch failed: " + res.status);
+      return await res.json();
+    } catch(e){ console.error("getTransactions error", e); return []; }
+  },
+  async saveTransaction(clubSlug, tx){
+    const row = { id: tx.id || (Date.now().toString(36)), club_slug: clubSlug, date: tx.date||"", type: tx.type||"expense", category: tx.category||"", description: tx.desc||"", amount: Number(tx.amount)||0, updated: Date.now() };
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/club_transactions?on_conflict=id`, {
+      method: "POST",
+      headers: { ...REST_HEADERS, "Prefer": "resolution=merge-duplicates,return=representation" },
+      body: JSON.stringify(row)
+    });
+    if(!res.ok){ const t = await res.text(); throw new Error("Save failed: " + res.status + " " + t); }
+    return true;
+  },
+  async deleteTransaction(id){
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/club_transactions?id=eq.${encodeURIComponent(id)}`, { method:"DELETE", headers: REST_HEADERS });
+    if(!res.ok) throw new Error("Delete failed: " + res.status);
+    return true;
+  },
+
   /* ---- zonal team session (separate from club login) ---- */
   loginZonal(password){
     if(password === ZONAL_PASSWORD){
