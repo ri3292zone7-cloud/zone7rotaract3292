@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /district-overview.html
+
+Sitemap: https://zone7rotaract3292.vercel.app/sitemap.xml
