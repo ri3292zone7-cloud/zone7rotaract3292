@@ -857,12 +857,12 @@
 
   function draw(){
     ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = "rgba(27,24,54,0.14)";
     const cols = Math.ceil(w / SPACING) + 1;
     const rows = Math.ceil(h / SPACING) + 1;
     for(let i = 0; i < cols; i++){
       for(let j = 0; j < rows; j++){
         let x = i * SPACING, y = j * SPACING;
+        let radius = 1.4, alpha = 0.14;
         if(mouse){
           const dx = x - mouse.x, dy = y - mouse.y;
           const dist = Math.sqrt(dx*dx + dy*dy);
@@ -871,10 +871,13 @@
             const wave = Math.sin(t * Math.PI) * PUSH;  // smooth push, eases to 0 at edges
             x += (dx / dist) * wave;
             y += (dy / dist) * wave;
+            radius = 1.4 + t * 2.2;   // pop up in size near the cursor
+            alpha = 0.14 + t * 0.5;   // and go noticeably darker
           }
         }
         ctx.beginPath();
-        ctx.arc(x, y, 1.4, 0, Math.PI*2);
+        ctx.arc(x, y, radius, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(27,24,54,${alpha})`;
         ctx.fill();
       }
     }
@@ -913,9 +916,10 @@
 
 <script>
 /* Magnetic text: split the hero heading into per-letter spans, and push/shear
-   each letter away from the cursor based on distance — eases back to rest
-   when the cursor moves off. Whitespace stays as plain text so line wraps
-   and word spacing behave normally. */
+   each whole word away from the cursor based on distance, with a stronger,
+   more theatrical push on the closing "Zone 7" line — that's the payoff
+   line of the headline, so it gets the most motion. Eases back to rest
+   when the cursor moves off. */
 (function(){
   const h1 = document.getElementById("heroHeading");
   if(!h1) return;
@@ -923,48 +927,52 @@
   if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   if(window.matchMedia("(hover:none)").matches) return;
 
-  // Wrap every text node's characters in spans, preserving <br> and the .hl span.
-  function wrap(node){
+  // Wrap each word (not each letter) in a span, preserving <br> and spacing.
+  function wrap(node, boosted){
     node.childNodes.forEach(child => {
       if(child.nodeType === 3){ // text node
         const frag = document.createDocumentFragment();
-        [...child.textContent].forEach(ch => {
-          if(ch === " "){ frag.appendChild(document.createTextNode(" ")); return; }
+        child.textContent.split(/(\s+)/).forEach(part => {
+          if(!part) return;
+          if(/^\s+$/.test(part)){ frag.appendChild(document.createTextNode(part)); return; }
           const span = document.createElement("span");
-          span.className = "mag-letter";
-          span.textContent = ch;
+          span.className = "mag-word" + (boosted ? " mag-word-boost" : "");
+          span.textContent = part;
           span.style.display = "inline-block";
           span.style.willChange = "transform";
           frag.appendChild(span);
         });
         child.replaceWith(frag);
       } else if(child.nodeType === 1 && child.tagName !== "BR"){
-        wrap(child);
+        wrap(child, boosted || child.classList.contains("hl"));
       }
     });
   }
-  wrap(h1);
+  wrap(h1, false);
 
-  const letters = [...h1.querySelectorAll(".mag-letter")];
+  const words = [...h1.querySelectorAll(".mag-word")];
   let mouse = null, rafId = null;
-  const RADIUS = 120;
-  const PUSH = 16;
+  const RADIUS = 180;
+  const PUSH = 20;
 
   function update(){
-    letters.forEach(el => {
+    words.forEach(el => {
       if(!mouse){ el.style.transform = ""; return; }
+      const boost = el.classList.contains("mag-word-boost") ? 1.5 : 1;
       const r = el.getBoundingClientRect();
       const cx = r.left + r.width/2, cy = r.top + r.height/2;
       const dx = cx - mouse.x, dy = cy - mouse.y;
       const dist = Math.sqrt(dx*dx + dy*dy);
-      if(dist < RADIUS){
-        const t = 1 - dist / RADIUS;
-        const push = t * PUSH;
+      const radius = RADIUS * (boost > 1 ? 1.15 : 1);
+      if(dist < radius){
+        const t = 1 - dist / radius;
+        const push = t * PUSH * boost;
         const angle = Math.atan2(dy, dx);
         const tx = Math.cos(angle) * push;
         const ty = Math.sin(angle) * push;
-        const skew = (dx / RADIUS) * t * 6; // subtle shear toward/away from cursor
-        el.style.transform = `translate(${tx}px, ${ty}px) skewX(${skew}deg)`;
+        const skew = (dx / radius) * t * 5 * boost;
+        const scale = 1 + t * 0.05 * boost;
+        el.style.transform = `translate(${tx}px, ${ty}px) skewX(${skew}deg) scale(${scale})`;
       } else {
         el.style.transform = "";
       }
@@ -979,8 +987,8 @@
   h1.closest("header.hero").addEventListener("mouseleave", () => {
     mouse = null;
     if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
-    letters.forEach(el => { el.style.transition = "transform .4s ease"; el.style.transform = ""; });
-    setTimeout(() => letters.forEach(el => el.style.transition = ""), 420);
+    words.forEach(el => { el.style.transition = "transform .45s cubic-bezier(.16,1,.3,1)"; el.style.transform = ""; });
+    setTimeout(() => words.forEach(el => el.style.transition = ""), 470);
   });
 })();
 </script>
