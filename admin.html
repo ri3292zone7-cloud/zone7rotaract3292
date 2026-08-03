@@ -141,87 +141,114 @@
 
   /* BAROMETER PANEL */
   .baro-summary{
-    display:grid; grid-template-columns:1fr 1fr 1.4fr; gap:16px; margin-bottom:28px; align-items:stretch;
+    display:flex; gap:12px; margin-bottom:18px; align-items:stretch; flex-wrap:wrap;
   }
   .baro-score-card{
-    background:linear-gradient(135deg, var(--ink), #3a3170); color:#fff; border-radius:18px; padding:24px 26px;
-    display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden;
+    background:linear-gradient(135deg, var(--ink), #3a3170); color:#fff; border-radius:14px; padding:14px 20px;
+    display:flex; align-items:center; gap:14px; flex:0 0 auto; position:relative; overflow:hidden;
   }
-  .baro-score-card::after{
-    content:"🎯"; position:absolute; right:-6px; bottom:-14px; font-size:4.4rem; opacity:0.12; transform:rotate(-8deg);
-  }
-  .baro-score-card b{font-family:'Poppins'; font-weight:800; font-size:2.2rem; display:block; position:relative; z-index:1;}
-  .baro-score-card span{font-size:0.74rem; color:rgba(255,255,255,0.65); font-weight:700; text-transform:uppercase; letter-spacing:0.06em; position:relative; z-index:1;}
+  .baro-score-card::after{content:"🎯"; position:absolute; right:-4px; bottom:-10px; font-size:2.8rem; opacity:0.10;}
+  .baro-score-card b{font-family:'Poppins'; font-weight:800; font-size:1.6rem; position:relative; z-index:1;}
+  .baro-score-card span{font-size:0.68rem; color:rgba(255,255,255,0.6); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; position:relative; z-index:1;}
   .baro-badge-card{
-    background:linear-gradient(135deg, rgba(225,26,110,0.1), rgba(242,169,0,0.12)); border:1px solid rgba(225,26,110,0.18); border-radius:18px; padding:24px 26px;
-    display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden;
+    background:rgba(225,26,110,0.06); border:1px solid rgba(225,26,110,0.15); border-radius:14px; padding:14px 20px;
+    display:flex; align-items:center; gap:10px; flex:0 0 auto;
   }
-  .baro-badge-card::after{content:"🏅"; position:absolute; right:-4px; bottom:-16px; font-size:4.2rem; opacity:0.14;}
-  .baro-badge-card b{font-family:'Poppins'; font-weight:800; font-size:1.2rem; color:var(--magenta-deep); display:block; margin-bottom:5px; position:relative; z-index:1;}
-  .baro-badge-card span{font-size:0.74rem; color:rgba(27,24,54,0.55); font-weight:700; text-transform:uppercase; letter-spacing:0.06em; position:relative; z-index:1;}
+  .baro-badge-card b{font-family:'Poppins'; font-weight:800; font-size:1rem; color:var(--magenta-deep);}
+  .baro-badge-card span{font-size:0.68rem; color:rgba(27,24,54,0.5); font-weight:700; text-transform:uppercase; letter-spacing:0.05em;}
   .baro-progress-card{
-    background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:22px 26px;
-    display:flex; flex-direction:column; justify-content:center; gap:12px;
+    background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:14px 20px;
+    display:flex; align-items:center; gap:14px; flex:1; min-width:200px;
   }
-  .baro-progress-track{background:var(--cream); border:1px solid var(--line); border-radius:100px; height:16px; overflow:hidden; position:relative;}
+  .baro-progress-track{flex:1; background:var(--cream); border:1px solid var(--line); border-radius:100px; height:10px; overflow:hidden;}
   .baro-progress-fill{height:100%; background:linear-gradient(90deg, var(--magenta), var(--gold)); border-radius:100px; transition:width .5s cubic-bezier(.4,0,.2,1);}
-  .baro-progress-labels{display:flex; justify-content:space-between; font-size:0.74rem; font-weight:800; color:var(--ink);}
-  .baro-progress-labels span:last-child{color:rgba(27,24,54,0.45); font-weight:600; text-transform:uppercase; letter-spacing:0.04em; font-size:0.68rem;}
-  .baro-thresholds{display:flex; gap:5px; flex-wrap:wrap; font-size:0.66rem; font-weight:700;}
-  .baro-thresholds span{padding:3px 9px; border-radius:100px; background:var(--cream); color:rgba(27,24,54,0.4); border:1px solid var(--line);}
+  .baro-pct-label{font-family:'Poppins'; font-weight:800; font-size:0.85rem; color:var(--ink); flex-shrink:0; min-width:32px;}
+  .baro-thresholds{display:flex; gap:4px; flex-wrap:wrap; margin-top:8px; font-size:0.62rem; font-weight:700;}
+  .baro-thresholds span{padding:2px 7px; border-radius:100px; background:var(--cream); color:rgba(27,24,54,0.35); border:1px solid var(--line);}
   .baro-thresholds span.hit{color:#fff; background:var(--magenta-deep); border-color:var(--magenta-deep);}
 
   .baro-toolbar{
-    display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:24px; flex-wrap:wrap;
-    background:var(--cream); border:1px solid var(--line); border-radius:14px; padding:16px 20px;
+    display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px; flex-wrap:wrap;
+    background:var(--cream); border:1px solid var(--line); border-radius:12px; padding:12px 16px;
   }
-  .baro-toolbar .note{font-size:0.82rem; color:rgba(27,24,54,0.6); max-width:520px; line-height:1.55;}
+  .baro-toolbar .note{font-size:0.8rem; color:rgba(27,24,54,0.6); max-width:520px; line-height:1.5;}
   .baro-toolbar .note strong{color:var(--magenta-deep);}
-  .baro-actions{display:flex; gap:10px; flex-shrink:0;}
-  .baro-actions .btn{padding:11px 20px; font-size:0.85rem;}
+  .baro-actions{display:flex; gap:8px; flex-shrink:0;}
+  .baro-actions .btn{padding:9px 16px; font-size:0.82rem;}
 
-  .baro-group{margin-bottom:26px;}
+  .baro-group{margin-bottom:20px;}
   .baro-group:last-child{margin-bottom:0;}
   .baro-group-head{
-    display:flex; align-items:center; gap:10px; margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid var(--line);
+    display:flex; align-items:center; gap:8px; margin-bottom:8px;
   }
-  .baro-group-icon{font-size:1.15rem;}
-  .baro-group-title{font-family:'Poppins'; font-weight:700; font-size:0.92rem; color:var(--ink);}
+  .baro-group-icon{font-size:0.95rem; opacity:0.8;}
+  .baro-group-title{font-family:'Poppins'; font-weight:700; font-size:0.82rem; color:rgba(27,24,54,0.65); text-transform:uppercase; letter-spacing:0.05em;}
   .baro-group-count{
-    margin-left:auto; font-size:0.72rem; font-weight:700; color:var(--magenta-deep); background:rgba(225,26,110,0.08);
-    padding:3px 11px; border-radius:100px;
+    margin-left:auto; font-size:0.68rem; font-weight:700; color:var(--magenta-deep); background:rgba(225,26,110,0.08);
+    padding:2px 8px; border-radius:100px;
   }
 
-  .baro-list{display:flex; flex-direction:column; gap:10px;}
-  .baro-item{
-    display:grid; grid-template-columns:auto 1fr auto; gap:16px; align-items:center;
-    padding:14px 18px; background:#fff; border:1px solid var(--line); border-radius:14px;
-    border-left:4px solid var(--line); transition:border-color .2s, background .2s, transform .15s;
+  /* Compact item rows */
+  .baro-list{
+    background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden;
   }
-  .baro-item:hover{transform:translateX(2px); border-color:rgba(225,26,110,0.25);}
-  .baro-item.checked{background:rgba(34,160,90,0.045); border-left-color:#22a05a;}
-  .baro-item.auto{background:rgba(242,169,0,0.07); border-left-color:var(--gold);}
-  .baro-check-wrap{
-    width:26px; height:26px; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  .baro-item{
+    display:grid; grid-template-columns:36px 1fr auto; gap:0; align-items:stretch;
+    border-bottom:1px solid var(--line); transition:background .12s;
+    position:relative;
+  }
+  .baro-item:last-child{border-bottom:none;}
+  .baro-item:hover{background:rgba(27,24,54,0.018);}
+  .baro-item.checked{background:rgba(34,160,90,0.035);}
+  .baro-item.checked:hover{background:rgba(34,160,90,0.055);}
+  .baro-item.auto{background:rgba(242,169,0,0.04);}
+  .baro-item.proj-linked{background:rgba(225,26,110,0.03);}
+
+  /* left accent strip */
+  .baro-item::before{
+    content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--line); border-radius:0;
+  }
+  .baro-item.checked::before{background:#22a05a;}
+  .baro-item.auto::before{background:var(--gold);}
+  .baro-item.proj-linked::before{background:var(--magenta);}
+
+  .baro-check-col{
+    display:flex; align-items:flex-start; justify-content:center; padding:11px 0 11px 10px; flex-shrink:0;
   }
   .baro-check{
-    width:20px; height:20px; accent-color:var(--magenta-deep); cursor:pointer; flex-shrink:0;
+    width:15px; height:15px; accent-color:var(--magenta-deep); cursor:pointer; margin-top:1px; flex-shrink:0;
   }
-  .baro-check:disabled{cursor:default;}
-  .baro-text{font-size:0.9rem; color:var(--ink); line-height:1.55;}
-  .baro-text .num{font-weight:800; color:rgba(27,24,54,0.3); margin-right:6px; font-size:0.82rem;}
+  .baro-check:disabled{cursor:default; opacity:0.65;}
+  .baro-text-col{padding:10px 12px 10px 8px; min-width:0;}
+  .baro-text{font-size:0.84rem; color:var(--ink); line-height:1.5;}
+  .baro-text .num{font-weight:700; color:rgba(27,24,54,0.3); margin-right:4px; font-size:0.76rem;}
   .baro-tag{
-    font-size:0.64rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:#8a6300;
-    background:rgba(242,169,0,0.22); padding:3px 9px; border-radius:100px; white-space:nowrap; margin-left:8px; display:inline-flex; align-items:center; gap:4px;
+    font-size:0.6rem; font-weight:800; text-transform:uppercase; letter-spacing:0.04em; color:#7a5500;
+    background:rgba(242,169,0,0.18); padding:1px 6px; border-radius:4px; white-space:nowrap;
+    margin-left:5px; display:inline; vertical-align:middle;
   }
-  .baro-meta{display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex-shrink:0; min-width:78px;}
-  .baro-pts{font-family:'Poppins'; font-weight:800; color:var(--magenta-deep); font-size:1rem;}
-  .baro-verifier{font-size:0.66rem; color:rgba(27,24,54,0.42); font-weight:600; text-align:right; white-space:nowrap;}
+  .baro-tag.proj-tag{color:var(--magenta-deep); background:rgba(225,26,110,0.08);}
+  .baro-tag.auto-tag{color:#1c6e3a; background:rgba(28,138,77,0.1);}
+  .baro-proj-select{
+    display:block; margin-top:5px; width:100%; max-width:360px; padding:5px 8px; border-radius:7px;
+    border:1.5px solid var(--line); background:#fff; font-family:'Inter'; font-size:0.78rem; color:var(--ink);
+    cursor:pointer; outline:none;
+  }
+  .baro-proj-select:focus{border-color:var(--magenta);}
+  .baro-proj-select.linked{border-color:rgba(225,26,110,0.4); color:var(--magenta-deep); font-weight:600;}
+  .baro-meta-col{
+    display:flex; flex-direction:column; align-items:flex-end; justify-content:center;
+    padding:10px 14px 10px 8px; flex-shrink:0; min-width:100px; border-left:1px solid var(--line);
+    gap:2px;
+  }
+  .baro-pts{font-family:'Poppins'; font-weight:800; color:var(--magenta-deep); font-size:0.9rem; white-space:nowrap;}
+  .baro-verifier{font-size:0.6rem; color:rgba(27,24,54,0.36); font-weight:600; text-align:right; line-height:1.35; max-width:100px;}
   @media (max-width:700px){
-    .baro-summary{grid-template-columns:1fr;}
+    .baro-summary{flex-direction:column;}
     .baro-toolbar{flex-direction:column; align-items:flex-start;}
-    .baro-item{grid-template-columns:auto 1fr;}
-    .baro-meta{grid-column:1 / -1; flex-direction:row; justify-content:space-between; width:100%; margin-top:8px; align-items:center;}
+    .baro-item{grid-template-columns:32px 1fr;}
+    .baro-meta-col{display:none;}
   }
 
   /* SIDEBAR NAV */
@@ -430,24 +457,28 @@
       <h3 id="baroTitle">District Barometer <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(RY 2026-27, self-tracked)</span></h3>
       <div class="baro-summary">
         <div class="baro-score-card">
-          <b id="baroScore">0 / 100</b>
-          <span>Your Score So Far</span>
+          <div>
+            <b id="baroScore">0 / 100</b>
+            <span>Score so far</span>
+          </div>
         </div>
         <div class="baro-badge-card">
-          <b id="baroBadge">Not Yet Rated</b>
-          <span>Projected Recognition Category</span>
+          <div>
+            <b id="baroBadge">Not Yet Rated</b>
+            <span>Recognition category</span>
+          </div>
         </div>
         <div class="baro-progress-card">
-          <div class="baro-progress-labels"><span id="baroPct">0%</span><span>of 100 points</span></div>
+          <span class="baro-pct-label" id="baroPct">0%</span>
           <div class="baro-progress-track"><div class="baro-progress-fill" id="baroProgressFill" style="width:0%;"></div></div>
-          <div class="baro-thresholds" id="baroThresholds"></div>
         </div>
       </div>
+      <div class="baro-thresholds" id="baroThresholds" style="margin-bottom:14px;"></div>
       <div class="baro-toolbar">
-        <p class="note">Tick off criteria as your club completes them. Items tagged <strong>Auto-detected</strong> are pulled automatically from your uploaded projects — everything else is self-reported here and confirmed later by the ZRR / Recognition Committee.</p>
+        <p class="note">Tick off criteria as your club completes them. Items marked <strong>needs a project</strong> — select the uploaded project that fulfils that criterion from the dropdown. <strong>Auto-detected</strong> items are filled automatically from your projects. Self-reported items are confirmed later by the ZRR / Recognition Committee.</p>
         <div class="baro-actions">
-          <button class="btn btn-ghost" id="baroPdfBtn" type="button">Download PDF ↓</button>
-          <button class="btn btn-primary" id="baroSaveBtn" type="button">Save Progress</button>
+          <button class="btn btn-ghost" id="baroPdfBtn" type="button">PDF ↓</button>
+          <button class="btn btn-primary" id="baroSaveBtn" type="button">Save</button>
         </div>
       </div>
       <div class="baro-list" id="baroList"></div>
@@ -779,8 +810,14 @@ document.getElementById("cpSaveBtn").addEventListener("click", async () => {
 });
 
 /* ---- District Barometer ---- */
-let baroCheckedItems = [];
+let baroCheckedItems = [];   // array of item ids that are ticked (self-reported or auto)
+let baroLinkedProjects = {}; // { itemId: { id, title } } — project linked to each project-required item
 let baroCriteria = [];
+let baroClubProjects = [];   // the club's uploaded projects, loaded once
+
+// Which barometer items REQUIRE a project to be linked rather than a simple tick.
+// Items where the club has to point to an actual uploaded project as evidence.
+const BARO_NEEDS_PROJECT = new Set([25, 26, 27, 28, 29, 31, 32, 35, 36, 37, 38]);
 
 async function loadBarometer(){
   baroCriteria = zone7GetBarometer(currentClub);
@@ -791,7 +828,22 @@ async function loadBarometer(){
     ZONE7_DB.getBarometer(currentClub),
     ZONE7_DB.getProjects(currentClub)
   ]);
-  baroCheckedItems = row.checked_items || [];
+  baroClubProjects = projects;
+
+  // checked_items may be an array of ids (legacy) or objects with { id, projId, projTitle }
+  // We normalise both into baroCheckedItems (array of numeric ids) and baroLinkedProjects
+  const raw = row.checked_items || [];
+  baroCheckedItems = [];
+  baroLinkedProjects = {};
+  raw.forEach(entry => {
+    if(typeof entry === 'object' && entry !== null){
+      baroCheckedItems.push(Number(entry.id));
+      if(entry.projId) baroLinkedProjects[entry.id] = { id: entry.projId, title: entry.projTitle || '' };
+    } else {
+      baroCheckedItems.push(Number(entry));
+    }
+  });
+
   const autoIds = zone7AutoCheck(projects);
   renderBarometer(autoIds);
 }
@@ -800,21 +852,56 @@ function renderBarometer(autoIds){
   const list = document.getElementById("baroList");
   const checkedSet = new Set(baroCheckedItems);
 
+  // Build project options HTML (reused across all dropdowns)
+  const projOptions = baroClubProjects.length
+    ? baroClubProjects.map(p => `<option value="${zone7Esc(p.id)}" data-title="${zone7Esc(p.title)}">${zone7Esc(p.title)}${p.date ? ' ('+p.date+')' : ''}</option>`).join("")
+    : "";
+
   list.innerHTML = BAROMETER_GROUPS.map(grp => {
     const items = baroCriteria.filter(item => item.group === grp.key);
     if(!items.length) return "";
-    const doneCount = items.filter(item => (item.auto && autoIds.has(item.id)) || checkedSet.has(item.id)).length;
+    const doneCount = items.filter(item => {
+      if(item.auto && autoIds.has(item.id)) return true;
+      if(BARO_NEEDS_PROJECT.has(item.id)) return !!baroLinkedProjects[item.id];
+      return checkedSet.has(item.id);
+    }).length;
 
     const itemsHtml = items.map(item => {
       const isAuto = item.auto && autoIds.has(item.id);
-      const isChecked = isAuto || checkedSet.has(item.id);
-      const code = zone7ItemCode(currentClub, item.id);
+      const needsProj = BARO_NEEDS_PROJECT.has(item.id) && !isAuto;
+      const linkedProj = baroLinkedProjects[item.id];
+      const isChecked = isAuto || (needsProj ? !!linkedProj : checkedSet.has(item.id));
+
+      let checkHtml = '';
+      if(isAuto){
+        checkHtml = `<input type="checkbox" class="baro-check" checked disabled>`;
+      } else if(needsProj){
+        checkHtml = `<input type="checkbox" class="baro-check" ${isChecked?'checked':''} disabled>`;
+      } else {
+        checkHtml = `<input type="checkbox" class="baro-check baro-self-check" data-id="${item.id}" ${isChecked?'checked':''}>`;
+      }
+
+      let badgeHtml = '';
+      let dropdownHtml = '';
+      if(isAuto){
+        badgeHtml = `<span class="baro-tag auto-tag">✨ Auto</span>`;
+      } else if(needsProj){
+        badgeHtml = `<span class="baro-tag proj-tag">📎 Project required</span>`;
+        dropdownHtml = `
+          <select class="baro-proj-select${linkedProj?' linked':''}" data-id="${item.id}">
+            <option value="">— select the project that fulfils this —</option>
+            ${projOptions}
+          </select>`;
+      }
+
       return `
-        <div class="baro-item${isChecked ? ' checked':''}${isAuto ? ' auto':''}" data-id="${item.id}">
-          <div class="baro-check-wrap"><input type="checkbox" class="baro-check" data-id="${item.id}" ${isChecked ? 'checked':''} disabled></div>
-          <div class="baro-text"><span class="num">${item.id}.</span>${zone7Esc(item.text)}${isAuto ? '<span class="baro-tag">✨ Auto-detected</span>' : `<span class="baro-tag" style="color:var(--magenta-deep); background:rgba(225,26,110,0.09);">Code: ${code}</span>`}</div>
-          <div class="baro-meta">
-            ${isAuto ? "" : `<input type="text" class="baro-code-input" data-id="${item.id}" maxlength="4" placeholder="Code" value="${isChecked ? code : ''}" style="width:64px; padding:6px 8px; border-radius:8px; border:1.5px solid var(--line); font-size:0.82rem; text-align:center; margin-bottom:4px;">`}
+        <div class="baro-item${isChecked?' checked':''}${isAuto?' auto':''}${(needsProj && linkedProj)?' proj-linked':''}" data-id="${item.id}">
+          <div class="baro-check-col">${checkHtml}</div>
+          <div class="baro-text-col">
+            <div class="baro-text"><span class="num">${item.id}.</span>${zone7Esc(item.text)}${badgeHtml}</div>
+            ${dropdownHtml}
+          </div>
+          <div class="baro-meta-col">
             <span class="baro-pts">${item.points} pt${item.points>1?'s':''}</span>
             <span class="baro-verifier">${zone7Esc(item.verifier)}</span>
           </div>
@@ -829,18 +916,39 @@ function renderBarometer(autoIds){
           <span class="baro-group-title">${grp.label}</span>
           <span class="baro-group-count">${doneCount}/${items.length}</span>
         </div>
-        <div class="baro-list">${itemsHtml}</div>
+        <div class="baro-list">${itemsHtml}
+        </div>
       </div>
     `;
   }).join("");
 
-  list.querySelectorAll(".baro-code-input").forEach(inp => {
-    inp.addEventListener("input", () => {
-      const id = Number(inp.dataset.id);
-      const correct = inp.value.trim() === zone7ItemCode(currentClub, id);
-      baroCheckedItems = baroCheckedItems.filter(x => x !== id);
-      if(correct) baroCheckedItems.push(id);
+  // Set dropdown selected values after render
+  list.querySelectorAll(".baro-proj-select").forEach(sel => {
+    const id = Number(sel.dataset.id);
+    const linked = baroLinkedProjects[id];
+    if(linked) sel.value = linked.id;
+
+    sel.addEventListener("change", () => {
+      const projId = sel.value;
+      const opt = sel.options[sel.selectedIndex];
+      const projTitle = opt ? (opt.dataset.title || opt.textContent) : '';
+      if(projId){
+        baroLinkedProjects[id] = { id: projId, title: projTitle };
+      } else {
+        delete baroLinkedProjects[id];
+      }
+      // Re-render to refresh checked state and group counts
       renderBarometer(autoIds);
+    });
+  });
+
+  // Simple self-report checkboxes (non-project items)
+  list.querySelectorAll(".baro-self-check").forEach(chk => {
+    chk.addEventListener("change", () => {
+      const id = Number(chk.dataset.id);
+      baroCheckedItems = baroCheckedItems.filter(x => x !== id);
+      if(chk.checked) baroCheckedItems.push(id);
+      updateBarometerScore();
     });
   });
 
@@ -848,10 +956,12 @@ function renderBarometer(autoIds){
 }
 
 function currentBarometerState(){
-  const autoIds = [];
-  document.querySelectorAll(".baro-item.auto").forEach(el => autoIds.push(Number(el.dataset.id)));
+  const autoIds = new Set();
+  document.querySelectorAll(".baro-item.auto").forEach(el => autoIds.add(Number(el.dataset.id)));
   const manualChecked = new Set(baroCheckedItems);
-  const allChecked = new Set([...autoIds, ...manualChecked]);
+  // project-linked items are "done" if they have a linked project
+  const projLinkedDone = new Set(Object.keys(baroLinkedProjects).map(Number));
+  const allChecked = new Set([...autoIds, ...manualChecked, ...projLinkedDone]);
   const total = baroCriteria.reduce((sum,item) => sum + (allChecked.has(item.id) ? item.points : 0), 0);
   const maxTotal = baroCriteria.reduce((sum,item) => sum + item.points, 0);
   return { total, maxTotal, allChecked };
@@ -864,9 +974,8 @@ function updateBarometerScore(){
   document.getElementById("baroPct").textContent = `${pct}%`;
   document.getElementById("baroProgressFill").style.width = `${Math.min(100,pct)}%`;
   document.getElementById("baroBadge").textContent = zone7BarometerCategory(pct);
-
   document.getElementById("baroThresholds").innerHTML = BAROMETER_THRESHOLDS.slice().reverse().map(t =>
-    `<span class="${pct >= t.min ? 'hit' : ''}">${t.label} ${t.min}-${t.max}</span>`
+    `<span class="${pct >= t.min ? 'hit' : ''}">${t.label} ${t.min}–${t.max}</span>`
   ).join("");
 }
 
@@ -874,13 +983,21 @@ document.getElementById("baroSaveBtn").addEventListener("click", async () => {
   const btn = document.getElementById("baroSaveBtn");
   btn.disabled = true; btn.textContent = "Saving…";
   try{
-    await ZONE7_DB.saveBarometer(currentClub, baroCheckedItems);
-    showToast("Barometer progress saved ✓");
+    // Serialise: self-reported items as plain ids, project-linked as objects
+    const toSave = [
+      ...baroCheckedItems.map(id => ({ id })),
+      ...Object.entries(baroLinkedProjects).map(([id, p]) => ({ id: Number(id), projId: p.id, projTitle: p.title }))
+    ];
+    // Deduplicate by id (projLinked entries override plain id entries)
+    const seen = new Set(); const deduped = [];
+    toSave.reverse().forEach(e => { if(!seen.has(e.id)){ seen.add(e.id); deduped.push(e); } });
+    await ZONE7_DB.saveBarometer(currentClub, deduped.reverse());
+    showToast("Barometer saved ✓");
   } catch(err){
     console.error(err);
     showToast("Save failed — check your Supabase setup.");
   } finally {
-    btn.disabled = false; btn.textContent = "Save Progress";
+    btn.disabled = false; btn.textContent = "Save";
   }
 });
 
@@ -894,15 +1011,18 @@ document.getElementById("baroPdfBtn").addEventListener("click", () => {
   const rows = BAROMETER_GROUPS.map(grp => {
     const items = baroCriteria.filter(item => item.group === grp.key);
     if(!items.length) return "";
-    const groupRows = items.map(item => `
+    const groupRows = items.map(item => {
+      const linked = baroLinkedProjects[item.id];
+      const done = allChecked.has(item.id);
+      return `
       <tr>
         <td style="text-align:center;">${item.id}</td>
-        <td>${zone7Esc(item.text)}</td>
+        <td>${zone7Esc(item.text)}${linked ? `<br><span style="font-size:0.75rem; color:#A80F52; font-weight:600;">📎 ${zone7Esc(linked.title)}</span>` : ''}</td>
         <td style="text-align:center;">${item.points}</td>
-        <td style="text-align:center;">${allChecked.has(item.id) ? '✓' : ''}</td>
+        <td style="text-align:center;">${done ? '✓' : ''}</td>
         <td style="font-size:0.78rem; color:#555;">${zone7Esc(item.verifier)}</td>
-      </tr>
-    `).join("");
+      </tr>`;
+    }).join("");
     return `<tr><td colspan="5" style="background:#FFF8EF; font-weight:700; color:#A80F52;">${grp.icon} ${grp.label}</td></tr>${groupRows}`;
   }).join("");
 
