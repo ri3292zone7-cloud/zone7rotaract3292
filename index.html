@@ -775,7 +775,7 @@
 </nav>
 <script>
   document.getElementById("clubsDropGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
-    <a class="clubs-drop-item" href="club.html?club=${slug}">
+    <a class="clubs-drop-item" href="/${slug}">
       <img src="${c.logo}" alt="" loading="lazy">
       <span>${c.name.replace('Rotaract Club of ','')}</span>
     </a>
@@ -1314,39 +1314,39 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
     <p class="sub">Nine Rotaract clubs across the Kathmandu Valley. Click a card to view the club's profile, or tap its Instagram handle to open Instagram directly.</p>
 
     <div class="clubs-grid">
-      <div class="club-card" onclick="location.href='club.html?club=balkumari'">
+      <div class="club-card" onclick="location.href='/balkumari'">
         <div class="club-mark"><img src="logos/balkumari.jpg" alt="BK logo" loading="lazy"></div><h4>Rotaract Club of Balkumari</h4><p>Chyasal Marg, Lalitpur · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rac_balkumari/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rac_balkumari</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=baneshwor'">
+      <div class="club-card" onclick="location.href='/baneshwor'">
         <div class="club-mark"><img src="logos/baneshwor.jpg" alt="BN logo" loading="lazy"></div><h4>Rotaract Club of Baneshwor</h4><p>Devkota Sadak, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/racbaneshwor/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racbaneshwor</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=kathmanduheight'">
+      <div class="club-card" onclick="location.href='/kathmanduheight'">
         <div class="club-mark"><img src="logos/kathmanduheight.jpg" alt="KH logo" loading="lazy"></div><h4>Rotaract Club of Kathmandu Height</h4><p>Baneshwar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rackathmanduheight/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rackathmanduheight</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=kathmanduwest'">
+      <div class="club-card" onclick="location.href='/kathmanduwest'">
         <div class="club-mark"><img src="logos/kathmanduwest.jpg" alt="KW logo" loading="lazy"></div><h4>Rotaract Club of Kathmandu West</h4><p>Baghbazar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/kathmanduwest/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @kathmanduwest</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=liberty'">
+      <div class="club-card" onclick="location.href='/liberty'">
         <div class="club-mark"><img src="logos/liberty.jpg" alt="LC logo" loading="lazy"></div><h4>Rotaract Club of Liberty College</h4><p>Buddha Nagar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rotaractcluboflibertycollege/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rotaractcluboflibertycollege</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=newroadcity'">
+      <div class="club-card" onclick="location.href='/newroadcity'">
         <div class="club-mark"><img src="logos/newroadcity.jpg" alt="NR logo" loading="lazy"></div><h4>Rotaract Club of New Road City</h4><p>Makkhan Tol, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/racnewroadcity1/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racnewroadcity1</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=sankhu'">
+      <div class="club-card" onclick="location.href='/sankhu'">
         <div class="club-mark"><img src="logos/sankhu.jpg" alt="SK logo" loading="lazy"></div><h4>Rotaract Club of Sankhu</h4><p>Sankhu, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/racsankhu/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racsankhu</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=sukedhara'">
+      <div class="club-card" onclick="location.href='/sukedhara'">
         <div class="club-mark"><img src="logos/sukedhara.jpg" alt="SD logo" loading="lazy"></div><h4>Rotaract Club of Sukedhara</h4><p>Baneshwar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rac_sukedhara/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rac_sukedhara</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=tripureswor'">
+      <div class="club-card" onclick="location.href='/tripureswor'">
         <div class="club-mark"><img src="logos/tripureswor.jpg" alt="TP logo" loading="lazy"></div><h4>Rotaract Club of Tripureswor</h4><p>Baneshwar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/ractripureswor/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @ractripureswor</a>
       </div>

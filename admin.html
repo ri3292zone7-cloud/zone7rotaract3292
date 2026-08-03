@@ -872,7 +872,7 @@ async function enterDashboard(slug){
   const logoEl = document.getElementById("dashClubLogo");
   if(CLUB_DIRECTORY[slug].logo){ logoEl.src = CLUB_DIRECTORY[slug].logo; logoEl.style.display = "block"; }
   else { logoEl.style.display = "none"; }
-  document.getElementById("viewClubBtn").href = `club.html?club=${slug}`;
+  document.getElementById("viewClubBtn").href = `/${slug}`;
   await renderProjectList();
   resetForm();
   loadAnalytics();

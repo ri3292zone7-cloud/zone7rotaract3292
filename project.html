@@ -198,7 +198,7 @@
 </nav>
 <script>
   document.getElementById("clubsDropGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
-    <a class="clubs-drop-item" href="club.html?club=${slug}">
+    <a class="clubs-drop-item" href="/${slug}">
       <img src="${c.logo}" alt="" loading="lazy">
       <span>${c.name.replace('Rotaract Club of ','')}</span>
     </a>
@@ -288,7 +288,7 @@ const clubSlug = params.get("club");
 const projectId = params.get("id");
 const club = CLUB_DIRECTORY[clubSlug];
 
-document.getElementById("clubBackLink").href = clubSlug ? `club.html?club=${clubSlug}` : "index.html";
+document.getElementById("clubBackLink").href = clubSlug ? `/${clubSlug}` : "index.html";
 document.getElementById("content").innerHTML = `<div class="empty-state wrap"><h2>Loading…</h2></div>`;
 
 (async () => {
@@ -365,7 +365,7 @@ if(project && club){
     </section>` : ""}
 
     <section class="wrap p-cta">
-      <a class="btn btn-primary" href="club.html?club=${clubSlug}">← Back to ${club.name.replace('Rotaract Club of ','')}</a>
+      <a class="btn btn-primary" href="/${clubSlug}">← Back to ${club.name.replace('Rotaract Club of ','')}</a>
       <a class="btn btn-ghost" href="index.html#clubs">All Zone 7 Clubs</a>
     </section>
   `;

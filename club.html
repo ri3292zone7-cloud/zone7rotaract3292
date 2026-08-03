@@ -304,7 +304,7 @@
 <script>
   const _navClubSlug = new URLSearchParams(location.search).get("club") || location.pathname.replace(/^\/+|\/+$/g,"");
   document.getElementById("clubsDropGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
-    <a class="clubs-drop-item${slug===_navClubSlug?' current':''}" href="club.html?club=${slug}">
+    <a class="clubs-drop-item${slug===_navClubSlug?' current':''}" href="/${slug}">
       <img src="${c.logo}" alt="" loading="lazy">
       <span>${c.name.replace('Rotaract Club of ','')}</span>
       ${slug===_navClubSlug ? '<span class="dot" style="background:var(--magenta);"></span>' : ''}

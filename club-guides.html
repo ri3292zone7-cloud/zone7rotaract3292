@@ -228,7 +228,7 @@
 </nav>
 <script>
   document.getElementById("clubsDropGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
-    <a class="clubs-drop-item" href="club.html?club=${slug}">
+    <a class="clubs-drop-item" href="/${slug}">
       <img src="${c.logo}" alt="" loading="lazy">
       <span>${c.name.replace('Rotaract Club of ','')}</span>
     </a>

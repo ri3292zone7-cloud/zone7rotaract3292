@@ -331,7 +331,7 @@
 </nav>
 <script>
   document.getElementById("clubsDropGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
-    <a class="clubs-drop-item" href="club.html?club=${slug}">
+    <a class="clubs-drop-item" href="/${slug}">
       <img src="${c.logo}" alt="" loading="lazy">
       <span>${c.name.replace('Rotaract Club of ','')}</span>
     </a>
@@ -541,7 +541,7 @@ function initials(name){
 
   // ---- All clubs grid ----
   document.getElementById("allClubsGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
-    <a class="club-card" href="club.html?club=${slug}">
+    <a class="club-card" href="/${slug}">
       <div class="club-mark"><img src="${c.logo}" alt="${zone7Esc(c.name)} logo" loading="lazy"></div>
       <div><h4>${zone7Esc(c.name.replace('Rotaract Club of ',''))}</h4><p>@${zone7Esc(c.ig)}</p></div>
     </a>
