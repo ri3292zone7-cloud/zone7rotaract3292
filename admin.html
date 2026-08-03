@@ -244,6 +244,11 @@
   }
   .baro-pts{font-family:'Poppins'; font-weight:800; color:var(--magenta-deep); font-size:0.9rem; white-space:nowrap;}
   .baro-verifier{font-size:0.6rem; color:rgba(27,24,54,0.36); font-weight:600; text-align:right; line-height:1.35; max-width:100px;}
+  .baro-codes{font-family:'Poppins';font-weight:800;font-size:.66rem;color:var(--magenta-deep);white-space:nowrap;margin-top:3px;}
+  .baro-multi-list{margin-top:6px;display:flex;flex-direction:column;gap:4px;max-width:360px;}
+  .baro-multi-item{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--ink);}
+  .baro-multi-item input{width:auto;margin:0;}
+  .baro-multi-count{font-size:.68rem;font-weight:700;color:rgba(27,24,54,0.45);margin-top:4px;}
   @media (max-width:700px){
     .baro-summary{flex-direction:column;}
     .baro-toolbar{flex-direction:column; align-items:flex-start;}
@@ -810,14 +815,15 @@ document.getElementById("cpSaveBtn").addEventListener("click", async () => {
 });
 
 /* ---- District Barometer ---- */
-let baroCheckedItems = [];   // array of item ids that are ticked (self-reported or auto)
-let baroLinkedProjects = {}; // { itemId: { id, title } } — project linked to each project-required item
+let baroCheckedItems = [];
+let baroLinkedProjects = {};  // { itemId: [ {id,title,code}, ... ] }
 let baroCriteria = [];
-let baroClubProjects = [];   // the club's uploaded projects, loaded once
+let baroClubProjects = [];
 
-// Which barometer items REQUIRE a project to be linked rather than a simple tick.
-// Items where the club has to point to an actual uploaded project as evidence.
-const BARO_NEEDS_PROJECT = new Set([25, 26, 27, 28, 29, 31, 32, 35, 36, 37, 38]);
+// Items that require pointing to at least one uploaded project as proof.
+const BARO_NEEDS_PROJECT = new Set([21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38]);
+// Items needing more than one linked project, with the minimum count.
+const BARO_MULTI_PROJECT = { 30: 5 };
 
 async function loadBarometer(){
   baroCriteria = zone7GetBarometer(currentClub);
@@ -830,15 +836,14 @@ async function loadBarometer(){
   ]);
   baroClubProjects = projects;
 
-  // checked_items may be an array of ids (legacy) or objects with { id, projId, projTitle }
-  // We normalise both into baroCheckedItems (array of numeric ids) and baroLinkedProjects
   const raw = row.checked_items || [];
   baroCheckedItems = [];
   baroLinkedProjects = {};
   raw.forEach(entry => {
     if(typeof entry === 'object' && entry !== null){
       baroCheckedItems.push(Number(entry.id));
-      if(entry.projId) baroLinkedProjects[entry.id] = { id: entry.projId, title: entry.projTitle || '' };
+      if(entry.projects && entry.projects.length) baroLinkedProjects[entry.id] = entry.projects;
+      else if(entry.projId) baroLinkedProjects[entry.id] = [{ id: entry.projId, title: entry.projTitle || '', code: entry.projCode || '' }];
     } else {
       baroCheckedItems.push(Number(entry));
     }
@@ -848,62 +853,76 @@ async function loadBarometer(){
   renderBarometer(autoIds);
 }
 
+function baroMinFor(id){ return BARO_MULTI_PROJECT[id] || 1; }
+function baroIsDone(id, autoIds){
+  if(autoIds.has(id)) return true;
+  if(BARO_NEEDS_PROJECT.has(id)){
+    const linked = baroLinkedProjects[id] || [];
+    return linked.length >= baroMinFor(id);
+  }
+  return new Set(baroCheckedItems).has(id);
+}
+
 function renderBarometer(autoIds){
   const list = document.getElementById("baroList");
-  const checkedSet = new Set(baroCheckedItems);
-
-  // Build project options HTML (reused across all dropdowns)
-  const projOptions = baroClubProjects.length
-    ? baroClubProjects.map(p => `<option value="${zone7Esc(p.id)}" data-title="${zone7Esc(p.title)}">${zone7Esc(p.title)}${p.date ? ' ('+p.date+')' : ''}</option>`).join("")
-    : "";
 
   list.innerHTML = BAROMETER_GROUPS.map(grp => {
     const items = baroCriteria.filter(item => item.group === grp.key);
     if(!items.length) return "";
-    const doneCount = items.filter(item => {
-      if(item.auto && autoIds.has(item.id)) return true;
-      if(BARO_NEEDS_PROJECT.has(item.id)) return !!baroLinkedProjects[item.id];
-      return checkedSet.has(item.id);
-    }).length;
+    const doneCount = items.filter(item => baroIsDone(item.id, autoIds)).length;
 
     const itemsHtml = items.map(item => {
       const isAuto = item.auto && autoIds.has(item.id);
       const needsProj = BARO_NEEDS_PROJECT.has(item.id) && !isAuto;
-      const linkedProj = baroLinkedProjects[item.id];
-      const isChecked = isAuto || (needsProj ? !!linkedProj : checkedSet.has(item.id));
+      const isMulti = needsProj && baroMinFor(item.id) > 1;
+      const linked = baroLinkedProjects[item.id] || [];
+      const isChecked = baroIsDone(item.id, autoIds);
 
-      let checkHtml = '';
+      let checkHtml, badgeHtml = '', bodyExtra = '';
       if(isAuto){
         checkHtml = `<input type="checkbox" class="baro-check" checked disabled>`;
+        badgeHtml = `<span class="baro-tag auto-tag">✨ Auto</span>`;
       } else if(needsProj){
         checkHtml = `<input type="checkbox" class="baro-check" ${isChecked?'checked':''} disabled>`;
+        badgeHtml = isMulti
+          ? `<span class="baro-tag proj-tag">📎 ${baroMinFor(item.id)} projects required</span>`
+          : `<span class="baro-tag proj-tag">📎 Project required</span>`;
+
+        if(isMulti){
+          const optionsHtml = baroClubProjects.map(p => {
+            const checked = linked.some(l => l.id === p.id);
+            return `<label class="baro-multi-item">
+              <input type="checkbox" class="baro-multi-check" data-id="${item.id}" data-pid="${zone7Esc(p.id)}" data-title="${zone7Esc(p.title)}" data-code="${zone7Esc(p.project_code||'')}" ${checked?'checked':''}>
+              ${zone7Esc(p.project_code || '—')} · ${zone7Esc(p.title)}${p.date ? ' ('+p.date+')' : ''}
+            </label>`;
+          }).join("");
+          bodyExtra = `
+            <div class="baro-multi-list">${optionsHtml || '<span class="a-empty">No projects uploaded yet.</span>'}</div>
+            <div class="baro-multi-count">${linked.length} / ${baroMinFor(item.id)} selected</div>`;
+        } else {
+          const opts = baroClubProjects.map(p =>
+            `<option value="${zone7Esc(p.id)}" data-title="${zone7Esc(p.title)}" data-code="${zone7Esc(p.project_code||'')}">${zone7Esc(p.project_code || '—')} · ${zone7Esc(p.title)}${p.date ? ' ('+p.date+')' : ''}</option>`
+          ).join("");
+          bodyExtra = `
+            <select class="baro-proj-select${linked.length?' linked':''}" data-id="${item.id}">
+              <option value="">— select the project that fulfils this —</option>
+              ${opts}
+            </select>`;
+        }
       } else {
         checkHtml = `<input type="checkbox" class="baro-check baro-self-check" data-id="${item.id}" ${isChecked?'checked':''}>`;
       }
 
-      let badgeHtml = '';
-      let dropdownHtml = '';
-      if(isAuto){
-        badgeHtml = `<span class="baro-tag auto-tag">✨ Auto</span>`;
-      } else if(needsProj){
-        badgeHtml = `<span class="baro-tag proj-tag">📎 Project required</span>`;
-        dropdownHtml = `
-          <select class="baro-proj-select${linkedProj?' linked':''}" data-id="${item.id}">
-            <option value="">— select the project that fulfils this —</option>
-            ${projOptions}
-          </select>`;
-      }
-
       return `
-        <div class="baro-item${isChecked?' checked':''}${isAuto?' auto':''}${(needsProj && linkedProj)?' proj-linked':''}" data-id="${item.id}">
+        <div class="baro-item${isChecked?' checked':''}${isAuto?' auto':''}${(needsProj && linked.length)?' proj-linked':''}" data-id="${item.id}">
           <div class="baro-check-col">${checkHtml}</div>
           <div class="baro-text-col">
             <div class="baro-text"><span class="num">${item.id}.</span>${zone7Esc(item.text)}${badgeHtml}</div>
-            ${dropdownHtml}
+            ${bodyExtra}
           </div>
           <div class="baro-meta-col">
             <span class="baro-pts">${item.points} pt${item.points>1?'s':''}</span>
-            <span class="baro-verifier">${zone7Esc(item.verifier)}</span>
+            ${linked.length ? `<span class="baro-codes">${linked.map(l=>zone7Esc(l.code||'—')).join(', ')}</span>` : `<span class="baro-verifier">${zone7Esc(item.verifier)}</span>`}
           </div>
         </div>
       `;
@@ -916,33 +935,45 @@ function renderBarometer(autoIds){
           <span class="baro-group-title">${grp.label}</span>
           <span class="baro-group-count">${doneCount}/${items.length}</span>
         </div>
-        <div class="baro-list">${itemsHtml}
-        </div>
+        <div class="baro-list">${itemsHtml}</div>
       </div>
     `;
   }).join("");
 
-  // Set dropdown selected values after render
+  // Single-project dropdowns
   list.querySelectorAll(".baro-proj-select").forEach(sel => {
     const id = Number(sel.dataset.id);
     const linked = baroLinkedProjects[id];
-    if(linked) sel.value = linked.id;
-
+    if(linked && linked[0]) sel.value = linked[0].id;
     sel.addEventListener("change", () => {
-      const projId = sel.value;
       const opt = sel.options[sel.selectedIndex];
-      const projTitle = opt ? (opt.dataset.title || opt.textContent) : '';
-      if(projId){
-        baroLinkedProjects[id] = { id: projId, title: projTitle };
+      if(sel.value){
+        baroLinkedProjects[id] = [{ id: sel.value, title: opt.dataset.title || opt.textContent, code: opt.dataset.code || '' }];
       } else {
         delete baroLinkedProjects[id];
       }
-      // Re-render to refresh checked state and group counts
       renderBarometer(autoIds);
     });
   });
 
-  // Simple self-report checkboxes (non-project items)
+  // Multi-project checklists
+  list.querySelectorAll(".baro-multi-check").forEach(chk => {
+    chk.addEventListener("change", () => {
+      const id = Number(chk.dataset.id);
+      const cur = baroLinkedProjects[id] || [];
+      const entry = { id: chk.dataset.pid, title: chk.dataset.title, code: chk.dataset.code };
+      if(chk.checked){
+        if(!cur.some(l => l.id === entry.id)) cur.push(entry);
+      } else {
+        const idx = cur.findIndex(l => l.id === entry.id);
+        if(idx > -1) cur.splice(idx, 1);
+      }
+      if(cur.length) baroLinkedProjects[id] = cur; else delete baroLinkedProjects[id];
+      renderBarometer(autoIds);
+    });
+  });
+
+  // Simple self-report checkboxes
   list.querySelectorAll(".baro-self-check").forEach(chk => {
     chk.addEventListener("change", () => {
       const id = Number(chk.dataset.id);
@@ -958,10 +989,7 @@ function renderBarometer(autoIds){
 function currentBarometerState(){
   const autoIds = new Set();
   document.querySelectorAll(".baro-item.auto").forEach(el => autoIds.add(Number(el.dataset.id)));
-  const manualChecked = new Set(baroCheckedItems);
-  // project-linked items are "done" if they have a linked project
-  const projLinkedDone = new Set(Object.keys(baroLinkedProjects).map(Number));
-  const allChecked = new Set([...autoIds, ...manualChecked, ...projLinkedDone]);
+  const allChecked = new Set(baroCriteria.filter(item => baroIsDone(item.id, autoIds)).map(item => item.id));
   const total = baroCriteria.reduce((sum,item) => sum + (allChecked.has(item.id) ? item.points : 0), 0);
   const maxTotal = baroCriteria.reduce((sum,item) => sum + item.points, 0);
   return { total, maxTotal, allChecked };
@@ -983,12 +1011,10 @@ document.getElementById("baroSaveBtn").addEventListener("click", async () => {
   const btn = document.getElementById("baroSaveBtn");
   btn.disabled = true; btn.textContent = "Saving…";
   try{
-    // Serialise: self-reported items as plain ids, project-linked as objects
     const toSave = [
-      ...baroCheckedItems.map(id => ({ id })),
-      ...Object.entries(baroLinkedProjects).map(([id, p]) => ({ id: Number(id), projId: p.id, projTitle: p.title }))
+      ...baroCheckedItems.filter(id => !baroLinkedProjects[id]).map(id => ({ id })),
+      ...Object.entries(baroLinkedProjects).map(([id, projects]) => ({ id: Number(id), projects }))
     ];
-    // Deduplicate by id (projLinked entries override plain id entries)
     const seen = new Set(); const deduped = [];
     toSave.reverse().forEach(e => { if(!seen.has(e.id)){ seen.add(e.id); deduped.push(e); } });
     await ZONE7_DB.saveBarometer(currentClub, deduped.reverse());
@@ -1012,12 +1038,12 @@ document.getElementById("baroPdfBtn").addEventListener("click", () => {
     const items = baroCriteria.filter(item => item.group === grp.key);
     if(!items.length) return "";
     const groupRows = items.map(item => {
-      const linked = baroLinkedProjects[item.id];
+      const linked = (baroLinkedProjects[item.id] || []);
       const done = allChecked.has(item.id);
       return `
       <tr>
         <td style="text-align:center;">${item.id}</td>
-        <td>${zone7Esc(item.text)}${linked ? `<br><span style="font-size:0.75rem; color:#A80F52; font-weight:600;">📎 ${zone7Esc(linked.title)}</span>` : ''}</td>
+        <td>${zone7Esc(item.text)}${linked.length ? `<br><span style="font-size:0.75rem; color:#A80F52; font-weight:600;">📎 ${linked.map(l=>zone7Esc(l.code||l.title)).join(', ')}</span>` : ''}</td>
         <td style="text-align:center;">${item.points}</td>
         <td style="text-align:center;">${done ? '✓' : ''}</td>
         <td style="font-size:0.78rem; color:#555;">${zone7Esc(item.verifier)}</td>
@@ -1185,7 +1211,7 @@ async function renderProjectList(){
       <img src="${zone7Esc(p.cover || '')}" alt="">
       <div class="info">
         <h4>${zone7Esc(p.title)}</h4>
-        <span>${zone7Esc(p.category || "Uncategorized")} · ${zone7Esc(p.date || "No date")}</span>
+        <span>${zone7Esc(p.project_code || '—')} · ${zone7Esc(p.category || "Uncategorized")} · ${zone7Esc(p.date || "No date")}</span>
       </div>
     </div>
   `).join("");
@@ -1212,6 +1238,7 @@ function resetForm(){
   document.getElementById("coverPreview").style.display = "none";
   document.getElementById("coverPreview").src = "";
   document.getElementById("coverPreview").dataset.value = "";
+  document.getElementById("coverPreview").dataset.code = "";
   document.getElementById("deleteBtn").style.display = "none";
   document.getElementById("editingBanner").style.display = "none";
   renderGalleryPreview();
@@ -1233,6 +1260,7 @@ async function loadProjectIntoForm(id){
   const cp = document.getElementById("coverPreview");
   if(p.cover){ cp.src = p.cover; cp.style.display = "block"; cp.dataset.value = p.cover; }
   else { cp.style.display = "none"; cp.dataset.value = ""; }
+  cp.dataset.code = p.project_code || "";
   document.getElementById("deleteBtn").style.display = "inline-flex";
   renderGalleryPreview();
 
@@ -1292,6 +1320,14 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
   const title = document.getElementById("pTitle").value.trim();
   if(!title) return;
   const id = editingId || (zone7Slugify(title) + "-" + Date.now().toString(36));
+
+  let projectCode = document.getElementById("coverPreview").dataset.code || "";
+  if(!editingId){
+    const existing = await ZONE7_DB.getProjects(currentClub);
+    const prefix = currentClub.slice(0,4).toUpperCase();
+    projectCode = `${prefix}-${String(existing.length + 1).padStart(2,'0')}`;
+  }
+
   const project = {
     id,
     title,
@@ -1301,13 +1337,14 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
     summary: document.getElementById("pSummary").value.trim(),
     body: document.getElementById("pBody").value.trim(),
     cover: document.getElementById("coverPreview").dataset.value || "",
-    gallery: galleryImages
+    gallery: galleryImages,
+    project_code: projectCode
   };
   const submitBtn = e.target.querySelector('button[type="submit"]');
   submitBtn.disabled = true; submitBtn.textContent = "Saving…";
   try{
     await ZONE7_DB.saveProject(currentClub, project);
-    showToast("Project saved ✓");
+    showToast(`Project saved ✓ (${projectCode})`);
     document.getElementById("editingBanner").style.display = "none";
     await renderProjectList();
     resetForm();

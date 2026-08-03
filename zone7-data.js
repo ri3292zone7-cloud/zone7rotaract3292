@@ -325,6 +325,7 @@ const ZONE7_DB = {
       duration: project.duration || "",
       jointly_with: project.jointly_with || "",
       host_status: project.host_status || "",
+      project_code: project.project_code || "",
       updated: project.updated
     };
     const res = await fetch(`${REST_URL}?on_conflict=id`, {
@@ -364,6 +365,7 @@ const ZONE7_DB = {
       duration: row.duration || "",
       jointly_with: row.jointly_with || "",
       host_status: row.host_status || "",
+      project_code: row.project_code || "",
       updated: row.updated
     };
   },
