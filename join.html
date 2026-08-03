@@ -66,6 +66,7 @@
   .navlinks > a:hover{opacity:1;}
   .navlinks > a.current{opacity:1;color:var(--magenta-deep);}
   .nav-drop{position:relative;}
+  .nav-drop::before{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);width:440px;height:20px;}
   .nav-drop-trigger{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Inter';font-weight:600;font-size:.92rem;color:var(--ink);opacity:.75;padding:4px 0;transition:opacity .2s;}
   .nav-drop-trigger svg{transition:transform .2s;}
   .nav-drop:hover .nav-drop-trigger,.nav-drop.open .nav-drop-trigger{opacity:1;}

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Club Administration — Minutes & Treasury | Zone 7 Rotaract</title>
+<meta name="robots" content="noindex, nofollow">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="zone7-data.js"></script>
+<style>
+.login-wrap{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+.login-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:36px;max-width:400px;width:100%;}
+.login-card h2{font-size:1.3rem;margin-bottom:6px;}
+.login-err{color:var(--magenta-deep);font-size:.82rem;font-weight:600;margin:-6px 0 12px;display:none;}
+#dashboardWrap{display:none;}
+.logout-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.logout-bar span{font-size:.85rem;font-weight:700;color:rgba(27,24,54,.6);}
+:root{--ink:#1B1836;--magenta:#E11A6E;--magenta-deep:#A80F52;--gold:#F2A900;--cream:#FFF8EF;--paper:#FFFDF9;--line:rgba(27,24,54,.1);}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif;}
+body{background:var(--cream);color:var(--ink);}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 20px 80px;}
+h1{font-size:1.5rem;font-weight:800;}
+h3{font-size:1rem;margin-bottom:10px;}
+.sub{color:rgba(27,24,54,.55);font-size:.85rem;margin:6px 0 20px;}
+.tabs{display:flex;gap:6px;background:var(--paper);border:1px solid var(--line);border-radius:100px;padding:4px;width:fit-content;margin-bottom:22px;}
+.tab{padding:9px 20px;border-radius:100px;font-size:.85rem;font-weight:700;cursor:pointer;color:rgba(27,24,54,.55);}
+.tab.active{background:var(--ink);color:#fff;}
+.panel{display:none;} .panel.active{display:block;}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:16px;}
+label{display:block;font-weight:700;font-size:.78rem;margin:10px 0 5px;color:rgba(27,24,54,.7);}
+input,select,textarea{width:100%;padding:9px 11px;border-radius:9px;border:1.5px solid var(--line);font-size:.86rem;background:#fff;color:var(--ink);}
+textarea{resize:vertical;min-height:56px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.row4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.btn{padding:10px 18px;border-radius:100px;border:none;font-weight:700;font-size:.83rem;cursor:pointer;}
+.btn-primary{background:var(--ink);color:#fff;}
+.btn-ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink);}
+.actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+.dyn-row{display:flex;gap:8px;margin-bottom:7px;align-items:flex-start;}
+.dyn-row input,.dyn-row textarea{flex:1;}
+.small{padding:6px 10px;font-size:.76rem;}
+.rm{background:none;border:none;color:var(--magenta-deep);font-weight:800;cursor:pointer;flex-shrink:0;margin-top:6px;}
+.sec-title{font-weight:800;font-size:.85rem;margin:22px 0 4px;color:var(--magenta-deep);border-bottom:1px solid var(--line);padding-bottom:6px;}
+table{width:100%;border-collapse:collapse;font-size:.83rem;margin-top:8px;}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);}
+th{font-size:.68rem;text-transform:uppercase;color:rgba(27,24,54,.45);}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;}
+.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 15px;}
+.stat b{display:block;font-size:1.25rem;font-weight:800;} .stat span{font-size:.7rem;color:rgba(27,24,54,.5);text-transform:uppercase;}
+.in{color:#1c8a4d;} .out{color:var(--magenta-deep);}
+.saved-list{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+.saved-item{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-size:.83rem;cursor:pointer;}
+.saved-item:hover{border-color:var(--magenta);}
+</style>
+</head>
+<body>
+
+<!-- LOGIN GATE (reuses the same Club Admin / Zonal Team login as admin.html) -->
+<div class="login-wrap" id="loginView">
+  <div class="login-card" id="clubLoginCard">
+    <h2>Club Administration Login</h2>
+    <p class="sub">Sign in as your club to access Meeting Minutes & Treasury tools.</p>
+    <label>Select Your Club</label>
+    <select id="loginClubSelect"></select>
+    <label>Password</label>
+    <input type="password" id="loginPassword" placeholder="Club password">
+    <div class="login-err" id="clubLoginErr">Incorrect password for that club.</div>
+    <button class="btn btn-primary" style="width:100%;margin-top:14px;" id="clubLoginBtn">Log In</button>
+    <p style="margin-top:16px;font-size:.78rem;text-align:center;color:rgba(27,24,54,.5);">Zone team? <a href="#" id="toZonal" style="color:var(--magenta-deep);font-weight:700;">Log in here →</a></p>
+  </div>
+  <div class="login-card" id="zonalLoginCard" style="display:none;">
+    <h2>Zone Team Login</h2>
+    <p class="sub">Zonal access can view & manage tools for any club.</p>
+    <label>Password</label>
+    <input type="password" id="zonalPassword" placeholder="Zone team password">
+    <div class="login-err" id="zonalLoginErr">Incorrect password.</div>
+    <button class="btn btn-primary" style="width:100%;margin-top:14px;" id="zonalLoginBtn">Log In</button>
+    <p style="margin-top:16px;font-size:.78rem;text-align:center;"><a href="#" id="toClub" style="color:var(--magenta-deep);font-weight:700;">← Back to Club Login</a></p>
+  </div>
+</div>
+
+<div class="wrap" id="dashboardWrap">
+  <div class="logout-bar">
+    <h1 style="font-size:1.3rem;">Club Administration</h1>
+    <span id="whoami"></span>
+    <button class="btn btn-ghost small" id="logoutBtn">Log Out</button>
+  </div>
+  <p class="sub">Meeting minutes & treasury — written and generated directly on the site, saved per club to this browser.</p>
+
+  <label style="max-width:280px;">Club</label>
+  <select id="clubPick" style="max-width:280px;margin-bottom:18px;"></select>
+
+  <div class="tabs">
+    <div class="tab active" data-t="minutes">📝 Meeting Minutes</div>
+    <div class="tab" data-t="finance">💰 Treasury</div>
+  </div>
+
+  <!-- MEETING MINUTES -->
+  <div class="panel active" id="p-minutes">
+    <div class="card">
+      <div class="sec-title">Club Letterhead Info (saved once, reused every minutes)</div>
+      <div class="row3">
+        <div><label>Sponsoring Rotary Club</label><input id="ciSponsor" placeholder="Rotary Club of ..."></div>
+        <div><label>Chartered On</label><input id="ciChartered" placeholder="e.g. 5th November 1997"></div>
+        <div><label>RI District</label><input id="ciDistrict" value="3292 Nepal and Bhutan"></div>
+      </div>
+      <div class="row2">
+        <div><label>Club Motto</label><input id="ciMotto" placeholder='e.g. "Unleashing possibilities"'></div>
+        <div><label>Rotary Year</label><input id="ciRY" placeholder="e.g. 2026-27"></div>
+      </div>
+
+      <div class="sec-title">Meeting Details</div>
+      <div class="row3">
+        <div><label>Meeting No. / Title</label><input id="mTitle" placeholder="Regular Meeting #674"></div>
+        <div><label>Date</label><input type="date" id="mDate"></div>
+        <div><label>Day</label><input id="mDay" placeholder="e.g. Sunday"></div>
+      </div>
+      <div class="row3">
+        <div><label>Venue</label><input id="mVenue"></div>
+        <div><label>Time Started</label><input type="time" id="mStart"></div>
+        <div><label>Time Ended</label><input type="time" id="mEnd"></div>
+      </div>
+      <div class="row2">
+        <div><label>Chaired By (President)</label><input id="mChair" placeholder="President Rtr. ..."></div>
+        <div><label>Recorded By (Secretary)</label><input id="mSecretary"></div>
+      </div>
+
+      <div class="sec-title">Opening (lettered notes — SAA, quorum, silence, guests acknowledged)</div>
+      <div id="openList"></div>
+      <button class="btn btn-ghost small" data-add="open">+ Add Opening Note</button>
+
+      <div class="sec-title">Happy Moments Sharing</div>
+      <div id="happyList"></div>
+      <button class="btn btn-ghost small" data-add="happy">+ Add Happy Moment</button>
+
+      <div class="sec-title">Agenda of the Meeting</div>
+      <div id="agendaList"></div>
+      <button class="btn btn-ghost small" data-add="agenda">+ Add Agenda Item</button>
+
+      <div class="row2" style="margin-top:14px;">
+        <div><label>Apologies</label><textarea id="mApologies" placeholder="Apologies received from ... due to ..."></textarea></div>
+        <div><label>Previous Minutes Approval</label><textarea id="mPrevApproval" placeholder="Minutes of meeting no. X were circulated and passed by members present."></textarea></div>
+      </div>
+
+      <div class="sec-title">Meeting Discussions & Decisions (numbered, one per agenda topic)</div>
+      <div id="discList"></div>
+      <button class="btn btn-ghost small" data-add="disc">+ Add Discussion Item</button>
+
+      <div class="sec-title">Remarks (guests / officials, e.g. ZRR, DRR, mentor)</div>
+      <div id="remarkList"></div>
+      <button class="btn btn-ghost small" data-add="remark">+ Add Remark</button>
+
+      <div class="sec-title">Information Sharing</div>
+      <div id="infoList"></div>
+      <button class="btn btn-ghost small" data-add="info">+ Add Info Item</button>
+
+      <div class="row2" style="margin-top:14px;">
+        <div><label>Vote of Thanks</label><textarea id="mThanks" placeholder="Joint Secretary / Sergeant-at-Arms acknowledged the presence of..."></textarea></div>
+        <div><label>Sergeant-at-Arms Announcement</label><textarea id="mSaa" placeholder="Presented by Acting SAA Rtr. ..."></textarea></div>
+      </div>
+
+      <div class="sec-title">Attendance</div>
+      <div class="row4">
+        <div><label>General Members</label><input type="number" id="aGen" value="0"></div>
+        <div><label>Board Members</label><input type="number" id="aBoard" value="0"></div>
+        <div><label>Guests</label><input type="number" id="aGuest" value="0"></div>
+        <div><label>Visiting Rotaractors</label><input type="number" id="aVisRac" value="0"></div>
+      </div>
+      <div class="row4">
+        <div><label>Visiting Rotarians</label><input type="number" id="aVisRot" value="0"></div>
+        <div><label>District Officials</label><input type="number" id="aDist" value="0"></div>
+        <div><label>Special Sunshine</label><input id="sSpecial" placeholder="Rs. 3000/- (name)"></div>
+        <div><label>Total Sunshine Collected</label><input id="sTotal" placeholder="Rs. 3300/-"></div>
+      </div>
+
+      <div class="sec-title">Closing</div>
+      <div class="row2">
+        <div><label>Next Meeting No. & Date</label><input id="mNext" placeholder="Meeting no. 675 will be held on ..."></div>
+        <div><label>Adjourned At</label><input type="time" id="mAdjourn"></div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="genPdf">Download PDF</button>
+        <button class="btn btn-ghost" id="saveMin">Save Draft</button>
+        <button class="btn btn-ghost" id="clearMin">Clear Form</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Saved Minutes</h3>
+      <div class="saved-list" id="savedMinutesList"></div>
+    </div>
+  </div>
+
+  <!-- FINANCE -->
+  <div class="panel" id="p-finance">
+    <div class="card">
+      <div class="stat-row">
+        <div class="stat"><b class="in" id="fIncome">NRs 0</b><span>Total Income</span></div>
+        <div class="stat"><b class="out" id="fExpense">NRs 0</b><span>Total Expense</span></div>
+        <div class="stat"><b id="fBalance">NRs 0</b><span>Balance</span></div>
+      </div>
+      <div class="row3">
+        <div><label>Date</label><input type="date" id="txDate"></div>
+        <div><label>Type</label><select id="txType"><option value="income">Income</option><option value="expense">Expense</option></select></div>
+        <div><label>Amount (NRs)</label><input type="number" id="txAmount" placeholder="0"></div>
+      </div>
+      <div class="row2">
+        <div><label>Category</label><input id="txCategory" placeholder="e.g. Project, Dues, Fundraiser, Admin"></div>
+        <div><label>Description</label><input id="txDesc" placeholder="e.g. Blood donation banner printing"></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="addTx">Add Entry</button>
+        <button class="btn btn-ghost" id="exportCsv">Export CSV</button>
+        <button class="btn btn-ghost" id="exportPdf">Export PDF</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Ledger</h3>
+      <table id="ledgerTable"><thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Description</th><th>Amount</th><th></th></tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+</div><!-- /dashboardWrap -->
+
+<script>
+const CLUBS = Object.keys(CLUB_DIRECTORY);
+const clubPick = document.getElementById("clubPick");
+const loginClubSelect = document.getElementById("loginClubSelect");
+CLUBS.forEach(c=>{
+  [clubPick, loginClubSelect].forEach(sel=>{ const o=document.createElement("option"); o.value=c; o.textContent=CLUB_DIRECTORY[c].name; sel.appendChild(o); });
+});
+let club = CLUBS[0];
+let isZonalSession = false;
+
+function enterDashboard(slug, zonal){
+  isZonalSession = !!zonal;
+  club = slug;
+  clubPick.value = club;
+  clubPick.disabled = !isZonalSession; // club admins are locked to their own club's tools
+  document.getElementById("loginView").style.display = "none";
+  document.getElementById("dashboardWrap").style.display = "block";
+  document.getElementById("whoami").textContent = isZonalSession ? "Zone Team — viewing " + CLUB_DIRECTORY[club].name : CLUB_DIRECTORY[club].name;
+  loadAll();
+}
+clubPick.onchange = ()=>{ club = clubPick.value; loadAll(); };
+
+document.getElementById("toZonal").onclick=(e)=>{e.preventDefault();document.getElementById("clubLoginCard").style.display="none";document.getElementById("zonalLoginCard").style.display="block";};
+document.getElementById("toClub").onclick=(e)=>{e.preventDefault();document.getElementById("zonalLoginCard").style.display="none";document.getElementById("clubLoginCard").style.display="block";};
+
+document.getElementById("clubLoginBtn").onclick=()=>{
+  const slug = loginClubSelect.value, pw = document.getElementById("loginPassword").value;
+  if(ZONE7_DB.login(slug, pw)){ document.getElementById("clubLoginErr").style.display="none"; enterDashboard(slug, false); }
+  else document.getElementById("clubLoginErr").style.display = "block";
+};
+document.getElementById("zonalLoginBtn").onclick=()=>{
+  const pw = document.getElementById("zonalPassword").value;
+  if(ZONE7_DB.loginZonal(pw)){ document.getElementById("zonalLoginErr").style.display="none"; enterDashboard(CLUBS[0], true); }
+  else document.getElementById("zonalLoginErr").style.display = "block";
+};
+document.getElementById("logoutBtn").onclick=()=>{
+  ZONE7_DB.logout(); ZONE7_DB.logoutZonal();
+  document.getElementById("dashboardWrap").style.display = "none";
+  document.getElementById("loginView").style.display = "flex";
+  document.getElementById("loginPassword").value = ""; document.getElementById("zonalPassword").value = "";
+};
+
+// Auto-resume an existing session from admin.html (shared ZONE7_DB session storage)
+(function autoLogin(){
+  if(ZONE7_DB.isZonal()){ enterDashboard(CLUBS[0], true); return; }
+  const c = ZONE7_DB.currentClub();
+  if(c && CLUB_DIRECTORY[c]) enterDashboard(c, false);
+})();
+
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
+  t.classList.add("active");
+  document.getElementById("p-"+t.dataset.t).classList.add("active");
+});
+
+function key(name){ return "ct_"+club+"_"+name; }
+function get(name,def){ try{return JSON.parse(localStorage.getItem(key(name)))||def;}catch(e){return def;} }
+function set(name,val){ localStorage.setItem(key(name), JSON.stringify(val)); }
+
+/* ---------- generic dynamic string lists (open/happy/agenda/info) ---------- */
+const strLists = { open:[], happy:[], agenda:[], info:[] };
+const strListEl = { open:"openList", happy:"happyList", agenda:"agendaList", info:"infoList" };
+const strPlaceholder = { open:"e.g. SAA notified attendees the meeting has started.", happy:"e.g. Rtr. X was happy to attend after 4 months.", agenda:"e.g. Club Activities Review and Updates", info:"e.g. ID cards have arrived at the club." };
+function renderStrList(k){
+  document.getElementById(strListEl[k]).innerHTML = strLists[k].map((v,i)=>`
+    <div class="dyn-row"><textarea rows="1" data-k="${k}" data-i="${i}" class="str-inp" placeholder="${strPlaceholder[k]}">${v}</textarea><button class="rm" data-rmk="${k}" data-rmi="${i}">✕</button></div>
+  `).join("");
+  document.querySelectorAll(`.str-inp[data-k="${k}"]`).forEach(el=>el.oninput=()=>strLists[k][el.dataset.i]=el.value);
+  document.querySelectorAll(`[data-rmk="${k}"]`).forEach(el=>el.onclick=()=>{strLists[k].splice(el.dataset.rmi,1);renderStrList(k);});
+}
+
+/* ---------- discussion items {t,d} and remarks {who,text} ---------- */
+let discItems = [], remarks = [];
+function renderDisc(){
+  document.getElementById("discList").innerHTML = discItems.map((it,i)=>`
+    <div class="dyn-row"><div style="flex:1;">
+      <input placeholder="Topic (e.g. Charter's Day Celebration)" value="${it.t||''}" data-i="${i}" data-f="t" class="disc-inp" style="margin-bottom:6px;">
+      <textarea placeholder="Full discussion / decision text" data-i="${i}" data-f="d" class="disc-inp" rows="3">${it.d||''}</textarea>
+    </div><button class="rm" data-rm="${i}">✕</button></div>
+  `).join("");
+  document.querySelectorAll(".disc-inp").forEach(el=>el.oninput=()=>discItems[el.dataset.i][el.dataset.f]=el.value);
+  document.querySelectorAll("#discList .rm").forEach(el=>el.onclick=()=>{discItems.splice(el.dataset.rm,1);renderDisc();});
+}
+function renderRemarks(){
+  document.getElementById("remarkList").innerHTML = remarks.map((r,i)=>`
+    <div class="dyn-row"><div style="flex:1;">
+      <input placeholder="Name & role (e.g. ZRR Rtr. Sunil Shahi)" value="${r.who||''}" data-i="${i}" data-f="who" class="rem-inp" style="margin-bottom:6px;">
+      <textarea placeholder="What they said" data-i="${i}" data-f="text" class="rem-inp" rows="2">${r.text||''}</textarea>
+    </div><button class="rm" data-rm="${i}">✕</button></div>
+  `).join("");
+  document.querySelectorAll(".rem-inp").forEach(el=>el.oninput=()=>remarks[el.dataset.i][el.dataset.f]=el.value);
+  document.querySelectorAll("#remarkList .rm").forEach(el=>el.onclick=()=>{remarks.splice(el.dataset.rm,1);renderRemarks();});
+}
+document.querySelectorAll("[data-add]").forEach(btn=>btn.onclick=()=>{
+  const k = btn.dataset.add;
+  if(k==="disc"){discItems.push({t:"",d:""});renderDisc();}
+  else if(k==="remark"){remarks.push({who:"",text:""});renderRemarks();}
+  else {strLists[k].push("");renderStrList(k);}
+});
+
+function collectClubInfo(){
+  return { sponsor:ciSponsor.value, chartered:ciChartered.value, district:ciDistrict.value, motto:ciMotto.value, ry:ciRY.value };
+}
+function fillClubInfo(ci){
+  ciSponsor.value=ci.sponsor||""; ciChartered.value=ci.chartered||""; ciDistrict.value=ci.district||"3292 Nepal and Bhutan";
+  ciMotto.value=ci.motto||""; ciRY.value=ci.ry||"";
+}
+["ciSponsor","ciChartered","ciDistrict","ciMotto","ciRY"].forEach(id=>document.getElementById(id).addEventListener("change",()=>set("clubinfo",collectClubInfo())));
+
+function collectMinutes(){
+  return {
+    title:mTitle.value, date:mDate.value, day:mDay.value, venue:mVenue.value, start:mStart.value, end:mEnd.value,
+    chair:mChair.value, secretary:mSecretary.value,
+    open:strLists.open.filter(Boolean), happy:strLists.happy.filter(Boolean), agenda:strLists.agenda.filter(Boolean),
+    apologies:mApologies.value, prevApproval:mPrevApproval.value,
+    disc:discItems.filter(d=>d.t||d.d), remarks:remarks.filter(r=>r.who||r.text), info:strLists.info.filter(Boolean),
+    thanks:mThanks.value, saa:mSaa.value,
+    aGen:aGen.value, aBoard:aBoard.value, aGuest:aGuest.value, aVisRac:aVisRac.value, aVisRot:aVisRot.value, aDist:aDist.value,
+    sSpecial:sSpecial.value, sTotal:sTotal.value, next:mNext.value, adjourn:mAdjourn.value
+  };
+}
+function fillMinutes(m){
+  mTitle.value=m.title||""; mDate.value=m.date||""; mDay.value=m.day||""; mVenue.value=m.venue||"";
+  mStart.value=m.start||""; mEnd.value=m.end||""; mChair.value=m.chair||""; mSecretary.value=m.secretary||"";
+  strLists.open=m.open||[]; strLists.happy=m.happy||[]; strLists.agenda=m.agenda||[]; strLists.info=m.info||[];
+  ["open","happy","agenda","info"].forEach(renderStrList);
+  mApologies.value=m.apologies||""; mPrevApproval.value=m.prevApproval||"";
+  discItems=m.disc||[]; remarks=m.remarks||[]; renderDisc(); renderRemarks();
+  mThanks.value=m.thanks||""; mSaa.value=m.saa||"";
+  aGen.value=m.aGen||0; aBoard.value=m.aBoard||0; aGuest.value=m.aGuest||0; aVisRac.value=m.aVisRac||0; aVisRot.value=m.aVisRot||0; aDist.value=m.aDist||0;
+  sSpecial.value=m.sSpecial||""; sTotal.value=m.sTotal||""; mNext.value=m.next||""; mAdjourn.value=m.adjourn||"";
+  fillMinutes.currentId = m.id || null;
+}
+document.getElementById("clearMin").onclick=()=>fillMinutes({});
+document.getElementById("saveMin").onclick=()=>{
+  const list = get("minutes",[]); const m = collectMinutes(); m.id = fillMinutes.currentId || Date.now().toString(36);
+  fillMinutes.currentId = m.id;
+  const idx = list.findIndex(x=>x.id===m.id); if(idx>-1) list[idx]=m; else list.unshift(m);
+  set("minutes",list); renderSavedMinutes(); alert("Draft saved.");
+};
+function renderSavedMinutes(){
+  const list = get("minutes",[]);
+  document.getElementById("savedMinutesList").innerHTML = list.length ? list.map(m=>`
+    <div class="saved-item"><span data-id="${m.id}" class="loadmin">${m.title||'Untitled'} — ${m.date||'no date'}</span><button class="rm" data-del="${m.id}">Delete</button></div>
+  `).join("") : `<p style="font-size:.82rem;color:rgba(27,24,54,.5);">No saved drafts yet.</p>`;
+  document.querySelectorAll(".loadmin").forEach(el=>el.onclick=()=>{ const m=get("minutes",[]).find(x=>x.id===el.dataset.id); if(m) fillMinutes(m); });
+  document.querySelectorAll("[data-del]").forEach(el=>el.onclick=()=>{ set("minutes", get("minutes",[]).filter(x=>x.id!==el.dataset.del)); renderSavedMinutes(); });
+}
+
+/* ---------- PDF ---------- */
+document.getElementById("genPdf").onclick=()=>{
+  const m = collectMinutes(), ci = collectClubInfo();
+  const clubName = "Rotaract Club of " + club.charAt(0).toUpperCase()+club.slice(1);
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const W = 182; let y = 16;
+  function h(txt,size=11){ if(y>278){doc.addPage();y=16;} doc.setFontSize(size); doc.setFont(undefined,"bold"); doc.text(txt,14,y); y+=size*0.6; }
+  function p(txt,size=9.5,bold=false){ if(!txt) return; doc.setFontSize(size); doc.setFont(undefined,bold?"bold":"normal");
+    const lines = doc.splitTextToSize(txt,W); lines.forEach(l=>{ if(y>280){doc.addPage();y=16;} doc.text(l,14,y); y+=size*0.55; }); y+=1.5; }
+  function label(k,v){ if(!v) return; doc.setFontSize(9.5); doc.setFont(undefined,"bold"); doc.text(k,20,y); doc.setFont(undefined,"normal");
+    const lines = doc.splitTextToSize(v,140); doc.text(lines,55,y); y += Math.max(5,lines.length*5); }
+
+  doc.setFontSize(9); doc.setFont(undefined,"italic"); doc.text(ci.motto||"",105,y,{align:"center"}); y+=5;
+  doc.setFontSize(12); doc.setFont(undefined,"bold"); doc.text(clubName.toUpperCase(),105,y,{align:"center"}); y+=6;
+  doc.setFontSize(9); doc.setFont(undefined,"normal");
+  if(ci.sponsor){doc.text("Sponsored by: "+ci.sponsor,105,y,{align:"center"});y+=5;}
+  if(ci.chartered){doc.text("Chartered on "+ci.chartered,105,y,{align:"center"});y+=5;}
+  doc.text("RI District: "+(ci.district||"3292 Nepal and Bhutan"),105,y,{align:"center"}); y+=5;
+  doc.setLineWidth(0.5); doc.line(14,y,196,y); y+=8;
+
+  label("Minutes",m.title||"-"); label("Date",(m.date||"-")+(m.day?" ("+m.day+")":"")); label("Venue",m.venue||"-");
+  label("Time",(m.start||"-")+" to "+(m.end||"-")); y+=4;
+
+  p(`The meeting was chaired by ${m.chair||"the President"} on the above details.`,9.5,false);
+  if(m.open.length){ m.open.forEach((o,i)=>p(String.fromCharCode(97+i)+". "+o)); y+=2; }
+
+  if(m.happy.length){ h("Happy Moments Sharing:"); m.happy.forEach(t=>p("• "+t)); y+=2; }
+  if(m.agenda.length){ h("Agenda of the Meeting:"); m.agenda.forEach((a,i)=>p((i+1)+". "+a)); y+=2; }
+  if(m.apologies){ h("Apologies:"); p(m.apologies); }
+  if(m.prevApproval){ h("Previous Meeting Minutes Approval:"); p(m.prevApproval); }
+
+  if(m.disc.length){ h("Meeting Discussions & Decisions:"); m.disc.forEach((d,i)=>{ p((i+1)+". "+(d.t||""),9.5,true); p(d.d||""); }); }
+  if(m.remarks.length){ h("Remarks:"); m.remarks.forEach(r=>{ p(r.who||"",9.5,true); p(r.text||""); }); }
+  if(m.info.length){ h("Information Sharing:"); m.info.forEach(t=>p("❖ "+t)); }
+  if(m.thanks){ h("Vote of Thanks:"); p(m.thanks); }
+  if(m.saa){ h("Sergeant-at-Arms Announcement:"); p(m.saa); }
+
+  const total = [m.aGen,m.aBoard,m.aGuest,m.aVisRac,m.aVisRot,m.aDist].reduce((s,v)=>s+(Number(v)||0),0);
+  h("Attendance:");
+  p(`General members: ${m.aGen||0}   Board members: ${m.aBoard||0}   Guests: ${m.aGuest||0}`);
+  p(`Visiting Rotaractors: ${m.aVisRac||0}   Visiting Rotarians: ${m.aVisRot||0}   District Officials: ${m.aDist||0}`);
+  p(`Total attendees: ${total}`,9.5,true);
+  if(m.sSpecial||m.sTotal){ y+=2; if(m.sSpecial)p("Special Sunshine: "+m.sSpecial); if(m.sTotal)p("Total Sunshine Collected: "+m.sTotal); }
+
+  y+=3;
+  if(m.next){ h("Secretary Announcement:"); p(m.next); }
+  p(`The meeting was formally adjourned at ${m.adjourn||"-"}.`);
+
+  y+=16; if(y>260){doc.addPage();y=30;}
+  doc.setFont(undefined,"normal"); doc.setFontSize(9.5);
+  doc.text("_____________________",20,y); doc.text("_____________________",120,y); y+=6;
+  doc.setFont(undefined,"bold");
+  doc.text(m.secretary||"Secretary",20,y); doc.text(m.chair||"President",120,y); y+=5;
+  doc.setFont(undefined,"normal");
+  doc.text("Secretary, RY "+(ci.ry||""),20,y); doc.text("President, RY "+(ci.ry||""),120,y);
+
+  doc.save(`${club}-minutes-${m.date||'draft'}.pdf`);
+};
+
+/* ---------- FINANCE ---------- */
+function renderLedger(){
+  const tx = get("tx",[]);
+  const tbody = document.querySelector("#ledgerTable tbody");
+  tbody.innerHTML = tx.map((t,i)=>`
+    <tr><td>${t.date||''}</td><td class="${t.type==='income'?'in':'out'}">${t.type}</td><td>${t.category||''}</td>
+    <td>${t.desc||''}</td><td class="${t.type==='income'?'in':'out'}">${t.type==='income'?'+':'-'}NRs ${Number(t.amount||0).toLocaleString()}</td>
+    <td><button class="rm" data-i="${i}">✕</button></td></tr>
+  `).join("");
+  document.querySelectorAll("#ledgerTable .rm").forEach(el=>el.onclick=()=>{ const list=get("tx",[]); list.splice(el.dataset.i,1); set("tx",list); renderLedger(); });
+  const income = tx.filter(t=>t.type==="income").reduce((s,t)=>s+Number(t.amount||0),0);
+  const expense = tx.filter(t=>t.type==="expense").reduce((s,t)=>s+Number(t.amount||0),0);
+  document.getElementById("fIncome").textContent = "NRs "+income.toLocaleString();
+  document.getElementById("fExpense").textContent = "NRs "+expense.toLocaleString();
+  document.getElementById("fBalance").textContent = "NRs "+(income-expense).toLocaleString();
+}
+document.getElementById("addTx").onclick=()=>{
+  const amount = Number(document.getElementById("txAmount").value);
+  if(!amount) return alert("Enter an amount.");
+  const list = get("tx",[]);
+  list.unshift({ date:txDate.value, type:txType.value, amount, category:txCategory.value, desc:txDesc.value });
+  set("tx",list); ["txDate","txAmount","txCategory","txDesc"].forEach(id=>document.getElementById(id).value=""); renderLedger();
+};
+document.getElementById("exportCsv").onclick=()=>{
+  const tx = get("tx",[]); let csv = "Date,Type,Category,Description,Amount\n";
+  tx.forEach(t=>csv+=`${t.date},${t.type},${t.category},"${(t.desc||'').replace(/"/g,'""')}",${t.amount}\n`);
+  const blob = new Blob([csv],{type:"text/csv"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=`${club}-ledger.csv`; a.click();
+};
+document.getElementById("exportPdf").onclick=()=>{
+  const tx = get("tx",[]); const { jsPDF } = window.jspdf; const doc = new jsPDF(); let y=18;
+  doc.setFontSize(14); doc.setFont(undefined,"bold"); doc.text(`Rotaract Club of ${club} — Financial Ledger`,14,y); y+=8;
+  doc.setFontSize(9); doc.setFont(undefined,"normal");
+  tx.forEach(t=>{ if(y>280){doc.addPage();y=18;}
+    doc.text(`${(t.date||'-').padEnd(10)} ${t.type.padEnd(9)} ${(t.category||'-').slice(0,16).padEnd(18)} ${(t.desc||'-').slice(0,32).padEnd(34)} ${t.type==='income'?'+':'-'}${Number(t.amount||0).toLocaleString()}`,14,y); y+=5; });
+  const income = tx.filter(t=>t.type==="income").reduce((s,t)=>s+Number(t.amount||0),0);
+  const expense = tx.filter(t=>t.type==="expense").reduce((s,t)=>s+Number(t.amount||0),0);
+  y+=6; doc.setFont(undefined,"bold");
+  doc.text(`Total Income: NRs ${income.toLocaleString()}   Total Expense: NRs ${expense.toLocaleString()}   Balance: NRs ${(income-expense).toLocaleString()}`,14,y);
+  doc.save(`${club}-ledger.pdf`);
+};
+
+function loadAll(){
+  fillClubInfo(get("clubinfo",{}));
+  fillMinutes({}); renderSavedMinutes(); renderLedger();
+}
+</script>
+</body>
+</html>

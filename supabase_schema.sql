@@ -4,6 +4,8 @@
 -- ===================================================================
 -- PROJECTS
 -- ===================================================================
+alter table projects add column if not exists project_code text;
+
 create table if not exists projects (
   id text primary key,
   club_slug text not null,
@@ -142,3 +144,37 @@ drop policy if exists "Public can view zrrs" on zrrs;
 drop policy if exists "Anon can write zrrs" on zrrs;
 create policy "Public can view zrrs" on zrrs for select using (true);
 create policy "Anon can write zrrs" on zrrs for all using (true) with check (true);
+
+-- ===================================================================
+-- CLUB MINUTES
+-- ===================================================================
+create table if not exists club_minutes (
+  id text primary key,
+  club_slug text not null,
+  data jsonb not null default '{}'::jsonb,
+  updated bigint
+);
+alter table club_minutes enable row level security;
+drop policy if exists "Public can view club_minutes" on club_minutes;
+drop policy if exists "Anon can write club_minutes" on club_minutes;
+create policy "Public can view club_minutes" on club_minutes for select using (true);
+create policy "Anon can write club_minutes" on club_minutes for all using (true) with check (true);
+
+-- ===================================================================
+-- CLUB TRANSACTIONS (Treasury)
+-- ===================================================================
+create table if not exists club_transactions (
+  id text primary key,
+  club_slug text not null,
+  date text,
+  type text,
+  category text,
+  description text,
+  amount numeric,
+  updated bigint
+);
+alter table club_transactions enable row level security;
+drop policy if exists "Public can view club_transactions" on club_transactions;
+drop policy if exists "Anon can write club_transactions" on club_transactions;
+create policy "Public can view club_transactions" on club_transactions for select using (true);
+create policy "Anon can write club_transactions" on club_transactions for all using (true) with check (true);

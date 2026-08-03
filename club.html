@@ -42,6 +42,7 @@
      hoverable area is one continuous shape (no dead zone the cursor can
      "fall through" while moving from the trigger down into the panel). */
   .nav-drop{position:relative;}
+  .nav-drop::before{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);width:440px;height:20px;}
   .nav-drop-trigger{
     display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;
     font-family:'Inter';font-weight:600;font-size:.9rem;color:var(--ink);opacity:.75;padding:4px 0;transition:opacity .2s;
