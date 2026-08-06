@@ -232,6 +232,8 @@ const LEADERSHIP_URL = `${SUPABASE_URL}/rest/v1/leadership`;
 
 const GUIDES_URL = `${SUPABASE_URL}/rest/v1/guides`;
 const ZRRS_URL = `${SUPABASE_URL}/rest/v1/zrrs`;
+const GUEST_URL = `${SUPABASE_URL}/rest/v1/guest_requests`;
+const APP_URL = `${SUPABASE_URL}/rest/v1/membership_applications`;
 const REST_URL = `${SUPABASE_URL}/rest/v1/projects`;
 const EVENTS_URL = `${SUPABASE_URL}/rest/v1/events`;
 const REST_HEADERS = {
@@ -489,6 +491,84 @@ const ZONE7_DB = {
     return true;
   },
 
+  /* ---- guest visit requests (join.html) ---- */
+  async submitGuestRequest(row){
+    const res = await fetch(GUEST_URL, {
+      method: "POST",
+      headers: { ...REST_HEADERS, "Prefer": "return=representation" },
+      body: JSON.stringify(row)
+    });
+    if(!res.ok){
+      const errText = await res.text();
+      throw new Error("Save failed: " + res.status + " " + errText);
+    }
+    return true;
+  },
+
+  async getGuestRequests(){
+    const res = await fetch(`${GUEST_URL}?order=created_at.desc&limit=100`, { headers: REST_HEADERS });
+    if(!res.ok) throw new Error("Fetch failed: " + res.status);
+    return await res.json();
+  },
+
+  async setGuestRequestStatus(id, status){
+    const res = await fetch(`${GUEST_URL}?id=eq.${encodeURIComponent(id)}`, {
+      method: "PATCH",
+      headers: { ...REST_HEADERS, "Prefer": "return=representation" },
+      body: JSON.stringify({ status: status })
+    });
+    if(!res.ok) throw new Error("Update failed: " + res.status);
+    return true;
+  },
+
+  async deleteGuestRequest(id){
+    const res = await fetch(`${GUEST_URL}?id=eq.${encodeURIComponent(id)}`, {
+      method: "DELETE",
+      headers: REST_HEADERS
+    });
+    if(!res.ok) throw new Error("Delete failed: " + res.status);
+    return true;
+  },
+
+  /* ---- membership applications (join.html) ---- */
+  async submitMembershipApplication(row){
+    const res = await fetch(APP_URL, {
+      method: "POST",
+      headers: { ...REST_HEADERS, "Prefer": "return=representation" },
+      body: JSON.stringify(row)
+    });
+    if(!res.ok){
+      const errText = await res.text();
+      throw new Error("Save failed: " + res.status + " " + errText);
+    }
+    return true;
+  },
+
+  async getMembershipApplications(){
+    const res = await fetch(`${APP_URL}?order=created_at.desc&limit=100`, { headers: REST_HEADERS });
+    if(!res.ok) throw new Error("Fetch failed: " + res.status);
+    return await res.json();
+  },
+
+  async setMembershipApplicationStatus(id, status){
+    const res = await fetch(`${APP_URL}?id=eq.${encodeURIComponent(id)}`, {
+      method: "PATCH",
+      headers: { ...REST_HEADERS, "Prefer": "return=representation" },
+      body: JSON.stringify({ status: status })
+    });
+    if(!res.ok) throw new Error("Update failed: " + res.status);
+    return true;
+  },
+
+  async deleteMembershipApplication(id){
+    const res = await fetch(`${APP_URL}?id=eq.${encodeURIComponent(id)}`, {
+      method: "DELETE",
+      headers: REST_HEADERS
+    });
+    if(!res.ok) throw new Error("Delete failed: " + res.status);
+    return true;
+  },
+
   /* ---- ZRR history (Line of Leadership timeline on index.html) ---- */
   _zrrFallback: [
     { id:"zrr-2122", name:"Binaya Maharjan", years:"21-22", sort_order:1, is_current:false, club:"Rotaract Club of Liberty College", photo:"team/Binaya.png" },
@@ -698,6 +778,14 @@ function zone7ReadFile(file){
 
 function zone7Esc(str){
   return String(str ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+/* Does a join-request "preferred_club" string point at a given club slug?
+   Normalizes both sides (lowercase, no spaces/punctuation) so
+   "Rotaract Club of Kathmandu Height" matches slug kathmanduheight. */
+function zone7PrefersClub(pref, slug){
+  if(!pref) return false;
+  return String(pref).toLowerCase().replace(/[^a-z0-9]/g, "").includes(slug);
 }
 
 function zone7Slugify(str){

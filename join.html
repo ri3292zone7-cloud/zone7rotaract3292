@@ -218,9 +218,7 @@
       <div class="try-card try-guest">
         <h3>Request a guest visit</h3>
         <p class="try-lead">Not sure which club fits? Tell the zone and we'll match you with the right meeting to attend.</p>
-        <form id="guestForm" method="POST" action="https://formsubmit.co/ajax/ri3292zone7@gmail.com">
-          <input type="hidden" name="_subject" value="Zone 7 Guest Visit Request" />
-          <input type="hidden" name="_template" value="table" />
+        <form id="guestForm" novalidate>
           <p style="position:absolute; left:-9999px;">
             <label>Don't fill this out if you're human: <input name="_honey" /></label>
           </p>
@@ -234,7 +232,18 @@
           </div>
           <div class="form-row">
             <label>Preferred club
-              <input type="text" name="preferred_club" list="clubList" placeholder="Any club is fine">
+              <select name="preferred_club">
+                <option value="" selected>Any club is fine</option>
+                <option>Rotaract Club of Balkumari</option>
+                <option>Rotaract Club of Baneshwor</option>
+                <option>Rotaract Club of Kathmandu Height</option>
+                <option>Rotaract Club of Kathmandu West</option>
+                <option>Rotaract Club of Liberty College</option>
+                <option>Rotaract Club of New Road City Kathmandu</option>
+                <option>Rotaract Club of Sankhu</option>
+                <option>Rotaract Club of Sukedhara</option>
+                <option>Rotaract Club of Tripureswor</option>
+              </select>
             </label>
             <label>Phone (optional)
               <input type="tel" name="phone" placeholder="98XXXXXXXX">
@@ -269,7 +278,7 @@
   .try-foot{font-size:0.8rem; color:rgba(255,255,255,0.5); line-height:1.6;}
   .try-guest form{display:flex; flex-direction:column; gap:16px;}
   .try-guest label{font-size:0.82rem; font-weight:700; color:var(--ink); display:block;}
-  .try-guest input, .try-guest textarea{
+  .try-guest input, .try-guest textarea, .try-guest select{
     width:100%; margin-top:6px; padding:11px 14px; border-radius:12px; border:1.5px solid var(--line);
     background:#fff; font-family:'Inter'; font-size:0.9rem; color:var(--ink);
   }
@@ -289,11 +298,7 @@
         <h2>Zone 7 Rotaract Membership Form</h2>
         <p class="intro">Rotaract membership is open to young adults aged 18&ndash;30. Fields marked <span class="req">*</span> are required. Your information is only used by Zone 7 and its clubs to process your membership, and it is never sold or shared externally.</p>
 
-        <form name="join-rotaract" method="POST" action="https://formsubmit.co/ajax/ri3292zone7@gmail.com" data-netlify="true" netlify-honeypot="bot-field" id="joinForm">
-          <input type="hidden" name="form-name" value="join-rotaract" />
-          <input type="hidden" name="_subject" value="New Zone 7 Rotaract Membership Application" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_replyto" value="" />
+        <form id="joinForm" novalidate>
           <p style="position:absolute; left:-9999px;">
             <label>Don't fill this out if you're human: <input name="_honey" /></label>
             <input name="bot-field" tabindex="-1" autocomplete="off" />
@@ -354,19 +359,19 @@
           </div>
 
           <div class="form-group">
-            <label for="preferred_club">Preferred Zone 7 Club <span class="hint">Leave blank if unsure, we'll help match you</span></label>
-            <input type="text" id="preferred_club" name="preferred_club" list="clubList" placeholder="e.g. Rotaract Club of ...">
-            <datalist id="clubList">
-              <option value="Rotaract Club of Balkumari"></option>
-              <option value="Rotaract Club of Baneshwor"></option>
-              <option value="Rotaract Club of Kathmandu Height"></option>
-              <option value="Rotaract Club of Kathmandu West"></option>
-              <option value="Rotaract Club of Liberty College"></option>
-              <option value="Rotaract Club of New Road City"></option>
-              <option value="Rotaract Club of Sankhu"></option>
-              <option value="Rotaract Club of Sukedhara"></option>
-              <option value="Rotaract Club of Tripureswor"></option>
-            </datalist>
+            <label for="preferred_club">Preferred Zone 7 Club <span class="hint">Pick the club you'd like to join; not sure yet? Leave "Help me match" and the zone team will place you</span></label>
+            <select id="preferred_club" name="preferred_club">
+              <option value="" selected>Not sure yet — help me match</option>
+              <option>Rotaract Club of Balkumari</option>
+              <option>Rotaract Club of Baneshwor</option>
+              <option>Rotaract Club of Kathmandu Height</option>
+              <option>Rotaract Club of Kathmandu West</option>
+              <option>Rotaract Club of Liberty College</option>
+              <option>Rotaract Club of New Road City Kathmandu</option>
+              <option>Rotaract Club of Sankhu</option>
+              <option>Rotaract Club of Sukedhara</option>
+              <option>Rotaract Club of Tripureswor</option>
+            </select>
           </div>
 
           <div class="form-group">
@@ -497,51 +502,56 @@
   const submitBtn = document.getElementById('submitBtn');
   const statusEl = document.getElementById('formStatus');
 
-  form.addEventListener('submit', function (e) {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
     statusEl.className = 'form-status';
     statusEl.textContent = '';
+    if (form.querySelector('[name="_honey"]').value || form.querySelector('[name="bot-field"]').value) return;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting...';
 
-    const replyTo = form.querySelector('input[name="_replyto"]');
-    const emailIn = form.querySelector('input[name="email"]');
-    if (replyTo && emailIn) replyTo.value = emailIn.value;
-
     const data = new FormData(form);
-    const payload = Object.fromEntries(data);
-
-    const requests = [];
-    if (form.dataset.netlify === 'true') {
-      requests.push(
-        fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(data).toString(),
-        })
-      );
+    const payload = {
+      fullname: (data.get('fullname') || '').trim(),
+      email: (data.get('email') || '').trim(),
+      phone: (data.get('phone') || '').trim(),
+      age: (data.get('age') || '').trim() || null,
+      dob: (data.get('dob') || '').trim() || null,
+      bloodgroup: (data.get('bloodgroup') || '').trim() || null,
+      occupation: (data.get('occupation') || '').trim(),
+      institution: (data.get('institution') || '').trim() || null,
+      preferred_club: (data.get('preferred_club') || '').trim() || null,
+      interests: data.getAll('interests[]').join(', ') || null,
+      reason: (data.get('reason') || '').trim(),
+      contribution: (data.get('contribution') || '').trim() || null,
+      prior_experience: (data.get('prior_experience') || '').trim() || null,
+      referral: (data.get('referral') || '').trim() || null
+    };
+    if (!payload.fullname || !payload.email) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit & Become a Rotaractor';
+      statusEl.className = 'form-status error';
+      statusEl.textContent = 'Please fill in your name and email.';
+      return;
     }
-    requests.push(
-      fetch(form.action, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-    );
 
-    Promise.allSettled(requests).then((results) => {
-      const anySuccess = results.some((r) => r.status === 'fulfilled' && r.value.ok);
-      if (anySuccess) {
-        document.getElementById('form-wrap').style.display = 'none';
-        document.getElementById('successPanel').style.display = 'block';
-        return;
-      }
+    try {
+      await ZONE7_DB.submitMembershipApplication(payload);
+      fetch('/api/notify-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'application', data: payload })
+      }).catch(() => {});
+      document.getElementById('form-wrap').style.display = 'none';
+      document.getElementById('successPanel').style.display = 'block';
+    } catch (err) {
+      console.error('Membership application failed', err);
       const queue = JSON.parse(localStorage.getItem('zone7_pending_applications') || '[]');
       queue.push(payload);
       localStorage.setItem('zone7_pending_applications', JSON.stringify(queue));
 
       const lines = Object.keys(payload)
-        .filter((k) => !k.startsWith('_'))
+        .filter((k) => payload[k])
         .map((k) => k.replace(/_/g, ' ') + ': ' + payload[k])
         .join('\n');
       const mailto = 'mailto:ri3292zone7@gmail.com?subject=' +
@@ -552,42 +562,55 @@
       submitBtn.textContent = 'Submit & Become a Rotaractor';
       statusEl.className = 'form-status error';
       statusEl.innerHTML = 'Your application was saved on this device, but sending failed. Please retry, or <a href="' + mailto + '">email it to ri3292zone7@gmail.com</a> and we\u2019ll get you set up directly.';
-    });
+    }
   });
 
   const guestForm = document.getElementById('guestForm');
   const guestBtn = document.getElementById('guestBtn');
   const guestStatus = document.getElementById('guestStatus');
 
-  guestForm.addEventListener('submit', function (e) {
+  guestForm.addEventListener('submit', async function (e) {
     e.preventDefault();
     guestStatus.className = 'form-status';
     guestStatus.textContent = '';
+    if (guestForm.querySelector('[name="_honey"]').value) return;
     guestBtn.disabled = true;
     guestBtn.textContent = 'Sending...';
 
     const gdata = new FormData(guestForm);
+    const payload = {
+      fullname: (gdata.get('fullname') || '').trim(),
+      email: (gdata.get('email') || '').trim(),
+      preferred_club: (gdata.get('preferred_club') || '').trim() || null,
+      phone: (gdata.get('phone') || '').trim() || null,
+      message: (gdata.get('message') || '').trim() || null
+    };
+    if (!payload.fullname || !payload.email) {
+      guestBtn.disabled = false;
+      guestBtn.textContent = 'Request a Guest Visit →';
+      guestStatus.className = 'form-status error';
+      guestStatus.textContent = 'Please add your name and email.';
+      return;
+    }
 
-    fetch(guestForm.action, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(Object.fromEntries(gdata)),
-    })
-      .then((response) => {
-        if (response.ok) {
-          guestForm.reset();
-          guestStatus.className = 'form-status ok';
-          guestStatus.textContent = 'Request sent! A Zone 7 coordinator will match you with a club meeting soon.';
-        } else {
-          throw new Error('Guest request failed');
-        }
-      })
-      .catch(() => {
-        guestBtn.disabled = false;
-        guestBtn.textContent = 'Request a Guest Visit →';
-        guestStatus.className = 'form-status error';
-        guestStatus.textContent = "Couldn't send right now, please try again, or email ri3292zone7@gmail.com directly.";
-      });
+    try {
+      await ZONE7_DB.submitGuestRequest(payload);
+      fetch('/api/notify-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'guest', data: payload })
+      }).catch(() => {});
+      guestForm.reset();
+      guestStatus.className = 'form-status ok';
+      guestStatus.textContent = 'Request sent! A Zone 7 coordinator will match you with a club meeting soon.';
+    } catch (err) {
+      console.error('Guest request failed', err);
+      guestStatus.className = 'form-status error';
+      guestStatus.textContent = "Couldn't send right now, please try again, or email ri3292zone7@gmail.com directly.";
+    } finally {
+      guestBtn.disabled = false;
+      guestBtn.textContent = 'Request a Guest Visit →';
+    }
   });
 </script>
 

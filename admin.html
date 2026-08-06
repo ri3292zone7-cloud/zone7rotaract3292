@@ -289,6 +289,7 @@
   }
   .bmt.active{background:var(--ink); color:#fff;}
   .bmt:hover:not(.active){color:var(--magenta-deep);}
+  .jr-count{display:inline-block; margin-left:6px; padding:1px 8px; border-radius:100px; background:rgba(225,26,110,0.12); color:var(--magenta-deep); font-size:.7rem; font-weight:800;}
   .baro-mode-note{font-size:.8rem; color:rgba(27,24,54,.55); margin-bottom:16px; max-width:640px; line-height:1.5;}
   .baro-doc-row{margin-top:8px;}
   .baro-doc-upload{
@@ -387,6 +388,7 @@
     <div class="sb-item" data-view="guides"><span class="ic">📚</span>Guides (Zonal)</div>
     <div class="sb-item" data-view="zrr"><span class="ic">🏛️</span>ZRR History (Zonal)</div>
     <div class="sb-item" data-view="leadership"><span class="ic">⭐</span>Zonal Team (Zonal)</div>
+    <div class="sb-item" data-view="guests"><span class="ic">👥</span>Join Requests (Zonal)</div>
     <div class="sb-label">Explore</div>
     <div class="sb-item" data-view="district"><span class="ic">🌏</span>District Overview</div>
   </nav>
@@ -816,6 +818,23 @@
     </div>
     </div>
 
+    <!-- JOIN REQUESTS (zonal sees all; clubs see only requests for them) -->
+    <div class="view" id="view-guests">
+    <div class="panel">
+      <h3 style="margin-bottom:2px;">Join Requests <span id="guestViewScope" style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);"></span></h3>
+      <div class="baro-mode-tabs" id="guestTabs" style="margin:12px 0 16px;">
+        <button type="button" class="bmt active" data-list="apps">Membership Applications <span class="jr-count" id="appTabCount"></span></button>
+        <button type="button" class="bmt" data-list="guests">Guest Visit Requests <span class="jr-count" id="guestTabCount"></span></button>
+      </div>
+      <div id="appListWrap">
+        <div class="proj-list" id="appList"></div>
+      </div>
+      <div id="guestListWrap" style="display:none;">
+        <div class="proj-list" id="guestList"></div>
+      </div>
+    </div>
+    </div>
+
     <!-- DISTRICT OVERVIEW (embedded, all logins) -->
     <div class="view" id="view-district">
     <div class="panel" style="padding:0; overflow:hidden;">
@@ -881,6 +900,8 @@ async function enterDashboard(slug){
   initDuesCalc();
   loadMinutesPanel();
   renderLedger();
+  renderGuestList();
+  renderApplicationsList();
 }
 
 function initDuesCalc(){
@@ -1799,11 +1820,13 @@ document.getElementById("zonalLoginBtn").addEventListener("click", () => {
     document.getElementById("dashClubLogo").style.display = "none";
     document.getElementById("viewClubBtn").style.display = "none";
     document.body.classList.add("has-sidebar");
-    document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership","district"].includes(el.dataset.view) ? "flex" : "none"));
+    document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership","guests","district"].includes(el.dataset.view) ? "flex" : "none"));
     switchView("guides");
     renderGuideList();
     renderZRRList();
     renderLeaderList();
+    renderGuestList();
+    renderApplicationsList();
   } else {
     const e = document.getElementById("zonalLoginError");
     e.style.display = "block";
@@ -1992,6 +2015,143 @@ document.getElementById("zrrDeleteBtn").addEventListener("click", async () => {
   }
 });
 
+/* ---- Guest visit requests (club admins see only their club; zonal sees all) ---- */
+async function renderGuestList(){
+  const list = document.getElementById("guestList");
+  const scope = ZONE7_DB.isZonal() ? null : currentClub;
+  const scopeName = scope ? CLUB_DIRECTORY[scope].name : "all clubs";
+  document.getElementById("guestViewScope").textContent = scope ? `(${scopeName})` : "(all clubs)";
+  list.innerHTML = `<div class="no-projects">Loading requests…</div>`;
+  let requests = [];
+  try { requests = await ZONE7_DB.getGuestRequests(); } catch(e){ requests = []; }
+  if(scope) requests = requests.filter(r => zone7PrefersClub(r.preferred_club, scope));
+  const fresh = requests.filter(r => (r.status || "new") === "new").length;
+  document.getElementById("guestTabCount").textContent = fresh ? fresh + " new" : "";
+  if(!requests.length){
+    list.innerHTML = scope
+      ? `<div class="no-projects">No guest visit requests for ${zone7Esc(scopeName)} yet. They appear here when someone picks your club on the join page.</div>`
+      : `<div class="no-projects">No guest visit requests yet. They land here from the "Request a guest visit" form on the join page.</div>`;
+    return;
+  }
+  const statusStyle = { "new": ["#fff","#E1196E"], "contacted": ["#FFF4E0","#B26A00"], "matched": ["#E6F4EA","#1E7D46"] };
+  list.innerHTML = requests.map(r => {
+    const status = r.status || "new";
+    const [bg, color] = statusStyle[status] || ["#fff","#333"];
+    const date = new Date(r.created_at).toLocaleDateString("en-GB", { day:"numeric", month:"short", year:"numeric" });
+    const msg = r.message ? `<div style="margin-top:8px; font-size:0.85rem; color:rgba(27,24,54,0.7);">${zone7Esc(r.message)}</div>` : "";
+    return `
+      <div class="proj-item" style="flex-wrap:wrap; gap:10px;">
+        <div class="info">
+          <h4>${zone7Esc(r.fullname)} <span style="font-weight:600; font-size:0.75rem; background:${bg}; color:${color}; padding:2px 10px; border-radius:100px; margin-left:6px; text-transform:capitalize;">${status}</span></h4>
+          <span><a href="mailto:${zone7Esc(r.email)}" style="color:var(--magenta-deep);">${zone7Esc(r.email)}</a>${r.phone ? " · " + zone7Esc(r.phone) : ""} · ${zone7Esc(r.preferred_club || "Any club is fine")} · ${date}</span>
+          ${msg}
+        </div>
+        <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
+          <select class="guest-status" data-id="${r.id}" style="padding:7px 10px; border:1px solid var(--line); border-radius:10px; font-size:0.8rem; background:#fff;">
+            ${["new","contacted","matched"].map(s => `<option value="${s}" ${s===status?"selected":""}>${s}</option>`).join("")}
+          </select>
+          <button type="button" class="btn btn-danger guest-del" data-id="${r.id}" style="padding:7px 14px; font-size:0.8rem;">Delete</button>
+        </div>
+      </div>`;
+  }).join("");
+  list.querySelectorAll(".guest-status").forEach(sel => {
+    sel.addEventListener("change", async () => {
+      try{
+        await ZONE7_DB.setGuestRequestStatus(sel.dataset.id, sel.value);
+        showToast("Request marked " + sel.value);
+        renderGuestList();
+        renderApplicationsList();
+      } catch(e){ showToast("Update failed, check your Supabase setup."); }
+    });
+  });
+  list.querySelectorAll(".guest-del").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      if(!confirm("Delete this guest request?")) return;
+      try{
+        await ZONE7_DB.deleteGuestRequest(btn.dataset.id);
+        showToast("Request deleted");
+        renderGuestList();
+        renderApplicationsList();
+      } catch(e){ showToast("Delete failed, check your Supabase setup."); }
+    });
+  });
+}
+
+/* ---- Membership applications (club admins see only their club; zonal sees all) ---- */
+async function renderApplicationsList(){
+  const list = document.getElementById("appList");
+  const scope = ZONE7_DB.isZonal() ? null : currentClub;
+  const scopeName = scope ? CLUB_DIRECTORY[scope].name : "all clubs";
+  document.getElementById("guestViewScope").textContent = scope ? `(${scopeName})` : "(all clubs)";
+  list.innerHTML = `<div class="no-projects">Loading applications…</div>`;
+  let apps = [];
+  try { apps = await ZONE7_DB.getMembershipApplications(); } catch(e){ apps = []; }
+  if(scope) apps = apps.filter(a => zone7PrefersClub(a.preferred_club, scope));
+  const fresh = apps.filter(a => (a.status || "new") === "new").length;
+  document.getElementById("appTabCount").textContent = fresh ? fresh + " new" : "";
+  if(!apps.length){
+    list.innerHTML = scope
+      ? `<div class="no-projects">No membership applications for ${zone7Esc(scopeName)} yet. They appear here when someone picks your club on the join page.</div>`
+      : `<div class="no-projects">No membership applications yet. They land here from the membership form on the join page.</div>`;
+    return;
+  }
+  const statusStyle = { "new": ["#fff","#E1196E"], "contacted": ["#FFF4E0","#B26A00"], "onboarded": ["#E6F4EA","#1E7D46"] };
+  list.innerHTML = apps.map(a => {
+    const status = a.status || "new";
+    const [bg, color] = statusStyle[status] || ["#fff","#333"];
+    const date = new Date(a.created_at).toLocaleDateString("en-GB", { day:"numeric", month:"short", year:"numeric" });
+    const meta = [a.email && `<a href="mailto:${zone7Esc(a.email)}" style="color:var(--magenta-deep);">${zone7Esc(a.email)}</a>`, a.phone && zone7Esc(a.phone), a.age && (a.age + " yrs"), a.bloodgroup && zone7Esc(a.bloodgroup), a.preferred_club && zone7Esc(a.preferred_club), date].filter(Boolean).join(" · ");
+    const interests = a.interests ? `<div style="margin-top:8px; font-size:0.8rem; color:var(--magenta-deep);">${zone7Esc(a.interests)}</div>` : "";
+    const reason = a.reason ? `<div style="margin-top:8px; font-size:0.85rem; color:rgba(27,24,54,0.7);">${zone7Esc(a.reason)}</div>` : "";
+    const extra = a.contribution ? `<div style="margin-top:4px; font-size:0.82rem; color:rgba(27,24,54,0.55);">Skills: ${zone7Esc(a.contribution)}</div>` : "";
+    return `
+      <div class="proj-item" style="flex-wrap:wrap; gap:10px;">
+        <div class="info">
+          <h4>${zone7Esc(a.fullname)} <span style="font-weight:600; font-size:0.75rem; background:${bg}; color:${color}; padding:2px 10px; border-radius:100px; margin-left:6px; text-transform:capitalize;">${status}</span></h4>
+          <span>${meta}</span>
+          ${interests}${reason}${extra}
+        </div>
+        <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
+          <select class="app-status" data-id="${a.id}" style="padding:7px 10px; border:1px solid var(--line); border-radius:10px; font-size:0.8rem; background:#fff;">
+            ${["new","contacted","onboarded"].map(s => `<option value="${s}" ${s===status?"selected":""}>${s}</option>`).join("")}
+          </select>
+          <button type="button" class="btn btn-danger app-del" data-id="${a.id}" style="padding:7px 14px; font-size:0.8rem;">Delete</button>
+        </div>
+      </div>`;
+  }).join("");
+  list.querySelectorAll(".app-status").forEach(sel => {
+    sel.addEventListener("change", async () => {
+      try{
+        await ZONE7_DB.setMembershipApplicationStatus(sel.dataset.id, sel.value);
+        showToast("Application marked " + sel.value);
+        renderApplicationsList();
+        renderGuestList();
+      } catch(e){ showToast("Update failed, check your Supabase setup."); }
+    });
+  });
+  list.querySelectorAll(".app-del").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      if(!confirm("Delete this application?")) return;
+      try{
+        await ZONE7_DB.deleteMembershipApplication(btn.dataset.id);
+        showToast("Application deleted");
+        renderApplicationsList();
+        renderGuestList();
+      } catch(e){ showToast("Delete failed, check your Supabase setup."); }
+    });
+  });
+}
+
+/* Join Requests tab switching (membership applications / guest visits) */
+document.getElementById("guestTabs").addEventListener("click", (e) => {
+  const btn = e.target.closest(".bmt");
+  if(!btn) return;
+  document.querySelectorAll("#guestTabs .bmt").forEach(b => b.classList.toggle("active", b === btn));
+  const showApps = btn.dataset.list === "apps";
+  document.getElementById("appListWrap").style.display = showApps ? "block" : "none";
+  document.getElementById("guestListWrap").style.display = showApps ? "none" : "block";
+});
+
 // Check if already logged in as zonal on page load
 if(ZONE7_DB.isZonal()){
   document.getElementById("loginView").style.display = "none";
@@ -2000,11 +2160,12 @@ if(ZONE7_DB.isZonal()){
   document.getElementById("dashClubLogo").style.display = "none";
   document.getElementById("viewClubBtn").style.display = "none";
   document.body.classList.add("has-sidebar");
-  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership","district"].includes(el.dataset.view) ? "flex" : "none"));
+  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership","guests","district"].includes(el.dataset.view) ? "flex" : "none"));
   switchView("guides");
   renderGuideList();
   renderZRRList();
   renderLeaderList();
+  renderGuestList();
 }
 
 document.getElementById("logoutBtn").addEventListener("click", () => {

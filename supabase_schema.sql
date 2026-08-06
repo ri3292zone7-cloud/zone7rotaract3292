@@ -178,3 +178,50 @@ drop policy if exists "Public can view club_transactions" on club_transactions;
 drop policy if exists "Anon can write club_transactions" on club_transactions;
 create policy "Public can view club_transactions" on club_transactions for select using (true);
 create policy "Anon can write club_transactions" on club_transactions for all using (true) with check (true);
+
+-- ===================================================================
+-- GUEST VISIT REQUESTS (join.html "Request a guest visit" form)
+-- ===================================================================
+create table if not exists guest_requests (
+  id bigserial primary key,
+  created_at timestamptz not null default now(),
+  fullname text not null,
+  email text not null,
+  preferred_club text,
+  phone text,
+  message text,
+  status text not null default 'new'
+);
+alter table guest_requests enable row level security;
+drop policy if exists "Public can view guest_requests" on guest_requests;
+drop policy if exists "Anon can write guest_requests" on guest_requests;
+create policy "Public can view guest_requests" on guest_requests for select using (true);
+create policy "Anon can write guest_requests" on guest_requests for all using (true) with check (true);
+
+-- ===================================================================
+-- MEMBERSHIP APPLICATIONS (join.html membership form)
+-- ===================================================================
+create table if not exists membership_applications (
+  id bigserial primary key,
+  created_at timestamptz not null default now(),
+  fullname text not null,
+  email text not null,
+  phone text,
+  age text,
+  dob text,
+  bloodgroup text,
+  occupation text,
+  institution text,
+  preferred_club text,
+  interests text,
+  reason text,
+  contribution text,
+  prior_experience text,
+  referral text,
+  status text not null default 'new'
+);
+alter table membership_applications enable row level security;
+drop policy if exists "Public can view membership_applications" on membership_applications;
+drop policy if exists "Anon can write membership_applications" on membership_applications;
+create policy "Public can view membership_applications" on membership_applications for select using (true);
+create policy "Anon can write membership_applications" on membership_applications for all using (true) with check (true);
