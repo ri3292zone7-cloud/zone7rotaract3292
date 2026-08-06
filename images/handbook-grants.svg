@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" role="img" aria-label="Grant funding illustration">
+  <circle cx="400" cy="320" r="255" fill="#FDF3E7"/>
+  <circle cx="400" cy="320" r="205" fill="none" stroke="#F2A900" stroke-width="2.5" stroke-dasharray="3 14" opacity=".4"/>
+
+  <g transform="rotate(-4 400 300)">
+    <rect x="278" y="148" width="244" height="314" rx="18" fill="#fff" stroke="#E9E2D8" stroke-width="3"/>
+    <rect x="310" y="184" width="180" height="11" rx="5.5" fill="#1B1836" opacity=".88"/>
+    <rect x="310" y="214" width="180" height="7" rx="3.5" fill="#E3DED2"/>
+    <rect x="310" y="233" width="180" height="7" rx="3.5" fill="#E3DED2"/>
+    <rect x="310" y="252" width="140" height="7" rx="3.5" fill="#E3DED2"/>
+    <rect x="310" y="288" width="16" height="16" rx="4" fill="#fff" stroke="#0E7490" stroke-width="3"/>
+    <rect x="310" y="320" width="16" height="16" rx="4" fill="#fff" stroke="#0E7490" stroke-width="3"/>
+    <rect x="310" y="352" width="16" height="16" rx="4" fill="#fff" stroke="#0E7490" stroke-width="3"/>
+    <rect x="344" y="290" width="130" height="7" rx="3.5" fill="#E3DED2"/>
+    <rect x="344" y="322" width="130" height="7" rx="3.5" fill="#E3DED2"/>
+    <rect x="344" y="354" width="90" height="7" rx="3.5" fill="#E3DED2"/>
+    <rect x="486" y="404" width="54" height="26" rx="8" fill="#C2410C" opacity=".92" transform="rotate(12 513 417)"/>
+  </g>
+
+  <g>
+    <circle cx="168" cy="400" r="38" fill="#E8A200" stroke="#D99A00" stroke-width="3"/>
+    <circle cx="136" cy="438" r="38" fill="#F2A900" stroke="#E8A200" stroke-width="3"/>
+    <circle cx="176" cy="470" r="38" fill="#F7BC1C" stroke="#E8A200" stroke-width="3"/>
+    <circle cx="136" cy="438" r="14" fill="#1B1836" opacity=".8"/>
+    <path d="M120 214 c0 -52 38 -82 84 -82 46 0 84 30 84 82 0 48 -30 70 -84 70 -54 0 -84 -22 -84 -70 z" fill="#fff" opacity=".9"/>
+  </g>
+
+  <g>
+    <circle cx="618" cy="190" r="62" fill="#0E7490"/>
+    <ellipse cx="618" cy="190" rx="62" ry="26" fill="none" stroke="#fff" stroke-width="3" opacity=".55"/>
+    <ellipse cx="618" cy="190" rx="26" ry="62" fill="none" stroke="#fff" stroke-width="3" opacity=".55"/>
+    <line x1="556" y1="190" x2="680" y2="190" stroke="#fff" stroke-width="3" opacity=".55"/>
+  </g>
+
+  <g>
+    <circle cx="660" cy="452" r="9" fill="#C2410C" opacity=".6"/>
+    <circle cx="240" cy="250" r="7" fill="#0E7490" opacity=".55"/>
+    <circle cx="600" cy="540" r="7" fill="#E11A6E" opacity=".5"/>
+    <path d="M690 330 l9 20 21 3 -16 14 5 21 -19 -11 -19 11 5 -21 -16 -14 21 -3 z" fill="#E11A6E" opacity=".7"/>
+  </g>
+</svg>

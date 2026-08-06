@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" role="img" aria-label="Twinship two clubs illustration">
+  <circle cx="400" cy="320" r="255" fill="#E9F4F4"/>
+  <circle cx="400" cy="320" r="205" fill="none" stroke="#0E7490" stroke-width="2.5" stroke-dasharray="3 14" opacity=".35"/>
+
+  <g>
+    <path d="M252 212 l18 -44 18 44 z" fill="#A80F52"/>
+    <rect x="160" y="212" width="184" height="152" rx="20" fill="#E11A6E"/>
+    <g stroke="#fff" stroke-width="7" stroke-linecap="round">
+      <circle cx="252" cy="288" r="30" fill="none"/>
+      <line x1="252" y1="250" x2="252" y2="326"/>
+      <line x1="214" y1="288" x2="290" y2="288"/>
+    </g>
+    <circle cx="252" cy="288" r="9" fill="#fff"/>
+  </g>
+
+  <g>
+    <path d="M530 212 l18 -44 18 44 z" fill="#0E7490"/>
+    <rect x="456" y="212" width="184" height="152" rx="20" fill="#0E7490"/>
+    <g stroke="#fff" stroke-width="7" stroke-linecap="round">
+      <circle cx="548" cy="288" r="30" fill="none"/>
+      <line x1="548" y1="250" x2="548" y2="326"/>
+      <line x1="510" y1="288" x2="586" y2="288"/>
+    </g>
+    <circle cx="548" cy="288" r="9" fill="#fff"/>
+  </g>
+
+  <ellipse cx="398" cy="258" rx="36" ry="19" fill="none" stroke="#F2A900" stroke-width="11" transform="rotate(-28 398 258)"/>
+  <ellipse cx="402" cy="320" rx="36" ry="19" fill="none" stroke="#F2A900" stroke-width="11" transform="rotate(28 402 320)"/>
+
+  <g>
+    <rect x="322" y="398" width="156" height="118" rx="12" fill="#fff" stroke="#E9E2D8" stroke-width="3" transform="rotate(-2 400 457)"/>
+    <rect x="342" y="422" width="90" height="8" rx="4" fill="#1B1836" opacity=".8" transform="rotate(-2 400 457)"/>
+    <rect x="342" y="444" width="116" height="6" rx="3" fill="#E3DED2" transform="rotate(-2 400 457)"/>
+    <rect x="342" y="462" width="116" height="6" rx="3" fill="#E3DED2" transform="rotate(-2 400 457)"/>
+    <rect x="342" y="480" width="80" height="6" rx="3" fill="#E3DED2" transform="rotate(-2 400 457)"/>
+    <circle cx="456" cy="496" r="15" fill="#F2A900"/>
+    <path d="M449.5 496 l4.5 5 8 -9" stroke="#1B1836" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g>
+    <circle cx="150" cy="240" r="8" fill="#E11A6E" opacity=".55"/>
+    <circle cx="672" cy="480" r="8" fill="#0E7490" opacity=".55"/>
+    <circle cx="690" cy="250" r="6" fill="#F2A900" opacity=".8"/>
+    <circle cx="132" cy="480" r="6" fill="#F2A900" opacity=".8"/>
+  </g>
+</svg>

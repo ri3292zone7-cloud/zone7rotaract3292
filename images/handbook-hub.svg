@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" role="img" aria-label="Open handbook illustration">
+  <circle cx="400" cy="320" r="255" fill="#FBEFF5"/>
+  <circle cx="400" cy="320" r="205" fill="none" stroke="#E11A6E" stroke-width="2.5" stroke-dasharray="3 14" opacity=".35"/>
+  <circle cx="400" cy="320" r="160" fill="none" stroke="#F2A900" stroke-width="2" opacity=".5"/>
+
+  <g>
+    <rect x="318" y="300" width="320" height="118" rx="16" fill="#1B1836" opacity=".1" transform="rotate(-3 400 320)"/>
+    <rect x="392" y="278" width="16" height="112" rx="7" fill="#1B1836"/>
+    <path d="M400 282 C336 282 292 300 292 348 L292 410 C336 388 380 384 400 386 Z" fill="#fff" stroke="#E9E2D8" stroke-width="3"/>
+    <path d="M400 282 C464 282 508 300 508 348 L508 410 C464 388 420 384 400 386 Z" fill="#fff" stroke="#E9E2D8" stroke-width="3"/>
+    <rect x="312" y="324" width="62" height="7" rx="3.5" fill="#E3DED2"/>
+    <rect x="312" y="346" width="76" height="7" rx="3.5" fill="#E3DED2"/>
+    <rect x="312" y="368" width="52" height="7" rx="3.5" fill="#E3DED2"/>
+    <rect x="428" y="324" width="76" height="7" rx="3.5" fill="#E3DED2"/>
+    <rect x="428" y="346" width="62" height="7" rx="3.5" fill="#E3DED2"/>
+    <rect x="428" y="368" width="68" height="7" rx="3.5" fill="#E3DED2"/>
+    <rect x="472" y="282" width="16" height="48" rx="6" fill="#E11A6E"/>
+    <path d="M200 150 l14 30 32 4 -24 22 7 32 -29 -16 -29 16 7 -32 -24 -22 32 -4 z" fill="#F2A900"/>
+    <path d="M640 130 l11 24 26 4 -20 18 6 26 -23 -13 -23 13 6 -26 -20 -18 26 -4 z" fill="#E11A6E"/>
+  </g>
+
+  <g>
+    <circle cx="620" cy="470" r="34" fill="#F2A900" stroke="#E8A200" stroke-width="3"/>
+    <circle cx="620" cy="470" r="13" fill="#1B1836" opacity=".85"/>
+  </g>
+  <g>
+    <circle cx="648" cy="330" r="8" fill="#0E7490" opacity=".6"/>
+    <circle cx="160" cy="420" r="7" fill="#E11A6E" opacity=".55"/>
+    <circle cx="150" cy="255" r="6" fill="#0E7490" opacity=".5"/>
+    <circle cx="668" cy="230" r="6" fill="#C2410C" opacity=".5"/>
+  </g>
+</svg>
