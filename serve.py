@@ -78,11 +78,7 @@ class Zone7Handler(http.server.SimpleHTTPRequestHandler):
             return
 
         if path in [f"/{slug}" for slug in CLUB_SLUGS]:
-            slug = path.lstrip("/")
-            self.send_response(302)
-            self.send_header("Location", f"/club.html?club={slug}")
-            self.send_header("Content-Length", "0")
-            self.end_headers()
+            self.serve_file("/club.html")
             return
 
         self.serve_file(path)

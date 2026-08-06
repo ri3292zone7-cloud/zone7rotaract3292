@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Club | Zone 7 Rotaract 3292</title>
 <meta name="description" content="Profiles of the nine Rotaract clubs of Zone 7, District 3292. Leadership, goals, service projects and how to join, across the Kathmandu Valley.">
-<link rel="canonical" href="https://zone7rotaract3292.vercel.app/club.html">
+<link rel="canonical" href="https://zone7rotaract3292.vercel.app/club">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Zone 7 Rotaract">
 <meta property="og:title" content="Club Profiles | Zone 7 Rotaract 3292">
 <meta property="og:description" content="Profiles of the nine Rotaract clubs of Zone 7, District 3292. Leadership, goals, service projects and how to join, across the Kathmandu Valley.">
 <meta property="og:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
-<meta property="og:url" content="https://zone7rotaract3292.vercel.app/club.html">
+<meta property="og:url" content="https://zone7rotaract3292.vercel.app/club">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -522,7 +522,7 @@ if(club){(async () => {
         <div class="chero-actions">
           ${club.ig ? `<a class="btn btn-primary" href="https://www.instagram.com/${esc(club.ig)}/" target="_blank" rel="noopener">Follow @${esc(club.ig)} →</a>` : ""}
           <a class="btn btn-ghost-dark" href="mailto:${esc(club.email)}">Email the Club</a>
-          <a class="btn btn-ghost-dark" href="join.html">Join This Club</a>
+          <a class="btn btn-ghost-dark" href="/join">Join This Club</a>
         </div>
         <div class="stat-strip">
           <div class="s"><b data-val="${esc(club.active)}">0</b><span>Active Members</span></div>
@@ -591,8 +591,8 @@ if(club){(async () => {
         <h2>Want to join ${esc(club.name)}?</h2>
         <p>Membership is open to anyone aged 18–30. Fill out one short form and this club will welcome you in.</p>
         <div class="join-actions">
-          <a class="btn btn-primary" href="join.html">Fill the Join Form →</a>
-          <a class="btn btn-ghost-dark" style="border-color:rgba(255,255,255,.5);" href="index.html#clubs">Explore Other Clubs</a>
+          <a class="btn btn-primary" href="/join">Fill the Join Form →</a>
+          <a class="btn btn-ghost-dark" style="border-color:rgba(255,255,255,.5);" href="/#clubs">Explore Other Clubs</a>
         </div>
       </div>
     </section>
@@ -612,13 +612,13 @@ if(club){(async () => {
   const projects = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getProjects(clubSlug) : [];
   if(projects.length){
     pm.innerHTML = projects.map(p => `
-      <div class="pcard" onclick="location.href='project.html?club=${encodeURIComponent(clubSlug)}&id=${encodeURIComponent(p.id)}'">
+      <div class="pcard" onclick="location.href='/project?club=${encodeURIComponent(clubSlug)}&id=${encodeURIComponent(p.id)}'">
         <img src="${esc(p.cover || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600')}" alt="${esc(p.title)}" loading="lazy">
         <div class="pcard-cap"><b>${esc(p.title)}</b><span>${esc(p.category || 'Project')} · ${esc(p.date || '')}</span></div>
       </div>
     `).join("");
   } else {
-    pm.innerHTML = `<div class="no-projects-note">This club hasn't published any projects yet. Club officers can add projects from the <a href="admin.html" style="color:var(--magenta-deep); font-weight:700;">Club Admin panel</a>.</div>`;
+    pm.innerHTML = `<div class="no-projects-note">This club hasn't published any projects yet. Club officers can add projects from the <a href="/admin" style="color:var(--magenta-deep); font-weight:700;">Club Admin panel</a>.</div>`;
   }
   initReveal();
 })();

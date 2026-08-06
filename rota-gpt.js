@@ -57,7 +57,7 @@
     return esc(text)
       .replace(/\[\[([^\]]+)\]\]/g, function (m, label) {
         var slug = label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-        var url = "index.html#" + slug;
+        var url = "/#" + slug;
         return '<a href="' + url + '" style="color:#A80F52;font-weight:700">' + esc(label) + "</a>";
       })
       .replace(/(\b(?:https?:\/\/)?[a-z0-9-]+\.(?:rotary\.org|vercel\.app)[^\s]*)/g, function (m) {
@@ -166,7 +166,7 @@
     if (!best.length) {
       return {
         text: "I couldn't find that in the zone's documents, but I can help with club info, grants, twinship, meetings, tutorials and the district rules. Try one of the suggestions below.",
-        links: [{ label: "Tutorials", url: "tutorials.html" }, { label: "Handbook", url: "handbook.html" }, { label: "Guides for Clubs", url: "club-guides.html" }],
+        links: [{ label: "Tutorials", url: "/tutorials" }, { label: "Handbook", url: "/handbook" }, { label: "Guides for Clubs", url: "club-/guides" }],
         src: "Site knowledge base"
       };
     }

@@ -716,12 +716,12 @@
     <h1 id="heroHeading">Young leaders in the<br>Kathmandu Valley,<br><span class="hl">united as Zone 7.</span></h1>
     <p class="lead">Zone 7 brings together Rotaract clubs across the Kathmandu Valley under District 3292, turning service, fellowship and leadership into action, one project at a time.</p>
     <div class="hero-actions">
-      <a href="join.html" class="btn btn-primary">Fill the Form, Become a Rotaractor →</a>
+      <a href="/join" class="btn btn-primary">Fill the Form, Become a Rotaractor →</a>
       <a href="#clubs" class="btn btn-ghost">Explore our Clubs</a>
     </div>
     <div class="hero-actions hero-actions-secondary">
-      <a href="guides.html" class="btn btn-ghost">Rotaract Resources</a>
-      <a href="club-guides.html" class="btn btn-ghost">Guides for Clubs</a>
+      <a href="/guides" class="btn btn-ghost">Rotaract Resources</a>
+      <a href="club-/guides" class="btn btn-ghost">Guides for Clubs</a>
     </div>
     <div class="stat-row">
       <div class="stat"><b>9</b><span>Clubs in Zone 7</span></div>
@@ -899,7 +899,7 @@
   <div class="wrap">
     <span class="section-tag">Who we are</span>
     <h2>Service above self, <span class="mark">led by youth.</span></h2>
-    <p class="sub">Rotaract is Rotary International's club for young adults aged 18&ndash;30, sponsored by local Rotary clubs and entirely run by Rotaractors. Zone 7 unites 9 such clubs across the Kathmandu Valley under District 3292. <a href="about.html" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Read our full story →</a></p>
+    <p class="sub">Rotaract is Rotary International's club for young adults aged 18&ndash;30, sponsored by local Rotary clubs and entirely run by Rotaractors. Zone 7 unites 9 such clubs across the Kathmandu Valley under District 3292. <a href="/about" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Read our full story →</a></p>
 
     <div class="mosaic-head">
       <h3>Every Zone 7 project, one skyline.</h3>
@@ -1056,7 +1056,7 @@
         pop.classList.add("show");
       },{passive:true});
       el.addEventListener("touchend",()=>{ setTimeout(()=>pop.classList.remove("show"),2400); },{passive:true});
-      el.addEventListener("click",()=>{ location.href=`/project.html?club=${p.club}&id=${encodeURIComponent(p.id)}`; });
+      el.addEventListener("click",()=>{ location.href=`//project?club=${p.club}&id=${encodeURIComponent(p.id)}`; });
     });
   }
 
@@ -1221,7 +1221,7 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   <div class="wrap">
     <span class="section-tag">Our Clubs</span>
     <h2>The clubs that make up Zone 7.</h2>
-    <p class="sub">Nine Rotaract clubs across the Kathmandu Valley. Click a card to view the club's profile, or tap its Instagram handle to open Instagram directly. <a href="club-guides.html" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Running a club? Open the playbook →</a></p>
+    <p class="sub">Nine Rotaract clubs across the Kathmandu Valley. Click a card to view the club's profile, or tap its Instagram handle to open Instagram directly. <a href="club-/guides" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Running a club? Open the playbook →</a></p>
 
     <div class="logo-carousel" id="logoCarousel">
       <div class="logo-track" id="logoTrack"></div>
@@ -1231,45 +1231,45 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
         let items = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => ({slug, name:c.name.replace('Rotaract Club of ',''), logo:c.logo}));
         for(let i=items.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [items[i],items[j]]=[items[j],items[i]]; }
         const SQUARE_SHAPE = new Set(["newroadcity","tripureswor","kathmanduwest","sankhu"]);
-        const chip = it => `<a class="logo-chip" href="club.html?club=${it.slug}" title="${it.name}"><img class="${SQUARE_SHAPE.has(it.slug)?'square':'round'}" src="${it.logo}" alt="${it.name}" loading="lazy"></a>`;
+        const chip = it => `<a class="logo-chip" href="/${it.slug}" title="${it.name}"><img class="${SQUARE_SHAPE.has(it.slug)?'square':'round'}" src="${it.logo}" alt="${it.name}" loading="lazy"></a>`;
         document.getElementById("logoTrack").innerHTML = items.map(chip).join("") + items.map(chip).join("");
       })();
     </script>
 
     <div class="clubs-grid">
-      <div class="club-card" onclick="location.href='club.html?club=balkumari'">
+      <div class="club-card" onclick="location.href='/balkumari'">
         <div class="club-mark"><img src="logos/balkumari.jpg" alt="BK logo" loading="lazy"></div><h4>Rotaract Club of Balkumari</h4><p>Chyasal Marg, Lalitpur · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rac_balkumari/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rac_balkumari</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=baneshwor'">
+      <div class="club-card" onclick="location.href='/baneshwor'">
         <div class="club-mark"><img src="logos/baneshwor.jpg" alt="BN logo" loading="lazy"></div><h4>Rotaract Club of Baneshwor</h4><p>Devkota Sadak, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/racbaneshwor/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racbaneshwor</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=kathmanduheight'">
+      <div class="club-card" onclick="location.href='/kathmanduheight'">
         <div class="club-mark"><img src="logos/kathmanduheight.jpg" alt="KH logo" loading="lazy"></div><h4>Rotaract Club of Kathmandu Height</h4><p>Baneshwar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rackathmanduheight/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rackathmanduheight</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=kathmanduwest'">
+      <div class="club-card" onclick="location.href='/kathmanduwest'">
         <div class="club-mark"><img src="logos/kathmanduwest.jpg" alt="KW logo" loading="lazy"></div><h4>Rotaract Club of Kathmandu West</h4><p>Baghbazar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/kathmanduwest/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @kathmanduwest</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=liberty'">
+      <div class="club-card" onclick="location.href='/liberty'">
         <div class="club-mark"><img src="logos/liberty.jpg" alt="LC logo" loading="lazy"></div><h4>Rotaract Club of Liberty College</h4><p>Buddha Nagar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rotaractcluboflibertycollege/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rotaractcluboflibertycollege</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=newroadcity'">
+      <div class="club-card" onclick="location.href='/newroadcity'">
         <div class="club-mark"><img src="logos/newroadcity.jpg" alt="NR logo" loading="lazy"></div><h4>Rotaract Club of New Road City</h4><p>Makkhan Tol, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/racnewroadcity1/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racnewroadcity1</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=sankhu'">
+      <div class="club-card" onclick="location.href='/sankhu'">
         <div class="club-mark"><img src="logos/sankhu.jpg" alt="SK logo" loading="lazy"></div><h4>Rotaract Club of Sankhu</h4><p>Sankhu, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/racsankhu/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racsankhu</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=sukedhara'">
+      <div class="club-card" onclick="location.href='/sukedhara'">
         <div class="club-mark"><img src="logos/sukedhara.jpg" alt="SD logo" loading="lazy"></div><h4>Rotaract Club of Sukedhara</h4><p>Baneshwar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rac_sukedhara/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rac_sukedhara</a>
       </div>
-      <div class="club-card" onclick="location.href='club.html?club=tripureswor'">
+      <div class="club-card" onclick="location.href='/tripureswor'">
         <div class="club-mark"><img src="logos/tripureswor.jpg" alt="TP logo" loading="lazy"></div><h4>Rotaract Club of Tripureswor</h4><p>Baneshwar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/ractripureswor/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @ractripureswor</a>
       </div>
@@ -1331,7 +1331,7 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   for(let i=members.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [members[i],members[j]]=[members[j],members[i]]; }
   const initials = n => n.split(" ").map(w=>w[0]||"").join("").slice(0,2).toUpperCase();
   const cardHTML = m => `
-    <a class="bod-card${m.isPresident?' is-president':''}" href="club.html?club=${m.clubSlug}#board">
+    <a class="bod-card${m.isPresident?' is-president':''}" href="/${m.clubSlug}#board">
       <div class="bod-photo">
         ${m.photo ? `<img src="${zone7Esc(m.photo)}" alt="${zone7Esc(m.name)}" loading="lazy">` : `<div class="bod-initials">${zone7Esc(initials(m.name))}</div>`}
         ${m.isPresident ? `<span class="bod-crown">👑 President</span>` : ""}
@@ -1394,7 +1394,7 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   if(!projects.length){ track.style.animation="none"; track.innerHTML = `<p style="padding:20px; color:rgba(27,24,54,0.45); font-size:0.85rem;">No projects uploaded yet.</p>`; track2.style.display="none"; return; }
   for(let i=projects.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [projects[i],projects[j]]=[projects[j],projects[i]]; }
   const cardHTML = p => `
-    <a class="proj-card" href="project.html?club=${p.clubSlug}&id=${encodeURIComponent(p.id)}">
+    <a class="proj-card" href="/project?club=${p.clubSlug}&id=${encodeURIComponent(p.id)}">
       <img src="${zone7Esc(p.cover || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600')}" alt="${zone7Esc(p.title)}" loading="lazy">
       <div class="proj-cap"><b>${zone7Esc(p.title)}</b><span>${zone7Esc(p.category)} · ${zone7Esc(p.clubName)}</span></div>
     </a>`;
@@ -1589,7 +1589,7 @@ function goDCal(delta){
     <div class="join-card">
       <h2>One form is all it takes to become a Rotaractor.</h2>
       <p>Fill out our short membership form: share a few details about yourself, your age, and why you want to serve, and a Zone 7 club will welcome you in as a Rotaractor.</p>
-      <a href="join.html" class="btn btn-primary">Fill the Join Form →</a>
+      <a href="/join" class="btn btn-primary">Fill the Join Form →</a>
     </div>
   </div>
 </section>
@@ -1604,7 +1604,7 @@ function goDCal(delta){
       <div>
         <h5>Explore</h5>
         <ul>
-          <li><a href="join.html">Join Us</a></li>
+          <li><a href="/join">Join Us</a></li>
           <li><a href="#about">About Zone 7</a></li>
           <li><a href="#clubs">Our Clubs</a></li>
           <li><a href="#events">Events</a></li>
@@ -1622,7 +1622,7 @@ function goDCal(delta){
         <ul>
           <li><a href="https://www.instagram.com/zone7rotaract3292/" target="_blank">Instagram</a></li>
           <li><a href="mailto:ri3292zone7@gmail.com">Email the ZRR</a></li>
-          <li><a href="admin.html">Club Admin Login</a></li>
+          <li><a href="/admin">Club Admin Login</a></li>
         </ul>
       </div>
     </div>

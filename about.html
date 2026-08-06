@@ -268,7 +268,7 @@
           <div class="stat"><b>6</b><span>ZRRs since 2021-22</span></div>
         </div>
         <div class="hero-links">
-          <a class="hlink primary" href="join.html">Become a Member →</a>
+          <a class="hlink primary" href="/join">Become a Member →</a>
           <a class="hlink ghost" href="#allclubs">Meet the Nine Clubs</a>
         </div>
       </div>
@@ -435,13 +435,13 @@
   <div class="join-card">
     <h2>Want to be part of the next chapter?</h2>
     <p>Membership is open to anyone aged 18–30 in the Kathmandu Valley. Fill out one short form and a Zone 7 club will welcome you in.</p>
-    <a href="join.html" class="btn btn-primary">Fill the Join Form →</a>
+    <a href="/join" class="btn btn-primary">Fill the Join Form →</a>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    © 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. &nbsp;·&nbsp; <a href="index.html">Back to Home</a>
+    © 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. &nbsp;·&nbsp; <a href="/">Back to Home</a>
   </div>
 </footer>
 
@@ -456,7 +456,7 @@ function initials(name){
   const zrrs = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getZRRs() : [];
   if(zrrs.length){
     track.innerHTML = zrrs.map(z => `
-      <a class="journey-item${z.is_current ? ' current' : ''}" href="index.html#leadership">
+      <a class="journey-item${z.is_current ? ' current' : ''}" href="/#leadership">
         <div class="journey-avatar">${z.photo ? `<img src="${zone7Esc(z.photo)}" alt="${zone7Esc(z.name)}">` : initials(z.name)}</div>
         <div class="journey-body">
           <div class="journey-meta">
@@ -479,7 +479,7 @@ function initials(name){
   const teamGrid = document.getElementById("heroTeamList");
   const leaders = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getLeadership() : [];
   teamGrid.innerHTML = leaders.length ? leaders.map(p => `
-    <a class="hero-team-row" href="index.html#leadership">
+    <a class="hero-team-row" href="/#leadership">
       <div class="hero-team-avatar">${p.photo ? `<img src="${zone7Esc(p.photo)}" alt="${zone7Esc(p.name)}">` : initials(p.name)}</div>
       <div class="hero-team-info">
         <h5>${zone7Esc(p.name)}</h5>
@@ -491,7 +491,7 @@ function initials(name){
 
   // ---- All clubs grid ----
   document.getElementById("allClubsGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
-    <a class="club-card" href="club.html?club=${slug}">
+    <a class="club-card" href="/${slug}">
       <div class="club-mark"><img src="${c.logo}" alt="${zone7Esc(c.name)} logo" loading="lazy"></div>
       <div><h4>${zone7Esc(c.name.replace('Rotaract Club of ',''))}</h4><p>@${zone7Esc(c.ig)}</p></div>
     </a>

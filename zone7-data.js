@@ -1,6 +1,6 @@
 /* ===================================================================
    Zone 7 Rotaract — shared data layer (Supabase-backed)
-   Used by club.html, project.html, admin.html
+   Used by club.html, project.html, /admin
 
    SETUP: fill in SUPABASE_URL and SUPABASE_ANON_KEY below, from your
    Supabase project's Settings → API page. Run supabase_schema.sql in
@@ -491,7 +491,7 @@ const ZONE7_DB = {
     return true;
   },
 
-  /* ---- guest visit requests (join.html) ---- */
+  /* ---- guest visit requests (/join) ---- */
   async submitGuestRequest(row){
     const res = await fetch(GUEST_URL, {
       method: "POST",
@@ -530,7 +530,7 @@ const ZONE7_DB = {
     return true;
   },
 
-  /* ---- membership applications (join.html) ---- */
+  /* ---- membership applications (/join) ---- */
   async submitMembershipApplication(row){
     const res = await fetch(APP_URL, {
       method: "POST",
@@ -569,7 +569,7 @@ const ZONE7_DB = {
     return true;
   },
 
-  /* ---- ZRR history (Line of Leadership timeline on index.html) ---- */
+  /* ---- ZRR history (Line of Leadership timeline on /) ---- */
   _zrrFallback: [
     { id:"zrr-2122", name:"Binaya Maharjan", years:"21-22", sort_order:1, is_current:false, club:"Rotaract Club of Liberty College", photo:"team/Binaya.png" },
     { id:"zrr-2223", name:"Ankush Adhikari", years:"22-23", sort_order:2, is_current:false, club:"Rotaract Club of Tripureswor", photo:"team/Ankush.jpg" },
