@@ -6,7 +6,7 @@
 <title>Zone 7 Rotaract | District 3292 Nepal-Bhutan</title>
 
 <!-- SEO -->
-<meta name="description" content="Zone 7 unites 9 Rotaract clubs across the Kathmandu Valley under District 3292 Nepal-Bhutan — service, fellowship and leadership for young adults aged 18–30.">
+<meta name="description" content="Zone 7 unites 9 Rotaract clubs across the Kathmandu Valley under District 3292 Nepal-Bhutan. Service, fellowship and leadership for young adults aged 18–30.">
 <link rel="canonical" href="https://zone7rotaract3292.vercel.app/">
 
 <!-- Favicon -->
@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Zone 7 Rotaract">
 <meta property="og:title" content="Zone 7 Rotaract | District 3292 Nepal-Bhutan">
-<meta property="og:description" content="Zone 7 unites 9 Rotaract clubs across the Kathmandu Valley under District 3292 Nepal-Bhutan — service, fellowship and leadership for young adults aged 18–30.">
+<meta property="og:description" content="Zone 7 unites 9 Rotaract clubs across the Kathmandu Valley under District 3292 Nepal-Bhutan. Service, fellowship and leadership for young adults aged 18–30.">
 <meta property="og:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
 <meta property="og:url" content="https://zone7rotaract3292.vercel.app/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,79 +50,6 @@
   img{max-width:100%; display:block;}
   .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
 
-  /* NAV */
-  nav{
-    position:fixed; top:0; left:0; right:0; z-index:100;
-    background:rgba(255,253,249,0.85);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
-  .brand{display:flex; align-items:center; gap:10px; font-family:'Poppins'; font-weight:800; font-size:1.1rem;}
-  .brand .z{
-    background:var(--magenta); color:#fff; width:34px; height:34px; border-radius:8px;
-    display:flex; align-items:center; justify-content:center; font-size:1.05rem;
-  }
-  .navlinks{display:flex; gap:34px; font-weight:600; font-size:0.92rem; align-items:center;}
-  .navlinks > a{position:relative; padding:4px 0; color:var(--ink); opacity:0.75; transition:opacity .2s;}
-  .navlinks > a:hover{opacity:1;}
-
-  /* NAV DROPDOWNS */
-  .nav-drop{position:relative;}
-  .nav-drop::before{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);width:440px;height:20px;}
-  .nav-drop-trigger{
-    display:flex; align-items:center; gap:5px; background:none; border:none; cursor:pointer;
-    font-family:'Inter'; font-weight:600; font-size:0.92rem; color:var(--ink); opacity:0.75; padding:4px 0; transition:opacity .2s;
-  }
-  .nav-drop-trigger svg{transition:transform .2s;}
-  .nav-drop:hover .nav-drop-trigger, .nav-drop.open .nav-drop-trigger{opacity:1;}
-  .nav-drop.open .nav-drop-trigger svg{transform:rotate(180deg);}
-  .nav-drop-panel{
-    position:absolute; top:calc(100% + 18px); left:50%; transform:translateX(-50%) translateY(6px);
-    background:var(--paper); border:1px solid var(--line); border-radius:18px; box-shadow:0 24px 48px rgba(27,24,54,0.14);
-    padding:14px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; z-index:60;
-  }
-  .nav-drop:hover .nav-drop-panel, .nav-drop.open .nav-drop-panel{opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);}
-  .nav-drop-panel::before{
-    content:""; position:absolute; top:-6px; left:50%; transform:translateX(-50%) rotate(45deg);
-    width:12px; height:12px; background:var(--paper); border-left:1px solid var(--line); border-top:1px solid var(--line);
-  }
-  .clubs-drop-panel{width:420px;}
-  .clubs-drop-grid{display:grid; grid-template-columns:1fr 1fr; gap:4px;}
-  .clubs-drop-item{
-    display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:12px; transition:background .15s;
-  }
-  .clubs-drop-item:hover{background:rgba(225,26,110,0.07);}
-  .clubs-drop-item img{width:28px; height:28px; border-radius:8px; object-fit:contain; background:#fff; border:1px solid var(--line); padding:3px; flex-shrink:0;}
-  .clubs-drop-item span{font-size:0.82rem; font-weight:600; color:var(--ink); line-height:1.25;}
-  .clubs-drop-foot{
-    display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:10px; padding-top:10px;
-    border-top:1px solid var(--line);
-  }
-  .clubs-drop-foot a{font-size:0.8rem; font-weight:700; color:var(--magenta-deep);}
-  .res-drop-panel{width:290px;}
-  .res-drop-item{display:flex; gap:12px; padding:11px 10px; border-radius:12px; transition:background .15s; align-items:flex-start;}
-  .res-drop-item:hover{background:rgba(225,26,110,0.07);}
-  .res-drop-ico{
-    width:34px; height:34px; border-radius:10px; background:rgba(225,26,110,0.09); color:var(--magenta-deep);
-    display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:1rem;
-  }
-  .res-drop-item h5{font-size:0.86rem; font-weight:700; color:var(--ink); margin-bottom:2px;}
-  .res-drop-item p{font-size:0.74rem; color:rgba(27,24,54,0.5); line-height:1.4; margin:0;}
-  @media (max-width:920px){ .nav-drop{display:none;} }
-  .nav-cta{
-    background:var(--ink); color:#fff !important; padding:10px 20px; border-radius:100px;
-    font-weight:700; font-size:0.85rem; opacity:1 !important;
-  }
-  .nav-admin{
-    font-weight:700; font-size:0.85rem; color:var(--magenta-deep); opacity:0.85; transition:opacity .2s;
-  }
-  .nav-admin:hover{opacity:1;}
-  .burger{display:none; background:none; border:none; cursor:pointer; padding:6px;}
-  .burger span{display:block; width:22px; height:2px; background:var(--ink); margin:5px 0; border-radius:2px;}
-  .mobile-menu{display:none; position:fixed; top:76px; left:0; right:0; background:var(--paper); border-bottom:1px solid var(--line); z-index:99; padding:18px 28px; flex-direction:column; gap:16px;}
-  .mobile-menu.open{display:flex;}
-  .mobile-menu a{font-weight:600; font-size:1rem; color:var(--ink);}
 
   /* HERO */
   .hero{
@@ -591,8 +518,6 @@
   }
 
   @media (max-width:920px){
-    .navlinks{display:none;}
-    .burger{display:block;}
     .hero{padding:130px 0 70px;}
     .section{padding:70px 0;}
     .leader{padding:50px 0 20px;}
@@ -716,7 +641,7 @@
   "alternateName": "Zone 7, Rotaract District 3292 Nepal-Bhutan",
   "url": "https://zone7rotaract3292.vercel.app/",
   "logo": "https://zone7rotaract3292.vercel.app/favicon.png",
-  "description": "Zone 7 unites 9 Rotaract clubs across the Kathmandu Valley under District 3292 Nepal-Bhutan — service, fellowship and leadership for young adults aged 18–30.",
+  "description": "Zone 7 unites 9 Rotaract clubs across the Kathmandu Valley under District 3292 Nepal-Bhutan. Service, fellowship and leadership for young adults aged 18–30.",
   "sameAs": [
     "https://www.instagram.com/zone7rotaract3292/"
   ],
@@ -733,7 +658,7 @@
 <div id="rotaryPreloader">
   <div id="rpStage">
     <div id="rpContent">
-      <div id="rpWheelWrap"><img id="rotaryWheelImg" src="logos/RotaryMoE-R_REV.png" alt=""></div>
+      <div id="rpWheelWrap"><img id="rotaryWheelImg" src="logos/RotaryMoE-R_REV.png" alt="Rotary wheel"></div>
       <img id="rotaractWordmark" src="logos/Rotaract-Simple_CMYK-Crop.png" alt="Rotaract">
       <div id="rpTagline">ZONE 7 · DISTRICT 3292</div>
       <div id="rpBarTrack"><div id="rpBarFill"></div></div>
@@ -753,102 +678,31 @@
     return;
   }
 
-  const HOLD_MS = 2900;
+  const HOLD_MS = 1500;
   document.getElementById("rpBarFill").style.transitionDuration = HOLD_MS + "ms";
+
+  function dismiss(){
+    if(el.classList.contains("hide")) return;
+    el.classList.add("hide");
+    sessionStorage.setItem("zone7_splash_seen", "1");
+    setTimeout(() => el.remove(), 700);
+  }
 
   window.addEventListener("load", () => {
     requestAnimationFrame(() => {
       document.getElementById("rpBarFill").style.width = "100%";
     });
-    setTimeout(() => {
-      el.classList.add("hide");
-      sessionStorage.setItem("zone7_splash_seen", "1");
-      setTimeout(() => el.remove(), 700);
-    }, HOLD_MS);
+    setTimeout(dismiss, HOLD_MS);
+  });
+  el.addEventListener("click", dismiss);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") dismiss();
   });
 })();
 </script>
 
-<nav>
-  <div class="wrap">
-    <div class="brand"><span class="z">7</span> Zone 7 Rotaract</div>
-    <div class="navlinks">
-      <a href="/about">About</a>
-
-      <div class="nav-drop" id="clubsDrop">
-        <button type="button" class="nav-drop-trigger">Clubs <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <div class="nav-drop-panel clubs-drop-panel" id="clubsDropPanel">
-          <div class="clubs-drop-grid" id="clubsDropGrid"></div>
-          <div class="clubs-drop-foot">
-            <span style="font-size:0.74rem; color:rgba(27,24,54,0.45);">9 clubs in Zone 7</span>
-            <a href="#clubs">See all on homepage →</a>
-          </div>
-        </div>
-      </div>
-
-      <a href="/gallery">Gallery</a>
-
-      <div class="nav-drop" id="resDrop">
-        <button type="button" class="nav-drop-trigger">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <div class="nav-drop-panel res-drop-panel">
-          <a class="res-drop-item" href="/guides">
-            <div class="res-drop-ico">📄</div>
-            <div><h5>Rotaract Resources</h5><p>Official constitutions, forms & district documents</p></div>
-          </a>
-          <a class="res-drop-item" href="/club-guides">
-            <div class="res-drop-ico">📚</div>
-            <div><h5>Guides for Clubs</h5><p>The playbook — leadership, finance, projects & more</p></div>
-          </a>
-          <a class="res-drop-item" href="#connect">
-            <div class="res-drop-ico">📷</div>
-            <div><h5>Follow Along</h5><p>Recaps and reels from across the zone</p></div>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div style="display:flex; align-items:center; gap:18px;">
-      <a href="admin.html" class="nav-admin">Club Admin</a>
-      <a href="/join" class="btn nav-cta">Join Us</a>
-      <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
-    </div>
-  </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="/about">About</a>
-    <a href="#clubs">Clubs</a>
-    <a href="/gallery">Gallery</a>
-    <a href="/guides">Rotaract Resources</a>
-    <a href="/club-guides">Guides for Clubs</a>
-    <a href="#connect">Connect</a>
-  </div>
-</nav>
-<script>
-  document.getElementById("clubsDropGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
-    <a class="clubs-drop-item" href="/${slug}">
-      <img src="${c.logo}" alt="" loading="lazy">
-      <span>${c.name.replace('Rotaract Club of ','')}</span>
-    </a>
-  `).join("");
-  // Click-to-toggle for touch/keyboard users alongside the CSS hover
-  document.querySelectorAll(".nav-drop-trigger").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const drop = btn.closest(".nav-drop");
-      const wasOpen = drop.classList.contains("open");
-      document.querySelectorAll(".nav-drop").forEach(d => d.classList.remove("open"));
-      if(!wasOpen) drop.classList.add("open");
-    });
-  });
-  document.addEventListener("click", (e) => {
-    if(!e.target.closest(".nav-drop")) document.querySelectorAll(".nav-drop").forEach(d => d.classList.remove("open"));
-  });
-</script>
-<script>
-  document.getElementById('burgerBtn').addEventListener('click', () => {
-    document.getElementById('mobileMenu').classList.toggle('open');
-  });
-  document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
-    document.getElementById('mobileMenu').classList.remove('open');
-  }));
-</script>
+<div id="siteNav" data-current="" data-cta="join"></div>
+<script src="site-nav.js"></script>
 
 <header class="hero">
   <canvas id="heroDots" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
@@ -860,14 +714,14 @@
   <div class="wrap">
     <div class="eyebrow"><span class="dot"></span>Rotaract District 3292 · Nepal-Bhutan</div>
     <h1 id="heroHeading">Young leaders in the<br>Kathmandu Valley,<br><span class="hl">united as Zone 7.</span></h1>
-    <p class="lead">Zone 7 brings together Rotaract clubs across the Kathmandu Valley under District 3292, turning service, fellowship and leadership into action &mdash; one project at a time.</p>
+    <p class="lead">Zone 7 brings together Rotaract clubs across the Kathmandu Valley under District 3292, turning service, fellowship and leadership into action, one project at a time.</p>
     <div class="hero-actions">
-      <a href="/join" class="btn btn-primary">Fill the Form, Become a Rotaractor →</a>
+      <a href="join.html" class="btn btn-primary">Fill the Form, Become a Rotaractor →</a>
       <a href="#clubs" class="btn btn-ghost">Explore our Clubs</a>
     </div>
     <div class="hero-actions hero-actions-secondary">
-      <a href="/guides" class="btn btn-ghost">Rotaract Resources</a>
-      <a href="/club-guides" class="btn btn-ghost">Guides for Clubs</a>
+      <a href="guides.html" class="btn btn-ghost">Rotaract Resources</a>
+      <a href="club-guides.html" class="btn btn-ghost">Guides for Clubs</a>
     </div>
     <div class="stat-row">
       <div class="stat"><b>9</b><span>Clubs in Zone 7</span></div>
@@ -1045,7 +899,7 @@
   <div class="wrap">
     <span class="section-tag">Who we are</span>
     <h2>Service above self, <span class="mark">led by youth.</span></h2>
-    <p class="sub">Rotaract is Rotary International's club for young adults aged 18&ndash;30 &mdash; sponsored by local Rotary clubs, entirely run by Rotaractors. Zone 7 unites 9 such clubs across the Kathmandu Valley under District 3292. <a href="/about" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Read our full story →</a></p>
+    <p class="sub">Rotaract is Rotary International's club for young adults aged 18&ndash;30, sponsored by local Rotary clubs and entirely run by Rotaractors. Zone 7 unites 9 such clubs across the Kathmandu Valley under District 3292. <a href="about.html" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Read our full story →</a></p>
 
     <div class="mosaic-head">
       <h3>Every Zone 7 project, one skyline.</h3>
@@ -1057,7 +911,7 @@
       </div>
     </div>
     <div class="mosaic-frame"><div class="mosaic-columns" id="mosaicColumns"></div></div>
-    <p class="mosaic-note">Mockup preview &mdash; live club-uploaded projects populate this automatically.</p>
+    <p class="mosaic-note">Mockup preview. Live club-uploaded projects populate this automatically; hover or tap any tile for the full project name.</p>
   </div>
 </section>
 <div class="mosaic-popup" id="mosaicPopup"><span class="mp-tag" id="mpTag"></span><h5 id="mpTitle"></h5><p id="mpClub"></p></div>
@@ -1120,7 +974,7 @@
     {t:"Installation Ceremony",c:"Fellowship",club:"kathmanduheight",cn:"Kathmandu Height",id:"mock-23"},
     {t:"Sapling Distribution",c:"Environment",club:"kathmanduheight",cn:"Kathmandu Height",id:"mock-24"},
     {t:"Fundraiser Gala",c:"Fundraising",club:"newroadcity",cn:"New Road City",id:"mock-25"},
-    {t:"Interact Mentorship Day",c:"Leadership",club:"newroadcity",cn:"New Road City",id:"mock-26"},
+    {t:"Youth Leadership Session",c:"Leadership",club:"newroadcity",cn:"New Road City",id:"mock-26"},
     {t:"Public Image Campaign",c:"Public Image",club:"newroadcity",cn:"New Road City",id:"mock-27"}
   ];
 
@@ -1153,8 +1007,8 @@
   const keyFor={ category:p=>p.c, club:p=>p.cn, az:p=>p.t[0].toUpperCase(), avenue:p=>p.av };
   const noteEl=document.querySelector(".mosaic-note");
   if(noteEl) noteEl.textContent = isLive
-    ? `Live — ${MOSAIC.length} project${MOSAIC.length===1?"":"s"} uploaded by Zone 7 clubs.`
-    : "Mockup preview — real club-uploaded projects will populate this automatically.";
+    ? `Live · ${MOSAIC.length} project${MOSAIC.length===1?"":"s"} uploaded by Zone 7 clubs. Codes are short labels; hover or tap any tile for the full project name.`
+    : "Mockup preview · real club-uploaded projects will populate this automatically. Codes are short labels; hover or tap any tile for the full project name.";
 
   function render(mode){
     const key=keyFor[mode];
@@ -1194,7 +1048,15 @@
         pop.classList.add("show");
       });
       el.addEventListener("mouseleave",()=>pop.classList.remove("show"));
-      el.addEventListener("click",()=>{ location.href=`project.html?club=${p.club}&id=${encodeURIComponent(p.id)}`; });
+      el.addEventListener("touchstart",e=>{
+        const t=e.touches[0];
+        pop.style.left=Math.min(t.clientX+8,window.innerWidth-246)+"px";
+        pop.style.top=Math.min(t.clientY-96,window.innerHeight-150)+"px";
+        mpTag.textContent=p.c; mpTitle.textContent=p.t; mpClub.textContent="Rotaract Club of "+p.cn;
+        pop.classList.add("show");
+      },{passive:true});
+      el.addEventListener("touchend",()=>{ setTimeout(()=>pop.classList.remove("show"),2400); },{passive:true});
+      el.addEventListener("click",()=>{ location.href=`/project.html?club=${p.club}&id=${encodeURIComponent(p.id)}`; });
     });
   }
 
@@ -1359,7 +1221,7 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   <div class="wrap">
     <span class="section-tag">Our Clubs</span>
     <h2>The clubs that make up Zone 7.</h2>
-    <p class="sub">Nine Rotaract clubs across the Kathmandu Valley. Click a card to view the club's profile, or tap its Instagram handle to open Instagram directly.</p>
+    <p class="sub">Nine Rotaract clubs across the Kathmandu Valley. Click a card to view the club's profile, or tap its Instagram handle to open Instagram directly. <a href="club-guides.html" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Running a club? Open the playbook →</a></p>
 
     <div class="logo-carousel" id="logoCarousel">
       <div class="logo-track" id="logoTrack"></div>
@@ -1369,45 +1231,45 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
         let items = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => ({slug, name:c.name.replace('Rotaract Club of ',''), logo:c.logo}));
         for(let i=items.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [items[i],items[j]]=[items[j],items[i]]; }
         const SQUARE_SHAPE = new Set(["newroadcity","tripureswor","kathmanduwest","sankhu"]);
-        const chip = it => `<a class="logo-chip" href="/${it.slug}" title="${it.name}"><img class="${SQUARE_SHAPE.has(it.slug)?'square':'round'}" src="${it.logo}" alt="${it.name}" loading="lazy"></a>`;
+        const chip = it => `<a class="logo-chip" href="club.html?club=${it.slug}" title="${it.name}"><img class="${SQUARE_SHAPE.has(it.slug)?'square':'round'}" src="${it.logo}" alt="${it.name}" loading="lazy"></a>`;
         document.getElementById("logoTrack").innerHTML = items.map(chip).join("") + items.map(chip).join("");
       })();
     </script>
 
     <div class="clubs-grid">
-      <div class="club-card" onclick="location.href='/balkumari'">
+      <div class="club-card" onclick="location.href='club.html?club=balkumari'">
         <div class="club-mark"><img src="logos/balkumari.jpg" alt="BK logo" loading="lazy"></div><h4>Rotaract Club of Balkumari</h4><p>Chyasal Marg, Lalitpur · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rac_balkumari/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rac_balkumari</a>
       </div>
-      <div class="club-card" onclick="location.href='/baneshwor'">
+      <div class="club-card" onclick="location.href='club.html?club=baneshwor'">
         <div class="club-mark"><img src="logos/baneshwor.jpg" alt="BN logo" loading="lazy"></div><h4>Rotaract Club of Baneshwor</h4><p>Devkota Sadak, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/racbaneshwor/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racbaneshwor</a>
       </div>
-      <div class="club-card" onclick="location.href='/kathmanduheight'">
+      <div class="club-card" onclick="location.href='club.html?club=kathmanduheight'">
         <div class="club-mark"><img src="logos/kathmanduheight.jpg" alt="KH logo" loading="lazy"></div><h4>Rotaract Club of Kathmandu Height</h4><p>Baneshwar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rackathmanduheight/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rackathmanduheight</a>
       </div>
-      <div class="club-card" onclick="location.href='/kathmanduwest'">
+      <div class="club-card" onclick="location.href='club.html?club=kathmanduwest'">
         <div class="club-mark"><img src="logos/kathmanduwest.jpg" alt="KW logo" loading="lazy"></div><h4>Rotaract Club of Kathmandu West</h4><p>Baghbazar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/kathmanduwest/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @kathmanduwest</a>
       </div>
-      <div class="club-card" onclick="location.href='/liberty'">
+      <div class="club-card" onclick="location.href='club.html?club=liberty'">
         <div class="club-mark"><img src="logos/liberty.jpg" alt="LC logo" loading="lazy"></div><h4>Rotaract Club of Liberty College</h4><p>Buddha Nagar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rotaractcluboflibertycollege/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rotaractcluboflibertycollege</a>
       </div>
-      <div class="club-card" onclick="location.href='/newroadcity'">
+      <div class="club-card" onclick="location.href='club.html?club=newroadcity'">
         <div class="club-mark"><img src="logos/newroadcity.jpg" alt="NR logo" loading="lazy"></div><h4>Rotaract Club of New Road City</h4><p>Makkhan Tol, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/racnewroadcity1/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racnewroadcity1</a>
       </div>
-      <div class="club-card" onclick="location.href='/sankhu'">
+      <div class="club-card" onclick="location.href='club.html?club=sankhu'">
         <div class="club-mark"><img src="logos/sankhu.jpg" alt="SK logo" loading="lazy"></div><h4>Rotaract Club of Sankhu</h4><p>Sankhu, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/racsankhu/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racsankhu</a>
       </div>
-      <div class="club-card" onclick="location.href='/sukedhara'">
+      <div class="club-card" onclick="location.href='club.html?club=sukedhara'">
         <div class="club-mark"><img src="logos/sukedhara.jpg" alt="SD logo" loading="lazy"></div><h4>Rotaract Club of Sukedhara</h4><p>Baneshwar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rac_sukedhara/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rac_sukedhara</a>
       </div>
-      <div class="club-card" onclick="location.href='/tripureswor'">
+      <div class="club-card" onclick="location.href='club.html?club=tripureswor'">
         <div class="club-mark"><img src="logos/tripureswor.jpg" alt="TP logo" loading="lazy"></div><h4>Rotaract Club of Tripureswor</h4><p>Baneshwar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/ractripureswor/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @ractripureswor</a>
       </div>
@@ -1469,7 +1331,7 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   for(let i=members.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [members[i],members[j]]=[members[j],members[i]]; }
   const initials = n => n.split(" ").map(w=>w[0]||"").join("").slice(0,2).toUpperCase();
   const cardHTML = m => `
-    <a class="bod-card${m.isPresident?' is-president':''}" href="/${m.clubSlug}#board">
+    <a class="bod-card${m.isPresident?' is-president':''}" href="club.html?club=${m.clubSlug}#board">
       <div class="bod-photo">
         ${m.photo ? `<img src="${zone7Esc(m.photo)}" alt="${zone7Esc(m.name)}" loading="lazy">` : `<div class="bod-initials">${zone7Esc(initials(m.name))}</div>`}
         ${m.isPresident ? `<span class="bod-crown">👑 President</span>` : ""}
@@ -1675,7 +1537,7 @@ function goDCal(delta){
   const list = document.getElementById("eventsList");
   const events = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getEvents() : [];
   if(!events.length){
-    list.innerHTML = `<p style="padding:30px 0; color:rgba(27,24,54,0.5); font-size:0.9rem;">No upcoming events posted yet — check back soon.</p>`;
+    list.innerHTML = `<p style="padding:30px 0; color:rgba(27,24,54,0.5); font-size:0.9rem;">No upcoming events posted yet. Check back soon.</p>`;
     return;
   }
   list.innerHTML = events.map(ev => {
@@ -1683,12 +1545,16 @@ function goDCal(delta){
     const label = ev.event_date && ev.event_date !== "TBD" ? new Date(ev.event_date).toLocaleDateString('en-US',{month:'short', day:'numeric'}) : "TBD";
     const yr = ev.event_date && ev.event_date !== "TBD" ? new Date(ev.event_date).getFullYear() : (year || "2026");
     const href = ev.rsvp_link || "#";
+    const hasLink = !!ev.rsvp_link;
+    const rowStyle = "text-decoration:none; color:inherit; display:grid;";
     return `
-      <a class="event-row" href="${zone7Esc(href)}" ${ev.rsvp_link ? 'target="_blank" rel="noopener"' : ''} style="text-decoration:none; color:inherit; display:grid;">
+      ${hasLink
+        ? `<a class="event-row" href="${zone7Esc(href)}" target="_blank" rel="noopener" style="${rowStyle}">`
+        : `<div class="event-row" style="${rowStyle}">`}
         <div class="event-date">${zone7Esc(label)}<small>${zone7Esc(String(yr))}</small></div>
-        <div class="event-info"><h4>${zone7Esc(ev.title)}</h4><p>${zone7Esc(ev.description || "")}</p></div>
-        <div class="event-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="#1B1836" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </a>`;
+        <div class="event-info"><h4>${zone7Esc(ev.title)}</h4><p>${zone7Esc(ev.description || "")}${hasLink ? "" : ' <em style="color:rgba(27,24,54,.45);font-style:normal;">(RSVP link coming soon)</em>'}</p></div>
+        <div class="event-arrow" style="${hasLink ? "" : "opacity:.22"}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      ${hasLink ? "</a>" : "</div>"}`;
   }).join("");
 })();
 </script>
@@ -1722,8 +1588,8 @@ function goDCal(delta){
   <div class="wrap">
     <div class="join-card">
       <h2>One form is all it takes to become a Rotaractor.</h2>
-      <p>Fill out our short membership form &mdash; share a few details about yourself, your age, and why you want to serve &mdash; and a Zone 7 club will welcome you in as a Rotaractor.</p>
-      <a href="/join" class="btn btn-primary">Fill the Join Form →</a>
+      <p>Fill out our short membership form: share a few details about yourself, your age, and why you want to serve, and a Zone 7 club will welcome you in as a Rotaractor.</p>
+      <a href="join.html" class="btn btn-primary">Fill the Join Form →</a>
     </div>
   </div>
 </section>
@@ -1733,12 +1599,12 @@ function goDCal(delta){
     <div class="foot-grid">
       <div class="foot-brand">
         <div class="brand"><span class="z">7</span> Zone 7 Rotaract</div>
-        <p>Zone 7, Rotaract District 3292 Nepal-Bhutan &mdash; Rotaract clubs of the Kathmandu Valley, united in service.</p>
+        <p>Zone 7, Rotaract District 3292 Nepal-Bhutan: Rotaract clubs of the Kathmandu Valley, united in service.</p>
       </div>
       <div>
         <h5>Explore</h5>
         <ul>
-          <li><a href="/join">Join Us</a></li>
+          <li><a href="join.html">Join Us</a></li>
           <li><a href="#about">About Zone 7</a></li>
           <li><a href="#clubs">Our Clubs</a></li>
           <li><a href="#events">Events</a></li>
@@ -1755,8 +1621,7 @@ function goDCal(delta){
         <h5>Connect</h5>
         <ul>
           <li><a href="https://www.instagram.com/zone7rotaract3292/" target="_blank">Instagram</a></li>
-          <li><a href="#">Facebook</a></li>
-          <li><a href="mailto:zone7@rotaract3292.org">Email the ZRR</a></li>
+          <li><a href="mailto:ri3292zone7@gmail.com">Email the ZRR</a></li>
           <li><a href="admin.html">Club Admin Login</a></li>
         </ul>
       </div>
@@ -1768,5 +1633,7 @@ function goDCal(delta){
   </div>
 </footer>
 
+<script src="rota-gpt-data.js"></script>
+<script src="rota-gpt.js"></script>
 </body>
 </html>

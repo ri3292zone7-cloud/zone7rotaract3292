@@ -1,0 +1,16 @@
+# OS / editor junk
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log
+
+# Vercel / local deployment state
+.vercel/
+node_modules/
+
+# Python local server artifacts
+__pycache__/
+*.pyc
+
+# Local backup of the old site (keep out of the repo)
+../zone7-backup-old-site/

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Starting a New Club | Zone 7 Handbook</title>
+<meta name="description" content="How to start a Rotaract club: the nine-step process from the district directory, the charter presentation ceremony, and the annual installation meeting. Zone 7 handbook chapter.">
+<link rel="canonical" href="https://zone7rotaract3292.vercel.app/handbook-newclub">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="zone7-data.js"></script>
+<style>
+:root{
+  --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
+  --teal:#0E7490; --orange:#C2410C; --paper:#F7F5F1; --line:rgba(27,24,54,.1);
+  --tc:#E11A6E;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
+h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+#progress{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--magenta),var(--gold));transform-origin:0 50%;transform:scaleX(0);z-index:999}
+
+.hero{position:relative;padding:64px 0 40px}
+.aurora{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none}
+.a1{width:420px;height:420px;background:#FBE9B9;top:-140px;left:-120px;animation:drift 16s ease-in-out infinite alternate}
+.a2{width:380px;height:380px;background:#F9C6DC;top:-80px;right:-100px;animation:drift 20s ease-in-out infinite alternate-reverse}
+.a3{width:300px;height:300px;background:#C9E7F0;bottom:-120px;left:40%;animation:drift 24s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(50px,-40px) scale(1.15)}}
+.fshape{position:absolute;pointer-events:none;will-change:translate}
+.shape-ring{width:46px;height:46px;border:5px solid var(--gold);border-radius:50%;top:30%;left:6%;opacity:.5}
+.shape-tri{width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-bottom:30px solid rgba(225,26,110,.35);top:18%;right:9%}
+.shape-dot{width:14px;height:14px;background:var(--magenta);border-radius:50%;bottom:24%;left:12%;opacity:.5}
+.shape-dot2{width:10px;height:10px;background:var(--teal);border-radius:50%;top:40%;right:16%;opacity:.5}
+.shape-sq{width:26px;height:26px;background:rgba(14,116,144,.3);border-radius:7px;bottom:12%;right:30%}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--magenta-deep);background:#fff;border:1px solid var(--line);padding:7px 14px;border-radius:100px;margin-bottom:18px}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--magenta)}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.12;max-width:780px;margin-bottom:18px}
+.rword{display:inline-block;overflow:hidden;vertical-align:bottom}
+.rword>span{display:inline-block;transform:translateY(110%);animation:wordIn .7s cubic-bezier(.22,1,.36,1) forwards}
+.rword:nth-child(2)>span{animation-delay:.08s}.rword:nth-child(3)>span{animation-delay:.16s}.rword:nth-child(4)>span{animation-delay:.24s}.rword:nth-child(5)>span{animation-delay:.32s}.rword:nth-child(6)>span{animation-delay:.4s}.rword:nth-child(7)>span{animation-delay:.48s}.rword:nth-child(8)>span{animation-delay:.56s}.rword:nth-child(9)>span{animation-delay:.64s}.rword:nth-child(10)>span{animation-delay:.72s}
+@keyframes wordIn{to{transform:translateY(0)}}
+.hero .sub{font-size:1.02rem;line-height:1.7;color:rgba(27,24,54,.72);max-width:680px;margin-bottom:14px}
+.hero .note{font-size:.8rem;color:rgba(27,24,54,.5);max-width:680px;line-height:1.55}
+.hero .note a{color:var(--magenta-deep);font-weight:700;text-decoration:underline}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;margin-top:32px}
+.hero-char{position:relative;display:grid;place-items:center}
+.hero-char img{width:min(320px,80%);animation:bob 4.5s ease-in-out infinite;filter:drop-shadow(0 24px 34px rgba(27,24,54,.22))}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-16px) rotate(1.5deg)}}
+.hc-badge{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:.74rem;font-weight:700;box-shadow:0 12px 28px rgba(27,24,54,.14);display:flex;align-items:center;gap:7px;animation:bob 4s ease-in-out infinite}
+.hc-badge b{color:var(--magenta-deep)}
+.hc1{top:4%;left:0%}.hc2{top:20%;right:-2%;animation-delay:.7s}.hc3{bottom:6%;left:6%;animation-delay:1.2s}.hc4{bottom:18%;right:2%;animation-delay:1.8s}
+.char-ring{position:absolute;width:min(360px,92%);aspect-ratio:1;border-radius:50%;border:2px dashed rgba(225,26,110,.35);animation:spin 30s linear infinite;pointer-events:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.ticker{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;padding:13px 0;margin:10px 0 40px}
+.ticker-track{display:flex;gap:44px;white-space:nowrap;animation:marquee 26s linear infinite;width:max-content}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.ticker-track span{font-family:'Poppins';font-weight:700;font-size:.82rem;letter-spacing:.08em;color:rgba(27,24,54,.55)}
+
+.section-title{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;margin:10px 0 8px}
+.section-sub{color:rgba(27,24,54,.65);max-width:640px;line-height:1.65;margin-bottom:26px}
+
+.guide-block{background:#fff;border:1px solid var(--line);border-radius:22px;margin-bottom:16px;overflow:hidden;box-shadow:0 10px 30px rgba(27,24,54,.05)}
+.guide-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;cursor:pointer;user-select:none;transition:.2s}
+.guide-head:hover{background:rgba(225,26,110,.035)}
+.guide-head-left{display:flex;align-items:center;gap:16px}
+.guide-icon{width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;color:#fff}
+.guide-head h3{font-size:1.12rem;font-weight:800}
+.guide-head .tagline{font-size:.8rem;color:rgba(27,24,54,.55);margin-top:2px}
+.guide-chevron{transition:.3s;color:rgba(27,24,54,.4);flex:none}
+.guide-block.open .guide-chevron{transform:rotate(90deg);color:var(--magenta-deep)}
+.guide-body{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.22,1,.36,1)}
+.guide-block.open .guide-body{max-height:6000px}
+.guide-body-inner{padding:4px 24px 26px;border-top:1px dashed var(--line)}
+.guide-body-inner .intro{font-size:.95rem;line-height:1.75;color:rgba(27,24,54,.75);margin:18px 0 16px}
+.phase-img{border-radius:16px;overflow:hidden;margin:18px 0;position:relative}
+.phase-img img{width:100%;height:auto;aspect-ratio:16/7;object-fit:cover}
+.steps{list-style:none;counter-reset:none;margin:14px 0 6px}
+.steps li{position:relative;padding:0 0 26px 58px;counter-increment:none}
+.steps li::before{content:"";position:absolute;left:21px;top:34px;bottom:-6px;width:2px;background:rgba(27,24,54,.12);transform-origin:0 0;transition:transform 1s cubic-bezier(.22,1,.36,1);transform:scaleY(0)}
+.guide-block.open .steps li::before{transform:scaleY(1)}
+.steps li:last-child::before{display:none}
+.steps .num{position:absolute;left:0;top:0;width:42px;height:42px;border-radius:12px;background:var(--ink);color:#fff;font-family:'Poppins';font-weight:800;font-size:.95rem;display:grid;place-items:center;box-shadow:0 8px 18px rgba(27,24,54,.25)}
+.guide-block.open .steps li:nth-child(1) .num{animation:pop .4s .05s both}
+.guide-block.open .steps li:nth-child(2) .num{animation:pop .4s .2s both}
+.guide-block.open .steps li:nth-child(3) .num{animation:pop .4s .35s both}
+.guide-block.open .steps li:nth-child(4) .num{animation:pop .4s .5s both}
+.guide-block.open .steps li:nth-child(5) .num{animation:pop .4s .65s both}
+.guide-block.open .steps li:nth-child(6) .num{animation:pop .4s .8s both}
+.guide-block.open .steps li:nth-child(7) .num{animation:pop .4s .95s both}
+.guide-block.open .steps li:nth-child(8) .num{animation:pop .4s 1.1s both}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.steps h5{font-size:.98rem;font-weight:800;margin-bottom:3px}
+.steps p{font-size:.88rem;color:rgba(27,24,54,.68);line-height:1.6}
+.guide-stat{display:flex;gap:13px;align-items:flex-start;background:linear-gradient(120deg,rgba(225,26,110,.07),rgba(242,169,0,.09));border:1px solid rgba(225,26,110,.16);border-radius:14px;padding:16px;margin:16px 0}
+.guide-stat .g-icon{width:36px;height:36px;flex:none;border-radius:10px;background:#fff;color:var(--magenta-deep);display:grid;place-items:center;box-shadow:0 6px 14px rgba(27,24,54,.1)}
+.guide-stat p{font-size:.86rem;line-height:1.6;color:rgba(27,24,54,.78)}
+.guide-stat span{font-weight:800;color:var(--ink)}
+.checklist-label{font-family:'Poppins';font-weight:800;font-size:.92rem;margin:18px 0 8px;display:flex;align-items:center;gap:8px}
+.checklist-label::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--magenta);display:inline-block}
+.guide-checklist{list-style:none}
+.guide-checklist li{position:relative;padding:9px 0 9px 34px;font-size:.88rem;line-height:1.55;color:rgba(27,24,54,.78);cursor:pointer;transition:.2s;border-bottom:1px dashed rgba(27,24,54,.08)}
+.guide-checklist li:last-child{border-bottom:none}
+.guide-checklist li::before{content:"";position:absolute;left:0;top:9px;width:20px;height:20px;border:2px solid rgba(27,24,54,.25);border-radius:6px;transition:.2s}
+.guide-checklist li::after{content:"";position:absolute;left:6px;top:13px;width:9px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg) scale(0);transition:.2s}
+.guide-checklist li:hover::before{border-color:var(--magenta)}
+.guide-checklist li.ticked{color:rgba(27,24,54,.45);text-decoration:line-through}
+.guide-checklist li.ticked::before{background:var(--magenta);border-color:var(--magenta)}
+.guide-checklist li.ticked::after{transform:rotate(-45deg) scale(1)}
+.guide-links{margin:18px 0 0}
+.guide-links-label{font-family:'Poppins';font-weight:800;font-size:.92rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.guide-links-label::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--gold);display:inline-block}
+.guide-link{display:inline-flex;align-items:center;gap:8px;background:rgba(225,26,110,.06);color:var(--magenta-deep);font-weight:700;font-size:.84rem;padding:10px 16px;border-radius:100px;margin:0 8px 8px 0;border:1px solid rgba(225,26,110,.2);transition:.2s}
+.guide-link:hover{background:var(--magenta-deep);color:#fff}
+
+.video-section{margin:26px 0}
+.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.video-card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(27,24,54,.05)}
+.video-card .v-thumb{position:relative;cursor:pointer;aspect-ratio:16/9;background:var(--ink)}
+.video-card .v-thumb img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.video-card .v-play{position:absolute;inset:0;display:grid;place-items:center}
+.video-card .v-play::after{content:"";width:62px;height:62px;border-radius:50%;background:rgba(225,26,110,.95);box-shadow:0 10px 30px rgba(225,26,110,.5);transition:.25s}
+.video-card .v-play::before{content:"";position:absolute;width:0;height:0;border-left:20px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px;z-index:1}
+.video-card:hover .v-play::after{transform:scale(1.12)}
+.video-card .v-info{padding:14px 16px}
+.video-card .v-info h5{font-size:.9rem;font-weight:800;margin-bottom:3px}
+.video-card .v-info p{font-size:.78rem;color:rgba(27,24,54,.58);line-height:1.5}
+
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:10px}
+.rel-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;transition:.25s;box-shadow:0 10px 30px rgba(27,24,54,.05)}
+.rel-card:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(27,24,54,.12)}
+.rel-card img{height:64px;object-fit:contain;margin-bottom:10px;animation:bob 5s ease-in-out infinite}
+.rel-card h5{font-size:.9rem;font-weight:800;margin-bottom:4px}
+.rel-card p{font-size:.76rem;color:rgba(27,24,54,.58);line-height:1.5}
+.rel-card .go{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:800;color:var(--magenta-deep)}
+
+.cta-band{background:var(--ink);border-radius:24px;color:#fff;padding:38px;margin:48px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;position:relative;overflow:hidden}
+.cta-band h3{font-size:1.4rem;font-weight:800;margin-bottom:8px}
+.cta-band p{color:rgba(255,255,255,.72);font-size:.88rem;line-height:1.6;max-width:440px}
+.cta-band .btn{background:var(--gold);color:var(--ink);font-weight:800;font-size:.85rem;padding:13px 26px;border-radius:100px;transition:.25s}
+.cta-band .btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(242,169,0,.35)}
+.crumb{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;font-weight:700;color:rgba(27,24,54,.5);margin:34px 0 0}
+.crumb a{color:var(--magenta-deep)}
+footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54,.55)}
+[data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
+[data-reveal].in{opacity:1;transform:translateY(0)}
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-char{order:-1}
+  .video-grid{grid-template-columns:1fr}
+  .related-grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  [data-reveal]{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div id="siteNav" data-current="handbook" data-cta="join"></div>
+<script src="site-nav.js"></script>
+
+<div class="wrap">
+  <div class="crumb"><a href="handbook.html">&larr; The Handbook</a> &middot; Chapter 03</div>
+</div>
+
+<header class="hero wrap">
+  <div class="aurora a1"></div>
+  <div class="aurora a2"></div>
+  <div class="aurora a3"></div>
+  <div class="fshape shape-ring" data-parallax="1"></div>
+  <div class="fshape shape-tri" data-parallax="-1"></div>
+  <div class="fshape shape-dot" data-parallax="2"></div>
+  <div class="fshape shape-dot2" data-parallax="-2"></div>
+  <div class="fshape shape-sq" data-parallax="1.4"></div>
+
+  <div class="eyebrow"><span class="dot"></span>Handbook &middot; Chapter 03</div>
+  <h1 id="heroTitle">Start a club the whole community feels.</h1>
+  <p class="sub">A new Rotaract club is a new group of young leaders in your community, and a fresh wave of energy for your Rotary club. The directory lays out nine steps from first idea to certified club, and then the ceremonial bookends: the charter presentation ceremony when the club is born, and the installation meeting every year after.</p>
+  <p class="note">The nine-step process below is the directory's own sequence for a Rotary club sponsoring a new Rotaract club. Forms and dues figures come from the <a href="guides/Rotaract-Guidebook.pdf">Rotaract Guidebook</a> and official Rotary International guidance.</p>
+
+  <div class="hero-grid">
+    <div></div>
+    <div class="hero-char">
+      <div class="char-ring"></div>
+      <img src="images/handbook-newclub.svg" alt="New club launch illustration" data-parallax="0.6">
+      <div class="hc-badge hc1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#E11A6E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>9 <b>steps</b></div>
+      <div class="hc-badge hc2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Charter <b>ceremony</b></div>
+      <div class="hc-badge hc3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Installation <b>yearly</b></div>
+      <div class="hc-badge hc4"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M8 14L12 18L20 8" stroke="#C2410C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Dues <b>$5/$8</b></div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
+
+<div class="wrap">
+  <h2 class="section-title" data-reveal>Inside this chapter</h2>
+  <p class="section-sub" data-reveal>Five sections: the groundwork, the buzz, the launch, the charter ceremony, and the yearly installation rhythm.</p>
+  <div class="guide-list" id="guideList"></div>
+
+  <div class="video-section" data-reveal>
+    <h2 class="section-title">Watch it in action</h2>
+    <p class="section-sub">From the official Rotaract training series to a practical guide on starting clubs. Press play inside the card.</p>
+    <div class="video-grid" id="videoGrid"></div>
+  </div>
+
+  <h2 class="section-title" data-reveal>Keep going</h2>
+  <p class="section-sub" data-reveal>A new club deserves a healthy start. The health checkup chapter shows how to keep it strong from month one.</p>
+  <div class="related-grid">
+    <a class="rel-card" href="handbook-health.html" data-reveal>
+      <img src="images/handbook-health.svg" alt="Health checkup chapter">
+      <h5>The Club Health Checkup</h5>
+      <p>Give your new club its first checkup within six months: 75 questions, one meeting.</p>
+      <span class="go">Open chapter &rarr;</span>
+    </a>
+    <a class="rel-card" href="handbook-twinship.html" data-reveal style="--d:.08s">
+      <img src="images/handbook-twinship.svg" alt="Twinship chapter">
+      <h5>Twinship &amp; the MOU</h5>
+      <p>A new club that twins early builds its network twice as fast.</p>
+      <span class="go">Open chapter &rarr;</span>
+    </a>
+    <a class="rel-card" href="handbook.html" data-reveal style="--d:.16s">
+      <img src="images/handbook-hub.svg" alt="Handbook hub">
+      <h5>The Handbook</h5>
+      <p>Back to all five chapters. Rules, checklists and videos in one place.</p>
+      <span class="go">Open hub &rarr;</span>
+    </a>
+  </div>
+
+  <div class="cta-band">
+    <div>
+      <h3>New club, new projects.</h3>
+      <p>The seven Areas of Focus chapter gives a fresh club its first project designs, with budgets from NPR 5,000.</p>
+    </div>
+    <a class="btn" href="handbook-projects.html">Next: 7 Areas of Focus &rarr;</a>
+  </div>
+</div>
+
+<footer>&copy; 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. &nbsp;·&nbsp; <a href="handbook.html" style="font-weight:700;">The Handbook</a></footer>
+<script>
+const CHEVRON_SVG = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const LINK_SVG = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 3h4v4M13 3L7 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const SPARK_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+
+const ICONS = {
+  bulb: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-3.6 10.8c.8.6 1.1 1.4 1.1 2.2h5c0-.8.3-1.6 1.1-2.2A6 6 0 0012 3z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+  megaphone: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11v3l3 .5v-4L3 11zM6 14.5l10 4V6.5l-10 4" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M18.5 8.5a3.5 3.5 0 010 5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  rocket: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3c4 1.5 6.5 5 6.5 9.5L15 14l-1.5 6h-3L9 14l-3.5-1.5C5.5 8 8 4.5 12 3z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2" stroke="#fff" stroke-width="1.6"/><path d="M4 21c1.5-2 4-2.5 6-2" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  award: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="5.5" stroke="#fff" stroke-width="1.6"/><path d="M9.5 13.5L8 21l4-2.5L16 21l-1.5-7.5" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+  gavel: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 15l8-8 4 4-8 8-4-4z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 7l5.5-5.5 4 4L16 11M3 21h18" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+};
+const COLORS = ["#F2A900","#C2410C","#1B1836","#E11A6E","#0E7490"];
+
+const TICKER_ITEMS = ["Learn","Gather a team","Know your audience","Strategize","Promote","Kickoff event","Follow up","Support first months","Certify","Charter ceremony","Installation"];
+
+const SECTIONS = [
+  {
+    id:"groundwork", icon:"bulb",
+    title:"Before the first member",
+    tagline:"The groundwork a sponsor needs before step one",
+    img:"images/handbook-newclub.svg",
+    alt:"Illustration of a rocket and flag representing a club launch",
+    body:`<p class="intro">Getting involved in Rotaract can be a fun, impactful and transformational experience for more than just young leaders in your community. It will inspire and engage your Rotary club members too. Three moves come before any promotion:</p>
+      <ol class="steps">
+        <li><span class="num">1</span><h5>Familiarize yourself with all things Rotaract</h5><p>A great place to start is the Rotaract Handbook. Then deepen your knowledge with the Policy Related to Rotaract.</p></li>
+        <li><span class="num">2</span><h5>Gather a team</h5><p>Bring together a group of Rotarians and community members committed to supporting the new Rotaract club.</p></li>
+        <li><span class="num">3</span><h5>Know your audience</h5><p>Assess your community's makeup and decide: a university-based or a community-based Rotaract club? Rotary's Engaging Younger Professionals Toolkit helps you understand the demographic, create vibrant club culture and communicate value.</p></li>
+      </ol>`,
+    stat:{icon:SPARK_SVG, text:`A <span>committed sponsor team of Rotarians and community members</span> is what separates a club that launches from one that only talks about launching.`},
+    checklist:[
+      "Read the Rotaract Handbook and the Policy Related to Rotaract",
+      "Recruit your support team and name one champion",
+      "Choose university-based or community-based before you promote anything",
+      "Plan to attend the new club's meetings regularly and invite it into your activities",
+      "Share the club's success with Rotary International at rotaract@rotary.org"
+    ],
+    links:[
+      { label:"Standard Rotaract Club Constitution", url:"guides/Standard-Rotaract-Club-Constitution.docx" },
+      { label:"Recommended Club Bylaws", url:"guides/662_rotaract_club_recommended_bylaws_en.docx" }
+    ]
+  },
+  {
+    id:"buzz", icon:"megaphone",
+    title:"Build the buzz",
+    tagline:"Strategy, promotion, and the kickoff event",
+    img:"images/handbook-newclub.svg",
+    alt:"Illustration of promotion for a new club",
+    body:`<p class="intro">Now the idea goes public. Four steps turn strategy into a room full of curious young people.</p>
+      <ol class="steps">
+        <li><span class="num">4</span><h5>Strategize to attract your audience</h5><p>Determine the target audience, identify locations and opportunities to promote the formation of the club, and schedule a kickoff event that appeals to them, like a happy hour, a service project, an info session, or your own creative invention.</p></li>
+        <li><span class="num">5</span><h5>Create and share promotion materials</h5><p>Solidify your value proposition and clearly articulate the benefits of joining. Use Rotary's Brand Center for digital and print resources, and share Rotaract videos on social media.</p></li>
+        <li><span class="num">6</span><h5>Host your kickoff event</h5><p>Engage every attendee: ask why they came and how they want to change their community or grow as a leader, and collect their contact information.</p></li>
+        <li><span class="num">7</span><h5>Follow up with attendees</h5><p>Personally invite them to the first pre-Rotaract meeting for preparation and orientation.</p></li>
+      </ol>`,
+    stat:{icon:SPARK_SVG, text:`The kickoff event's job is not membership; it is <span>contact information</span>. Every follow-up starts with a name.`},
+    checklist:[
+      "Pick a kickoff format your target audience actually enjoys",
+      "Build promo materials with Rotary's Brand Center",
+      "Get contact information from everyone who attends",
+      "Send a personal invitation to the first orientation meeting within days"
+    ],
+    links:[]
+  },
+  {
+    id:"launch", icon:"rocket",
+    title:"Launch & certify",
+    tagline:"The first months, and the form that makes it official",
+    img:"images/handbook-newclub.svg",
+    alt:"Illustration of a club being launched and certified",
+    body:`<p class="intro">The ceremony comes later; first come the months of actual club life, then the paperwork.</p>
+      <ol class="steps">
+        <li><span class="num">8</span><h5>Support the first few months of meetings</h5><p>Help set up club administration: advise on adopting the Standard Rotaract Club Constitution and Recommended Bylaws, organize officer elections, select meeting locations, and arrange an initial service project.</p></li>
+        <li><span class="num">9</span><h5>Certify the club</h5><p>Submit the Rotaract certification form so Rotary International officially recognizes that your Rotary or Rotaract club sponsors a new Rotaract club.</p></li>
+        <li><span class="num">10</span><h5>Plan for dues</h5><p>Rotaract clubs pay dues to Rotary International, currently $5 per member per year for university-based clubs and $8 for community-based clubs.</p></li>
+      </ol>`,
+    stat:{icon:SPARK_SVG, text:`An <span>initial service project in the first months</span> is not decoration. It is how the new club learns to be a club.`},
+    checklist:[
+      "Adopt the Standard Constitution and Recommended Bylaws at the first meetings",
+      "Hold officer elections early and cleanly",
+      "Fix a regular meeting location and time",
+      "Run an initial service project within the first three months",
+      "Submit the Rotaract certification form to make sponsorship official",
+      "Budget for Rotary International dues ($5 university / $8 community per member)"
+    ],
+    links:[
+      { label:"Rotaract Membership Form", url:"guides/Rotaract_-Membership_Form.docx" },
+      { label:"Rotaract Guidebook", url:"guides/Rotaract-Guidebook.pdf" },
+      { label:"Rotaract Clubs: Rotary International", url:"https://www.rotary.org/en/get-involved/our-clubs/rotaract-clubs" }
+    ]
+  },
+  {
+    id:"charter", icon:"award",
+    title:"The charter presentation ceremony",
+    tagline:"The day the club is officially born",
+    img:"images/handbook-newclub.svg",
+    alt:"Illustration of a charter ceremony with awards",
+    body:`<p class="intro">The district's ceremony procedure runs like this; adapt the optional items to your club. In the case of Rotaract sponsoring and self-sponsoring Rotaract clubs, district officials (DG, AG, DRR, ADRR and other district representatives) take on the roles normally played by the parent Rotary Club President, including collaring the charter president and handing over the charter certificate.</p>
+      <ol class="steps">
+        <li><span class="num">1</span><h5>Registration &amp; fellowship</h5><p>Guests gather at the venue.</p></li>
+        <li><span class="num">2</span><h5>Dignitaries to the dais</h5><p>The MC calls the parent Rotary Club President, District Rotaract Committee Chair, Chartered Club President, Guest of Honour, Chartered Club Secretary and other guests.</p></li>
+        <li><span class="num">3</span><h5>Call to order</h5><p>The Rotary President calls the meeting to order, followed by the National Anthem.</p></li>
+        <li><span class="num">4</span><h5>Oaths &amp; handover</h5><p>Rotaract Membership Oath to the Chartered President; Presidential Oath; the Rotary Club President collars the Charter President and hands over the Charter Certificate and gong gavel.</p></li>
+        <li><span class="num">5</span><h5>Acceptance &amp; board</h5><p>The Charter President speaks, membership oaths follow for all members, the BOD is announced and takes its oath, lapel pins are presented, and the constitution, bylaws and statement of policy are handed over.</p></li>
+        <li><span class="num">6</span><h5>Celebration</h5><p>Group photo (optional), member performance (optional), addresses by dignitaries, cake cutting (optional), tokens of appreciation, toasts for Nepal and for the RI President, vote of thanks, Sergeant-at-Arms report, then adjournment and refreshments.</p></li>
+      </ol>`,
+    stat:{icon:SPARK_SVG, text:`The moment that matters: <span>collaring the Charter President and handing over the certificate and gong gavel</span>. Everything else frames it.`},
+    checklist:[
+      "Confirm who performs each role; for self-sponsoring clubs, district officials step in",
+      "Print the charter certificate and prepare the collar, gong and gavel",
+      "Rehearse the order of oaths with the MC beforehand",
+      "Keep the ceremony under two hours; refreshments follow promptly"
+    ],
+    links:[
+      { label:"Statement of Policy", url:"guides/statement-of-policy.docx" }
+    ]
+  },
+  {
+    id:"installation", icon:"gavel",
+    title:"The annual installation meeting",
+    tagline:"Every year after: old leadership hands over, new takes the gavel",
+    img:"images/handbook-newclub.svg",
+    alt:"Illustration of a gavel and ceremony",
+    body:`<p class="intro">Once chartered, the club repeats an installation rhythm every Rota Year. The directory's procedure covers the full arc:</p>
+      <ol class="steps">
+        <li><span class="num">1</span><h5>Open the evening</h5><p>The MC announces the beginning; dignitaries, including the outgoing president, chief guest (Rotary President or your choice), DRR or district officer, incoming president and guest of honour, come to the dais. Acknowledge district committee members and attending club presidents, felicitate the dignitaries, play the National Anthem.</p></li>
+        <li><span class="num">2</span><h5>Review the year</h5><p>The outgoing president or secretary presents the yearly club report and recognizes board members and special contributions.</p></li>
+        <li><span class="num">3</span><h5>Hand over the office</h5><p>The incoming president is introduced, takes the oath (administered by the Rotary President), gives an acceptance speech, and the outgoing president symbolically hands over the office, including the Charter Certificate, Collar, Gong and Gavel, as the two exchange places on the dais.</p></li>
+        <li><span class="num">4</span><h5>Install the board</h5><p>Installation meeting called to order, 15-second silent invocation, incoming board members take their oaths (administered by the new president), and club pins, ID cards and appointment letters are given out.</p></li>
+        <li><span class="num">5</span><h5>Induct, recognize, close</h5><p>New members are inducted by the DRR or ZRR; souvenirs or website releases are optional; remarks by the DRR, DRCC, Rotary President and Guest of Honour; introduction and remarks by the Chief Guest; tokens of love to guests; vote of thanks by the Vice-President; installation report by the Sergeant-at-Arms; toasts for Nepal and for the RI President; adjournment and refreshments.</p></li>
+      </ol>`,
+    stat:{icon:SPARK_SVG, text:`The <span>symbolic handover of Charter Certificate, Collar, Gong and Gavel</span> is the single moment that tells the whole club the year has turned.`},
+    checklist:[
+      "Set the installation date within August, before the new Rota Year picks up",
+      "Book the chief guest early; the Rotary President's calendar fills fast",
+      "Prepare the yearly club report and recognition list in advance",
+      "Have the pins, ID cards and appointment letters ready before the ceremony"
+    ],
+    links:[]
+  }
+];
+
+function render(){
+  document.getElementById("guideList").innerHTML = SECTIONS.map((s,i) => `
+    <div class="guide-block" id="${s.id}" data-reveal style="--d:${(i*0.05).toFixed(2)}s">
+      <div class="guide-head">
+        <div class="guide-head-left">
+          <div class="guide-icon" style="background:${COLORS[i]};">${ICONS[s.icon]}</div>
+          <div>
+            <h3>${s.title}</h3>
+            <p class="tagline">${s.tagline}</p>
+          </div>
+        </div>
+        <div class="guide-chevron">${CHEVRON_SVG}</div>
+      </div>
+      <div class="guide-body">
+        <div class="guide-body-inner">
+          <div class="phase-img"><img src="${s.img}" alt="${s.alt}" loading="lazy"></div>
+          ${s.body}
+          <div class="guide-stat"><div class="g-icon">${s.stat.icon}</div><p>${s.stat.text}</p></div>
+          <div class="checklist-label">Quick-Start Checklist <span style="font-weight:500;font-size:.74rem;color:rgba(27,24,54,.45);">(tap to tick)</span></div>
+          <ul class="guide-checklist">
+            ${s.checklist.map(c => `<li>${c}</li>`).join("")}
+          </ul>
+          ${s.links.length ? `
+            <div class="guide-links">
+              <div class="guide-links-label">Useful Link</div>
+              ${s.links.map(l => `<a class="guide-link" href="${l.url}">${LINK_SVG} ${l.label}</a>`).join("")}
+            </div>
+          ` : ""}
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  document.getElementById("tickerTrack").innerHTML =
+    TICKER_ITEMS.map(t => `<span>${t}</span>`).join("") +
+    TICKER_ITEMS.map(t => `<span>${t}</span>`).join("");
+
+  document.querySelectorAll(".guide-head").forEach(el => {
+    el.addEventListener("click", () => el.closest(".guide-block").classList.toggle("open"));
+  });
+  document.querySelectorAll(".guide-checklist li").forEach(li => {
+    li.addEventListener("click", () => li.classList.toggle("ticked"));
+  });
+
+  document.getElementById("videoGrid").innerHTML = [
+    { id:"vzuVOuoQzR8", title:"Starting a Rotary club or adding a Companion club? Here's how", desc:"A practical, step-by-step conversation on starting clubs, from the Grow Rotary team." },
+    { id:"UIImYGTkDAI", title:"Rotaract Training Videos: Episode 1", desc:"The first episode of the official Rotaract training series, covering club basics for new members and leaders." }
+  ].map(v => `
+    <div class="video-card">
+      <div class="v-thumb" data-vid="${v.id}">
+        <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${v.title}" loading="lazy">
+        <div class="v-play"></div>
+      </div>
+      <div class="v-info"><h5>${v.title}</h5><p>${v.desc}</p></div>
+    </div>
+  `).join("");
+
+  document.querySelectorAll(".v-thumb").forEach(el => {
+    el.addEventListener("click", () => {
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${el.dataset.vid}?autoplay=1`;
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0";
+      el.innerHTML = "";
+      el.appendChild(iframe);
+    });
+  });
+
+  if(location.hash){
+    const target = document.querySelector(location.hash);
+    if(target){ target.classList.add("open"); setTimeout(() => target.scrollIntoView({behavior:"smooth", block:"start"}), 150); }
+  }
+
+  observeReveals();
+}
+render();
+
+function observeReveals(){
+  const els = document.querySelectorAll("[data-reveal]:not(.in)");
+  if(!("IntersectionObserver" in window)){ els.forEach(el => el.classList.add("in")); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+  }, {threshold:.12, rootMargin:"0px 0px -40px 0px"});
+  els.forEach(el => io.observe(el));
+}
+
+const heroTitle = document.getElementById("heroTitle");
+if(heroTitle){
+  const words = heroTitle.textContent.trim().split(/\s+/);
+  heroTitle.innerHTML = words.map(w => `<span class="rword"><span>${w}</span></span>`).join(" ");
+}
+
+const hero = document.querySelector(".hero");
+if(hero && window.matchMedia("(pointer:fine)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+  hero.addEventListener("mousemove", (e) => {
+    const r = hero.getBoundingClientRect();
+    const mx = (e.clientX - r.left) / r.width - .5;
+    const my = (e.clientY - r.top) / r.height - .5;
+    document.querySelectorAll("[data-parallax]").forEach(el => {
+      const d = parseFloat(el.dataset.parallax) || 1;
+      el.style.translate = `${(mx * 26 * d).toFixed(1)}px ${(my * 18 * d).toFixed(1)}px`;
+    });
+  });
+}
+
+const progress = document.getElementById("progress");
+let ticking = false;
+window.addEventListener("scroll", () => {
+  if(ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    progress.style.transform = `scaleX(${max > 0 ? (window.scrollY / max) : 0})`;
+    ticking = false;
+  });
+}, {passive:true});
+</script>
+<script src="rota-gpt-data.js"></script>
+<script src="rota-gpt.js"></script>
+</body>
+</html>

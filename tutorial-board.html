@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Running Board Meetings | Zone 7 Rotaract Tutorial</title>
+<meta name="description" content="How to run a Rotaract board meeting: every seat on the board, the monthly rhythm, quorum and voting rules, budget discipline, decisions between meetings and the year-end handover. Step-by-step Zone 7 tutorial with videos and documents.">
+<link rel="canonical" href="https://zone7rotaract3292.vercel.app/tutorial-board">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="zone7-data.js"></script>
+<style>
+:root{
+  --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
+  --teal:#0E7490; --orange:#C2410C; --paper:#F7F5F1; --line:rgba(27,24,54,.1);
+  --tc:#1B1836;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
+h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+#progress{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--magenta),var(--gold));transform-origin:0 50%;transform:scaleX(0);z-index:999}
+
+.hero{position:relative;padding:64px 0 40px}
+.aurora{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none}
+.a1{width:420px;height:420px;background:#F9C6DC;top:-140px;left:-120px;animation:drift 16s ease-in-out infinite alternate}
+.a2{width:380px;height:380px;background:#FBE9B9;top:-80px;right:-100px;animation:drift 20s ease-in-out infinite alternate-reverse}
+.a3{width:300px;height:300px;background:#C9E7F0;bottom:-120px;left:40%;animation:drift 24s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(50px,-40px) scale(1.15)}}
+.fshape{position:absolute;pointer-events:none;will-change:translate}
+.shape-ring{width:46px;height:46px;border:5px solid var(--gold);border-radius:50%;top:30%;left:6%;opacity:.5}
+.shape-tri{width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-bottom:30px solid rgba(225,26,110,.35);top:18%;right:9%}
+.shape-dot{width:14px;height:14px;background:var(--magenta);border-radius:50%;bottom:24%;left:12%;opacity:.5}
+.shape-dot2{width:10px;height:10px;background:var(--teal);border-radius:50%;top:40%;right:16%;opacity:.5}
+.shape-sq{width:26px;height:26px;background:rgba(14,116,144,.3);border-radius:7px;bottom:12%;right:30%}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tc);background:#fff;border:1px solid var(--line);padding:7px 14px;border-radius:100px;margin-bottom:18px}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--tc)}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.12;max-width:780px;margin-bottom:18px}
+.rword{display:inline-block;overflow:hidden;vertical-align:bottom}
+.rword>span{display:inline-block;transform:translateY(110%);animation:wordIn .7s cubic-bezier(.22,1,.36,1) forwards}
+.rword:nth-child(2)>span{animation-delay:.08s}.rword:nth-child(3)>span{animation-delay:.16s}.rword:nth-child(4)>span{animation-delay:.24s}.rword:nth-child(5)>span{animation-delay:.32s}.rword:nth-child(6)>span{animation-delay:.4s}.rword:nth-child(7)>span{animation-delay:.48s}.rword:nth-child(8)>span{animation-delay:.56s}.rword:nth-child(9)>span{animation-delay:.64s}.rword:nth-child(10)>span{animation-delay:.72s}
+@keyframes wordIn{to{transform:translateY(0)}}
+.hero .sub{font-size:1.02rem;line-height:1.7;color:rgba(27,24,54,.72);max-width:680px;margin-bottom:14px}
+.hero .note{font-size:.8rem;color:rgba(27,24,54,.5);max-width:680px;line-height:1.55}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;margin-top:32px}
+.hero-char{position:relative;display:grid;place-items:center}
+.hero-char img{width:min(320px,80%);animation:bob 4.5s ease-in-out infinite;filter:drop-shadow(0 24px 34px rgba(27,24,54,.22))}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-16px) rotate(1.5deg)}}
+.hc-badge{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:.74rem;font-weight:700;box-shadow:0 12px 28px rgba(27,24,54,.14);display:flex;align-items:center;gap:7px;animation:bob 4s ease-in-out infinite}
+.hc-badge b{color:var(--tc)}
+.hc1{top:4%;left:0%}.hc2{top:20%;right:-2%;animation-delay:.7s}.hc3{bottom:6%;left:6%;animation-delay:1.2s}.hc4{bottom:18%;right:2%;animation-delay:1.8s}
+.char-ring{position:absolute;width:min(360px,92%);aspect-ratio:1;border-radius:50%;border:2px dashed rgba(225,26,110,.35);animation:spin 30s linear infinite;pointer-events:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.ticker{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;padding:13px 0;margin:10px 0 40px}
+.ticker-track{display:flex;gap:44px;white-space:nowrap;animation:marquee 26s linear infinite;width:max-content}
+.ticker:hover .ticker-track{animation-play-state:paused}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.ticker-track span{font-family:'Poppins';font-weight:700;font-size:.82rem;letter-spacing:.08em;color:rgba(27,24,54,.55)}
+
+.section-title{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;margin:10px 0 8px}
+.section-sub{color:rgba(27,24,54,.65);max-width:640px;line-height:1.65;margin-bottom:26px}
+
+.guide-block{background:#fff;border:1px solid var(--line);border-radius:22px;margin-bottom:16px;overflow:hidden;box-shadow:0 10px 30px rgba(27,24,54,.05)}
+.guide-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;cursor:pointer;user-select:none;transition:.2s}
+.guide-head:hover{background:rgba(225,26,110,.035)}
+.guide-head-left{display:flex;align-items:center;gap:16px}
+.guide-icon{width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;color:#fff}
+.guide-head h3{font-size:1.12rem;font-weight:800}
+.guide-head .tagline{font-size:.8rem;color:rgba(27,24,54,.55);margin-top:2px}
+.guide-chevron{transition:.3s;color:rgba(27,24,54,.4);flex:none}
+.guide-block.open .guide-chevron{transform:rotate(90deg);color:var(--magenta-deep)}
+.guide-body{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.22,1,.36,1)}
+.guide-block.open .guide-body{max-height:6000px}
+.guide-body-inner{padding:4px 24px 26px;border-top:1px dashed var(--line)}
+.guide-body-inner .intro{font-size:.95rem;line-height:1.75;color:rgba(27,24,54,.75);margin:18px 0 16px}
+.phase-img{border-radius:16px;overflow:hidden;margin:18px 0;position:relative}
+.phase-img img{width:100%;height:auto;aspect-ratio:16/7;object-fit:cover}
+.steps{list-style:none;counter-reset:none;margin:14px 0 6px}
+.steps li{position:relative;padding:0 0 26px 58px;counter-increment:none}
+.steps li::before{content:"";position:absolute;left:21px;top:34px;bottom:-6px;width:2px;background:rgba(27,24,54,.12);transform-origin:0 0;transition:transform 1s cubic-bezier(.22,1,.36,1);transform:scaleY(0)}
+.guide-block.open .steps li::before{transform:scaleY(1)}
+.steps li:last-child::before{display:none}
+.steps .num{position:absolute;left:0;top:0;width:42px;height:42px;border-radius:12px;background:var(--ink);color:#fff;font-family:'Poppins';font-weight:800;font-size:.95rem;display:grid;place-items:center;box-shadow:0 8px 18px rgba(27,24,54,.25)}
+.guide-block.open .steps li:nth-child(1) .num{animation:pop .4s .05s both}
+.guide-block.open .steps li:nth-child(2) .num{animation:pop .4s .2s both}
+.guide-block.open .steps li:nth-child(3) .num{animation:pop .4s .35s both}
+.guide-block.open .steps li:nth-child(4) .num{animation:pop .4s .5s both}
+.guide-block.open .steps li:nth-child(5) .num{animation:pop .4s .65s both}
+.guide-block.open .steps li:nth-child(6) .num{animation:pop .4s .8s both}
+.guide-block.open .steps li:nth-child(7) .num{animation:pop .4s .95s both}
+.guide-block.open .steps li:nth-child(8) .num{animation:pop .4s 1.1s both}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.steps h5{font-size:.98rem;font-weight:800;margin-bottom:3px}
+.steps p{font-size:.88rem;color:rgba(27,24,54,.68);line-height:1.6}
+.type-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.86rem;background:#fff;border-radius:14px;overflow:hidden}
+.type-table th{background:var(--ink);color:#fff;text-align:left;padding:12px 14px;font-weight:700;font-size:.78rem;letter-spacing:.04em}
+.type-table td{padding:12px 14px;border-bottom:1px solid var(--line);line-height:1.5;color:rgba(27,24,54,.75)}
+.type-table tr:last-child td{border-bottom:none}
+.type-table tr:nth-child(even) td{background:rgba(225,26,110,.03)}
+.guide-stat{display:flex;gap:13px;align-items:flex-start;background:linear-gradient(120deg,rgba(225,26,110,.07),rgba(242,169,0,.09));border:1px solid rgba(225,26,110,.16);border-radius:14px;padding:16px;margin:16px 0}
+.guide-stat .g-icon{width:36px;height:36px;flex:none;border-radius:10px;background:#fff;color:var(--magenta-deep);display:grid;place-items:center;box-shadow:0 6px 14px rgba(27,24,54,.1)}
+.guide-stat p{font-size:.86rem;line-height:1.6;color:rgba(27,24,54,.78)}
+.guide-stat span{font-weight:800;color:var(--ink)}
+.checklist-label{font-family:'Poppins';font-weight:800;font-size:.92rem;margin:18px 0 8px;display:flex;align-items:center;gap:8px}
+.checklist-label::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--magenta);display:inline-block}
+.guide-checklist{list-style:none}
+.guide-checklist li{position:relative;padding:9px 0 9px 34px;font-size:.88rem;line-height:1.55;color:rgba(27,24,54,.78);cursor:pointer;transition:.2s;border-bottom:1px dashed rgba(27,24,54,.08)}
+.guide-checklist li:last-child{border-bottom:none}
+.guide-checklist li::before{content:"";position:absolute;left:0;top:9px;width:20px;height:20px;border:2px solid rgba(27,24,54,.25);border-radius:6px;transition:.2s}
+.guide-checklist li::after{content:"";position:absolute;left:6px;top:13px;width:9px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg) scale(0);transition:.2s}
+.guide-checklist li:hover::before{border-color:var(--magenta)}
+.guide-checklist li.ticked{color:rgba(27,24,54,.45);text-decoration:line-through}
+.guide-checklist li.ticked::before{background:var(--magenta);border-color:var(--magenta)}
+.guide-checklist li.ticked::after{transform:rotate(-45deg) scale(1)}
+.roles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 6px}
+.role-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px 16px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.role-card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(27,24,54,.08);border-color:rgba(225,26,110,.3)}
+.role-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.role-ico{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;transition:transform .25s}
+.role-card:hover .role-ico{animation:pop .45s ease}
+.role-card h4{font-size:.95rem}
+.role-focus{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--magenta-deep);margin-bottom:10px}
+.role-card ul{list-style:none}
+.role-card ul li{font-size:.8rem;color:rgba(27,24,54,.72);line-height:1.5;padding:4px 0 4px 16px;position:relative}
+.role-card ul li::before{content:"";position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:2px;background:var(--gold)}
+.guide-links{margin:18px 0 0}
+.guide-links-label{font-family:'Poppins';font-weight:800;font-size:.92rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.guide-links-label::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--tc);display:inline-block}
+.guide-link{display:inline-flex;align-items:center;gap:8px;background:rgba(27,24,54,.05);color:var(--tc);font-weight:700;font-size:.84rem;padding:10px 16px;border-radius:100px;margin:0 8px 8px 0;border:1px solid rgba(27,24,54,.18);transition:.2s}
+.guide-link:hover{background:var(--tc);color:#fff}
+
+.video-section{margin:26px 0}
+.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.video-card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(27,24,54,.05)}
+.video-card .v-thumb{position:relative;cursor:pointer;aspect-ratio:16/9;background:var(--ink)}
+.video-card .v-thumb img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.video-card .v-play{position:absolute;inset:0;display:grid;place-items:center}
+.video-card .v-play::after{content:"";width:62px;height:62px;border-radius:50%;background:var(--tc);box-shadow:0 10px 30px rgba(27,24,54,.35);transition:.25s}
+.video-card .v-play::before{content:"";position:absolute;width:0;height:0;border-left:20px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px;z-index:1}
+.video-card:hover .v-play::after{transform:scale(1.12)}
+.video-card .v-info{padding:14px 16px}
+.video-card .v-info h5{font-size:.9rem;font-weight:800;margin-bottom:3px}
+.video-card .v-info p{font-size:.78rem;color:rgba(27,24,54,.58);line-height:1.5}
+
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:10px}
+.rel-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;transition:.25s;box-shadow:0 10px 30px rgba(27,24,54,.05)}
+.rel-card:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(27,24,54,.12)}
+.rel-card img{height:64px;object-fit:contain;margin-bottom:10px;animation:bob 5s ease-in-out infinite}
+.rel-card h5{font-size:.9rem;font-weight:800;margin-bottom:4px}
+.rel-card p{font-size:.76rem;color:rgba(27,24,54,.58);line-height:1.5}
+.rel-card .go{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:800;color:var(--tc)}
+
+.cta-band{background:var(--ink);border-radius:24px;color:#fff;padding:38px;margin:48px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;position:relative;overflow:hidden}
+.cta-band h3{font-size:1.4rem;font-weight:800;margin-bottom:8px}
+.cta-band p{color:rgba(255,255,255,.72);font-size:.88rem;line-height:1.6;max-width:440px}
+.cta-band .btn{background:var(--gold);color:var(--ink);font-weight:800;font-size:.85rem;padding:13px 26px;border-radius:100px;transition:.25s}
+.cta-band .btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(242,169,0,.35)}
+.crumb{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;font-weight:700;color:rgba(27,24,54,.5);margin:34px 0 0}
+.crumb a{color:var(--tc)}
+footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54,.55)}
+[data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
+[data-reveal].in{opacity:1;transform:translateY(0)}
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-char{order:-1}
+  .video-grid{grid-template-columns:1fr}
+  .related-grid{grid-template-columns:1fr}
+  .type-table{font-size:.76rem}
+  .roles-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:460px){.roles-grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  [data-reveal]{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div id="siteNav" data-current="tutorials" data-cta="join"></div>
+<script src="site-nav.js"></script>
+
+<div class="wrap">
+  <div class="crumb"><a href="tutorials.html">&larr; All Tutorials</a> &middot; Tutorial 02</div>
+</div>
+
+<header class="hero wrap">
+  <div class="aurora a1"></div>
+  <div class="aurora a2"></div>
+  <div class="aurora a3"></div>
+  <div class="fshape shape-ring" data-parallax="1"></div>
+  <div class="fshape shape-tri" data-parallax="-1"></div>
+  <div class="fshape shape-dot" data-parallax="2"></div>
+  <div class="fshape shape-dot2" data-parallax="-2"></div>
+  <div class="fshape shape-sq" data-parallax="1.4"></div>
+
+  <div class="eyebrow"><span class="dot"></span>Leadership &middot; The Engine</div>
+  <h1 id="heroTitle">The board runs the club between meetings.</h1>
+  <p class="sub">A small team with a monthly rhythm: the board sets direction, owns the budget, approves projects and prepares everything the general meeting will decide. This tutorial covers every seat on the board, the flow of a monthly board meeting, quorum and voting rules, financial discipline, decisions between meetings, and the handover that keeps the club alive year after year.</p>
+  <p class="note">Based on the <a href="guides/Standard-Rotaract-Club-Constitution.docx" style="color:var(--tc);font-weight:700;text-decoration:underline;">Standard Rotaract Club Constitution</a>, the <a href="guides/Rotaract-Guidebook.pdf" style="color:var(--tc);font-weight:700;text-decoration:underline;">District 3292 Rotaract Guidebook</a> and the <a href="guides/662_rotaract_club_recommended_bylaws_en.docx" style="color:var(--tc);font-weight:700;text-decoration:underline;">recommended club bylaws</a>. Your club's own constitution and bylaws always win when they differ.</p>
+
+  <div class="hero-grid">
+    <div></div>
+    <div class="hero-char">
+      <div class="char-ring"></div>
+      <img src="images/tutorial-board.png" alt="Rotaract board meeting illustration" data-parallax="0.6">
+      <div class="hc-badge hc1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#1B1836" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Quorum <b>confirmed</b></div>
+      <div class="hc-badge hc2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Budget <b>on track</b></div>
+      <div class="hc-badge hc3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Minutes <b>filed</b></div>
+      <div class="hc-badge hc4"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M8 14L12 18L20 8" stroke="#E11A6E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Decisions <b>made</b></div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
+
+<div class="wrap">
+  <h2 class="section-title" data-reveal>Inside the tutorial</h2>
+  <p class="section-sub" data-reveal>Six sections, from the people to the handover. Open each one, work the checklists, and keep the templates.</p>
+  <div class="guide-list" id="guideList"></div>
+
+  <div class="video-section" data-reveal>
+    <h2 class="section-title">Watch it in action</h2>
+    <p class="section-sub">Real Rotary and Rotaract leadership training videos. Press play inside the card.</p>
+    <div class="video-grid" id="videoGrid"></div>
+  </div>
+
+  <h2 class="section-title" data-reveal>Keep going</h2>
+  <p class="section-sub" data-reveal>The board decides the direction. Next, see how the whole club plans and aligns at assemblies, and how the zone and district connect with your club.</p>
+  <div class="related-grid">
+    <a class="rel-card" href="tutorial-assembly.html" data-reveal>
+      <img src="images/tutorial-assembly.png" alt="Club assemblies tutorial">
+      <h5>Club Assemblies</h5>
+      <p>When the whole club plans together: goals, programs and education.</p>
+      <span class="go">Open tutorial &rarr;</span>
+    </a>
+    <a class="rel-card" href="tutorial-zrr.html" data-reveal style="--d:.08s">
+      <img src="images/tutorial-zrr.png" alt="ZRR visits tutorial">
+      <h5>ZRR Visits</h5>
+      <p>Your zonal bridge to the district, and the visits that keep it alive.</p>
+      <span class="go">Open tutorial &rarr;</span>
+    </a>
+    <a class="rel-card" href="tutorial-drr.html" data-reveal style="--d:.16s">
+      <img src="images/tutorial-drr.png" alt="DRR visits tutorial">
+      <h5>DRR Visits</h5>
+      <p>When the District Rotaract Representative visits your club.</p>
+      <span class="go">Open tutorial &rarr;</span>
+    </a>
+  </div>
+
+  <div class="cta-band">
+    <div>
+      <h3>Ready to plan with the whole club?</h3>
+      <p>Board meetings decide, assemblies align. Learn how the club plans its year together.</p>
+    </div>
+    <a class="btn" href="tutorial-assembly.html">Next: Club Assemblies &rarr;</a>
+  </div>
+</div>
+
+<footer>&copy; 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. &nbsp;·&nbsp; <a href="tutorials.html" style="font-weight:700;">All Tutorials</a></footer>
+<script>
+const CHEVRON_SVG = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const LINK_SVG = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 3h4v4M13 3L7 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const SPARK_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+
+const ICONS = {
+  people: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.4" stroke="#fff" stroke-width="1.6"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 5.5a3.4 3.4 0 010 6.4M17.5 14.2c2.3.6 4 2.7 4 5.8" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  bell: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3a6 6 0 00-6 6v4.5L4 17h16l-2-3.5V9a6 6 0 00-6-6z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 20a2 2 0 004 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  agenda: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="3.5" width="16" height="17" rx="2" stroke="#fff" stroke-width="1.6"/><path d="M8 8.5h8M8 12.5h8M8 16.5h5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  vote: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 14L12 18L20 8" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="3.5" y="3.5" width="17" height="17" rx="3" stroke="#fff" stroke-width="1.6"/></svg>`,
+  coin: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="7" rx="8" ry="3.2" stroke="#fff" stroke-width="1.6"/><path d="M4 7v5c0 1.77 3.58 3.2 8 3.2s8-1.43 8-3.2V7M4 12v5c0 1.77 3.58 3.2 8 3.2s8-1.43 8-3.2v-5" stroke="#fff" stroke-width="1.6"/></svg>`,
+  clip: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 21h8a2 2 0 002-2V7l-4-4H8a2 2 0 00-2 2v14a2 2 0 002 2z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v4h4M8 12h8M8 16h8" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  pen: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 013 3L8 19l-4 1z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M14.5 6.5l3 3" stroke="#fff" stroke-width="1.6"/></svg>`
+};
+const COLORS = ["#E11A6E","#A80F52","#F2A900","#1B1836","#C2410C","#0E7490"];
+
+const TICKER_ITEMS = ["Officer roles","Monthly rhythm","Quorum first","Treasurer report","Committee updates","Project approvals","Board minutes","Handover plan"];
+
+const ROLES = [
+  { icon:"crown", color:"#1B1836", title:"President", focus:"Steers the year", duties:["Chairs board and general meetings", "Sets the annual vision and goals with the board", "Represents the club to the district and sponsor Rotary club"] },
+  { icon:"spark", color:"#E11A6E", title:"President-Elect", focus:"Prepares the next year", duties:["Shadows the president throughout the year", "Plans next year's officer team and calendar", "Chairs planning committees and transition meetings"] },
+  { icon:"hand", color:"#A80F52", title:"Vice President", focus:"Steps in, steps up", duties:["Chairs meetings when the president is absent", "Coordinates service programs and projects", "Works with committee chairs to keep plans moving"] },
+  { icon:"pen", color:"#0E7490", title:"Secretary", focus:"Memory of the club", duties:["Records minutes and keeps membership records", "Sends meeting notices, agendas and follow-ups", "Handles official correspondence and reports"] },
+  { icon:"coin", color:"#F2A900", title:"Treasurer", focus:"Owns the numbers", duties:["Collects dues and keeps the accounts", "Reports finances at every board meeting", "Prepares the budget with the president"] },
+  { icon:"grid", color:"#C2410C", title:"Directors", focus:"Run the committees", duties:["Lead service, club service, public image and membership work", "Report committee progress at board meetings", "Turn board decisions into member action"] }
+];
+
+const ROLE_ICON_SVG = {
+  crown: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 8l5 4 4-7 4 7 5-4-2 11H5L3 8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5.5 19h13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  spark: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+  hand: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 11V6.5a1.5 1.5 0 013 0V11M10 11V5a1.5 1.5 0 013 0v6M13 11V6.5a1.5 1.5 0 013 0V12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M16 11.5c1.4-.6 2.6.2 2.8 1.7.3 2-.4 4.6-1.8 6.3-1.2 1.4-3.3 1.8-5 1.1-1.9-.8-3-2.6-3.4-4.6l-.6-3c-.2-1 .8-1.8 1.6-1.2l1.7 1.2" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+  pen: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 013 3L8 19l-4 1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14.5 6.5l3 3" stroke="currentColor" stroke-width="1.6"/></svg>`,
+  coin: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="7" rx="8" ry="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M4 7v5c0 1.77 3.58 3.2 8 3.2s8-1.43 8-3.2V7M4 12v5c0 1.77 3.58 3.2 8 3.2s8-1.43 8-3.2v-5" stroke="currentColor" stroke-width="1.6"/></svg>`,
+  grid: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/></svg>`
+};
+
+const SECTIONS = [
+  {
+    id:"seats", icon:"people",
+    title:"Your Board: The Seats",
+    tagline:"Six positions, one shared responsibility",
+    img:"images/bod-meeting-minimal.jpg",
+    alt:"Minimal flat illustration of a Rotaract board meeting",
+    body:`<p class="intro">Every board meeting starts with people knowing their job. The board runs the club between general meetings, and each seat has a specific responsibility; when one is unclear, the meeting is where it shows. These are the core roles from the standard Rotaract structure; your constitution names the exact titles and terms.</p>
+      <div class="roles-grid" id="rolesGrid"></div>`,
+    stat:{icon:SPARK_SVG, text:`Boards that <span>open every meeting with a 60-second round</span> (each officer's top item) finish their agenda in half the time.`},
+    checklist:[
+      "Hold a board orientation in the first month of the year; walk every officer through their role and the agenda format",
+      "Keep one shared calendar of board meetings, general meetings and deadlines that every officer can see",
+      "Send the board a short pack 48 hours before each board meeting: agenda, previous minutes, treasurer report",
+      "Review the constitution's officer duties once at the start of the year so everyone works from the same document"
+    ],
+    links:[
+      { label:"Standard Rotaract Club Constitution", url:"guides/Standard-Rotaract-Club-Constitution.docx" },
+      { label:"Recommended Club Bylaws", url:"guides/662_rotaract_club_recommended_bylaws_en.docx" }
+    ]
+  },
+  {
+    id:"rhythm", icon:"bell",
+    title:"The Monthly Rhythm",
+    tagline:"Same cadence, every month, all year",
+    img:"images/tutorial-board.png",
+    alt:"Illustration of a Rotaract board meeting in session",
+    body:`<p class="intro">Most clubs hold board meetings monthly, roughly a week before the first general meeting of the month, so board decisions have time to reach members. A predictable flow keeps the meeting under an hour and the club moving.</p>
+      <ol class="steps">
+        <li><span class="num">1</span><h5>Send the pack 48 hours out</h5><p>Agenda, previous minutes, treasurer report and any proposals go to every officer in advance, no surprises at the table.</p></li>
+        <li><span class="num">2</span><h5>Call to order &amp; quorum</h5><p>The chair confirms the required number of officers is present before anything is decided.</p></li>
+        <li><span class="num">3</span><h5>Approve previous minutes</h5><p>Corrections get made, then the minutes are approved and filed.</p></li>
+        <li><span class="num">4</span><h5>Treasurer's report</h5><p>Finances come early: balance, dues, spending since the last meeting.</p></li>
+        <li><span class="num">5</span><h5>President's update</h5><p>Vision, district news, sponsor Rotary club relationships, upcoming deadlines.</p></li>
+        <li><span class="num">6</span><h5>Committee reports</h5><p>Service, club service, public image and membership chairs report progress and needs.</p></li>
+        <li><span class="num">7</span><h5>Decisions &amp; approvals</h5><p>Projects, budgets and proposals get voted on, and recorded with owners.</p></li>
+        <li><span class="num">8</span><h5>Plan the next general meeting</h5><p>Set the agenda, assign the welcome officer, agree the program slot and announcements.</p></li>
+      </ol>`,
+    stat:{icon:SPARK_SVG, text:`A <span>fixed monthly date</span> (announced at the start of the year) turns board attendance into a habit instead of a negotiation.`},
+    checklist:[
+      "Fix the board meeting date for the whole year and publish it with the general meeting calendar",
+      "Never decide anything at a board meeting that was not on the agenda; park it for the next meeting or a special session",
+      "Keep board meetings under 90 minutes; if it runs over twice in a row, the agenda is too big",
+      "Minutes go to all officers within 48 hours, while the decisions are still fresh"
+    ],
+    links:[
+      { label:"Sample Agenda Paper (guides folder)", url:"guides/Sample-Agenda-Paper.doc" }
+    ]
+  },
+  {
+    id:"quorum", icon:"vote",
+    title:"Quorum & Voting Rules",
+    tagline:"A decision is only valid if the board is properly constituted",
+    img:"images/meeting-motions-voting.jpg",
+    alt:"Minimal flat illustration of board members voting",
+    body:`<p class="intro">Quorum is the minimum number of officers who must be present for decisions to be valid. Rules differ between meeting types; check your constitution, but the common pattern across clubs looks like this.</p>
+      <table class="type-table">
+        <thead><tr><th>Meeting</th><th>Quorum</th><th>How decisions pass</th></tr></thead>
+        <tbody>
+          <tr><td>Board meeting</td><td>Majority of officers, commonly 4, including the president or vice president</td><td>Simple majority of those present and voting</td></tr>
+          <tr><td>General meeting</td><td>Majority of members in good standing</td><td>Simple majority of members present and voting</td></tr>
+          <tr><td>Special meeting</td><td>As your constitution specifies for that business</td><td>Simple majority unless the constitution says otherwise</td></tr>
+          <tr><td>Bylaw changes &amp; big items</td><td>Full quorum as for a general meeting</td><td>Often two-thirds or as your constitution requires</td></tr>
+        </tbody>
+      </table>
+      <p class="intro">If quorum is missing, the meeting can still run as discussion, but no binding decisions. Record the quorum count in the minutes; it is what makes a decision defensible later.</p>`,
+    stat:{icon:SPARK_SVG, text:`The most common board quorum mistake is <span>voting without counting</span>; count heads before you decide, and say the count out loud.`},
+    checklist:[
+      "Check the quorum number in your constitution at the start of the year and write it inside every board meeting pack",
+      "If quorum fails, hold discussion only, and state in the minutes that no decisions were taken",
+      "Record the number present, the vote count and abstentions for every motion",
+      "The chair votes too, unless your constitution says otherwise, and the chair's tie-break rule is usually written down"
+    ],
+    links:[
+      { label:"Standard Rotaract Club Constitution: meetings & quorum", url:"guides/Standard-Rotaract-Club-Constitution.docx" }
+    ]
+  },
+  {
+    id:"money", icon:"coin",
+    title:"Money: Budget & Treasurer",
+    tagline:"Own the numbers or the numbers own you",
+    img:"images/meeting-minutes-report.jpg",
+    alt:"Minimal flat illustration of a treasurer reviewing club finances",
+    body:`<p class="intro">The treasurer's job is not collecting money; it is keeping the club's finances so clear that anyone could follow them. The board's job is to know the numbers every month, not at the end of the year.</p>
+      <ol class="steps">
+        <li><span class="num">1</span><h5>Approve a budget before July</h5><p>Income (dues, fundraising, grants) against planned spending, voted by the board and shared with members.</p></li>
+        <li><span class="num">2</span><h5>Collect and record dues</h5><p>Dues go through the treasurer with receipts; members are only 'in good standing' when dues are settled.</p></li>
+        <li><span class="num">3</span><h5>Set an approval threshold</h5><p>Small expenses need one officer's sign-off; bigger ones need board approval. Write the limits down.</p></li>
+        <li><span class="num">4</span><h5>Report every month</h5><p>A one-page report: opening balance, income, spending, remaining budget per project.</p></li>
+        <li><span class="num">5</span><h5>Close the year clean</h5><p>Final accounts, handover of records and bank access to the next treasurer, nothing personal, all on the club drive.</p></li>
+      </ol>`,
+    stat:{icon:SPARK_SVG, text:`Clubs that <span>review finances at every board meeting</span> never discover a problem at the year-end meeting, when it is too late to fix.`},
+    checklist:[
+      "Two signatories on the club account, never one person alone",
+      "Receipts for every expense, filed on the shared drive within a week",
+      "Treasurer report at every board meeting, even if nothing moved",
+      "Annual accounts presented to the general meeting before the year closes"
+    ],
+    links:[
+      { label:"Standard Rotaract Club Constitution: dues & finance", url:"guides/Standard-Rotaract-Club-Constitution.docx" },
+      { label:"Statement of Policy", url:"guides/statement-of-policy.docx" }
+    ]
+  },
+  {
+    id:"decisions", icon:"agenda",
+    title:"Decisions Between Meetings",
+    tagline:"Small team, fast calls, clear records",
+    img:"images/meeting-call-to-order.jpg",
+    alt:"Minimal flat illustration of a meeting being called to order",
+    body:`<p class="intro">The club cannot wait a month for every decision. The art is delegating the small things so the board only spends its meeting time on what truly needs the room.</p>
+      <ol class="steps">
+        <li><span class="num">1</span><h5>Delegate to committee chairs</h5><p>Service, membership and PR chairs get authority over their committee's routine work, with a spending limit.</p></li>
+        <li><span class="num">2</span><h5>Define the emergency lane</h5><p>Urgent calls (venue changes, last-minute approvals) go to the president and treasurer together, then to the board at the next meeting.</p></li>
+        <li><span class="num">3</span><h5>Communicate the same day</h5><p>Board decisions reach members through the secretary's message; decisions made in private stay in private if no one shares them.</p></li>
+        <li><span class="num">4</span><h5>Log everything</h5><p>Off-meeting approvals are recorded as a one-line addendum to the next board minutes, so the record stays complete.</p></li>
+      </ol>`,
+    stat:{icon:SPARK_SVG, text:`Zone 7 clubs that <span>publish board decisions in the same week</span> have notably calmer general meetings; members trust a board that reports.`},
+    checklist:[
+      "Write the delegation list and spending limits down at the start of the year",
+      "Decide who covers for each officer during exams and holidays",
+      "Keep a running 'decision log' on the shared drive, updated within 24 hours",
+      "Review the log at each board meeting; ratify, adjust or reverse"
+    ],
+    links:[]
+  },
+  {
+    id:"transition", icon:"pen",
+    title:"Transition & Handover",
+    tagline:"The year ends, the club continues",
+    img:"images/meeting-agenda.jpg",
+    alt:"Minimal flat illustration of a handover file and agenda",
+    body:`<p class="intro">A Rotaract club's real test is whether it survives its own leadership change. The president-elect shadows all year, and the handover is a document trail, not a conversation.</p>
+      <ol class="steps">
+        <li><span class="num">1</span><h5>Shadow all year</h5><p>The president-elect attends every board meeting, learns the rhythm and takes over the planning calendar.</p></li>
+        <li><span class="num">2</span><h5>Run the transition meeting</h5><p>Old and new boards meet once before the handover: projects, finances, contacts, lessons, mistakes.</p></li>
+        <li><span class="num">3</span><h5>Hand over the files</h5><p>Minutes, finances, the decision log, committee files and the constitution all move to the shared drive, organised and current.</p></li>
+        <li><span class="num">4</span><h5>Orient the new board</h5><p>The new board runs through roles, the agenda format, the calendar and the district reporting cycle in its first week.</p></li>
+        <li><span class="num">5</span><h5>Stay reachable</h5><p>Past officers remain advisors for the first quarter; the club keeps their knowledge, not just their title.</p></li>
+      </ol>`,
+    stat:{icon:SPARK_SVG, text:`Clubs that <span>hand over in writing</span> start the next year with momentum; clubs that hand over in conversation start it from zero.`},
+    checklist:[
+      "Book the transition meeting before the handover, in writing, both boards invited",
+      "Hand over bank access and signatories on day one, not month three",
+      "The president-elect publishes next year's calendar before the handover ceremony",
+      "Archive last year's files as read-only so records survive the year end"
+    ],
+    links:[
+      { label:"Effective Planning Guide to Clubs", url:"guides/Effective-Planning-Guide-to-Clubs.docx" }
+    ]
+  }
+];
+
+function render(){
+  document.getElementById("guideList").innerHTML = SECTIONS.map((s,i) => `
+    <div class="guide-block" id="${s.id}" data-reveal style="--d:${(i*0.05).toFixed(2)}s">
+      <div class="guide-head">
+        <div class="guide-head-left">
+          <div class="guide-icon" style="background:${COLORS[i]};">${ICONS[s.icon]}</div>
+          <div>
+            <h3>${s.title}</h3>
+            <p class="tagline">${s.tagline}</p>
+          </div>
+        </div>
+        <div class="guide-chevron">${CHEVRON_SVG}</div>
+      </div>
+      <div class="guide-body">
+        <div class="guide-body-inner">
+          <div class="phase-img"><img src="${s.img}" alt="${s.alt}" loading="lazy"></div>
+          ${s.body}
+          <div class="guide-stat"><div class="g-icon">${s.stat.icon}</div><p>${s.stat.text}</p></div>
+          <div class="checklist-label">Quick-Start Checklist <span style="font-weight:500;font-size:.74rem;color:rgba(27,24,54,.45);">(tap to tick)</span></div>
+          <ul class="guide-checklist">
+            ${s.checklist.map(c => `<li>${c}</li>`).join("")}
+          </ul>
+          ${s.links.length ? `
+            <div class="guide-links">
+              <div class="guide-links-label">Useful Link</div>
+              ${s.links.map(l => `<a class="guide-link" href="${l.url}">${LINK_SVG} ${l.label}</a>`).join("")}
+            </div>
+          ` : ""}
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  const rolesGrid = document.getElementById("rolesGrid");
+  if(rolesGrid){
+    rolesGrid.innerHTML = ROLES.map((r,i) => `
+      <div class="role-card" style="--d:${(i*0.06).toFixed(2)}s">
+        <div class="role-top">
+          <div class="role-ico" style="background:${r.color};">${ROLE_ICON_SVG[r.icon]}</div>
+          <h4>${r.title}</h4>
+        </div>
+        <div class="role-focus">${r.focus}</div>
+        <ul>${r.duties.map(d => `<li>${d}</li>`).join("")}</ul>
+      </div>
+    `).join("");
+  }
+
+  document.getElementById("tickerTrack").innerHTML =
+    TICKER_ITEMS.map(t => `<span>${t}</span>`).join("") +
+    TICKER_ITEMS.map(t => `<span>${t}</span>`).join("");
+
+  document.querySelectorAll(".guide-head").forEach(el => {
+    el.addEventListener("click", () => el.closest(".guide-block").classList.toggle("open"));
+  });
+  document.querySelectorAll(".guide-checklist li").forEach(li => {
+    li.addEventListener("click", () => li.classList.toggle("ticked"));
+  });
+
+  document.getElementById("videoGrid").innerHTML = [
+    { id:"A3Jeki3peds", title:"Club Leadership Team Workshop", desc:"Rotary 5360's recorded leadership team workshop on how officers divide responsibility and lead together. The board structure transfers directly to Rotaract." },
+    { id:"P-dcBS_6gMc", title:"How to Organize a Rotaract Club", desc:"Rotary District 7910's advisor training seminar covering the building blocks of a well-organized club, from founding team to operating rhythm." }
+  ].map(v => `
+    <div class="video-card">
+      <div class="v-thumb" data-vid="${v.id}">
+        <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${v.title}" loading="lazy">
+        <div class="v-play"></div>
+      </div>
+      <div class="v-info"><h5>${v.title}</h5><p>${v.desc}</p></div>
+    </div>
+  `).join("");
+
+  document.querySelectorAll(".v-thumb").forEach(el => {
+    el.addEventListener("click", () => {
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${el.dataset.vid}?autoplay=1`;
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0";
+      el.innerHTML = "";
+      el.appendChild(iframe);
+    });
+  });
+
+  if(location.hash){
+    const target = document.querySelector(location.hash);
+    if(target){ target.classList.add("open"); setTimeout(() => target.scrollIntoView({behavior:"smooth", block:"start"}), 150); }
+  }
+
+  observeReveals();
+}
+render();
+
+function observeReveals(){
+  const els = document.querySelectorAll("[data-reveal]:not(.in)");
+  if(!("IntersectionObserver" in window)){ els.forEach(el => el.classList.add("in")); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+  }, {threshold:.12, rootMargin:"0px 0px -40px 0px"});
+  els.forEach(el => io.observe(el));
+}
+
+const heroTitle = document.getElementById("heroTitle");
+if(heroTitle){
+  const words = heroTitle.textContent.trim().split(/\s+/);
+  heroTitle.innerHTML = words.map(w => `<span class="rword"><span>${w}</span></span>`).join(" ");
+}
+
+const hero = document.querySelector(".hero");
+if(hero && window.matchMedia("(pointer:fine)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+  hero.addEventListener("mousemove", (e) => {
+    const r = hero.getBoundingClientRect();
+    const mx = (e.clientX - r.left) / r.width - .5;
+    const my = (e.clientY - r.top) / r.height - .5;
+    document.querySelectorAll("[data-parallax]").forEach(el => {
+      const d = parseFloat(el.dataset.parallax) || 1;
+      el.style.translate = `${(mx * 26 * d).toFixed(1)}px ${(my * 18 * d).toFixed(1)}px`;
+    });
+  });
+}
+
+const progress = document.getElementById("progress");
+let ticking = false;
+window.addEventListener("scroll", () => {
+  if(ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    progress.style.transform = `scaleX(${max > 0 ? (window.scrollY / max) : 0})`;
+    ticking = false;
+  });
+}, {passive:true});
+</script>
+<script src="rota-gpt-data.js"></script>
+<script src="rota-gpt.js"></script>
+</body>
+</html>

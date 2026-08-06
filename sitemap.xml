@@ -31,6 +31,76 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://zone7rotaract3292.vercel.app/rkt-quiz</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zone7rotaract3292.vercel.app/tutorials</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zone7rotaract3292.vercel.app/tutorial-meetings</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zone7rotaract3292.vercel.app/tutorial-board</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zone7rotaract3292.vercel.app/tutorial-assembly</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zone7rotaract3292.vercel.app/tutorial-zrr</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zone7rotaract3292.vercel.app/tutorial-drr</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zone7rotaract3292.vercel.app/tutorial-blood</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zone7rotaract3292.vercel.app/handbook</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zone7rotaract3292.vercel.app/handbook-grants</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zone7rotaract3292.vercel.app/handbook-twinship</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zone7rotaract3292.vercel.app/handbook-newclub</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zone7rotaract3292.vercel.app/handbook-projects</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://zone7rotaract3292.vercel.app/handbook-health</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://zone7rotaract3292.vercel.app/balkumari</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

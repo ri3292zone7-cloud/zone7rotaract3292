@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guides for Clubs | Zone 7 Rotaract 3292</title>
-<meta name="description" content="A practical playbook for running a great Rotaract club — leadership handoffs, service project execution, finance, public image, professional development, sponsor relations and more, from Zone 7 District 3292.">
+<title>Guides for Clubs, The Playbook | Zone 7 Rotaract 3292</title>
+<meta name="description" content="The Zone 7 Playbook: illustrated storyboards for running a great Rotaract club. Leadership handoffs, service projects, finance, public image, attendance make-up cards and more.">
 <link rel="canonical" href="https://zone7rotaract3292.vercel.app/club-guides">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Zone 7 Rotaract">
-<meta property="og:title" content="Guides for Clubs | Zone 7 Rotaract 3292">
-<meta property="og:description" content="A practical playbook for running a great Rotaract club — leadership handoffs, service project execution, finance, public image, professional development, sponsor relations and more, from Zone 7 District 3292.">
-<meta property="og:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
+<meta property="og:title" content="Guides for Clubs, The Playbook | Zone 7 Rotaract 3292">
+<meta property="og:description" content="Illustrated storyboards for running a great Rotaract club. Leadership handoffs, service projects, finance, public image, attendance make-up cards and more.">
 <meta property="og:url" content="https://zone7rotaract3292.vercel.app/club-guides">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -26,280 +25,341 @@
   body{font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
   h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
   a{color:inherit; text-decoration:none;}
-  .wrap{max-width:960px; margin:0 auto; padding:0 28px;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
 
-  nav{position:sticky; top:0; z-index:100; background:rgba(255,253,249,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
-  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
-  .brand{display:flex; align-items:center; gap:10px; font-family:'Poppins'; font-weight:800; font-size:1.1rem;}
-  .brand .z{background:var(--magenta); color:#fff; width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center;}
-  .back{font-weight:700; font-size:0.88rem; color:var(--magenta-deep);}
-  .navlinks{display:flex;gap:34px;font-weight:600;font-size:.92rem;align-items:center;}
-  .navlinks > a{position:relative;padding:4px 0;color:var(--ink);opacity:.75;transition:opacity .2s;}
-  .navlinks > a:hover{opacity:1;}
-  .navlinks > a.current{opacity:1;color:var(--magenta-deep);}
-  .nav-drop{position:relative;}
-  .nav-drop::before{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);width:440px;height:20px;}
-  .nav-drop-trigger{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Inter';font-weight:600;font-size:.92rem;color:var(--ink);opacity:.75;padding:4px 0;transition:opacity .2s;}
-  .nav-drop-trigger svg{transition:transform .2s;}
-  .nav-drop:hover .nav-drop-trigger,.nav-drop.open .nav-drop-trigger{opacity:1;}
-  .nav-drop.open .nav-drop-trigger svg{transform:rotate(180deg);}
-  .nav-drop-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:16px;opacity:0;pointer-events:none;transition:opacity .18s;z-index:60;}
-  .nav-drop:hover .nav-drop-panel,.nav-drop.open .nav-drop-panel{opacity:1;pointer-events:auto;}
-  .nav-drop-panel-inner{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 48px rgba(27,24,54,.14);padding:14px;transform:translateY(6px);transition:transform .18s;position:relative;}
-  .nav-drop:hover .nav-drop-panel-inner,.nav-drop.open .nav-drop-panel-inner{transform:translateY(0);}
-  .nav-drop-panel-inner::before{content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:var(--paper);border-left:1px solid var(--line);border-top:1px solid var(--line);}
-  .clubs-drop-panel{width:420px;}
-  .clubs-drop-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
-  .clubs-drop-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;transition:background .15s;}
-  .clubs-drop-item:hover{background:rgba(225,26,110,.07);}
-  .clubs-drop-item img{width:28px;height:28px;border-radius:8px;object-fit:contain;background:#fff;border:1px solid var(--line);padding:3px;flex-shrink:0;}
-  .clubs-drop-item span{font-size:.82rem;font-weight:600;color:var(--ink);line-height:1.25;}
-  .clubs-drop-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);}
-  .clubs-drop-foot a{font-size:.8rem;font-weight:700;color:var(--magenta-deep);}
-  .res-drop-panel{width:290px;}
-  .res-drop-item{display:flex;gap:12px;padding:11px 10px;border-radius:12px;transition:background .15s;align-items:flex-start;}
-  .res-drop-item:hover{background:rgba(225,26,110,.07);}
-  .res-drop-ico{width:34px;height:34px;border-radius:10px;background:rgba(225,26,110,.09);color:var(--magenta-deep);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;}
-  .res-drop-item h5{font-size:.86rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
-  .res-drop-item p{font-size:.74rem;color:rgba(27,24,54,.5);line-height:1.4;margin:0;}
-  @media (max-width:920px){ .nav-drop,.navlinks{display:none;} }
-  .nav-cta{background:var(--ink);color:#fff !important;padding:10px 20px;border-radius:100px;font-weight:700;font-size:.85rem;opacity:1 !important;}
-  .nav-admin{font-weight:700;font-size:.85rem;color:var(--magenta-deep);opacity:.85;transition:opacity .2s;}
-  .nav-admin:hover{opacity:1;}
-  .burger{display:none;background:none;border:none;cursor:pointer;padding:6px;}
-  .burger span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;border-radius:2px;}
-  .mobile-menu{display:none;position:fixed;top:76px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);z-index:99;padding:18px 28px;flex-direction:column;gap:16px;}
-  .mobile-menu.open{display:flex;}
-  .mobile-menu a{font-weight:600;font-size:1rem;color:var(--ink);}
-  @media(max-width:920px){ .burger{display:block;} }
+  #readBar{position:fixed; top:0; left:0; height:3px; width:0; background:linear-gradient(90deg, var(--magenta), var(--gold)); z-index:200;}
 
-  .hero{padding:60px 0 10px; position:relative; overflow:hidden;}
-  .hero::before{
-    content:""; position:absolute; top:-140px; right:-140px; width:360px; height:360px; border-radius:50%;
-    background:radial-gradient(circle, rgba(225,26,110,0.12), transparent 70%); z-index:0;
-  }
-  .eyebrow{position:relative; z-index:1; display:inline-flex; align-items:center; gap:8px; font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:8px 16px; border-radius:100px; margin-bottom:20px;}
-  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
-  .hero h1{position:relative; z-index:1; font-size:clamp(2rem,4.4vw,2.8rem); max-width:640px;}
-  .hero p.sub{position:relative; z-index:1; color:rgba(27,24,54,0.65); font-size:1.02rem; max-width:640px; margin-top:16px; line-height:1.65;}
-  .hero .note{
-    position:relative; z-index:1; margin-top:20px; font-size:0.82rem; color:rgba(27,24,54,0.55); border-left:3px solid var(--gold);
-    padding-left:14px; max-width:600px; line-height:1.6;
-  }
+  .cinema-hero{padding:56px 0 8px; position:relative;}
+  .marquee{display:flex; justify-content:space-between; align-items:center; gap:6px; margin-bottom:26px;}
+  .bulb{width:9px; height:9px; border-radius:50%; background:rgba(242,169,0,0.25); flex-shrink:0;
+    box-shadow:0 0 6px rgba(242,169,0,0.2); animation:flicker 2.4s infinite;}
+  .bulb.on{background:var(--gold); box-shadow:0 0 14px var(--gold);}
+  @keyframes flicker{0%,100%{opacity:.35;} 50%{opacity:1;}}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:0.76rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:8px 16px; border-radius:100px; margin-bottom:18px;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--gold); animation:pulse 1.6s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:.25;}}
+  .cinema-hero h1{font-size:clamp(2.2rem,5vw,3.2rem); line-height:1.05;}
+  .cinema-hero h1 em{font-style:normal; background:linear-gradient(90deg, var(--magenta), var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .cinema-hero p.sub{color:rgba(27,24,54,0.65); font-size:1.02rem; max-width:680px; margin-top:16px; line-height:1.65;}
+  .cinema-hero p.sub a{color:var(--magenta-deep); font-weight:700; text-decoration:underline;}
+  .cinema-hero .note{margin-top:18px; font-size:0.82rem; color:rgba(27,24,54,0.55); border-left:3px solid var(--gold); padding-left:14px; max-width:680px; line-height:1.6;}
+  .toolrow{display:flex; gap:12px; margin-top:24px; align-items:center; flex-wrap:wrap;}
+  #topicSearch{flex:1; min-width:240px; padding:13px 18px; border-radius:14px; border:1.5px solid var(--line); background:#fff; font-family:'Inter'; font-size:.92rem; color:var(--ink);}
+  #topicSearch:focus{outline:none; border-color:var(--magenta);}
+  #resetProgress{font-size:.8rem; font-weight:700; color:rgba(27,24,54,.5); background:none; border:none; cursor:pointer; padding:6px 4px;}
+  #resetProgress:hover{color:var(--magenta-deep);}
 
-  /* QUICK-GLANCE ICON GRID */
-  .quickgrid{
-    display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin:40px 0 8px; position:relative; z-index:1;
-  }
-  .quick-item{
-    background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 12px;
-    text-align:center; transition:transform .2s, box-shadow .2s, border-color .2s; cursor:pointer;
-  }
-  .quick-item:hover{transform:translateY(-4px); box-shadow:0 14px 28px rgba(27,24,54,0.08); border-color:transparent;}
-  .quick-icon{
-    width:42px; height:42px; border-radius:12px; margin:0 auto 10px; display:flex; align-items:center; justify-content:center;
-  }
-  .quick-item span{font-size:0.74rem; font-weight:700; line-height:1.35; color:var(--ink); display:block;}
-  @media (max-width:760px){ .quickgrid{grid-template-columns:repeat(3,1fr);} }
-  @media (max-width:460px){ .quickgrid{grid-template-columns:repeat(2,1fr);} }
+  .now-playing{margin-top:44px;}
+  .np-label{display:flex; align-items:center; gap:10px; font-size:.72rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--magenta-deep); margin-bottom:14px;}
+  .np-label::before{content:""; width:10px; height:10px; border-radius:50%; background:var(--magenta); animation:pulse 1.4s infinite;}
+  .np-card{position:relative; border-radius:26px; overflow:hidden; display:grid; grid-template-columns:300px 1fr; background:var(--ink); color:#fff; box-shadow:0 30px 70px rgba(27,24,54,0.28);}
+  .np-card::after{content:""; position:absolute; top:-120px; right:-80px; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle, rgba(242,169,0,.18), transparent 70%); pointer-events:none;}
+  .np-poster{position:relative; min-height:280px; display:flex; align-items:center; justify-content:center; overflow:hidden;}
+  .np-poster .reel-tag{position:absolute; top:16px; left:16px;}
+  .np-poster.cycle .slide{animation:slideCycle 9s infinite;}
+  .np-poster.cycle .slide:nth-child(1){animation-delay:0s;}
+  .np-poster.cycle .slide:nth-child(2){animation-delay:3s;}
+  .np-poster.cycle .slide:nth-child(3){animation-delay:6s;}
+  .np-poster.cycle .slide svg{animation:kenburns 9s ease-in-out infinite;}
+  .np-poster .slide svg{width:62%; height:auto; filter:drop-shadow(0 12px 26px rgba(10,8,20,0.3));}
+  .np-info{padding:40px 38px 34px; position:relative; z-index:1; display:flex; flex-direction:column;}
+  .np-genre{font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:12px;}
+  .np-info h2{font-size:clamp(1.5rem,3vw,2rem); margin-bottom:10px;}
+  .np-info .np-tagline{color:rgba(255,255,255,0.7); font-size:.95rem; line-height:1.6; margin-bottom:18px;}
+  .np-info .np-syn{color:rgba(255,255,255,0.55); font-size:.84rem; line-height:1.65; max-width:560px; margin-bottom:22px;}
+  .np-meta{display:flex; gap:16px; flex-wrap:wrap; align-items:center; margin-bottom:22px;}
+  .np-meta span{font-size:.76rem; font-weight:700; color:rgba(255,255,255,0.6);}
+  .np-bar{height:6px; border-radius:100px; background:rgba(255,255,255,0.12); overflow:hidden; margin-bottom:26px; max-width:420px;}
+  .np-bar i{display:block; height:100%; border-radius:100px; background:linear-gradient(90deg, var(--magenta), var(--gold)); transition:width .4s;}
+  .play-btn{align-self:flex-start; display:inline-flex; align-items:center; gap:10px; background:var(--gold); color:var(--ink); font-family:'Poppins'; font-weight:800; font-size:.92rem; border:none; cursor:pointer; padding:13px 26px; border-radius:100px; transition:transform .2s, box-shadow .2s;}
+  .play-btn:hover{transform:translateY(-2px); box-shadow:0 14px 30px rgba(242,169,0,0.35);}
+  .play-btn svg{flex-shrink:0;}
+  @media (max-width:820px){ .np-card{grid-template-columns:1fr;} .np-poster{min-height:190px;} .np-info{padding:28px 26px;} }
 
-  .guide-list{margin:44px 0 60px; display:flex; flex-direction:column; gap:16px;}
-  .guide-block{
-    background:var(--paper); border:1px solid var(--line); border-radius:20px; overflow:hidden;
-    scroll-margin-top:100px; transition:box-shadow .2s;
-  }
-  .guide-block.open{box-shadow:0 20px 46px rgba(27,24,54,0.08);}
-  .guide-head{
-    padding:22px 26px; display:flex; align-items:center; justify-content:space-between; gap:16px; cursor:pointer;
-  }
-  .guide-head-left{display:flex; align-items:center; gap:16px;}
-  .guide-icon{
-    width:46px; height:46px; border-radius:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  }
-  .guide-head h3{font-size:1.05rem;}
-  .guide-head p.tagline{font-size:0.82rem; color:rgba(27,24,54,0.5); margin-top:3px; font-weight:500;}
-  .guide-chevron{
-    width:30px; height:30px; border-radius:50%; border:1.5px solid var(--line); flex-shrink:0;
-    display:flex; align-items:center; justify-content:center; transition:transform .25s, background .2s, border-color .2s;
-  }
-  .guide-block.open .guide-chevron{transform:rotate(45deg); background:var(--magenta); border-color:var(--magenta);}
-  .guide-block.open .guide-chevron svg path{stroke:#fff;}
+  .film-section{margin-top:64px;}
+  .film-section h2{font-size:1.5rem; margin-bottom:6px;}
+  .film-section .fs-sub{color:rgba(27,24,54,0.55); font-size:.9rem; margin-bottom:28px;}
+  .film-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media (max-width:900px){ .film-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .film-grid{grid-template-columns:1fr;} }
 
-  .guide-body{
-    max-height:0; overflow:hidden; transition:max-height .4s ease;
-  }
-  .guide-block.open .guide-body{max-height:1400px;}
-  .guide-body-inner{padding:0 26px 28px; border-top:1px solid var(--line); padding-top:22px;}
-  .guide-body-inner p.intro{font-size:0.96rem; color:rgba(27,24,54,0.74); line-height:1.75; margin-bottom:18px;}
+  .film-card{background:var(--paper); border:1px solid var(--line); border-radius:22px; overflow:hidden; display:flex; flex-direction:column; transition:transform .25s, box-shadow .25s;}
+  .film-card:hover{transform:translateY(-6px); box-shadow:0 24px 50px rgba(27,24,54,0.14);}
+  .film-poster{position:relative; aspect-ratio:16/10; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(155deg, var(--g1), var(--g2));}
+  .film-poster::before{content:""; position:absolute; inset:0; background:radial-gradient(circle at 78% 20%, rgba(255,255,255,0.16), transparent 46%); z-index:2; pointer-events:none;}
+  .film-poster::after{content:""; position:absolute; inset:0; background-image:repeating-linear-gradient(0deg, rgba(255,255,255,0.028) 0 1px, transparent 1px 4px); z-index:2; pointer-events:none;}
+  .slide{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; z-index:1;}
+  .slide:first-child{opacity:1;}
+  .film-poster .slide svg{width:64%; height:auto; filter:drop-shadow(0 10px 22px rgba(10,8,20,0.28));}
+  .film-poster.cycle .slide{animation:slideCycle 9s infinite;}
+  .film-poster.cycle .slide:nth-child(1){animation-delay:0s;}
+  .film-poster.cycle .slide:nth-child(2){animation-delay:3s;}
+  .film-poster.cycle .slide:nth-child(3){animation-delay:6s;}
+  .film-poster.cycle .slide svg{animation:kenburns 9s ease-in-out infinite;}
+  .film-card:hover .film-poster.cycle .slide{animation-play-state:paused;}
+  @keyframes slideCycle{0%{opacity:0;} 6%{opacity:1;} 28%{opacity:1;} 34%{opacity:0;} 100%{opacity:0;}}
+  @keyframes kenburns{0%{transform:scale(1) rotate(0);} 50%{transform:scale(1.09) rotate(-1.2deg);} 100%{transform:scale(1) rotate(0);}}
+  .reel-tag{position:absolute; top:14px; left:14px; z-index:3; font-size:.62rem; font-weight:800; letter-spacing:.14em; color:#fff; background:rgba(10,8,20,0.55); border:1px solid rgba(255,255,255,0.25); padding:5px 10px; border-radius:100px; backdrop-filter:blur(4px);}
+  .genre-chip{position:absolute; bottom:14px; left:14px; z-index:3; font-size:.64rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); background:var(--gold); padding:5px 11px; border-radius:100px;}
+  .film-info{padding:20px 20px 22px; display:flex; flex-direction:column; flex-grow:1;}
+  .film-info h3{font-size:1.02rem; line-height:1.3; margin-bottom:6px;}
+  .film-info .logline{font-size:.8rem; color:rgba(27,24,54,0.55); line-height:1.5; margin-bottom:14px; flex-grow:1;}
+  .film-meta{display:flex; justify-content:space-between; align-items:center; font-size:.72rem; font-weight:700; color:rgba(27,24,54,0.5); margin-bottom:8px;}
+  .film-bar{height:5px; border-radius:100px; background:rgba(27,24,54,0.08); overflow:hidden; margin-bottom:16px;}
+  .film-bar i{display:block; height:100%; border-radius:100px; background:linear-gradient(90deg, var(--magenta), var(--gold)); transition:width .4s;}
+  .film-play{display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%; font-family:'Poppins'; font-weight:700; font-size:.84rem; color:var(--magenta-deep); background:rgba(225,26,110,0.08); border:1.5px solid rgba(225,26,110,0.25); border-radius:100px; padding:11px; cursor:pointer; transition:background .2s, color .2s, transform .2s;}
+  .film-play:hover{background:var(--magenta); border-color:var(--magenta); color:#fff; transform:translateY(-1px);}
+  .empty-note{padding:40px 0; color:rgba(27,24,54,.5); text-align:center;}
 
-  .guide-stat{
-    display:flex; align-items:center; gap:14px; background:rgba(242,169,0,0.08); border:1px solid rgba(242,169,0,0.2);
-    border-radius:14px; padding:14px 18px; margin-bottom:20px;
-  }
-  .guide-stat .g-icon{font-size:1.3rem; flex-shrink:0;}
-  .guide-stat p{font-size:0.86rem; color:var(--ink); font-weight:600; line-height:1.5; margin:0;}
-  .guide-stat p span{color:var(--magenta-deep);}
+  .cta-band{margin:64px 0 70px; background:var(--ink); color:#fff; border-radius:24px; padding:38px 34px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; position:relative; overflow:hidden;}
+  .cta-band::after{content:""; position:absolute; top:-70px; right:-50px; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle, rgba(242,169,0,.3), transparent 70%);}
+  .cta-band h3{font-size:1.25rem; margin-bottom:6px;}
+  .cta-band p{font-size:.9rem; color:rgba(255,255,255,.65); max-width:520px; line-height:1.6;}
+  .cta-band .btn{background:var(--gold); color:var(--ink); padding:13px 24px; border-radius:100px; font-weight:800; font-size:.9rem; position:relative; z-index:1; transition:transform .2s;}
+  .cta-band .btn:hover{transform:translateY(-2px);}
 
-  .guide-checklist-label{font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:rgba(27,24,54,0.45); margin-bottom:10px;}
-  .guide-checklist{list-style:none; margin-bottom:20px;}
-  .guide-checklist li{
-    font-size:0.9rem; color:var(--ink); padding:9px 0 9px 30px; position:relative; line-height:1.5;
-    border-bottom:1px dashed var(--line);
-  }
-  .guide-checklist li:last-child{border-bottom:none;}
-  .guide-checklist li::before{
-    content:"✓"; position:absolute; left:0; top:9px; width:20px; height:20px; border-radius:50%;
-    background:rgba(225,26,110,0.1); color:var(--magenta-deep); font-weight:700; font-size:0.68rem;
-    display:flex; align-items:center; justify-content:center;
-  }
+  .theater{position:fixed; inset:0; z-index:300; display:none; align-items:center; justify-content:center; padding:24px;}
+  .theater.open{display:flex;}
+  .theater-backdrop{position:absolute; inset:0; background:rgba(10,8,20,0.82); backdrop-filter:blur(6px);}
+  .theater-stage{position:relative; z-index:1; width:min(760px, 100%); max-height:calc(100vh - 48px); overflow-y:auto; background:var(--paper); border-radius:24px; box-shadow:0 40px 90px rgba(0,0,0,0.5); animation:curtainIn .35s cubic-bezier(.16,1,.3,1);}
+  @keyframes curtainIn{from{transform:translateY(30px) scale(.97); opacity:0;} to{transform:none; opacity:1;}}
+  .theater-curtain{height:10px; border-radius:24px 24px 0 0; overflow:hidden; display:flex; background:repeating-linear-gradient(90deg, var(--magenta-deep) 0 26px, var(--magenta) 26px 34px, var(--ink) 34px 38px, var(--magenta) 38px 46px);}
+  .theater-close{position:absolute; top:22px; right:22px; width:40px; height:40px; border-radius:50%; border:1.5px solid var(--line); background:#fff; font-size:1.05rem; cursor:pointer; color:var(--ink); display:flex; align-items:center; justify-content:center; z-index:6; transition:background .2s, color .2s, transform .2s;}
+  .theater-close:hover{background:var(--ink); color:#fff; transform:rotate(90deg);}
+  .theater-body{padding:30px 34px 36px;}
 
-  .guide-links{margin-top:6px;}
-  .guide-links-label{font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:rgba(27,24,54,0.45); margin-bottom:10px;}
-  .guide-link{
-    display:inline-flex; align-items:center; gap:6px; font-size:0.85rem; font-weight:700; color:var(--magenta-deep);
-    background:rgba(225,26,110,0.07); padding:8px 14px; border-radius:100px; margin:0 8px 8px 0;
-  }
-  .guide-link:hover{background:rgba(225,26,110,0.14);}
-  .guide-link svg{flex-shrink:0;}
+  .player{position:relative; border-radius:18px; overflow:hidden; margin-bottom:16px; background:linear-gradient(150deg, var(--g1), var(--g2));}
+  .p-stage{position:relative; aspect-ratio:16/8; display:flex; align-items:center; justify-content:center;}
+  .p-stage::before{content:""; position:absolute; inset:0; background:radial-gradient(circle at 80% 15%, rgba(255,255,255,0.14), transparent 46%);}
+  .p-progress{position:absolute; top:0; left:0; right:0; height:4px; background:rgba(255,255,255,0.2); z-index:4;}
+  .p-progress i{display:block; height:100%; width:0; background:var(--gold);}
+  .p-progress i.run{transition:width 6s linear; width:100%;}
+  .p-slide{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .45s; pointer-events:none; z-index:1;}
+  .p-slide.active{opacity:1;}
+  .p-slide svg{width:min(58%, 380px); height:auto; filter:drop-shadow(0 12px 26px rgba(10,8,20,0.3));}
+  .p-slide svg.ken{animation:kenburns 6s ease-in-out infinite;}
+  .p-count{position:absolute; top:14px; right:16px; z-index:4; font-size:.66rem; font-weight:800; letter-spacing:.12em; color:#fff; background:rgba(10,8,20,0.5); padding:5px 11px; border-radius:100px; backdrop-filter:blur(4px);}
+  .p-nav{position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; border-radius:50%; border:none; background:rgba(10,8,20,0.55); color:#fff; font-size:1.25rem; cursor:pointer; z-index:4; backdrop-filter:blur(4px); transition:background .2s, transform .2s; display:flex; align-items:center; justify-content:center;}
+  .p-nav:hover{background:var(--magenta);}
+  .p-nav:active{transform:translateY(-50%) scale(.94);}
+  .p-prev{left:14px;} .p-next{right:14px;}
+  .p-dots{position:absolute; bottom:14px; left:50%; transform:translateX(-50%); display:flex; gap:7px; z-index:4;}
+  .p-dot{width:8px; height:8px; border-radius:100px; background:rgba(255,255,255,0.45); border:none; cursor:pointer; transition:background .2s, width .25s; padding:0;}
+  .p-dot.active{background:var(--gold); width:24px;}
+  .p-caption{font-size:.92rem; font-weight:600; color:rgba(27,24,54,0.78); line-height:1.6; margin-bottom:14px; min-height:2.8em;}
+  .p-actions{display:flex; gap:10px; align-items:center; margin-bottom:20px; flex-wrap:wrap;}
+  .p-auto-btn{font-size:.76rem; font-weight:800; color:var(--magenta-deep); background:rgba(225,26,110,0.08); border:1px solid rgba(225,26,110,0.2); border-radius:100px; padding:8px 16px; cursor:pointer; transition:background .2s;}
+  .p-auto-btn:hover{background:rgba(225,26,110,0.15);}
 
-  .guide-original-tag{
-    display:inline-flex; align-items:center; gap:5px; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;
-    color:rgba(27,24,54,0.45); background:rgba(27,24,54,0.05); padding:4px 10px; border-radius:100px; margin-bottom:16px;
-  }
+  .t-head{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:6px;}
+  .t-genre{font-size:.64rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); background:var(--gold); padding:5px 11px; border-radius:100px;}
+  .t-reel{font-size:.64rem; font-weight:800; letter-spacing:.14em; color:rgba(27,24,54,0.4);}
+  .theater-body h2{font-size:1.6rem; margin-top:10px;}
+  .t-tagline{color:rgba(27,24,54,0.55); font-size:.92rem; margin-top:4px; margin-bottom:18px;}
+  .t-orig{display:inline-flex; align-items:center; gap:6px; font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; border-radius:100px; padding:5px 12px; margin-bottom:18px;}
+  .t-orig.zone{color:var(--magenta-deep); background:rgba(225,26,110,0.08);}
+  .t-orig.official{color:#1c8a4d; background:rgba(28,138,77,0.1);}
+  .t-intro{font-size:.95rem; color:rgba(27,24,54,0.74); line-height:1.75; margin-bottom:18px;}
+  .t-intro em{font-style:normal; color:var(--magenta-deep); font-weight:700;}
+  .t-stat{display:flex; align-items:center; gap:14px; background:rgba(242,169,0,0.08); border:1px solid rgba(242,169,0,0.22); border-radius:14px; padding:14px 18px; margin-bottom:22px;}
+  .t-stat .g-icon{font-size:1.3rem; flex-shrink:0;}
+  .t-stat p{font-size:.86rem; color:var(--ink); font-weight:600; line-height:1.5; margin:0;}
+  .t-stat p span{color:var(--magenta-deep);}
+  .t-scenes-label{font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:rgba(27,24,54,0.45); margin-bottom:12px;}
+  .scene-list{list-style:none; margin-bottom:22px;}
+  .scene-list li{font-size:.9rem; color:var(--ink); padding:11px 0 11px 44px; position:relative; line-height:1.5; border-bottom:1px dashed var(--line); cursor:pointer; user-select:none; transition:color .15s, opacity .15s; border-radius:8px;}
+  .scene-list li:last-child{border-bottom:none;}
+  .scene-list li .scene-num{position:absolute; left:4px; top:11px; width:24px; height:24px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.6rem; font-weight:800; letter-spacing:.02em; color:var(--magenta-deep); background:rgba(225,26,110,0.08); border:1px solid rgba(225,26,110,0.2); transition:background .15s, border-color .15s;}
+  .scene-list li:hover{background:rgba(225,26,110,0.04);}
+  .scene-list li.done{color:rgba(27,24,54,.42); text-decoration:line-through;}
+  .scene-list li.done .scene-num{background:var(--magenta); border-color:var(--magenta); color:#fff;}
+  .t-credits-label{font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:rgba(27,24,54,0.45); margin-bottom:12px;}
+  .t-credits{display:flex; flex-wrap:wrap; gap:10px;}
+  .credit-link{display:inline-flex; align-items:center; gap:7px; font-size:.84rem; font-weight:700; color:var(--magenta-deep); background:rgba(225,26,110,0.07); padding:9px 15px; border-radius:100px; transition:background .2s;}
+  .credit-link:hover{background:rgba(225,26,110,0.15);}
+
+  .mu-block{margin-top:26px; border-top:1px solid var(--line); padding-top:24px;}
+  .mu-block .print-btn{display:inline-flex; align-items:center; gap:8px; font-family:'Poppins'; font-weight:800; font-size:.85rem; color:#fff; background:var(--ink); border:none; border-radius:100px; padding:12px 22px; cursor:pointer; transition:transform .2s, background .2s;}
+  .mu-block .print-btn:hover{transform:translateY(-2px); background:var(--magenta-deep);}
+  .mu-card{margin-top:18px; background:#fff; border:1.5px dashed rgba(27,24,54,0.35); border-radius:16px; padding:26px 28px; max-width:520px;}
+  .mu-top{display:flex; align-items:center; gap:12px; border-bottom:2px solid var(--ink); padding-bottom:14px;}
+  .mu-logo{width:44px; height:44px; border-radius:12px; background:var(--ink); color:var(--gold); font-family:'Poppins'; font-weight:900; font-size:1.4rem; display:flex; align-items:center; justify-content:center;}
+  .mu-brand b{display:block; font-family:'Poppins'; font-size:.92rem; letter-spacing:.02em;}
+  .mu-brand span{font-size:.68rem; color:rgba(27,24,54,0.55); font-weight:600;}
+  .mu-stamp{margin-left:auto; font-size:.62rem; font-weight:900; letter-spacing:.16em; color:#fff; background:var(--magenta); padding:6px 12px; border-radius:8px; transform:rotate(6deg);}
+  .mu-title{font-family:'Poppins'; font-weight:900; font-size:1.05rem; letter-spacing:.1em; margin:18px 0 6px; text-align:center;}
+  .mu-sub{text-align:center; font-size:.72rem; color:rgba(27,24,54,0.55); font-weight:600; margin-bottom:20px;}
+  .mu-fields{display:grid; grid-template-columns:1fr 1fr; gap:16px 22px;}
+  .mu-field{font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:rgba(27,24,54,0.5);}
+  .mu-field .mu-line{display:block; height:26px; border-bottom:1.5px solid rgba(27,24,54,0.35); margin-top:4px;}
+  .mu-note{font-size:.74rem; color:rgba(27,24,54,0.6); line-height:1.6; margin:20px 0 4px; text-align:center;}
+  .mu-sign{display:grid; grid-template-columns:1fr auto 1fr; gap:18px; align-items:end; margin-top:22px; padding-top:16px; border-top:1px dashed rgba(27,24,54,0.25);}
+  .mu-sign .mu-line{display:block; height:20px; border-bottom:1.5px solid rgba(27,24,54,0.35);}
+  .mu-sign .sig-label{display:block; font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:rgba(27,24,54,0.5); margin-top:5px; text-align:center;}
+  .mu-stamp-circle{width:56px; height:56px; border-radius:50%; border:2.5px solid var(--magenta); color:var(--magenta); font-size:.54rem; font-weight:900; letter-spacing:.1em; display:flex; align-items:center; justify-content:center; text-align:center; transform:rotate(-8deg); opacity:.85;}
 
   footer{background:var(--ink); color:rgba(255,255,255,0.5); padding:34px 0; text-align:center; font-size:0.85rem;}
 
-  @media (max-width:640px){
-    .guide-head{padding:18px 20px;}
-    .guide-body-inner{padding:0 20px 22px; padding-top:20px;}
+  @media (prefers-reduced-motion: reduce){
+    .film-poster.cycle .slide{animation:none;}
+    .film-poster.cycle .slide:nth-child(n+2){display:none;}
+    .p-slide svg.ken{animation:none;}
+  }
+
+  @media print{
+    body *{visibility:hidden;}
+    #makeupCard, #makeupCard *{visibility:visible;}
+    #makeupCard{position:fixed; left:24px; top:24px; margin:0;}
   }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <a href="/"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>
-    <div class="navlinks">
-      <a href="/about">About</a>
-      <div class="nav-drop" id="clubsDrop">
-        <button type="button" class="nav-drop-trigger">Clubs <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <div class="nav-drop-panel clubs-drop-panel">
-          <div class="nav-drop-panel-inner">
-            <div class="clubs-drop-grid" id="clubsDropGrid"></div>
-            <div class="clubs-drop-foot">
-              <span style="font-size:.74rem;color:rgba(27,24,54,.45);">9 clubs in Zone 7</span>
-              <a href="/#clubs">See all on homepage →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <a href="/gallery">Gallery</a>
-      <div class="nav-drop" id="resDrop">
-        <button type="button" class="nav-drop-trigger">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <div class="nav-drop-panel res-drop-panel">
-          <div class="nav-drop-panel-inner">
-            <a class="res-drop-item" href="/guides">
-              <div class="res-drop-ico">📄</div>
-              <div><h5>Rotaract Resources</h5><p>Official constitutions, forms &amp; district documents</p></div>
-            </a>
-            <a class="res-drop-item current" href="/club-guides">
-              <div class="res-drop-ico">📚</div>
-              <div><h5>Guides for Clubs</h5><p>The playbook — leadership, finance, projects &amp; more</p></div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:16px;">
-      <a href="admin.html" class="nav-admin">Club Admin</a>
-      <a href="/join" class="btn nav-cta">Join Us</a>
-      <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
-    </div>
-  </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="/about">About</a>
-    <a href="/#clubs">Clubs</a>
-    <a href="/gallery">Gallery</a>
-    <a href="/guides">Rotaract Resources</a>
-    <a href="/club-guides">Guides for Clubs</a>
-    <a href="admin.html">Club Admin</a>
-  </div>
-</nav>
-<script>
-  document.getElementById("clubsDropGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
-    <a class="clubs-drop-item" href="/${slug}">
-      <img src="${c.logo}" alt="" loading="lazy">
-      <span>${c.name.replace('Rotaract Club of ','')}</span>
-    </a>
-  `).join("");
-  document.querySelectorAll(".nav-drop-trigger").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const drop = btn.closest(".nav-drop");
-      const wasOpen = drop.classList.contains("open");
-      document.querySelectorAll(".nav-drop").forEach(d => d.classList.remove("open"));
-      if(!wasOpen) drop.classList.add("open");
-    });
-  });
-  document.addEventListener("click", (e) => {
-    if(!e.target.closest(".nav-drop")) document.querySelectorAll(".nav-drop").forEach(d => d.classList.remove("open"));
-  });
-  document.getElementById('burgerBtn').addEventListener('click', () => {
-    document.getElementById('mobileMenu').classList.toggle('open');
-  });
-  document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
-    document.getElementById('mobileMenu').classList.remove('open');
-  }));
-</script>
+<div id="readBar"></div>
 
-<header class="hero wrap">
-  <div class="eyebrow"><span class="dot"></span>Zone 7 · Knowledge Base</div>
-  <h1>Guides for Clubs.</h1>
-  <p class="sub">Not the paperwork — the playbook. Where <a href="/guides" style="color:var(--magenta-deep); font-weight:700;">Rotaract Resources</a> holds the official constitutions, forms and district documents, this is the "how do we actually pull this off" side of running a great Rotaract year — ten topics, ten tabs, zero boring policy language.</p>
-  <p class="note">Each section mixes original Zone 7 guidance with pointers to Rotary International's own official material, clearly marked — so you always know what's our take and what's straight from RI.</p>
+<div id="siteNav" data-current="guides" data-cta="join"></div>
+<script src="site-nav.js"></script>
 
-  <div class="quickgrid" id="quickGrid"></div>
+<header class="cinema-hero wrap">
+  <div class="marquee" id="marquee"></div>
+  <div class="eyebrow"><span class="dot"></span>ZONE 7 PICTURES PRESENTS</div>
+  <h1>The <em>Playbook</em>.</h1>
+  <p class="sub">Eleven illustrated storyboards for running a great Rotaract club year. Leadership handoffs, service projects, finance, public image, attendance make-up, and more. Every guide opens with a picture-story slideshow, so you can see the idea before you do it. Where <a href="guides.html">Rotaract Resources</a> holds the official documents, this is the how-to.</p>
+  <p class="note">Each guide mixes Zone 7's own advice with pointers to Rotary International's official material, clearly labelled. Tap any step to tick it off. Your progress is saved on this device. Slides advance automatically, and you can pause them any time.</p>
+  <div class="toolrow">
+    <input type="text" id="topicSearch" placeholder="Search the lineup, e.g. finance, sponsor, handoff..." aria-label="Search the guides">
+    <button id="resetProgress" type="button">Reset my progress</button>
+  </div>
 </header>
 
+<section class="now-playing wrap">
+  <div class="np-label">Now Playing</div>
+  <div class="np-card" id="npCard"></div>
+</section>
+
+<section class="film-section wrap">
+  <h2>The lineup.</h2>
+  <p class="fs-sub">Every guide, ready to screen. Poster images flip over on their own. Tap play for the full story.</p>
+  <div class="film-grid" id="filmGrid"></div>
+  <p class="empty-note" id="emptyNote" style="display:none;">Nothing in the lineup matches your search.</p>
+</section>
+
 <div class="wrap">
-  <div class="guide-list" id="guideList"></div>
+  <div class="cta-band">
+    <div>
+      <h3>Rules over advice?</h3>
+      <p>The Handbook turns the district directory's actual rules into five chapters: grants, twinship, new clubs, projects and the health check.</p>
+    </div>
+    <a class="btn" href="handbook.html">Open the Handbook →</a>
+  </div>
 </div>
 
 <footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan.</footer>
 
+<div class="theater" id="theater" aria-hidden="true">
+  <div class="theater-backdrop" id="theaterBackdrop"></div>
+  <div class="theater-stage" role="dialog" aria-modal="true" aria-label="Guide player">
+    <div class="theater-curtain"></div>
+    <button class="theater-close" id="theaterClose" aria-label="Close guide">✕</button>
+    <div class="theater-body" id="theaterBody"></div>
+  </div>
+</div>
+
+<script src="rota-gpt-data.js"></script>
+<script src="rota-gpt.js"></script>
+
 <script>
-const CHEVRON_SVG = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="#1B1836" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const PLAY_SVG = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M7 4l13 8-13 8V4z" fill="currentColor"/></svg>`;
 const LINK_SVG = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 3h4v4M13 3L7 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-// simple line-icon set, one per category
-const ICONS = {
-  leadership: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V4a1 1 0 011-1h9l4 4v6l-4 4H8l-4 4z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
-  target: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="4.5" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="1" fill="#fff"/></svg>`,
-  coin: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="7" rx="8" ry="3.2" stroke="#fff" stroke-width="1.6"/><path d="M4 7v5c0 1.77 3.58 3.2 8 3.2s8-1.43 8-3.2V7M4 12v5c0 1.77 3.58 3.2 8 3.2s8-1.43 8-3.2v-5" stroke="#fff" stroke-width="1.6"/></svg>`,
-  megaphone: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 10v4a1 1 0 001 1h2l4 4V5L6 9H4a1 1 0 00-1 1z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 8a5 5 0 010 8M17.5 5.5a9.5 9.5 0 010 13" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
-  cap: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4L2 9l10 5 10-5-10-5z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M6 11.5V17c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
-  globe: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#fff" stroke-width="1.6"/><path d="M3.5 12h17M12 3.5c2.5 2.4 4 5.3 4 8.5s-1.5 6.1-4 8.5c-2.5-2.4-4-5.3-4-8.5s1.5-6.1 4-8.5z" stroke="#fff" stroke-width="1.6"/></svg>`,
-  trophy: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 4h10v5a5 5 0 01-10 0V4z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 5H4v2a4 4 0 004 4M17 5h3v2a4 4 0 01-4 4M10 18h4M12 14v4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
-  handshake: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 11l4-4 4 2 4-2 4 4M6 13l3.5 3.5a1.5 1.5 0 002.1 0l.2-.2M13 13l1.5 1.5a1.5 1.5 0 002.1 0M17 9l3 3-3 3" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-  laptop: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="10" rx="1.2" stroke="#fff" stroke-width="1.6"/><path d="M2 19h20M9 19l1-2h4l1 2" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-  heart: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.4-9.5-9C.8 7.5 3 4 6.5 4c2 0 3.3 1 5.5 3.2C14.2 5 15.5 4 17.5 4 21 4 23.2 7.5 21.5 11c-2.5 4.6-9.5 9-9.5 9z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>`
+const REDUCED = (typeof matchMedia !== "undefined") && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const GENRES = {
+  leadership:"Officer Season", projects:"Action", finance:"Drama", publicimage:"Publicity",
+  profdev:"Learning", international:"Adventure", recognition:"Feel-Good", sponsor:"Partnership",
+  digital:"Sci-Tech", wellbeing:"Slice of Life", makeup:"Procedural"
 };
 
-const COLORS = ["var(--magenta)","var(--magenta-deep)","#8a6300","var(--magenta)","var(--magenta-deep)","#1c8a4d","var(--magenta)","var(--magenta-deep)","#1B1836","var(--magenta)"];
+const POSTER_ART = {
+  leadership: `<svg viewBox="0 0 160 110" fill="none"><circle cx="46" cy="42" r="9" stroke="#fff" stroke-width="3"/><path d="M32 92c3-17 7-27 14-27s11 10 14 27" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><circle cx="114" cy="42" r="9" stroke="#fff" stroke-width="3"/><path d="M100 92c3-17 7-27 14-27s11 10 14 27" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><path d="M64 48l14-22M58 48l20-14" stroke="#F2A900" stroke-width="4" stroke-linecap="round"/></svg>`,
+  projects: `<svg viewBox="0 0 160 110" fill="none"><path d="M80 6c11 15 20 28 20 43 0 17-9 30-20 30S60 66 60 49c0-15 9-28 20-43z" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/><circle cx="80" cy="48" r="5.5" stroke="#fff" stroke-width="3"/><path d="M80 76v14M72 90h16" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><path d="M58 20c-13 4-20 13-20 26M102 20c13 4 20 13 20 26" stroke="#F2A900" stroke-width="3" stroke-linecap="round"/><path d="M70 30l16 18M86 30L70 48" stroke="#F2A900" stroke-width="3" stroke-linecap="round"/></svg>`,
+  finance: `<svg viewBox="0 0 160 110" fill="none"><ellipse cx="58" cy="66" rx="26" ry="9" stroke="#fff" stroke-width="3.5"/><ellipse cx="58" cy="42" rx="26" ry="9" stroke="#fff" stroke-width="3.5"/><path d="M58 33v66M48 44h13a5.5 5.5 0 010 11M48 66h13a5.5 5.5 0 010 11" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/><path d="M112 86V44M98 60l14-16 14 16" stroke="#F2A900" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  publicimage: `<svg viewBox="0 0 160 110" fill="none"><path d="M26 62v16a4 4 0 004 4h10l24 17V41L40 58H30a4 4 0 00-4 4z" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/><path d="M84 52a26 26 0 010 22M98 42a40 40 0 010 42" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="102" cy="26" r="4" fill="#F2A900"/><circle cx="116" cy="17" r="2.6" fill="#F2A900"/><circle cx="121" cy="33" r="2.6" fill="#F2A900"/></svg>`,
+  profdev: `<svg viewBox="0 0 160 110" fill="none"><path d="M46 52l68-20 68 20-68 20-68-20z" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/><path d="M76 64v26c0 11 22 18 40 18s40-7 40-18V64" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/><path d="M76 90v-22M96 66v-8" stroke="#F2A900" stroke-width="3.5" stroke-linecap="round"/><circle cx="122" cy="18" r="3" fill="#F2A900"/><circle cx="134" cy="12" r="2" fill="#F2A900"/></svg>`,
+  international: `<svg viewBox="0 0 160 110" fill="none"><circle cx="74" cy="54" r="30" stroke="#fff" stroke-width="3.5"/><ellipse cx="74" cy="54" rx="12" ry="30" stroke="#fff" stroke-width="3"/><path d="M44 54h60" stroke="#fff" stroke-width="3"/><path d="M18 92c18-16 32-22 46-22M128 92c-18-16-32-22-46-22" stroke="#F2A900" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 7"/><path d="M126 34l12 6-12 6v-12z" fill="#F2A900"/></svg>`,
+  recognition: `<svg viewBox="0 0 160 110" fill="none"><path d="M54 26h52v30a26 26 0 01-52 0z" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/><path d="M54 32H40a13 13 0 0013 15M106 32h14a13 13 0 01-13 15" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/><path d="M80 82v18M66 100h28" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><path d="M80 52c6-7 13-5 17-2M80 52c-6-7-13-5-17-2" stroke="#F2A900" stroke-width="3.5" stroke-linecap="round"/></svg>`,
+  sponsor: `<svg viewBox="0 0 160 110" fill="none"><path d="M80 24l10 11 14-2-6 13 8 12-13 3-5 13-8-10-8 10-5-13-13-3 8-12-6-13 14 2z" stroke="#fff" stroke-width="3" stroke-linejoin="round"/><path d="M80 96l10-16 10 16M90 80l6-8 8 3" stroke="#F2A900" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  digital: `<svg viewBox="0 0 160 110" fill="none"><rect x="34" y="26" width="92" height="56" rx="7" stroke="#fff" stroke-width="3.5"/><path d="M24 96h112M46 96l8-14h52l8 14" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/><path d="M108 58h20a11 11 0 000-22c-2-9-13-13-21-8a13 13 0 00-24 4c-8 2-12 11-9 18" stroke="#F2A900" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  wellbeing: `<svg viewBox="0 0 160 110" fill="none"><path d="M14 58h30l12-24 16 48 12-24h30" stroke="#F2A900" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M80 104c-10-7-18-12-18-20a9.5 9.5 0 0117-6 9.5 9.5 0 0117 6c0 8-8 13-18 20z" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/></svg>`,
+  makeup: `<svg viewBox="0 0 160 110" fill="none"><rect x="46" y="18" width="68" height="46" rx="5" stroke="#fff" stroke-width="3.5"/><path d="M56 30h48M56 40h48M56 50h30" stroke="#fff" stroke-width="3" stroke-linecap="round"/><rect x="96" y="52" width="38" height="38" rx="7" stroke="#F2A900" stroke-width="3.5" transform="rotate(12 115 71)"/><path d="M107 71l7 8 12-15" stroke="#F2A900" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" transform="rotate(12 115 71)"/></svg>`
+};
+
+const SLIDE_ART = {
+  leadership: [
+    `<svg viewBox="0 0 320 180" fill="none"><path d="M88 46h64" stroke="#fff" stroke-width="6" stroke-linecap="round"/><rect x="68" y="38" width="106" height="16" rx="8" stroke="#fff" stroke-width="6"/><rect x="64" y="56" width="116" height="92" rx="10" stroke="#fff" stroke-width="6"/><path d="M82 78h48M82 102h70M82 126h58" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M236 44a18 20 0 0132 0" stroke="#fff" stroke-width="6" stroke-linecap="round"/><rect x="234" y="42" width="42" height="54" rx="9" stroke="#fff" stroke-width="6"/><circle cx="255" cy="66" r="6" fill="#F2A900"/><path d="M249 88h18" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/></svg>`,
+    `<svg viewBox="0 0 320 180" fill="none"><rect x="52" y="74" width="116" height="58" rx="10" stroke="#fff" stroke-width="6"/><path d="M68 92h84M68 106h56" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M108 135v24M94 135h46" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M218 46l20-13 20 13-20 13z" stroke="#F2A900" stroke-width="6" stroke-linejoin="round"/><path d="M238 33v14M238 47v6" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M230 66v8M238 66v8" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><circle cx="234" cy="78" r="3.5" fill="#F2A900"/></svg>`
+  ],
+  projects: [
+    `<svg viewBox="0 0 320 180" fill="none"><circle cx="128" cy="90" r="52" stroke="#fff" stroke-width="6"/><circle cx="128" cy="90" r="34" stroke="#fff" stroke-width="6"/><circle cx="128" cy="90" r="16" fill="#F2A900"/><path d="M212 44h40" stroke="#fff" stroke-width="6" stroke-linecap="round"/><rect x="212" y="58" width="40" height="84" rx="8" stroke="#fff" stroke-width="6"/><path d="M224 78l8 10 12-17M224 102l8 10 12-17" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    `<svg viewBox="0 0 320 180" fill="none"><circle cx="96" cy="78" r="22" stroke="#fff" stroke-width="6"/><path d="M70 128c2-26 14-40 26-40s24 14 26 40" stroke="#fff" stroke-width="7" stroke-linecap="round"/><circle cx="224" cy="78" r="22" stroke="#fff" stroke-width="6"/><path d="M198 128c2-26 14-40 26-40s24 14 26 40" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M128 70h64M128 90h64" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><rect x="140" y="120" width="40" height="22" rx="6" stroke="#F2A900" stroke-width="6"/><path d="M150 130l8 6 12-14" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  ],
+  finance: [
+    `<svg viewBox="0 0 320 180" fill="none"><circle cx="130" cy="92" r="52" stroke="#fff" stroke-width="6"/><circle cx="130" cy="92" r="36" stroke="#fff" stroke-width="5"/><path d="M110 70l10 9 16-18" stroke="#F2A900" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M218 62c-8 10-10 18-6 26" stroke="#F2A900" stroke-width="7" stroke-linecap="round"/><path d="M224 52l-14 44" stroke="#F2A900" stroke-width="7" stroke-linecap="round"/><path d="M236 28l-8 18" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M258 34c-6 8-8 14-6 20" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M248 26l-10 40" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg>`,
+    `<svg viewBox="0 0 320 180" fill="none"><path d="M92 142h140" stroke="#fff" stroke-width="6" stroke-linecap="round"/><rect x="106" y="104" width="30" height="38" rx="5" stroke="#fff" stroke-width="6"/><rect x="152" y="88" width="30" height="54" rx="5" stroke="#fff" stroke-width="6"/><rect x="198" y="68" width="30" height="74" rx="5" stroke="#F2A900" stroke-width="6"/><path d="M222 54l14 0" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M216 48l20 6-20 22" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="60" cy="54" r="15" stroke="#fff" stroke-width="6"/><path d="M60 48v12M54 54h12" stroke="#F2A900" stroke-width="5" stroke-linecap="round"/></svg>`
+  ],
+  publicimage: [
+    `<svg viewBox="0 0 320 180" fill="none"><rect x="40" y="46" width="106" height="76" rx="12" stroke="#fff" stroke-width="6"/><rect x="70" y="34" width="38" height="20" rx="6" stroke="#fff" stroke-width="6"/><circle cx="96" cy="86" r="26" stroke="#fff" stroke-width="6"/><circle cx="96" cy="86" r="9" stroke="#F2A900" stroke-width="6"/><rect x="190" y="40" width="78" height="30" rx="8" stroke="#fff" stroke-width="6"/><rect x="190" y="76" width="78" height="30" rx="8" stroke="#F2A900" stroke-width="6"/><rect x="190" y="112" width="78" height="30" rx="8" stroke="#fff" stroke-width="6"/><path d="M204 72l16 6 10 8" stroke="#F2A900" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    `<svg viewBox="0 0 320 180" fill="none"><rect x="46" y="56" width="72" height="80" rx="10" stroke="#fff" stroke-width="6"/><circle cx="82" cy="82" r="9" stroke="#fff" stroke-width="6"/><path d="M82 95l6 8 10-14" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="138" y="56" width="72" height="80" rx="10" stroke="#fff" stroke-width="6"/><path d="M154 72h32M154 92h32M154 112h22" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><rect x="230" y="56" width="72" height="80" rx="10" stroke="#fff" stroke-width="6"/><path d="M240 86l12 16 20-26" stroke="#F2A900" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M118 96h22" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M126 88l8 8-8 8" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  ],
+  profdev: [
+    `<svg viewBox="0 0 320 180" fill="none"><rect x="46" y="52" width="120" height="92" rx="12" stroke="#fff" stroke-width="6"/><path d="M64 72h84M64 96h52M64 120h70" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M186 80h20l-6 12 6 12h88" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M254 52v22M246 52h16M246 74h16" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="238" cy="126" r="14" fill="#F2A900"/></svg>`,
+    `<svg viewBox="0 0 320 180" fill="none"><circle cx="96" cy="76" r="24" stroke="#fff" stroke-width="6"/><circle cx="224" cy="76" r="24" stroke="#fff" stroke-width="6"/><path d="M120 70h80" stroke="#F2A900" stroke-width="6" stroke-dasharray="10 8" stroke-linecap="round"/><path d="M154 108l18-6" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M184 92l20 12" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M160 30c-22 0-34 12-38 28" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M120 48l-6-12 12 6z" fill="#F2A900"/><path d="M96 56c-12 0-20 8-24 20" stroke="#fff" stroke-width="5" stroke-linecap="round"/></svg>`
+  ],
+  international: [
+    `<svg viewBox="0 0 320 180" fill="none"><rect x="60" y="36" width="140" height="94" rx="10" stroke="#fff" stroke-width="6"/><path d="M76 58h108M76 78h108" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M76 100h60" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M168 114l10 10 16-18" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="246" cy="56" r="22" stroke="#fff" stroke-width="6"/><ellipse cx="246" cy="56" rx="9" ry="22" stroke="#fff" stroke-width="5"/><path d="M228 94c6-14 12-19 22-22" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M58 126c6-8 12-12 18-12" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/></svg>`,
+    `<svg viewBox="0 0 320 180" fill="none"><circle cx="84" cy="56" r="18" stroke="#fff" stroke-width="6"/><path d="M84 74l-12 26M84 74l12 26M96 100h-24" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="236" cy="56" r="18" stroke="#fff" stroke-width="6"/><path d="M236 74l-12 26M236 74l12 26M248 100h-24" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M104 88h44" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-dasharray="9 9"/><path d="M200 76l14 12-14 12" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  ],
+  recognition: [
+    `<svg viewBox="0 0 320 180" fill="none"><rect x="52" y="40" width="110" height="62" rx="9" stroke="#fff" stroke-width="6"/><rect x="52" y="62" width="110" height="6" stroke="#fff" stroke-width="5"/><path d="M68 30v22M92 30v22M116 30v22M140 30v22" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><circle cx="143" cy="100" r="15" fill="#F2A900"/><path d="M248 40l9 18 20 3-14 14 3 20-8-6-2 16-8-6-16 8 6-16-18 4 6-14-14-8 16 2z" stroke="#fff" stroke-width="6" stroke-linejoin="round"/></svg>`,
+    `<svg viewBox="0 0 320 180" fill="none"><path d="M56 62c0-16 14-28 34-28M264 62c0-16-14-28-34-28" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M88 34v60" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M232 34v60" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M160 112v-20" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M140 74h40a20 20 0 010 40h-40a20 20 0 010-40z" stroke="#F2A900" stroke-width="6" stroke-linejoin="round"/><path d="M150 70h20" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M118 148h84" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M120 168h8M164 168h8M188 168h8" stroke="#F2A900" stroke-width="5" stroke-linecap="round"/><path d="M96 168h16M196 168h16" stroke="#fff" stroke-width="5" stroke-linecap="round"/></svg>`
+  ],
+  sponsor: [
+    `<svg viewBox="0 0 320 180" fill="none"><circle cx="84" cy="72" r="20" stroke="#fff" stroke-width="6"/><circle cx="236" cy="72" r="20" stroke="#fff" stroke-width="6"/><path d="M60 116c8-10 12-16 24-16h76c12 0 16 6 24 16" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M104 132c-6 0-10-4-10-10s4-10 10-10 10 4 10 10-4 10-10 10z" fill="#F2A900"/><path d="M216 132c-6 0-10-4-10-10s4-10 10-10 10 4 10 10-4 10-10 10z" fill="#F2A900"/></svg>`,
+    `<svg viewBox="0 0 320 180" fill="none"><path d="M84 58h64a8 8 0 018 8v12a8 8 0 01-8 8H84" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="84" y="34" width="12" height="44" rx="6" stroke="#fff" stroke-width="6"/><path d="M148 64l26-6v40l-26-6" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M174 58v40l28 12 22-4" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M236 90c10-16 22-20 32-14" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M238 76c6-4 14-4 18 2" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/></svg>`
+  ],
+  digital: [
+    `<svg viewBox="0 0 320 180" fill="none"><ellipse cx="160" cy="70" rx="96" ry="24" stroke="#fff" stroke-width="6"/><path d="M64 70v52a96 24 0 001 0 96 24 0 01191 0V70M163 27c14 10 0 20-6 24" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M70 118c40 14 140 14 180 0" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".45"/><circle cx="160" cy="96" r="18" stroke="#F2A900" stroke-width="6"/><path d="M150 96l8 8 14-14" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    `<svg viewBox="0 0 320 180" fill="none"><rect x="40" y="52" width="92" height="82" rx="10" stroke="#fff" stroke-width="6"/><path d="M56 74h60M56 96h60" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M184 44v118" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-dasharray="8 8"/><path d="M200 58h64a10 10 0 0110 10v72a10 10 0 01-10 8h-20l-8 8-4-8h-32c-6 0-10-4-10-10V68c0-6 4-10 10-10z" stroke="#F2A900" stroke-width="6" stroke-linejoin="round"/><path d="M216 84h30M216 108h30" stroke="#fff" stroke-width="5" stroke-linecap="round"/></svg>`
+  ],
+  wellbeing: [
+    `<svg viewBox="0 0 320 180" fill="none"><circle cx="160" cy="60" r="17" fill="#F2A900"/><circle cx="84" cy="118" r="17" stroke="#fff" stroke-width="6"/><circle cx="160" cy="136" r="17" stroke="#fff" stroke-width="6"/><circle cx="236" cy="118" r="17" stroke="#fff" stroke-width="6"/><path d="M118 52l24 6M154 52v40M202 52l-24 6" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M96 114l-8 8M174 122l8 8M226 112l2 12" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/></svg>`,
+    `<svg viewBox="0 0 320 180" fill="none"><path d="M48 146h36" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M64 146c-8-8-12-16-6-26 6 4 6 10 2 14z" fill="#F2A900"/><path d="M160 132c12 0 22 10 22 22" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M160 132l10 18" stroke="#F2A900" stroke-width="6" stroke-linecap="round"/><path d="M248 46l26 6-16 12 6 24-22-8-22 8 6-24-16-12 26-6z" fill="#F2A900"/><path d="M104 40l20-10 20 16-4 22-18-8-18 8z" stroke="#fff" stroke-width="6" stroke-linejoin="round"/><path d="M86 42l4-18 18 4z" fill="#F2A900"/><path d="M84 78l14 4M72 70l14 2" stroke="#fff" stroke-width="6" stroke-linecap="round"/></svg>`
+  ],
+  makeup: [
+    `<svg viewBox="0 0 320 180" fill="none"><rect x="34" y="30" width="150" height="30" rx="8" stroke="#fff" stroke-width="6"/><path d="M34 60v58a10 10 0 0010 10h28v18" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="54" y="52" width="150" height="94" rx="10" stroke="#fff" stroke-width="6"/><path d="M206 44h70" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M212 74h10M212 74v0z" stroke="#F2A900" stroke-width="5" stroke-linecap="round"/><circle cx="278" cy="120" r="22" fill="#F2A900"/><path d="M268 120l8 10 14-18" stroke="#1B1836" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    `<svg viewBox="0 0 320 180" fill="none"><rect x="66" y="40" width="104" height="92" rx="10" stroke="#fff" stroke-width="6"/><path d="M82 58h72M82 78h72M82 98h46" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".5"/><path d="M94 60l8 8 12-14" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M94 80l8 8 12-14" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M208 132h-14l-6 18 26-10" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="200" y="118" width="52" height="40" rx="6" stroke="#F2A900" stroke-width="6" transform="rotate(-8 226 138)"/><path d="M216 132l8 8 14-16" stroke="#F2A900" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-8 226 138)"/><path d="M52 152c14-8 42-12 66-12" stroke="#fff" stroke-width="6" stroke-linecap="round"/></svg>`
+  ]
+};
 
 const GUIDES = [
   {
-    id:"leadership", icon:"leadership",
+    id:"leadership", poster:"leadership", genre:GENRES.leadership, runtime:"4 min",
     title:"Leadership & Officer Transition",
     tagline:"Handoffs, training and keeping the story going",
-    body:`<p class="intro">Every Rotaract year lives or dies in the first two weeks of July. That's when a brand-new board either inherits a running club — or inherits a mystery. The single biggest cause of a slow start is a new officer getting the title but not the context. Fix it with a real handoff, not a hallway chat the week before installation.</p>`,
-    stat:{icon:"⏱️", text:`Clubs that do a <span>formal handoff meeting</span> before installation consistently hit the ground running by August — the ones that don't often spend their first two months just figuring out where things are.`},
+    synopsis:"Every Rotaract year lives or dies in the first two weeks of July. A real handoff, not a hallway chat, is what keeps the club running.",
+    slides:[
+      {cap:"One board out, one board in. The story has to survive the change."},
+      {art:"leadership0", cap:"July: the new board inherits logins, records and a one-page 'state of the club' brief."},
+      {art:"leadership1", cap:"Train before you take office. DLTS and COTS make the first month painless."}
+    ],
+    body:`<p class="intro">Every Rotaract year lives or dies in the first two weeks of July. That's when a brand-new board either inherits a running club or inherits a mystery. The single biggest cause of a slow start is a new officer getting the title but not the context. Fix it with a real handoff, not a hallway chat the week before installation.</p>`,
+    stat:{icon:"⏱️", text:`Clubs that do a <span>formal handoff meeting</span> before installation consistently hit the ground running by August. The ones that don't often spend their first two months just figuring out where things are.`},
     checklist:[
       "Schedule a formal handoff meeting between outgoing and incoming officers before the new Rotary year starts",
       "Pass on login credentials, shared drives, financial records and ongoing project files as a package, not piecemeal",
       "Write a one-page 'state of the club' brief: what's working, what's stuck, who the key contacts are",
       "Have new officers attend District Leadership Training (DLTS) and Certificate of Training Seminars (COTS) before taking office",
-      "Keep the President and VP working as a team through the transition — succession works best when the VP has been shadowing all year"
+      "Keep the President and VP working as a team through the transition. Succession works best when the VP has been shadowing all year"
     ],
     links:[
       { label:"Rotary Learning Center (rotary.org/learn)", url:"https://my.rotary.org/en/learning-reference" },
@@ -307,28 +367,40 @@ const GUIDES = [
     ]
   },
   {
-    id:"projects", icon:"target",
+    id:"projects", poster:"projects", genre:GENRES.projects, runtime:"5 min",
     title:"Service Project Execution",
     tagline:"Turning a good idea into one that actually lasts",
-    body:`<p class="intro">A project proposal form tells you <em>what</em> a club plans to do. It doesn't tell you <em>how</em> to make sure it works — or sticks around after the banner comes down. That's a separate skill: needs assessment, community buy-in, and actually measuring whether anything changed. RI has literally built two frameworks for this, and they're gold even outside a grant application.</p>`,
-    stat:{icon:"🎯", text:`Projects built around <span>2-3 measurable outcomes</span> set before the event — not just an activity count — are far easier to report on, fund again, and be proud of a year later.`},
+    synopsis:"A proposal form tells you what a club plans to do. This story is about the how. Needs assessment, buy-in, and measuring whether anything changed.",
+    slides:[
+      {cap:"Every great project starts with a real problem. Ask the community first."},
+      {art:"projects0", cap:"Plan 2–3 measurable outcomes before the banner goes up."},
+      {art:"projects1", cap:"Partner early, document as you go. Sustainability beats a photo-op."}
+    ],
+    body:`<p class="intro">A project proposal form tells you <em>what</em> a club plans to do. It doesn't tell you <em>how</em> to make sure it works, or whether it sticks around after the banner comes down. That's a separate skill: needs assessment, community buy-in, and actually measuring whether anything changed. RI has literally built two frameworks for this, and they're gold even outside a grant application.</p>`,
+    stat:{icon:"🎯", text:`Projects built around <span>2-3 measurable outcomes</span> set before the event, not just an activity count, are far easier to report on, fund again, and be proud of a year later.`},
     checklist:[
-      "Start with a real needs assessment — talk to the community before deciding on the solution",
+      "Start with a real needs assessment. Talk to the community before deciding on the solution",
       "Use RI's Six Steps to Sustainability to check a project will create lasting change, not a one-off photo-op",
       "Partner early with a Rotary club, another Rotaract club, or a local organization for capacity and credibility",
       "Define 2-3 measurable outcomes before you start (e.g. '40 trees planted', not just 'we did a tree-planting event')",
-      "Document as you go — photos, numbers, quotes — so reporting and storytelling aren't a scramble afterward"
+      "Document as you go, with photos, numbers and quotes, so reporting and storytelling aren't a scramble afterward"
     ],
     links:[
       { label:"Six Steps to Sustainability & Project Lifecycle Kit (rotary.org)", url:"https://www.rotary.org/en/get-involved/rotaract-clubs/details" }
     ]
   },
   {
-    id:"finance", icon:"coin",
+    id:"finance", poster:"finance", genre:GENRES.finance, runtime:"4 min",
     title:"Finance & Fundraising",
     tagline:"Running the money side without the drama",
-    body:`<p class="intro">Most club finance problems aren't fraud — they're just messy handoffs and a budget nobody actually checks. A boring, consistently-used system beats a fancy one nobody follows. This one's home-grown Zone 7 wisdom, since there's no single RI manual for day-to-day club treasury life.</p>`,
-    stat:{icon:"💸", text:`Clubs that share a simple <span>income/expense summary at every board meeting</span> — not just at year-end — catch problems in weeks instead of finding out in June.`},
+    synopsis:"Most club finance problems aren't fraud. They're messy handoffs and a budget nobody checks. A boring system everyone uses beats a fancy one nobody follows.",
+    slides:[
+      {cap:"A boring system beats a fancy one. Agree a budget first."},
+      {art:"finance0", cap:"Two signatures on every big spend keep everyone honest."},
+      {art:"finance1", cap:"An income/expense summary at every board meeting catches problems in weeks, not June."}
+    ],
+    body:`<p class="intro">Most club finance problems aren't fraud. They're just messy handoffs and a budget nobody actually checks. A boring system that everyone uses beats a fancy one nobody follows. This is home-grown Zone 7 wisdom, since there's no single RI manual for day-to-day club treasury life.</p>`,
+    stat:{icon:"💸", text:`Clubs that share a simple <span>income/expense summary at every board meeting</span>, not just at year-end, catch problems in weeks instead of finding out in June.`},
     checklist:[
       "Set an annual budget at the start of the year, split by category (projects, events, admin, contingency)",
       "Require two signatories or approvals for any spending above a set threshold your club agrees on",
@@ -340,16 +412,22 @@ const GUIDES = [
     links:[]
   },
   {
-    id:"publicimage", icon:"megaphone",
+    id:"publicimage", poster:"publicimage", genre:GENRES.publicimage, runtime:"4 min",
     title:"Public Image & Communications",
     tagline:"Making your work visible, credible and on-brand",
-    body:`<p class="intro">A great project nobody hears about doesn't grow your club, attract members, or convince a sponsor to fund the next one. Public image isn't vanity — for a youth-led org competing for attention, it's literally how one project becomes a reputation.</p>`,
+    synopsis:"A great project nobody hears about doesn't grow your club, attract members, or convince a sponsor. Public image is how one project becomes a reputation.",
+    slides:[
+      {cap:"If nobody hears about it, it didn't happen."},
+      {art:"publicimage0", cap:"Document before, during and after, not just the group photo."},
+      {art:"publicimage1", cap:"Turn every project into a story: problem, action, outcome."}
+    ],
+    body:`<p class="intro">A great project nobody hears about doesn't grow your club, attract members, or convince a sponsor to fund the next one. Public image isn't vanity. For a youth-led org competing for attention, it's literally how one project becomes a reputation.</p>`,
     stat:{icon:"📸", text:`Clubs that post <span>consistently, not just after big events</span>, feel far more "alive" to prospective members scrolling their page for the first time.`},
     checklist:[
-      "Photograph and document every event — before, during, and the people impacted, not just the group photo",
+      "Photograph and document every event. Capture before, during, and the people impacted, not just the group photo",
       "Post consistently rather than only after big events; small updates keep a page feeling alive",
       "Use RI's official Rotaract/Rotary logo and brand assets rather than freehand versions",
-      "Turn each project into a short story — problem, action, outcome — rather than just an announcement",
+      "Turn each project into a short story. Problem, action, outcome, rather than just an announcement",
       "Tag your sponsoring Rotary club and district in posts to reinforce the partnership publicly"
     ],
     links:[
@@ -357,30 +435,42 @@ const GUIDES = [
     ]
   },
   {
-    id:"profdev", icon:"cap",
+    id:"profdev", poster:"profdev", genre:GENRES.profdev, runtime:"4 min",
     title:"Professional Development",
-    tagline:"The other reason people join — building real skills",
-    body:`<p class="intro">Rotaract's fourth Avenue of Service is Professional Development, and it's often the most slept-on. Members join for service and fellowship, but skills-building is what keeps early-career members coming back year after year — and it's free to run if you use what RI already built for you.</p>`,
-    stat:{icon:"🎓", text:`Rotary's Learning Center has <span>600+ free courses</span> — enough ready-made workshop content to run one every month without writing a single slide yourself.`},
+    tagline:"The other reason people join: building real skills",
+    synopsis:"Members join for service and fellowship, but skills-building is what keeps early-career members coming back year after year. And it's free to run.",
+    slides:[
+      {cap:"Skills are the second reason people join, and stay."},
+      {art:"profdev0", cap:"600+ free courses in the Rotary Learning Center. A ready-made workshop every month."},
+      {art:"profdev1", cap:"Pair members with Rotarian mentors; rotate who leads each session."}
+    ],
+    body:`<p class="intro">Rotaract's fourth Avenue of Service is Professional Development, and it's often the most slept-on. Members join for service and fellowship, but skills-building is what keeps early-career members coming back year after year. The nice part: it's free to run if you use what RI already built for you.</p>`,
+    stat:{icon:"🎓", text:`Rotary's Learning Center has <span>600+ free courses</span>. Enough ready-made workshop content to run one every month without writing a single slide yourself.`},
     checklist:[
-      "Run at least one skills workshop per quarter — public speaking, resume/interview prep, negotiation, project management",
+      "Run at least one skills workshop per quarter. Try public speaking, resume/interview prep, negotiation, or project management",
       "Pair newer members with a Rotarian mentor from your sponsoring club for career guidance",
       "Use Rotary's Learning Center courses as ready-made workshop content instead of building from scratch",
       "Rotate who leads each session so facilitation skills spread across the club, not just the VP",
-      "Track attendance at development sessions the same way you track service hours — it signals it matters"
+      "Track attendance at development sessions the same way you track service hours. It signals that it matters"
     ],
     links:[
-      { label:"Rotary Learning Center — 600+ courses (rotary.org/learn)", url:"https://my.rotary.org/en/learning-reference" }
+      { label:"Rotary Learning Center: 600+ courses (rotary.org/learn)", url:"https://my.rotary.org/en/learning-reference" }
     ]
   },
   {
-    id:"international", icon:"globe",
+    id:"international", poster:"international", genre:GENRES.international, runtime:"4 min",
     title:"International & Inter-club Relations",
     tagline:"Twin clubs, MDIOs, and life beyond your own city",
-    body:`<p class="intro">Some Zone 7 clubs already hold twin-club partnerships abroad — doors to joint projects, cultural exchange and international service credit. But only if someone actively tends the relationship instead of letting it go quiet right after the charter photo.</p>`,
-    stat:{icon:"🌏", text:`One <span>joint project a year</span> with your twin club — even a small one — keeps an international partnership genuinely alive instead of a name on a certificate.`},
+    synopsis:"Some Zone 7 clubs already hold twin-club partnerships abroad. They only stay alive if someone actively tends the relationship after the charter photo.",
+    slides:[
+      {cap:"Twinships are doors. Someone has to hold them open."},
+      {art:"international0", cap:"A signed MOU makes it official: one joint meeting and one joint project a year."},
+      {art:"international1", cap:"Inter-club visits are the cheapest way to build and keep the bond."}
+    ],
+    body:`<p class="intro">Some Zone 7 clubs already hold twin-club partnerships abroad. They're doors to joint projects, cultural exchange and international service credit. But only if someone actively tends the relationship instead of letting it go quiet right after the charter photo.</p>`,
+    stat:{icon:"🌏", text:`One <span>joint project a year</span> with your twin club, even a small one, keeps an international partnership genuinely alive instead of being a name on a certificate.`},
     checklist:[
-      "Assign one board member to own each twin-club relationship — regular contact, not just an annual message",
+      "Assign one board member to own each twin-club relationship. Regular contact, not just an annual message",
       "Look for a joint project each year, even a small one, to keep the partnership active and mutually useful",
       "Connect with your MDIO (multidistrict information organization) for regional idea-sharing and networking",
       "Consider dual Rotary-Rotaract membership pathways for members transitioning between organizations",
@@ -391,16 +481,22 @@ const GUIDES = [
     ]
   },
   {
-    id:"recognition", icon:"trophy",
+    id:"recognition", poster:"recognition", genre:GENRES.recognition, runtime:"4 min",
     title:"Recognition & Events",
     tagline:"Celebrating the year, and making members feel seen",
-    body:`<p class="intro">Recognition isn't just a nice-to-have — it's basically a retention hack. Members who feel their work is actually seen stick around longer. RI backs a couple of official recognition moments worth anchoring your calendar around.</p>`,
+    synopsis:"Recognition isn't a nice-to-have. It's basically a retention hack. Members who feel their work is actually seen stick around longer.",
+    slides:[
+      {cap:"Members who feel seen stay."},
+      {art:"recognition0", cap:"World Rotaract Week in March. One signature activity every year."},
+      {art:"recognition1", cap:"Close the year with a President's Night, not a fade-out."}
+    ],
+    body:`<p class="intro">Recognition isn't just a nice-to-have. It's basically a retention hack. Members who feel their work is actually seen stick around longer. RI backs a couple of official recognition moments worth anchoring your calendar around.</p>`,
     stat:{icon:"🏆", text:`Clubs that run a <span>proper year-end celebration</span> instead of just fading out in June report noticeably higher member return rates the following year.`},
     checklist:[
       "Mark World Rotaract Week each March with at least one signature club activity",
       "Use RI's official Certificate of Recognition to formally acknowledge outstanding projects or members",
       "Run a President's Night or year-end celebration to close the Rotary year with intention, not a fade-out",
-      "Recognize small contributions too — attendance streaks, first-time project leads — not only the big wins",
+      "Recognize the small stuff too. Attendance streaks, first-time project leads, not only the big wins",
       "Nominate standout projects for district or RI-level awards; the application itself is a great reflection exercise"
     ],
     links:[
@@ -408,26 +504,38 @@ const GUIDES = [
     ]
   },
   {
-    id:"sponsor", icon:"handshake",
+    id:"sponsor", poster:"sponsor", genre:GENRES.sponsor, runtime:"4 min",
     title:"Sponsor Relationship Management",
     tagline:"Getting the most out of your Rotary sponsor club",
-    body:`<p class="intro">Since 2020, Rotaract clubs can technically stand alone — but most Zone 7 clubs still have a Rotary sponsor, and a well-run one is one of the most underrated resources a club has: funding help, mentorship, credibility, institutional memory. Home-grown Zone 7 guidance here, since every sponsor relationship looks a little different.</p>`,
+    synopsis:"A well-run sponsor relationship is one of the most underrated resources a club has. Funding help, mentorship, credibility, institutional memory.",
+    slides:[
+      {cap:"A sponsor club is a resource, not a formality."},
+      {art:"sponsor0", cap:"Set mutual expectations early: how often you talk, what support looks like."},
+      {art:"sponsor1", cap:"A quick public thank-you is the cheapest retention tool you own."}
+    ],
+    body:`<p class="intro">Since 2020, Rotaract clubs can technically stand alone. But most Zone 7 clubs still have a Rotary sponsor, and a well-run one is one of the most underrated resources a club has: funding help, mentorship, credibility, institutional memory. Home-grown Zone 7 guidance here, since every sponsor relationship looks a little different.</p>`,
     stat:{icon:"🤝", text:`A quick <span>public thank-you</span> after a joint project costs nothing and is often the single biggest reason a sponsor club stays engaged year after year.`},
     checklist:[
       "Invite your Rotary advisor to attend meetings regularly, not just for ceremonial events",
-      "Set clear, mutual expectations early — how often you'll communicate, and what support looks like",
+      "Set clear, mutual expectations early: how often you'll communicate, and what support looks like",
       "Loop your sponsor in on major decisions and project plans before they're finalized, not after",
       "Encourage informal mentoring between individual Rotarians and Rotaractors, not just club-to-club contact",
-      "Say thank-you publicly — sponsor clubs that feel valued stay invested for longer"
+      "Say thank-you publicly. Sponsor clubs that feel valued stay invested for longer"
     ],
     original:true,
     links:[]
   },
   {
-    id:"digital", icon:"laptop",
+    id:"digital", poster:"digital", genre:GENRES.digital, runtime:"4 min",
     title:"Digital Tools & Tech",
     tagline:"Staying organized without 6 confusing WhatsApp groups",
-    body:`<p class="intro">Most club knowledge quietly dies in old WhatsApp threads and someone's personal Google Drive that nobody else can access. A little structure early on saves enormous pain at every handoff. General good practice here, not an official RI standard — take what fits your club's size.</p>`,
+    synopsis:"Most club knowledge quietly dies in old WhatsApp threads and a personal Google Drive nobody else can access. A little structure saves enormous pain.",
+    slides:[
+      {cap:"One shared drive = the single source of truth."},
+      {art:"digital0", cap:"Separate the channels: official business vs. casual chat."},
+      {art:"digital1", cap:"Back everything up somewhere no single person controls."}
+    ],
+    body:`<p class="intro">Most club knowledge quietly dies in old WhatsApp threads, or in a personal Google Drive that nobody else can access. A little structure early on saves enormous pain at every handoff. This is general good practice, not an official RI standard. Take what fits your club's size.</p>`,
     stat:{icon:"💾", text:`One <span>shared drive as the single source of truth</span> saves more headaches at officer handoff than any other single habit on this page.`},
     checklist:[
       "Keep one shared drive as the single source of truth for constitution, financials, and project records",
@@ -440,86 +548,339 @@ const GUIDES = [
     links:[]
   },
   {
-    id:"wellbeing", icon:"heart",
+    id:"wellbeing", poster:"wellbeing", genre:GENRES.wellbeing, runtime:"4 min",
     title:"Wellbeing & Culture",
     tagline:"Keeping the club a place people actually want to show up to",
-    body:`<p class="intro">Burnout is the quiet reason clubs lose good members — not lack of interest, just too much ask with too little balance. A club's culture gets built on purpose, the same way its projects do. Zone 7 original guidance, drawn from common patterns across youth-led organizations everywhere.</p>`,
-    stat:{icon:"💛", text:`Clubs that keep the same <span>3 people running everything</span> lose them to burnout fastest — spreading ownership around is the single best insurance policy against it.`},
+    synopsis:"Burnout is the quiet reason clubs lose good members. Not lack of interest. Just too much ask with too little balance.",
+    slides:[
+      {cap:"Burnout loses members quietly. Balance is the vaccine."},
+      {art:"wellbeing0", cap:"Spread ownership so the same three people aren't running everything."},
+      {art:"wellbeing1", cap:"Celebrate small wins regularly. Morale compounds."}
+    ],
+    body:`<p class="intro">Burnout is the quiet reason clubs lose good members. Not lack of interest. Just too much ask with too little balance. A club's culture gets built on purpose, the same way its projects do. Zone 7 original guidance, drawn from common patterns across youth-led organizations everywhere.</p>`,
+    stat:{icon:"💛", text:`Clubs that keep the same <span>3 people running everything</span> lose them to burnout fastest. Spreading ownership around is the single best insurance policy against it.`},
     checklist:[
-      "Balance the calendar — not every meeting needs to be a project planning session; leave room for pure fellowship",
+      "Balance the calendar. Not every meeting needs to be a project planning session. Leave room for pure fellowship",
       "Watch for over-reliance on a small core group; spread ownership so the same people aren't running everything",
       "Address conflict directly and early rather than letting it fester into silent disengagement",
-      "Respect that most members are also students or early-career professionals — build in flexibility, not guilt",
+      "Respect that most members are also students or early-career professionals. Build in flexibility, not guilt",
       "Celebrate small wins regularly; morale compounds the same way burnout does"
     ],
     original:true,
     links:[]
+  },
+  {
+    id:"makeup", poster:"makeup", genre:GENRES.makeup, runtime:"4 min",
+    title:"Attendance & Make-up",
+    tagline:"Missing a meeting without missing a beat",
+    synopsis:"Missed your club's meeting? Many clubs let you make it up by attending another club's. The make-up card is how you prove it. Print, attend, stamp, submit.",
+    slides:[
+      {cap:"Missed a meeting? Many clubs let you make it up at another club."},
+      {art:"makeup0", cap:"Pick a meeting, attend as a guest, take part. Then get it logged."},
+      {art:"makeup1", cap:"Host secretary signs or stamps the card; your club secretary records it."}
+    ],
+    body:`<p class="intro">Life happens. Exams, travel, work. Most clubs have a make-up system so one missed meeting doesn't break your attendance record. You attend <em>another</em> Rotaract (or Rotary) club's meeting instead, and a make-up card, signed or stamped by the host club's secretary, is the proof your club secretary logs against your record. This is home-grown Zone 7 guidance. The district's own directory checks that clubs maintain attendance records, and this is the cleanest way to do it.</p>`,
+    stat:{icon:"🎟️", text:`One <span>signed make-up card</span> turns a missed meeting into a logged visit. It also doubles as your ticket to explore other clubs in the zone.`},
+    checklist:[
+      "Ask your club secretary how make-ups are recorded in your club before you travel",
+      "Pick the meeting you'll attend. Another Rotaract club's meeting (the homepage club grid lists all nine), an inter-club visit, or a sponsoring Rotary club's meeting",
+      "Attend as a guest and take part. Introduce yourself and note the meeting topic and date",
+      "At the end, ask the host club's secretary to fill in and sign the make-up card, or stamp it with the club seal",
+      "Hand the completed card to your club secretary so the attendance gets logged against your record"
+    ],
+    original:true,
+    links:[
+      { label:"Goodwill visits & twinship chapter", url:"handbook-twinship.html" },
+      { label:"How meetings work (tutorials)", url:"tutorials.html" }
+    ],
+    printable:true
   }
 ];
 
-function render(){
-  document.getElementById("quickGrid").innerHTML = GUIDES.map((g,i) => `
-    <a class="quick-item" href="#${g.id}" data-i="${i}">
-      <div class="quick-icon" style="background:${COLORS[i]};">${ICONS[g.icon]}</div>
-      <span>${g.title}</span>
-    </a>
-  `).join("");
+const doneKey = id => "z7cg-" + id;
 
-  document.getElementById("guideList").innerHTML = GUIDES.map((g,i) => `
-    <div class="guide-block" id="${g.id}">
-      <div class="guide-head" data-i="${i}">
-        <div class="guide-head-left">
-          <div class="guide-icon" style="background:${COLORS[i]};">${ICONS[g.icon]}</div>
-          <div>
-            <h3>${g.title}</h3>
-            <p class="tagline">${g.tagline}</p>
-          </div>
-        </div>
-        <div class="guide-chevron">${CHEVRON_SVG}</div>
+function sectionDone(g){
+  try{ return JSON.parse(localStorage.getItem(doneKey(g.id)) || "[]"); }catch(e){ return []; }
+}
+
+function slideArt(g, i){
+  const s = g.slides[i];
+  if(!s.art) return POSTER_ART[g.poster];
+  const [lib, idx] = s.art.match(/^(\D+)(\d+)$/).slice(1);
+  return SLIDE_ART[lib][+idx];
+}
+
+function slideSVG(g, i, cls){
+  const art = slideArt(g, i);
+  if(!cls) return art;
+  return art.replace(/^<svg/, '<svg class="' + cls + '"');
+}
+
+function posterHTML(g, big, cycle){
+  const slides = g.slides.map((s, i) => `<div class="slide"><div class="slide-inner">${slideSVG(g, i)}</div></div>`).join("");
+  return `<div class="${big ? "np-poster" : "film-poster"}${cycle ? " cycle" : ""}" style="--g1:${grad1(g)}; --g2:${grad2(g)};">
+    <span class="reel-tag">REEL ${String(GUIDES.indexOf(g) + 1).padStart(2, "0")}</span>
+    ${slides}
+    <span class="genre-chip">${g.genre}</span>
+  </div>`;
+}
+
+function grad1(g){
+  const p = g.poster;
+  return p === "leadership" ? "#E11A6E" : p === "projects" ? "#2563EB" : p === "finance" ? "#A80F52" : p === "publicimage" ? "#D97706" : p === "profdev" ? "#7C3AED" : p === "international" ? "#1c8a4d" : p === "recognition" ? "#059669" : p === "sponsor" ? "#8a6300" : p === "digital" ? "#1B1836" : p === "wellbeing" ? "#E11A6E" : "#3E3A6E";
+}
+function grad2(g){ return g.poster === "wellbeing" || g.poster === "makeup" || g.poster === "digital" ? "#1B1836" : "#1B1836"; }
+
+function pct(g){
+  const done = sectionDone(g);
+  return Math.round((done.length / g.checklist.length) * 100);
+}
+
+function renderSpotlight(){
+  const g = [...GUIDES].sort((a, b) => pct(a) - pct(b))[0];
+  const done = sectionDone(g);
+  document.getElementById("npCard").innerHTML = `
+    ${posterHTML(g, true, true)}
+    <div class="np-info">
+      <span class="np-genre">Now screening · ${g.genre}</span>
+      <h2>${g.title}</h2>
+      <p class="np-tagline">${g.tagline}</p>
+      <p class="np-syn">${g.synopsis}</p>
+      <div class="np-meta">
+        <span>⏱ ${g.runtime}</span>
+        <span>${g.slides.length} slides</span>
+        <span>${g.checklist.length} steps · ${done.length} done</span>
       </div>
-      <div class="guide-body">
-        <div class="guide-body-inner">
-          ${g.original ? `<div class="guide-original-tag">✏️ Zone 7 original guidance</div>` : ""}
-          ${g.body}
-          <div class="guide-stat"><div class="g-icon">${g.stat.icon}</div><p>${g.stat.text}</p></div>
-          <div class="guide-checklist-label">Quick-Start Checklist</div>
-          <ul class="guide-checklist">
-            ${g.checklist.map(c => `<li>${c}</li>`).join("")}
-          </ul>
-          ${g.links.length ? `
-            <div class="guide-links">
-              <div class="guide-links-label">Official RI Resources</div>
-              ${g.links.map(l => `<a class="guide-link" href="${l.url}" target="_blank" rel="noopener">${LINK_SVG} ${l.label}</a>`).join("")}
-            </div>
-          ` : ""}
+      <div class="np-bar"><i style="width:${pct(g)}%"></i></div>
+      <button class="play-btn" data-play="${g.id}">${PLAY_SVG} Play the story</button>
+    </div>`;
+  document.querySelector("[data-play='" + g.id + "']").addEventListener("click", () => openTheater(g.id));
+}
+
+function renderFilms(){
+  const q = (document.getElementById("topicSearch").value || "").toLowerCase();
+  const visible = GUIDES.filter(g => !q || (g.title + " " + g.tagline + " " + g.synopsis + " " + g.checklist.join(" ") + " " + g.body + " " + g.slides.map(s => s.cap).join(" ")).toLowerCase().includes(q));
+  document.getElementById("emptyNote").style.display = visible.length ? "none" : "block";
+  document.getElementById("filmGrid").innerHTML = visible.map(g => {
+    const done = sectionDone(g).length;
+    return `
+    <article class="film-card">
+      ${posterHTML(g, false, true)}
+      <div class="film-info">
+        <h3>${g.title}</h3>
+        <p class="logline">${g.tagline}</p>
+        <div class="film-meta">
+          <span>⏱ ${g.runtime} · ${g.slides.length} slides</span>
+          <span>${done}/${g.checklist.length} done</span>
         </div>
+        <div class="film-bar"><i style="width:${pct(g)}%"></i></div>
+        <button class="film-play" data-play="${g.id}">${PLAY_SVG} Play the story</button>
+      </div>
+    </article>`;
+  }).join("");
+  document.querySelectorAll("[data-play]").forEach(b => {
+    b.addEventListener("click", () => openTheater(b.dataset.play));
+  });
+}
+
+function makeupCardHTML(){
+  return `
+  <div class="mu-block">
+    <button class="print-btn" type="button" onclick="window.print()">🖨 Print the make-up card</button>
+    <div class="mu-card" id="makeupCard">
+      <div class="mu-top">
+        <div class="mu-logo">7</div>
+        <div class="mu-brand"><b>ZONE 7 ROTARACT</b><span>Rotaract District 3292 · Nepal &amp; Bhutan</span></div>
+        <div class="mu-stamp">MAKE-UP</div>
+      </div>
+      <div class="mu-title">ATTENDANCE MAKE-UP CARD</div>
+      <div class="mu-sub">For the member who attended another club's meeting</div>
+      <div class="mu-fields">
+        <div class="mu-field">Member name<span class="mu-line"></span></div>
+        <div class="mu-field">Home club<span class="mu-line"></span></div>
+        <div class="mu-field">Host club attended<span class="mu-line"></span></div>
+        <div class="mu-field">Date of meeting<span class="mu-line"></span></div>
+      </div>
+      <p class="mu-note">This card confirms the member above attended a Rotaract / Rotary club meeting on the date shown, in place of their home club meeting.</p>
+      <div class="mu-sign">
+        <div><span class="mu-line"></span><span class="sig-label">Host club secretary</span></div>
+        <div class="mu-stamp-circle">CLUB<br>STAMP</div>
+        <div><span class="mu-line"></span><span class="sig-label">Home club secretary</span></div>
       </div>
     </div>
-  `).join("");
+  </div>`;
+}
 
-  document.querySelectorAll(".guide-head").forEach(el => {
-    el.addEventListener("click", () => {
-      el.closest(".guide-block").classList.toggle("open");
+let player = null;
+
+function stopPlayer(){
+  if(player && player.timer){ clearInterval(player.timer); player.timer = null; }
+}
+
+function startPlayer(g){
+  stopPlayer();
+  player = { idx:0, auto: !REDUCED, timer:null };
+  const stage = document.getElementById("pStage");
+  stage.style.setProperty("--g1", grad1(g));
+  stage.style.setProperty("--g2", grad2(g));
+  stage.innerHTML = `
+    <div class="p-progress"><i id="pProg"></i></div>
+    <span class="p-count" id="pCount">1 / ${g.slides.length}</span>
+    ${g.slides.map((s, i) => `<div class="p-slide${i === 0 ? " active" : ""}" data-i="${i}"><div class="slide-inner">${slideSVG(g, i, "ken")}</div></div>`).join("")}
+    <button class="p-nav p-prev" id="pPrev" aria-label="Previous slide">‹</button>
+    <button class="p-nav p-next" id="pNext" aria-label="Next slide">›</button>
+    <div class="p-dots" id="pDots">${g.slides.map((s, i) => `<button class="p-dot${i === 0 ? " active" : ""}" data-i="${i}" aria-label="Slide ${i + 1}"></button>`).join("")}</div>`;
+  const pSlides = stage.querySelectorAll(".p-slide");
+  const pDots = stage.querySelectorAll(".p-dot");
+  const count = document.getElementById("pCount");
+  const prog = document.getElementById("pProg");
+
+  function sync(){
+    pSlides.forEach((s, i) => s.classList.toggle("active", i === player.idx));
+    pDots.forEach((d, i) => d.classList.toggle("active", i === player.idx));
+    count.textContent = (player.idx + 1) + " / " + g.slides.length;
+    document.getElementById("pCaption").textContent = g.slides[player.idx].cap;
+    prog.classList.remove("run");
+    void prog.offsetWidth;
+    if(player.auto && !REDUCED) prog.classList.add("run");
+  }
+  function advance(){
+    player.idx = (player.idx + 1) % g.slides.length;
+    sync();
+  }
+  function setAuto(on){
+    player.auto = on;
+    if(on && !REDUCED){
+      player.timer = setInterval(advance, 6000);
+      prog.classList.add("run");
+    } else {
+      clearInterval(player.timer);
+      player.timer = null;
+      prog.classList.remove("run");
+    }
+    autoBtn.textContent = on ? "⏸ Pause slideshow" : "▶ Resume slideshow";
+  }
+  function goto(i){
+    player.idx = i;
+    sync();
+    if(player.auto && !REDUCED){
+      clearInterval(player.timer);
+      player.timer = setInterval(advance, 6000);
+    }
+  }
+
+  document.getElementById("pPrev").addEventListener("click", () => goto((player.idx - 1 + g.slides.length) % g.slides.length));
+  document.getElementById("pNext").addEventListener("click", () => goto((player.idx + 1) % g.slides.length));
+  pDots.forEach(d => d.addEventListener("click", () => goto(+d.dataset.i)));
+  const autoBtn = document.getElementById("pAuto");
+  autoBtn.addEventListener("click", () => setAuto(!player.auto));
+
+  sync();
+  setAuto(true);
+}
+
+function openTheater(id){
+  const g = GUIDES.find(x => x.id === id);
+  if(!g) return;
+  const done = sectionDone(g);
+  const body = document.getElementById("theaterBody");
+  body.innerHTML = `
+    <div class="player p-stage" id="pStage">
+      <div class="p-progress"><i id="pProg"></i></div>
+      <span class="p-count">1 / ${g.slides.length}</span>
+    </div>
+    <p class="p-caption" id="pCaption"></p>
+    <div class="p-actions"><button class="p-auto-btn" id="pAuto" type="button">⏸ Pause slideshow</button></div>
+    <div class="t-head"><span class="t-genre">${g.genre}</span><span class="t-reel">GUIDE ${String(GUIDES.indexOf(g) + 1).padStart(2, "0")} · ${g.runtime} · ${g.slides.length} slides · ${g.checklist.length} steps</span></div>
+    <h2>${g.title}</h2>
+    <p class="t-tagline">${g.tagline}</p>
+    ${g.original
+      ? `<div class="t-orig zone">✏️ Zone 7 original guidance</div>`
+      : `<div class="t-orig official">© Official Rotary International material, with cited sources</div>`}
+    ${g.body}
+    <div class="t-stat"><div class="g-icon">${g.stat.icon}</div><p>${g.stat.text}</p></div>
+    <div class="t-scenes-label">Your steps. Tap to tick</div>
+    <ul class="scene-list">
+      ${g.checklist.map((c, i) => `<li data-i="${i}"><span class="scene-num">STEP ${String(i + 1).padStart(2, "0")}</span>${c}</li>`).join("")}
+    </ul>
+    ${g.links.length ? `
+      <div class="t-credits-label">Official sources</div>
+      <div class="t-credits">
+        ${g.links.map(l => `<a class="credit-link" href="${l.url}" target="_blank" rel="noopener">${LINK_SVG} ${l.label}</a>`).join("")}
+      </div>` : ""}
+    ${g.printable ? makeupCardHTML() : ""}`;
+  const list = body.querySelector(".scene-list");
+  done.forEach(i => {
+    const li = list.querySelector('[data-i="' + i + '"]');
+    if(li) li.classList.add("done");
+  });
+  list.querySelectorAll("li").forEach(li => {
+    li.addEventListener("click", () => {
+      li.classList.toggle("done");
+      const idx = +li.dataset.i;
+      const arr = sectionDone(g);
+      const pos = arr.indexOf(idx);
+      if(li.classList.contains("done") && pos === -1) arr.push(idx);
+      if(!li.classList.contains("done") && pos !== -1) arr.splice(pos, 1);
+      localStorage.setItem(doneKey(g.id), JSON.stringify(arr));
     });
   });
-
-  document.querySelectorAll(".quick-item").forEach(el => {
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      const target = document.getElementById(el.getAttribute("href").slice(1));
-      if(target){
-        target.classList.add("open");
-        target.scrollIntoView({behavior:"smooth", block:"start"});
-      }
-    });
-  });
-
-  if(location.hash){
-    const target = document.querySelector(location.hash);
-    if(target){ target.classList.add("open"); setTimeout(() => target.scrollIntoView({behavior:"smooth", block:"start"}), 150); }
+  const theater = document.getElementById("theater");
+  theater.classList.add("open");
+  theater.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  startPlayer(g);
+  if(!theater._locked){
+    theater._locked = true;
+    document.getElementById("theaterClose").addEventListener("click", closeTheater);
+    document.getElementById("theaterBackdrop").addEventListener("click", closeTheater);
+    document.addEventListener("keydown", e => { if(e.key === "Escape") closeTheater(); });
   }
 }
-render();
+
+function closeTheater(){
+  stopPlayer();
+  const theater = document.getElementById("theater");
+  theater.classList.remove("open");
+  theater.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  renderFilms();
+  renderSpotlight();
+}
+
+(function(){
+  const bulbs = document.getElementById("marquee");
+  const N = 22;
+  let html = "";
+  for(let i = 0; i < N; i++){
+    const on = (i % 3 !== 0) && (i % 7 !== 0);
+    html += `<span class="bulb${on ? " on" : ""}" style="animation-delay:${(i * 0.17) % 2.4}s"></span>`;
+  }
+  bulbs.innerHTML = html;
+})();
+
+document.getElementById("topicSearch").addEventListener("input", renderFilms);
+document.getElementById("resetProgress").addEventListener("click", () => {
+  if(!confirm("Reset all checklist progress on this page?")) return;
+  GUIDES.forEach(g => localStorage.removeItem(doneKey(g.id)));
+  renderFilms();
+  renderSpotlight();
+});
+
+const readBar = document.getElementById("readBar");
+window.addEventListener("scroll", () => {
+  const doc = document.documentElement;
+  const max = doc.scrollHeight - doc.clientHeight;
+  readBar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+}, {passive:true});
+
+renderSpotlight();
+renderFilms();
+
+if(location.hash){
+  const id = location.hash.slice(1);
+  if(GUIDES.some(g => g.id === id)) setTimeout(() => openTheater(id), 250);
+}
 </script>
 </body>
 </html>

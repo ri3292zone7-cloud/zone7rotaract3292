@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorials | Zone 7 Rotaract</title>
+<meta name="description" content="Learn how to run meetings, board meetings, club assemblies, ZRR and DRR visits, and blood donation programs. The Zone 7 Rotaract tutorial hub.">
+<link rel="canonical" href="https://zone7rotaract3292.vercel.app/tutorials">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="zone7-data.js"></script>
+<style>
+:root{
+  --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
+  --teal:#0E7490; --orange:#C2410C; --paper:#F7F5F1; --line:rgba(27,24,54,.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
+h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+#progress{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--magenta),var(--gold));transform-origin:0 50%;transform:scaleX(0);z-index:999}
+
+.hero{position:relative;padding:70px 0 46px}
+.aurora{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none}
+.a1{width:420px;height:420px;background:#F9C6DC;top:-140px;left:-120px;animation:drift 16s ease-in-out infinite alternate}
+.a2{width:380px;height:380px;background:#FBE9B9;top:-80px;right:-100px;animation:drift 20s ease-in-out infinite alternate-reverse}
+.a3{width:300px;height:300px;background:#C9E7F0;bottom:-120px;left:40%;animation:drift 24s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(50px,-40px) scale(1.15)}}
+.fshape{position:absolute;pointer-events:none;will-change:translate}
+.shape-ring{width:46px;height:46px;border:5px solid var(--gold);border-radius:50%;top:30%;left:6%;opacity:.5}
+.shape-tri{width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-bottom:30px solid rgba(225,26,110,.35);top:18%;right:9%}
+.shape-dot{width:14px;height:14px;background:var(--magenta);border-radius:50%;bottom:24%;left:12%;opacity:.5}
+.shape-dot2{width:10px;height:10px;background:var(--teal);border-radius:50%;top:40%;right:16%;opacity:.5}
+.shape-sq{width:26px;height:26px;background:rgba(14,116,144,.3);border-radius:7px;bottom:12%;right:30%}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--magenta-deep);background:#fff;border:1px solid var(--line);padding:7px 14px;border-radius:100px;margin-bottom:18px}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--magenta)}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem);font-weight:900;line-height:1.12;max-width:780px;margin-bottom:18px}
+.rword{display:inline-block;overflow:hidden;vertical-align:bottom}
+.rword>span{display:inline-block;transform:translateY(110%);animation:wordIn .7s cubic-bezier(.22,1,.36,1) forwards}
+.rword:nth-child(2)>span{animation-delay:.08s}
+.rword:nth-child(3)>span{animation-delay:.16s}
+.rword:nth-child(4)>span{animation-delay:.24s}
+.rword:nth-child(5)>span{animation-delay:.32s}
+.rword:nth-child(6)>span{animation-delay:.4s}
+.rword:nth-child(7)>span{animation-delay:.48s}
+.rword:nth-child(8)>span{animation-delay:.56s}
+.rword:nth-child(9)>span{animation-delay:.64s}
+.rword:nth-child(10)>span{animation-delay:.72s}
+@keyframes wordIn{to{transform:translateY(0)}}
+.hero .sub{font-size:1.04rem;line-height:1.7;color:rgba(27,24,54,.72);max-width:640px;margin-bottom:16px}
+.hero .note{font-size:.8rem;color:rgba(27,24,54,.5);max-width:640px;line-height:1.55}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;margin-top:36px}
+.hero-mascot{position:relative;display:grid;place-items:center}
+.hero-mascot img{width:min(330px,80%);animation:bob 4.5s ease-in-out infinite;filter:drop-shadow(0 24px 34px rgba(27,24,54,.22))}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-16px) rotate(1.5deg)}}
+.hm-badge{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:.74rem;font-weight:700;box-shadow:0 12px 28px rgba(27,24,54,.14);display:flex;align-items:center;gap:7px;animation:bob 4s ease-in-out infinite}
+.hm-badge b{color:var(--magenta-deep)}
+.hm-badge.hb1{top:6%;left:2%}
+.hm-badge.hb2{top:22%;right:0%;animation-delay:.7s}
+.hm-badge.hb3{bottom:8%;left:8%;animation-delay:1.2s}
+.hm-badge.hb4{bottom:20%;right:6%;animation-delay:1.8s}
+.mascot-ring{position:absolute;width:min(380px,92%);aspect-ratio:1;border-radius:50%;border:2px dashed rgba(225,26,110,.35);animation:spin 30s linear infinite;pointer-events:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 8px}
+.stat-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(27,24,54,.06)}
+.stat-card .num{font-family:'Poppins';font-weight:900;font-size:1.7rem;background:linear-gradient(120deg,var(--magenta),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat-card .lab{font-size:.78rem;color:rgba(27,24,54,.6);line-height:1.45;margin-top:4px}
+
+.section-title{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;margin:54px 0 10px}
+.section-sub{color:rgba(27,24,54,.65);max-width:640px;line-height:1.65;margin-bottom:26px}
+
+.tutorial-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.t-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;overflow:hidden;transition:.3s;box-shadow:0 10px 30px rgba(27,24,54,.05)}
+.t-card::before{content:"";position:absolute;inset:0;background:linear-gradient(140deg,var(--tc,#E11A6E),transparent 55%);opacity:.05;transition:.3s}
+.t-card:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(27,24,54,.14)}
+.t-card:hover::before{opacity:.12}
+.t-card .t-img{height:190px;display:grid;place-items:center;position:relative}
+.t-card .t-img img{height:175px;object-fit:contain;animation:bob 5s ease-in-out infinite;filter:drop-shadow(0 18px 26px rgba(27,24,54,.18))}
+.t-card:nth-child(odd) .t-img img{animation-delay:.6s}
+.t-num{position:absolute;top:16px;left:20px;font-family:'Poppins';font-weight:900;font-size:.8rem;letter-spacing:.1em;color:var(--tc,#E11A6E);background:rgba(225,26,110,.08);padding:5px 10px;border-radius:100px}
+.t-card h3{font-size:1.18rem;font-weight:800;margin-bottom:6px}
+.t-card .t-tag{font-size:.8rem;font-weight:700;color:var(--tc,#E11A6E);margin-bottom:8px}
+.t-card p{font-size:.86rem;line-height:1.6;color:rgba(27,24,54,.68);margin-bottom:14px}
+.t-meta{display:flex;gap:12px;font-size:.72rem;color:rgba(27,24,54,.55);font-weight:600}
+.t-go{position:absolute;right:20px;bottom:20px;width:38px;height:38px;border-radius:50%;background:var(--tc,#E11A6E);color:#fff;display:grid;place-items:center;transition:.25s}
+.t-card:hover .t-go{transform:translateX(4px) rotate(-45deg)}
+
+.cta-band{background:var(--ink);border-radius:24px;color:#fff;padding:38px;margin:56px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;position:relative;overflow:hidden}
+.cta-band .aurora{opacity:.18}
+.cta-band h3{font-size:1.5rem;font-weight:800;margin-bottom:8px}
+.cta-band p{color:rgba(255,255,255,.72);font-size:.9rem;line-height:1.6;max-width:460px}
+.cta-band .btn{background:var(--gold);color:var(--ink);font-weight:800;font-size:.85rem;padding:13px 26px;border-radius:100px;transition:.25s}
+.cta-band .btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(242,169,0,.35)}
+
+footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54,.55)}
+
+[data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1);transition-delay:var(--d,0s)}
+[data-reveal].in{opacity:1;transform:translateY(0)}
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-mascot{order:-1}
+  .stat-strip{grid-template-columns:repeat(2,1fr)}
+  .tutorial-grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  [data-reveal]{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div id="siteNav" data-current="tutorials" data-cta="join"></div>
+<script src="site-nav.js"></script>
+
+<header class="hero wrap">
+  <div class="aurora a1"></div>
+  <div class="aurora a2"></div>
+  <div class="aurora a3"></div>
+  <div class="fshape shape-ring" data-parallax="1"></div>
+  <div class="fshape shape-tri" data-parallax="-1"></div>
+  <div class="fshape shape-dot" data-parallax="2"></div>
+  <div class="fshape shape-dot2" data-parallax="-2"></div>
+  <div class="fshape shape-sq" data-parallax="1.4"></div>
+
+  <div class="eyebrow"><span class="dot"></span>Zone 7 &middot; Tutorial Hub</div>
+  <h1 id="heroTitle">Skills that turn clubs into teams.</h1>
+  <p class="sub">Everything Zone 7 clubs actually run (meetings, board meetings, club assemblies, ZRR and DRR visits, and full blood donation programs), explained step by step, with motion, visuals, videos and the official documents to back it up. Pick a tutorial and follow along.</p>
+  <p class="note">Each tutorial is based on the <a href="guides/Standard-Rotaract-Club-Constitution.docx" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Standard Rotaract Club Constitution</a>, the <a href="guides/Rotaract-Guidebook.pdf" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">District 3292 Rotaract Guidebook</a>, Rotary International guidance and WHO-aligned practices. Your club's own constitution and bylaws always win when they differ.</p>
+
+  <div class="hero-grid">
+    <div>
+      <div class="stat-strip">
+        <div class="stat-card" data-reveal><div class="num">6</div><div class="lab">Tutorials covering everything a club year runs on</div></div>
+        <div class="stat-card" data-reveal style="--d:.08s"><div class="num">12+</div><div class="lab">Verified videos, templates &amp; official references</div></div>
+        <div class="stat-card" data-reveal style="--d:.16s"><div class="num">9</div><div class="lab">Clubs across the Kathmandu Valley using these</div></div>
+        <div class="stat-card" data-reveal style="--d:.24s"><div class="num">100%</div><div class="lab">Free &amp; built on Rotary's official documents</div></div>
+      </div>
+    </div>
+    <div class="hero-mascot">
+      <div class="mascot-ring"></div>
+      <img src="images/tutorial-mascot.png" alt="Zone 7 tutorial mascot waving with a book" data-parallax="0.6">
+      <div class="hm-badge hb1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4L12 3z" fill="#E11A6E"/></svg>Learn <b>by doing</b></div>
+      <div class="hm-badge hb2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Step-by-step</div>
+      <div class="hm-badge hb3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h12a2 2 0 012 2v13l-3-2-3 2-3-2-3 2-3-2-3 2z" stroke="#C2410C" stroke-width="2" stroke-linejoin="round"/></svg>Docs included</div>
+      <div class="hm-badge hb4"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M8 14L12 18L20 8" stroke="#A80F52" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Proven in Zone 7</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <h2 class="section-title" data-reveal>The Tutorials</h2>
+  <p class="section-sub" data-reveal>Six deep-dive guides. Each one opens its own page with the full playbook, animated walkthroughs, checklists, videos and the official documents you need.</p>
+
+  <div class="tutorial-grid">
+    <a class="t-card" href="tutorial-meetings.html" style="--tc:#E11A6E" data-reveal>
+      <div class="t-num">TUTORIAL 01</div>
+      <div class="t-img"><img src="images/tutorial-meeting.png" alt="Rotaract general meeting illustration"></div>
+      <div class="t-tag">Meetings &middot; The Core</div>
+      <h3>Running General Meetings</h3>
+      <p>The full arc of a well-run club meeting: agenda, call to order, motions and voting, attendance and minutes that hold up.</p>
+      <div class="t-meta"><span>12-min read</span><span>2 videos</span><span>4 docs</span></div>
+      <div class="t-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </a>
+
+    <a class="t-card" href="tutorial-board.html" style="--tc:#1B1836;--d:.06s" data-reveal>
+      <div class="t-num">TUTORIAL 02</div>
+      <div class="t-img"><img src="images/tutorial-board.png" alt="Rotaract board meeting illustration"></div>
+      <div class="t-tag">Leadership &middot; The Engine</div>
+      <h3>Running Board Meetings</h3>
+      <p>Every seat on the board, what a board meeting needs to cover each month, and how the board keeps the club moving between general meetings.</p>
+      <div class="t-meta"><span>10-min read</span><span>2 videos</span><span>5 docs</span></div>
+      <div class="t-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </a>
+
+    <a class="t-card" href="tutorial-assembly.html" style="--tc:#0E7490;--d:.12s" data-reveal>
+      <div class="t-num">TUTORIAL 03</div>
+      <div class="t-img"><img src="images/tutorial-assembly.png" alt="Rotaract club assembly illustration"></div>
+      <div class="t-tag">Membership &middot; The Voice</div>
+      <h3>Club Assemblies</h3>
+      <p>The meeting where the whole club plans together: goals, programs and education. How assemblies differ from board and general meetings, and how to run one.</p>
+      <div class="t-meta"><span>9-min read</span><span>1 video</span><span>3 docs</span></div>
+      <div class="t-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </a>
+
+    <a class="t-card" href="tutorial-zrr.html" style="--tc:#C2410C;--d:.18s" data-reveal>
+      <div class="t-num">TUTORIAL 04</div>
+      <div class="t-img"><img src="images/tutorial-zrr.png" alt="ZRR zonal visit illustration"></div>
+      <div class="t-tag">Zone &middot; The Bridge</div>
+      <h3>ZRR Visits</h3>
+      <p>What a Zonal Rotaract Representative visit actually is, why your club needs at least two a year, and how to host one that strengthens your club.</p>
+      <div class="t-meta"><span>8-min read</span><span>1 video</span><span>2 docs</span></div>
+      <div class="t-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </a>
+
+    <a class="t-card" href="tutorial-drr.html" style="--tc:#A80F52;--d:.24s" data-reveal>
+      <div class="t-num">TUTORIAL 05</div>
+      <div class="t-img"><img src="images/tutorial-drr.png" alt="DRR district visit illustration"></div>
+      <div class="t-tag">District &middot; The Bigger Picture</div>
+      <h3>DRR Visits</h3>
+      <p>When the District Rotaract Representative visits, it's a chance for recognition, coaching and district connection. Here's how to make it count.</p>
+      <div class="t-meta"><span>9-min read</span><span>1 video</span><span>2 docs</span></div>
+      <div class="t-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </a>
+
+    <a class="t-card" href="tutorial-blood.html" style="--tc:#D32027;--d:.3s" data-reveal>
+      <div class="t-num">TUTORIAL 06</div>
+      <div class="t-img"><img src="images/tutorial-blood.png" alt="Blood donation camp illustration"></div>
+      <div class="t-tag">Service &middot; The Impact</div>
+      <h3>Blood Donation Programs</h3>
+      <p>The complete playbook for a safe, legal, well-run blood donation camp, from blood bank partnerships and donor eligibility to day-of flow and first aid.</p>
+      <div class="t-meta"><span>14-min read</span><span>3 videos</span><span>5 docs</span></div>
+      <div class="t-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </a>
+  </div>
+
+  <div class="cta-band">
+    <div class="aurora a2" style="top:-60px;right:-60px;width:300px;height:300px;background:#E11A6E;"></div>
+    <div>
+      <h3>New to leading? Start with Tutorial 01.</h3>
+      <p>Every strong Zone 7 officer started somewhere. The meetings tutorial builds the foundation everything else stands on.</p>
+    </div>
+    <a class="btn" href="tutorial-meetings.html">Start with Meetings &rarr;</a>
+  </div>
+</div>
+
+<footer>&copy; 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. &nbsp;·&nbsp; <a href="index.html" style="font-weight:700;">Back to Home</a></footer>
+<script>
+const heroTitle = document.getElementById("heroTitle");
+if(heroTitle){
+  const words = heroTitle.textContent.trim().split(/\s+/);
+  heroTitle.innerHTML = words.map(w => `<span class="rword"><span>${w}</span></span>`).join(" ");
+}
+
+const hero = document.querySelector(".hero");
+if(hero && window.matchMedia("(pointer:fine)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+  hero.addEventListener("mousemove", (e) => {
+    const r = hero.getBoundingClientRect();
+    const mx = (e.clientX - r.left) / r.width - .5;
+    const my = (e.clientY - r.top) / r.height - .5;
+    document.querySelectorAll("[data-parallax]").forEach(el => {
+      const d = parseFloat(el.dataset.parallax) || 1;
+      el.style.translate = `${(mx * 26 * d).toFixed(1)}px ${(my * 18 * d).toFixed(1)}px`;
+    });
+  });
+}
+
+const progress = document.getElementById("progress");
+let ticking = false;
+window.addEventListener("scroll", () => {
+  if(ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    progress.style.transform = `scaleX(${max > 0 ? (window.scrollY / max) : 0})`;
+    ticking = false;
+  });
+}, {passive:true});
+
+function observeReveals(){
+  const els = document.querySelectorAll("[data-reveal]:not(.in)");
+  if(!("IntersectionObserver" in window)){ els.forEach(el => el.classList.add("in")); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+  }, {threshold:.12, rootMargin:"0px 0px -40px 0px"});
+  els.forEach(el => io.observe(el));
+}
+observeReveals();
+</script>
+<script src="rota-gpt-data.js"></script>
+<script src="rota-gpt.js"></script>
+</body>
+</html>

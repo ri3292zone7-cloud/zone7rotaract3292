@@ -4,18 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Project | Zone 7 Rotaract 3292</title>
-<meta name="description" content="Service project reports from Zone 7 Rotaract clubs — blood donation drives, tree plantations, education and community projects across District 3292, Kathmandu Valley.">
+<meta name="description" content="Service project reports from Zone 7 Rotaract clubs. Blood donation drives, tree plantations, education and community projects across District 3292, Kathmandu Valley.">
 <link rel="canonical" href="https://zone7rotaract3292.vercel.app/project.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Zone 7 Rotaract">
 <meta property="og:title" content="Project | Zone 7 Rotaract 3292">
-<meta property="og:description" content="Service project reports from Zone 7 Rotaract clubs — blood donation drives, tree plantations, education and community projects across District 3292, Kathmandu Valley.">
+<meta property="og:description" content="Service project reports from Zone 7 Rotaract clubs. Blood donation drives, tree plantations, education and community projects across District 3292, Kathmandu Valley.">
 <meta property="og:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
 <meta property="og:url" content="https://zone7rotaract3292.vercel.app/project.html">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="zone7-data.js"></script>
 <style>
   :root{
     --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
@@ -28,48 +29,6 @@
   img{max-width:100%; display:block;}
   .wrap{max-width:980px; margin:0 auto; padding:0 28px;}
 
-  nav{position:sticky; top:0; z-index:100; background:rgba(255,253,249,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
-  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
-  .brand{display:flex; align-items:center; gap:10px; font-family:'Poppins'; font-weight:800; font-size:1.1rem;}
-  .brand .z{background:var(--magenta); color:#fff; width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center;}
-  .back{font-weight:700; font-size:0.88rem; color:var(--magenta-deep);}
-  .navlinks{display:flex;gap:34px;font-weight:600;font-size:.92rem;align-items:center;}
-  .navlinks > a{position:relative;padding:4px 0;color:var(--ink);opacity:.75;transition:opacity .2s;}
-  .navlinks > a:hover{opacity:1;}
-  .nav-drop{position:relative;}
-  .nav-drop::before{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);width:440px;height:20px;}
-  .nav-drop-trigger{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Inter';font-weight:600;font-size:.92rem;color:var(--ink);opacity:.75;padding:4px 0;transition:opacity .2s;}
-  .nav-drop-trigger svg{transition:transform .2s;}
-  .nav-drop:hover .nav-drop-trigger,.nav-drop.open .nav-drop-trigger{opacity:1;}
-  .nav-drop.open .nav-drop-trigger svg{transform:rotate(180deg);}
-  .nav-drop-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:16px;opacity:0;pointer-events:none;transition:opacity .18s;z-index:60;}
-  .nav-drop:hover .nav-drop-panel,.nav-drop.open .nav-drop-panel{opacity:1;pointer-events:auto;}
-  .nav-drop-panel-inner{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 48px rgba(27,24,54,.14);padding:14px;transform:translateY(6px);transition:transform .18s;position:relative;}
-  .nav-drop:hover .nav-drop-panel-inner,.nav-drop.open .nav-drop-panel-inner{transform:translateY(0);}
-  .nav-drop-panel-inner::before{content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:var(--paper);border-left:1px solid var(--line);border-top:1px solid var(--line);}
-  .clubs-drop-panel{width:420px;}
-  .clubs-drop-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
-  .clubs-drop-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;transition:background .15s;}
-  .clubs-drop-item:hover{background:rgba(225,26,110,.07);}
-  .clubs-drop-item img{width:28px;height:28px;border-radius:8px;object-fit:contain;background:#fff;border:1px solid var(--line);padding:3px;flex-shrink:0;}
-  .clubs-drop-item span{font-size:.82rem;font-weight:600;color:var(--ink);line-height:1.25;}
-  .clubs-drop-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);}
-  .clubs-drop-foot a{font-size:.8rem;font-weight:700;color:var(--magenta-deep);}
-  .res-drop-panel{width:290px;}
-  .res-drop-item{display:flex;gap:12px;padding:11px 10px;border-radius:12px;transition:background .15s;align-items:flex-start;}
-  .res-drop-item:hover{background:rgba(225,26,110,.07);}
-  .res-drop-ico{width:34px;height:34px;border-radius:10px;background:rgba(225,26,110,.09);color:var(--magenta-deep);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;}
-  .res-drop-item h5{font-size:.86rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
-  .res-drop-item p{font-size:.74rem;color:rgba(27,24,54,.5);line-height:1.4;margin:0;}
-  @media (max-width:920px){ .nav-drop,.navlinks{display:none;} }
-  .nav-admin{font-weight:700;font-size:.85rem;color:var(--magenta-deep);opacity:.85;transition:opacity .2s;}
-  .nav-admin:hover{opacity:1;}
-  .burger{display:none;background:none;border:none;cursor:pointer;padding:6px;}
-  .burger span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;border-radius:2px;}
-  .mobile-menu{display:none;position:fixed;top:76px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);z-index:99;padding:18px 28px;flex-direction:column;gap:16px;}
-  .mobile-menu.open{display:flex;}
-  .mobile-menu a{font-weight:600;font-size:1rem;color:var(--ink);}
-  @media(max-width:920px){ .burger{display:block;} }
 
   .p-hero{position:relative; margin-top:0;}
   .p-hero-img{
@@ -86,6 +45,11 @@
   }
   .p-hero-content h1{font-size:clamp(1.9rem,4.6vw,3rem); max-width:800px; color:#fff; line-height:1.08;}
   .p-hero-content .club-line{margin-top:14px; font-size:0.95rem; font-weight:600; color:rgba(255,255,255,0.85);}
+  .p-sdgs{display:flex; gap:8px; flex-wrap:wrap; margin-top:18px;}
+  .p-sdg{
+    font-size:0.7rem; font-weight:700; letter-spacing:0.03em; color:#fff;
+    background:var(--sdg); padding:6px 12px; border-radius:100px; white-space:nowrap;
+  }
 
   .p-meta-row{display:flex; gap:34px; flex-wrap:wrap; margin:36px 0 6px; padding-bottom:30px; border-bottom:1px solid var(--line);}
   .p-meta b{display:block; font-family:'Poppins'; font-size:0.95rem; color:var(--magenta-deep);}
@@ -128,7 +92,15 @@
     z-index:999; padding:30px; cursor:zoom-out;
   }
   .lightbox.open{display:flex;}
-  .lightbox img{max-width:92vw; max-height:88vh; border-radius:10px; object-fit:contain;}
+  .lightbox-inner{position:relative;max-width:96vw;max-height:92vh;display:flex;flex-direction:column;align-items:center;}
+  .lightbox img{max-width:92vw; max-height:80vh; border-radius:10px; object-fit:contain; box-shadow:0 30px 80px rgba(0,0,0,.5);}
+  .lb-count{position:absolute;top:14px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.65);font-size:.78rem;font-weight:700;letter-spacing:.08em;}
+  .lb-close{position:fixed;top:16px;right:20px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.12);color:#fff;font-size:1.15rem;cursor:pointer;transition:.2s;z-index:2;}
+  .lb-close:hover{background:var(--magenta-deep);}
+  .lb-btn{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(27,24,54,.55);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;z-index:2;}
+  .lb-btn:hover{background:var(--magenta-deep);}
+  .lb-prev{left:-70px;}.lb-next{right:-70px;}
+  @media (max-width:900px){.lb-prev{left:2px;}.lb-next{right:2px;}}
 
   .p-cta{padding:50px 0 90px; display:flex; gap:16px; flex-wrap:wrap;}
   .btn{padding:15px 30px; border-radius:100px; font-weight:700; font-size:0.95rem; display:inline-flex; align-items:center; gap:8px;}
@@ -146,89 +118,22 @@
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <a href="/"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>
-    <div class="navlinks">
-      <a href="/about">About</a>
-      <div class="nav-drop" id="clubsDrop">
-        <button type="button" class="nav-drop-trigger">Clubs <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <div class="nav-drop-panel clubs-drop-panel">
-          <div class="nav-drop-panel-inner">
-            <div class="clubs-drop-grid" id="clubsDropGrid"></div>
-            <div class="clubs-drop-foot">
-              <span style="font-size:.74rem;color:rgba(27,24,54,.45);">9 clubs in Zone 7</span>
-              <a href="/#clubs">See all on homepage →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <a href="/gallery">Gallery</a>
-      <div class="nav-drop" id="resDrop">
-        <button type="button" class="nav-drop-trigger">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <div class="nav-drop-panel res-drop-panel">
-          <div class="nav-drop-panel-inner">
-            <a class="res-drop-item" href="/guides">
-              <div class="res-drop-ico">📄</div>
-              <div><h5>Rotaract Resources</h5><p>Official constitutions, forms &amp; district documents</p></div>
-            </a>
-            <a class="res-drop-item" href="/club-guides">
-              <div class="res-drop-ico">📚</div>
-              <div><h5>Guides for Clubs</h5><p>The playbook — leadership, finance, projects &amp; more</p></div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:16px;">
-      <a href="#" id="clubBackLink" class="back">← Back to Club</a>
-      <a href="admin.html" class="nav-admin">Club Admin</a>
-      <a href="/join" class="btn" style="background:var(--ink); color:#fff; padding:10px 20px; border-radius:100px; font-weight:700; font-size:0.85rem;">Join Us</a>
-      <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
-    </div>
-  </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="/about">About</a>
-    <a href="/#clubs">Clubs</a>
-    <a href="/gallery">Gallery</a>
-    <a href="/guides">Rotaract Resources</a>
-    <a href="/club-guides">Guides for Clubs</a>
-    <a href="admin.html">Club Admin</a>
-  </div>
-</nav>
-<script>
-  document.getElementById("clubsDropGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
-    <a class="clubs-drop-item" href="/${slug}">
-      <img src="${c.logo}" alt="" loading="lazy">
-      <span>${c.name.replace('Rotaract Club of ','')}</span>
-    </a>
-  `).join("");
-  document.querySelectorAll(".nav-drop-trigger").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const drop = btn.closest(".nav-drop");
-      const wasOpen = drop.classList.contains("open");
-      document.querySelectorAll(".nav-drop").forEach(d => d.classList.remove("open"));
-      if(!wasOpen) drop.classList.add("open");
-    });
-  });
-  document.addEventListener("click", (e) => {
-    if(!e.target.closest(".nav-drop")) document.querySelectorAll(".nav-drop").forEach(d => d.classList.remove("open"));
-  });
-  document.getElementById('burgerBtn').addEventListener('click', () => {
-    document.getElementById('mobileMenu').classList.toggle('open');
-  });
-  document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
-    document.getElementById('mobileMenu').classList.remove('open');
-  }));
-</script>
+<div id="siteNav" data-current="clubs" data-cta="club"></div>
+<script src="site-nav.js"></script>
 
 <div id="content"></div>
 
 <footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan.</footer>
 
-<div class="lightbox" id="lightbox"><img id="lightboxImg" src="" alt=""></div>
-
-<script src="zone7-data.js"></script>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-close" id="lbClose" aria-label="Close photo viewer">✕</button>
+  <span class="lb-count" id="lbCount"></span>
+  <div class="lightbox-inner">
+    <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous photo">‹</button>
+    <img id="lightboxImg" src="" alt="">
+    <button class="lb-btn lb-next" id="lbNext" aria-label="Next photo">›</button>
+  </div>
+</div>
 <script>
 /* ------------------------------------------------------------------ *
  * parseStatsFromText — extracts numeric stats from project body text
@@ -283,6 +188,22 @@ function parseStatsFromText(text){
   return s;
 }
 
+/* UN Sustainable Development Goals — keyword-matched from a project's
+   category/title/body so every project page can show what it aligns with. */
+const SDG_MAP = [
+  { num:3,  name:"Good Health & Well-Being", color:"#4C9F38",  words:["health","blood","hygiene","screening","donation","mental","dengue","cancer","vaccin","first aid","sick"] },
+  { num:4,  name:"Quality Education",        color:"#C5192D",  words:["education","school","literacy","teach","student","uniform","child club","classroom"] },
+  { num:5,  name:"Gender Equality",          color:"#FF3A21",  words:["women","girl","menstru","gbv","gender"] },
+  { num:6,  name:"Clean Water & Sanitation", color:"#26BDE2",  words:["water","sanitation","wash"] },
+  { num:10, name:"Reduced Inequalities",     color:"#DD1367",  words:["marginal","chepang","disability","brick factory","inclus"] },
+  { num:13, name:"Climate Action",           color:"#3F7E44",  words:["climate","environment","plantation","tree","clean-up","cleanup","recycl"] },
+  { num:17, name:"Partnerships for the Goals", color:"#19486A", words:["joint","exchange","twin","collaborat","together with","alliance"] }
+];
+function computeSdgs(project){
+  const text = ((project.category||"") + " " + (project.title||"") + " " + (project.summary||"") + " " + (project.body||"")).toLowerCase();
+  return SDG_MAP.filter(g => g.words.some(w => text.includes(w)));
+}
+
 const params = new URLSearchParams(location.search);
 const clubSlug = params.get("club");
 const projectId = params.get("id");
@@ -334,14 +255,22 @@ if(project && club){
     ? `<div class="p-jointly">🤝 Jointly with: ${zone7Esc(jointly)}</div>`
     : "";
 
+  const sdgs = computeSdgs(project);
+  const sdgHTML = sdgs.length
+    ? `<div class="p-sdgs">${sdgs.map(g =>
+        `<span class="p-sdg" style="--sdg:${g.color}">SDG ${g.num} · ${zone7Esc(g.name)}</span>`
+      ).join("")}</div>`
+    : "";
+
   document.getElementById("content").innerHTML = `
     <header class="p-hero">
-      <img class="p-hero-img" src="${zone7Esc(project.cover || '')}" alt="${zone7Esc(project.title)}">
+      <img class="p-hero-img" src="${zone7Esc(project.cover || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200')}" alt="${zone7Esc(project.title)}">
       <div class="p-hero-overlay">
         <div class="wrap p-hero-content">
           <span class="p-tag">${zone7Esc(project.category || "Club Project")}</span>
           <h1>${zone7Esc(project.title)}</h1>
           <div class="club-line">${zone7Esc(club.name)}</div>
+          ${sdgHTML}
         </div>
       </div>
     </header>
@@ -365,35 +294,51 @@ if(project && club){
     </section>` : ""}
 
     <section class="wrap p-cta">
-      <a class="btn btn-primary" href="/${clubSlug}">← Back to ${club.name.replace('Rotaract Club of ','')}</a>
-      <a class="btn btn-ghost" href="/#clubs">All Zone 7 Clubs</a>
+      <a class="btn btn-primary" href="club.html?club=${clubSlug}">← Back to ${club.name.replace('Rotaract Club of ','')}</a>
+      <a class="btn btn-ghost" href="index.html#clubs">All Zone 7 Clubs</a>
     </section>
   `;
 
   if(project.gallery && project.gallery.length){
     const grid = document.getElementById("galGrid");
-    grid.innerHTML = project.gallery.map(src => `<img src="${zone7Esc(src)}" alt="${zone7Esc(project.title)} photo">`).join("");
-    grid.querySelectorAll("img").forEach(img => {
-      img.addEventListener("click", () => {
-        document.getElementById("lightboxImg").src = img.src;
-        document.getElementById("lightbox").classList.add("open");
-      });
+    const galImgs = project.gallery.slice();
+    grid.innerHTML = galImgs.map((src,i) => `<img src="${zone7Esc(src)}" alt="${zone7Esc(project.title)}, photo ${i+1} of ${galImgs.length}" loading="lazy">`).join("");
+    const lb = document.getElementById("lightbox"), lbImg = document.getElementById("lightboxImg"), lbCount = document.getElementById("lbCount");
+    let li = 0;
+    function showLb(i){
+      li = (i + galImgs.length) % galImgs.length;
+      lbImg.src = galImgs[li];
+      lbImg.alt = zone7Esc(project.title) + ", photo " + (li+1) + " of " + galImgs.length;
+      lbCount.textContent = (li+1) + " / " + galImgs.length;
+      lb.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+    function closeLb(){ lb.classList.remove("open"); document.body.style.overflow = ""; }
+    grid.querySelectorAll("img").forEach((img,i) => img.addEventListener("click", () => showLb(i)));
+    document.getElementById("lbClose").addEventListener("click", closeLb);
+    document.getElementById("lbPrev").addEventListener("click", () => showLb(li-1));
+    document.getElementById("lbNext").addEventListener("click", () => showLb(li+1));
+    lb.addEventListener("click", e => { if(e.target === lb) closeLb(); });
+    document.addEventListener("keydown", e => {
+      if(!lb.classList.contains("open")) return;
+      if(e.key === "Escape") closeLb();
+      if(e.key === "ArrowLeft") showLb(li-1);
+      if(e.key === "ArrowRight") showLb(li+1);
     });
   }
-  document.getElementById("lightbox").addEventListener("click", () => {
-    document.getElementById("lightbox").classList.remove("open");
-  });
 
 } else {
   document.getElementById("content").innerHTML = `
     <div class="empty-state wrap">
       <h2>Project not found</h2>
       <p>This project may have been removed, or the link is incorrect.</p>
-      <a class="btn btn-primary" href="/#clubs">Browse Zone 7 Clubs</a>
+      <a class="btn btn-primary" href="index.html#clubs">Browse Zone 7 Clubs</a>
     </div>
   `;
 }
 })();
 </script>
+<script src="rota-gpt-data.js"></script>
+<script src="rota-gpt.js"></script>
 </body>
 </html>

@@ -335,8 +335,8 @@
 <body>
 
 <nav><div class="wrap">
-  <a href="/"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>
-  <a href="/" class="back">← Back to Site</a>
+  <a href="index.html"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>
+  <a href="index.html" class="back">← Back to Site</a>
 </div></nav>
 
 <!-- LOGIN -->
@@ -352,7 +352,7 @@
       <div class="login-error" id="loginError">Incorrect password for that club. Please try again.</div>
       <button type="submit" class="btn btn-primary">Log In</button>
     </form>
-    <div class="demo-note">Demo login system: each club has a preset password (shared separately by the Zone 7 team). Data you add is saved to this browser/device only — see the note in the project's README for making this sync across devices.</div>
+    <div class="demo-note">Demo login system: each club has a preset password (shared separately by the Zone 7 team). Data you add is saved to this browser/device only, so see the note in the project's README for making this sync across devices.</div>
     <div style="margin-top:18px; text-align:center;">
       <span style="font-size:0.78rem; color:rgba(27,24,54,0.4);">Zone team? <a href="#" id="switchToZonal" style="color:var(--magenta-deep); font-weight:700;">Log in here →</a></span>
     </div>
@@ -360,7 +360,7 @@
 
   <div class="login-card" id="zonalLoginCard" style="display:none;">
     <h2>Zone Team Login</h2>
-    <p class="sub">For the ZRR and zone team — manage guides and zone-wide resources.</p>
+    <p class="sub">For the ZRR and zone team, manage guides and zone-wide resources.</p>
     <label for="zonalPassword">Password</label>
     <input type="password" id="zonalPassword" placeholder="Enter zone team password">
     <div class="login-error" id="zonalLoginError">Incorrect password. Please try again.</div>
@@ -449,7 +449,7 @@
           <textarea id="pSummary" rows="2" placeholder="One or two sentences about the project"></textarea>
 
           <label for="pBody">Full Story <span style="font-weight:500; color:rgba(27,24,54,0.5);">(shown on the project's detail page)</span></label>
-          <textarea id="pBody" rows="7" placeholder="Write the full project story here — background, what was done, impact, and any highlights."></textarea>
+          <textarea id="pBody" rows="7" placeholder="Write the full project story here: background, what was done, impact, and any highlights."></textarea>
 
           <label>Gallery Photos</label>
           <div class="gallery-preview" id="galleryPreview"></div>
@@ -519,7 +519,7 @@
         <span class="bmt active" data-mode="serious">🎯 Full Barometer</span>
         <span class="bmt" data-mode="quick">⚡ Quick Check</span>
       </div>
-      <p class="baro-mode-note" id="baroModeNote">Full mode requires proof — linked projects and, for a few items, an uploaded document — verified later by the ZRR / Recognition Committee.</p>
+      <p class="baro-mode-note" id="baroModeNote">Full mode requires proof, with linked projects and, for a few items, an uploaded document, verified later by the ZRR / Recognition Committee.</p>
       <div class="baro-summary">
         <div class="baro-score-card">
           <div>
@@ -540,7 +540,7 @@
       </div>
       <div class="baro-thresholds" id="baroThresholds" style="margin-bottom:14px;"></div>
       <div class="baro-toolbar">
-        <p class="note">Switch modes above anytime — your progress in each is saved separately.</p>
+        <p class="note">Switch modes above anytime, your progress in each is saved separately.</p>
         <div class="baro-actions">
           <button class="btn btn-ghost" id="baroPdfBtn" type="button">PDF ↓</button>
           <button class="btn btn-primary" id="baroSaveBtn" type="button">Save</button>
@@ -554,7 +554,7 @@
     <div class="panel">
       <h3>RI &amp; District Dues Calculator <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(RY 2026-27 · collection opens 1 July)</span></h3>
       <div class="baro-toolbar" style="margin-bottom:24px;">
-        <p class="note">Rotary International charges <strong id="duesRateRI">$0</strong>/member for your club type. Rotaract District 3292 charges a flat <strong>NRs 200</strong>/member. The NPR figure for RI dues is an estimate — banks apply their own conversion rate on the day you actually pay. Both are due before the district's payment deadline.</p>
+        <p class="note">Rotary International charges <strong id="duesRateRI">$0</strong>/member for your club type. Rotaract District 3292 charges a flat <strong>NRs 200</strong>/member. The NPR figure for RI dues is an estimate, since banks apply their own conversion rate on the day you actually pay. Both are due before the district's payment deadline.</p>
       </div>
 
       <div class="field-row" style="margin-top:22px; max-width:460px;">
@@ -569,19 +569,19 @@
       </div>
 
       <div class="analytics-stats" style="margin-top:10px;">
-        <div class="a-stat"><b id="duesClubType">—</b><span>Club Type</span></div>
+        <div class="a-stat"><b id="duesClubType">–</b><span>Club Type</span></div>
         <div class="a-stat"><b id="duesRIOut">$0</b><span>RI Dues (USD)</span></div>
         <div class="a-stat"><b id="duesRINprOut">NRs 0</b><span>RI Dues (≈ NPR)</span></div>
         <div class="a-stat"><b id="duesDistOut">NRs 0</b><span>District Dues (NPR)</span></div>
       </div>
 
       <div class="editing-banner" style="margin-top:6px;" id="duesTotalBanner">
-        <span>Total to remit: <b id="duesTotalText">—</b></span>
+        <span>Total to remit: <b id="duesTotalText">–</b></span>
       </div>
 
       <p style="font-size:0.78rem; color:rgba(27,24,54,0.5); margin-top:18px; line-height:1.6;">
         RI Dues rate: <strong>University-based clubs pay $5/member</strong> · <strong>Community-based clubs pay $8/member</strong> to Rotary International.
-        District Dues: <strong>NRs 200/member</strong> to Rotaract District 3292. Figures here are for planning only — always confirm final amounts against the official district invoice.
+        District Dues: <strong>NRs 200/member</strong> to Rotaract District 3292. Figures here are for planning only, so always confirm final amounts against the official district invoice.
       </p>
     </div>
     </div>
@@ -617,7 +617,7 @@
         <div><label>Recorded By (Secretary)</label><input type="text" id="mmSecretary"></div>
       </div>
 
-      <div class="sec-title">Opening <span style="font-weight:500; color:rgba(27,24,54,0.5); text-transform:none; letter-spacing:0;">(lettered a, b, c... — SAA, quorum, silence, guests acknowledged)</span></div>
+      <div class="sec-title">Opening <span style="font-weight:500; color:rgba(27,24,54,0.5); text-transform:none; letter-spacing:0;">(lettered a, b, c...; SAA, quorum, silence, guests acknowledged)</span></div>
       <div id="mmOpenList"></div>
       <button class="btn btn-ghost small" type="button" data-mmadd="open">+ Add Opening Note</button>
 
@@ -638,7 +638,7 @@
       <div id="mmDiscList"></div>
       <button class="btn btn-ghost small" type="button" data-mmadd="disc">+ Add Discussion Item</button>
 
-      <div class="sec-title">Remarks <span style="font-weight:500; color:rgba(27,24,54,0.5); text-transform:none; letter-spacing:0;">(guests / officials — ZRR, DRR, mentor)</span></div>
+      <div class="sec-title">Remarks <span style="font-weight:500; color:rgba(27,24,54,0.5); text-transform:none; letter-spacing:0;">(guests / officials; ZRR, DRR, mentor)</span></div>
       <div id="mmRemarkList"></div>
       <button class="btn btn-ghost small" type="button" data-mmadd="remark">+ Add Remark</button>
 
@@ -715,7 +715,7 @@
 
     <div class="view" id="view-events">
     <div class="panel">
-      <h3>Zone Events <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(shown on the homepage — visible to all clubs)</span></h3>
+      <h3>Zone Events <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(shown on the homepage, visible to all clubs)</span></h3>
       <div class="proj-list" id="eventList" style="margin-bottom:20px;"></div>
       <div class="field-row">
         <div><label for="evTitle">Event Title</label><input type="text" id="evTitle" placeholder="e.g. Zone 7 Assembly"></div>
@@ -737,7 +737,7 @@
     <!-- GUIDES PANEL (zonal team only) -->
     <div class="view" id="view-guides">
     <div class="panel" id="guidesPanel">
-      <h3>Guides for Clubs <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(shown on /guides — visible to all clubs)</span></h3>
+      <h3>Guides for Clubs <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(shown on /guides, visible to all clubs)</span></h3>
       <div class="proj-list" id="guideList" style="margin-bottom:20px;"></div>
       <div class="field-row">
         <div><label for="gTitle">Guide Title</label><input type="text" id="gTitle" placeholder="e.g. District Financial Guideline 2026"></div>
@@ -767,9 +767,9 @@
       </div>
       <label for="zrrClub">Home Club <span style="font-weight:500; color:rgba(27,24,54,0.5);">(optional)</span></label>
       <input type="text" id="zrrClub" placeholder="e.g. Rotaract Club of Sukedhara">
-      <label for="zrrBio">Short Note <span style="font-weight:500; color:rgba(27,24,54,0.5);">(optional — shown in their popup card; leave blank for a default line)</span></label>
+      <label for="zrrBio">Short Note <span style="font-weight:500; color:rgba(27,24,54,0.5);">(optional, shown in their popup card; leave blank for a default line)</span></label>
       <textarea id="zrrBio" rows="2" placeholder="e.g. Led Zone 7 through a record membership growth year."></textarea>
-      <label for="zrrPhoto">Photo <span style="font-weight:500; color:rgba(27,24,54,0.5);">(optional — shown in their popup card; auto-resized)</span></label>
+      <label for="zrrPhoto">Photo <span style="font-weight:500; color:rgba(27,24,54,0.5);">(optional, shown in their popup card; auto-resized)</span></label>
       <img class="cover-preview" id="zrrPhotoPreview" style="width:120px; aspect-ratio:1/1; border-radius:50%; object-fit:cover; max-width:120px;">
       <div class="img-upload" id="zrrPhotoUpload">
         <span>Click to upload a photo</span>
@@ -779,7 +779,7 @@
         <input type="checkbox" id="zrrCurrent" style="width:auto; margin:0;">
         <span style="font-weight:600; font-size:0.88rem;">This is the current ZRR</span>
       </label>
-      <p style="font-size:0.78rem; color:rgba(27,24,54,0.5); margin:10px 0 20px;">New entries are added to the end of the timeline. Marking someone as current will show their "Current ZRR" badge — remember to un-check it on the previous ZRR when handing over.</p>
+      <p style="font-size:0.78rem; color:rgba(27,24,54,0.5); margin:10px 0 20px;">New entries are added to the end of the timeline. Marking someone as current will show their "Current ZRR" badge, so remember to un-check it on the previous ZRR when handing over.</p>
       <div class="form-actions">
         <button type="button" class="btn btn-primary" id="zrrSaveBtn">Save ZRR</button>
         <button type="button" class="btn btn-ghost" id="zrrClearBtn">Clear Form</button>
@@ -868,7 +868,7 @@ async function enterDashboard(slug){
   document.body.classList.add("has-sidebar");
   document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership"].includes(el.dataset.view) ? "none" : "flex"));
   switchView("projects");
-  document.getElementById("dashClubName").textContent = CLUB_DIRECTORY[slug].name + " — Dashboard";
+  document.getElementById("dashClubName").textContent = CLUB_DIRECTORY[slug].name + ", Dashboard";
   const logoEl = document.getElementById("dashClubLogo");
   if(CLUB_DIRECTORY[slug].logo){ logoEl.src = CLUB_DIRECTORY[slug].logo; logoEl.style.display = "block"; }
   else { logoEl.style.display = "none"; }
@@ -997,7 +997,7 @@ document.getElementById("cpSaveBtn").addEventListener("click", async () => {
     showToast("Club page saved ✓");
   } catch(err){
     console.error(err);
-    showToast("Save failed — check your Supabase setup.");
+    showToast("Save failed, check your Supabase setup.");
   } finally {
     btn.disabled = false; btn.textContent = "Save Club Page";
   }
@@ -1064,8 +1064,8 @@ document.getElementById("baroModeTabs").addEventListener("click", (e) => {
   baroMode = tab.dataset.mode;
   document.querySelectorAll(".bmt").forEach(t => t.classList.toggle("active", t === tab));
   document.getElementById("baroModeNote").textContent = baroMode === "quick"
-    ? "Quick mode — same criteria, just tick what's done. No projects or documents required; use this for a fast self-score, then switch back to Full Barometer when you're ready to submit real proof."
-    : "Full mode requires proof — linked projects and, for a few items, an uploaded document — verified later by the ZRR / Recognition Committee.";
+    ? "Quick mode: same criteria, just tick what's done. No projects or documents required; use this for a fast self-score, then switch back to Full Barometer when you're ready to submit real proof."
+    : "Full mode requires proof, with linked projects and, for a few items, an uploaded document, verified later by the ZRR / Recognition Committee.";
   renderBarometer();
 });
 
@@ -1156,12 +1156,12 @@ function renderBaroItem(item){
         const checked = linked.some(l => l.id === p.id);
         return `<label class="baro-multi-item">
           <input type="checkbox" class="baro-multi-check" data-id="${item.id}" data-pid="${zone7Esc(p.id)}" data-title="${zone7Esc(p.title)}" data-code="${zone7Esc(p.project_code||'')}" ${checked?'checked':''}>
-          ${zone7Esc(p.project_code || '—')} · ${zone7Esc(p.title)}${p.date ? ' ('+p.date+')' : ''}
+${zone7Esc(p.project_code || '–')} · ${zone7Esc(p.title)}${p.date ? ' ('+p.date+')' : ''}
         </label>`;
       }).join("");
       bodyExtra += `
         <button type="button" class="baro-acc-toggle" data-acc="${item.id}">
-          <span>${linked.length} / ${baroMinFor(item.id)} projects selected — choose projects</span>
+          <span>${linked.length} / ${baroMinFor(item.id)} projects selected, choose projects</span>
           <span class="baro-acc-chevron">▾</span>
         </button>
         <div class="baro-acc-body" id="baro-acc-${item.id}" style="display:none;">
@@ -1169,11 +1169,11 @@ function renderBaroItem(item){
         </div>`;
     } else {
       const opts = baroClubProjects.map(p =>
-        `<option value="${zone7Esc(p.id)}" data-title="${zone7Esc(p.title)}" data-code="${zone7Esc(p.project_code||'')}">${zone7Esc(p.project_code || '—')} · ${zone7Esc(p.title)}${p.date ? ' ('+p.date+')' : ''}</option>`
+        `<option value="${zone7Esc(p.id)}" data-title="${zone7Esc(p.title)}" data-code="${zone7Esc(p.project_code||'')}">${zone7Esc(p.project_code || '–')} · ${zone7Esc(p.title)}${p.date ? ' ('+p.date+')' : ''}</option>`
       ).join("");
       bodyExtra += `
         <select class="baro-proj-select${linked.length?' linked':''}" data-id="${item.id}">
-          <option value="">— select the project that fulfils this —</option>
+          <option value="">– select the project that fulfils this –</option>
           ${opts}
         </select>`;
     }
@@ -1202,7 +1202,7 @@ function renderBaroItem(item){
       </div>
       <div class="baro-meta-col">
         <span class="baro-pts">${item.points} pt${item.points>1?'s':''}</span>
-        ${linked.length ? `<span class="baro-codes">${linked.map(l=>zone7Esc(l.code||'—')).join(', ')}</span>` : `<span class="baro-verifier">${zone7Esc(item.verifier)}</span>`}
+        ${linked.length ? `<span class="baro-codes">${linked.map(l=>zone7Esc(l.code||'–')).join(', ')}</span>` : `<span class="baro-verifier">${zone7Esc(item.verifier)}</span>`}
       </div>
     </div>
   `;
@@ -1339,7 +1339,7 @@ document.getElementById("baroSaveBtn").addEventListener("click", async () => {
     showToast(`${baroMode === 'quick' ? 'Quick' : 'Full'} barometer saved ✓`);
   } catch(err){
     console.error(err);
-    showToast("Save failed — check your Supabase setup.");
+    showToast("Save failed, check your Supabase setup.");
   } finally {
     btn.disabled = false; btn.textContent = "Save";
   }
@@ -1377,7 +1377,7 @@ document.getElementById("baroPdfBtn").addEventListener("click", () => {
 
   const win = window.open("", "_blank");
   win.document.write(`
-    <html><head><title>${clubName} — District Barometer</title>
+    <html><head><title>${clubName}, District Barometer</title>
     <style>
       body{font-family:Arial,Helvetica,sans-serif; padding:30px; color:#1B1836;}
       h1{font-size:1.4rem; margin-bottom:2px;}
@@ -1391,9 +1391,9 @@ document.getElementById("baroPdfBtn").addEventListener("click", () => {
     </style>
     </head><body>
       <h1>Rotaract District 3292, Nepal-Bhutan</h1>
-      <h2>Barometer for ${isUni ? "University" : "Community"} Based Clubs, RY 2026-27 — ${zone7Esc(clubName)} (${baroMode === 'quick' ? 'Quick Check' : 'Full Barometer'})</h2>
+      <h2>Barometer for ${isUni ? "University" : "Community"} Based Clubs, RY 2026-27, ${zone7Esc(clubName)} (${baroMode === 'quick' ? 'Quick Check' : 'Full Barometer'})</h2>
       <div class="summary">
-        <b>${total} / ${maxTotal} points</b> — Projected Recognition Category: <b>${badge}</b><br>
+        <b>${total} / ${maxTotal} points</b>, Projected Recognition Category: <b>${badge}</b><br>
         Generated ${new Date().toLocaleDateString()} · Self-reported by the club; subject to ZRR / Recognition Committee verification.
       </div>
       <table>
@@ -1526,7 +1526,7 @@ async function renderProjectList(){
   list.innerHTML = `<div class="no-projects">Loading projects…</div>`;
   const projects = await ZONE7_DB.getProjects(currentClub);
   if(!projects.length){
-    list.innerHTML = `<div class="no-projects">No projects yet — add your first one on the right.</div>`;
+    list.innerHTML = `<div class="no-projects">No projects yet, add your first one on the right.</div>`;
     return;
   }
   list.innerHTML = projects.map(p => `
@@ -1534,7 +1534,7 @@ async function renderProjectList(){
       <img src="${zone7Esc(p.cover || '')}" alt="">
       <div class="info">
         <h4>${zone7Esc(p.title)}</h4>
-        <span>${zone7Esc(p.project_code || '—')} · ${zone7Esc(p.category || "Uncategorized")} · ${zone7Esc(p.date || "No date")}</span>
+        <span>${zone7Esc(p.project_code || '–')} · ${zone7Esc(p.category || "Uncategorized")} · ${zone7Esc(p.date || "No date")}</span>
       </div>
     </div>
   `).join("");
@@ -1673,7 +1673,7 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
     resetForm();
   } catch(err){
     console.error(err);
-    showToast("Save failed — check your Supabase setup.");
+    showToast("Save failed, check your Supabase setup.");
   } finally {
     submitBtn.disabled = false; submitBtn.textContent = "Save Project";
   }
@@ -1689,7 +1689,7 @@ document.getElementById("deleteBtn").addEventListener("click", async () => {
       resetForm();
     } catch(err){
       console.error(err);
-      showToast("Delete failed — check your Supabase setup.");
+      showToast("Delete failed, check your Supabase setup.");
     }
   }
 });
@@ -1702,7 +1702,7 @@ async function renderEventList(){
   list.innerHTML = `<div class="no-projects">Loading events…</div>`;
   const events = await ZONE7_DB.getEvents();
   if(!events.length){
-    list.innerHTML = `<div class="no-projects">No zone events yet — add one below.</div>`;
+    list.innerHTML = `<div class="no-projects">No zone events yet, add one below.</div>`;
     return;
   }
   list.innerHTML = events.map(ev => `
@@ -1756,7 +1756,7 @@ document.getElementById("saveEventBtn").addEventListener("click", async () => {
     resetEventForm();
   } catch(err){
     console.error(err);
-    showToast("Save failed — check your Supabase setup.");
+    showToast("Save failed, check your Supabase setup.");
   }
 });
 
@@ -1772,7 +1772,7 @@ document.getElementById("deleteEventBtn").addEventListener("click", async () => 
       resetEventForm();
     } catch(err){
       console.error(err);
-      showToast("Delete failed — check your Supabase setup.");
+      showToast("Delete failed, check your Supabase setup.");
     }
   }
 });
@@ -1795,7 +1795,7 @@ document.getElementById("zonalLoginBtn").addEventListener("click", () => {
   if(ZONE7_DB.loginZonal(pw)){
     document.getElementById("loginView").style.display = "none";
     document.getElementById("dashboard").style.display = "block";
-    document.getElementById("dashClubName").textContent = "Zone 7 Team — Dashboard";
+    document.getElementById("dashClubName").textContent = "Zone 7 Team, Dashboard";
     document.getElementById("dashClubLogo").style.display = "none";
     document.getElementById("viewClubBtn").style.display = "none";
     document.body.classList.add("has-sidebar");
@@ -1815,7 +1815,7 @@ async function renderGuideList(){
   const list = document.getElementById("guideList");
   list.innerHTML = `<div class="no-projects">Loading guides…</div>`;
   const guides = await ZONE7_DB.getGuides();
-  if(!guides.length){ list.innerHTML = `<div class="no-projects">No uploaded guides yet — add one below.</div>`; return; }
+  if(!guides.length){ list.innerHTML = `<div class="no-projects">No uploaded guides yet, add one below.</div>`; return; }
   list.innerHTML = guides.map(g => `
     <div class="proj-item">
       <div class="info">
@@ -1862,7 +1862,7 @@ document.getElementById("gUploadBtn").addEventListener("click", async () => {
     renderGuideList();
   } catch(err){
     console.error(err);
-    msg.textContent = "Upload failed — check your Supabase setup."; msg.style.color = "var(--magenta-deep)";
+    msg.textContent = "Upload failed, check your Supabase setup."; msg.style.color = "var(--magenta-deep)";
   }
 });
 
@@ -1875,7 +1875,7 @@ async function renderZRRList(){
   list.innerHTML = `<div class="no-projects">Loading ZRR history…</div>`;
   const zrrs = await ZONE7_DB.getZRRs();
   if(!zrrs.length){
-    list.innerHTML = `<div class="no-projects">No ZRRs recorded yet — add the first one below.</div>`;
+    list.innerHTML = `<div class="no-projects">No ZRRs recorded yet, add the first one below.</div>`;
     return;
   }
   list.innerHTML = zrrs.map(z => `
@@ -1969,7 +1969,7 @@ document.getElementById("zrrSaveBtn").addEventListener("click", async () => {
     resetZrrForm();
   } catch(err){
     console.error(err);
-    showToast("Save failed — check your Supabase setup.");
+    showToast("Save failed, check your Supabase setup.");
   } finally {
     btn.disabled = false; btn.textContent = "Save ZRR";
   }
@@ -1987,7 +1987,7 @@ document.getElementById("zrrDeleteBtn").addEventListener("click", async () => {
       resetZrrForm();
     } catch(err){
       console.error(err);
-      showToast("Delete failed — check your Supabase setup.");
+      showToast("Delete failed, check your Supabase setup.");
     }
   }
 });
@@ -1996,7 +1996,7 @@ document.getElementById("zrrDeleteBtn").addEventListener("click", async () => {
 if(ZONE7_DB.isZonal()){
   document.getElementById("loginView").style.display = "none";
   document.getElementById("dashboard").style.display = "block";
-  document.getElementById("dashClubName").textContent = "Zone 7 Team — Dashboard";
+  document.getElementById("dashClubName").textContent = "Zone 7 Team, Dashboard";
   document.getElementById("dashClubLogo").style.display = "none";
   document.getElementById("viewClubBtn").style.display = "none";
   document.body.classList.add("has-sidebar");
@@ -2028,12 +2028,12 @@ async function renderLeaderList(){
   const list = document.getElementById("leaderList");
   list.innerHTML = `<div class="no-projects">Loading team…</div>`;
   const leaders = await ZONE7_DB.getLeadership();
-  if(!leaders.length){ list.innerHTML = `<div class="no-projects">No team members yet — add one below.</div>`; return; }
+  if(!leaders.length){ list.innerHTML = `<div class="no-projects">No team members yet, add one below.</div>`; return; }
   list.innerHTML = leaders.map(l => `
     <div class="proj-item" data-id="${zone7Esc(l.id)}">
       ${l.photo ? `<img src="${zone7Esc(l.photo)}" alt="" style="border-radius:50%;">` : ""}
       <div class="info">
-        <h4>${zone7Esc(l.role)} — ${zone7Esc(l.name)}</h4>
+        <h4>${zone7Esc(l.role)}, ${zone7Esc(l.name)}</h4>
         <span>${zone7Esc(l.role_full)}</span>
       </div>
     </div>
@@ -2098,7 +2098,7 @@ document.getElementById("leaderSaveBtn").addEventListener("click", async () => {
     resetLeaderForm();
   } catch(err){
     console.error(err);
-    showToast("Save failed — check your Supabase setup.");
+    showToast("Save failed, check your Supabase setup.");
   } finally {
     btn.disabled = false; btn.textContent = "Save Member";
   }
@@ -2116,7 +2116,7 @@ document.getElementById("leaderDeleteBtn").addEventListener("click", async () =>
       resetLeaderForm();
     } catch(err){
       console.error(err);
-      showToast("Delete failed — check your Supabase setup.");
+      showToast("Delete failed, check your Supabase setup.");
     }
   }
 });
@@ -2267,7 +2267,7 @@ document.getElementById("mmSaveBtn").addEventListener("click", async () => {
     renderMMSaved();
   } catch(err){
     console.error(err);
-    showToast("Save failed — check your Supabase setup.");
+    showToast("Save failed, check your Supabase setup.");
   } finally {
     btn.disabled = false; btn.textContent = "Save Draft";
   }
@@ -2413,7 +2413,7 @@ document.getElementById("txAddBtn").addEventListener("click", async () => {
     renderLedger();
   } catch(err){
     console.error(err);
-    showToast("Save failed — check your Supabase setup.");
+    showToast("Save failed, check your Supabase setup.");
   }
 });
 document.getElementById("txCsvBtn").addEventListener("click", async () => {
@@ -2427,7 +2427,7 @@ document.getElementById("txPdfBtn").addEventListener("click", async () => {
   const tx = await ZONE7_DB.getTransactions(currentClub);
   const { jsPDF } = window.jspdf; const doc = new jsPDF(); let y = 18;
   doc.setFontSize(13); doc.setFont(undefined,"bold");
-  doc.text(`${CLUB_DIRECTORY[currentClub].name} — Financial Ledger`,14,y); y+=8;
+  doc.text(`${CLUB_DIRECTORY[currentClub].name}, Financial Ledger`,14,y); y+=8;
   doc.setFontSize(9); doc.setFont(undefined,"normal");
   tx.forEach(t => {
     if(y>280){doc.addPage();y=18;}

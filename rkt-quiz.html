@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rota Quiz Training Ground | Zone 7 Rotaract 3292</title>
+<meta name="description" content="Train for the Rota Quiz 2025-26 with the official District 3292 reading materials. Study flashcards, a gamified quiz challenge with hearts and streaks, and a fast acronym sprint. Built for new members who want to actually remember Rotary facts.">
+<link rel="canonical" href="https://zone7rotaract3292.vercel.app/rkt-quiz">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zone 7 Rotaract">
+<meta property="og:title" content="Rota Quiz Training Ground | Zone 7 Rotaract 3292">
+<meta property="og:description" content="Study cards, a gamified quiz challenge and an acronym sprint built from the official Rota Quiz reading materials.">
+<meta property="og:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
+<meta property="og:url" content="https://zone7rotaract3292.vercel.app/rkt-quiz">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="zone7-data.js"></script>
+<style>
+  :root{
+    --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
+    --cream:#FFF8EF; --paper:#FFFDF9; --line: rgba(27,24,54,0.1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
+  a{color:inherit; text-decoration:none;}
+  button{font-family:'Inter';}
+  .wrap{max-width:1060px; margin:0 auto; padding:0 28px;}
+
+  .hero{padding:64px 0 26px; position:relative; overflow:hidden;}
+  .hero::before,.hero::after{content:""; position:absolute; border-radius:50%; pointer-events:none;}
+  .hero::before{top:-150px; right:-140px; width:380px; height:380px; background:radial-gradient(circle, rgba(225,26,110,0.14), transparent 70%);}
+  .hero::after{bottom:-160px; left:-140px; width:360px; height:360px; background:radial-gradient(circle, rgba(242,169,0,0.16), transparent 70%);}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:8px 16px; border-radius:100px; margin-bottom:20px;}
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
+  .hero h1{font-size:clamp(2rem,4.4vw,2.8rem); max-width:680px;}
+  .hero p.sub{color:rgba(27,24,54,0.65); font-size:1.02rem; max-width:680px; margin-top:16px; line-height:1.65;}
+  .hero .note{margin-top:18px; font-size:0.84rem; color:rgba(27,24,54,0.55); border-left:3px solid var(--gold); padding-left:14px; max-width:640px; line-height:1.6;}
+  .hero .note a{color:var(--magenta-deep); font-weight:700; text-decoration:underline;}
+
+  .modes{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:34px 0 60px;}
+  @media (max-width:820px){ .modes{grid-template-columns:1fr;} }
+  .mode-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:26px 24px; cursor:pointer;
+    text-align:left; transition:transform .2s, box-shadow .2s, border-color .2s; position:relative; overflow:hidden;
+  }
+  .mode-card::before{content:""; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg, var(--magenta), var(--gold)); opacity:0; transition:opacity .2s;}
+  .mode-card:hover{transform:translateY(-4px); box-shadow:0 18px 40px rgba(27,24,54,.1); border-color:rgba(225,26,110,.25);}
+  .mode-card:hover::before{opacity:1;}
+  .mode-ico{width:52px; height:52px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; background:rgba(225,26,110,.08); margin-bottom:16px;}
+  .mode-card h3{font-size:1.12rem; margin-bottom:6px;}
+  .mode-card p{font-size:0.86rem; color:rgba(27,24,54,0.62); line-height:1.55; margin-bottom:12px;}
+  .mode-meta{display:flex; gap:8px; flex-wrap:wrap;}
+  .meta-chip{font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; padding:5px 12px; border-radius:100px; background:rgba(27,24,54,0.06); color:rgba(27,24,54,0.65);}
+  .meta-chip.hot{background:rgba(242,169,0,0.16); color:#8a6200;}
+
+  .panel{display:none; margin-bottom:70px;}
+  .panel.active{display:block;}
+
+  .p-head{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:18px;}
+  .p-back{background:transparent; border:1.5px solid var(--line); color:var(--ink); border-radius:100px; padding:9px 18px; font-weight:700; font-size:0.82rem; cursor:pointer; transition:all .15s;}
+  .p-back:hover{border-color:var(--magenta); color:var(--magenta-deep);}
+
+  .chip-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .chip{
+    font-size:0.8rem; font-weight:600; padding:7px 15px; border-radius:100px; border:1.5px solid var(--line);
+    background:#fff; cursor:pointer; color:rgba(27,24,54,0.6); transition:all .15s;
+  }
+  .chip:hover{border-color:var(--magenta); color:var(--magenta-deep);}
+  .chip.active{background:var(--ink); border-color:var(--ink); color:#fff;}
+
+  .stage{background:var(--paper); border:1px solid var(--line); border-radius:24px; padding:30px; box-shadow:0 18px 50px rgba(27,24,54,.08);}
+
+  /* study deck */
+  .deck-tools{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:18px;}
+  .deck-count{font-size:0.82rem; font-weight:700; color:rgba(27,24,54,.55);}
+  .deck-progress{height:6px; border-radius:6px; background:var(--line); overflow:hidden; margin-bottom:22px;}
+  .deck-progress span{display:block; height:100%; background:linear-gradient(90deg, var(--magenta), var(--gold)); transition:width .25s;}
+  .flash-card{
+    background:#fff; border:1.5px solid var(--line); border-radius:20px; min-height:230px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; text-align:center; padding:34px 30px;
+    transition:border-color .2s, transform .2s; position:relative;
+  }
+  .flash-card:hover{border-color:var(--magenta); transform:translateY(-2px);}
+  .flash-card .f-cat{position:absolute; top:18px; left:20px; font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; color:var(--magenta-deep); background:rgba(225,26,110,0.08); padding:5px 12px; border-radius:100px;}
+  .flash-card .f-flip{position:absolute; bottom:14px; right:18px; font-size:0.72rem; font-weight:700; color:rgba(27,24,54,.4);}
+  .flash-card .f-q{font-family:'Poppins'; font-weight:700; font-size:clamp(1.05rem,2.2vw,1.35rem); line-height:1.45; max-width:640px;}
+  .flash-card .f-a{font-size:1.05rem; font-weight:700; color:#1c8a4d; max-width:640px; line-height:1.5;}
+  .flash-card .f-why{margin-top:10px; font-size:0.86rem; color:rgba(27,24,54,.62); max-width:640px; line-height:1.6;}
+  .deck-nav{display:flex; justify-content:center; gap:12px; margin-top:20px;}
+  .deck-nav button{background:var(--ink); color:#fff; border:none; border-radius:100px; padding:11px 22px; font-weight:800; font-size:0.85rem; cursor:pointer; transition:background .2s, transform .15s;}
+  .deck-nav button:hover{background:var(--magenta-deep); transform:translateY(-1px);}
+  .deck-nav button.ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line);}
+  .deck-nav button.ghost:hover{border-color:var(--magenta); color:var(--magenta-deep); background:none;}
+  .deck-nav button:disabled{opacity:.35; cursor:default; transform:none;}
+
+  /* quiz */
+  .hud{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:18px;}
+  .hud .hud-item{display:flex; align-items:center; gap:8px; font-weight:800; font-size:0.9rem;}
+  .hud .hearts{font-size:1.05rem; letter-spacing:2px;}
+  .hud .hearts .lost{opacity:.18; filter:grayscale(1);}
+  .hud .streak{color:#8a6200; background:rgba(242,169,0,.14); padding:6px 14px; border-radius:100px; font-size:0.8rem;}
+  .hud .points{color:var(--magenta-deep); font-size:0.95rem;}
+  .q-progress{font-size:.74rem; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:rgba(27,24,54,.4); margin-bottom:8px;}
+  .q-bar{height:6px; border-radius:6px; background:var(--line); overflow:hidden; margin-bottom:24px;}
+  .q-bar span{display:block; height:100%; background:linear-gradient(90deg, var(--magenta), var(--gold)); transition:width .3s;}
+  #qzQ h3{font-size:clamp(1.15rem,2.4vw,1.45rem); margin-bottom:22px; line-height:1.45;}
+  .q-opts{display:grid; gap:12px;}
+  .q-opt{
+    text-align:left; font-size:0.92rem; font-weight:600; color:var(--ink);
+    background:#fff; border:1.5px solid var(--line); border-radius:14px; padding:15px 18px; cursor:pointer;
+    transition:border-color .15s, background .15s, transform .15s; display:flex; align-items:center; gap:14px;
+  }
+  .q-opt .letter{width:30px; height:30px; border-radius:50%; background:rgba(27,24,54,.06); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.8rem; flex-shrink:0; transition:background .15s;}
+  .q-opt:hover{border-color:var(--magenta); transform:translateY(-1px);}
+  .q-opt.correct{border-color:#1c8a4d; background:rgba(28,138,77,0.08);}
+  .q-opt.correct .letter{background:#1c8a4d; color:#fff;}
+  .q-opt.wrong{border-color:#C0392B; background:rgba(192,57,43,0.08); animation:shake .35s;}
+  .q-opt.wrong .letter{background:#C0392B; color:#fff;}
+  .q-opt:disabled{cursor:default; transform:none;}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  .q-feedback{margin-top:18px; font-size:0.9rem; line-height:1.6; display:none; border-radius:16px; padding:16px 18px;}
+  .q-feedback.show{display:block; animation:rise .25s;}
+  @keyframes rise{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:translateY(0)}}
+  .q-feedback b{font-family:'Poppins'; display:block; margin-bottom:4px; font-size:0.98rem;}
+  .q-feedback.good{background:rgba(28,138,77,0.09); border:1.5px solid rgba(28,138,77,.25);}
+  .q-feedback.good b{color:#1c8a4d;}
+  .q-feedback.bad{background:rgba(192,57,43,0.07); border:1.5px solid rgba(192,57,43,.25);}
+  .q-feedback.bad b{color:#C0392B;}
+  .q-feedback a{color:var(--magenta-deep); font-weight:700; text-decoration:underline;}
+  .q-next{
+    margin-top:20px; background:var(--ink); color:#fff; border:none; border-radius:100px; padding:12px 26px;
+    font-weight:800; font-size:0.88rem; cursor:pointer; transition:background .2s, transform .15s; display:none;
+  }
+  .q-next.show{display:inline-block;}
+  .q-next:hover{background:var(--magenta-deep); transform:translateY(-1px);}
+
+  /* result */
+  .result{display:none; text-align:center; padding:20px 0 8px;}
+  .result.show{display:block; animation:rise .3s;}
+  .ring{position:relative; width:150px; height:150px; margin:0 auto 18px;}
+  .ring svg{transform:rotate(-90deg);}
+  .ring .ring-val{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .ring .ring-val b{font-family:'Poppins'; font-weight:900; font-size:1.7rem; color:var(--magenta-deep);}
+  .ring .ring-val span{font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:rgba(27,24,54,.45);}
+  .result h3{font-size:1.5rem; margin-bottom:8px;}
+  .result p.blurb{color:rgba(27,24,54,0.65); max-width:500px; margin:0 auto 8px; line-height:1.65; font-size:0.95rem;}
+  .result .pt-line{font-size:0.82rem; font-weight:700; color:rgba(27,24,54,.5); margin-bottom:22px;}
+  .cat-break{max-width:520px; margin:0 auto 26px; text-align:left; display:flex; flex-direction:column; gap:10px;}
+  .cat-break .cb{display:grid; grid-template-columns:150px 1fr 44px; align-items:center; gap:12px; font-size:0.8rem; font-weight:600;}
+  .cat-break .cb-bar{height:8px; border-radius:8px; background:var(--line); overflow:hidden;}
+  .cat-break .cb-bar span{display:block; height:100%; background:linear-gradient(90deg, var(--magenta), var(--gold)); border-radius:8px;}
+  .cat-break .cb-n{text-align:right; color:rgba(27,24,54,.55); font-weight:700;}
+  .review{max-width:560px; margin:0 auto 26px; text-align:left; display:flex; flex-direction:column; gap:10px;}
+  .review .rv{background:#fff; border:1.5px solid var(--line); border-radius:14px; padding:13px 16px; font-size:0.85rem; line-height:1.55;}
+  .review .rv b{color:#C0392B; font-weight:700;}
+  .review .rv .rv-a{color:#1c8a4d; font-weight:700;}
+  .result .btns{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:6px;}
+  .btn{display:inline-block; background:var(--ink); color:#fff; padding:13px 26px; border-radius:100px; font-weight:800; font-size:0.9rem; transition:background .2s, transform .15s; cursor:pointer; border:none;}
+  .btn:hover{background:var(--magenta-deep); transform:translateY(-1px);}
+  .btn.ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line);}
+  .btn.ghost:hover{border-color:var(--magenta); color:var(--magenta-deep); background:none;}
+  .btn.gold{background:var(--gold); color:var(--ink);}
+  .btn.gold:hover{background:#ffc23d;}
+
+  /* sprint */
+  .timer-bar{height:8px; border-radius:8px; background:var(--line); overflow:hidden; margin:0 0 22px;}
+  .timer-bar span{display:block; height:100%; background:linear-gradient(90deg, #1c8a4d, var(--gold)); transition:width .1s linear; border-radius:8px;}
+  .sprint-score{font-size:1rem; font-weight:900; color:var(--magenta-deep);}
+
+  /* confetti */
+  .confetti-wrap{position:fixed; inset:0; pointer-events:none; z-index:99; overflow:hidden;}
+  .confetti{position:absolute; top:-12px; width:9px; height:14px; border-radius:2px; animation:fall linear forwards;}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg);}}
+
+  footer{background:var(--ink); color:rgba(255,255,255,0.5); padding:34px 0; text-align:center; font-size:0.85rem;}
+  .kbd-hint{font-size:0.74rem; color:rgba(27,24,54,.45); text-align:center; margin-top:14px;}
+  .kbd-hint kbd{background:#fff; border:1px solid var(--line); border-bottom-width:2px; border-radius:6px; padding:2px 7px; font-family:'Inter'; font-weight:700; font-size:0.72rem;}
+</style>
+</head>
+<body>
+
+<div id="siteNav" data-current="quiz" data-cta="join"></div>
+<script src="site-nav.js"></script>
+
+<header class="hero wrap">
+  <div class="eyebrow"><span class="dot"></span>Rota Quiz 25-26 · Official Reading Materials</div>
+  <h1>Train like the quiz is tomorrow.</h1>
+  <p class="sub">District 3292 runs a real Rota Quiz every year, and these questions come straight from the official reading materials. Learn with flashcards, test yourself with a challenge that gives you hearts, streaks and instant explanations, then prove you know your acronyms.</p>
+  <p class="note">Source documents: <a href="guides/Rotary-Rotaract-Reading-Materials-Rota-Quiz-2025-26.pdf" target="_blank" rel="noopener">Rotary-Rotaract Reading Materials 2025-26 (PDF)</a> and <a href="guides/Reading%20materials%20for%20Rota%20Quiz%2025-26.pdf" target="_blank" rel="noopener">Reading Materials for Rota Quiz 25-26 (PDF)</a>. Every fact here is pulled from those pages.</p>
+</header>
+
+<div class="wrap">
+  <div class="modes">
+    <button class="mode-card" id="modeStudy">
+      <div class="mode-ico">📚</div>
+      <h3>Study Deck</h3>
+      <p>Flip through every fact like flashcards. Filter by topic, shuffle the order, and let the answer sink in before you are ever tested on it.</p>
+      <div class="mode-meta"><span class="meta-chip" id="metaStudyCount"></span><span class="meta-chip">Tap to flip</span></div>
+    </button>
+    <button class="mode-card" id="modeQuiz">
+      <div class="mode-ico">🎯</div>
+      <h3>Quiz Challenge</h3>
+      <p>Ten questions, three hearts, streak bonuses. Miss an answer and you will learn why, right there, before moving on.</p>
+      <div class="mode-meta"><span class="meta-chip hot">❤️ 3 lives</span><span class="meta-chip">🔥 Streaks</span></div>
+    </button>
+    <button class="mode-card" id="modeSprint">
+      <div class="mode-ico">⚡</div>
+      <h3>Acronym Sprint</h3>
+      <p>Rotary loves initials. Decode them fast, one after another, before the timer runs out. Pure speed round.</p>
+      <div class="mode-meta"><span class="meta-chip hot">⏱ 6s each</span><span class="meta-chip">15 rounds</span></div>
+    </button>
+  </div>
+
+  <div class="panel" id="panelStudy">
+    <div class="p-head">
+      <button class="p-back" data-back="study">← Back to modes</button>
+      <div class="chip-row" id="studyChips"></div>
+    </div>
+    <div class="stage">
+      <div class="deck-tools">
+        <span class="deck-count" id="deckCount"></span>
+        <div class="chip-row">
+          <button class="chip" id="shuffleBtn">🔀 Shuffle</button>
+        </div>
+      </div>
+      <div class="deck-progress"><span id="deckBar"></span></div>
+      <div class="flash-card" id="flashCard">
+        <span class="f-cat" id="fCat"></span>
+        <span class="f-flip">tap to flip · space</span>
+        <div id="fFront" class="f-q"></div>
+        <div id="fBack" style="display:none"></div>
+      </div>
+      <div class="deck-nav">
+        <button class="ghost" id="cardPrev">← Previous</button>
+        <button id="cardNext">Next →</button>
+      </div>
+      <div class="kbd-hint"><kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>space</kbd> flip</div>
+    </div>
+  </div>
+
+  <div class="panel" id="panelQuiz">
+    <div class="p-head">
+      <button class="p-back" data-back="quiz">← Back to modes</button>
+      <div class="chip-row" id="quizChips"></div>
+    </div>
+    <div class="stage">
+      <div id="qzSetup">
+        <h3 style="font-size:1.25rem; margin-bottom:8px;">Pick your battlefield.</h3>
+        <p style="font-size:0.9rem; color:rgba(27,24,54,.6); margin-bottom:22px; line-height:1.6;">Choose one topic for a focused run, or take the full mix. Ten questions either way, drawn fresh from the bank.</p>
+        <div class="chip-row" style="margin-bottom:24px;" id="qzTopicRow"></div>
+        <button class="btn gold" id="qzStart">Start the Challenge →</button>
+      </div>
+      <div id="qzPlay" style="display:none">
+        <div class="hud">
+          <div class="hud-item">Hearts <span class="hearts" id="qzHearts">❤️❤️❤️</span></div>
+          <div class="hud-item streak" id="qzStreak" style="display:none">🔥 ×<span id="qzStreakN">0</span></div>
+          <div class="hud-item points">💯 <span id="qzPts">0</span></div>
+        </div>
+        <div class="q-progress" id="qzProgress">Question 1 of 10</div>
+        <div class="q-bar"><span id="qzBar" style="width:0%"></span></div>
+        <div id="qzQ">
+          <h3 id="qzQText"></h3>
+          <div class="q-opts" id="qzOpts"></div>
+          <div class="q-feedback" id="qzFb"><b></b><span></span></div>
+          <button class="q-next" id="qzNext">Next →</button>
+        </div>
+      </div>
+      <div class="result" id="qResult">
+        <div class="ring">
+          <svg width="150" height="150" viewBox="0 0 150 150">
+            <circle cx="75" cy="75" r="62" fill="none" stroke="var(--line)" stroke-width="12"/>
+            <circle id="ringCircle" cx="75" cy="75" r="62" fill="none" stroke="url(#ringGrad)" stroke-width="12" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6"/>
+            <defs>
+              <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#E11A6E"/><stop offset="100%" stop-color="#F2A900"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="ring-val"><b id="qzScore">0/10</b><span>correct</span></div>
+        </div>
+        <h3 id="qVerdict"></h3>
+        <p class="blurb" id="qBlurb"></p>
+        <p class="pt-line" id="qzPtsLine"></p>
+        <div class="cat-break" id="qzCatBreak"></div>
+        <div class="review" id="qzReview"></div>
+        <div class="btns">
+          <button class="btn" id="qzRetry">Run it back →</button>
+          <button class="btn ghost" id="qzToStudy">Study the deck</button>
+          <button class="btn ghost" id="qzToSprint">Acronym sprint</button>
+          <a class="btn ghost" href="join.html">Join a club</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="panelSprint">
+    <div class="p-head">
+      <button class="p-back" data-back="sprint">← Back to modes</button>
+    </div>
+    <div class="stage">
+      <div id="spSetup">
+        <h3 style="font-size:1.25rem; margin-bottom:8px;">Acronym sprint.</h3>
+        <p style="font-size:0.9rem; color:rgba(27,24,54,.6); margin-bottom:22px; line-height:1.6;">Fifteen initials, six seconds each. Answer fast, keep the streak alive, and finish with a score your club will hear about.</p>
+        <button class="btn gold" id="spStart">Start the Sprint →</button>
+      </div>
+      <div id="spPlay" style="display:none">
+        <div class="hud">
+          <div class="hud-item">Round <span id="spRound">1/15</span></div>
+          <div class="hud-item streak" id="spStreak" style="display:none">🔥 ×<span id="spStreakN">0</span></div>
+          <div class="hud-item sprint-score" id="spPts">0</div>
+        </div>
+        <div class="timer-bar"><span id="spTimer"></span></div>
+        <div id="spQ">
+          <h3 id="spQText" style="font-size:clamp(1.4rem,3vw,1.9rem); text-align:center; letter-spacing:0.04em; margin-bottom:24px;"></h3>
+          <div class="q-opts" id="spOpts"></div>
+          <div class="q-feedback" id="spFb"><b></b><span></span></div>
+          <button class="q-next" id="spNext">Next →</button>
+        </div>
+      </div>
+      <div class="result" id="spResult">
+        <div class="ring">
+          <svg width="150" height="150" viewBox="0 0 150 150">
+            <circle cx="75" cy="75" r="62" fill="none" stroke="var(--line)" stroke-width="12"/>
+            <circle id="spRing" cx="75" cy="75" r="62" fill="none" stroke="url(#ringGrad)" stroke-width="12" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6"/>
+          </svg>
+          <div class="ring-val"><b id="spScore">0/15</b><span>decoded</span></div>
+        </div>
+        <h3 id="spVerdict"></h3>
+        <p class="blurb" id="spBlurb"></p>
+        <div class="review" id="spReview"></div>
+        <div class="btns">
+          <button class="btn" id="spRetry">Run it back →</button>
+          <button class="btn ghost" id="spToStudy">Study the deck</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. Quiz built from the official Rota Quiz 2025-26 reading materials.</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- DATA: built from the official reading materials ---------------- */
+
+  var CATS = {
+    founder:   { name: "Founder & Early Days",  icon: "🧭" },
+    history:   { name: "Rotary Through the Years", icon: "📜" },
+    nepal:     { name: "Nepal & District 3292", icon: "🇳🇵" },
+    foundation:{ name: "Foundation & Polio",    icon: "🛡️" },
+    rotaract:  { name: "Rotaract & Youth",      icon: "🤝" },
+    rules:     { name: "Meetings, Dues & Rules",icon: "🗓️" },
+    general:   { name: "General Knowledge",     icon: "🌍" }
+  };
+
+  var BANK = [
+    /* ---------- founder ---------- */
+    { c:"founder", q:"Who founded Rotary, and what was his full name?", o:["Paul Percival Harris","Paul Henry Harris","Percival Harris Smith","John Paul Harris"], a:0, why:"Paul Percival Harris, an attorney in Chicago, called three business friends to his first meeting in 1905." },
+    { c:"founder", q:"When and where did the very first Rotary club meeting take place?", o:["23 February 1905, Chicago","9 March 1905, Chicago","1 January 1905, New York","3 October 1905, Boston"], a:0, why:"Paul Harris met with Silvester Schiele, Gustavus Loehr and Hiram Shorey on 23 February 1905. The second meeting was held on 9 March 1905." },
+    { c:"founder", q:"Where was Paul Harris born?", o:["Racine, Wisconsin, USA","Chicago, Illinois, USA","Boston, Massachusetts, USA","London, England"], a:0, why:"He was born in Racine, Wisconsin, USA, in 1868." },
+    { c:"founder", q:"Who was the role model of Paul Harris?", o:["Howard Harris, his grandfather","George Harris, his father","His first law professor","Benjamin Franklin"], a:0, why:"Paul Harris looked up to his grandfather, Howard Harris, as his role model." },
+    { c:"founder", q:"What was Paul Harris' professional classification?", o:["Legal Affairs","Medicine","Journalism","Education"], a:0, why:"Rotary's founder was a lawyer, so his classification was Legal Affairs." },
+    { c:"founder", q:"When did Paul Harris die?", o:["27 January 1947","23 February 1945","13 March 1947","1 July 1950"], a:0, why:"Paul Harris passed away on 27 January 1947." },
+    { c:"founder", q:"Where did the name \"Rotary\" come from?", o:["Meetings rotated between members' offices","It comes from the rotating wheel logo","It is an acronym","It was the founder's street name"], a:0, why:"The first members rotated their meeting places around their offices, and the name stuck." },
+    { c:"founder", q:"How many words are in the 4-Way Test?", o:["24","28","20","32"], a:0, why:"The test has 24 words. The Nepali version, translated by Rtn. Kamal Mani Dixit, runs to 28 words." },
+    { c:"founder", q:"Who created the 4-Way Test, and in which year?", o:["Herbert J. Taylor, 1932","Paul Harris, 1932","Chesley Perry, 1935","Oscar Bjorge, 1929"], a:0, why:"Herbert J. Taylor wrote it in 1932. He later served as RI President in 1954-55, Rotary's golden jubilee year." },
+    { c:"founder", q:"Who designed the Rotary wheel?", o:["Montague Bear","Oscar Bjorge","Herbert Taylor","Paul Harris"], a:0, why:"Montague Bear designed the original wheel. Oscar Bjorge later standardized it with 6 spokes, 24 cogs and a keyway." },
+
+    /* ---------- history ---------- */
+    { c:"history", q:"Which was the first Rotary club outside North America?", o:["RC Dublin","RC London","RC Paris","RC Manila"], a:0, why:"Rotary Club of Dublin was the first club chartered outside North America." },
+    { c:"history", q:"In which year did Rotary membership reach one million?", o:["1985","1975","1990","1968"], a:0, why:"Rotary crossed the one million member mark in 1985." },
+    { c:"history", q:"Who was the first female President of Rotary International, and when?", o:["Jennifer Jones, 2022-23","Stephanie Urchick, 2024-25","Sylvia Whitlock, 1988","Carolyn E. Jones, 2010"], a:0, why:"Jennifer Jones served as the first woman RI President in 2022-23 under the theme Imagine Rotary." },
+    { c:"history", q:"Who was RI President in Rotary's golden jubilee year, 1954-55?", o:["Herbert J. Taylor","Frank L. Mulholland","Clifford A. Randall","Glenn E. Estess"], a:0, why:"Herbert J. Taylor led Rotary in 1954-55, exactly 50 years after the first club." },
+    { c:"history", q:"Which RI President promoted \"Reach within to Embrace Humanity\"?", o:["Kalyan Banerjee, 2011-12","Shekhar Mehta, 2021-22","R. Gordon McInally, 2023-24","Jennifer Jones, 2022-23"], a:0, why:"PRIP Kalyan Banerjee of India carried the theme Reach Within to Embrace Humanity in 2011-12." },
+    { c:"history", q:"Where will the RI Convention for 2027-28 be held?", o:["Manila, Philippines","Taipei, Taiwan","Honolulu, Hawaii","Singapore"], a:0, why:"Manila, Philippines hosts 2027-28. Taipei (2025-26) and Honolulu (2026-27) come before it." },
+    { c:"history", q:"When and where was the first RYLA held?", o:["July 1961, Brisbane, Australia","March 1968, Chicago","June 1955, New York","July 1970, London"], a:0, why:"The first Rotary Youth Leadership Awards was run by the Rotary Club of Brisbane, Australia in July 1961." },
+    { c:"history", q:"When and where was the first Interact club formed?", o:["5 November 1962, Melbourne High School","13 March 1968, North Carolina","1 July 1965, Chicago","5 November 1972, London"], a:0, why:"The Interact Club of Melbourne High School was formed on 5 November 1962. Interact Week runs in the week of that date." },
+    { c:"history", q:"How many clubs and delegates attended the first RI Convention in 1910?", o:["16 clubs, 60 delegates","25 clubs, 100 delegates","10 clubs, 40 delegates","50 clubs, 250 delegates"], a:0, why:"It was the smallest convention ever, with only 60 delegates from 16 clubs. The largest drew 43,381 to Osaka in 2004." },
+    { c:"history", q:"In which year did RI adopt the Club Leadership Plan (CLP)?", o:["2004","2010","1998","2013"], a:0, why:"The Club Leadership Plan was adopted in 2004 to strengthen clubs through five committees." },
+
+    /* ---------- nepal ---------- */
+    { c:"nepal", q:"When was Rotary Club of Kathmandu, the first club in Nepal, chartered?", o:["13 April 1959","23 February 1955","1 July 1960","13 March 1962"], a:0, why:"Nepal's first Rotary club was chartered on 13 April 1959. Nepal was the 111th nation to join RI." },
+    { c:"nepal", q:"Which club sponsored the first Rotary club of Nepal?", o:["RC Darbhanga","RC Calcutta","RC Jawalakhel","RC Patna"], a:0, why:"RC Kathmandu was sponsored by Rotary Club of Darbhanga." },
+    { c:"nepal", q:"Who was the first Paul Harris Fellow from Nepal?", o:["Hulas Chand Golchha","Kamal Mani Dixit","Gopal Raj Rajbhandari","Tirtha Man Shakya"], a:0, why:"Hulas Chand Golchha was the first Nepali Paul Harris Fellow." },
+    { c:"nepal", q:"When Nepal formed its own District 3292 in July 2008, how many clubs and Rotarians did it have?", o:["67 clubs, 1902 Rotarians","57 clubs, 1500 Rotarians","80 clubs, 2500 Rotarians","45 clubs, 1100 Rotarians"], a:0, why:"The new district started with 67 clubs and 1902 Rotarians in July 2008." },
+    { c:"nepal", q:"Who inaugurated Rotary International District 3292 on 1 July 2008?", o:["PM Girija Prasad Koirala","King Mahendra","President Ram Baran Yadav","PM Sher Bahadur Deuba"], a:0, why:"Late PM Girija Prasad Koirala inaugurated RID 3292. PRIP Rajendra K Saboo attended as guest." },
+    { c:"nepal", q:"Who was the first District Governor of RID 3292?", o:["Dr Tika Man Vaidya","Temas Manekshaw","Jaya Shah","Rajendra Man Sherchan"], a:0, why:"Dr Tika Man Vaidya, also Charter President of RC Patan West, became the first DG of 3292." },
+    { c:"nepal", q:"What was the first community service project by Rotary in Nepal?", o:["Eye Camp at Tundikhel","Bhaktapur Cancer Care Center","Polio immunization drive","Blood donation camp"], a:0, why:"A month-long mega eye camp at Tundikhel served more than 3000 patients right after RC Kathmandu was chartered." },
+    { c:"nepal", q:"Which club was the first admitted to RI after Nepal got District 3292?", o:["RC Baneswor","RC Jawalakhel Manjushree","RC Kathmandu","RC Patan West"], a:0, why:"Rotary Club of Baneswor was chartered on 30 July 2008, the first under the new district." },
+    { c:"nepal", q:"Which was the first Rotaract club of Nepal, and when was it chartered?", o:["RAC Birgunj, 13 March 1991","RAC Kathmandu, 1995","RAC Patan, 1992","RAC Chitwan, 1990"], a:0, why:"Rotaract Club of Birgunj was chartered on 13 March 1991, the very same date later celebrated as World Rotaract Day." },
+    { c:"nepal", q:"Who was the first District Rotaract Representative (DRR) of RID 3292?", o:["Rajan Piya","Bikram Chhetri","Roshan Karki","Dinesh Gaire"], a:0, why:"Rtr. Rajan Piya served as the first DRR in 2008-09 from Rotaract Club of Chitwan." },
+    { c:"nepal", q:"Which RI zone does RID 3292 fall under?", o:["Zone 6A","Zone 7A","Zone 5B","Zone 8C"], a:0, why:"Nepal's district sits in RI Zone 6A." },
+    { c:"nepal", q:"How many Rotary clubs are under RID 3292, per my.rotary.org?", o:["162","173","144","127"], a:0, why:"The district runs 162 Rotary clubs, 173 Rotaract clubs, 144 Interact clubs and 127 RCCs." },
+    { c:"nepal", q:"How many Rotaract clubs are under RID 3292, per my.rotary.org?", o:["173","162","144","127"], a:0, why:"173 Rotaract clubs. Easy to mix up with the 162 Rotary clubs, so keep both in mind." },
+    { c:"nepal", q:"Who is the current DRR of RID 3292 for 2025-26?", o:["Rtr. Dinesh Gaire, RAC Tinau City","Rtr. Bikram Chhetri, RAC Tilottama","Rtr. Roshan Karki, RAC Manohara","Rtr. Rajan Piya, RAC Chitwan"], a:0, why:"Rtr. Dinesh Gaire of Rotaract Club of Tinau City leads Rotaract in 2025-26." },
+
+    /* ---------- foundation ---------- */
+    { c:"foundation", q:"What makes someone a Paul Harris Fellow?", o:["Contributing $1,000 or more to The Rotary Foundation","Paying club dues for ten years","Founding a new club","Winning the 4-Way Test award"], a:0, why:"A PHF has contributed $1,000+ to the Annual Program Fund, PolioPlus Fund or Humanitarian Grants Program. The first PHF was Allison Brush." },
+    { c:"foundation", q:"Who was the first woman Paul Harris Fellow?", o:["Adan Vargas","Jennifer Jones","Carolyn E. Jones","Sylvia Whitlock"], a:0, why:"Adan Vargas became the first woman PHF for a gift made in 1953." },
+    { c:"foundation", q:"What qualifies someone as a Major Donor of TRF?", o:["$10,000 or more to the Permanent Fund","$25,000 or more","$5,000 or more","$100,000 or more"], a:0, why:"Major Donors give $10,000+ to the Permanent Fund. Benefactors give or pledge $1,000+ to it." },
+    { c:"foundation", q:"What is a Benefactor of The Rotary Foundation?", o:["Someone who has given or pledged $1,000+ to the Permanent Fund","Anyone who served as DG","Someone with a 20-year membership","A club that hosted a foundation seminar"], a:0, why:"Benefactor status comes from giving or pledging $1,000+ to the Permanent Fund. A Bequest Society member pledges $10,000+." },
+    { c:"foundation", q:"What is the motto of The Rotary Foundation?", o:["Doing Good in The World","Service Above Self","Serve to Change Lives","The Future of Rotary is in Your Hands"], a:0, why:"The Foundation's motto is Doing Good in The World, and its mission is advancing world understanding, peace, health, education and poverty relief." },
+    { c:"foundation", q:"When was the Global Polio Eradication Initiative (GPEI) established?", o:["1988","1979","1996","2005"], a:0, why:"GPEI was founded in 1988 as a public-private partnership led by national governments." },
+    { c:"foundation", q:"How much does it cost to immunize one child against polio?", o:["US$0.60","US$1.00","US$0.25","US$2.50"], a:0, why:"Around 60 US cents per child. That is why every small contribution adds up fast." },
+    { c:"foundation", q:"By what percentage have polio cases worldwide dropped since 1985?", o:["99%","90%","75%","95%"], a:0, why:"A 99% reduction. The last two endemic countries are Pakistan and Afghanistan." },
+    { c:"foundation", q:"Why is Rotary's polio effort called Polio Plus?", o:["Immunizations for other illnesses are included","The vaccine costs one dollar extra","It was the second phase of the campaign","Polio is named after a virus family"], a:0, why:"Polio Plus pairs polio vaccination with immunization against other diseases, hence the plus." },
+    { c:"foundation", q:"Which of these is NOT a partner of Rotary in the GPEI?", o:["Greenpeace","WHO","UNICEF","Bill & Melinda Gates Foundation"], a:0, why:"The partners are WHO, UNICEF, the US CDC and the Bill & Melinda Gates Foundation. Greenpeace is not one of them." },
+    { c:"foundation", q:"When was Nepal announced polio-free?", o:["7 May 2014","30 August 2010","1 January 2000","24 October 2015"], a:0, why:"Nepal was declared polio-free on 7 May 2014. Its last polio case was reported on 30 August 2010." },
+    { c:"foundation", q:"What was the first contribution ever made to The Rotary Foundation?", o:["US$26.50","US$100","US$1,000","US$10"], a:0, why:"The very first contribution to the Foundation was US$26.50." },
+    { c:"foundation", q:"Which project inspired the Polio Plus program in 1985?", o:["Mass polio vaccination of 6 million children in the Philippines, 1979","A polio drive in India in 1980","A Rotary club campaign in Brazil","The founding of GPEI"], a:0, why:"A 1979 Philippines project immunizing six million children against polio set the stage for Polio Plus." },
+    { c:"foundation", q:"When was the Permanent Fund of TRF established?", o:["1996","1988","2005","1979"], a:0, why:"The Permanent Fund was established in 1996 to secure a better tomorrow, while the Annual Programs Fund supports today." },
+
+    /* ---------- rotaract ---------- */
+    { c:"rotaract", q:"In which year was Rotaract launched?", o:["1968","1962","1970","1958"], a:0, why:"Rotaract was launched in 1968 as a service program for young adults aged 18 to 30." },
+    { c:"rotaract", q:"What is the age range for Rotaract membership?", o:["18-30","12-18","15-25","21-35"], a:0, why:"Rotaract is open to young adults aged 18 to 30. Interact covers 12 to 18." },
+    { c:"rotaract", q:"When was the world's first Rotaract club chartered?", o:["13 March 1968, North Carolina, USA","5 November 1962, Florida","13 March 1991, Birgunj","1 July 1968, Chicago"], a:0, why:"The first club was chartered on 13 March 1968 in North Carolina, USA, and that date became World Rotaract Day." },
+    { c:"rotaract", q:"When is World Rotaract Day celebrated?", o:["13 March","23 February","5 November","1 July"], a:0, why:"World Rotaract Day is 13 March, the anniversary of the first Rotaract club in 1968." },
+    { c:"rotaract", q:"Since 2019, how does Rotary International describe Rotaract?", o:["An official partner of Rotary","A junior program supervised by Rotary","A fully independent organization","A district committee"], a:0, why:"In 2019 Rotary made Rotaract an official partner, equal in standing and run by its own members." },
+    { c:"rotaract", q:"What age group is the Interact program open to?", o:["12-18","15-19","18-30","8-14"], a:0, why:"Interact serves students aged 12 to 18 in school-based clubs." },
+    { c:"rotaract", q:"How much are RI dues per member for a community-based Rotaract club?", o:["US$8","US$5","US$2","US$10"], a:0, why:"Community-based Rotaract clubs pay US$8 per member to RI. University-based clubs pay US$5." },
+    { c:"rotaract", q:"How much are RI dues per member for a university-based Rotaract club?", o:["US$5","US$8","US$3","US$12"], a:0, why:"University-based clubs pay US$5 per member, while community-based clubs pay US$8." },
+    { c:"rotaract", q:"What age group is Rotary Youth Exchange open to?", o:["15-19","12-18","18-30","10-15"], a:0, why:"Rotary Youth Exchange is for students aged 15 to 19." },
+    { c:"rotaract", q:"What was the DRR theme of RID 3292 for 2023-24?", o:["Integrating Rotaract Upholding Fellowship","Rise Together Empowering Unity","Explore Rotaract","Inspire Empower Transform"], a:0, why:"Rtr. Roshan Karki carried Integrating Rotaract Upholding Fellowship in 2023-24." },
+
+    /* ---------- rules ---------- */
+    { c:"rules", q:"How many mandatory meetings per month did the 2016 Council on Legislation require?", o:["Two","One","Three","Four"], a:0, why:"CoL 2016 made two meetings per month mandatory for Rotary clubs." },
+    { c:"rules", q:"What is the required quorum of a regular weekly Rotary meeting?", o:["One third","One half","One fourth","Two thirds"], a:0, why:"A regular weekly meeting needs a one third quorum." },
+    { c:"rules", q:"What minimum percentage of meetings are Rotarians encouraged to attend?", o:["50% of meetings each half year","60%","75%","80%"], a:0, why:"The encouragement is 50% of meetings in each half of the Rotary year." },
+    { c:"rules", q:"What attendance does the Bylaws of Rotary International actually require of club members?", o:["60%","50%","40%","75%"], a:0, why:"RI's bylaws require 60% attendance, while the encouragement level is 50% per half year." },
+    { c:"rules", q:"When can a Rotarian \"make up\" a meeting by attending another Rotary event?", o:["Within the same Rotary year","Only in the next Rotary year","At any time","Only in their own club"], a:0, why:"Make-ups count within the same Rotary year, and can include other clubs, Rotaract and Interact partner meetings, service projects, district events and the RI Convention." },
+    { c:"rules", q:"What are the deadlines for sending semi-annual RI dues?", o:["31 October and 30 April","31 January and 31 July","1 July and 1 January","15 March and 15 September"], a:0, why:"Clubs send dues for the first half by 31 October and the second half by 30 April." },
+    { c:"rules", q:"When is a club terminated for non-payment of RI dues?", o:["Dues over US$250 and more than 120 days overdue","Over US$100 and 60 days overdue","Any amount over 30 days overdue","Over US$500 and 90 days overdue"], a:0, why:"Non-payment beyond US$250 for more than 120 days triggers termination. Reinstatement costs $30 per member plus all arrears." },
+    { c:"rules", q:"What is the Rule of 85 in Rotary?", o:["Attendance can be excused when membership years plus age total at least 85, with 20+ years of membership","Rotarians retire from office at 85","85% attendance is required","A club needs 85 members"], a:0, why:"A Rotarian with 20+ years of membership whose age plus membership years equals at least 85 can be excused from attendance." },
+    { c:"rules", q:"For how long can a member be granted a Leave of Absence?", o:["12 months","6 months","3 months","24 months"], a:0, why:"A leave of absence can last up to 12 months, per the Manual of Procedure." },
+    { c:"rules", q:"What is the goal behind \"Every Rotarian Every Year\" (EREY)?", o:["US$100 per capita contribution to the Annual Program Fund","US$50","US$250","US$1,000"], a:0, why:"EREY aims for a $100 per member yearly contribution to the Annual Program Fund." },
+
+    /* ---------- general ---------- */
+    { c:"general", q:"Which planets rotate from west to east?", o:["Venus and Uranus","Venus and Mars","Jupiter and Saturn","Mercury and Venus"], a:0, why:"Venus and Uranus spin from west to east, opposite to most of the solar system." },
+    { c:"general", q:"Who was the first woman in space?", o:["Valentina Tereshkova","Sally Ride","Kalpana Chawla","Mae Jemison"], a:0, why:"Soviet cosmonaut Valentina Tereshkova orbited Earth in 1963." },
+    { c:"general", q:"What is the SI unit of pressure?", o:["Pascal","Newton","Joule","Bar"], a:0, why:"Pressure is measured in pascals. A bar is a non-SI unit sometimes used in weather." },
+    { c:"general", q:"Which is the deepest lake in the world?", o:["Lake Baikal","Caspian Sea","Lake Tanganyika","Lake Superior"], a:0, why:"Lake Baikal in Russia is the world's deepest lake." },
+    { c:"general", q:"What is the largest island in the world?", o:["Greenland","Madagascar","Borneo","Australia"], a:0, why:"Greenland is the largest island. Australia counts as a continent, not an island." },
+    { c:"general", q:"Which country was formerly known as Holland?", o:["Netherlands","Belgium","Denmark","Luxembourg"], a:0, why:"The Netherlands is still commonly called Holland after its two best known provinces." },
+    { c:"general", q:"From which BS year was the SLC replaced by SEE in Nepal?", o:["2073 BS","2075 BS","2065 BS","2080 BS"], a:0, why:"The School Leaving Certificate became the Secondary Education Examination from 2073 BS." },
+    { c:"general", q:"How many years did Nelson Mandela spend in prison?", o:["27","25","30","18"], a:0, why:"Mandela spent 27 years in prison before his release in 1990." },
+    { c:"general", q:"Where will the FIFA World Cup 2034 be held?", o:["Saudi Arabia","United States","Qatar","Morocco"], a:0, why:"FIFA awarded the 2034 World Cup to Saudi Arabia." },
+    { c:"general", q:"Where was COP29, the 29th UN Climate Conference, held?", o:["Baku, Azerbaijan","Dubai, UAE","Sharm El-Sheikh, Egypt","Glasgow, Scotland"], a:0, why:"COP29 ran in Baku, Azerbaijan, in November 2024." },
+    { c:"general", q:"How many players from each team are on the field in kabaddi?", o:["7","5","9","11"], a:0, why:"Kabaddi sides field seven players each." },
+    { c:"general", q:"What is the national sport of Russia?", o:["Bandy","Ice hockey","Chess","Weightlifting"], a:0, why:"Russia's national sport is bandy, a form of ice hockey played on a football-sized rink." },
+    { c:"general", q:"What is the full name of Rodri, winner of the 2024 men's Ballon d'Or?", o:["Rodrigo Hernández Cascante","Rodrigo de Paul","Rodrigo Fernández","Rodrigo Sánchez"], a:0, why:"Manchester City midfielder Rodri is Rodrigo Hernández Cascante." },
+    { c:"general", q:"What is the chemical symbol for tin?", o:["Sn","Ti","Tn","Si"], a:0, why:"Tin comes from the Latin stannum, hence Sn." },
+    { c:"general", q:"Which vitamins are found in rainwater?", o:["Vitamin B12","Vitamin C","Vitamin D","Vitamin K"], a:0, why:"Rainwater collects traces of vitamin B12 as it passes through the atmosphere." },
+    { c:"general", q:"Who is known as the \"Snow Leopard\" of Nepali mountaineering?", o:["Ang Rita Sherpa","Tenzing Norgay","Kami Rita Sherpa","Nirmal Purja"], a:0, why:"Ang Rita Sherpa earned the nickname Snow Leopard for his winter ascents of Everest." }
+  ];
+
+  var ACRO = [
+    { ab:"TRF",  full:"The Rotary Foundation", o:["The Rotary Foundation","Total Rotary Fund","The Regional Fund","Trustees of Rotary Families"] },
+    { ab:"PHF",  full:"Paul Harris Fellow", o:["Paul Harris Fellow","President of Honorary Fellows","Public Health Fund","Permanent Humanitarian Fund"] },
+    { ab:"DDF",  full:"District Designated Fund", o:["District Designated Fund","District Development Fund","Direct Donation Facility","District Delegated Fund"] },
+    { ab:"DGE",  full:"District Governor Elect", o:["District Governor Elect","District Grants Executive","Director General Elect","Deputy Governor Elect"] },
+    { ab:"PETS", full:"Presidents Elect Training Seminar", o:["Presidents Elect Training Seminar","Program of Excellence for Team Spirit","Presidential Education and Training Session","Presidents Elect Trust Seminar"] },
+    { ab:"GETS", full:"Governor Elect Training Seminar", o:["Governor Elect Training Seminar","Global Exchange and Training Session","Governors Excellence Team Seminar","General Education for Trusted Staff"] },
+    { ab:"GSE",  full:"Group Study Exchange", o:["Group Study Exchange","Global Service Exchange","Graduate Student Exchange","Group Service Event"] },
+    { ab:"RYLA", full:"Rotary Youth Leadership Awards", o:["Rotary Youth Leadership Awards","Rotary Youth Learning Academy","Rotarian Young Leaders Alliance","Rotary Youth Leadership Association"] },
+    { ab:"ROTI", full:"Rotarians On The Internet", o:["Rotarians On The Internet","Rotaract On The Internet","Rotary Of The Islands","Rotarians Of The Year"] },
+    { ab:"CATS", full:"Challenging All To Succeed", o:["Challenging All To Succeed","Club and Team Support","Community Action Team System","Charter and Training Seminar"] },
+    { ab:"IPPC", full:"International Polio Plus Committee", o:["International Polio Plus Committee","International Public Policy Council","International Peace Promotion Council","Inter-provincial Polio Campaign"] },
+    { ab:"YEO",  full:"Youth Exchange Officer", o:["Youth Exchange Officer","Young Entrepreneurs Organization","Youth Education Officer","Year-End Operations"] },
+    { ab:"AG",   full:"Assistant Governor", o:["Assistant Governor","Area Governor","Association Governor","Annual Governor"] },
+    { ab:"COL",  full:"Council On Legislation", o:["Council On Legislation","Council Of Leaders","Committee Of Legislation","Congress Of Law"] },
+    { ab:"EREY", full:"Every Rotarian Every Year", o:["Every Rotarian Every Year","Every Region Every Year","Endowment for Rotarians Every Year","Equal Rotarian Youth"] },
+    { ab:"MOP",  full:"Manual of Procedure", o:["Manual of Procedure","Master Operations Plan","Membership Operations Policy","Manual of Presidents"] },
+    { ab:"PRIP", full:"Past Rotary International President", o:["Past Rotary International President","President Rotary International Programs","Permanent Rotary International Presence","Past Representative of International Presidents"] },
+    { ab:"RCC",  full:"Rotary Community Corps", o:["Rotary Community Corps","Rotary Club Council","Regional Community Committee","Rotary Cultural Circle"] },
+    { ab:"DTA",  full:"District Training Assembly", o:["District Training Assembly","District Technical Association","District Trustees Assembly","District Team Awards"] },
+    { ab:"SAR",  full:"Semi Annual Report", o:["Semi Annual Report","Secretary Annual Review","Service Achievement Record","Strategic Action Review"] }
+  ];
+
+  /* ---------------- helpers ---------------- */
+
+  var $ = function(id){ return document.getElementById(id); };
+  var catName = function(c){ return CATS[c] ? CATS[c].name : c; };
+  var esc = function(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); };
+
+  function shuffle(a){
+    var arr = a.slice();
+    for (var i = arr.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+
+  function pickQuestions(cat, n){
+    var pool = cat && cat !== "all" ? BANK.filter(function(q){ return q.c === cat; }) : BANK;
+    return shuffle(pool).slice(0, n);
+  }
+
+  function confettiBurst(){
+    var colors = ["#E11A6E","#F2A900","#1B1836","#1c8a4d","#A80F52"];
+    var wrap = document.createElement("div");
+    wrap.className = "confetti-wrap";
+    for (var i = 0; i < 60; i++){
+      var c = document.createElement("span");
+      c.className = "confetti";
+      c.style.left = (Math.random() * 100) + "vw";
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.animationDuration = (1.4 + Math.random() * 1.6) + "s";
+      c.style.animationDelay = (Math.random() * 0.5) + "s";
+      c.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
+      wrap.appendChild(c);
+    }
+    document.body.appendChild(wrap);
+    setTimeout(function(){ wrap.remove(); }, 3400);
+  }
+
+  function ringTo(el, pct){
+    var circ = 389.6;
+    var off = circ - (circ * Math.min(pct, 1));
+    var el2 = el;
+    el2.style.strokeDashoffset = off;
+  }
+
+  function verdictFor(pct){
+    if (pct === 1) return { t:"Rotary Legend. 🏆", b:"Flawless. You know the materials better than most club presidents. The district quiz has nothing on you." };
+    if (pct >= 0.8) return { t:"District Ready. 🎓", b:"Strong run. A quick pass through the study deck on your weak topics and you will be dangerous." };
+    if (pct >= 0.6) return { t:"Solid Foundation. 🧱", b:"You clearly understand the core. Review the misses below, then run it back." };
+    if (pct >= 0.4) return { t:"Keep Training. 📈", b:"The good news: every miss here is a fact you will never forget now. Study the deck and try again." };
+    return { t:"Everyone Starts Here. 🌱", b:"No shame at all. Flip through the study deck first, then come back and crush it." };
+  }
+
+  /* ---------------- navigation ---------------- */
+
+  var currentPanel = null;
+  function showPanel(name){
+    ["panelStudy","panelQuiz","panelSprint"].forEach(function(id){
+      var p = $(id);
+      p.classList.toggle("active", id === name);
+    });
+    currentPanel = name;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  $("modeStudy").addEventListener("click", function(){ showPanel("panelStudy"); });
+  $("modeQuiz").addEventListener("click", function(){ showPanel("panelQuiz"); });
+  $("modeSprint").addEventListener("click", function(){ showPanel("panelSprint"); });
+  document.querySelectorAll("[data-back]").forEach(function(b){
+    b.addEventListener("click", function(){ showPanel(null); });
+  });
+
+  /* ---------------- study deck ---------------- */
+
+  var deckCards = BANK.map(function(q){ return { c:q.c, q:q.q, a:q.o[q.a], why:q.why }; })
+    .concat(ACRO.map(function(a){ return { c:"acronyms", q:"What does \"" + a.ab + "\" stand for?", a:a.full, why:"Acronyms are Rotary's shorthand. The reading materials list over 200 of them." }; }));
+  var deckIdx = 0, deckFlipped = false, deckCat = "all";
+
+  function deckSet(){
+    var list = deckCards.filter(function(c){ return deckCat === "all" || c.c === deckCat; });
+    return list;
+  }
+  function deckRender(){
+    var list = deckSet();
+    if (deckIdx >= list.length) deckIdx = 0;
+    var card = list[deckIdx];
+    $("deckCount").textContent = "Card " + (deckIdx + 1) + " of " + list.length;
+    $("deckBar").style.width = Math.round(((deckIdx + 1) / list.length) * 100) + "%";
+    $("fCat").textContent = (CATS[card.c] ? CATS[card.c].icon + " " : "🔤 ") + catName(card.c);
+    $("fFront").textContent = card.q;
+    var back = $("fBack");
+    back.innerHTML = '<div class="f-a">' + esc(card.a) + '</div>' + (card.why ? '<div class="f-why">' + esc(card.why) + '</div>' : '');
+    back.style.display = "none";
+    $("fFront").style.display = "block";
+    deckFlipped = false;
+  }
+  function deckFlip(){
+    deckFlipped = !deckFlipped;
+    $("fFront").style.display = deckFlipped ? "none" : "block";
+    $("fBack").style.display = deckFlipped ? "block" : "none";
+  }
+  function deckNav(d){
+    var list = deckSet();
+    deckIdx = (deckIdx + d + list.length) % list.length;
+    deckRender();
+  }
+
+  var studyChips = ["all"].concat(Object.keys(CATS)).concat(["acronyms"]);
+  $("studyChips").innerHTML = studyChips.map(function(c){
+    return '<button class="chip' + (c === "all" ? " active" : "") + '" data-c="' + c + '">' + esc(c === "all" ? "All topics" : catName(c)) + '</button>';
+  }).join("");
+  document.querySelectorAll("#studyChips .chip").forEach(function(ch){
+    ch.addEventListener("click", function(){
+      deckCat = ch.dataset.c;
+      document.querySelectorAll("#studyChips .chip").forEach(function(x){ x.classList.toggle("active", x === ch); });
+      deckIdx = 0;
+      deckRender();
+    });
+  });
+
+  $("flashCard").addEventListener("click", deckFlip);
+  $("shuffleBtn").addEventListener("click", function(){
+    deckIdx = Math.floor(Math.random() * deckSet().length);
+    deckRender();
+  });
+  $("cardPrev").addEventListener("click", function(){ deckNav(-1); });
+  $("cardNext").addEventListener("click", function(){ deckNav(1); });
+  $("metaStudyCount").textContent = deckCards.length + " cards";
+
+  /* ---------------- quiz challenge ---------------- */
+
+  var quizQ = [], quizIdx = 0, quizScore = 0, quizPts = 0, quizHearts = 3, quizStreak = 0, quizCat = "all", quizMissed = [], quizTotal = 10;
+
+  var quizTopicRow = $("qzTopicRow");
+  var quizChipsAll = ["all"].concat(Object.keys(CATS));
+  quizTopicRow.innerHTML = quizChipsAll.map(function(c){
+    return '<button class="chip' + (c === "all" ? " active" : "") + '" data-c="' + c + '">' + esc(c === "all" ? "Full mix" : CATS[c].name) + '</button>';
+  }).join("");
+  document.querySelectorAll("#qzTopicRow .chip").forEach(function(ch){
+    ch.addEventListener("click", function(){
+      quizCat = ch.dataset.c;
+      document.querySelectorAll("#qzTopicRow .chip").forEach(function(x){ x.classList.toggle("active", x === ch); });
+    });
+  });
+  $("quizChips").innerHTML = quizChipsAll.map(function(c){
+    return '<button class="chip' + (c === "all" ? " active" : "") + '" data-c="' + c + '">' + esc(c === "all" ? "Full mix" : CATS[c].name) + '</button>';
+  }).join("");
+  document.querySelectorAll("#quizChips .chip").forEach(function(ch){
+    ch.addEventListener("click", function(){
+      quizCat = ch.dataset.c;
+      document.querySelectorAll("#quizChips .chip").forEach(function(x){ x.classList.toggle("active", x === ch); });
+    });
+  });
+
+  function quizStart(){
+    quizQ = pickQuestions(quizCat, quizTotal);
+    if (quizQ.length < quizTotal){
+      var extra = shuffle(BANK.filter(function(q){ return quizQ.indexOf(q) === -1; }));
+      quizQ = quizQ.concat(extra.slice(0, quizTotal - quizQ.length));
+    }
+    quizIdx = 0; quizScore = 0; quizPts = 0; quizHearts = 3; quizStreak = 0; quizMissed = [];
+    $("qzSetup").style.display = "none";
+    $("qzPlay").style.display = "block";
+    $("qResult").classList.remove("show");
+    quizRender();
+  }
+
+  function quizRender(){
+    var q = quizQ[quizIdx];
+    $("qzProgress").textContent = "Question " + (quizIdx + 1) + " of " + quizQ.length;
+    $("qzBar").style.width = Math.round((quizIdx / quizQ.length) * 100) + "%";
+    $("qzQText").textContent = q.q;
+    var letters = ["A","B","C","D"];
+    $("qzOpts").innerHTML = q.o.map(function(opt, i){
+      return '<button class="q-opt" data-i="' + i + '"><span class="letter">' + letters[i] + '</span><span>' + esc(opt) + '</span></button>';
+    }).join("");
+    $("qzFb").className = "q-feedback";
+    $("qzNext").classList.remove("show");
+    $("qzHearts").innerHTML = Array(3).fill("❤️").map(function(h, i){ return '<span class="' + (i < quizHearts ? "" : "lost") + '">' + h + '</span>'; }).join("");
+    $("qzStreak").style.display = quizStreak > 0 ? "inline-flex" : "none";
+    $("qzStreakN").textContent = quizStreak;
+    $("qzPts").textContent = quizPts;
+  }
+
+  function quizPick(i){
+    var q = quizQ[quizIdx];
+    var opts = $("qzOpts").querySelectorAll(".q-opt");
+    if (opts[0].disabled) return;
+    opts.forEach(function(o){ o.disabled = true; });
+    var right = i === q.a;
+    opts[q.a].classList.add("correct");
+    if (!right) opts[i].classList.add("wrong");
+
+    var fb = $("qzFb");
+    if (right){
+      quizStreak++;
+      var bonus = Math.min(quizStreak - 1, 5) * 20;
+      quizPts += 100 + bonus;
+      quizScore++;
+      fb.className = "q-feedback show good";
+      fb.querySelector("b").textContent = quizStreak > 1 ? "Nice streak! 🔥" : "Correct!";
+      fb.querySelector("span").textContent = q.why;
+    } else {
+      quizStreak = 0;
+      quizHearts--;
+      quizMissed.push(q);
+      fb.className = "q-feedback show bad";
+      fb.querySelector("b").textContent = "The answer is " + q.o[q.a] + ".";
+      fb.querySelector("span").textContent = q.why;
+      $("qzHearts").innerHTML = Array(3).fill("❤️").map(function(h, i){ return '<span class="' + (i < quizHearts ? "" : "lost") + '">' + h + '</span>'; }).join("");
+    }
+    $("qzStreak").style.display = quizStreak > 0 ? "inline-flex" : "none";
+    $("qzStreakN").textContent = quizStreak;
+    $("qzPts").textContent = quizPts;
+    if (quizHearts <= 0){
+      $("qzNext").textContent = "See your score →";
+    } else {
+      $("qzNext").textContent = quizIdx === quizQ.length - 1 ? "See your score →" : "Next →";
+    }
+    $("qzNext").classList.add("show");
+  }
+
+  function quizNext(){
+    if (quizHearts <= 0 || quizIdx === quizQ.length - 1){
+      quizEnd();
+    } else {
+      quizIdx++;
+      quizRender();
+    }
+  }
+
+  function quizEnd(){
+    $("qzPlay").style.display = "none";
+    var res = $("qResult");
+    res.classList.add("show");
+    var pct = quizScore / quizQ.length;
+    $("qzScore").textContent = quizScore + "/" + quizQ.length;
+    $("qzPtsLine").textContent = quizPts + " points · best streak " + Math.max(quizStreak, 1) + "×";
+    var v = verdictFor(pct);
+    $("qVerdict").textContent = v.t;
+    $("qBlurb").textContent = v.b;
+    ringTo($("ringCircle"), pct);
+    if (pct >= 0.8) confettiBurst();
+
+    var perCat = {};
+    quizQ.forEach(function(q){
+      if (!perCat[q.c]) perCat[q.c] = { ok:0, tot:0 };
+      perCat[q.c].tot++;
+    });
+    quizMissed.forEach(function(q){ if (perCat[q.c]) perCat[q.c].ok++; });
+    var catNames = Object.keys(perCat);
+    if (catNames.length > 1){
+      $("qzCatBreak").innerHTML = '<div style="font-size:.74rem; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:rgba(27,24,54,.4); margin-bottom:8px;">By topic</div>' + catNames.map(function(c){
+        var d = perCat[c];
+        var p = Math.round(((d.tot - d.ok) / d.tot) * 100);
+        return '<div class="cb"><span>' + esc(catName(c)) + '</span><div class="cb-bar"><span style="width:' + (100 - p) + '%"></span></div><span class="cb-n">' + (d.tot - d.ok) + '/' + d.tot + '</span></div>';
+      }).join("");
+    } else {
+      $("qzCatBreak").innerHTML = "";
+    }
+
+    $("qzReview").innerHTML = quizMissed.length ? '<div style="font-size:.74rem; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:rgba(27,24,54,.4); margin-bottom:8px;">Review your misses</div>' + quizMissed.map(function(q){
+      return '<div class="rv"><b>' + esc(q.q) + '</b><br><span class="rv-a">' + esc(q.o[q.a]) + '</span> · ' + esc(q.why) + '</div>';
+    }).join("") : "";
+  }
+
+  $("qzStart").addEventListener("click", quizStart);
+  $("qzOpts").addEventListener("click", function(e){
+    var opt = e.target.closest(".q-opt");
+    if (!opt) return;
+    quizPick(parseInt(opt.dataset.i, 10));
+  });
+  $("qzNext").addEventListener("click", quizNext);
+  $("qzRetry").addEventListener("click", quizStart);
+  $("qzToStudy").addEventListener("click", function(){ showPanel("panelStudy"); });
+  $("qzToSprint").addEventListener("click", function(){ showPanel("panelSprint"); });
+
+  /* ---------------- acronym sprint ---------------- */
+
+  var spQ = [], spIdx = 0, spPts = 0, spStreak = 0, spMissed = [], spTimer = null, spLeft = 0, spTotal = 15;
+
+  function spStart(){
+    spQ = shuffle(ACRO).slice(0, spTotal);
+    spIdx = 0; spPts = 0; spStreak = 0; spMissed = [];
+    $("spSetup").style.display = "none";
+    $("spPlay").style.display = "block";
+    $("spResult").classList.remove("show");
+    spRender();
+  }
+
+  function spRender(){
+    if (spTimer){ clearInterval(spTimer); }
+    var a = spQ[spIdx];
+    $("spRound").textContent = (spIdx + 1) + "/" + spQ.length;
+    $("spQText").textContent = a.ab;
+    $("spOpts").innerHTML = shuffle(a.o).map(function(opt, i){
+      return '<button class="q-opt" data-v="' + esc(opt) + '"><span class="letter">' + String.fromCharCode(65 + i) + '</span><span>' + esc(opt) + '</span></button>';
+    }).join("");
+    $("spFb").className = "q-feedback";
+    $("spNext").classList.remove("show");
+    $("spStreak").style.display = spStreak > 0 ? "inline-flex" : "none";
+    $("spStreakN").textContent = spStreak;
+    $("spPts").textContent = spPts + " pts";
+    spLeft = 6;
+    $("spTimer").style.width = "100%";
+    $("spTimer").style.background = "linear-gradient(90deg, #1c8a4d, var(--gold))";
+    spTimer = setInterval(function(){
+      spLeft -= 0.1;
+      var pct = Math.max(0, (spLeft / 6) * 100);
+      $("spTimer").style.width = pct + "%";
+      if (pct < 30) $("spTimer").style.background = "#C0392B";
+      else if (pct < 55) $("spTimer").style.background = "var(--gold)";
+      if (spLeft <= 0){
+        clearInterval(spTimer);
+        spAnswer(null);
+      }
+    }, 100);
+  }
+
+  function spAnswer(v){
+    if (spTimer){ clearInterval(spTimer); }
+    var a = spQ[spIdx];
+    var opts = $("spOpts").querySelectorAll(".q-opt");
+    if (opts.length && !opts[0].disabled){
+      opts.forEach(function(o){
+        o.disabled = true;
+        if (o.dataset.v === a.full) o.classList.add("correct");
+        if (o.dataset.v === v && v !== a.full) o.classList.add("wrong");
+      });
+      var fb = $("spFb");
+      if (v === a.full){
+        spStreak++;
+        spPts += 100 + Math.min(spStreak - 1, 5) * 20;
+        fb.className = "q-feedback show good";
+        fb.querySelector("b").textContent = spStreak > 1 ? "On fire! 🔥" : "Fast and correct!";
+        fb.querySelector("span").textContent = a.ab + " stands for " + a.full + ".";
+      } else {
+        spStreak = 0;
+        spMissed.push(a);
+        fb.className = "q-feedback show bad";
+        fb.querySelector("b").textContent = v ? "Not quite." : "Time's up!";
+        fb.querySelector("span").textContent = a.ab + " stands for " + a.full + ".";
+      }
+      $("spStreak").style.display = spStreak > 0 ? "inline-flex" : "none";
+      $("spStreakN").textContent = spStreak;
+      $("spPts").textContent = spPts + " pts";
+      $("spNext").classList.add("show");
+      $("spNext").textContent = spIdx === spQ.length - 1 ? "See your score →" : "Next →";
+    }
+  }
+
+  function spNext(){
+    if (spIdx === spQ.length - 1){
+      spEnd();
+    } else {
+      spIdx++;
+      spRender();
+    }
+  }
+
+  function spEnd(){
+    if (spTimer){ clearInterval(spTimer); }
+    $("spPlay").style.display = "none";
+    var res = $("spResult");
+    res.classList.add("show");
+    var ok = spQ.length - spMissed.length;
+    var pct = ok / spQ.length;
+    $("spScore").textContent = ok + "/" + spQ.length;
+    var v = verdictFor(pct);
+    v.t = pct === 1 ? "Decoding Machine. 🏆" : v.t;
+    v.b = pct === 1 ? "Every acronym, no hesitation. The quiz committee is calling you." : v.b;
+    $("spVerdict").textContent = v.t;
+    $("spBlurb").textContent = v.b;
+    ringTo($("spRing"), pct);
+    if (pct >= 0.8) confettiBurst();
+    $("spReview").innerHTML = spMissed.length ? '<div style="font-size:.74rem; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:rgba(27,24,54,.4); margin-bottom:8px;">Missed acronyms</div>' + spMissed.map(function(a){
+      return '<div class="rv"><b>' + esc(a.ab) + '</b> · <span class="rv-a">' + esc(a.full) + '</span></div>';
+    }).join("") : "";
+  }
+
+  $("spStart").addEventListener("click", spStart);
+  $("spOpts").addEventListener("click", function(e){
+    var opt = e.target.closest(".q-opt");
+    if (!opt) return;
+    spAnswer(opt.dataset.v);
+  });
+  $("spNext").addEventListener("click", spNext);
+  $("spRetry").addEventListener("click", spStart);
+  $("spToStudy").addEventListener("click", function(){ showPanel("panelStudy"); });
+
+  /* ---------------- keyboard shortcuts ---------------- */
+
+  document.addEventListener("keydown", function(e){
+    if (currentPanel === "panelStudy"){
+      if (e.key === "ArrowLeft"){ e.preventDefault(); deckNav(-1); }
+      else if (e.key === "ArrowRight"){ e.preventDefault(); deckNav(1); }
+      else if (e.code === "Space"){ e.preventDefault(); deckFlip(); }
+    }
+    if (currentPanel === "panelQuiz" && $("qzPlay").style.display === "block"){
+      var qzOpts = $("qzOpts").querySelectorAll(".q-opt");
+      if (!qzOpts[0].disabled){
+        var idx = ["1","2","3","4"].indexOf(e.key);
+        if (idx > -1){ e.preventDefault(); quizPick(idx); return; }
+      }
+      if (e.key === "Enter" && $("qzNext").classList.contains("show")){ e.preventDefault(); quizNext(); }
+    }
+    if (currentPanel === "panelSprint" && $("spPlay").style.display === "block"){
+      var spOpts = $("spOpts").querySelectorAll(".q-opt");
+      if (!spOpts[0].disabled){
+        var idx2 = ["1","2","3","4"].indexOf(e.key);
+        if (idx2 > -1){ e.preventDefault(); spAnswer(spOpts[idx2].dataset.v); return; }
+      }
+      if (e.key === "Enter" && $("spNext").classList.contains("show")){ e.preventDefault(); spNext(); }
+    }
+  });
+
+  deckRender();
+})();
+</script>
+</body>
+</html>
