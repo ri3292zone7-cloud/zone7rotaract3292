@@ -1066,7 +1066,7 @@
               <tr><td>Full house</td><td>800</td><td>16.80</td><td>15.40</td><td style="color:#1c6e3a;font-weight:800;">+1.40</td></tr>
             </tbody>
           </table>
-          <canvas id="psNetChart" style="max-width:480px; margin-top:14px; background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px;" height="190"></canvas>
+          <div class="a-bar-list" id="psNetBarList"></div>
         </div>
 
         <div class="de-sec">
@@ -1528,20 +1528,22 @@ if(psTabs){
   });
 }
 function renderPsNetChart(){
-  const cv = document.getElementById("psNetChart");
-  if(!cv || typeof Chart === "undefined") return;
-  new Chart(cv, {
-    type: "bar",
-    data: {
-      labels: ["Baseline 600", "Target 650", "Target+ 700", "Full house 800"],
-      datasets: [{ data: [-1.05, 0.70, 1.30, 1.40], backgroundColor: ["rgba(225,26,110,.5)","rgba(28,138,77,.85)","rgba(28,138,77,.95)","rgba(242,169,0,.95)"], borderRadius: 6 }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display:false }, title: { display:true, text:"Projected net position (lakhs)", font:{ size:12, weight:"bold" } }, tooltip: { callbacks: { label: c => ` ${c.raw > 0 ? "+" : ""}${c.raw} lakh` } } },
-      scales: { y: { beginAtZero:true, ticks:{ callback: v => v+" L" } } }
-    }
-  });
+  const el = document.getElementById("psNetBarList");
+  if(!el) return;
+  const rows = [
+    { label: "Baseline 600", val: -1.05, color: "rgba(225,26,110,.5)" },
+    { label: "Target 650", val: 0.70, color: "rgba(28,138,77,.85)" },
+    { label: "Target+ 700", val: 1.30, color: "rgba(28,138,77,.95)" },
+    { label: "Full house 800", val: 1.40, color: "rgba(242,169,0,.95)" }
+  ];
+  const max = Math.max(...rows.map(r => Math.abs(r.val)));
+  el.innerHTML = rows.map(r => `
+    <div class="a-bar-row">
+      <span class="a-bar-label">${r.label}</span>
+      <div class="a-bar-track"><div class="a-bar-fill" style="width:${(Math.abs(r.val)/max)*100}%; background:${r.color}"></div></div>
+      <span class="a-bar-value">${r.val > 0 ? "+" : ""}${r.val} L</span>
+    </div>
+  `).join('');
 }
 
 function baroIsDone(id){
