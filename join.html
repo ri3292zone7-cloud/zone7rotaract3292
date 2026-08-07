@@ -823,7 +823,7 @@
     stepIndex = i;
     steps.forEach((s, k) => s.classList.toggle('active', k === i));
     updateProgress();
-    if (scroll !== false) {
+    if (scroll && i === 0) {
       window.scrollTo({ top: document.getElementById('form-wrap').offsetTop - 20, behavior: 'smooth' });
     }
   }
