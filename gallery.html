@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="alternate" hreflang="en" href="https://zone7rotaract3292.vercel.app/gallery">
+<link rel="alternate" hreflang="ne" href="https://zone7rotaract3292.vercel.app/ne/gallery">
+<link rel="alternate" hreflang="x-default" href="https://zone7rotaract3292.vercel.app/gallery">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gallery | Zone 7 Rotaract 3292</title>
 <meta name="description" content="Photos from Rotaract service projects, blood donation drives, tree plantations, and events across all nine Zone 7 clubs. District 3292, Kathmandu Valley.">
@@ -62,10 +65,24 @@
   @media(max-width:900px){.lb-prev{left:2px;}.lb-next{right:2px;}}
   footer{background:var(--ink);color:rgba(255,255,255,.5);padding:34px 0;text-align:center;font-size:.85rem;}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Zone 7 Rotaract Gallery",
+  "description": "Photos from Rotaract service projects, blood donation drives, tree plantations, and events across all nine Zone 7 clubs. District 3292, Kathmandu Valley.",
+  "url": "https://zone7rotaract3292.vercel.app/gallery",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Zone 7 Rotaract",
+    "url": "https://zone7rotaract3292.vercel.app/"
+  }
+}
+</script>
 </head>
 <body>
 <div id="siteNav" data-current="gallery" data-cta="join"></div>
-<script src="site-nav.js"></script>
+<script src="site-nav.js" defer></script>
 <header class="hero wrap">
   <div class="eyebrow"><span class="dot"></span>Zone 7 · In Pictures</div>
   <h1>Every project, one gallery.</h1>
@@ -151,7 +168,7 @@ document.addEventListener("keydown", e => {
 });
 loadGallery();
 </script>
-<script src="rota-gpt-data.js"></script>
-<script src="rota-gpt.js"></script>
+<script src="rota-gpt-data.js" defer></script>
+<script src="rota-gpt.js" defer></script>
 </body>
 </html>
