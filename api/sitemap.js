@@ -23,7 +23,6 @@ const CLUB_SLUGS = [
 const STATIC_PAGES = [
   { path: "/", priority: 1.0, changefreq: "weekly" },
   { path: "/about", priority: 0.8, changefreq: "monthly" },
-  { path: "/ne/about", priority: 0.7, changefreq: "monthly" },
   { path: "/join", priority: 0.9, changefreq: "monthly" },
   { path: "/gallery", priority: 0.7, changefreq: "weekly" },
   { path: "/guides", priority: 0.8, changefreq: "monthly" },

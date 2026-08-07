@@ -55,9 +55,6 @@
     "#siteNav .nav-admin:hover{opacity:1}",
     "#siteNav .nav-cta{background:#1B1836;color:#fff !important;padding:10px 20px;border-radius:100px;font-weight:700;font-size:.85rem;white-space:nowrap}",
     "#siteNav .nav-cta:hover{background:#A80F52}",
-    "#siteNav .lang-toggle{display:inline-flex;align-items:center;gap:6px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.82rem;color:var(--magenta-deep);padding:8px 16px;border-radius:100px;background:rgba(225,26,110,.08);border:1px solid rgba(225,26,110,.18);transition:background .2s,border-color .2s}",
-    "#siteNav .lang-toggle:hover{background:rgba(225,26,110,.14);border-color:rgba(225,26,110,.36)}",
-    "#siteNav .lang-toggle .lang-flag{font-size:1rem}",
     "#siteNav .burger{display:none;background:none;border:none;cursor:pointer;padding:6px}",
     "#siteNav .burger span{display:block;width:22px;height:2px;background:#1B1836;margin:5px 0;border-radius:2px}",
     "#siteNav .mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:#FFFDF9;border-bottom:1px solid rgba(27,24,54,.1);z-index:99;padding:14px 28px 26px;flex-direction:column;max-height:calc(100vh - 72px);overflow-y:auto}",
@@ -104,21 +101,6 @@
     ctaHtml = '<a href="/join" class="btn nav-cta">Join Us</a>';
   }
 
-  // ---- Language toggle (English ↔ Nepali) ----
-  var isNepali = window.location.pathname.indexOf("/ne/") === 0;
-  var currentPath = window.location.pathname.replace(/^\/ne/, "");
-  var langToggleHtml = "";
-  if (isNepali) {
-    // On a Nepali page — show English toggle
-    var enPath = "/" + currentPath.replace(/^\//, "");
-    if (enPath === "/") enPath = "/";
-    langToggleHtml = '<a href="' + enPath + '" class="lang-toggle" aria-label="Switch to English"><span class="lang-flag">🇬🇧</span> English</a>';
-  } else {
-    // On an English page — show Nepali toggle (if a Nepali version exists)
-    var nePath = "/ne" + (window.location.pathname === "/" ? "/" : window.location.pathname);
-    langToggleHtml = '<a href="' + nePath + '" class="lang-toggle" aria-label="Switch to Nepali"><span class="lang-flag">🇳🇵</span> नेपाली</a>';
-  }
-
   var html =
     '<nav id="siteNav" aria-label="Main navigation">' +
     '<div class="wrap">' +
@@ -138,7 +120,6 @@
     "</div>" +
     '<div style="display:flex;align-items:center;gap:16px;">' +
     '<a href="/admin" class="nav-admin">Club Admin</a>' +
-    langToggleHtml +
     ctaHtml +
     '<button class="burger" id="burgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>' +
     "</div>" +
@@ -157,7 +138,6 @@
     item("/gallery", "Gallery", "gallery") +
     '<a href="/join">Join Us</a>' +
     '<a href="/admin">Club Admin</a>' +
-    (isNepali ? '<a href="/">← English</a>' : '<a href="/ne/about">नेपाली (Nepali)</a>') +
     '<a class="mm-cta" href="/join">Fill the Form, Become a Rotaractor →</a>' +
     "</div>" +
     "</nav>";
