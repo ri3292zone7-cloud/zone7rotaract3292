@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="alternate" hreflang="en" href="https://zone7rotaract3292.vercel.app/project">
+<link rel="alternate" hreflang="ne" href="https://zone7rotaract3292.vercel.app/ne/project">
+<link rel="alternate" hreflang="x-default" href="https://zone7rotaract3292.vercel.app/project">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Project | Zone 7 Rotaract 3292</title>
 <meta name="description" content="Service project reports from Zone 7 Rotaract clubs. Blood donation drives, tree plantations, education and community projects across District 3292, Kathmandu Valley.">
@@ -115,11 +118,25 @@
 
   @media (max-width:720px){ .gal-grid{grid-template-columns:repeat(2,1fr);} .p-pill{min-width:90px;} }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Service Project Reports | Zone 7 Rotaract",
+  "description": "Service project reports from Zone 7 Rotaract clubs. Blood donation drives, tree plantations, education and community projects across all nine clubs in District 3292, Kathmandu Valley.",
+  "url": "https://zone7rotaract3292.vercel.app/project",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Zone 7 Rotaract",
+    "url": "https://zone7rotaract3292.vercel.app/"
+  }
+}
+</script>
 </head>
 <body>
 
 <div id="siteNav" data-current="clubs" data-cta="club"></div>
-<script src="site-nav.js"></script>
+<script src="site-nav.js" defer></script>
 
 <div id="content"></div>
 
@@ -204,12 +221,14 @@ function computeSdgs(project){
   return SDG_MAP.filter(g => g.words.some(w => text.includes(w)));
 }
 
+document.addEventListener("DOMContentLoaded", () => {
 const params = new URLSearchParams(location.search);
 const clubSlug = params.get("club");
 const projectId = params.get("id");
 const club = CLUB_DIRECTORY[clubSlug];
 
-document.getElementById("clubBackLink").href = clubSlug ? `/${clubSlug}` : "/";
+const clubBackLink = document.getElementById("clubBackLink");
+if (clubBackLink) clubBackLink.href = clubSlug ? `/${clubSlug}` : "/";
 document.getElementById("content").innerHTML = `<div class="empty-state wrap"><h2>Loading…</h2></div>`;
 
 (async () => {
@@ -264,7 +283,7 @@ if(project && club){
 
   document.getElementById("content").innerHTML = `
     <header class="p-hero">
-      <img class="p-hero-img" src="${zone7Esc(project.cover || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200')}" alt="${zone7Esc(project.title)}">
+      <img class="p-hero-img" src="${zone7Esc(project.cover || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200')}" alt="${zone7Esc(project.title)}" width="1600" height="800">
       <div class="p-hero-overlay">
         <div class="wrap p-hero-content">
           <span class="p-tag">${zone7Esc(project.category || "Club Project")}</span>
@@ -302,7 +321,7 @@ if(project && club){
   if(project.gallery && project.gallery.length){
     const grid = document.getElementById("galGrid");
     const galImgs = project.gallery.slice();
-    grid.innerHTML = galImgs.map((src,i) => `<img src="${zone7Esc(src)}" alt="${zone7Esc(project.title)}, photo ${i+1} of ${galImgs.length}" loading="lazy">`).join("");
+    grid.innerHTML = galImgs.map((src,i) => `<img src="${zone7Esc(src)}" alt="${zone7Esc(project.title)}, photo ${i+1} of ${galImgs.length}" loading="lazy" width="600" height="600">`).join("");
     const lb = document.getElementById("lightbox"), lbImg = document.getElementById("lightboxImg"), lbCount = document.getElementById("lbCount");
     let li = 0;
     function showLb(i){
@@ -337,8 +356,9 @@ if(project && club){
   `;
 }
 })();
+});
 </script>
-<script src="rota-gpt-data.js"></script>
-<script src="rota-gpt.js"></script>
+<script src="rota-gpt-data.js" defer></script>
+<script src="rota-gpt.js" defer></script>
 </body>
 </html>

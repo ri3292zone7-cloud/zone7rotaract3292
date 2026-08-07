@@ -1074,7 +1074,7 @@
         pop.classList.add("show");
       },{passive:true});
       el.addEventListener("touchend",()=>{ setTimeout(()=>pop.classList.remove("show"),2400); },{passive:true});
-      el.addEventListener("click",()=>{ location.href=`//project?club=${p.club}&id=${encodeURIComponent(p.id)}`; });
+      el.addEventListener("click",()=>{ location.href=`/project?club=${p.club}&id=${encodeURIComponent(p.id)}`; });
     });
   }
 
