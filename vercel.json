@@ -26,6 +26,7 @@
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/district-overview", "destination": "/district-overview.html" },
+    { "source": "/club", "destination": "/club.html" },
     { "source": "/pending-applications", "destination": "/pending-applications.html" },
     { "source": "/balkumari", "destination": "/club.html?club=balkumari" },
     { "source": "/baneshwor", "destination": "/club.html?club=baneshwor" },

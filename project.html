@@ -29,16 +29,24 @@
     --cream:#FFF8EF; --paper:#FFFDF9; --line: rgba(27,24,54,0.1);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html,body{overflow-x:hidden;overflow-x:hidden;font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
+  html{overflow-x:hidden;overflow-x:clip;font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
   h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
   a{color:inherit; text-decoration:none;}
   img{max-width:100%; display:block;}
-  .wrap{max-width:980px; margin:0 auto; padding:0 28px; overflow-x:hidden;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
+  .wrap{max-width:980px; margin:0 auto; padding:0 28px; overflow-x:hidden;overflow-x:clip;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
 
 
   .p-hero{position:relative; margin-top:0;}
   .p-hero-img{
     width:100%; aspect-ratio:16/8; object-fit:cover; background:linear-gradient(150deg, rgba(225,26,110,0.18), rgba(242,169,0,0.15));
+  }
+  .p-hero-img--grad{
+    aspect-ratio:16/7;
+    background:
+      radial-gradient(560px 260px at 88% 10%, rgba(242,169,0,0.28), transparent 60%),
+      radial-gradient(420px 240px at 10% 15%, rgba(225,26,110,0.40), transparent 55%),
+      radial-gradient(700px 300px at 50% 110%, rgba(27,24,54,0.85), transparent 65%),
+      linear-gradient(150deg, #16132B 0%, #3A1466 60%, #E11A6E 140%);
   }
   .p-hero-overlay{
     position:absolute; inset:0; background:linear-gradient(0deg, rgba(27,24,54,0.82) 0%, rgba(27,24,54,0.15) 55%, transparent 100%);
@@ -97,7 +105,15 @@
     display:inline-flex; margin-top:18px; font-size:0.78rem; font-weight:800; letter-spacing:0.03em;
     color:#fff; background:var(--magenta-deep); padding:6px 15px; border-radius:100px;
   }
-  .p-html,body{overflow-x:hidden;overflow-x:hidden;padding:46px 0; font-size:1.05rem; line-height:1.9; color:rgba(27,24,54,0.78); max-width:760px; white-space:pre-line;}
+  /* ---- Body copy ---- */
+  .p-html,.p-summary,.p-body{max-width:760px;}
+  .p-summary{
+    font-size:1.16rem; line-height:1.8; font-weight:500; color:var(--ink);
+    border-left:4px solid var(--magenta); padding:4px 0 4px 20px; margin:34px 0 4px;
+  }
+  .p-html,.p-body{padding:28px 0 12px;}
+  .p-body p{font-size:1.07rem; line-height:1.85; color:rgba(27,24,54,0.85); margin:0 0 22px;}
+  .p-body p:last-child{margin-bottom:0;}
 
   .p-gallery{padding:10px 0 60px;}
   .p-gallery h3{font-size:1.2rem; margin-bottom:20px;}
@@ -131,7 +147,29 @@
 
   footer{background:var(--ink); color:rgba(255,255,255,0.5); padding:34px 0; text-align:center; font-size:0.85rem;}
 
-  @media (max-width:720px){ .gal-grid{grid-template-columns:repeat(2,1fr);} .p-pill{min-width:90px;} }
+  /* ---- Tablet ---- */
+  @media (max-width:900px){
+    .p-hero-content{padding:40px 0 32px;}
+    .p-summary{font-size:1.1rem;}
+  }
+  /* ---- Mobile ---- */
+  @media (max-width:720px){
+    .gal-grid{grid-template-columns:repeat(2,1fr); gap:10px;}
+    .p-pill{min-width:78px; padding:12px 16px; border-radius:14px;}
+    .p-pill b{font-size:1.2rem;}
+    .p-meta-row{gap:18px; margin:26px 0 4px; padding-bottom:22px;}
+    .p-share .share-qr{display:none;}
+    .p-hero-content h1{line-height:1.14;}
+    .p-body p{font-size:1.03rem;}
+    .p-summary{font-size:1.07rem; padding-left:16px;}
+    .p-cta{padding:34px 0 70px;}
+    .btn{width:100%; justify-content:center;}
+  }
+  /* ---- Small phones ---- */
+  @media (max-width:420px){
+    .p-hero-img,.p-hero-img--grad{aspect-ratio:4/3;}
+    .p-hero-content h1{font-size:1.5rem;}
+  }
 </style>
 <script type="application/ld+json">
 {
@@ -162,7 +200,7 @@
   <span class="lb-count" id="lbCount"></span>
   <div class="lightbox-inner">
     <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous photo">‹</button>
-    <img id="lightboxImg" src="" alt="">
+    <img id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
     <button class="lb-btn lb-next" id="lbNext" aria-label="Next photo">›</button>
   </div>
 </div>
@@ -205,8 +243,8 @@ function parseStatsFromText(text){
     || text.match(/([\d,]+(?:\.\d+)?)\s+(?:total\s+)?volunteer(?:ing)?\s+hours?/i);
   if(volM) s.vol_hours = volM[1];
 
-  // Expense: "NRs. 2,000" or "NRs 5,000" or "Rs. 2000"
-  const expM = text.match(/NRs?\.?\s*([\d,]+)/i) || text.match(/Rs\.?\s*([\d,]+)/i);
+  // Expense: "NRs. 2,000" / "NRs 5,000" / "NRs. 95.98" / "Rs. 2000"
+  const expM = text.match(/NRs?\.?\s*([\d,]+(?:\.\d+)?)/i) || text.match(/Rs\.?\s*([\d,]+(?:\.\d+)?)/i);
   if(expM) s.expense = "NRs " + expM[1];
 
   // Trees planted
@@ -236,6 +274,22 @@ function computeSdgs(project){
   return SDG_MAP.filter(g => g.words.some(w => text.includes(w)));
 }
 
+/* Splits a project's free-text body into tidy paragraphs and drops the
+   boilerplate stats footer ("Date: ... | Duration: ... | Expense: ...")
+   that clubs often append — that info is already shown in the meta row
+   and stat pills above, so printing it again just looks cramped. */
+function cleanProjectBody(text){
+  if(!text) return [];
+  return String(text)
+    .split(/\n\s*\n+/)
+    .map(p => p.replace(/\s+/g, " ").trim())
+    .filter(p => {
+      if(!p) return false;
+      if(/^Date\s*:\s*/i.test(p) && p.includes("|")) return false;
+      return true;
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 const params = new URLSearchParams(location.search);
 const clubSlug = params.get("club");
@@ -250,7 +304,7 @@ document.getElementById("content").innerHTML = `<div class="empty-state wrap"><h
 const project = (clubSlug && projectId) ? await ZONE7_DB.getProject(clubSlug, projectId) : null;
 
 if(project && club){
-  const shareUrl = "https://zone7rotaract3292.vercel.app/project?club=" + encodeURIComponent(clubSlug) + "&id=" + encodeURIComponent(project.id);
+  const shareUrl = "https://zone7rotaract3292.vercel.app/project.html?club=" + encodeURIComponent(clubSlug) + "&id=" + encodeURIComponent(project.id);
   const metaDesc = (project.summary || project.body || "").slice(0, 160);
   const metaImg = project.cover || "https://zone7rotaract3292.vercel.app/zone7_og_image.png";
   document.title = project.title + " | " + club.name;
@@ -284,6 +338,14 @@ if(project && club){
   // Merge structured fields with text-parsed fallbacks
   const bodyText = project.body || project.summary || "";
   const parsed = parseStatsFromText(bodyText);
+
+  // Clean body → paragraph list; summary shown as a styled lead when present
+  const bodyParas = cleanProjectBody(bodyText);
+  const hasSummary = !!(project.summary) && (project.summary.trim() !== bodyText.trim());
+  const summaryHtml = hasSummary ? `<div class="p-summary">${zone7Esc(String(project.summary))}</div>` : "";
+  const bodyHtml = bodyParas.length
+    ? `<div class="p-body">${bodyParas.map(p => `<p>${zone7Esc(p)}</p>`).join("")}</div>`
+    : `<div class="p-body"><p>${zone7Esc(project.summary || "No description provided for this project yet.")}</p></div>`;
 
   const attendees  = project.attendees    || null;
   const volHours   = project.volunteer_hours ? String(project.volunteer_hours) : (parsed.vol_hours || null);
@@ -323,9 +385,13 @@ if(project && club){
       ).join("")}</div>`
     : "";
 
+  const heroImgHtml = project.cover
+    ? `<img class="p-hero-img" src="${zone7Esc(project.cover)}" alt="${zone7Esc(project.title)}" width="1600" height="800">`
+    : `<div class="p-hero-img p-hero-img--grad" role="presentation" aria-hidden="true"></div>`;
+
   document.getElementById("content").innerHTML = `
     <header class="p-hero">
-      <img class="p-hero-img" src="${zone7Esc(project.cover || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200')}" alt="${zone7Esc(project.title)}" width="1600" height="800">
+      ${heroImgHtml}
       <div class="p-hero-overlay">
         <div class="wrap p-hero-content">
           <span class="p-tag">${zone7Esc(project.category || "Club Project")}</span>
@@ -353,7 +419,8 @@ if(project && club){
       ${project.host_status ? `<span class="p-host-badge">${zone7Esc(project.host_status)}</span>` : ""}
       ${pillsHTML}
       ${jointlyHTML}
-      <div class="p-body">${zone7Esc(bodyText)}</div>
+      ${summaryHtml}
+      ${bodyHtml}
     </section>
 
     ${project.gallery && project.gallery.length ? `

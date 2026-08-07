@@ -56,7 +56,7 @@
 
   var NAV_CSS = [
     "#siteNav{position:sticky;top:0;z-index:100;background:rgba(255,253,249,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,24,54,.1)}",
-    "#siteNav .wrap{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:72px;gap:22px}",
+    "#siteNav .wrap{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:72px;gap:22px;overflow:visible}",
     "#siteNav .brand{display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-weight:800;font-size:1.05rem;color:#1B1836;white-space:nowrap}",
     "#siteNav .brand .z{background:#E11A6E;color:#fff;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Poppins',sans-serif}",
     "#siteNav .navlinks{display:flex;gap:26px;font-weight:600;font-size:.92rem;align-items:center}",
@@ -100,7 +100,7 @@
     "#siteNav .mobile-menu a:last-child{border-bottom:none}",
     "#siteNav .mobile-menu .mm-group{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:rgba(27,24,54,.42);margin:14px 0 2px}",
     "#siteNav .mobile-menu a.mm-cta{background:#1B1836;color:#fff;border-radius:100px;text-align:center;padding:13px;border:none;margin-top:14px}",
-    "@media (max-width:920px){#siteNav .navlinks,#siteNav .nav-admin,#siteNav .nav-cta{display:none}#siteNav .burger{display:block}}",
+    "@media (max-width:920px){#siteNav .navlinks,#siteNav .nav-admin,#siteNav .nav-cta,#siteNav .back{display:none}#siteNav .burger{display:block}}",
     ".skip-link{position:fixed;top:-70px;left:16px;z-index:300;background:#A80F52;color:#fff;padding:11px 20px;border-radius:0 0 12px 12px;font-weight:700;font-size:.85rem;box-shadow:0 12px 28px rgba(27,24,54,.25);transition:top .2s}",
     ".skip-link:focus{top:0}",
     "#backTop{position:fixed;left:22px;bottom:26px;z-index:94;width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;background:#1B1836;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s,background .2s;box-shadow:0 12px 28px rgba(27,24,54,.3)}",
@@ -123,19 +123,19 @@
   }
 
   var learnItems =
-    learnItem("/tutorials", "🎓", "Tutorials", "Meetings, board, assembly, ZRR, DRR and blood drive – step by step", "tutorials") +
-    learnItem("/handbook", "📘", "Handbook", "District rules made simple: grants, twinship, projects, health", "handbook") +
-    learnItem("/guides", "📄", "Resources", "Official documents, constitutions and downloadable forms", "resources") +
-    learnItem("/club-guides", "📚", "Guides for Clubs", "The playbook for running a great club all year", "guides") +
-    learnItem("/rkt-quiz", "🧠", "RKT Practice Quiz", "Test your Rotaract knowledge in 2 minutes", "quiz");
+    learnItem("/tutorials.html", "🎓", "Tutorials", "Monthly steps, board, assembly, ZRR, DRR and blood drive – step by step", "tutorials") +
+    learnItem("/handbook.html", "📘", "Handbook", "District rules made simple: grants, twins, projects, health", "handbook") +
+    learnItem("/guides.html", "📄", "Resources", "Official documents, constitutions and downloadable forms", "resources") +
+    learnItem("/club-guides.html", "📚", "Guides for Clubs", "The playbook for running a great club all year", "guides") +
+    learnItem("/rkt-quiz.html", "🧠", "RKT Practice Quiz", "Test your Rotaract knowledge in 2 minutes", "quiz");
 
   var ctaHtml = "";
   if (ctaMode === "home") {
     ctaHtml = '<a href="/" class="btn nav-cta">← Back Home</a>';
   } else if (ctaMode === "club") {
-    ctaHtml = '<a href="#" id="clubBackLink" class="back">← Back to Club</a><a href="/join" class="btn nav-cta">Join Us</a>';
+    ctaHtml = '<a href="#" id="clubBackLink" class="back">← Back to Club</a><a href="/join.html" class="btn nav-cta">Join Us</a>';
   } else {
-    ctaHtml = '<a href="/join" class="btn nav-cta">Join Us</a>';
+    ctaHtml = '<a href="/join.html" class="btn nav-cta">Join Us</a>';
   }
 
   var html =
@@ -143,7 +143,7 @@
     '<div class="wrap">' +
     '<a href="/" aria-label="Zone 7 Rotaract home"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>' +
     '<div class="navlinks">' +
-    item("/about", "About", "about") +
+    item("/about.html", "About", "about") +
     '<div class="nav-drop" id="clubsDrop">' +
     '<button type="button" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false"' + (current === "clubs" ? ' style="opacity:1;color:#A80F52"' : "") + '>Clubs ' + CHEV + "</button>" +
     '<div class="nav-drop-panel clubs-drop-panel"><div class="clubs-drop-grid" id="clubsDropGrid"></div>' +
@@ -153,29 +153,29 @@
     '<button type="button" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false"' + (current === "tutorials" || current === "handbook" || current === "resources" || current === "guides" || current === "quiz" ? ' style="opacity:1;color:#A80F52"' : "") + '>Learn ' + CHEV + "</button>" +
     '<div class="nav-drop-panel learn-drop-panel">' + learnItems + "</div>" +
     "</div>" +
-    item("/gallery", "Gallery", "gallery") +
+    item("/gallery.html", "Gallery", "gallery") +
     "</div>" +
     '<div style="display:flex;align-items:center;gap:16px;">' +
-    '<a href="/admin" class="nav-admin">Club Admin</a>' +
+    '<a href="/admin.html" class="nav-admin">Club Admin</a>' +
     ctaHtml +
     '<button class="burger" id="burgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>' +
     "</div>" +
     "</div>" +
     '<div class="mobile-menu" id="mobileMenu">' +
-    item("/about", "About", "about") +
+    item("/about.html", "About", "about") +
     '<div class="mm-group">Clubs</div>' +
     '<a href="/#clubs">All 9 Clubs in Zone 7</a>' +
     '<div class="mm-group">Learn</div>' +
-    '<a href="/tutorials">Tutorials</a>' +
-    '<a href="/handbook">Handbook</a>' +
-    '<a href="/guides">Resources &amp; Documents</a>' +
-    '<a href="/club-guides">Guides for Clubs</a>' +
-    '<a href="/rkt-quiz">RKT Practice Quiz</a>' +
+'<a href="/tutorials.html">Tutorials</a>' +
+    '<a href="/handbook.html">Handbook</a>' +
+    '<a href="/guides.html">Resources &amp; Documents</a>' +
+    '<a href="/club-guides.html">Guides for Clubs</a>' +
+    '<a href="/rkt-quiz.html">RKT Practice Quiz</a>' +
     '<div class="mm-group">Community</div>' +
-    item("/gallery", "Gallery", "gallery") +
-    '<a href="/join">Join Us</a>' +
-    '<a href="/admin">Club Admin</a>' +
-    '<a class="mm-cta" href="/join">Fill the Form, Become a Rotaractor →</a>' +
+    item("/gallery.html", "Gallery", "gallery") +
+    '<a href="/join.html">Join Us</a>' +
+    '<a href="/admin.html">Club Admin</a>' +
+    '<a class="mm-cta" href="/join.html">Fill the Form, Become a Rotaractor →</a>' +
     "</div>" +
     "</nav>";
 

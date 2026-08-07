@@ -43,11 +43,10 @@
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
-  html,body{overflow-x:hidden;
+  html{overflow-x:hidden;overflow-x:clip;
     font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background:var(--cream);
     color:var(--ink);
-    overflow-x:hidden;
   }
   h1,h2,h3,h4,.disp{
     font-family:'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -56,7 +55,7 @@
   }
   a{color:inherit; text-decoration:none;}
   img{max-width:100%; display:block;}
-  .wrap{max-width:1180px; margin:0 auto; padding:0 28px; overflow-x:hidden;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px; overflow-x:hidden;overflow-x:clip;}
 
 
   /* HERO */
@@ -392,7 +391,7 @@
   .zrr-modal h3{font-size:1.25rem; margin-bottom:6px;}
   .zrr-modal p.zrr-modal-role{font-size:0.85rem; font-weight:700; color:rgba(27,24,54,0.45); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;}
   .zrr-modal p.zrr-modal-club{font-size:0.82rem; font-weight:700; color:var(--magenta-deep); margin-bottom:18px;}
-  .zrr-modal p.zrr-modal-html,body{overflow-x:hidden;font-size:0.95rem; color:rgba(27,24,54,0.7); line-height:1.7;}
+  .zrr-modal p.zrr-modal-html{font-size:0.95rem; color:rgba(27,24,54,0.7); line-height:1.7;}
 
   /* CLUBS */
   .clubs-grid{
@@ -745,12 +744,12 @@
     <h1 id="heroHeading">Young leaders in the<br>Kathmandu Valley,<br><span class="hl">united as Zone 7.</span></h1>
     <p class="lead">Zone 7 brings together Rotaract clubs across the Kathmandu Valley under District 3292, turning service, fellowship and leadership into action, one project at a time.</p>
     <div class="hero-actions">
-      <a href="/join" class="btn btn-primary">Fill the Form, Become a Rotaractor →</a>
+      <a href="/join.html" class="btn btn-primary">Fill the Form, Become a Rotaractor →</a>
       <a href="#clubs" class="btn btn-ghost">Explore our Clubs</a>
     </div>
     <div class="hero-actions hero-actions-secondary">
-      <a href="/guides" class="btn btn-ghost">Rotaract Resources</a>
-      <a href="/club-guides" class="btn btn-ghost">Guides for Clubs</a>
+      <a href="/guides.html" class="btn btn-ghost">Rotaract Resources</a>
+      <a href="/club-guides.html" class="btn btn-ghost">Guides for Clubs</a>
     </div>
     <div class="stat-row">
       <div class="stat"><b>9</b><span>Clubs in Zone 7</span></div>
@@ -928,7 +927,7 @@
   <div class="wrap">
     <span class="section-tag">Who we are</span>
     <h2>Service above self, <span class="mark">led by youth.</span></h2>
-    <p class="sub">Rotaract is Rotary International's club for young adults aged 18&ndash;30, sponsored by local Rotary clubs and entirely run by Rotaractors. Zone 7 unites 9 such clubs across the Kathmandu Valley under District 3292. <a href="/about" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Read our full story →</a></p>
+    <p class="sub">Rotaract is Rotary International's club for young adults aged 18&ndash;30, sponsored by local Rotary clubs and entirely run by Rotaractors. Zone 7 unites 9 such clubs across the Kathmandu Valley under District 3292. <a href="/about.html" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Read our full story →</a></p>
 
     <div class="mosaic-head">
       <h3>Every Zone 7 project, one skyline.</h3>
@@ -1093,7 +1092,7 @@
     cols.addEventListener("touchend", () => { setTimeout(() => pop.classList.remove("show"), 2400); }, {passive:true});
     cols.addEventListener("click", (e) => {
       const el = e.target.closest(".mosaic-tile");
-      if(el){ const p = MOSAIC[el.dataset.i]; if(p) location.href = `/project?club=${p.club}&id=${encodeURIComponent(p.id)}`; }
+      if(el){ const p = MOSAIC[el.dataset.i]; if(p) location.href = `/project.html?club=${p.club}&id=${encodeURIComponent(p.id)}`; }
     });
   }
 
@@ -1258,7 +1257,7 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   <div class="wrap">
     <span class="section-tag">Our Clubs</span>
     <h2>The clubs that make up Zone 7.</h2>
-    <p class="sub">Nine Rotaract clubs across the Kathmandu Valley. Click a card to view the club's profile, or tap its Instagram handle to open Instagram directly. <a href="/club-guides" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Running a club? Open the playbook →</a></p>
+    <p class="sub">Nine Rotaract clubs across the Kathmandu Valley. Click a card to view the club's profile, or tap its Instagram handle to open Instagram directly. <a href="/club-guides.html" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Running a club? Open the playbook →</a></p>
 
     <div class="logo-carousel" id="logoCarousel">
       <div class="logo-track" id="logoTrack"></div>
@@ -1431,7 +1430,7 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   if(!projects.length){ track.style.animation="none"; track.innerHTML = `<p style="padding:20px; color:rgba(27,24,54,0.45); font-size:0.85rem;">No projects uploaded yet.</p>`; track2.style.display="none"; return; }
   for(let i=projects.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [projects[i],projects[j]]=[projects[j],projects[i]]; }
   const cardHTML = p => `
-    <a class="proj-card" href="/project?club=${p.clubSlug}&id=${encodeURIComponent(p.id)}">
+    <a class="proj-card" href="/project.html?club=${p.clubSlug}&id=${encodeURIComponent(p.id)}">
       <img src="${zone7Esc(p.cover || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600')}" alt="${zone7Esc(p.title)}" loading="lazy">
       <div class="proj-cap"><b>${zone7Esc(p.title)}</b><span>${zone7Esc(p.category)} · ${zone7Esc(p.clubName)}</span></div>
     </a>`;
@@ -1626,7 +1625,7 @@ function goDCal(delta){
     <div class="join-card">
       <h2>One form is all it takes to become a Rotaractor.</h2>
       <p>Fill out our short membership form: share a few details about yourself, your age, and why you want to serve, and a Zone 7 club will welcome you in as a Rotaractor.</p>
-      <a href="/join" class="btn btn-primary">Fill the Join Form →</a>
+      <a href="/join.html" class="btn btn-primary">Fill the Join Form →</a>
     </div>
   </div>
 </section>
@@ -1641,7 +1640,7 @@ function goDCal(delta){
       <div>
         <h5>Explore</h5>
         <ul>
-          <li><a href="/join">Join Us</a></li>
+          <li><a href="/join.html">Join Us</a></li>
           <li><a href="#about">About Zone 7</a></li>
           <li><a href="#clubs">Our Clubs</a></li>
           <li><a href="#events">Events</a></li>
@@ -1659,7 +1658,7 @@ function goDCal(delta){
         <ul>
           <li><a href="https://www.instagram.com/zone7rotaract3292/" target="_blank">Instagram</a></li>
           <li><a href="mailto:ri3292zone7@gmail.com">Email the ZRR</a></li>
-          <li><a href="/admin">Club Admin Login</a></li>
+          <li><a href="/admin.html">Club Admin Login</a></li>
         </ul>
       </div>
     </div>
