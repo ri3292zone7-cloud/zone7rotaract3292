@@ -243,6 +243,53 @@ const REST_HEADERS = {
   "Prefer": "return=representation"
 };
 
+const STORAGE_BUCKET = "project-images";
+
+/* Resize + compress an uploaded image, then upload it to Supabase Storage
+   and return its public URL. Replaces zone7ReadImage (base64-in-DB) for
+   anything going into a projects.cover / projects.gallery column, so rows
+   stay small and getProjects() stops risking response-size 500s. */
+async function zone7UploadImage(file, folder = "misc", maxWidth = 1600, quality = 0.82){
+  const blob = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const scale = Math.min(1, maxWidth / img.width);
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob(
+          (b) => b ? resolve(b) : reject(new Error("Image compression failed")),
+          "image/jpeg",
+          quality
+        );
+      };
+      img.onerror = () => reject(new Error("Could not read image"));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error("Could not read file"));
+    reader.readAsDataURL(file);
+  });
+
+  const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.jpg`;
+  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${STORAGE_BUCKET}/${path}`, {
+    method: "POST",
+    headers: {
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+      "Content-Type": "image/jpeg"
+    },
+    body: blob
+  });
+  if(!res.ok){
+    const errText = await res.text();
+    throw new Error("Image upload failed: " + res.status + " " + errText);
+  }
+  return `${SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}/${path}`;
+}
+
 const ZONE7_DB = {
   _sessionKey: "zone7_admin_session",
   _cache: {}, // clubSlug -> [projects], fallback if a fetch fails

@@ -1630,17 +1630,29 @@ document.getElementById("coverUpload").addEventListener("click", () => document.
 document.getElementById("coverInput").addEventListener("change", async (e) => {
   const file = e.target.files[0];
   if(!file) return;
-  const dataUrl = await zone7ReadImage(file, 1600, 0.82);
   const cp = document.getElementById("coverPreview");
-  cp.src = dataUrl; cp.style.display = "block"; cp.dataset.value = dataUrl;
+  cp.src = URL.createObjectURL(file); cp.style.display = "block"; // instant local preview while it uploads
+  try{
+    const url = await zone7UploadImage(file, "covers", 1600, 0.82);
+    cp.src = url; cp.dataset.value = url;
+  } catch(err){
+    console.error(err);
+    showToast("Cover upload failed, try again.");
+    cp.style.display = "none"; cp.dataset.value = "";
+  }
 });
 
 document.getElementById("galleryUpload").addEventListener("click", () => document.getElementById("galleryInput").click());
 document.getElementById("galleryInput").addEventListener("change", async (e) => {
   const files = Array.from(e.target.files);
   for(const file of files){
-    const dataUrl = await zone7ReadImage(file, 1200, 0.78);
-    galleryImages.push(dataUrl);
+    try{
+      const url = await zone7UploadImage(file, "gallery", 1200, 0.78);
+      galleryImages.push(url);
+    } catch(err){
+      console.error(err);
+      showToast(`Upload failed for ${file.name}, skipped.`);
+    }
   }
   renderGalleryPreview();
   e.target.value = "";
