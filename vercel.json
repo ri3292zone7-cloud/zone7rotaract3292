@@ -22,6 +22,7 @@
     { "source": "/handbook-projects", "destination": "/handbook-projects.html" },
     { "source": "/handbook-health", "destination": "/handbook-health.html" },
     { "source": "/rkt-quiz", "destination": "/rkt-quiz.html" },
+    { "source": "/project", "destination": "/project.html" },
     { "source": "/balkumari", "destination": "/club.html?club=balkumari" },
     { "source": "/baneshwor", "destination": "/club.html?club=baneshwor" },
     { "source": "/liberty", "destination": "/club.html?club=liberty" },
