@@ -23,6 +23,9 @@
     { "source": "/handbook-health", "destination": "/handbook-health.html" },
     { "source": "/rkt-quiz", "destination": "/rkt-quiz.html" },
     { "source": "/project", "destination": "/project.html" },
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    { "source": "/ne", "destination": "/ne-about.html" },
+    { "source": "/ne/about", "destination": "/ne-about.html" },
     { "source": "/balkumari", "destination": "/club.html?club=balkumari" },
     { "source": "/baneshwor", "destination": "/club.html?club=baneshwor" },
     { "source": "/liberty", "destination": "/club.html?club=liberty" },
@@ -32,5 +35,15 @@
     { "source": "/newroadcity", "destination": "/club.html?club=newroadcity" },
     { "source": "/sukedhara", "destination": "/club.html?club=sukedhara" },
     { "source": "/tripureswor", "destination": "/club.html?club=tripureswor" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)\\.(jpg|jpeg|png|gif|webp|svg|ico|woff2?|ttf|pdf)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }]
+    },
+    {
+      "source": "/(.*)\\.(css|js)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }]
+    }
   ]
 }

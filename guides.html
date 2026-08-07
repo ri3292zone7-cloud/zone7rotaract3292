@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="alternate" hreflang="en" href="https://zone7rotaract3292.vercel.app/guides">
+<link rel="alternate" hreflang="ne" href="https://zone7rotaract3292.vercel.app/ne/guides">
+<link rel="alternate" hreflang="x-default" href="https://zone7rotaract3292.vercel.app/guides">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rotaract Resources | Zone 7 Rotaract 3292</title>
 <meta name="description" content="Free Rotaract templates, constitutions, bylaws, and planning guides for District 3292 clubs. Membership forms, attendance sheets, strategic planning guides, grant criteria and more, all downloadable in one place from Zone 7.">
@@ -12,6 +15,10 @@
 <meta property="og:description" content="Free Rotaract templates, constitutions, bylaws, and planning guides for District 3292 clubs. Membership forms, attendance sheets, strategic planning guides, grant criteria and more, all downloadable in one place from Zone 7.">
 <meta property="og:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
 <meta property="og:url" content="https://zone7rotaract3292.vercel.app/guides">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rotaract Resources | Zone 7 Rotaract 3292">
+<meta name="twitter:description" content="Free Rotaract templates, constitutions, bylaws, and planning guides for District 3292 clubs. Membership forms, attendance sheets, strategic planning guides, grant criteria and more, all downloadable in one place from Zone 7.">
+<meta name="twitter:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -139,7 +146,7 @@
 <div id="progress"></div>
 
 <div id="siteNav" data-current="resources" data-cta="join"></div>
-<script src="site-nav.js"></script>
+<script src="site-nav.js" defer></script>
 
 <header class="hero wrap">
   <div class="aurora a1"></div>
@@ -154,7 +161,7 @@
   <div class="eyebrow"><span class="dot"></span>District 3292 · Resource Library</div>
   <h1 id="heroTitle">Rotaract Resources.</h1>
   <p class="sub">Official templates, constitutions and planning guides from District 3292. Everything a Zone 7 club needs to run smoothly, in one place instead of scattered across old emails. Every file below is free to download.</p>
-  <p class="note">Looking for the how-to side instead? The <a href="club-/guides" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Guides for Clubs</a> page is the playbook, and the <a href="/handbook" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Handbook</a> turns the district rules into chapters.</p>
+  <p class="note">Looking for the how-to side instead? The <a href="/club-guides" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Guides for Clubs</a> page is the playbook, and the <a href="/handbook" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Handbook</a> turns the district rules into chapters.</p>
 
   <div class="stat-strip">
     <div class="stat-card" data-reveal><div class="num" id="statDocs">13</div><div class="lab">Documents, all free to download</div></div>
@@ -188,8 +195,8 @@
 
 <footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. Documents sourced from the District 3292 website. &nbsp;·&nbsp; <a href="/" style="font-weight:700;">Back to Home</a></footer>
 
-<script src="rota-gpt-data.js"></script>
-<script src="rota-gpt.js"></script>
+<script src="rota-gpt-data.js" defer></script>
+<script src="rota-gpt.js" defer></script>
 
 <script>
 const STATIC_GUIDES = [
@@ -325,7 +332,7 @@ async function loadDynamicGuides(){
   try{
     const rows = await ZONE7_DB.getGuides();
     const dynamic = rows.map(r => ({
-      id: r.id, file: r.file_data, fileName: r.file_name,
+      id: r.id, file: r.file_url || r.file_data, fileName: r.file_name,
       tag: r.category || "Other", icon: "📎", size: (r.file_name || "").split(".").pop().toUpperCase(),
       title: r.title, desc: r.description || "", dynamic: true, inside: []
     }));

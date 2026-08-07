@@ -1,4 +1,4 @@
-/* RotaGPT — the Zone 7 chatbot widget.
+﻿/* RotaGPT â€” the Zone 7 chatbot widget.
    Answers from the local knowledge base (rota-gpt-data.js) instantly.
    When a serverless LLM endpoint (/api/rota-gpt) is available and has a
    key configured, answers are AI-generated from the same knowledge base. */
@@ -77,8 +77,8 @@
     '<span class="rgpt-gear">' + GEAR + "</span><span>RotaGPT</span></button>" +
     '<div id="rgpt-panel" role="dialog" aria-label="RotaGPT chat">' +
     '<div id="rgpt-head"><div class="rgpt-avatar">' + GEAR + "</div>" +
-    "<div><h3>RotaGPT</h3><p><span class='rgpt-dot'></span>Zone 7 guide · answers from the district directory</p></div>" +
-    '<button id="rgpt-close" aria-label="Close chat">✕</button></div>' +
+    "<div><h3>RotaGPT</h3><p><span class='rgpt-dot'></span>Zone 7 guide Â· answers from the district directory</p></div>" +
+    '<button id="rgpt-close" aria-label="Close chat">âœ•</button></div>' +
     '<div id="rgpt-msgs"></div>' +
     '<div id="rgpt-sugg"></div>' +
     '<div id="rgpt-inputrow"><input id="rgpt-input" type="text" placeholder="Ask about grants, meetings, clubs..." autocomplete="off">' +
@@ -166,7 +166,7 @@
     if (!best.length) {
       return {
         text: "I couldn't find that in the zone's documents, but I can help with club info, grants, twinship, meetings, tutorials and the district rules. Try one of the suggestions below.",
-        links: [{ label: "Tutorials", url: "/tutorials" }, { label: "Handbook", url: "/handbook" }, { label: "Guides for Clubs", url: "club-/guides" }],
+        links: [{ label: "Tutorials", url: "/tutorials" }, { label: "Handbook", url: "/handbook" }, { label: "Guides for Clubs", url: "/club-guides" }],
         src: "Site knowledge base"
       };
     }
@@ -174,7 +174,7 @@
     var extra = "";
     if (best.length > 1 && best[1].s >= best[0].s * 0.5) {
       var alt = best[1].e;
-      extra = " Also related: <b>" + esc(alt.k[0]) + "</b> – " + alt.a;
+      extra = " Also related: <b>" + esc(alt.k[0]) + "</b> â€“ " + alt.a;
     }
     return {
       text: top.a + extra,
@@ -199,7 +199,7 @@
 
   function renderAnswer(bubble, ans) {
     var links = (ans.links || []).map(function (l) {
-      return '<a href="' + esc(l.url) + '">' + (l.url.indexOf("http") === 0 ? "↗ " : "→ ") + esc(l.label) + "</a>";
+      return '<a href="' + esc(l.url) + '">' + (l.url.indexOf("http") === 0 ? "â†— " : "â†’ ") + esc(l.label) + "</a>";
     }).join("");
     bubble.innerHTML = ans.text +
       (links ? '<div class="rgpt-links">' + links + "</div>" : "") +

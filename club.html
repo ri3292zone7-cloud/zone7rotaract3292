@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="alternate" hreflang="en" href="https://zone7rotaract3292.vercel.app/club">
+<link rel="alternate" hreflang="ne" href="https://zone7rotaract3292.vercel.app/ne/club">
+<link rel="alternate" hreflang="x-default" href="https://zone7rotaract3292.vercel.app/club">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Club | Zone 7 Rotaract 3292</title>
 <meta name="description" content="Profiles of the nine Rotaract clubs of Zone 7, District 3292. Leadership, goals, service projects and how to join, across the Kathmandu Valley.">
@@ -12,6 +15,10 @@
 <meta property="og:description" content="Profiles of the nine Rotaract clubs of Zone 7, District 3292. Leadership, goals, service projects and how to join, across the Kathmandu Valley.">
 <meta property="og:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
 <meta property="og:url" content="https://zone7rotaract3292.vercel.app/club">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Club Profiles | Zone 7 Rotaract 3292">
+<meta name="twitter:description" content="Profiles of the nine Rotaract clubs of Zone 7, District 3292. Leadership, goals, service projects and how to join, across the Kathmandu Valley.">
+<meta name="twitter:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -187,11 +194,36 @@
   footer{background:var(--ink);color:rgba(255,255,255,.5);padding:34px 0;text-align:center;font-size:.85rem;}
   .empty-state{padding:120px 28px;text-align:center;}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Rotaract Club Profiles | Zone 7",
+  "description": "Profiles of the nine Rotaract clubs of Zone 7, District 3292. Leadership, goals, service projects and how to join, across the Kathmandu Valley.",
+  "url": "https://zone7rotaract3292.vercel.app/club",
+  "hasPart": [
+    {"@type": "Organization", "name": "Rotaract Club of Balkumari", "url": "https://zone7rotaract3292.vercel.app/balkumari"},
+    {"@type": "Organization", "name": "Rotaract Club of Baneshwor", "url": "https://zone7rotaract3292.vercel.app/baneshwor"},
+    {"@type": "Organization", "name": "Rotaract Club of Liberty College", "url": "https://zone7rotaract3292.vercel.app/liberty"},
+    {"@type": "Organization", "name": "Rotaract Club of Kathmandu West", "url": "https://zone7rotaract3292.vercel.app/kathmanduwest"},
+    {"@type": "Organization", "name": "Rotaract Club of Kathmandu Height", "url": "https://zone7rotaract3292.vercel.app/kathmanduheight"},
+    {"@type": "Organization", "name": "Rotaract Club of Sankhu", "url": "https://zone7rotaract3292.vercel.app/sankhu"},
+    {"@type": "Organization", "name": "Rotaract Club of New Road City", "url": "https://zone7rotaract3292.vercel.app/newroadcity"},
+    {"@type": "Organization", "name": "Rotaract Club of Sukedhara", "url": "https://zone7rotaract3292.vercel.app/sukedhara"},
+    {"@type": "Organization", "name": "Rotaract Club of Tripureswor", "url": "https://zone7rotaract3292.vercel.app/tripureswor"}
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Zone 7 Rotaract",
+    "url": "https://zone7rotaract3292.vercel.app/"
+  }
+}
+</script>
 </head>
 <body>
 
 <div id="siteNav" data-current="clubs" data-cta="join"></div>
-<script src="site-nav.js"></script>
+<script src="site-nav.js" defer></script>
 
 <div id="content"><div class="empty-state"><h2>Loading club…</h2></div></div>
 
@@ -480,6 +512,31 @@ if(club){(async () => {
     if(profile.goals && profile.goals.length) club.goals = profile.goals;
   }
   document.title = club.name + " | Zone 7 Rotaract 3292";
+  const clubUrl = "https://zone7rotaract3292.vercel.app/" + clubSlug;
+  const clubDesc = (club.about || "").slice(0, 160) || ("Rotaract Club of " + club.name.replace("Rotaract Club of ", "") + " — part of Zone 7, District 3292 Nepal-Bhutan.");
+  document.querySelector('meta[name="description"]').content = clubDesc;
+  document.querySelector('link[rel="canonical"]').href = clubUrl;
+  document.querySelector('meta[property="og:title"]').content = document.title;
+  document.querySelector('meta[property="og:description"]').content = clubDesc;
+  document.querySelector('meta[property="og:image"]').content = club.logo || "https://zone7rotaract3292.vercel.app/zone7_og_image.png";
+  document.querySelector('meta[property="og:url"]').content = clubUrl;
+  document.querySelector('meta[name="twitter:title"]').content = document.title;
+  document.querySelector('meta[name="twitter:description"]').content = clubDesc;
+  document.querySelector('meta[name="twitter:image"]').content = club.logo || "https://zone7rotaract3292.vercel.app/zone7_og_image.png";
+  const clubJsonLd = document.createElement("script");
+  clubJsonLd.type = "application/ld+json";
+  clubJsonLd.text = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: club.name,
+    url: clubUrl,
+    description: clubDesc,
+    email: club.email,
+    location: { "@type": "Place", address: club.loc },
+    logo: club.logo || "https://zone7rotaract3292.vercel.app/zone7_og_image.png",
+    parentOrganization: { "@type": "Organization", name: "Rotaract District 3292", url: "https://zone7rotaract3292.vercel.app" }
+  });
+  document.head.appendChild(clubJsonLd);
   const initials = club.name.replace(/Rotaract Club of /i,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
 
   // Re-skin the page's accent palette to this club's identity. Everything else
@@ -609,7 +666,7 @@ if(club){(async () => {
   }
 
   const pm = document.getElementById("pmasonry");
-  const projects = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getProjects(clubSlug) : [];
+  const projects = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getProjects(clubSlug, { limit: 60 }) : [];
   if(projects.length){
     pm.innerHTML = projects.map(p => `
       <div class="pcard" onclick="location.href='/project?club=${encodeURIComponent(clubSlug)}&id=${encodeURIComponent(p.id)}'">
@@ -626,7 +683,7 @@ if(club){(async () => {
   document.getElementById("content").innerHTML = `<div class="empty-state"><h2>Club not found</h2><p style="color:rgba(27,24,54,.6);margin-top:10px;">Go back and select a club from the homepage.</p></div>`;
 }
 </script>
-<script src="rota-gpt-data.js"></script>
-<script src="rota-gpt.js"></script>
+<script src="rota-gpt-data.js" defer></script>
+<script src="rota-gpt.js" defer></script>
 </body>
 </html>

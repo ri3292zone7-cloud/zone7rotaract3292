@@ -410,7 +410,15 @@
     <div class="dash-body view active" id="view-projects">
       <div class="panel">
         <h3>Your Projects</h3>
+        <div style="display:flex; gap:8px; align-items:center; margin-bottom:10px;">
+          <input type="search" id="projSearch" placeholder="Search title, code, category…" style="flex:1; padding:8px 12px; border:1px solid rgba(27,24,54,0.15); border-radius:8px; font:inherit; font-size:0.85rem;">
+        </div>
         <div class="proj-list" id="projList"></div>
+        <div class="proj-pager" id="projPager" style="display:none; align-items:center; justify-content:space-between; margin-top:12px; gap:10px;">
+          <button class="btn btn-ghost" id="projPrev">← Prev</button>
+          <span id="projPageInfo" style="font-size:0.85rem; color:rgba(27,24,54,0.55);"></span>
+          <button class="btn btn-ghost" id="projNext">Next →</button>
+        </div>
         <button class="btn btn-primary" style="margin-top:18px;" id="newProjectBtn">+ New Project</button>
       </div>
 
@@ -1053,7 +1061,7 @@ async function loadBarometer(){
 
   const [row, projects] = await Promise.all([
     ZONE7_DB.getBarometer(currentClub),
-    ZONE7_DB.getProjects(currentClub)
+    ZONE7_DB.getProjects(currentClub, { limit: 500, full: true })
   ]);
   baroClubProjects = projects;
 
@@ -1433,7 +1441,7 @@ const CHART_PALETTE = ["#E11A6E","#A80F52","#F2A900","#1B1836","#8a6300","#1c8a4
 
 async function loadAnalytics(){
   const statsEl = document.getElementById("analyticsStats");
-  const all = await ZONE7_DB.getAllProjects();
+  const { rows: all, total } = await ZONE7_DB.getAllProjects({ withCount: true });
 
   // --- per-club counts ---
   const counts = {};
@@ -1442,7 +1450,7 @@ async function loadAnalytics(){
   const events = await ZONE7_DB.getEvents();
 
   statsEl.innerHTML = `
-    <div class="a-stat"><b>${all.length}</b><span>Total Projects, Zone-wide</span></div>
+    <div class="a-stat"><b>${total ?? all.length}</b><span>Total Projects, Zone-wide</span></div>
     <div class="a-stat"><b>${counts[currentClub] || 0}</b><span>Your Club's Projects</span></div>
     <div class="a-stat"><b>${events.length}</b><span>Zone Events Posted</span></div>
   `;
@@ -1542,12 +1550,27 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
 // logout handled below
 
+let projPage = 0, projPageSize = 25, projSearchTerm = "", projTotal = 0;
+
 async function renderProjectList(){
   const list = document.getElementById("projList");
   list.innerHTML = `<div class="no-projects">Loading projects…</div>`;
-  const projects = await ZONE7_DB.getProjects(currentClub);
+  const q = projSearchTerm.trim().toLowerCase();
+  let projects;
+  if(q){
+    const all = await ZONE7_DB.getProjects(currentClub, { limit: 500 });
+    projects = all.filter(p => `${p.title} ${p.project_code} ${p.category}`.toLowerCase().includes(q));
+    projTotal = projects.length;
+  } else {
+    const page = await ZONE7_DB.getProjectsPage(currentClub, projPage * projPageSize, projPageSize);
+    projects = page.rows;
+    projTotal = page.total;
+  }
   if(!projects.length){
-    list.innerHTML = `<div class="no-projects">No projects yet, add your first one on the right.</div>`;
+    list.innerHTML = q
+      ? `<div class="no-projects">No projects match “${zone7Esc(q)}”.</div>`
+      : `<div class="no-projects">No projects yet, add your first one on the right.</div>`;
+    document.getElementById("projPager").style.display = "none";
     return;
   }
   list.innerHTML = projects.map(p => `
@@ -1566,7 +1589,31 @@ async function renderProjectList(){
       loadProjectIntoForm(el.dataset.id);
     });
   });
+  const pager = document.getElementById("projPager");
+  const pages = Math.max(1, Math.ceil(projTotal / projPageSize));
+  if(q){
+    pager.style.display = "none";
+  } else {
+    pager.style.display = "flex";
+    document.getElementById("projPageInfo").textContent = `Page ${projPage + 1} of ${pages} · ${projTotal} projects`;
+    document.getElementById("projPrev").disabled = projPage <= 0;
+    document.getElementById("projNext").disabled = projPage >= pages - 1;
+  }
 }
+
+document.getElementById("projSearch").addEventListener("input", (e) => {
+  projSearchTerm = e.target.value;
+  projPage = 0;
+  renderProjectList();
+});
+
+document.getElementById("projPrev").addEventListener("click", () => {
+  if(projPage > 0){ projPage--; renderProjectList(); }
+});
+
+document.getElementById("projNext").addEventListener("click", () => {
+  projPage++; renderProjectList();
+});
 
 function resetForm(){
   editingId = null;
@@ -1675,14 +1722,8 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const title = document.getElementById("pTitle").value.trim();
   if(!title) return;
-  const id = editingId || (zone7Slugify(title) + "-" + Date.now().toString(36));
-
-  let projectCode = document.getElementById("coverPreview").dataset.code || "";
-  if(!editingId){
-    const existing = await ZONE7_DB.getProjects(currentClub);
-    const prefix = currentClub.slice(0,4).toUpperCase();
-    projectCode = `${prefix}-${String(existing.length + 1).padStart(2,'0')}`;
-  }
+  const uid = crypto.randomUUID ? crypto.randomUUID().replace(/-/g,"").slice(0,16) : Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+  const id = editingId || (zone7Slugify(title) + "-" + uid);
 
   const project = {
     id,
@@ -1694,13 +1735,27 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
     body: document.getElementById("pBody").value.trim(),
     cover: document.getElementById("coverPreview").dataset.value || "",
     gallery: galleryImages,
-    project_code: projectCode
+    project_code: document.getElementById("coverPreview").dataset.code || ""
   };
   const submitBtn = e.target.querySelector('button[type="submit"]');
   submitBtn.disabled = true; submitBtn.textContent = "Saving…";
   try{
-    await ZONE7_DB.saveProject(currentClub, project);
-    showToast(`Project saved ✓ (${projectCode})`);
+    if(!editingId){
+      let attempts = 0;
+      while(true){
+        project.project_code = await ZONE7_DB.nextProjectCode(currentClub);
+        try{
+          await ZONE7_DB.saveProject(currentClub, project);
+          break;
+        } catch(err){
+          if(attempts++ < 3 && /409|duplicate/i.test(err.message)) continue;
+          throw err;
+        }
+      }
+    } else {
+      await ZONE7_DB.saveProject(currentClub, project);
+    }
+    showToast(`Project saved ✓ (${project.project_code})`);
     document.getElementById("editingBanner").style.display = "none";
     await renderProjectList();
     resetForm();
@@ -1879,14 +1934,15 @@ document.getElementById("gUploadBtn").addEventListener("click", async () => {
   if(!title || !file){ msg.textContent = "Title and a file are required."; msg.style.display = "block"; msg.style.color = "var(--magenta-deep)"; return; }
   msg.textContent = "Uploading…"; msg.style.display = "block"; msg.style.color = "inherit";
   try{
-    const fileData = await zone7ReadFile(file);
-    const id = zone7Slugify(title) + "-" + Date.now().toString(36);
+    const fileUrl = await ZONE7_DB.uploadGuideFile(file);
+    const uid = crypto.randomUUID ? crypto.randomUUID().replace(/-/g,"").slice(0,16) : Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+    const id = zone7Slugify(title) + "-" + uid;
     await ZONE7_DB.saveGuide({
       id, title,
       category: document.getElementById("gCategory").value.trim() || "Other",
       description: document.getElementById("gDesc").value.trim(),
       file_name: file.name,
-      file_data: fileData
+      file_url: fileUrl
     });
     document.getElementById("gTitle").value = "";
     document.getElementById("gCategory").value = "";

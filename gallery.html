@@ -15,6 +15,10 @@
 <meta property="og:description" content="Photos from Rotaract service projects, blood donation drives, tree plantations, and events across all nine Zone 7 clubs. District 3292, Kathmandu Valley.">
 <meta property="og:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
 <meta property="og:url" content="https://zone7rotaract3292.vercel.app/gallery">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gallery | Zone 7 Rotaract 3292">
+<meta name="twitter:description" content="Photos from Rotaract service projects, blood donation drives, tree plantations, and events across all nine Zone 7 clubs. District 3292, Kathmandu Valley.">
+<meta name="twitter:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -108,7 +112,7 @@ function esc(s){return zone7Esc(s);}
 
 async function loadGallery(){
   const slugs = Object.keys(CLUB_DIRECTORY);
-  const lists = await Promise.all(slugs.map(s => ZONE7_DB.getProjects(s)));
+  const lists = await Promise.all(slugs.map(s => ZONE7_DB.getProjects(s, { limit: 80 })));
   lists.forEach((projects, i) => {
     const slug = slugs[i];
     projects.forEach(p => {

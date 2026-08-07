@@ -1,0 +1,14 @@
+{
+  "name": "Zone 7 Rotaract — District 3292",
+  "short_name": "Zone 7 Rotaract",
+  "description": "Zone 7 unites 9 Rotaract clubs across the Kathmandu Valley under District 3292 Nepal-Bhutan. Service, fellowship and leadership for young adults aged 18–30.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FFF8EF",
+  "theme_color": "#FFF8EF",
+  "lang": "en",
+  "icons": [
+    { "src": "/icons/zone7-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

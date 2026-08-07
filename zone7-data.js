@@ -328,34 +328,105 @@ const ZONE7_DB = {
     return true;
   },
 
-  async getAllProjects(){
+  async getAllProjects(opts = {}){
     try{
-      const res = await fetch(`${REST_URL}?select=id,club_slug,title,category,date,updated`, { headers: REST_HEADERS });
+      const limit = Math.max(1, Math.min(1000, opts.limit || 1000));
+      const offset = Math.max(0, opts.offset || 0);
+      const withCount = !!opts.withCount;
+      const res = await fetch(`${REST_URL}?select=id,club_slug,title,category,date,updated&order=updated.desc&limit=${limit}&offset=${offset}`, {
+        headers: withCount ? { ...REST_HEADERS, "Prefer": "count=exact" } : REST_HEADERS
+      });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
       const rows = await res.json();
+      if(withCount){
+        const cr = res.headers.get("content-range") || "";
+        const total = parseInt(String(cr).split("/")[1], 10);
+        return { rows, total: isNaN(total) ? null : total };
+      }
       this._allCache = rows;
       return rows;
     } catch(e){
       console.error("ZONE7_DB.getAllProjects error", e);
-      return this._allCache || [];
+      return opts.withCount ? { rows: [], total: null } : (this._allCache || []);
     }
   },
 
-  async getProjects(clubSlug){
+  async getProjects(clubSlug, opts = {}){
     try{
-      const cols = "id,club_slug,title,category,date,location,cover,updated,project_code,attendees,volunteer_hours,duration,jointly_with,host_status";
-      const res = await fetch(`${REST_URL}?select=${cols}&club_slug=eq.${encodeURIComponent(clubSlug)}&order=updated.desc`, {
+      const limit = Math.max(1, Math.min(1000, opts.limit || 200));
+      const offset = Math.max(0, opts.offset || 0);
+      const cols = opts.full
+        ? "id,club_slug,title,category,date,location,summary,body,cover,gallery,updated,project_code,attendees,volunteer_hours,duration,jointly_with,host_status"
+        : "id,club_slug,title,category,date,location,cover,updated,project_code,attendees,volunteer_hours,duration,jointly_with,host_status";
+      const res = await fetch(`${REST_URL}?select=${cols}&club_slug=eq.${encodeURIComponent(clubSlug)}&order=updated.desc&limit=${limit}&offset=${offset}`, {
         headers: REST_HEADERS
       });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
       const rows = await res.json();
       const projects = rows.map(this._fromRow);
-      this._cache[clubSlug] = projects;
+      if(offset === 0) this._cache[clubSlug] = projects;
       return projects;
     } catch(e){
       console.error("ZONE7_DB.getProjects error", e);
       return this._cache[clubSlug] || [];
     }
+  },
+
+  async getProjectsPage(clubSlug, offset, limit){
+    try{
+      const cols = "id,club_slug,title,category,date,location,cover,updated,project_code,attendees,volunteer_hours,duration,jointly_with,host_status";
+      const res = await fetch(`${REST_URL}?select=${cols}&club_slug=eq.${encodeURIComponent(clubSlug)}&order=updated.desc`, {
+        headers: {
+          ...REST_HEADERS,
+          "Prefer": "count=exact",
+          "Range-Unit": "items",
+          "Range": `${offset}-${offset + limit - 1}`
+        }
+      });
+      if(!res.ok) throw new Error("Fetch failed: " + res.status);
+      const rows = await res.json();
+      const cr = res.headers.get("content-range") || "";
+      const total = parseInt(String(cr).split("/")[1], 10);
+      return { rows: rows.map(this._fromRow), total: isNaN(total) ? rows.length : total };
+    } catch(e){
+      console.error("ZONE7_DB.getProjectsPage error", e);
+      return { rows: [], total: 0 };
+    }
+  },
+
+  async nextProjectCode(clubSlug){
+    try{
+      const res = await fetch(`${REST_URL}?select=project_code&club_slug=eq.${encodeURIComponent(clubSlug)}&order=project_code.desc&limit=1000`, { headers: REST_HEADERS });
+      if(!res.ok) throw new Error("Fetch failed: " + res.status);
+      const rows = await res.json();
+      const prefix = clubSlug.slice(0,4).toUpperCase();
+      let max = 0;
+      rows.forEach(r => {
+        const n = parseInt(String(r.project_code || "").replace(/[^0-9]/g, ""), 10);
+        if(!isNaN(n) && n > max) max = n;
+      });
+      return `${prefix}-${String(max + 1).padStart(2,'0')}`;
+    } catch(e){
+      console.error("ZONE7_DB.nextProjectCode error", e);
+      const prefix = clubSlug.slice(0,4).toUpperCase();
+      return `${prefix}-${String(Math.floor(Math.random()*90)+10)}`;
+    }
+  },
+
+  async deleteStorageObjects(urls){
+    const paths = (urls || []).filter(Boolean).map(u => {
+      const m = String(u).match(new RegExp(`/storage/v1/object/public/${STORAGE_BUCKET}/(.+)$`));
+      return m ? m[1] : null;
+    }).filter(Boolean);
+    if(!paths.length) return;
+    await Promise.all(paths.map(async path => {
+      try{
+        await fetch(`${SUPABASE_URL}/storage/v1/object/${STORAGE_BUCKET}/${path}`, {
+          method: "DELETE",
+          headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": `Bearer ${SUPABASE_ANON_KEY}` }
+        });
+      }catch(e){ console.error("storage delete failed", path, e); }
+    }));
   },
 
   async getProject(clubSlug, id){
@@ -408,9 +479,12 @@ const ZONE7_DB = {
   async deleteProject(clubSlug, id){
     const res = await fetch(`${REST_URL}?club_slug=eq.${encodeURIComponent(clubSlug)}&id=eq.${encodeURIComponent(id)}`, {
       method: "DELETE",
-      headers: REST_HEADERS
+      headers: { ...REST_HEADERS, "Prefer": "return=representation" }
     });
     if(!res.ok) throw new Error("Delete failed: " + res.status);
+    const deleted = await res.json().catch(() => []);
+    const row = deleted[0];
+    if(row) this.deleteStorageObjects([row.cover, ...(row.gallery || [])]);
     return true;
   },
 
@@ -533,10 +607,38 @@ const ZONE7_DB = {
   async deleteGuide(id){
     const res = await fetch(`${GUIDES_URL}?id=eq.${encodeURIComponent(id)}`, {
       method: "DELETE",
-      headers: REST_HEADERS
+      headers: { ...REST_HEADERS, "Prefer": "return=representation" }
     });
     if(!res.ok) throw new Error("Delete failed: " + res.status);
+    const deleted = await res.json().catch(() => []);
+    const row = deleted[0];
+    if(row) this.deleteStorageObjects([row.file_url]);
     return true;
+  },
+
+  async uploadGuideFile(file){
+    const blob = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = e => resolve(e.target.result);
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(file);
+    });
+    const ext = (file.name.match(/\.(\w+)$/) || [,"bin"])[1].toLowerCase();
+    const path = `guides/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
+    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${STORAGE_BUCKET}/${path}`, {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        "Content-Type": file.type || "application/octet-stream"
+      },
+      body: blob
+    });
+    if(!res.ok){
+      const errText = await res.text();
+      throw new Error("Guide file upload failed: " + res.status + " " + errText);
+    }
+    return `${SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}/${path}`;
   },
 
   /* ---- guest visit requests (/join) ---- */
