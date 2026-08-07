@@ -254,7 +254,11 @@
   .mosaic-popup .mp-tag{font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:3px 9px; border-radius:100px; display:inline-block; margin-bottom:8px;}
   .mosaic-popup h5{font-size:0.9rem; margin-bottom:4px; font-family:'Poppins'; font-weight:700;}
   .mosaic-popup p{font-size:0.76rem; color:rgba(27,24,54,0.55); margin:0;}
-  @media (max-width:600px){ .mosaic-tile,.mosaic-col{width:26px;} .mosaic-tile{height:26px; font-size:0.72rem;} .mosaic-frame{padding:20px 14px 14px;} }
+  @media (max-width:600px){
+    .mosaic-tile{width:26px; height:26px; font-size:0.72rem;}
+    .mosaic-col{min-width:26px; width:auto;}
+    .mosaic-frame{padding:20px 14px 14px;}
+  }
   .pillar{
     background:var(--cream); border:1px solid var(--line); border-radius:18px; padding:28px 30px;
     display:flex; gap:20px; align-items:flex-start;
