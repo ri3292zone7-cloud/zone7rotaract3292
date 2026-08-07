@@ -296,7 +296,8 @@ const ZONE7_DB = {
 
   async getProjects(clubSlug){
     try{
-      const res = await fetch(`${REST_URL}?club_slug=eq.${encodeURIComponent(clubSlug)}&order=updated.desc`, {
+      const cols = "id,club_slug,title,category,date,location,cover,updated,project_code,attendees,volunteer_hours,duration,jointly_with,host_status";
+      const res = await fetch(`${REST_URL}?select=${cols}&club_slug=eq.${encodeURIComponent(clubSlug)}&order=updated.desc`, {
         headers: REST_HEADERS
       });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
