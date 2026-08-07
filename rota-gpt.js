@@ -106,12 +106,15 @@
   launcher.addEventListener("click", function () { setOpen(true); });
   closeBtn.addEventListener("click", function () { setOpen(false); });
 
+  function scrollBottom() {
+    msgs.scrollTo({ top: msgs.scrollHeight, behavior: "smooth" });
+  }
   function addMsg(html, who) {
     var d = document.createElement("div");
     d.className = "rgpt-msg " + who;
     d.innerHTML = html;
     msgs.appendChild(d);
-    msgs.scrollTop = msgs.scrollHeight;
+    scrollBottom();
     return d;
   }
   function addTyping() {
@@ -240,7 +243,7 @@
     bubble.innerHTML = ans.text +
       (links ? '<div class="rgpt-links">' + links + "</div>" : "") +
       '<div class="rgpt-src">Answer from the ' + esc(ans.src || "Zone 7 knowledge base") + "</div>";
-    msgs.scrollTop = msgs.scrollHeight;
+    scrollBottom();
   }
 
   var history = [];
@@ -251,6 +254,7 @@
   function send(q) {
     q = (q || "").trim();
     if (!q) return;
+    input.value = "";                       // clear the box so the chat stays readable
     addMsg(esc(q), "user");
     history.push({ role: "user", content: q });
     var seq = ++turnSeq;
@@ -258,6 +262,7 @@
     var local = localAnswer(q);
     var bubble = addMsg("", "bot");
     renderAnswer(bubble, local);
+    input.focus();
 
     function upgrade(text) {
       if (!text) return;                    // no AI reply yet — keep local answer
