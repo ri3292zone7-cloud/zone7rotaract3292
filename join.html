@@ -21,8 +21,9 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
-<script src="zone7-data.js"></script>
+<script src="zone7-data.js" defer></script>
 <style>
   :root{
     --ink:#1B1836;
@@ -81,6 +82,63 @@
     font-size:1.1rem; color:rgba(27,24,54,0.72); max-width:620px; margin-top:22px; line-height:1.65;
   }
 
+  /* HERO MOTION LAYER */
+  .hero-bg{position:absolute; inset:0; overflow:hidden; pointer-events:none;}
+  .blob{position:absolute; border-radius:50%; filter:blur(64px); opacity:.55;}
+  .blob.b1{width:500px; height:500px; background:rgba(225,26,110,0.15); top:-160px; right:-130px; animation:blobDrift 16s ease-in-out infinite alternate;}
+  .blob.b2{width:420px; height:420px; background:rgba(242,169,0,0.18); bottom:-140px; left:-110px; animation:blobDrift 22s ease-in-out infinite alternate-reverse;}
+  .blob.b3{width:320px; height:320px; background:rgba(27,24,54,0.10); top:38%; left:32%; animation:blobDrift 26s ease-in-out infinite alternate;}
+  @keyframes blobDrift{
+    from{transform:translate(0,0) scale(1);}
+    to{transform:translate(46px,32px) scale(1.14);}
+  }
+  .deco{position:absolute; z-index:1;}
+  .d-gear{width:44px; height:44px; color:var(--gold); top:88px; right:6%; animation:spinSlow 22s linear infinite; opacity:.85;}
+  .d-spark1{width:22px; height:22px; color:var(--magenta); top:40px; right:38%; animation:twinkle 3.2s ease-in-out infinite alternate;}
+  .d-spark2{width:16px; height:16px; color:var(--gold); bottom:190px; right:2%; animation:twinkle 2.6s ease-in-out .9s infinite alternate;}
+  .d-heart{width:30px; height:30px; color:var(--magenta); bottom:110px; right:30%; animation:floaty 5.5s ease-in-out infinite;}
+  .d-dot1{width:10px; height:10px; color:var(--ink); opacity:.35; top:32%; left:4%; animation:floaty 7s ease-in-out 1s infinite;}
+  .d-dot2{width:8px; height:8px; color:var(--magenta); opacity:.5; top:58%; left:12%; animation:floaty 6s ease-in-out .4s infinite;}
+  @keyframes spinSlow{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
+  @keyframes twinkle{from{opacity:.25; transform:scale(.7);} to{opacity:1; transform:scale(1.15);}}
+  @keyframes floaty{0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);}}
+
+  .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:52px; align-items:center; position:relative; z-index:2;}
+  .hero-art{position:relative; display:flex; justify-content:center;}
+  .hero-art-frame{
+    position:relative; border-radius:28px; overflow:hidden;
+    border:1px solid rgba(27,24,54,0.08);
+    box-shadow:0 30px 60px -18px rgba(27,24,54,0.28);
+    animation:bob 7s ease-in-out infinite;
+    background:var(--paper);
+  }
+  .hero-art-frame::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(160deg, rgba(255,255,255,0.16), transparent 40%, rgba(27,24,54,0.06));
+  }
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-.4deg);} 50%{transform:translateY(-13px) rotate(.5deg);}}
+  .hero-art-frame img{width:100%; height:auto; display:block;}
+  .art-badge{
+    position:absolute; left:-14px; bottom:26px; z-index:3;
+    display:flex; align-items:center; gap:10px;
+    background:var(--ink); color:#fff; border-radius:100px; padding:11px 18px;
+    font-size:0.8rem; box-shadow:0 14px 30px -8px rgba(27,24,54,0.45);
+    animation:floaty 5s ease-in-out 1.2s infinite;
+  }
+  .art-badge .ab-ico{
+    width:30px; height:30px; border-radius:50%; background:rgba(242,169,0,0.22);
+    display:flex; align-items:center; justify-content:center; font-size:0.85rem; flex-shrink:0;
+  }
+  .art-badge b{color:var(--gold);}
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr; gap:36px;}
+    .hero-art{order:2;}
+    .d-gear{right:4%;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .blob, .deco, .hero-art-frame, .art-badge, .success-art{animation:none !important;}
+  }
+
   /* WHY JOIN STRIP */
   .why-grid{
     display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px;
@@ -104,10 +162,63 @@
   .form-section{padding:70px 0 120px;}
   .form-card{
     background:var(--paper); border:1px solid var(--line); border-radius:28px;
-    padding:56px; max-width:820px; margin:0 auto;
+    padding:56px; max-width:820px; margin:0 auto; position:relative; overflow:hidden;
   }
+  .form-card::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:6px;
+    background:linear-gradient(90deg, var(--magenta) 0%, var(--magenta-deep) 45%, var(--gold) 100%);
+    background-size:200% 100%; animation:gradShift 7s ease-in-out infinite;
+  }
+  @keyframes gradShift{0%,100%{background-position:0% 50%;} 50%{background-position:100% 50%;}}
   .form-card h2{font-size:1.6rem; margin-bottom:10px;}
-  .form-card p.intro{color:rgba(27,24,54,0.65); font-size:0.98rem; margin-bottom:40px; line-height:1.6;}
+  .form-card p.intro{color:rgba(27,24,54,0.65); font-size:0.98rem; margin-bottom:30px; line-height:1.6;}
+
+  .step-progress{margin-bottom:34px;}
+  .step-progress-bar{height:6px; background:rgba(27,24,54,0.08); border-radius:100px; overflow:hidden; margin-bottom:14px;}
+  .step-progress-bar > i{display:block; height:100%; width:33.33%; background:linear-gradient(90deg, var(--magenta), var(--magenta-deep)); border-radius:100px; transition:width .35s ease;}
+  .step-dots{display:flex; align-items:center; gap:10px;}
+  .step-dot{
+    width:30px; height:30px; border-radius:50%; background:#fff; border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-size:0.78rem; font-weight:800; color:rgba(27,24,54,0.45);
+    transition:all .25s; flex-shrink:0;
+  }
+  .step-dot.active{background:var(--magenta); border-color:var(--magenta); color:#fff;}
+  .step-dot.done{background:var(--magenta-deep); border-color:var(--magenta-deep); color:#fff;}
+  .step-line{flex:1; height:2px; background:rgba(27,24,54,0.12); border-radius:2px; min-width:20px;}
+  .step-labels{display:flex; justify-content:space-between; margin-top:8px; font-size:0.74rem; font-weight:700; color:rgba(27,24,54,0.55);}
+  .step-labels span.on{color:var(--magenta-deep);}
+
+  .form-step{display:none;}
+  .form-step.active{display:block; animation:fadeIn .3s ease;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+
+  .step-nav{display:flex; gap:12px; align-items:center; justify-content:center; margin-top:28px; flex-wrap:wrap;}
+  .btn-back{
+    padding:17px 28px; border-radius:100px; border:1.5px solid var(--line); background:#fff;
+    font-family:'Inter'; font-size:0.95rem; font-weight:700; color:var(--ink); cursor:pointer; transition:border-color .2s;
+  }
+  .btn-back:hover{border-color:var(--magenta);}
+  .btn-next{
+    min-width:280px; padding:17px 36px; border-radius:100px; border:none; cursor:pointer;
+    background:var(--ink); color:#fff; font-weight:700; font-size:1rem;
+    font-family:'Inter'; transition:transform .2s, box-shadow .2s;
+  }
+  .btn-next:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(27,24,54,0.22);}
+
+  .field-err{color:var(--magenta-deep); font-size:0.76rem; font-weight:600; margin-top:6px;}
+  input.invalid, select.invalid, textarea.invalid{border-color:var(--magenta-deep) !important; background:#FFF5F8;}
+
+  .next-strip{
+    background:var(--cream); border:1px solid var(--line); border-radius:16px; padding:20px 22px; margin:26px 0 18px;
+  }
+  .next-strip h4{font-size:0.95rem; margin-bottom:12px; display:flex; align-items:center; gap:8px;}
+  .next-strip h4::before{content:"\2192"; color:var(--magenta); font-weight:900;}
+  .next-strip ol{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;}
+  .next-strip li{display:flex; gap:12px; align-items:flex-start; font-size:0.85rem; line-height:1.5; color:rgba(27,24,54,0.75);}
+  .next-strip li b{color:var(--ink); white-space:nowrap;}
+  .next-strip .n{width:22px; height:22px; border-radius:50%; background:var(--ink); color:#fff; font-size:0.7rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;}
+  .social-proof{margin-top:16px; text-align:center; font-size:0.8rem; color:rgba(27,24,54,0.55); font-weight:600;}
+  .social-proof b{color:var(--magenta-deep);}
 
   .form-group{margin-bottom:26px;}
   .form-row{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
@@ -161,6 +272,11 @@
   }
   .success-panel h2{margin-bottom:10px;}
   .success-panel p{color:rgba(27,24,54,0.65); max-width:480px; margin:0 auto;}
+  .success-art{
+    max-width:430px; width:100%; margin:0 auto 22px; border-radius:22px;
+    border:1px solid var(--line); box-shadow:0 22px 44px -16px rgba(27,24,54,0.22);
+    animation:bob 7s ease-in-out infinite;
+  }
 
   footer{background:var(--ink); color:#fff; padding:50px 0;}
   footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;}
@@ -172,6 +288,7 @@
     .form-card{padding:34px 22px;}
     .form-row{grid-template-columns:1fr;}
     .check-grid{grid-template-columns:1fr;}
+    .btn-back, .btn-next{width:100%; min-width:0;}
   }
 </style>
 <script type="application/ld+json">
@@ -207,10 +324,31 @@
 <script src="site-nav.js" defer></script>
 
 <header class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <span class="blob b3"></span>
+    <svg class="deco d-gear" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.4 3.2 3.4-.8 1.2 3.3 3.4 1-.8 3.4L24 12l-3.4 1.9.8 3.4-3.4 1-1.2 3.3-3.4-.8L12 24l-1.4-3.2-3.4.8-1.2-3.3-3.4-1 .8-3.4L0 12l3.4-1.9-.8-3.4 3.4-1L7.2 2.4l3.4.8L12 2z" fill="currentColor"/></svg>
+    <svg class="deco d-spark1" viewBox="0 0 24 24" fill="none"><path d="M12 0l2.2 9.8L24 12l-9.8 2.2L12 24l-2.2-9.8L0 12l9.8-2.2L12 0z" fill="currentColor"/></svg>
+    <svg class="deco d-spark2" viewBox="0 0 24 24" fill="none"><path d="M12 0l2.2 9.8L24 12l-9.8 2.2L12 24l-2.2-9.8L0 12l9.8-2.2L12 0z" fill="currentColor"/></svg>
+    <svg class="deco d-heart" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.6-9.3-9C1.2 8.3 3 5 6.2 5c2 0 3.3 1.1 4 2.4h3.6C14.5 6.1 15.8 5 17.8 5 21 5 22.8 8.3 21.3 11c-2.3 4.4-9.3 9-9.3 9z" fill="currentColor"/></svg>
+    <svg class="deco d-dot1" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="currentColor"/></svg>
+    <svg class="deco d-dot2" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="currentColor"/></svg>
+  </div>
   <div class="wrap">
-    <div class="eyebrow"><span class="dot"></span>Membership · Zone 7, District 3292</div>
-    <h1>Fill this form, and you're <span class="hl">officially a Rotaractor.</span></h1>
-    <p class="lead">There's no long application process. Tell us a bit about yourself, including your age and a little about your health, and share why you want to serve, and a Zone 7 club will welcome you in as a member.</p>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="eyebrow"><span class="dot"></span>Membership · Zone 7, District 3292</div>
+        <h1>Fill this form, and you're <span class="hl">officially a Rotaractor.</span></h1>
+        <p class="lead">There's no long application process. Tell us a bit about yourself, including your age and a little about your health, and share why you want to serve, and a Zone 7 club will welcome you in as a member.</p>
+      </div>
+      <div class="hero-art">
+        <div class="hero-art-frame">
+          <img src="zone7_join_hero.webp" alt="Illustration of young Nepali Rotaractors planting a tree, holding a blood donation bag and books" width="900" height="615" fetchpriority="high" decoding="async">
+        </div>
+        <div class="art-badge"><span class="ab-ico">&#10084;&#65039;</span><span><b>5500+ Rotaractors</b> · 9 clubs in District 3292</span></div>
+      </div>
+    </div>
 
     <div class="why-grid">
       <div class="why-card c1">
@@ -232,96 +370,6 @@
   </div>
 </header>
 
-<section class="try-band">
-  <div class="wrap">
-    <div class="try-grid">
-      <div class="try-card try-meet">
-        <span class="section-tag">Try It First</span>
-        <h3>Show up before you sign up.</h3>
-        <p class="try-lead">Every Zone 7 club runs on the standard Rotaract rhythm of meetings and fellowship. You're welcome as a guest at any of it. No form required, no commitment.</p>
-        <ul class="rhythm-list">
-          <li><b>Regular meetings</b><span>the club's heartbeat. Clubs aim for 24 a year, guests welcome any week</span></li>
-          <li><b>Board meetings</b><span>run by each club's elected officers. The monthly planning engine</span></li>
-          <li><b>2 club assemblies</b><span>a year, where members vote on the club's direction</span></li>
-          <li><b>Fellowships</b><span>hikes, picnics, festival nights and birthday celebrations</span></li>
-        </ul>
-        <p class="try-foot">Contact the club you're interested in (every profile has an email button) and ask which meeting to drop into.</p>
-      </div>
-      <div class="try-card try-guest">
-        <h3>Request a guest visit</h3>
-        <p class="try-lead">Not sure which club fits? Tell the zone and we'll match you with the right meeting to attend.</p>
-        <form id="guestForm" novalidate>
-          <p style="position:absolute; left:-9999px;">
-            <label>Don't fill this out if you're human: <input name="_honey" /></label>
-          </p>
-          <div class="form-row">
-            <label>Full name <span class="req">*</span>
-              <input type="text" name="fullname" required placeholder="Your name">
-            </label>
-            <label>Email <span class="req">*</span>
-              <input type="email" name="email" required placeholder="you@example.com">
-            </label>
-          </div>
-          <div class="form-row">
-            <label>Preferred club
-              <select name="preferred_club">
-                <option value="" selected>Any club is fine</option>
-                <option>Rotaract Club of Balkumari</option>
-                <option>Rotaract Club of Baneshwor</option>
-                <option>Rotaract Club of Kathmandu Height</option>
-                <option>Rotaract Club of Kathmandu West</option>
-                <option>Rotaract Club of Liberty College</option>
-                <option>Rotaract Club of New Road City Kathmandu</option>
-                <option>Rotaract Club of Sankhu</option>
-                <option>Rotaract Club of Sukedhara</option>
-                <option>Rotaract Club of Tripureswor</option>
-              </select>
-            </label>
-            <label>Phone (optional)
-              <input type="tel" name="phone" placeholder="98XXXXXXXX">
-            </label>
-          </div>
-          <label>Anything you'd like to know?
-            <textarea name="message" rows="3" placeholder="e.g. Is there a meeting this week? Do I need to be a member first?"></textarea>
-          </label>
-          <button type="submit" class="btn btn-primary" id="guestBtn">Request a Guest Visit →</button>
-          <p class="form-status" id="guestStatus" aria-live="polite"></p>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<style>
-  .try-band{padding:0 0 90px;}
-  .try-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:20px;}
-  @media (max-width:860px){ .try-grid{grid-template-columns:1fr;} }
-  .try-card{background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:34px 32px;}
-  .try-meet{background:var(--ink); border-color:var(--ink); color:#fff;}
-  .try-meet .section-tag{color:var(--gold);}
-  .try-card h3{font-size:1.35rem; margin-bottom:10px;}
-  .try-lead{font-size:0.92rem; color:rgba(27,24,54,0.65); line-height:1.65; margin-bottom:20px;}
-  .try-meet .try-lead{color:rgba(255,255,255,0.65);}
-  .rhythm-list{list-style:none; padding:0; margin:0 0 18px;}
-  .rhythm-list li{display:flex; align-items:baseline; gap:10px; padding:11px 0; border-bottom:1px solid rgba(255,255,255,0.1);}
-  .rhythm-list li:last-child{border-bottom:none;}
-  .rhythm-list b{font-family:'Poppins'; font-size:0.95rem; color:var(--gold); white-space:nowrap;}
-  .rhythm-list span{font-size:0.82rem; color:rgba(255,255,255,0.6);}
-  .try-foot{font-size:0.8rem; color:rgba(255,255,255,0.5); line-height:1.6;}
-  .try-guest form{display:flex; flex-direction:column; gap:16px;}
-  .try-guest label{font-size:0.82rem; font-weight:700; color:var(--ink); display:block;}
-  .try-guest input, .try-guest textarea, .try-guest select{
-    width:100%; margin-top:6px; padding:11px 14px; border-radius:12px; border:1.5px solid var(--line);
-    background:#fff; font-family:'Inter'; font-size:0.9rem; color:var(--ink);
-  }
-  .try-guest input:focus, .try-guest textarea:focus{outline:none; border-color:var(--magenta);}
-  .try-guest .form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
-  @media (max-width:520px){ .try-guest .form-row{grid-template-columns:1fr;} }
-  .form-status{margin-top:12px; font-size:0.85rem; font-weight:600;}
-  .form-status.error{color:#C0392B;}
-  .form-status.ok{color:#1c8a4d;}
-</style>
-
 <section class="form-section">
   <div class="wrap">
     <div class="form-card">
@@ -336,6 +384,23 @@
             <input name="bot-field" tabindex="-1" autocomplete="off" />
           </p>
 
+          <div class="step-progress" aria-label="Form progress">
+            <div class="step-progress-bar"><i id="formProgressBar"></i></div>
+            <div class="step-dots">
+              <span class="step-dot active" data-step="1">1</span>
+              <span class="step-line"></span>
+              <span class="step-dot" data-step="2">2</span>
+              <span class="step-line"></span>
+              <span class="step-dot" data-step="3">3</span>
+            </div>
+            <div class="step-labels">
+              <span data-label="1">About you</span>
+              <span data-label="2">Why Rotaract</span>
+              <span data-label="3">Club &amp; submit</span>
+            </div>
+          </div>
+
+          <div class="form-step" data-step="1">
           <div class="form-group">
             <label for="fullname">Full Name <span class="req">*</span></label>
             <input type="text" id="fullname" name="fullname" required placeholder="As per your citizenship / ID">
@@ -354,18 +419,11 @@
 
           <div class="form-row">
             <div class="form-group">
-              <label for="age">Age <span class="req">*</span><span class="hint">Rotaract membership is open to ages 18&ndash;30</span></label>
-              <input type="number" id="age" name="age" min="18" max="30" required placeholder="e.g. 22">
-            </div>
-            <div class="form-group">
-              <label for="dob">Date of Birth <span class="req">*</span></label>
+              <label for="dob">Date of Birth <span class="req">*</span><span class="hint">Rotaract membership is open to ages 18&ndash;30</span></label>
               <input type="date" id="dob" name="dob" required>
             </div>
-          </div>
-
-          <div class="form-row">
             <div class="form-group">
-              <label for="bloodgroup">Blood Group <span class="req">*</span><span class="hint">Used for club blood-donation drives & emergencies</span></label>
+              <label for="bloodgroup">Blood Group <span class="req">*</span><span class="hint">Used for club blood-donation drives &amp; emergencies</span></label>
               <select id="bloodgroup" name="bloodgroup" required>
                 <option value="" disabled selected>Select your blood group</option>
                 <option>A+</option>
@@ -379,33 +437,20 @@
                 <option>Not sure yet</option>
               </select>
             </div>
-            <div class="form-group">
-              <label for="occupation">Current Occupation <span class="req">*</span></label>
-              <input type="text" id="occupation" name="occupation" required placeholder="Student, working professional, etc.">
-            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="occupation">Current Occupation <span class="req">*</span></label>
+            <input type="text" id="occupation" name="occupation" required placeholder="Student, working professional, etc.">
           </div>
 
           <div class="form-group">
             <label for="institution">College / Workplace</label>
             <input type="text" id="institution" name="institution" placeholder="Name of your college or organization">
           </div>
-
-          <div class="form-group">
-            <label for="preferred_club">Preferred Zone 7 Club <span class="hint">Pick the club you'd like to join; not sure yet? Leave "Help me match" and the zone team will place you</span></label>
-            <select id="preferred_club" name="preferred_club">
-              <option value="" selected>Not sure yet — help me match</option>
-              <option>Rotaract Club of Balkumari</option>
-              <option>Rotaract Club of Baneshwor</option>
-              <option>Rotaract Club of Kathmandu Height</option>
-              <option>Rotaract Club of Kathmandu West</option>
-              <option>Rotaract Club of Liberty College</option>
-              <option>Rotaract Club of New Road City Kathmandu</option>
-              <option>Rotaract Club of Sankhu</option>
-              <option>Rotaract Club of Sukedhara</option>
-              <option>Rotaract Club of Tripureswor</option>
-            </select>
           </div>
 
+          <div class="form-step" data-step="2">
           <div class="form-group">
             <fieldset>
               <legend>Which areas of service interest you? <span class="req">*</span></legend>
@@ -444,18 +489,52 @@
             <label for="referral">How did you hear about Zone 7 Rotaract?</label>
             <input type="text" id="referral" name="referral" placeholder="Friend, Instagram, a club event, etc.">
           </div>
+          </div>
 
-          <button type="submit" class="btn-submit" id="submitBtn">Submit &amp; Become a Rotaractor</button>
+          <div class="form-step" data-step="3">
+          <div class="form-group">
+            <label for="preferred_club">Preferred Zone 7 Club <span class="hint">Pick the club you'd like to join; not sure yet? Leave "Help me match" and the zone team will place you</span></label>
+            <select id="preferred_club" name="preferred_club">
+              <option value="" selected>Not sure yet — help me match</option>
+              <option>Rotaract Club of Balkumari</option>
+              <option>Rotaract Club of Baneshwor</option>
+              <option>Rotaract Club of Kathmandu Height</option>
+              <option>Rotaract Club of Kathmandu West</option>
+              <option>Rotaract Club of Liberty College</option>
+              <option>Rotaract Club of New Road City Kathmandu</option>
+              <option>Rotaract Club of Sankhu</option>
+              <option>Rotaract Club of Sukedhara</option>
+              <option>Rotaract Club of Tripureswor</option>
+            </select>
+          </div>
+
+          <div class="next-strip">
+            <h4>What happens after you apply?</h4>
+            <ol>
+              <li><span class="n">1</span><span><b>We receive your form</b> &mdash; it goes straight to the Zone 7 team.</span></li>
+              <li><span class="n">2</span><span><b>Your club reaches out</b> &mdash; the club you picked (or a matched one) contacts you.</span></li>
+              <li><span class="n">3</span><span><b>You join a meeting</b> &mdash; meet the members, and if you love it, your membership begins.</span></li>
+            </ol>
+          </div>
+
+          <p class="social-proof"><b>Join 5500+ Rotaractors</b> across 9 clubs in District 3292 &mdash; no fees, no prior experience needed.</p>
+
           <div class="form-status" id="formStatus"></div>
+          </div>
+
+          <div class="step-nav">
+            <button type="button" class="btn-back" id="stepBack" aria-label="Go back">&#8592; Back</button>
+            <button type="button" class="btn-next" id="stepNext">Submit &amp; Become a Rotaractor</button>
+          </div>
         </form>
       </div>
 
       <div class="success-panel" id="successPanel">
         <div class="mark">✓</div>
+        <img src="zone7_join_hero_b.webp" alt="Illustration of young Rotaractors celebrating" width="900" height="615" loading="lazy" decoding="async" class="success-art">
         <h2>Welcome, Rotaractor!</h2>
         <p>Thank you for filling out the form, you've officially taken the first step to becoming a Rotaractor. A Zone 7 club will be in touch with you shortly to complete your onboarding.</p>
       </div>
-
     </div>
   </div>
 </section>
@@ -522,6 +601,120 @@
   .comm-go{font-size:0.8rem; font-weight:800; color:var(--gold);}
 </style>
 
+<section class="try-band">
+  <div class="wrap">
+    <div class="try-grid">
+      <div class="try-card try-meet">
+        <span class="section-tag">Try It First</span>
+        <h3>Show up before you sign up.</h3>
+        <p class="try-lead">Every Zone 7 club runs on the standard Rotaract rhythm of meetings and fellowship. You're welcome as a guest at any of it. No form required, no commitment.</p>
+        <ul class="rhythm-list">
+          <li><b>Regular meetings</b><span>the club's heartbeat. Clubs aim for 24 a year, guests welcome any week</span></li>
+          <li><b>Board meetings</b><span>run by each club's elected officers. The monthly planning engine</span></li>
+          <li><b>2 club assemblies</b><span>a year, where members vote on the club's direction</span></li>
+          <li><b>Fellowships</b><span>hikes, picnics, festival nights and birthday celebrations</span></li>
+        </ul>
+        <p class="try-foot">Contact the club you're interested in (every profile has an email button) and ask which meeting to drop into.</p>
+      </div>
+      <div class="try-card try-guest">
+        <div class="guest-head">
+          <span class="guest-ico">👋</span>
+          <div>
+            <h3>Request a guest visit</h3>
+            <p class="try-lead">Not sure which club fits? Tell the zone and we'll match you with the right meeting to attend.</p>
+          </div>
+        </div>
+        <form id="guestForm" novalidate>
+          <p style="position:absolute; left:-9999px;">
+            <label>Don't fill this out if you're human: <input name="_honey" /></label>
+          </p>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="gfullname">Full name <span class="req">*</span></label>
+              <input type="text" id="gfullname" name="fullname" required placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label for="gemail">Email <span class="req">*</span></label>
+              <input type="email" id="gemail" name="email" required placeholder="you@example.com">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="gclub">Preferred club</label>
+              <select id="gclub" name="preferred_club">
+                <option value="" selected>Any club is fine</option>
+                <option>Rotaract Club of Balkumari</option>
+                <option>Rotaract Club of Baneshwor</option>
+                <option>Rotaract Club of Kathmandu Height</option>
+                <option>Rotaract Club of Kathmandu West</option>
+                <option>Rotaract Club of Liberty College</option>
+                <option>Rotaract Club of New Road City Kathmandu</option>
+                <option>Rotaract Club of Sankhu</option>
+                <option>Rotaract Club of Sukedhara</option>
+                <option>Rotaract Club of Tripureswor</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="gphone">Phone <span class="hint">optional</span></label>
+              <input type="tel" id="gphone" name="phone" placeholder="98XXXXXXXX">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="gmsg">Anything you'd like to know?</label>
+            <textarea id="gmsg" name="message" rows="3" placeholder="e.g. Is there a meeting this week? Do I need to be a member first?"></textarea>
+          </div>
+          <div class="guest-perks">
+            <span>No fees</span><span>No commitment</span><span>Meet members first</span>
+          </div>
+          <button type="submit" class="guest-btn" id="guestBtn">Request a Guest Visit <span aria-hidden="true">&#8594;</span></button>
+          <p class="form-status" id="guestStatus" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .try-band{padding:0 0 90px;}
+  .try-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:20px;}
+  @media (max-width:860px){ .try-grid{grid-template-columns:1fr;} }
+  .try-card{background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:34px 32px;}
+  .try-meet{background:var(--ink); border-color:var(--ink); color:#fff;}
+  .try-meet .section-tag{color:var(--gold);}
+  .try-card h3{font-size:1.35rem; margin-bottom:10px;}
+  .try-lead{font-size:0.92rem; color:rgba(27,24,54,0.65); line-height:1.65; margin-bottom:20px;}
+  .try-meet .try-lead{color:rgba(255,255,255,0.65);}
+  .rhythm-list{list-style:none; padding:0; margin:0 0 18px;}
+  .rhythm-list li{display:flex; align-items:baseline; gap:10px; padding:11px 0; border-bottom:1px solid rgba(255,255,255,0.1);}
+  .rhythm-list li:last-child{border-bottom:none;}
+  .rhythm-list b{font-family:'Poppins'; font-size:0.95rem; color:var(--gold); white-space:nowrap;}
+  .rhythm-list span{font-size:0.82rem; color:rgba(255,255,255,0.6);}
+  .try-foot{font-size:0.8rem; color:rgba(255,255,255,0.5); line-height:1.6;}
+  .try-guest{position:relative; overflow:hidden;}
+  .try-guest::before{content:""; position:absolute; top:0; left:0; right:0; height:6px; background:linear-gradient(90deg, var(--gold), var(--magenta));}
+  .try-guest form{display:flex; flex-direction:column; gap:16px;}
+  .guest-head{display:flex; gap:14px; align-items:flex-start; margin-bottom:4px;}
+  .guest-ico{width:48px; height:48px; border-radius:14px; background:var(--cream); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:1.35rem; flex-shrink:0;}
+  .guest-head h3{margin-bottom:6px;}
+  .guest-head .try-lead{margin-bottom:0;}
+  .try-guest .form-group{margin-bottom:0;}
+  .guest-perks{display:flex; flex-wrap:wrap; gap:8px;}
+  .guest-perks span{font-size:0.72rem; font-weight:700; color:var(--magenta-deep); background:rgba(225,26,110,0.08); padding:5px 11px; border-radius:100px;}
+  .guest-btn{
+    width:100%; padding:16px; border-radius:100px; border:none; cursor:pointer;
+    background:var(--ink); color:#fff; font-weight:700; font-size:0.98rem;
+    font-family:'Inter'; display:flex; align-items:center; justify-content:center; gap:8px;
+    transition:transform .2s, box-shadow .2s, background .2s;
+  }
+  .guest-btn:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(27,24,54,0.22);}
+  .guest-btn:disabled{opacity:0.6; cursor:not-allowed; transform:none; box-shadow:none;}
+  .try-guest .form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media (max-width:520px){ .try-guest .form-row{grid-template-columns:1fr;} }
+  .form-status{margin-top:12px; font-size:0.85rem; font-weight:600;}
+  .form-status.error{color:#C0392B;}
+  .form-status.ok{color:#1c8a4d;}
+</style>
+
 <footer>
   <div class="wrap">
     <p>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan.</p>
@@ -531,14 +724,141 @@
 
 <script>
   const form = document.getElementById('joinForm');
-  const submitBtn = document.getElementById('submitBtn');
   const statusEl = document.getElementById('formStatus');
+  const steps = [...document.querySelectorAll('.form-step')];
+  const dots = [...document.querySelectorAll('.step-dot')];
+  const labels = [...document.querySelectorAll('.step-labels span')];
+  const progressBar = document.getElementById('formProgressBar');
+  const backBtn = document.getElementById('stepBack');
+  const nextBtn = document.getElementById('stepNext');
+  const submitBtn = nextBtn;
+  let stepIndex = 0;
+
+  function setErr(input, msg) {
+    clearErr(input);
+    const wrap = input.closest('.form-group') || input.closest('fieldset');
+    if (!wrap) return;
+    const err = document.createElement('div');
+    err.className = 'field-err';
+    err.textContent = msg;
+    wrap.appendChild(err);
+    if (input.classList) input.classList.add('invalid');
+  }
+  function clearErr(input) {
+    const wrap = input.closest('.form-group') || input.closest('fieldset');
+    if (wrap) { const err = wrap.querySelector('.field-err'); if (err) err.remove(); }
+    if (input && input.classList) input.classList.remove('invalid');
+  }
+  function clearStepErrors(stepEl) {
+    stepEl.querySelectorAll('.field-err').forEach((el) => el.remove());
+    stepEl.querySelectorAll('.invalid').forEach((el) => el.classList.remove('invalid'));
+  }
+
+  function validateStep(i) {
+    const stepEl = steps[i];
+    clearStepErrors(stepEl);
+    let ok = true;
+
+    if (i === 0) {
+      const checks = [
+        ['fullname', 'Please enter your full name.'],
+        ['email', 'Please enter your email address.'],
+        ['phone', 'Please enter your phone / WhatsApp number.'],
+        ['dob', 'Please enter your date of birth.'],
+        ['bloodgroup', 'Please select your blood group.'],
+        ['occupation', 'Please enter your current occupation.']
+      ];
+      checks.forEach(([id, msg]) => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) { setErr(el, msg); ok = false; }
+      });
+      const email = document.getElementById('email');
+      if (email.value.trim() && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value.trim())) {
+        setErr(email, 'Please enter a valid email address.'); ok = false;
+      }
+      const phone = document.getElementById('phone');
+      if (phone.value.trim() && !/^\d{7,15}$/.test(phone.value.replace(/[\s+-]/g, ''))) {
+        setErr(phone, 'Please enter a valid phone / WhatsApp number.'); ok = false;
+      }
+      const dob = document.getElementById('dob');
+      if (dob.value) {
+        const born = new Date(dob.value + 'T00:00:00');
+        const age = Math.floor((Date.now() - born.getTime()) / (365.25 * 24 * 3600 * 1000));
+        if (isNaN(age) || age < 18 || age > 30) {
+          setErr(dob, 'Rotaract membership is for ages 18\u201330.');
+          ok = false;
+        }
+      }
+    }
+
+    if (i === 1) {
+      if (!stepEl.querySelector('input[name="interests[]"]:checked')) {
+        setErr(stepEl.querySelector('legend'), 'Please pick at least one area of service.');
+        ok = false;
+      }
+      const reason = document.getElementById('reason');
+      if (!reason.value.trim()) { setErr(reason, 'Please tell us why you want to join.'); ok = false; }
+      const legends = stepEl.querySelectorAll('legend');
+      if (!stepEl.querySelector('input[name="prior_experience"]:checked')) {
+        setErr(legends[1], 'Please select Yes or No.');
+        ok = false;
+      }
+    }
+
+    return ok;
+  }
+
+  function updateProgress() {
+    progressBar.style.width = Math.round(((stepIndex + 1) / steps.length) * 100) + '%';
+    dots.forEach((d, k) => {
+      d.classList.toggle('active', k === stepIndex);
+      d.classList.toggle('done', k < stepIndex);
+    });
+    labels.forEach((l) => l.classList.toggle('on', l.dataset.label === String(stepIndex + 1)));
+    backBtn.style.display = stepIndex === 0 ? 'none' : 'inline-flex';
+    nextBtn.textContent = stepIndex === steps.length - 1 ? 'Submit & Become a Rotaractor' : 'Continue \u2192';
+  }
+
+  function goToStep(i, scroll) {
+    stepIndex = i;
+    steps.forEach((s, k) => s.classList.toggle('active', k === i));
+    updateProgress();
+    if (scroll !== false) {
+      window.scrollTo({ top: document.getElementById('form-wrap').offsetTop - 20, behavior: 'smooth' });
+    }
+  }
+
+  goToStep(0, false);
+
+  backBtn.addEventListener('click', function () {
+    if (stepIndex > 0) goToStep(stepIndex - 1);
+  });
+
+  nextBtn.addEventListener('click', function () {
+    if (stepIndex < steps.length - 1) {
+      if (validateStep(stepIndex)) goToStep(stepIndex + 1);
+    } else {
+      form.requestSubmit();
+    }
+  });
+
+  form.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && stepIndex < steps.length - 1) {
+      e.preventDefault();
+      if (validateStep(stepIndex)) goToStep(stepIndex + 1);
+    }
+  });
+
+  form.querySelectorAll('input, select, textarea').forEach((el) => {
+    el.addEventListener('input', function () { if (el.classList.contains('invalid')) clearErr(el); });
+  });
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     statusEl.className = 'form-status';
     statusEl.textContent = '';
     if (form.querySelector('[name="_honey"]').value || form.querySelector('[name="bot-field"]').value) return;
+    if (!validateStep(stepIndex)) return;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting...';
 
@@ -547,7 +867,14 @@
       fullname: (data.get('fullname') || '').trim(),
       email: (data.get('email') || '').trim(),
       phone: (data.get('phone') || '').trim(),
-      age: (data.get('age') || '').trim() || null,
+      age: (function () {
+        const born = new Date((data.get('dob') || '') + 'T00:00:00');
+        if (isNaN(born)) return null;
+        let a = new Date().getFullYear() - born.getFullYear();
+        const m = new Date().getMonth() - born.getMonth();
+        if (m < 0 || (m === 0 && new Date().getDate() < born.getDate())) a--;
+        return (a >= 18 && a <= 30) ? a : null;
+      })(),
       dob: (data.get('dob') || '').trim() || null,
       bloodgroup: (data.get('bloodgroup') || '').trim() || null,
       occupation: (data.get('occupation') || '').trim(),
@@ -559,13 +886,6 @@
       prior_experience: (data.get('prior_experience') || '').trim() || null,
       referral: (data.get('referral') || '').trim() || null
     };
-    if (!payload.fullname || !payload.email) {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit & Become a Rotaractor';
-      statusEl.className = 'form-status error';
-      statusEl.textContent = 'Please fill in your name and email.';
-      return;
-    }
 
     try {
       await ZONE7_DB.submitMembershipApplication(payload);
