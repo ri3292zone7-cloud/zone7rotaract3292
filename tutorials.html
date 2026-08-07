@@ -30,11 +30,11 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
+html,body{overflow-x:hidden;font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
 h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1120px;margin:0 auto;padding:0 22px} @media (max-width: 600px){ .wrap{padding:0 16px;} }
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px overflow-x:hidden;} @media (max-width: 600px){ .wrap{padding:0 16px;} }
 #progress{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--magenta),var(--gold));transform-origin:0 50%;transform:scaleX(0);z-index:999}
 
 .hero{position:relative;padding:70px 0 46px}
@@ -124,6 +124,17 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   *{animation:none!important;transition:none!important}
   [data-reveal]{opacity:1;transform:none}
 }
+  @media (max-width: 600px){
+    .do-grid{grid-template-columns:1fr;}
+    .journey-track{grid-template-columns:1fr;}
+    .clubs-grid{grid-template-columns:1fr;}
+    .hero-stats{grid-template-columns:1fr;}
+    .stat-strip{grid-template-columns:repeat(2,1fr);}
+    .related-grid{grid-template-columns:1fr;}
+    .promise-strip{grid-template-columns:1fr;}
+    .score-cells{grid-template-columns:repeat(2,1fr);}
+    .org-cols-3{grid-template-columns:1fr;}
+  }
 </style>
 <script type="application/ld+json">
 {
@@ -310,4 +321,7 @@ observeReveals();
 <script src="rota-gpt.js" defer></script>
 </body>
 </html>
+
+
+
 

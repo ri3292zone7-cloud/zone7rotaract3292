@@ -29,11 +29,11 @@
     --cream:#FFF8EF; --paper:#FFFDF9; --line: rgba(27,24,54,0.1);
   }
   *{box-sizing:border-box; margin:0; padding:0;} img{max-width:100%; display:block;}
-  body{overflow-x:hidden;font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
+  html,body{overflow-x:hidden;overflow-x:hidden;font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
   h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
   a{color:inherit; text-decoration:none;}
   button{font-family:'Inter';}
-  .wrap{max-width:1060px; margin:0 auto; padding:0 28px;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
+  .wrap{max-width:1060px; margin:0 auto; padding:0 28px; overflow-x:hidden;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
 
   .hero{padding:64px 0 26px; position:relative; overflow:hidden;}
   .hero::before,.hero::after{content:""; position:absolute; border-radius:50%; pointer-events:none;}
@@ -908,6 +908,8 @@
 </script>
 </body>
 </html>
+
+
 
 
 

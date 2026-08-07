@@ -36,7 +36,7 @@
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
-  body{
+  html,body{overflow-x:hidden;
     font-family:'Inter',sans-serif;
     background:var(--cream);
     color:var(--ink);
@@ -49,7 +49,7 @@
   }
   a{color:inherit; text-decoration:none;}
   img{max-width:100%; display:block;}
-  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px; overflow-x:hidden;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
 
   /* NAV */
 
@@ -970,4 +970,6 @@
 <script src="rota-gpt.js" defer></script>
 </body>
 </html>
+
+
 

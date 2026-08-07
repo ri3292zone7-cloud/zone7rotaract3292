@@ -31,11 +31,11 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
+html,body{overflow-x:hidden;font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
 h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1120px;margin:0 auto;padding:0 22px} @media (max-width: 600px){ .wrap{padding:0 16px;} }
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px overflow-x:hidden;} @media (max-width: 600px){ .wrap{padding:0 16px;} }
 #progress{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--magenta),var(--gold));transform-origin:0 50%;transform:scaleX(0);z-index:999}
 
 .hero{position:relative;padding:64px 0 40px}
@@ -87,8 +87,8 @@ a{color:inherit;text-decoration:none}
 .guide-head .tagline{font-size:.8rem;color:rgba(27,24,54,.55);margin-top:2px}
 .guide-chevron{transition:.3s;color:rgba(27,24,54,.4);flex:none}
 .guide-block.open .guide-chevron{transform:rotate(90deg);color:var(--magenta-deep)}
-.guide-body{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.22,1,.36,1)}
-.guide-block.open .guide-body{max-height:6000px}
+.guide-html,body{overflow-x:hidden;max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.22,1,.36,1)}
+.guide-block.open .guide-html,body{overflow-x:hidden;max-height:6000px}
 .guide-body-inner{padding:4px 24px 26px;border-top:1px dashed var(--line)}
 .guide-body-inner .intro{font-size:.95rem;line-height:1.75;color:rgba(27,24,54,.75);margin:18px 0 16px}
 .phase-img{border-radius:16px;overflow:hidden;margin:18px 0;position:relative}
@@ -191,6 +191,17 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   *{animation:none!important;transition:none!important}
   [data-reveal]{opacity:1;transform:none}
 }
+  @media (max-width: 600px){
+    .do-grid{grid-template-columns:1fr;}
+    .journey-track{grid-template-columns:1fr;}
+    .clubs-grid{grid-template-columns:1fr;}
+    .hero-stats{grid-template-columns:1fr;}
+    .stat-strip{grid-template-columns:repeat(2,1fr);}
+    .related-grid{grid-template-columns:1fr;}
+    .promise-strip{grid-template-columns:1fr;}
+    .score-cells{grid-template-columns:repeat(2,1fr);}
+    .org-cols-3{grid-template-columns:1fr;}
+  }
 </style>
 </head>
 <body>
@@ -603,5 +614,8 @@ window.addEventListener("scroll", () => {
 <script src="rota-gpt.js" defer></script>
 </body>
 </html>
+
+
+
 
 

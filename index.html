@@ -43,7 +43,7 @@
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
-  body{
+  html,body{overflow-x:hidden;
     font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background:var(--cream);
     color:var(--ink);
@@ -56,7 +56,7 @@
   }
   a{color:inherit; text-decoration:none;}
   img{max-width:100%; display:block;}
-  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px; overflow-x:hidden;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
 
 
   /* HERO */
@@ -392,7 +392,7 @@
   .zrr-modal h3{font-size:1.25rem; margin-bottom:6px;}
   .zrr-modal p.zrr-modal-role{font-size:0.85rem; font-weight:700; color:rgba(27,24,54,0.45); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;}
   .zrr-modal p.zrr-modal-club{font-size:0.82rem; font-weight:700; color:var(--magenta-deep); margin-bottom:18px;}
-  .zrr-modal p.zrr-modal-body{font-size:0.95rem; color:rgba(27,24,54,0.7); line-height:1.7;}
+  .zrr-modal p.zrr-modal-html,body{overflow-x:hidden;font-size:0.95rem; color:rgba(27,24,54,0.7); line-height:1.7;}
 
   /* CLUBS */
   .clubs-grid{
@@ -639,6 +639,12 @@
     .event-row .event-date{grid-row:1; grid-column:1;}
     .event-row .event-arrow{grid-row:1; grid-column:2;}
     .event-row .event-info{grid-column:1 / -1;}
+  }
+  @media (max-width: 600px){
+    .stat-strip{grid-template-columns:repeat(2,1fr);}
+    .leader-grid{grid-template-columns:1fr;}
+    .zrr-grid{grid-template-columns:1fr;}
+    .project-grid{grid-template-columns:1fr;}
   }
 </style>
 <script type="application/ld+json">
@@ -1668,4 +1674,7 @@ function goDCal(delta){
 <script src="rota-gpt.js" defer></script>
 </body>
 </html>
+
+
+
 
