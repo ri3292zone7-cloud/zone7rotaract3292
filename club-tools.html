@@ -16,9 +16,9 @@
 .logout-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
 .logout-bar span{font-size:.85rem;font-weight:700;color:rgba(27,24,54,.6);}
 :root{--ink:#1B1836;--magenta:#E11A6E;--magenta-deep:#A80F52;--gold:#F2A900;--cream:#FFF8EF;--paper:#FFFDF9;--line:rgba(27,24,54,.1);}
-*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif;}
-body{background:var(--cream);color:var(--ink);}
-.wrap{max-width:1080px;margin:0 auto;padding:24px 20px 80px;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif;} img{max-width:100%; display:block;}
+body{overflow-x:hidden;background:var(--cream);color:var(--ink);}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 20px 80px;} @media (max-width: 600px){ .wrap{padding:0 16px;} }
 h1{font-size:1.5rem;font-weight:800;}
 h3{font-size:1rem;margin-bottom:10px;}
 .sub{color:rgba(27,24,54,.55);font-size:.85rem;margin:6px 0 20px;}
@@ -480,3 +480,7 @@ function loadAll(){
 </script>
 </body>
 </html>
+
+
+
+

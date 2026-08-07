@@ -35,7 +35,7 @@ body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper);ove
 h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px} @media (max-width: 600px){ .wrap{padding:0 16px;} }
 #progress{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--magenta),var(--gold));transform-origin:0 50%;transform:scaleX(0);z-index:999}
 
 .hero{position:relative;padding:64px 0 40px}
@@ -545,3 +545,5 @@ window.addEventListener("scroll", () => {
 <script src="rota-gpt.js" defer></script>
 </body>
 </html>
+
+

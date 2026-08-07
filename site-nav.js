@@ -3,6 +3,43 @@
    Requires zone7-data.js (CLUB_DIRECTORY) loaded beforehand. Falls back gracefully without it.
 */
 (function () {
+  // --- Fix: "Request Desktop Site" on mobile forces a wide (~980px) layout
+  // viewport and ignores our <meta name="viewport"> tag, which is why content
+  // can appear to hug/overflow the left edge on a phone with desktop mode on.
+  // Detect that mismatch and re-lock the viewport to the real screen width.
+  try {
+    var vpMeta = document.querySelector('meta[name="viewport"]');
+    if (vpMeta && window.screen && window.screen.width &&
+        document.documentElement.clientWidth > window.screen.width + 5) {
+      vpMeta.setAttribute("content", "width=" + window.screen.width + ", initial-scale=1.0");
+    }
+  } catch (e) {}
+
+  // --- Fix: mobile browsers paint the plain white <html> background during
+  // rubber-band/elastic overscroll (pulling past the top/bottom of the page),
+  // which shows as a block of blank white space beyond the real content.
+  // Match html's background to whatever this page's body background actually
+  // is (pages use different --cream/--paper tones), and calm the bounce.
+  var scrollFix = document.createElement("style");
+  scrollFix.textContent = "html{min-height:100%;} body{min-height:100%;overscroll-behavior-y:none;}";
+  document.head.appendChild(scrollFix);
+  window.addEventListener("DOMContentLoaded", function () {
+    try {
+      var bg = getComputedStyle(document.body).backgroundColor;
+      if (bg && bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent") {
+        document.documentElement.style.background = bg;
+      }
+    } catch (e) {}
+  });
+  if (document.readyState === "interactive" || document.readyState === "complete") {
+    try {
+      var bg2 = getComputedStyle(document.body).backgroundColor;
+      if (bg2 && bg2 !== "rgba(0, 0, 0, 0)" && bg2 !== "transparent") {
+        document.documentElement.style.background = bg2;
+      }
+    } catch (e) {}
+  }
+
   var manifestLink = document.createElement("link");
   manifestLink.rel = "manifest";
   manifestLink.href = "/site.webmanifest";
