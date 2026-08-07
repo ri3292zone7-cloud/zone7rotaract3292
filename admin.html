@@ -900,16 +900,17 @@ async function enterDashboard(slug){
   if(CLUB_DIRECTORY[slug].logo){ logoEl.src = CLUB_DIRECTORY[slug].logo; logoEl.style.display = "block"; }
   else { logoEl.style.display = "none"; }
   document.getElementById("viewClubBtn").href = `/${slug}`;
-  await renderProjectList();
-  resetForm();
-  loadAnalytics();
-  loadBarometer();
-  loadClubPage();
-  initDuesCalc();
-  loadMinutesPanel();
-  renderLedger();
-  renderGuestList();
-  renderApplicationsList();
+  const safe = async (fn) => { try{ await fn(); } catch(err){ console.warn("dashboard init failed:", err); } };
+  await safe(renderProjectList);
+  safe(resetForm);
+  safe(loadAnalytics);
+  safe(loadBarometer);
+  safe(loadClubPage);
+  safe(initDuesCalc);
+  safe(loadMinutesPanel);
+  safe(renderLedger);
+  safe(renderGuestList);
+  safe(renderApplicationsList);
 }
 
 function initDuesCalc(){
@@ -919,9 +920,13 @@ function initDuesCalc(){
   document.getElementById("duesClubType").textContent = isUni ? "University" : "Community";
   const inp = document.getElementById("duesMembers");
   const rateInp = document.getElementById("duesRate");
+  function parseNum(v){
+    const cleaned = String(v).replace(/[^\d.\-]/g, "");
+    return cleaned === "" ? NaN : parseFloat(cleaned);
+  }
   function recalc(){
-    const n = Math.max(0, parseInt(inp.value, 10) || 0);
-    const fx = Math.max(0, parseFloat(rateInp.value) || 0);
+    const n = Math.max(0, Math.round(parseNum(inp.value)) || 0);
+    const fx = Math.max(0, parseNum(rateInp.value) || 0);
     const ri = n * rate;
     const riNpr = Math.round(ri * fx);
     const dist = n * 200;
@@ -930,8 +935,10 @@ function initDuesCalc(){
     document.getElementById("duesDistOut").textContent = `NRs ${dist.toLocaleString()}`;
     document.getElementById("duesTotalText").textContent = `$${ri} / ≈NRs ${riNpr.toLocaleString()} (RI) + NRs ${dist.toLocaleString()} (District) = ≈NRs ${(riNpr+dist).toLocaleString()} total, for ${n} member${n===1?'':'s'}`;
   }
-  inp.oninput = recalc;
-  rateInp.oninput = recalc;
+  ["input","change","keyup","paste","cut"].forEach(ev => {
+    inp.addEventListener(ev, recalc);
+    rateInp.addEventListener(ev, recalc);
+  });
   recalc();
 }
 
@@ -1059,31 +1066,35 @@ async function loadBarometer(){
   const isUni = UNIVERSITY_CLUBS.includes(currentClub);
   document.getElementById("baroTitle").innerHTML = `District Barometer <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(${isUni ? "University-Based Clubs" : "Community-Based Clubs"} · RY 2026-27, self-tracked)</span>`;
 
-  const [row, projects] = await Promise.all([
-    ZONE7_DB.getBarometer(currentClub),
-    ZONE7_DB.getProjects(currentClub, { limit: 500, full: true })
-  ]);
-  baroClubProjects = projects;
+  try {
+    const [row, projects] = await Promise.all([
+      ZONE7_DB.getBarometer(currentClub),
+      ZONE7_DB.getProjects(currentClub, { limit: 500, full: true })
+    ]);
+    baroClubProjects = projects;
 
-  const raw = row.checked_items || [];
-  baroCheckedItems = [];
-  baroLinkedProjects = {};
-  baroDocuments = {};
-  raw.forEach(entry => {
-    if(typeof entry === 'object' && entry !== null){
-      baroCheckedItems.push(Number(entry.id));
-      if(entry.projects && entry.projects.length) baroLinkedProjects[entry.id] = entry.projects;
-      else if(entry.projId) baroLinkedProjects[entry.id] = [{ id: entry.projId, title: entry.projTitle || '', code: entry.projCode || '' }];
-      if(entry.doc) baroDocuments[entry.id] = entry.doc;
-      else if(entry.minutes) baroDocuments[entry.id] = entry.minutes;
-    } else {
-      baroCheckedItems.push(Number(entry));
-    }
-  });
+    const raw = row.checked_items || [];
+    baroCheckedItems = [];
+    baroLinkedProjects = {};
+    baroDocuments = {};
+    raw.forEach(entry => {
+      if(typeof entry === 'object' && entry !== null){
+        baroCheckedItems.push(Number(entry.id));
+        if(entry.projects && entry.projects.length) baroLinkedProjects[entry.id] = entry.projects;
+        else if(entry.projId) baroLinkedProjects[entry.id] = [{ id: entry.projId, title: entry.projTitle || '', code: entry.projCode || '' }];
+        if(entry.doc) baroDocuments[entry.id] = entry.doc;
+        else if(entry.minutes) baroDocuments[entry.id] = entry.minutes;
+      } else {
+        baroCheckedItems.push(Number(entry));
+      }
+    });
 
-  baroQuickChecked = (row.checked_items_quick || []).map(Number);
+    baroQuickChecked = (row.checked_items_quick || []).map(Number);
 
-  baroAutoIds = zone7AutoCheck(projects);
+    baroAutoIds = zone7AutoCheck(projects);
+  } catch(err){
+    console.warn("barometer data load failed:", err);
+  }
   renderBarometer();
 }
 
@@ -1462,6 +1473,12 @@ async function loadAnalytics(){
     <div class="a-stat"><b>${events.length}</b><span>Zone Events Posted</span></div>
   `;
 
+  if(typeof Chart === "undefined"){
+    document.querySelectorAll(".a-chart-card").forEach(c => c.style.display = "none");
+    return;
+  }
+  try {
+
   // --- Projects by Club: horizontal bar chart ---
   const clubRows = Object.keys(CLUB_DIRECTORY)
     .map(slug => ({ slug, name: CLUB_DIRECTORY[slug].name.replace('Rotaract Club of ',''), count: counts[slug] || 0 }))
@@ -1537,6 +1554,7 @@ async function loadAnalytics(){
       scales: { y: { beginAtZero:true, ticks:{ precision:0 } } }
     }
   });
+  } catch(err){ console.warn("chart render failed:", err); }
 }
 
 if(currentClub && CLUB_DIRECTORY[currentClub]){
