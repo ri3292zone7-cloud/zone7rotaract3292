@@ -1,4 +1,4 @@
-﻿/* RotaGPT — the Zone 7 chatbot widget.
+/* RotaGPT — the Zone 7 chatbot widget.
    Answers from the local knowledge base (rota-gpt-data.js) appear instantly.
    Then, when a model is reachable, the same bubble is upgraded in place:
    1) the serverless /api/rota-gpt endpoint (needs a configured key), or
