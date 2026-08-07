@@ -309,6 +309,74 @@
     .baro-meta-col{display:none;}
   }
 
+  /* DISTRICT EVENTS & BIDDING */
+  .de-lead{font-size:0.95rem; line-height:1.78; color:rgba(27,24,54,.74); margin-bottom:8px; max-width:860px;}
+  .de-kicker{display:inline-flex; align-items:center; gap:8px; font-size:.72rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--magenta-deep); background:rgba(225,26,110,.08); border:1px solid rgba(225,26,110,.18); padding:6px 13px; border-radius:100px; margin-bottom:14px;}
+  .de-steps{display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-top:20px;}
+  .de-step{background:#fff; border:1px solid var(--line); border-radius:14px; padding:15px 14px;}
+  .de-step .n{width:30px; height:30px; border-radius:50%; background:var(--ink); color:#fff; display:grid; place-items:center; font-family:'Poppins'; font-weight:800; font-size:.8rem; margin-bottom:10px;}
+  .de-step b{display:block; font-size:.85rem; margin-bottom:4px; color:var(--ink);}
+  .de-step span{font-size:.74rem; color:rgba(27,24,54,.55); line-height:1.5; display:block;}
+
+  .de-event{margin-top:28px; background:#fff; border:1px solid var(--line); border-radius:22px; overflow:hidden; box-shadow:0 16px 44px rgba(27,24,54,.08);}
+  .de-hero{position:relative; height:235px;}
+  .de-hero svg{position:absolute; inset:0; width:100%; height:100%; display:block;}
+  .de-hero-inner{position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:22px 26px 24px; color:#fff; background:linear-gradient(to top, rgba(18,14,46,.78), rgba(18,14,46,0) 72%);}
+  .de-hero-tag{display:inline-block; align-self:flex-start; background:var(--de-c,#E11A6E); color:#fff; font-size:.68rem; font-weight:800; letter-spacing:.13em; text-transform:uppercase; padding:5px 13px; border-radius:100px; margin-bottom:10px; box-shadow:0 6px 16px rgba(0,0,0,.25);}
+  .de-hero-inner h3{font-size:1.55rem; font-weight:800; text-shadow:0 2px 14px rgba(0,0,0,.4); margin-bottom:5px;}
+  .de-hero-inner p{font-size:.86rem; opacity:.95; text-shadow:0 1px 8px rgba(0,0,0,.45); max-width:580px; line-height:1.6;}
+  .de-body{padding:26px;}
+  .de-facts{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:8px;}
+  .de-fact{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:12px 14px;}
+  .de-fact b{display:block; font-size:.8rem; margin-bottom:3px; color:var(--ink);}
+  .de-fact span{font-size:.75rem; color:rgba(27,24,54,.55); line-height:1.45; display:block;}
+  .de-sec{margin-top:24px;}
+  .de-sec h4{font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; color:var(--de-c,#E11A6E); font-weight:800; margin-bottom:11px; overflow:hidden;}
+  .de-sec h4::after{content:""; display:inline-block; width:100%; height:1px; background:var(--line); vertical-align:middle; margin-left:12px;}
+  .de-sec p{font-size:.9rem; line-height:1.75; color:rgba(27,24,54,.75);}
+  .de-seg{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+  .de-seg .seg{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:16px;}
+  .de-seg .seg b{display:flex; align-items:center; gap:8px; font-size:.88rem; color:var(--ink); margin-bottom:6px;}
+  .de-seg .seg span{font-size:.8rem; line-height:1.6; color:rgba(27,24,54,.68); display:block;}
+  .de-checks{display:grid; grid-template-columns:1fr 1fr; gap:8px 20px; margin:0;}
+  .de-check{display:flex; gap:9px; font-size:.85rem; color:rgba(27,24,54,.82); line-height:1.5;}
+  .de-check::before{content:"✔"; flex-shrink:0; color:var(--de-c,#E11A6E); font-weight:800;}
+  .de-table{width:100%; border-collapse:collapse; font-size:.85rem;}
+  .de-table th, .de-table td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line);}
+  .de-table th{font-size:.7rem; text-transform:uppercase; letter-spacing:.06em; color:rgba(27,24,54,.5);}
+  .de-table td:first-child{font-weight:700; color:var(--ink); white-space:nowrap;}
+  .de-table .de-rdc{color:var(--magenta-deep); font-weight:800;}
+  .de-table .de-host{color:rgba(27,24,54,.55);}
+  .de-submit{margin:0 0 0 2px; padding:0; list-style:none;}
+  .de-submit li{display:flex; gap:10px; align-items:flex-start; font-size:.86rem; line-height:1.6; color:rgba(27,24,54,.82); padding:8px 0; border-bottom:1px dashed var(--line);}
+  .de-submit li:last-child{border-bottom:none;}
+  .de-submit li::before{content:"▸"; color:var(--de-c,#E11A6E); font-weight:800; flex-shrink:0;}
+  .de-submit b{color:var(--ink);}
+  .de-cta{margin-top:26px; background:linear-gradient(120deg, var(--de-c,#E11A6E), #4a1040 135%); border-radius:16px; padding:20px 22px; color:#fff; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px; box-shadow:0 14px 30px rgba(27,24,54,.12);}
+  .de-cta .emails{font-size:.82rem; opacity:.96; line-height:1.7;}
+  .de-cta .emails b{font-weight:800;}
+  .de-cta .emails a{color:#fff; text-decoration:underline; font-weight:700;}
+  .de-cta .dl{display:flex; gap:10px; flex-wrap:wrap;}
+  .de-dl-btn{background:#fff; color:var(--de-c,#E11A6E); font-weight:800; font-size:.8rem; padding:11px 18px; border-radius:100px; display:inline-flex; align-items:center; gap:7px; transition:transform .2s, box-shadow .2s;}
+  .de-dl-btn:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.22);}
+  .de-rules-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .de-rule{background:#fff; border:1px solid var(--line); border-left:3px solid var(--gold); border-radius:12px; padding:14px 16px; font-size:.85rem; line-height:1.6; color:rgba(27,24,54,.8);}
+  .de-rule b{display:block; margin-bottom:3px; font-size:.86rem; color:var(--ink);}
+  .de-files{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .de-file{display:flex; align-items:center; gap:14px; background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; transition:border-color .15s, transform .2s;}
+  .de-file:hover{border-color:var(--magenta); transform:translateY(-2px);}
+  .de-file .ic{font-size:1.5rem; width:44px; height:44px; flex-shrink:0; display:grid; place-items:center; background:rgba(225,26,110,.08); border-radius:12px;}
+  .de-file b{display:block; font-size:.88rem; color:var(--ink);}
+  .de-file span{font-size:.75rem; color:rgba(27,24,54,.5); line-height:1.45; display:block; margin-top:2px;}
+  @media (max-width:900px){ .de-steps{grid-template-columns:1fr 1fr;} .de-seg{grid-template-columns:1fr;} }
+  @media (max-width:860px){
+    .de-facts{grid-template-columns:1fr 1fr;}
+    .de-checks{grid-template-columns:1fr;}
+    .de-rules-grid{grid-template-columns:1fr;}
+    .de-files{grid-template-columns:1fr;}
+  }
+  @media (max-width:600px){ .de-steps{grid-template-columns:1fr;} .de-hero{height:200px;} .de-hero-inner{padding:16px 18px 18px;} .de-hero-inner h3{font-size:1.25rem;} .de-body{padding:20px;} }
+
   /* SIDEBAR NAV */
   .admin-sidebar{
     position:fixed; top:76px; left:0; width:230px; height:calc(100vh - 76px); overflow-y:auto;
@@ -391,6 +459,7 @@
     <div class="sb-item" data-view="guests"><span class="ic">👥</span>Join Requests (Zonal)</div>
     <div class="sb-label">Explore</div>
     <div class="sb-item" data-view="district"><span class="ic">🌏</span>District Overview</div>
+    <div class="sb-item" data-view="distevents"><span class="ic">🎪</span>District Events &amp; Bidding</div>
   </nav>
   <div class="wrap">
     <div class="dash-header">
@@ -848,6 +917,299 @@
     <div class="panel" style="padding:0; overflow:hidden;">
       <iframe id="districtFrame" src="/district-overview.html?embed=1" title="District 3292 Overview"
         style="width:100%; height:2850px; border:none; display:block; background:var(--cream);" loading="lazy"></iframe>
+    </div>
+    </div>
+
+    <div class="view" id="view-distevents">
+    <div class="panel" style="padding-bottom:34px;">
+      <div class="de-kicker">🎪 District Events &middot; RY 2026-27</div>
+      <h3 style="font-size:1.4rem;">Hosting a District Event? It Starts With a Bid.</h3>
+      <p class="de-lead">Twice a Rotary year, Rotaract District 3292 hands one of its big signature events to a member club to organise: the <b>1st President&ndash;Secretary Meet</b> and the <b>President Night</b>. Hosting isn&rsquo;t an assignment &mdash; it&rsquo;s a <b>competitive bid</b>: any club (or co-host clubs) can apply, and the Rotaract District Committee (RDC) picks the strongest proposal. The event budget, logistics, food, venue and hospitality are the host club&rsquo;s job; the RDC runs the agenda, speakers and official programme.</p>
+      <div class="de-steps" style="margin-top:24px;">
+        <div class="de-step"><div class="n">1</div><b>Read the document</b><span>Understand exactly what the event demands before you commit.</span></div>
+        <div class="de-step"><div class="n">2</div><b>Get club approval</b><span>Pass the hosting decision in a general meeting and keep signed minutes.</span></div>
+        <div class="de-step"><div class="n">3</div><b>Build your bid</b><span>EOI letter + completed bidding form + venue proposal with photos &amp; a location map.</span></div>
+        <div class="de-step"><div class="n">4</div><b>Submit in time</b><span>Send the full bid as a PDF to both district emails before 11:59 PM on the deadline.</span></div>
+        <div class="de-step"><div class="n">5</div><b>Present &amp; win</b><span>Bidders may present to the RDC; the best plan gets the hosting rights.</span></div>
+      </div>
+    </div>
+
+    <div class="de-event" style="--de-c:#E11A6E">
+      <div class="de-hero">
+        <svg viewBox="0 0 440 235" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+          <linearGradient id="dePsG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6f0c3d"/><stop offset=".55" stop-color="#E11A6E"/><stop offset="1" stop-color="#F2A900"/></linearGradient>
+          <radialGradient id="dePsGlow" cx=".5" cy=".2" r=".95"><stop offset="0" stop-color="#fff" stop-opacity=".4"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+        </defs>
+        <rect width="440" height="235" fill="url(#dePsG)"/>
+        <rect width="440" height="235" fill="url(#dePsGlow)"/>
+        <circle cx="388" cy="32" r="72" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="2" stroke-dasharray="6 9"/>
+        <circle cx="18" cy="196" r="92" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="2" stroke-dasharray="5 10"/>
+        <circle cx="60" cy="38" r="4" fill="#F2A900"/>
+        <circle cx="120" cy="20" r="3" fill="#fff" opacity=".85"/>
+        <circle cx="252" cy="16" r="4" fill="#fff" opacity=".7"/>
+        <circle cx="338" cy="58" r="3.4" fill="#F2A900"/>
+        <ellipse cx="220" cy="208" rx="185" ry="36" fill="#1B1836" opacity=".4"/>
+        <g fill="#fff" opacity=".3">
+          <ellipse cx="220" cy="198" rx="142" ry="16"/>
+          <ellipse cx="220" cy="183" rx="112" ry="13"/>
+        </g>
+        <g fill="#1B1836" opacity=".55">
+          <circle cx="150" cy="212" r="7"/><rect x="144" y="219" width="14" height="13" rx="4"/>
+          <circle cx="185" cy="209" r="7"/><rect x="178" y="216" width="14" height="13" rx="4"/>
+          <circle cx="220" cy="207" r="7"/><rect x="213" y="214" width="14" height="13" rx="4"/>
+          <circle cx="255" cy="209" r="7"/><rect x="248" y="216" width="14" height="13" rx="4"/>
+          <circle cx="290" cy="212" r="7"/><rect x="283" y="219" width="14" height="13" rx="4"/>
+        </g>
+        <g>
+          <rect x="172" y="88" width="100" height="16" rx="8" fill="#fff"/>
+          <path d="M186 132 h72 v52 a7 7 0 0 1 -7 7 h-58 a7 7 0 0 1 -7 -7 z" fill="#fff"/>
+          <rect x="196" y="150" width="48" height="30" rx="6" fill="#F7F5F1"/>
+          <path d="M206 150 v30 M222 150 v30 M238 150 v30" stroke="#E11A6E" stroke-width="3.5"/>
+          <path d="M204 106 a6 6 0 0 0 12 0" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M210 106 v16" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>
+          <circle cx="210" cy="127" r="4.4" fill="#fff"/>
+        </g>
+        <g opacity=".9">
+          <rect x="330" y="110" width="78" height="48" rx="10" fill="#fff" opacity=".16"/>
+          <rect x="339" y="121" width="60" height="26" rx="5" fill="#fff" opacity=".22"/>
+          <circle cx="369" cy="134" r="7" fill="#F2A900"/>
+        </g>
+        <g>
+          <circle cx="52" cy="112" r="26" fill="#fff" opacity=".16"/>
+          <path d="M45 110 l7 -9 7 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+          <path d="M52 106 v9" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".9"/>
+        </g></svg>
+        <div class="de-hero-inner">
+          <span class="de-hero-tag">Event 1 &middot; RY 2026-27</span>
+          <h3>1st President&ndash;Secretary Meet</h3>
+          <p>Rotaract 3292&rsquo;s formal annual summit of club Presidents and Secretaries &mdash; resolutions, updates and leadership, all in one day.</p>
+        </div>
+      </div>
+      <div class="de-body">
+        <div class="de-facts">
+          <div class="de-fact"><b>📅 Proposed date</b><span>21 November 2026</span></div>
+          <div class="de-fact"><b>⏱ Duration</b><span>1 day &middot; 8:00 AM &ndash; 8:00 PM</span></div>
+          <div class="de-fact"><b>👥 Expected turnout</b><span>Approx. 500&ndash;800 participants</span></div>
+          <div class="de-fact"><b>🏢 Venue needed</b><span>Two air-conditioned halls (800 + 300&ndash;400 seats)</span></div>
+        </div>
+
+        <div class="de-sec">
+          <h4>What is it, in plain words</h4>
+          <p>The 1st PS Meet is the district&rsquo;s official get-together for the people steering every club &mdash; the <b>President</b> and <b>Secretary</b> of each Rotaract Club in District 3292. One of two PS Meets held every Rotary year, this edition sits in the first half of the year. Clubs and the district bring their key issues forward, everything is deliberated openly, and resolutions are reached together &mdash; so every club ends the meet knowing the district is moving in one direction. It&rsquo;s also a rare chance for leaders to swap ideas and build networks across clubs.</p>
+        </div>
+
+        <div class="de-sec">
+          <h4>How the one day breaks down</h4>
+          <div class="de-seg">
+            <div class="seg"><b>🎤 Formal Meeting</b><span>Run strictly by the RDC and chaired by the DRR, with the District Secretary facilitating. Pre-circulated agendas are deliberated. Only Presidents, Secretaries (or an authorised rep with a signed consent letter on club letterhead) take part.</span></div>
+            <div class="seg"><b>🎓 General Session (parallel)</b><span>Runs at the same time in the second hall: results and capacity-building sessions by experienced resource persons &mdash; the Rotary&ndash;Rotaract framework, policy updates, grants and leadership.</span></div>
+            <div class="seg"><b>🤝 Fellowship &amp; Interaction</b><span>The second half goes informal &mdash; networking, collaboration and fun, designed together by the RDC and the host club.</span></div>
+          </div>
+        </div>
+
+        <div class="de-sec">
+          <h4>What your club must arrange (the logistics checklist)</h4>
+          <div class="de-checks">
+            <div class="de-check">Two fully air-conditioned halls (Hall 1 ≈800, Hall 2 ≈300&ndash;400, theatre seating)</div>
+            <div class="de-check">Stage setup: podiums with desktop mics, and a dais for 6&ndash;8 officials</div>
+            <div class="de-check">At least 2 volunteers at the entrance for delegate verification</div>
+            <div class="de-check">Branding: banners, selfie standee, checkerboard backdrop, photo stand &amp; welcome gate</div>
+            <div class="de-check">Hall 1: LED display screen with a dedicated technician</div>
+            <div class="de-check">Hall 2: projector + HDMI/Type-C cables, presenter pointer and power</div>
+            <div class="de-check">Sound: 4&ndash;6 wireless + 2 desk mics (Hall 1); 2 wireless + 1 desk mic (Hall 2)</div>
+            <div class="de-check">Lighting and continuous, uninterrupted power all day</div>
+            <div class="de-check">Professional photographer / videographer for full coverage</div>
+            <div class="de-check">Delegate kit: ID card + lanyard, schedule, food coupons, diary &amp; pen, kit bag</div>
+            <div class="de-check">Catering: breakfast, lunch, hi-tea and dinner (non-veg included at least once)</div>
+            <div class="de-check">On-theme stage and venue decoration (balloons, floral, official theme)</div>
+          </div>
+        </div>
+
+        <div class="de-sec">
+          <h4>Who does what &mdash; RDC vs Host Club</h4>
+          <table class="de-table">
+            <thead><tr><th>Responsibility area</th><th class="de-rdc">RDC</th><th class="de-host">Host club</th></tr></thead>
+            <tbody>
+              <tr><td>Venue, delegate kit, food, hospitality</td><td class="de-rdc">&mdash;</td><td class="de-host">✔</td></tr>
+              <tr><td>Event schedule &amp; agenda</td><td class="de-rdc">✔</td><td class="de-host">&mdash;</td></tr>
+              <tr><td>Speakers, facilitators &amp; sessions</td><td class="de-rdc">✔</td><td class="de-host">&mdash;</td></tr>
+              <tr><td>Master of ceremony</td><td class="de-rdc">✔</td><td class="de-host">✔</td></tr>
+              <tr><td>Social media &amp; promotions</td><td class="de-rdc">✔</td><td class="de-host">✔</td></tr>
+              <tr><td>Every other logistics (listed above)</td><td class="de-rdc">&mdash;</td><td class="de-host">✔</td></tr>
+              <tr><td>Finances (fundraising to cover expenses)</td><td class="de-rdc">Pre-approved program cost</td><td class="de-host">Everything else</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="de-sec">
+          <h4>What to put in your bid</h4>
+          <ul class="de-submit">
+            <li><span><b>Expression of Interest (EOI)</b> on your official club letterhead</span></li>
+            <li><span><b>Minutes of the general meeting</b> where the club decided to host, signed by President and Secretary</span></li>
+            <li><span>Your <b>completed bidding form</b> with registration slabs, food menu &amp; pricing, accommodation and venue details</span></li>
+            <li><span><b>Venue proposal</b> with photographs and a location map, plus the venue&rsquo;s authorization letter</span></li>
+            <li><span><b>Contact person</b> details for coordination, and a written bid in PDF format</span></li>
+          </ul>
+        </div>
+
+        <div class="de-cta">
+          <div class="emails">
+            <b>Deadline: 23 August 2026, 11:59 PM</b><br>
+            Submit PDF to <a href="mailto:rtrprakash3292@gmail.com">rtrprakash3292@gmail.com</a> &amp; <a href="mailto:rtrsurajbhandari@gmail.com">rtrsurajbhandari@gmail.com</a>
+          </div>
+          <div class="dl">
+            <a class="de-dl-btn" href="guides/1st%20PS%20Meet%20Bidding%20document.pdf" download>📄 Bidding Document (PDF)</a>
+            <a class="de-dl-btn" href="guides/Bidding%20Form.docx" download>📋 Bidding Form (DOCX)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="de-event" style="--de-c:#0E7490">
+      <div class="de-hero">
+        <svg viewBox="0 0 440 235" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="..."><defs>
+          <linearGradient id="dePnBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B1836"/><stop offset=".55" stop-color="#312f66"/><stop offset="1" stop-color="#0E7490"/></linearGradient>
+          <radialGradient id="dePnFire" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#F2A900" stop-opacity=".5"/><stop offset="1" stop-color="#F2A900" stop-opacity="0"/></radialGradient>
+        </defs>
+        <rect width="440" height="235" fill="url(#dePnBg)"/>
+        <g fill="#fff">
+          <circle cx="42" cy="46" r="2"/><circle cx="94" cy="62" r="1.6"/><circle cx="152" cy="24" r="2.2"/>
+          <circle cx="212" cy="50" r="1.6"/><circle cx="262" cy="20" r="2"/><circle cx="322" cy="56" r="1.6"/>
+          <circle cx="382" cy="26" r="2.2"/><circle cx="408" cy="82" r="1.6"/><circle cx="72" cy="92" r="1.4"/>
+          <circle cx="300" cy="92" r="1.4"/><circle cx="192" cy="82" r="1.4"/><circle cx="132" cy="112" r="1.4"/>
+        </g>
+        <circle cx="370" cy="46" r="20" fill="#F2A900" opacity=".22"/>
+        <circle cx="362" cy="42" r="15" fill="#fff" opacity=".92"/>
+        <path d="M0 172 L110 110 L134 152 L172 92 L252 152 L322 104 L372 152 L440 122 L440 235 L0 235 Z" fill="#141136" opacity=".9"/>
+        <path d="M0 196 L96 146 L152 186 L232 138 L344 190 L440 158 L440 235 L0 235 Z" fill="#0b0b24"/>
+        <g fill="#1B1836">
+          <path d="M76 235 L110 168 L144 235 Z"/>
+          <path d="M122 235 L148 182 L174 235 Z"/>
+          <path d="M300 235 L330 172 L360 235 Z"/>
+        </g>
+        <g stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" fill="none" opacity=".85">
+          <path d="M106 200 h7 M132 218 h7 M132 208 h7"/>
+        </g>
+        <ellipse cx="225" cy="226" rx="30" ry="9" fill="#1B1836"/>
+        <circle cx="225" cy="198" r="40" fill="url(#dePnFire)"/>
+        <g fill="#F2A900">
+          <path d="M225 168 l5 11 h-10 z"/>
+          <path d="M213 178 l5 10 h-10 z" opacity=".85"/>
+          <path d="M237 178 l5 10 h-10 z" opacity=".85"/>
+          <path d="M225 158 l4 9 h-8 z" opacity=".92"/>
+        </g>
+        <g stroke="#F2A900" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".8">
+          <path d="M206 180 c9 8 18 8 27 0"/>
+          <path d="M213 171 c7 7 14 7 21 0"/>
+        </g>
+        <circle cx="198" cy="136" r="1.8" fill="#F2A900"/>
+        <circle cx="252" cy="130" r="1.8" fill="#F2A900"/>
+        <circle cx="164" cy="150" r="1.5" fill="#fff" opacity=".9"/>
+      </svg>
+      <div class="de-hero-inner">
+        <span class="de-hero-tag">Event 2 &middot; RY 2026-27</span>
+        <h3>President Night</h3>
+        <p>The district&rsquo;s two-day leadership retreat under the stars &mdash; bonding, team games and honest reflection for presidents and the RDC.</p>
+      </div>
+    </div>
+    <div class="de-body">
+      <div class="de-facts">
+        <div class="de-fact"><b>📅 Proposed dates</b><span>25&ndash;26 September 2026</span></div>
+        <div class="de-fact"><b>⏱ Duration</b><span>1 night &middot; 2 days</span></div>
+        <div class="de-fact"><b>👥 Expected turnout</b><span>Approx. 250&ndash;300 participants</span></div>
+        <div class="de-fact"><b>🌿 Venue vibe</b><span>A safe, eco-friendly resort, hotel or campsite</span></div>
+      </div>
+
+      <div class="de-sec">
+        <h4>What is it, in plain words</h4>
+        <p>Away from the formality of meetings, <b>President Night</b> is the district&rsquo;s flagship fellowship retreat for <b>all club Presidents together with the Rotaract District Committee</b>. The goal is simple, though it may be the part of leadership nobody else teaches: relaxed time to bond, laugh and recharge, so the people leading clubs actually trust each other. Expect icebreakers, team games, a cultural fellowship evening around the campfire &mdash; then a calm morning activity and a leadership reflection session before everyone heads home.</p>
+      </div>
+
+      <div class="de-sec">
+        <h4>Day-by-day breakdown</h4>
+        <div class="de-seg">
+          <div class="seg"><b>🌤 Day 1 &mdash; Arrival &amp; fun</b><span>Arrival and registration, opening ceremony, icebreakers, team-building games, then the President Night cultural fellowship, followed by overnight stay.</span></div>
+          <div class="seg"><b>🌅 Day 2 &mdash; Reflect &amp; close</b><span>Early-morning outdoor activity, a leadership reflection session, breakfast, closing ceremony and departure.</span></div>
+          <div class="seg"><b>🍛 Food plan</b><span>Five meals in total &mdash; Day 1: hi-tea, fellowship snacks and dinner; Day 2: breakfast and lunch. Non-veg included at least once, drinking water always available.</span></div>
+        </div>
+      </div>
+
+      <div class="de-sec">
+        <h4>What your club must arrange</h4>
+        <div class="de-checks">
+          <div class="de-check">A safe, clean, eco-friendly resort, hotel or campsite</div>
+          <div class="de-check">A hall for 250&ndash;300 people (theater-style or round tables)</div>
+          <div class="de-check">Spaces for both indoor sessions and outdoor games</div>
+          <div class="de-check">Registration &amp; welcome desk on arrival</div>
+          <div class="de-check">Campfire or evening gathering space</div>
+          <div class="de-check">Power backup and uninterrupted lighting</div>
+          <div class="de-check">Branding: banners, selfie standee, backdrop, photo stand &amp; welcome gate</div>
+          <div class="de-check">LED display screen with a technician, plus a sound system (2 wireless + 2 desk mics)</div>
+          <div class="de-check">Professional photographer / videographer</div>
+          <div class="de-check">Overnight shared accommodation plus all 5 meals &amp; safe drinking water</div>
+          <div class="de-check">Delegate kit: ID card + lanyard, schedule, notebook &amp; pen, badge or ribbon</div>
+          <div class="de-check">Theme-consistent stage and venue decoration</div>
+        </div>
+      </div>
+
+      <div class="de-sec">
+        <h4>Who does what &mdash; RDC vs Host Club</h4>
+        <table class="de-table">
+          <thead><tr><th>Responsibility area</th><th class="de-rdc">RDC</th><th class="de-host">Host club</th></tr></thead>
+          <tbody>
+            <tr><td>Venue, food, accommodation, delegate kits</td><td class="de-rdc">&mdash;</td><td class="de-host">✔</td></tr>
+            <tr><td>Event schedule, agenda &amp; Leadership Circle sessions</td><td class="de-rdc">✔</td><td class="de-host">&mdash;</td></tr>
+            <tr><td>Guests &amp; session coordination</td><td class="de-rdc">✔</td><td class="de-host">&mdash;</td></tr>
+            <tr><td>Registration, hospitality &amp; on-site support</td><td class="de-rdc">&mdash;</td><td class="de-host">✔</td></tr>
+            <tr><td>Fundraising &amp; event budgeting</td><td class="de-rdc">Guides</td><td class="de-host">Leads</td></tr>
+            <tr><td>Co-hosting club management</td><td class="de-rdc">Supervises</td><td class="de-host">Runs</td></tr>
+            <tr><td>All other logistics</td><td class="de-rdc">&mdash;</td><td class="de-host">✔</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="de-sec">
+        <h4>What to submit</h4>
+        <ul class="de-submit">
+          <li><span><b>Expression of Interest (EOI)</b> on your official club letterhead</span></li>
+          <li><span><b>Minutes of the general meeting</b> confirming the hosting decision, signed by President and Secretary</span></li>
+          <li><span>Your <b>completed bidding form</b> plus a <b>detailed budget proposal</b> and a fundraising plan</span></li>
+          <li><span><b>Venue proposal</b> with photographs and a location map, plus the venue&rsquo;s authorization letter</span></li>
+          <li><span><b>Contact person</b> details, and the final bid in PDF format</span></li>
+        </ul>
+      </div>
+
+      <div class="de-cta">
+        <div class="emails">
+          <b>Deadline: 25 June 2026, 11:59 PM</b><br>
+          Submit PDF to <a href="mailto:rtrprakash3292@gmail.com, rtrsurajbhandari@gmail.com">rtrprakash3292@gmail.com</a> &amp; <a href="mailto:rtrsurajbhandari@gmail.com">rtrsurajbhandari@gmail.com</a>
+        </div>
+        <div class="dl">
+          <a class="de-dl-btn" href="guides/President%20Night%20Bidding%20document.pdf" download>📄 Bidding Document (PDF)</a>
+          <a class="de-dl-btn" href="guides/Bidding%20Form%20(1).docx" download>📋 Bidding Form (DOCX)</a>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="panel" style="margin-top:28px;">
+      <h3>Ground rules that apply to every bid</h3>
+      <div class="de-rules-grid">
+        <div class="de-rule"><b>📜 Venue permission letter</b>Every bid must include an authorization letter from the venue confirming it is available and cleared for the event.</div>
+        <div class="de-rule"><b>🤝 You own your promises</b>The bidding club is individually responsible for every commitment made in its proposal.</div>
+        <div class="de-rule"><b>🚫 No silent changes</b>Venue, date, schedule, budget, food, speakers or fees cannot change without prior written RDC approval.</div>
+        <div class="de-rule"><b>🛡 Safe &amp; suitable venue</b>The venue must be safe, hygienic and accessible; the RDC can inspect it or ask for evidence before final approval.</div>
+        <div class="de-rule"><b>🍽 Hospitality standards</b>Food must be hygienic, meals served on time, and dietary requirements accommodated where feasible.</div>
+        <div class="de-rule"><b>⚠️ Non-compliance costs</b>Warnings, restriction or disqualification from hosting future district events follow until matters are fixed.</div>
+      </div>
+      <h3 style="margin-top:28px;">Bidding documents &amp; forms</h3>
+      <p class="de-lead" style="margin-bottom:16px;">Official files every club admin can access anytime &mdash; same documents live in the <i>guides</i> folder.</p>
+      <div class="de-files">
+        <a class="de-file" href="guides/1st%20PS%20Meet%20Bidding%20document.pdf" download><span class="ic">📄</span><span><b>1st PS Meet &mdash; Bidding Document</b><span>PDF &middot; full criteria, logistics &amp; terms</span></span></a>
+        <a class="de-file" href="guides/Bidding%20Form.docx" download><span class="ic">📋</span><span><b>1st PS Meet &mdash; Bidding Form</b><span>DOCX · fill-in form for your proposal</span></span></a>
+        <a class="de-file" href="guides/President%20Night%20Bidding%20document.pdf" download><span class="ic">📄</span><span><b>President Night &mdash; Bidding Document</b><span>PDF · full criteria &amp; requirements</span></span></a>
+        <a class="de-file" href="guides/Bidding%20Form%20(1).docx" download><span class="ic">📋</span><span><b>President Night &mdash; Bidding Form</b><span>DOCX · fill-in form with budget tables</span></span></a>
+      </div>
     </div>
     </div>
   </div>
@@ -1912,7 +2274,7 @@ document.getElementById("zonalLoginBtn").addEventListener("click", () => {
     document.getElementById("dashClubLogo").style.display = "none";
     document.getElementById("viewClubBtn").style.display = "none";
     document.body.classList.add("has-sidebar");
-    document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership","guests","district"].includes(el.dataset.view) ? "flex" : "none"));
+    document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership","guests","district","distevents"].includes(el.dataset.view) ? "flex" : "none"));
     switchView("guides");
     renderGuideList();
     renderZRRList();
@@ -2253,7 +2615,7 @@ if(ZONE7_DB.isZonal()){
   document.getElementById("dashClubLogo").style.display = "none";
   document.getElementById("viewClubBtn").style.display = "none";
   document.body.classList.add("has-sidebar");
-  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership","guests","district"].includes(el.dataset.view) ? "flex" : "none"));
+  document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership","guests","district","distevents"].includes(el.dataset.view) ? "flex" : "none"));
   switchView("guides");
   renderGuideList();
   renderZRRList();
