@@ -321,6 +321,7 @@
   .de-event{margin-top:28px; background:#fff; border:1px solid var(--line); border-radius:22px; overflow:hidden; box-shadow:0 16px 44px rgba(27,24,54,.08);}
   .de-hero{position:relative; height:235px;}
   .de-hero svg{position:absolute; inset:0; width:100%; height:100%; display:block;}
+  .de-hero img.de-hero-img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;}
   .de-hero-inner{position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:22px 26px 24px; color:#fff; background:linear-gradient(to top, rgba(18,14,46,.78), rgba(18,14,46,0) 72%);}
   .de-hero-tag{display:inline-block; align-self:flex-start; background:var(--de-c,#E11A6E); color:#fff; font-size:.68rem; font-weight:800; letter-spacing:.13em; text-transform:uppercase; padding:5px 13px; border-radius:100px; margin-bottom:10px; box-shadow:0 6px 16px rgba(0,0,0,.25);}
   .de-hero-inner h3{font-size:1.55rem; font-weight:800; text-shadow:0 2px 14px rgba(0,0,0,.4); margin-bottom:5px;}
@@ -375,7 +376,15 @@
     .de-rules-grid{grid-template-columns:1fr;}
     .de-files{grid-template-columns:1fr;}
   }
-  @media (max-width:600px){ .de-steps{grid-template-columns:1fr;} .de-hero{height:200px;} .de-hero-inner{padding:16px 18px 18px;} .de-hero-inner h3{font-size:1.25rem;} .de-body{padding:20px;} }
+  @media (max-width:600px){
+    .de-steps{grid-template-columns:1fr;}
+    .de-hero{height:200px;}
+    .de-hero-inner{padding:16px 18px 18px;}
+    .de-hero-inner h3{font-size:1.25rem;}
+    .de-body{padding:20px;}
+    .de-table th, .de-table td{padding:9px 8px; font-size:.78rem;}
+    .de-table td:first-child{white-space:normal;}
+  }
 
   /* SIDEBAR NAV */
   .admin-sidebar{
@@ -936,49 +945,7 @@
 
     <div class="de-event" style="--de-c:#E11A6E">
       <div class="de-hero">
-        <svg viewBox="0 0 440 235" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
-          <linearGradient id="dePsG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6f0c3d"/><stop offset=".55" stop-color="#E11A6E"/><stop offset="1" stop-color="#F2A900"/></linearGradient>
-          <radialGradient id="dePsGlow" cx=".5" cy=".2" r=".95"><stop offset="0" stop-color="#fff" stop-opacity=".4"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
-        </defs>
-        <rect width="440" height="235" fill="url(#dePsG)"/>
-        <rect width="440" height="235" fill="url(#dePsGlow)"/>
-        <circle cx="388" cy="32" r="72" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="2" stroke-dasharray="6 9"/>
-        <circle cx="18" cy="196" r="92" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="2" stroke-dasharray="5 10"/>
-        <circle cx="60" cy="38" r="4" fill="#F2A900"/>
-        <circle cx="120" cy="20" r="3" fill="#fff" opacity=".85"/>
-        <circle cx="252" cy="16" r="4" fill="#fff" opacity=".7"/>
-        <circle cx="338" cy="58" r="3.4" fill="#F2A900"/>
-        <ellipse cx="220" cy="208" rx="185" ry="36" fill="#1B1836" opacity=".4"/>
-        <g fill="#fff" opacity=".3">
-          <ellipse cx="220" cy="198" rx="142" ry="16"/>
-          <ellipse cx="220" cy="183" rx="112" ry="13"/>
-        </g>
-        <g fill="#1B1836" opacity=".55">
-          <circle cx="150" cy="212" r="7"/><rect x="144" y="219" width="14" height="13" rx="4"/>
-          <circle cx="185" cy="209" r="7"/><rect x="178" y="216" width="14" height="13" rx="4"/>
-          <circle cx="220" cy="207" r="7"/><rect x="213" y="214" width="14" height="13" rx="4"/>
-          <circle cx="255" cy="209" r="7"/><rect x="248" y="216" width="14" height="13" rx="4"/>
-          <circle cx="290" cy="212" r="7"/><rect x="283" y="219" width="14" height="13" rx="4"/>
-        </g>
-        <g>
-          <rect x="172" y="88" width="100" height="16" rx="8" fill="#fff"/>
-          <path d="M186 132 h72 v52 a7 7 0 0 1 -7 7 h-58 a7 7 0 0 1 -7 -7 z" fill="#fff"/>
-          <rect x="196" y="150" width="48" height="30" rx="6" fill="#F7F5F1"/>
-          <path d="M206 150 v30 M222 150 v30 M238 150 v30" stroke="#E11A6E" stroke-width="3.5"/>
-          <path d="M204 106 a6 6 0 0 0 12 0" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>
-          <path d="M210 106 v16" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>
-          <circle cx="210" cy="127" r="4.4" fill="#fff"/>
-        </g>
-        <g opacity=".9">
-          <rect x="330" y="110" width="78" height="48" rx="10" fill="#fff" opacity=".16"/>
-          <rect x="339" y="121" width="60" height="26" rx="5" fill="#fff" opacity=".22"/>
-          <circle cx="369" cy="134" r="7" fill="#F2A900"/>
-        </g>
-        <g>
-          <circle cx="52" cy="112" r="26" fill="#fff" opacity=".16"/>
-          <path d="M45 110 l7 -9 7 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
-          <path d="M52 106 v9" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".9"/>
-        </g></svg>
+<img class="de-hero-img" src="images/dist-events-psmeet.jpg" alt="1st President–Secretary Meet illustration" loading="lazy">
         <div class="de-hero-inner">
           <span class="de-hero-tag">Event 1 &middot; RY 2026-27</span>
           <h3>1st President&ndash;Secretary Meet</h3>
@@ -1067,45 +1034,7 @@
 
     <div class="de-event" style="--de-c:#0E7490">
       <div class="de-hero">
-        <svg viewBox="0 0 440 235" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="..."><defs>
-          <linearGradient id="dePnBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B1836"/><stop offset=".55" stop-color="#312f66"/><stop offset="1" stop-color="#0E7490"/></linearGradient>
-          <radialGradient id="dePnFire" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#F2A900" stop-opacity=".5"/><stop offset="1" stop-color="#F2A900" stop-opacity="0"/></radialGradient>
-        </defs>
-        <rect width="440" height="235" fill="url(#dePnBg)"/>
-        <g fill="#fff">
-          <circle cx="42" cy="46" r="2"/><circle cx="94" cy="62" r="1.6"/><circle cx="152" cy="24" r="2.2"/>
-          <circle cx="212" cy="50" r="1.6"/><circle cx="262" cy="20" r="2"/><circle cx="322" cy="56" r="1.6"/>
-          <circle cx="382" cy="26" r="2.2"/><circle cx="408" cy="82" r="1.6"/><circle cx="72" cy="92" r="1.4"/>
-          <circle cx="300" cy="92" r="1.4"/><circle cx="192" cy="82" r="1.4"/><circle cx="132" cy="112" r="1.4"/>
-        </g>
-        <circle cx="370" cy="46" r="20" fill="#F2A900" opacity=".22"/>
-        <circle cx="362" cy="42" r="15" fill="#fff" opacity=".92"/>
-        <path d="M0 172 L110 110 L134 152 L172 92 L252 152 L322 104 L372 152 L440 122 L440 235 L0 235 Z" fill="#141136" opacity=".9"/>
-        <path d="M0 196 L96 146 L152 186 L232 138 L344 190 L440 158 L440 235 L0 235 Z" fill="#0b0b24"/>
-        <g fill="#1B1836">
-          <path d="M76 235 L110 168 L144 235 Z"/>
-          <path d="M122 235 L148 182 L174 235 Z"/>
-          <path d="M300 235 L330 172 L360 235 Z"/>
-        </g>
-        <g stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" fill="none" opacity=".85">
-          <path d="M106 200 h7 M132 218 h7 M132 208 h7"/>
-        </g>
-        <ellipse cx="225" cy="226" rx="30" ry="9" fill="#1B1836"/>
-        <circle cx="225" cy="198" r="40" fill="url(#dePnFire)"/>
-        <g fill="#F2A900">
-          <path d="M225 168 l5 11 h-10 z"/>
-          <path d="M213 178 l5 10 h-10 z" opacity=".85"/>
-          <path d="M237 178 l5 10 h-10 z" opacity=".85"/>
-          <path d="M225 158 l4 9 h-8 z" opacity=".92"/>
-        </g>
-        <g stroke="#F2A900" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".8">
-          <path d="M206 180 c9 8 18 8 27 0"/>
-          <path d="M213 171 c7 7 14 7 21 0"/>
-        </g>
-        <circle cx="198" cy="136" r="1.8" fill="#F2A900"/>
-        <circle cx="252" cy="130" r="1.8" fill="#F2A900"/>
-        <circle cx="164" cy="150" r="1.5" fill="#fff" opacity=".9"/>
-      </svg>
+        <img class="de-hero-img" src="images/dist-events-pnight.jpg" alt="President Night illustration" loading="lazy">
       <div class="de-hero-inner">
         <span class="de-hero-tag">Event 2 &middot; RY 2026-27</span>
         <h3>President Night</h3>

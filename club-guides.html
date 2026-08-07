@@ -70,9 +70,9 @@
   .np-poster .slide svg{width:62%; height:auto; filter:drop-shadow(0 12px 26px rgba(10,8,20,0.3));}
   .np-info{padding:40px 38px 34px; position:relative; z-index:1; display:flex; flex-direction:column;}
   .np-genre{font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:12px;}
-  .np-info h2{font-size:clamp(1.5rem,3vw,2rem); margin-bottom:10px;}
-  .np-info .np-tagline{color:rgba(255,255,255,0.7); font-size:.95rem; line-height:1.6; margin-bottom:18px;}
-  .np-info .np-syn{color:rgba(255,255,255,0.55); font-size:.84rem; line-height:1.65; max-width:560px; margin-bottom:22px;}
+  .np-info h2{font-size:clamp(1.5rem,3vw,2rem); margin-bottom:10px; text-wrap:balance;}
+  .np-info .np-tagline{color:rgba(255,255,255,0.75); font-size:.95rem; line-height:1.6; margin-bottom:18px; font-weight:500; text-wrap:pretty;}
+  .np-info .np-syn{color:rgba(255,255,255,0.55); font-size:.84rem; line-height:1.7; max-width:560px; margin-bottom:22px;}
   .np-meta{display:flex; gap:16px; flex-wrap:wrap; align-items:center; margin-bottom:22px;}
   .np-meta span{font-size:.76rem; font-weight:700; color:rgba(255,255,255,0.6);}
   .np-bar{height:6px; border-radius:100px; background:rgba(255,255,255,0.12); overflow:hidden; margin-bottom:26px; max-width:420px;}
@@ -107,13 +107,17 @@
   @keyframes kenburns{0%{transform:scale(1) rotate(0);} 50%{transform:scale(1.09) rotate(-1.2deg);} 100%{transform:scale(1) rotate(0);}}
   .reel-tag{position:absolute; top:14px; left:14px; z-index:3; font-size:.62rem; font-weight:800; letter-spacing:.14em; color:#fff; background:rgba(10,8,20,0.55); border:1px solid rgba(255,255,255,0.25); padding:5px 10px; border-radius:100px; backdrop-filter:blur(4px);}
   .genre-chip{position:absolute; bottom:14px; left:14px; z-index:3; font-size:.64rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); background:var(--gold); padding:5px 11px; border-radius:100px;}
-  .film-info{padding:26px 28px 28px; display:flex; flex-direction:column; flex-grow:1; min-width:0;}
-  .film-info h3{font-size:1.08rem; line-height:1.32; letter-spacing:-0.01em; margin-bottom:12px; overflow-wrap:anywhere;}
-  .film-info .logline{font-size:.86rem; color:rgba(27,24,54,0.56); line-height:1.68; margin-bottom:20px; flex-grow:1; overflow-wrap:anywhere;}
-  .film-meta{display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:.75rem; font-weight:700; color:rgba(27,24,54,0.5); margin-bottom:12px;}
-  .film-bar{height:5px; border-radius:100px; background:rgba(27,24,54,0.08); overflow:hidden; margin-bottom:20px;}
+  .film-info{padding:30px 30px 30px; display:flex; flex-direction:column; flex-grow:1; min-width:0;}
+  .film-info h3{font-size:1.16rem; line-height:1.28; letter-spacing:-0.02em; margin-bottom:10px; overflow-wrap:anywhere; text-wrap:balance;}
+  .film-info .logline{font-size:.87rem; color:rgba(27,24,54,0.6); line-height:1.7; margin-bottom:18px; flex-grow:1; overflow-wrap:anywhere; text-wrap:pretty;
+    border-left:3px solid var(--magenta); padding-left:12px; border-radius:2px;}
+  .film-meta{display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:14px;}
+  .film-meta .f-chip{display:inline-flex; align-items:center; gap:6px; font-size:.7rem; font-weight:800; letter-spacing:.02em; color:rgba(27,24,54,.62); background:rgba(27,24,54,0.06); padding:5px 11px; border-radius:100px; white-space:nowrap;}
+  .film-meta .f-chip.f-prog{color:var(--magenta-deep); background:rgba(225,26,110,0.08);}
+  .film-meta .f-chip.is-done{color:#1c8a4d; background:rgba(28,138,77,0.1);}
+  .film-bar{height:6px; border-radius:100px; background:rgba(27,24,54,0.09); overflow:hidden; margin-bottom:22px;}
   .film-bar i{display:block; height:100%; border-radius:100px; background:linear-gradient(90deg, var(--magenta), var(--gold)); transition:width .4s;}
-  .film-play{display:inline-flex; align-items:center; justify-content:center; gap:9px; width:100%; font-family:'Poppins'; font-weight:700; font-size:.86rem; color:var(--magenta-deep); background:rgba(225,26,110,0.08); border:1.5px solid rgba(225,26,110,0.25); border-radius:100px; padding:12px 14px; cursor:pointer; transition:background .2s, color .2s, transform .2s;}
+  .film-play{display:inline-flex; align-items:center; justify-content:center; gap:9px; width:100%; font-family:'Poppins'; font-weight:700; font-size:.88rem; letter-spacing:.01em; color:var(--magenta-deep); background:rgba(225,26,110,0.08); border:1.5px solid rgba(225,26,110,0.25); border-radius:100px; padding:12px 14px; cursor:pointer; transition:background .2s, color .2s, transform .2s, box-shadow .2s;}
   .film-play:hover{background:var(--magenta); border-color:var(--magenta); color:#fff; transform:translateY(-1px);}
   .empty-note{padding:40px 0; color:rgba(27,24,54,.5); text-align:center;}
 
@@ -160,22 +164,24 @@
   .t-head{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:6px;}
   .t-genre{font-size:.64rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); background:var(--gold); padding:5px 11px; border-radius:100px;}
   .t-reel{font-size:.64rem; font-weight:800; letter-spacing:.14em; color:rgba(27,24,54,0.4);}
-  .theater-body h2{font-size:1.6rem; margin-top:10px;}
-  .t-tagline{color:rgba(27,24,54,0.55); font-size:.92rem; margin-top:4px; margin-bottom:18px;}
+  .theater-body h2{font-size:1.6rem; margin-top:10px; text-wrap:balance; letter-spacing:-0.02em;}
+  .t-tagline{color:rgba(27,24,54,0.7); font-size:.95rem; margin-top:8px; margin-bottom:22px; line-height:1.65; font-weight:500;
+    background:linear-gradient(90deg, rgba(242,169,0,0.12), transparent 85%); border-left:3px solid var(--gold); padding:13px 18px; border-radius:0 14px 14px 0; text-wrap:pretty;}
   .t-orig{display:inline-flex; align-items:center; gap:6px; font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; border-radius:100px; padding:5px 12px; margin-bottom:18px;}
   .t-orig.zone{color:var(--magenta-deep); background:rgba(225,26,110,0.08);}
   .t-orig.official{color:#1c8a4d; background:rgba(28,138,77,0.1);}
-  .t-intro{font-size:.95rem; color:rgba(27,24,54,0.74); line-height:1.75; margin-bottom:18px;}
+  .t-intro{font-size:.96rem; color:rgba(27,24,54,0.76); line-height:1.85; margin-bottom:18px; text-wrap:pretty;}
   .t-intro em{font-style:normal; color:var(--magenta-deep); font-weight:700;}
   .t-stat{display:flex; align-items:center; gap:14px; background:rgba(242,169,0,0.08); border:1px solid rgba(242,169,0,0.22); border-radius:14px; padding:14px 18px; margin-bottom:22px;}
   .t-stat .g-icon{font-size:1.3rem; flex-shrink:0;}
   .t-stat p{font-size:.86rem; color:var(--ink); font-weight:600; line-height:1.5; margin:0;}
   .t-stat p span{color:var(--magenta-deep);}
-  .t-scenes-label{font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:rgba(27,24,54,0.45); margin-bottom:12px;}
+  .t-scenes-label{font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:rgba(27,24,54,0.5); margin-bottom:12px; display:inline-flex; align-items:center; gap:8px;}
+  .t-scenes-label::after{content:""; width:8px; height:8px; border-radius:50%; background:var(--gold); animation:pulse 1.6s infinite;}
   .scene-list{list-style:none; margin-bottom:22px;}
-  .scene-list li{font-size:.9rem; color:var(--ink); padding:11px 0 11px 44px; position:relative; line-height:1.5; border-bottom:1px dashed var(--line); cursor:pointer; user-select:none; transition:color .15s, opacity .15s; border-radius:8px;}
+  .scene-list li{font-size:.93rem; color:var(--ink); font-weight:500; padding:13px 0 13px 46px; position:relative; line-height:1.6; border-bottom:1px dashed var(--line); cursor:pointer; user-select:none; transition:color .15s, opacity .15s, background .15s; border-radius:10px;}
   .scene-list li:last-child{border-bottom:none;}
-  .scene-list li .scene-num{position:absolute; left:4px; top:11px; width:24px; height:24px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.6rem; font-weight:800; letter-spacing:.02em; color:var(--magenta-deep); background:rgba(225,26,110,0.08); border:1px solid rgba(225,26,110,0.2); transition:background .15s, border-color .15s;}
+  .scene-list li .scene-num{position:absolute; left:6px; top:12px; width:26px; height:26px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:.58rem; font-weight:800; letter-spacing:.06em; color:var(--magenta-deep); background:rgba(225,26,110,0.08); border:1px solid rgba(225,26,110,0.22); transition:background .15s, border-color .15s, color .15s;}
   .scene-list li:hover{background:rgba(225,26,110,0.04);}
   .scene-list li.done{color:rgba(27,24,54,.42); text-decoration:line-through;}
   .scene-list li.done .scene-num{background:var(--magenta); border-color:var(--magenta); color:#fff;}
@@ -685,8 +691,8 @@ function renderFilms(){
         <h3>${g.title}</h3>
         <p class="logline">${g.tagline}</p>
         <div class="film-meta">
-          <span>⏱ ${g.runtime} · ${g.slides.length} slides</span>
-          <span>${done}/${g.checklist.length} done</span>
+          <span class="f-chip">⏱ ${g.runtime} · ${g.slides.length} slides</span>
+          <span class="f-chip f-prog${pct(g) >= 100 ? ' is-done' : ''}">${done}/${g.checklist.length} done</span>
         </div>
         <div class="film-bar"><i style="width:${pct(g)}%"></i></div>
         <button class="film-play" data-play="${g.id}">${PLAY_SVG} Play the story</button>
