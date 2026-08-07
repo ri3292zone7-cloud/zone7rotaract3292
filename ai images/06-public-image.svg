@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#FEF6EC"/>
+  <defs>
+    <linearGradient id="bg6" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFDF9"/>
+      <stop offset="1" stop-color="#FBF0E1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg6)"/>
+  <circle cx="1400" cy="160" r="260" fill="#F2A900" opacity="0.14"/>
+  <circle cx="120" cy="740" r="220" fill="#E11A6E" opacity="0.07"/>
+
+  <g fill="none" stroke="#1B1836" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <!-- megaphone -->
+    <path d="M520 380c0-60 70-110 200-120v180c-130-10-200-60-200-120z" fill="#A80F52" stroke="none"/>
+    <path d="M520 380l160 150h-40l-120-90v-60z" fill="#1B1836" stroke="none"/>
+    <path d="M760 360c0 44-30 78-30 118" stroke="#E11A6E" stroke-width="12"/>
+    <!-- waves -->
+    <path d="M880 300a70 70 0 010 160M920 250a110 110 0 010 260" stroke="#E11A6E" stroke-width="12"/>
+    <path d="M960 280a130 130 0 010 300" stroke="#1B1836" stroke-width="10"/>
+    <!-- hearts -->
+    <path d="M1040 420c0-16 14-30 30-30s30 14 30 30c0 22-30 44-30 44s-30-22-30-44z" fill="#E11A6E" stroke="none"/>
+    <path d="M1120 520c0-14 12-24 26-24s26 10 26 24c0 18-26 38-26 38s-26-20-26-38z" fill="#F2A900" stroke="none"/>
+    <path d="M480 700h600" stroke-opacity="0.5"/>
+  </g>
+</svg>
