@@ -26,6 +26,7 @@
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/ne", "destination": "/ne-about.html" },
     { "source": "/ne/about", "destination": "/ne-about.html" },
+    { "source": "/ne/join", "destination": "/join.html" },
     { "source": "/balkumari", "destination": "/club.html?club=balkumari" },
     { "source": "/baneshwor", "destination": "/club.html?club=baneshwor" },
     { "source": "/liberty", "destination": "/club.html?club=liberty" },

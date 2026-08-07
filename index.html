@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://pdlolyghlgztjrpxwytl.supabase.co" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <script src="zone7-data.js"></script>
 <style>
   :root{
@@ -702,7 +702,7 @@
     return;
   }
 
-  const HOLD_MS = 1500;
+  const HOLD_MS = 450;
   document.getElementById("rpBarFill").style.transitionDuration = HOLD_MS + "ms";
 
   function dismiss(){
@@ -712,7 +712,7 @@
     setTimeout(() => el.remove(), 700);
   }
 
-  window.addEventListener("load", () => {
+  document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(() => {
       document.getElementById("rpBarFill").style.width = "100%";
     });
@@ -1008,7 +1008,7 @@
   try{
     const live=(typeof ZONE7_DB!=="undefined") ? await ZONE7_DB.getAllProjects({ limit: 400 }) : [];
     if(live && live.length){
-      MOSAIC=live.map(p=>({
+      MOSAIC=live.slice(0, 300).map(p=>({
         t:p.title || "Untitled Project",
         c:(p.category||"").trim() || "Uncategorized",
         club:p.club_slug,
@@ -1061,26 +1061,34 @@
       colEl.addEventListener("mouseenter",()=>{ cols.classList.add("dim"); colEl.classList.add("hi"); });
       colEl.addEventListener("mouseleave",()=>{ cols.classList.remove("dim"); colEl.classList.remove("hi"); });
     });
-    cols.querySelectorAll(".mosaic-tile").forEach(el=>{
-      const p=MOSAIC[el.dataset.i];
-      el.addEventListener("mousemove",e=>{
-        pop.style.left=Math.min(e.clientX+16,window.innerWidth-246)+"px";
-        pop.style.top=Math.min(e.clientY+16,window.innerHeight-100)+"px";
-      });
-      el.addEventListener("mouseenter",()=>{
-        mpTag.textContent=p.c; mpTitle.textContent=p.t; mpClub.textContent="Rotaract Club of "+p.cn;
-        pop.classList.add("show");
-      });
-      el.addEventListener("mouseleave",()=>pop.classList.remove("show"));
-      el.addEventListener("touchstart",e=>{
-        const t=e.touches[0];
-        pop.style.left=Math.min(t.clientX+8,window.innerWidth-246)+"px";
-        pop.style.top=Math.min(t.clientY-96,window.innerHeight-150)+"px";
-        mpTag.textContent=p.c; mpTitle.textContent=p.t; mpClub.textContent="Rotaract Club of "+p.cn;
-        pop.classList.add("show");
-      },{passive:true});
-      el.addEventListener("touchend",()=>{ setTimeout(()=>pop.classList.remove("show"),2400); },{passive:true});
-      el.addEventListener("click",()=>{ location.href=`/project?club=${p.club}&id=${encodeURIComponent(p.id)}`; });
+    // Delegated listeners — one set for the whole mosaic instead of per-tile,
+    // so 300 tiles cost ~6 listeners instead of ~2,400.
+    function popAt(x, y, mode){
+      const left = mode === "touch" ? x + 8 : Math.min(x + 16, window.innerWidth - 246);
+      const top = mode === "touch" ? Math.min(y - 96, window.innerHeight - 150) : Math.min(y + 16, window.innerHeight - 100);
+      pop.style.left = left + "px";
+      pop.style.top = top + "px";
+    }
+    function showFor(el, x, y, mode){
+      const p = MOSAIC[el.dataset.i];
+      if(!p) return;
+      popAt(x, y, mode);
+      mpTag.textContent = p.c; mpTitle.textContent = p.t; mpClub.textContent = "Rotaract Club of " + p.cn;
+      pop.classList.add("show");
+    }
+    cols.addEventListener("mousemove", (e) => {
+      const el = e.target.closest(".mosaic-tile");
+      if(el) showFor(el, e.clientX, e.clientY, "mouse");
+    });
+    cols.addEventListener("mouseleave", () => pop.classList.remove("show"));
+    cols.addEventListener("touchstart", (e) => {
+      const el = e.target.closest(".mosaic-tile");
+      if(el) showFor(el, e.touches[0].clientX, e.touches[0].clientY, "touch");
+    }, {passive:true});
+    cols.addEventListener("touchend", () => { setTimeout(() => pop.classList.remove("show"), 2400); }, {passive:true});
+    cols.addEventListener("click", (e) => {
+      const el = e.target.closest(".mosaic-tile");
+      if(el){ const p = MOSAIC[el.dataset.i]; if(p) location.href = `/project?club=${p.club}&id=${encodeURIComponent(p.id)}`; }
     });
   }
 
@@ -1407,10 +1415,10 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   const track2 = document.getElementById("projTrack2");
   const slugs = Object.keys(CLUB_DIRECTORY);
   let projects = [];
-  const lists = await Promise.all(slugs.map(s => ZONE7_DB.getProjects(s, { limit: 12 }).catch(() => [])));
-  lists.forEach((list, idx) => {
-    const slug = slugs[idx], club = CLUB_DIRECTORY[slug];
-    list.forEach(p => projects.push({
+  const grouped = await ZONE7_DB.getProjectsBatch(slugs, 12);
+  slugs.forEach(slug => {
+    const club = CLUB_DIRECTORY[slug];
+    (grouped[slug] || []).forEach(p => projects.push({
       id:p.id, title:p.title||"Untitled Project", category:p.category||"Project", cover:p.cover||"",
       clubName: club.name.replace("Rotaract Club of ",""), clubSlug: slug
     }));

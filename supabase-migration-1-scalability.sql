@@ -43,7 +43,7 @@ BEGIN
       UNIQUE (club_slug, project_code);
     RAISE NOTICE 'Unique constraint added (no duplicates found).';
   ELSE
-    RAISE NOTICE 'Skipped unique constraint: % duplicate (club_slug, project_code) pairs exist. Fix them first, e.g.:';
+    RAISE NOTICE 'Skipped unique constraint: % duplicate (club_slug, project_code) pairs exist. Fix them first, e.g.:', dup_count;
     RAISE NOTICE '  UPDATE projects SET project_code = project_code || ''-'' || id WHERE ...';
   END IF;
 END $$;

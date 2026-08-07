@@ -243,6 +243,32 @@ const REST_HEADERS = {
   "Prefer": "return=representation"
 };
 
+/* Warm the Supabase connection early — injected by this head-loaded file
+   on every page so the first data fetch skips the DNS/TLS handshake. */
+if(typeof document !== "undefined" && document.head &&
+   !document.querySelector('link[rel="preconnect"][href="' + SUPABASE_URL + '"]')){
+  const _pc = document.createElement("link");
+  _pc.rel = "preconnect";
+  _pc.href = SUPABASE_URL;
+  document.head.appendChild(_pc);
+}
+
+/* ---- tiny localStorage cache for public reads (TTL in ms) ----
+   Repeat visits render instantly from cache instead of waiting on
+   Supabase round trips. Admin writes (full/withCount/offset) bypass it. */
+function zone7CacheGet(key, ttlMs){
+  try{
+    const raw = localStorage.getItem("z7c_" + key);
+    if(!raw) return null;
+    const hit = JSON.parse(raw);
+    if(!hit || !hit.t || Date.now() - hit.t > ttlMs){ localStorage.removeItem("z7c_" + key); return null; }
+    return hit.v;
+  }catch(e){ return null; }
+}
+function zone7CacheSet(key, val){
+  try{ localStorage.setItem("z7c_" + key, JSON.stringify({ t: Date.now(), v: val })); }catch(e){}
+}
+
 const STORAGE_BUCKET = "project-images";
 
 /* Resize + compress an uploaded image, then upload it to Supabase Storage
@@ -296,9 +322,14 @@ const ZONE7_DB = {
 
   async getEvents(){
     try{
+      const cached = zone7CacheGet("events", 600000);
+      if(cached){ this._eventsCache = cached; return cached; }
       const res = await fetch(`${EVENTS_URL}?order=event_date.asc`, { headers: REST_HEADERS });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
-      return await res.json();
+      const rows = await res.json();
+      zone7CacheSet("events", rows);
+      this._eventsCache = rows;
+      return rows;
     } catch(e){
       console.error("ZONE7_DB.getEvents error", e);
       return this._eventsCache || [];
@@ -333,6 +364,11 @@ const ZONE7_DB = {
       const limit = Math.max(1, Math.min(1000, opts.limit || 1000));
       const offset = Math.max(0, opts.offset || 0);
       const withCount = !!opts.withCount;
+      const cacheable = !withCount && offset === 0 && limit <= 500;
+      if(cacheable){
+        const cached = zone7CacheGet("all_" + limit, 180000);
+        if(cached){ this._allCache = cached; return cached; }
+      }
       const res = await fetch(`${REST_URL}?select=id,club_slug,title,category,date,updated&order=updated.desc&limit=${limit}&offset=${offset}`, {
         headers: withCount ? { ...REST_HEADERS, "Prefer": "count=exact" } : REST_HEADERS
       });
@@ -343,6 +379,7 @@ const ZONE7_DB = {
         const total = parseInt(String(cr).split("/")[1], 10);
         return { rows, total: isNaN(total) ? null : total };
       }
+      if(cacheable) zone7CacheSet("all_" + limit, rows);
       this._allCache = rows;
       return rows;
     } catch(e){
@@ -355,6 +392,11 @@ const ZONE7_DB = {
     try{
       const limit = Math.max(1, Math.min(1000, opts.limit || 200));
       const offset = Math.max(0, opts.offset || 0);
+      const cacheable = !opts.full && offset === 0 && limit <= 200;
+      if(cacheable){
+        const cached = zone7CacheGet("p_" + clubSlug, 180000);
+        if(cached){ this._cache[clubSlug] = cached; return cached; }
+      }
       const cols = opts.full
         ? "id,club_slug,title,category,date,location,summary,body,cover,gallery,updated,project_code,attendees,volunteer_hours,duration,jointly_with,host_status"
         : "id,club_slug,title,category,date,location,cover,updated,project_code,attendees,volunteer_hours,duration,jointly_with,host_status";
@@ -364,11 +406,42 @@ const ZONE7_DB = {
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
       const rows = await res.json();
       const projects = rows.map(this._fromRow);
+      if(cacheable) zone7CacheSet("p_" + clubSlug, projects);
       if(offset === 0) this._cache[clubSlug] = projects;
       return projects;
     } catch(e){
       console.error("ZONE7_DB.getProjects error", e);
       return this._cache[clubSlug] || [];
+    }
+  },
+
+  /* One round trip for the homepage carousel: fetches the newest projects
+     across all clubs, then splits them into per-club buckets. */
+  async getProjectsBatch(slugs, perClub = 12){
+    try{
+      const want = Math.max(1, slugs.length * perClub);
+      const limit = Math.min(500, want);
+      const cached = zone7CacheGet("batch_" + limit, 180000);
+      if(cached) return cached;
+      const res = await fetch(`${REST_URL}?select=id,club_slug,title,category,date,location,cover,updated,project_code&club_slug=in.(${slugs.map(s => encodeURIComponent(s)).join(",")})&order=updated.desc&limit=${limit}`, {
+        headers: REST_HEADERS
+      });
+      if(!res.ok) throw new Error("Fetch failed: " + res.status);
+      const rows = await res.json();
+      const grouped = {};
+      slugs.forEach(s => { grouped[s] = []; });
+      rows.forEach(r => {
+        if(grouped[r.club_slug] && grouped[r.club_slug].length < perClub){
+          grouped[r.club_slug].push(this._fromRow(r));
+        }
+      });
+      zone7CacheSet("batch_" + limit, grouped);
+      return grouped;
+    } catch(e){
+      console.error("ZONE7_DB.getProjectsBatch error", e);
+      const out = {};
+      slugs.forEach(s => { out[s] = this._cache[s] || []; });
+      return out;
     }
   },
 
@@ -731,10 +804,12 @@ const ZONE7_DB = {
 
   async getZRRs(){
     try{
+      const cached = zone7CacheGet("zrrs", 600000);
+      if(cached){ this._zrrCache = cached; return cached; }
       const res = await fetch(`${ZRRS_URL}?order=sort_order.asc`, { headers: REST_HEADERS });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
       const rows = await res.json();
-      if(rows.length){ this._zrrCache = rows; return rows; }
+      if(rows.length){ zone7CacheSet("zrrs", rows); this._zrrCache = rows; return rows; }
       // Seed the fallback history into Supabase so it persists
       for(const z of this._zrrFallback){
         await this.saveZRR({...z});
@@ -780,10 +855,12 @@ const ZONE7_DB = {
 
   async getLeadership(){
     try{
+      const cached = zone7CacheGet("leadership", 600000);
+      if(cached){ this._leadershipCache = cached; return cached; }
       const res = await fetch(`${LEADERSHIP_URL}?order=sort_order.asc`, { headers: REST_HEADERS });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
       const rows = await res.json();
-      if(rows.length){ this._leadershipCache = rows; return rows; }
+      if(rows.length){ zone7CacheSet("leadership", rows); this._leadershipCache = rows; return rows; }
       // Seed fallback
       for(const l of this._leadershipFallback){ await this.saveLeader({...l}); }
       this._leadershipCache = this._leadershipFallback;

@@ -22,7 +22,7 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <script src="zone7-data.js"></script>
 <style>
   :root{
@@ -288,6 +288,7 @@
   "parentOrganization": "https://zone7rotaract3292.vercel.app/"
 }
 </script>
+<link rel="preload" as="image" href="zone7_cover.jpg" fetchpriority="high">
 </head>
 <body>
 
@@ -326,7 +327,7 @@
 
 <div class="hero-photo">
   <div class="frame">
-    <img src="zone7_cover.jpg" alt="जोन ७ का क्लबहरूका रोटरेक्टहरू" width="1180" height="560" loading="lazy">
+    <img src="zone7_cover.jpg" alt="जोन ७ का क्लबहरूका रोटरेक्टहरू" width="1180" height="560" fetchpriority="high">
     <span class="hp-chip hp1">🩸 रक्तदान अभियान</span>
     <span class="hp-chip hp2">🌳 रूख लगाउने काम</span>
     <span class="hp-chip hp3">🤝 सामेलजुस्ती</span>
