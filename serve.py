@@ -18,6 +18,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 PAGE_REWRITES = {
     "/about": "/about.html",
     "/gallery": "/gallery.html",
+    "/project": "/project.html",
     "/guides": "/guides.html",
     "/club-guides": "/club-guides.html",
     "/meetings": "/meetings.html",

@@ -30,14 +30,14 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-html,body{overflow-x:hidden;font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
+html{overflow-x:hidden;overflow-x:clip;font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper)}
 h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1120px;margin:0 auto;padding:0 22px overflow-x:hidden;} @media (max-width: 600px){ .wrap{padding:0 16px;} }
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px;overflow-x:hidden;overflow-x:clip;} @media (max-width: 600px){ .wrap{padding:0 16px;} }
 #progress{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--magenta),var(--gold));transform-origin:0 50%;transform:scaleX(0);z-index:999}
 
-.hero{position:relative;padding:70px 0 46px}
+.hero{position:relative;overflow-x:clip;padding-top:70px;padding-bottom:46px}
 .aurora{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none}
 .a1{width:420px;height:420px;background:#F9C6DC;top:-140px;left:-120px;animation:drift 16s ease-in-out infinite alternate}
 .a2{width:380px;height:380px;background:#FBE9B9;top:-80px;right:-100px;animation:drift 20s ease-in-out infinite alternate-reverse}
@@ -162,7 +162,7 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
 <div id="siteNav" data-current="tutorials" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
 
-<header class="hero wrap">
+<header class="hero">
   <div class="aurora a1"></div>
   <div class="aurora a2"></div>
   <div class="aurora a3"></div>
@@ -171,6 +171,8 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <div class="fshape shape-dot" data-parallax="2"></div>
   <div class="fshape shape-dot2" data-parallax="-2"></div>
   <div class="fshape shape-sq" data-parallax="1.4"></div>
+  <div class="wrap">
+
 
   <div class="eyebrow"><span class="dot"></span>Zone 7 &middot; Tutorial Hub</div>
   <h1 id="heroTitle">Skills that turn clubs into teams.</h1>
@@ -195,6 +197,7 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
       <div class="hm-badge hb4"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M8 14L12 18L20 8" stroke="#A80F52" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Proven in Zone 7</div>
     </div>
   </div>
+  </div>
 </header>
 
 <div class="wrap">
@@ -202,7 +205,7 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <p class="section-sub" data-reveal>Six deep-dive guides. Each one opens its own page with the full playbook, animated walkthroughs, checklists, videos and the official documents you need.</p>
 
   <div class="tutorial-grid">
-    <a class="t-card" href="/tutorial-meetings" style="--tc:#E11A6E" data-reveal>
+    <a class="t-card" href="/tutorial-meetings.html" style="--tc:#E11A6E" data-reveal>
       <div class="t-num">TUTORIAL 01</div>
       <div class="t-img"><img src="images/tutorial-meeting.png" alt="Rotaract general meeting illustration"></div>
       <div class="t-tag">Meetings &middot; The Core</div>
@@ -212,7 +215,7 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
       <div class="t-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     </a>
 
-    <a class="t-card" href="/tutorial-board" style="--tc:#1B1836;--d:.06s" data-reveal>
+    <a class="t-card" href="/tutorial-board.html" style="--tc:#1B1836;--d:.06s" data-reveal>
       <div class="t-num">TUTORIAL 02</div>
       <div class="t-img"><img src="images/tutorial-board.png" alt="Rotaract board meeting illustration"></div>
       <div class="t-tag">Leadership &middot; The Engine</div>
@@ -222,7 +225,7 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
       <div class="t-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     </a>
 
-    <a class="t-card" href="/tutorial-assembly" style="--tc:#0E7490;--d:.12s" data-reveal>
+    <a class="t-card" href="/tutorial-assembly.html" style="--tc:#0E7490;--d:.12s" data-reveal>
       <div class="t-num">TUTORIAL 03</div>
       <div class="t-img"><img src="images/tutorial-assembly.png" alt="Rotaract club assembly illustration"></div>
       <div class="t-tag">Membership &middot; The Voice</div>
@@ -232,7 +235,7 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
       <div class="t-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     </a>
 
-    <a class="t-card" href="/tutorial-zrr" style="--tc:#C2410C;--d:.18s" data-reveal>
+    <a class="t-card" href="/tutorial-zrr.html" style="--tc:#C2410C;--d:.18s" data-reveal>
       <div class="t-num">TUTORIAL 04</div>
       <div class="t-img"><img src="images/tutorial-zrr.png" alt="ZRR zonal visit illustration"></div>
       <div class="t-tag">Zone &middot; The Bridge</div>
@@ -242,7 +245,7 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
       <div class="t-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     </a>
 
-    <a class="t-card" href="/tutorial-drr" style="--tc:#A80F52;--d:.24s" data-reveal>
+    <a class="t-card" href="/tutorial-drr.html" style="--tc:#A80F52;--d:.24s" data-reveal>
       <div class="t-num">TUTORIAL 05</div>
       <div class="t-img"><img src="images/tutorial-drr.png" alt="DRR district visit illustration"></div>
       <div class="t-tag">District &middot; The Bigger Picture</div>
@@ -252,7 +255,7 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
       <div class="t-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     </a>
 
-    <a class="t-card" href="/tutorial-blood" style="--tc:#D32027;--d:.3s" data-reveal>
+    <a class="t-card" href="/tutorial-blood.html" style="--tc:#D32027;--d:.3s" data-reveal>
       <div class="t-num">TUTORIAL 06</div>
       <div class="t-img"><img src="images/tutorial-blood.png" alt="Blood donation camp illustration"></div>
       <div class="t-tag">Service &middot; The Impact</div>
@@ -269,7 +272,7 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
       <h3>New to leading? Start with Tutorial 01.</h3>
       <p>Every strong Zone 7 officer started somewhere. The meetings tutorial builds the foundation everything else stands on.</p>
     </div>
-    <a class="btn" href="/tutorial-meetings">Start with Meetings &rarr;</a>
+    <a class="btn" href="/tutorial-meetings.html">Start with Meetings &rarr;</a>
   </div>
 </div>
 

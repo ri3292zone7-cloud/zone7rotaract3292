@@ -27,10 +27,10 @@
   :root{--ink:#1B1836;--magenta:#E11A6E;--magenta-deep:#A80F52;--gold:#F2A900;--cream:#FFF8EF;--paper:#FFFDF9;--line:rgba(27,24,54,0.1);}
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
-  html,body{overflow-x:hidden;font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;}
+  html{overflow-x:hidden;overflow-x:clip;font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);}
   h1,h2,h3,h4{font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-0.02em;}
   a{color:inherit;text-decoration:none;} img{max-width:100%;display:block;}
-  .wrap{max-width:1180px;margin:0 auto;padding:0 28px; overflow-x:hidden;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px; overflow-x:hidden;overflow-x:clip;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
   .reveal.show{opacity:1;transform:none;}
 
@@ -589,7 +589,7 @@ if(club){(async () => {
         <div class="chero-actions">
           ${club.ig ? `<a class="btn btn-primary" href="https://www.instagram.com/${esc(club.ig)}/" target="_blank" rel="noopener">Follow @${esc(club.ig)} →</a>` : ""}
           <a class="btn btn-ghost-dark" href="mailto:${esc(club.email)}">Email the Club</a>
-          <a class="btn btn-ghost-dark" href="/join">Join This Club</a>
+          <a class="btn btn-ghost-dark" href="/join.html">Join This Club</a>
         </div>
         <div class="stat-strip">
           <div class="s"><b data-val="${esc(club.active)}">0</b><span>Active Members</span></div>
@@ -658,7 +658,7 @@ if(club){(async () => {
         <h2>Want to join ${esc(club.name)}?</h2>
         <p>Membership is open to anyone aged 18–30. Fill out one short form and this club will welcome you in.</p>
         <div class="join-actions">
-          <a class="btn btn-primary" href="/join">Fill the Join Form →</a>
+          <a class="btn btn-primary" href="/join.html">Fill the Join Form →</a>
           <a class="btn btn-ghost-dark" style="border-color:rgba(255,255,255,.5);" href="/#clubs">Explore Other Clubs</a>
         </div>
       </div>
@@ -679,13 +679,13 @@ if(club){(async () => {
   const projects = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getProjects(clubSlug, { limit: 60 }) : [];
   if(projects.length){
     pm.innerHTML = projects.map(p => `
-      <div class="pcard" onclick="location.href='/project?club=${encodeURIComponent(clubSlug)}&id=${encodeURIComponent(p.id)}'">
+      <div class="pcard" onclick="location.href='/project.html?club=${encodeURIComponent(clubSlug)}&id=${encodeURIComponent(p.id)}'">
         <img src="${esc(p.cover || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600')}" alt="${esc(p.title)}" loading="lazy">
         <div class="pcard-cap"><b>${esc(p.title)}</b><span>${esc(p.category || 'Project')} · ${esc(p.date || '')}</span></div>
       </div>
     `).join("");
   } else {
-    pm.innerHTML = `<div class="no-projects-note">This club hasn't published any projects yet. Club officers can add projects from the <a href="/admin" style="color:var(--magenta-deep); font-weight:700;">Club Admin panel</a>.</div>`;
+    pm.innerHTML = `<div class="no-projects-note">This club hasn't published any projects yet. Club officers can add projects from the <a href="/admin.html" style="color:var(--magenta-deep); font-weight:700;">Club Admin panel</a>.</div>`;
   }
   initReveal();
 })();

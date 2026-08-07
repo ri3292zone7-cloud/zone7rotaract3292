@@ -108,7 +108,7 @@ export default async function handler(req, res) {
     const id = encodeURIComponent(p.id);
     const lastmod = p.updated ? new Date(p.updated).toISOString().slice(0, 10) : now;
     projectEntries.push(
-      urlEntry(`${SITE}/project?club=${slug}&id=${id}`, lastmod, 0.6, "monthly")
+      urlEntry(`${SITE}/project.html?club=${slug}&id=${id}`, lastmod, 0.6, "monthly")
     );
   }
 

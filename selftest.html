@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>selftest-overflow</title>
+<style>body{font-family:monospace;font-size:11px;background:#111;color:#eee;padding:10px}pre{white-space:pre-wrap}</style>
+</head>
+<body>
+<pre id="out">running…</pre>
+<script>
+(async () => {
+  const out = document.getElementById("out");
+  const targets = [
+    { p: "404.html", v: { w: 1360, h: 900 } },
+    { p: "404.html", v: { w: 390, h: 844 } },
+    { p: "project.html?club=sukedhara&id=sukedhara-library-2025", v: { w: 390, h: 844 } },
+    { p: "club-tools.html", v: { w: 390, h: 844 } },
+    { p: "gallery.html", v: { w: 1360, h: 900 } }
+  ];
+  const results = [];
+  for (const t of targets) {
+    await new Promise(res => {
+      const ifr = document.createElement("iframe");
+      ifr.style.width = t.v.w + "px"; ifr.style.height = t.v.h + "px"; ifr.style.border = "0";
+      document.body.appendChild(ifr);
+      ifr.onload = () => setTimeout(() => {
+        try {
+          const d = ifr.contentDocument;
+          const el = d.documentElement;
+          const lines = [];
+          lines.push(`== ${t.p} @ ${t.v.w}x${t.v.h} | scrollW=${el.scrollWidth} clientW=${el.clientWidth}`);
+          const all = d.querySelectorAll("*");
+          for (const e of all) {
+            const r = e.getBoundingClientRect();
+            if (r.right > el.clientWidth + 2) {
+              const cls = (e.className && e.className.toString ? e.className.toString() : "").slice(0, 60);
+              lines.push(`  OVER <${e.tagName.toLowerCase()} class="${cls}" id="${e.id||""}"> right=${Math.round(r.right)}`);
+            }
+            if (r.left < -2) {
+              const cls = (e.className && e.className.toString ? e.className.toString() : "").slice(0, 60);
+              lines.push(`  UNDER <${e.tagName.toLowerCase()} class="${cls}" id="${e.id||""}"> left=${Math.round(r.left)}`);
+            }
+          }
+          const brokenImgs = Array.from(d.images).filter(i => i.getAttribute("src") && i.getAttribute("src").endsWith("gallery.html")).map(i => {
+            const p = i.parentElement;
+            return "<" + (p ? p.tagName : "") + " class=" + (p && p.className ? p.className : "") + " src=" + i.getAttribute("src") + ">";
+          });
+          const backEl = d.querySelector("#siteNav .back");
+          if (backEl) lines.push(`  .back display=${getComputedStyle(backEl).display}`);
+          lines.push(`  gallerySrcImgs: ${JSON.stringify(brokenImgs.slice(0,2))}`);
+          results.push(lines.join("\n"));
+        } catch (e) { results.push(`[ERR] ${e.message}`); }
+        ifr.remove(); res();
+      }, 3000);
+      ifr.src = "/" + t.p;
+    });
+    out.textContent = results.join("\n\n");
+  }
+  out.textContent = results.join("\n\n") + "\n\nDONE";
+})();
+</script>
+</body>
+</html>

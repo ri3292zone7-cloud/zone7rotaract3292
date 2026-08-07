@@ -1,7 +1,9 @@
-﻿/* RotaGPT â€” the Zone 7 chatbot widget.
-   Answers from the local knowledge base (rota-gpt-data.js) instantly.
-   When a serverless LLM endpoint (/api/rota-gpt) is available and has a
-   key configured, answers are AI-generated from the same knowledge base. */
+﻿/* RotaGPT — the Zone 7 chatbot widget.
+   Answers from the local knowledge base (rota-gpt-data.js) appear instantly.
+   Then, when a model is reachable, the same bubble is upgraded in place:
+   1) the serverless /api/rota-gpt endpoint (needs a configured key), or
+   2) the anonymous public Pollinations endpoint called directly from the
+      browser. No API key is required on the client. */
 (function () {
   if (window.__rotaGptLoaded) return;
   window.__rotaGptLoaded = true;
@@ -77,8 +79,8 @@
     '<span class="rgpt-gear">' + GEAR + "</span><span>RotaGPT</span></button>" +
     '<div id="rgpt-panel" role="dialog" aria-label="RotaGPT chat">' +
     '<div id="rgpt-head"><div class="rgpt-avatar">' + GEAR + "</div>" +
-    "<div><h3>RotaGPT</h3><p><span class='rgpt-dot'></span>Zone 7 guide Â· answers from the district directory</p></div>" +
-    '<button id="rgpt-close" aria-label="Close chat">âœ•</button></div>' +
+    "<div><h3>RotaGPT</h3><p><span class='rgpt-dot'></span>Zone 7 guide · answers from the district directory</p></div>" +
+    '<button id="rgpt-close" aria-label="Close chat">✕</button></div>' +
     '<div id="rgpt-msgs"></div>' +
     '<div id="rgpt-sugg"></div>' +
     '<div id="rgpt-inputrow"><input id="rgpt-input" type="text" placeholder="Ask about grants, meetings, clubs..." autocomplete="off">' +
@@ -174,7 +176,7 @@
     var extra = "";
     if (best.length > 1 && best[1].s >= best[0].s * 0.5) {
       var alt = best[1].e;
-      extra = " Also related: <b>" + esc(alt.k[0]) + "</b> â€“ " + alt.a;
+      extra = " Also related: <b>" + esc(alt.k[0]) + "</b> – " + alt.a;
     }
     return {
       text: top.a + extra,
@@ -183,23 +185,57 @@
     };
   }
 
-  /* ------- optional LLM upgrade via serverless function ------- */
-  function llmAnswer(history) {
-    return fetch("api/rota-gpt", {
+  /* ------- top-3 knowledge context for the model ------- */
+  function topContext(q) {
+    var qWords = tokens(q);
+    var qText = q.toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+    return KB.slice()
+      .map(function (e) { return { e: e, s: scoreEntry(e, qWords, qText) }; })
+      .sort(function (a, b) { return b.s - a.s; })
+      .slice(0, 3)
+      .map(function (x) { return "- " + x.e.a; })
+      .join("\n") || "No matching knowledge base entries.";
+  }
+
+  /* ------- LLM answers: serverless first, then direct anonymous ------- */
+  function buildSystem(ctx) {
+    return "You are RotaGPT, a friendly assistant for the Zone 7 Rotaract website (Rotaract District 3292, Nepal-Bhutan). " +
+      "Answer from the knowledge base context below. Be warm, brief and specific. Use short paragraphs and simple lists when useful. " +
+      "If the context does not cover the question, say you are not sure and suggest the website sections. " +
+      "Never invent club names, amounts or rules. Only Zone 7 clubs exist: Balkumari, Baneshwor, Liberty, Kathmandu West, " +
+      "Kathmandu Heights, Sankhu, New Road City, Sukedhara, Tripureswor.\n\nKnowledge base:\n" + String(ctx || "").slice(0, 6000);
+  }
+  function parseOpenAI(json) {
+    var m = json && json.choices && json.choices[0] && json.choices[0].message && json.choices[0].message.content;
+    return m ? m.trim() : null;
+  }
+  function fetchJson(url, options, ms) {
+    var ctrl = new AbortController();
+    var t = setTimeout(function () { ctrl.abort(); }, ms || 20000);
+    return fetch(url, Object.assign({}, options, { signal: ctrl.signal }))
+      .then(function (r) { return r.json(); })
+      .finally(function () { clearTimeout(t); });
+  }
+  function serverlessAnswer(ctx, history) {
+    return fetchJson("api/rota-gpt", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: history.slice(-8), kb: localAnswer(history[history.length - 1].content).text })
-    }).then(function (r) {
-      return r.json();
-    }).then(function (j) {
-      if (j && j.engine === "llm" && j.answer) return { text: j.answer, src: "RotaGPT AI" };
-      return null;
+      body: JSON.stringify({ messages: history.slice(-8), kb: ctx })
+    }, 8000).then(function (j) {
+      return (j && j.engine === "llm" && j.answer) ? j.answer : null;
     }).catch(function () { return null; });
+  }
+  function directAnswer(sys, history) {
+    return fetchJson("https://gen.pollinations.ai/v1/chat/completions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: "openai", messages: [{ role: "system", content: sys }].concat(history.slice(-8)), max_tokens: 400 })
+    }, 30000).then(parseOpenAI).catch(function () { return null; });
   }
 
   function renderAnswer(bubble, ans) {
     var links = (ans.links || []).map(function (l) {
-      return '<a href="' + esc(l.url) + '">' + (l.url.indexOf("http") === 0 ? "â†— " : "â†’ ") + esc(l.label) + "</a>";
+      return '<a href="' + esc(l.url) + '">' + (l.url.indexOf("http") === 0 ? "↗ " : "→ ") + esc(l.label) + "</a>";
     }).join("");
     bubble.innerHTML = ans.text +
       (links ? '<div class="rgpt-links">' + links + "</div>" : "") +
@@ -208,33 +244,34 @@
   }
 
   var history = [];
+  var turnSeq = 0;
+
+  /* Render the local answer instantly, then UPGRADE the same bubble in place
+     with an AI answer whenever one arrives — never discard it late. */
   function send(q) {
     q = (q || "").trim();
     if (!q) return;
     addMsg(esc(q), "user");
     history.push({ role: "user", content: q });
-    var typing = addTyping();
-    var local = localAnswer(q);
-    var bubble = null;
+    var seq = ++turnSeq;
 
-    var done = false;
-    function finish(upgraded) {
-      if (done) return;
-      done = true;
-      if (bubble) {
-        if (upgraded) renderAnswer(bubble, upgraded);
-        return;
-      }
-      typing.remove();
-      bubble = addMsg("", "bot");
-      renderAnswer(bubble, upgraded || local);
+    var local = localAnswer(q);
+    var bubble = addMsg("", "bot");
+    renderAnswer(bubble, local);
+
+    function upgrade(text) {
+      if (!text) return;                    // no AI reply yet — keep local answer
+      if (turnSeq !== seq) return;         // a newer question replaced this turn
+      if (!document.body.contains(bubble)) return;
+      renderAnswer(bubble, { text: text, links: [], src: "RotaGPT AI" });
     }
 
-    var t = setTimeout(function () { finish(null); }, 260);
-    llmAnswer(history).then(function (up) {
-      clearTimeout(t);
-      finish(up);
-    }).catch(function () { clearTimeout(t); finish(null); });
+    var ctx = topContext(q);
+    var sys = buildSystem(ctx);
+    serverlessAnswer(ctx, history).then(function (up) {
+      if (up) { upgrade(up); return; }
+      directAnswer(sys, history).then(upgrade);
+    });
   }
 
   function key(e) { if (e.key === "Enter") send(input.value); }

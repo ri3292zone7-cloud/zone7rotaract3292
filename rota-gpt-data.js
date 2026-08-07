@@ -1,4 +1,4 @@
-﻿/* RotaGPT knowledge base â€” curated from the Zone 7 site and the 2025-26
+/* RotaGPT knowledge base — curated from the Zone 7 site and the 2025-26
    District 3292 directory. The client-side engine scores these entries
    against the user's question. Only Zone 7 clubs are referenced here. */
 window.ROTA_KB = [
@@ -69,7 +69,7 @@ window.ROTA_KB = [
   },
   {
     k: ["motions", "voting", "quorum", "minutes", "attendance"],
-    a: "Motions are proposed, seconded, debated and voted on â€“ the meetings tutorial covers the exact sequence, the attendance sheet and how minutes should be recorded. The district's sample attendance sheet and agenda paper are in the Resources library.",
+    a: "Motions are proposed, seconded, debated and voted on – the meetings tutorial covers the exact sequence, the attendance sheet and how minutes should be recorded. The district's sample attendance sheet and agenda paper are in the Resources library.",
     links: [{ label: "Motions & voting tutorial", url: "/tutorial-meetings" }, { label: "Resources library", url: "/guides" }]
   },
   {
@@ -114,7 +114,7 @@ window.ROTA_KB = [
   },
   {
     k: ["twinship", "twin club", "sister club", "twinning", "partnership", "international club"],
-    a: "A twinship is a long-term relationship between two clubs â€“ intra-district (same district) or inter-district (different districts or countries). It is made official with a Memorandum of Understanding (MOU), usually 1 joint meeting and 1 joint project per year, and renewed each June 30. Goodwill visits need at least 5 members. The chapter has the MOU template and the finding-a-partner guide.",
+    a: "A twinship is a long-term relationship between two clubs – intra-district (same district) or inter-district (different districts or countries). It is made official with a Memorandum of Understanding (MOU), usually 1 joint meeting and 1 joint project per year, and renewed each June 30. Goodwill visits need at least 5 members. The chapter has the MOU template and the finding-a-partner guide.",
     links: [{ label: "Twinship chapter", url: "/handbook-twinship" }, { label: "MOU template", url: "guides/MOU-Document.doc" }]
   },
   {
@@ -149,7 +149,7 @@ window.ROTA_KB = [
   },
   {
     k: ["peace", "conflict", "promoting peace"],
-    a: "The Promoting Peace area covers conflict resolution and community dialogue projects. The Projects chapter has featured designs with budgets (NPR 5,000â€“15,000) and 5 low-cost ideas per area.",
+    a: "The Promoting Peace area covers conflict resolution and community dialogue projects. The Projects chapter has featured designs with budgets (NPR 5,000–15,000) and 5 low-cost ideas per area.",
     links: [{ label: "Projects chapter", url: "/handbook-projects" }]
   },
   {
@@ -184,12 +184,12 @@ window.ROTA_KB = [
   },
   {
     k: ["health check", "club health", "checkup", "healthy club", "self assessment"],
-    a: "The Club Health Check is the district's self-assessment tool: 75 yes/no items across 5 sections â€“ Club Experience (15), Service & Socials (14), Members (16), Public Image (15), Business & Operations (15). Run it every 6 months with a review team of at least 7 members. If any section has more than 5 'no' answers, that section needs an improvement plan.",
+    a: "The Club Health Check is the district's self-assessment tool: 75 yes/no items across 5 sections – Club Experience (15), Service & Socials (14), Members (16), Public Image (15), Business & Operations (15). Run it every 6 months with a review team of at least 7 members. If any section has more than 5 'no' answers, that section needs an improvement plan.",
     links: [{ label: "Health Check chapter", url: "/handbook-health" }, { label: "Official Rotary check", url: "https://on.rotary.org/club-health-check" }]
   },
   {
     k: ["health check sections", "club experience", "service and socials", "business and operations", "public image", "members section"],
-    a: "The 75-item checkup splits into: Club Experience (15 items â€“ meetings and fellowship), Service & Socials (14 items â€“ projects and events), Members (16 items â€“ growth, retention, induction, mentoring), Public Image (15 items â€“ website, social media, branding) and Business & Operations (15 items â€“ planning, finances, reporting).",
+    a: "The 75-item checkup splits into: Club Experience (15 items – meetings and fellowship), Service & Socials (14 items – projects and events), Members (16 items – growth, retention, induction, mentoring), Public Image (15 items – website, social media, branding) and Business & Operations (15 items – planning, finances, reporting).",
     links: [{ label: "Health Check chapter", url: "/handbook-health" }]
   },
   {
@@ -204,7 +204,7 @@ window.ROTA_KB = [
   },
   {
     k: ["guides for clubs", "playbook", "club tips", "leadership", "treasury", "finance tips", "public image tips", "retention"],
-    a: "Guides for Clubs is the playbook: 10 practical topics â€“ leadership & officer transition, service project execution, finance & fundraising, public image & communications, professional development, international relations, recognition & events, sponsor relationship management, digital tools, and wellbeing & culture. Each has a quick-start checklist.",
+    a: "Guides for Clubs is the playbook: 10 practical topics – leadership & officer transition, service project execution, finance & fundraising, public image & communications, professional development, international relations, recognition & events, sponsor relationship management, digital tools, and wellbeing & culture. Each has a quick-start checklist.",
     links: [{ label: "Guides for Clubs", url: "/club-guides" }]
   },
   {
@@ -214,7 +214,7 @@ window.ROTA_KB = [
   },
   {
     k: ["gallery", "photos", "pictures", "recaps"],
-    a: "The Gallery collects photos and recaps from across the zone â€“ meetings, projects and celebrations. It is updated with new material from the clubs.",
+    a: "The Gallery collects photos and recaps from across the zone – meetings, projects and celebrations. It is updated with new material from the clubs.",
     links: [{ label: "Gallery", url: "/gallery" }]
   },
   {
@@ -234,7 +234,7 @@ window.ROTA_KB = [
   },
   {
     k: ["world rotaract week", "recognition", "awards", "certificate"],
-    a: "World Rotaract Week falls in March each year, and clubs are encouraged to run a signature activity. RI also offers official Certificates of Recognition for outstanding projects and members â€“ see the Recognition topic in Guides for Clubs.",
+    a: "World Rotaract Week falls in March each year, and clubs are encouraged to run a signature activity. RI also offers official Certificates of Recognition for outstanding projects and members – see the Recognition topic in Guides for Clubs.",
     links: [{ label: "Guides for Clubs", url: "/club-guides" }]
   },
   {
@@ -244,17 +244,17 @@ window.ROTA_KB = [
   },
   {
     k: ["rota gpt", "chatbot", "ai", "who are you", "help"],
-    a: "I'm RotaGPT, the Zone 7 guide bot. I answer from the site and the district directory â€“ try asking about grants, twinship, meetings, projects or any club in the zone.",
+    a: "I'm RotaGPT, the Zone 7 guide bot. I answer from the site and the district directory – try asking about grants, twinship, meetings, projects or any club in the zone.",
     links: []
   },
   {
     k: ["history", "heritage", "when did rotaract start", "first rotaract club", "1968", "founding"],
-    a: "The first Rotaract club in the world was chartered on 13 March 1968 in North Carolina, USA â€“ the week around that date is World Rotaract Week. In 2019 Rotary International amended its constitution and made Rotaract an official partner of Rotary, and since 2022 Rotaract clubs pay dues to RI directly, the same way Rotary clubs do.",
+    a: "The first Rotaract club in the world was chartered on 13 March 1968 in North Carolina, USA – the week around that date is World Rotaract Week. In 2019 Rotary International amended its constitution and made Rotaract an official partner of Rotary, and since 2022 Rotaract clubs pay dues to RI directly, the same way Rotary clubs do.",
     links: [{ label: "About Zone 7", url: "/about" }]
   },
   {
     k: ["newsletter", "bulletin", "magazine", "zone updates", "what is happening in the zone"],
-    a: "Every Zone 7 club shares its own updates â€“ on Instagram, at district events and through the district's club-excellence reporting. The homepage's district calendar keeps the zone's events in one place, and each club's profile page lists its projects, reports and recent activity.",
+    a: "Every Zone 7 club shares its own updates – on Instagram, at district events and through the district's club-excellence reporting. The homepage's district calendar keeps the zone's events in one place, and each club's profile page lists its projects, reports and recent activity.",
     links: [{ label: "District calendar", url: "/" }]
   },
   {
@@ -264,32 +264,32 @@ window.ROTA_KB = [
   },
   {
     k: ["signature project", "flagship", "what projects", "project ideas", "blood donation", "nationwide blood"],
-    a: "Zone 7 clubs run the classic Rotaract project mix: blood donation drives (including the district's Nationwide Blood Donation program), health camps, education and literacy work, environment drives, professional development workshops and fellowship events. Clubs upload their own projects to this site â€“ the homepage mosaic and each project page show what the zone is actually doing right now.",
+    a: "Zone 7 clubs run the classic Rotaract project mix: blood donation drives (including the district's Nationwide Blood Donation program), health camps, education and literacy work, environment drives, professional development workshops and fellowship events. Clubs upload their own projects to this site – the homepage mosaic and each project page show what the zone is actually doing right now.",
     links: [{ label: "See zone projects", url: "/" }, { label: "Project execution guide", url: "/club-guides" }]
   },
   {
     k: ["interact", "school program", "ages 12 18", "start an interact", "school club"],
-    a: "Interact is Rotary's school-based program for students aged 12â€“18. Rotaract clubs in the district mentor Interact clubs â€“ running board orientations, awareness walks and joint projects. Schools wanting to start an Interact club can email ri3292zone7@gmail.com and Zone 7 will connect them with a sponsoring club.",
+    a: "Interact is Rotary's school-based program for students aged 12–18. Rotaract clubs in the district mentor Interact clubs – running board orientations, awareness walks and joint projects. Schools wanting to start an Interact club can email ri3292zone7@gmail.com and Zone 7 will connect them with a sponsoring club.",
     links: [{ label: "Interact on About", url: "/about" }]
   },
   {
     k: ["guest", "guest visit", "visit a meeting", "try before joining", "show up"],
-    a: "You don't have to be a member to attend a club meeting â€“ guests are always welcome. Every club runs on the standard Rotaract rhythm of regular meetings, board sessions and fellowships like hikes and festival nights. You can request a guest visit on the Join page and the zone will match you with the right club.",
+    a: "You don't have to be a member to attend a club meeting – guests are always welcome. Every club runs on the standard Rotaract rhythm of regular meetings, board sessions and fellowships like hikes and festival nights. You can request a guest visit on the Join page and the zone will match you with the right club.",
     links: [{ label: "Request a guest visit", url: "/join" }]
   },
   {
     k: ["quiz", "rkt", "rotaract knowledge test", "knowledge quiz", "test"],
-    a: "The Rotaract Knowledge Test (RKT) is part of many clubs' member intake in the district â€“ a short check that new members understand what Rotaract is. There's a 2-minute practice version on the quiz page, perfect warm-up before your first meeting.",
+    a: "The Rotaract Knowledge Test (RKT) is part of many clubs' member intake in the district – a short check that new members understand what Rotaract is. There's a 2-minute practice version on the quiz page, perfect warm-up before your first meeting.",
     links: [{ label: "Take the practice quiz", url: "/rkt-quiz" }]
   },
   {
     k: ["international", "exchange", "twinship", "twin club", "letterhead", "abroad"],
-    a: "The international avenue runs on twinship and exchanges: inter-club visits, letterhead exchanges and joint online sessions with clubs abroad â€“ each relationship made official with a Memorandum of Understanding. The Twinship chapter explains how to find a partner club and set one up.",
+    a: "The international avenue runs on twinship and exchanges: inter-club visits, letterhead exchanges and joint online sessions with clubs abroad – each relationship made official with a Memorandum of Understanding. The Twinship chapter explains how to find a partner club and set one up.",
     links: [{ label: "Twinship chapter", url: "/handbook-twinship" }]
   },
   {
     k: ["sdg", "sustainable development goals", "un goals", "focus areas"],
-    a: "Projects in the district often map to the UN Sustainable Development Goals â€“ like Good Health (blood drives, screenings) or Quality Education (school support). Each project page shows the SDG chips it aligns with. Rotary itself organizes its grants around seven Areas of Focus, from disease prevention to the environment.",
+    a: "Projects in the district often map to the UN Sustainable Development Goals – like Good Health (blood drives, screenings) or Quality Education (school support). Each project page shows the SDG chips it aligns with. Rotary itself organizes its grants around seven Areas of Focus, from disease prevention to the environment.",
     links: [{ label: "Grants chapter", url: "/handbook-grants" }]
   }
 ];

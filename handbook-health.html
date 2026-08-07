@@ -31,14 +31,14 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-html,body{overflow-x:hidden;font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
+html{overflow-x:hidden;overflow-x:clip;font-family:'Inter',sans-serif;color:var(--ink);background:var(--paper)}
 h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1120px;margin:0 auto;padding:0 22px overflow-x:hidden;} @media (max-width: 600px){ .wrap{padding:0 16px;} }
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px;overflow-x:hidden;overflow-x:clip;} @media (max-width: 600px){ .wrap{padding:0 16px;} }
 #progress{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--magenta),var(--gold));transform-origin:0 50%;transform:scaleX(0);z-index:999}
 
-.hero{position:relative;padding:64px 0 40px}
+.hero{position:relative;overflow-x:clip;padding-top:64px;padding-bottom:40px}
 .aurora{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none}
 .a1{width:420px;height:420px;background:#F9C6DC;top:-140px;left:-120px;animation:drift 16s ease-in-out infinite alternate}
 .a2{width:380px;height:380px;background:#C9E7F0;top:-80px;right:-100px;animation:drift 20s ease-in-out infinite alternate-reverse}
@@ -100,8 +100,8 @@ a{color:inherit;text-decoration:none}
 .guide-head .tagline{font-size:.8rem;color:rgba(27,24,54,.55);margin-top:2px}
 .guide-chevron{transition:.3s;color:rgba(27,24,54,.4);flex:none}
 .guide-block.open .guide-chevron{transform:rotate(90deg);color:var(--magenta-deep)}
-.guide-html,body{overflow-x:hidden;max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.22,1,.36,1)}
-.guide-block.open .guide-html,body{overflow-x:hidden;max-height:6000px}
+.guide-html{max-height:0;overflow:hidden;transition:max-height .55s cubic-bezier(.22,1,.36,1)}
+.guide-block.open .guide-html{max-height:6000px}
 .guide-body-inner{padding:4px 24px 26px;border-top:1px dashed var(--line)}
 .guide-body-inner .intro{font-size:.95rem;line-height:1.75;color:rgba(27,24,54,.75);margin:18px 0 16px}
 .phase-img{border-radius:16px;overflow:hidden;margin:18px 0;position:relative}
@@ -123,7 +123,7 @@ a{color:inherit;text-decoration:none}
 @keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
 .steps h5{font-size:.98rem;font-weight:800;margin-bottom:3px}
 .steps p{font-size:.88rem;color:rgba(27,24,54,.68);line-height:1.6}
-.type-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.86rem;background:#fff;border-radius:14px;overflow:hidden}
+.type-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.86rem;background:#fff;border-radius:14px;overflow:hidden}@media (max-width:700px){.type-table{display:block;overflow-x:auto}.type-table th,.type-table td{white-space:nowrap}}
 .type-table th{background:var(--ink);color:#fff;text-align:left;padding:12px 14px;font-weight:700;font-size:.78rem;letter-spacing:.04em}
 .type-table td{padding:12px 14px;border-bottom:1px solid var(--line);line-height:1.5;color:rgba(27,24,54,.75)}
 .type-table tr:last-child td{border-bottom:none}
@@ -212,10 +212,10 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
 <script src="site-nav.js" defer></script>
 
 <div class="wrap">
-  <div class="crumb"><a href="/handbook">&larr; The Handbook</a> &middot; Chapter 05</div>
+  <div class="crumb"><a href="/handbook.html">&larr; The Handbook</a> &middot; Chapter 05</div>
 </div>
 
-<header class="hero wrap">
+<header class="hero">
   <div class="aurora a1"></div>
   <div class="aurora a2"></div>
   <div class="aurora a3"></div>
@@ -224,6 +224,8 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <div class="fshape shape-dot" data-parallax="2"></div>
   <div class="fshape shape-dot2" data-parallax="-2"></div>
   <div class="fshape shape-sq" data-parallax="1.4"></div>
+  <div class="wrap">
+
 
   <div class="eyebrow"><span class="dot"></span>Handbook &middot; Chapter 05</div>
   <h1 id="heroTitle">Give your club a 75-point checkup.</h1>
@@ -240,6 +242,7 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
       <div class="hc-badge hc3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Every <b>6 months</b></div>
       <div class="hc-badge hc4"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M8 14L12 18L20 8" stroke="#C2410C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Score <b>&amp; act</b></div>
     </div>
+  </div>
   </div>
 </header>
 
@@ -273,19 +276,19 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <h2 class="section-title" data-reveal>Keep going</h2>
   <p class="section-sub" data-reveal>A healthy club needs healthy meetings, and the handbook's other chapters cover the rules it runs on.</p>
   <div class="related-grid">
-    <a class="rel-card" href="/tutorial-meetings" data-reveal>
+    <a class="rel-card" href="/tutorial-meetings.html" data-reveal>
       <img src="images/tutorial-meeting.png" alt="Meetings tutorial">
       <h5>Running General Meetings</h5>
       <p>Meeting quality is the first thing the checkup measures. Master the rhythm.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
-    <a class="rel-card" href="/handbook-grants" data-reveal style="--d:.08s">
+    <a class="rel-card" href="/handbook-grants.html" data-reveal style="--d:.08s">
       <img src="images/handbook-grants.svg" alt="Grants chapter">
       <h5>Grants: Funding Service</h5>
       <p>Weak in Service &amp; Socials? Funded projects are often the fix.</p>
       <span class="go">Open chapter &rarr;</span>
     </a>
-    <a class="rel-card" href="/handbook" data-reveal style="--d:.16s">
+    <a class="rel-card" href="/handbook.html" data-reveal style="--d:.16s">
       <img src="images/handbook-hub.svg" alt="Handbook hub">
       <h5>The Handbook</h5>
       <p>Back to all five chapters: rules, checklists and videos in one place.</p>
@@ -298,11 +301,11 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
       <h3>That's the whole handbook.</h3>
       <p>Five chapters, one goal: clubs that fund well, twin well, start well, serve well and stay healthy.</p>
     </div>
-    <a class="btn" href="/handbook">Back to the Handbook &rarr;</a>
+    <a class="btn" href="/handbook.html">Back to the Handbook &rarr;</a>
   </div>
 </div>
 
-<footer>&copy; 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. &nbsp;·&nbsp; <a href="/handbook" style="font-weight:700;">The Handbook</a></footer>
+<footer>&copy; 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. &nbsp;·&nbsp; <a href="/handbook.html" style="font-weight:700;">The Handbook</a></footer>
 <script>
 const CHEVRON_SVG = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const LINK_SVG = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4H4a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1v-2M9 3h4v4M13 3L7 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;

@@ -29,13 +29,13 @@
     --cream:#FFF8EF; --paper:#FFFDF9; --line: rgba(27,24,54,0.1);
   }
   *{box-sizing:border-box; margin:0; padding:0;} img{max-width:100%; display:block;}
-  html,body{overflow-x:hidden;overflow-x:hidden;font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
+  html{overflow-x:hidden;overflow-x:clip;font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
   h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
   a{color:inherit; text-decoration:none;}
   button{font-family:'Inter';}
-  .wrap{max-width:1060px; margin:0 auto; padding:0 28px; overflow-x:hidden;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
+  .wrap{max-width:1060px; margin:0 auto; padding:0 28px; overflow-x:hidden;overflow-x:clip;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
 
-  .hero{padding:64px 0 26px; position:relative; overflow:hidden;}
+  .hero{padding-top:64px; padding-bottom:26px; position:relative; overflow:hidden;}
   .hero::before,.hero::after{content:""; position:absolute; border-radius:50%; pointer-events:none;}
   .hero::before{top:-150px; right:-140px; width:380px; height:380px; background:radial-gradient(circle, rgba(225,26,110,0.14), transparent 70%);}
   .hero::after{bottom:-160px; left:-140px; width:360px; height:360px; background:radial-gradient(circle, rgba(242,169,0,0.16), transparent 70%);}
@@ -191,11 +191,14 @@
 <div id="siteNav" data-current="quiz" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
 
-<header class="hero wrap">
+<header class="hero">
+  <div class="wrap">
+
   <div class="eyebrow"><span class="dot"></span>Rota Quiz 25-26 · Official Reading Materials</div>
   <h1>Train like the quiz is tomorrow.</h1>
   <p class="sub">District 3292 runs a real Rota Quiz every year, and these questions come straight from the official reading materials. Learn with flashcards, test yourself with a challenge that gives you hearts, streaks and instant explanations, then prove you know your acronyms.</p>
   <p class="note">Source documents: <a href="guides/Rotary-Rotaract-Reading-Materials-Rota-Quiz-2025-26.pdf" target="_blank" rel="noopener">Rotary-Rotaract Reading Materials 2025-26 (PDF)</a> and <a href="guides/Reading%20materials%20for%20Rota%20Quiz%2025-26.pdf" target="_blank" rel="noopener">Reading Materials for Rota Quiz 25-26 (PDF)</a>. Every fact here is pulled from those pages.</p>
+  </div>
 </header>
 
 <div class="wrap">
@@ -296,7 +299,7 @@
           <button class="btn" id="qzRetry">Run it back →</button>
           <button class="btn ghost" id="qzToStudy">Study the deck</button>
           <button class="btn ghost" id="qzToSprint">Acronym sprint</button>
-          <a class="btn ghost" href="/join">Join a club</a>
+          <a class="btn ghost" href="/join.html">Join a club</a>
         </div>
       </div>
     </div>

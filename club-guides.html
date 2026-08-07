@@ -28,10 +28,10 @@
     --cream:#FFF8EF; --paper:#FFFDF9; --line: rgba(27,24,54,0.1);
   }
   *{box-sizing:border-box; margin:0; padding:0;} img{max-width:100%; display:block;}
-  html,body{overflow-x:hidden;overflow-x:hidden;font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
+  html{overflow-x:hidden;overflow-x:clip;font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink);}
   h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
   a{color:inherit; text-decoration:none;}
-  .wrap{max-width:1080px; margin:0 auto; padding:0 28px; overflow-x:hidden;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px; overflow-x:hidden;overflow-x:clip;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
 
   #readBar{position:fixed; top:0; left:0; height:3px; width:0; background:linear-gradient(90deg, var(--magenta), var(--gold)); z-index:200;}
 
@@ -85,13 +85,13 @@
   .film-section{margin-top:64px;}
   .film-section h2{font-size:1.5rem; margin-bottom:6px;}
   .film-section .fs-sub{color:rgba(27,24,54,0.55); font-size:.9rem; margin-bottom:28px;}
-  .film-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .film-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
   @media (max-width:900px){ .film-grid{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:560px){ .film-grid{grid-template-columns:1fr;} }
 
-  .film-card{background:var(--paper); border:1px solid var(--line); border-radius:22px; overflow:hidden; display:flex; flex-direction:column; transition:transform .25s, box-shadow .25s;}
+  .film-card{background:var(--paper); border:1px solid var(--line); border-radius:22px; display:flex; flex-direction:column; min-width:0; transition:transform .25s, box-shadow .25s;}
   .film-card:hover{transform:translateY(-6px); box-shadow:0 24px 50px rgba(27,24,54,0.14);}
-  .film-poster{position:relative; aspect-ratio:16/10; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(155deg, var(--g1), var(--g2));}
+  .film-poster{position:relative; aspect-ratio:16/10; overflow:hidden; border-radius:22px 22px 0 0; display:flex; align-items:center; justify-content:center; background:linear-gradient(155deg, var(--g1), var(--g2));}
   .film-poster::before{content:""; position:absolute; inset:0; background:radial-gradient(circle at 78% 20%, rgba(255,255,255,0.16), transparent 46%); z-index:2; pointer-events:none;}
   .film-poster::after{content:""; position:absolute; inset:0; background-image:repeating-linear-gradient(0deg, rgba(255,255,255,0.028) 0 1px, transparent 1px 4px); z-index:2; pointer-events:none;}
   .slide{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; z-index:1;}
@@ -107,11 +107,11 @@
   @keyframes kenburns{0%{transform:scale(1) rotate(0);} 50%{transform:scale(1.09) rotate(-1.2deg);} 100%{transform:scale(1) rotate(0);}}
   .reel-tag{position:absolute; top:14px; left:14px; z-index:3; font-size:.62rem; font-weight:800; letter-spacing:.14em; color:#fff; background:rgba(10,8,20,0.55); border:1px solid rgba(255,255,255,0.25); padding:5px 10px; border-radius:100px; backdrop-filter:blur(4px);}
   .genre-chip{position:absolute; bottom:14px; left:14px; z-index:3; font-size:.64rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); background:var(--gold); padding:5px 11px; border-radius:100px;}
-  .film-info{padding:20px 20px 22px; display:flex; flex-direction:column; flex-grow:1;}
-  .film-info h3{font-size:1.02rem; line-height:1.3; margin-bottom:6px;}
-  .film-info .logline{font-size:.8rem; color:rgba(27,24,54,0.55); line-height:1.5; margin-bottom:14px; flex-grow:1;}
-  .film-meta{display:flex; justify-content:space-between; align-items:center; font-size:.72rem; font-weight:700; color:rgba(27,24,54,0.5); margin-bottom:8px;}
-  .film-bar{height:5px; border-radius:100px; background:rgba(27,24,54,0.08); overflow:hidden; margin-bottom:16px;}
+  .film-info{padding:22px 24px 24px; display:flex; flex-direction:column; flex-grow:1; min-width:0;}
+  .film-info h3{font-size:1.06rem; line-height:1.35; margin-bottom:10px; overflow-wrap:anywhere;}
+  .film-info .logline{font-size:.84rem; color:rgba(27,24,54,0.55); line-height:1.6; margin-bottom:16px; flex-grow:1; overflow-wrap:anywhere;}
+  .film-meta{display:flex; justify-content:space-between; align-items:center; font-size:.74rem; font-weight:700; color:rgba(27,24,54,0.5); margin-bottom:10px;}
+  .film-bar{height:5px; border-radius:100px; background:rgba(27,24,54,0.08); overflow:hidden; margin-bottom:18px;}
   .film-bar i{display:block; height:100%; border-radius:100px; background:linear-gradient(90deg, var(--magenta), var(--gold)); transition:width .4s;}
   .film-play{display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%; font-family:'Poppins'; font-weight:700; font-size:.84rem; color:var(--magenta-deep); background:rgba(225,26,110,0.08); border:1.5px solid rgba(225,26,110,0.25); border-radius:100px; padding:11px; cursor:pointer; transition:background .2s, color .2s, transform .2s;}
   .film-play:hover{background:var(--magenta); border-color:var(--magenta); color:#fff; transform:translateY(-1px);}
@@ -132,7 +132,7 @@
   .theater-curtain{height:10px; border-radius:24px 24px 0 0; overflow:hidden; display:flex; background:repeating-linear-gradient(90deg, var(--magenta-deep) 0 26px, var(--magenta) 26px 34px, var(--ink) 34px 38px, var(--magenta) 38px 46px);}
   .theater-close{position:absolute; top:22px; right:22px; width:40px; height:40px; border-radius:50%; border:1.5px solid var(--line); background:#fff; font-size:1.05rem; cursor:pointer; color:var(--ink); display:flex; align-items:center; justify-content:center; z-index:6; transition:background .2s, color .2s, transform .2s;}
   .theater-close:hover{background:var(--ink); color:#fff; transform:rotate(90deg);}
-  .theater-html,body{overflow-x:hidden;overflow-x:hidden;padding:30px 34px 36px;}
+  .theater-html{padding:30px 34px 36px;}
 
   .player{position:relative; border-radius:18px; overflow:hidden; margin-bottom:16px; background:linear-gradient(150deg, var(--g1), var(--g2));}
   .p-stage{position:relative; aspect-ratio:16/8; display:flex; align-items:center; justify-content:center;}
@@ -235,7 +235,7 @@
   <div class="marquee" id="marquee"></div>
   <div class="eyebrow"><span class="dot"></span>ZONE 7 PICTURES PRESENTS</div>
   <h1>The <em>Playbook</em>.</h1>
-  <p class="sub">Eleven illustrated storyboards for running a great Rotaract club year. Leadership handoffs, service projects, finance, public image, attendance make-up, and more. Every guide opens with a picture-story slideshow, so you can see the idea before you do it. Where <a href="/guides">Rotaract Resources</a> holds the official documents, this is the how-to.</p>
+  <p class="sub">Eleven illustrated storyboards for running a great Rotaract club year. Leadership handoffs, service projects, finance, public image, attendance make-up, and more. Every guide opens with a picture-story slideshow, so you can see the idea before you do it. Where <a href="/guides.html">Rotaract Resources</a> holds the official documents, this is the how-to.</p>
   <p class="note">Each guide mixes Zone 7's own advice with pointers to Rotary International's official material, clearly labelled. Tap any step to tick it off. Your progress is saved on this device. Slides advance automatically, and you can pause them any time.</p>
   <div class="toolrow">
     <input type="text" id="topicSearch" placeholder="Search the lineup, e.g. finance, sponsor, handoff..." aria-label="Search the guides">
@@ -261,7 +261,7 @@
       <h3>Rules over advice?</h3>
       <p>The Handbook turns the district directory's actual rules into five chapters: grants, twinship, new clubs, projects and the health check.</p>
     </div>
-    <a class="btn" href="/handbook">Open the Handbook →</a>
+    <a class="btn" href="/handbook.html">Open the Handbook →</a>
   </div>
 </div>
 

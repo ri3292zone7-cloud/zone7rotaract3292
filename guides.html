@@ -30,13 +30,13 @@
   }
   *{box-sizing:border-box; margin:0; padding:0;} img{max-width:100%; display:block;}
   html{scroll-behavior:smooth;}
-  html,body{overflow-x:hidden;font-family:'Inter',sans-serif; background:var(--paper); color:var(--ink); overflow-x:hidden;}
+  html{overflow-x:hidden;overflow-x:clip;font-family:'Inter',sans-serif; background:var(--paper); color:var(--ink);}
   h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
   a{color:inherit; text-decoration:none;}
-  .wrap{max-width:1060px; margin:0 auto; padding:0 28px; overflow-x:hidden;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
+  .wrap{max-width:1060px; margin:0 auto; padding:0 28px; overflow-x:hidden;overflow-x:clip;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
   #progress{position:fixed; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--magenta), var(--gold)); transform-origin:0 50%; transform:scaleX(0); z-index:999;}
 
-  .hero{position:relative; padding:70px 0 46px;}
+  .hero{position:relative;overflow-x:clip; padding-top:70px; padding-bottom:46px;}
   .aurora{position:absolute; border-radius:50%; filter:blur(90px); opacity:.5; pointer-events:none;}
   .a1{width:420px; height:420px; background:#F9C6DC; top:-140px; left:-120px; animation:drift 16s ease-in-out infinite alternate;}
   .a2{width:380px; height:380px; background:#FBE9B9; top:-80px; right:-100px; animation:drift 20s ease-in-out infinite alternate-reverse;}
@@ -158,7 +158,7 @@
 <div id="siteNav" data-current="resources" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
 
-<header class="hero wrap">
+<header class="hero">
   <div class="aurora a1"></div>
   <div class="aurora a2"></div>
   <div class="aurora a3"></div>
@@ -167,11 +167,13 @@
   <div class="fshape shape-dot" data-parallax="2"></div>
   <div class="fshape shape-dot2" data-parallax="-2"></div>
   <div class="fshape shape-sq" data-parallax="1.4"></div>
+  <div class="wrap">
+
 
   <div class="eyebrow"><span class="dot"></span>District 3292 · Resource Library</div>
   <h1 id="heroTitle">Rotaract Resources.</h1>
   <p class="sub">Official templates, constitutions and planning guides from District 3292. Everything a Zone 7 club needs to run smoothly, in one place instead of scattered across old emails. Every file below is free to download.</p>
-  <p class="note">Looking for the how-to side instead? The <a href="/club-guides" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Guides for Clubs</a> page is the playbook, and the <a href="/handbook" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Handbook</a> turns the district rules into chapters.</p>
+  <p class="note">Looking for the how-to side instead? The <a href="/club-guides.html" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Guides for Clubs</a> page is the playbook, and the <a href="/handbook.html" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Handbook</a> turns the district rules into chapters.</p>
 
   <div class="stat-strip">
     <div class="stat-card" data-reveal><div class="num" id="statDocs">13</div><div class="lab">Documents, all free to download</div></div>
@@ -187,6 +189,7 @@
     <span class="result-count" id="resultCount"></span>
     <div class="chip-row" id="chipRow"></div>
   </div>
+  </div>
 </header>
 
 <div class="wrap">
@@ -199,7 +202,7 @@
       <h3>Read first, download later?</h3>
       <p>The Handbook explains how grants, twinship, projects and the health check actually work, with the exact rules from the 2025-26 district directory.</p>
     </div>
-    <a class="btn" href="/handbook">Open the Handbook →</a>
+    <a class="btn" href="/handbook.html">Open the Handbook →</a>
   </div>
 </div>
 

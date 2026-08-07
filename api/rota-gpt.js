@@ -53,13 +53,14 @@ export default async function handler(req, res) {
 
   if (pollinationsKey) {
     try {
-      const r = await fetch("https://text.pollinations.ai/openai", {
+      const r = await fetch("https://gen.pollinations.ai/v1/chat/completions", {
         method: "POST",
         headers: { Authorization: "Bearer " + pollinationsKey, "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "openai",
           messages: [{ role: "system", content: system }].concat(messages.slice(-8)),
-          max_tokens: 500
+          max_tokens: 500,
+          temperature: 0.4
         })
       });
       if (r.ok) {

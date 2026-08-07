@@ -10,7 +10,11 @@ patch. The one-time operating checklist lives below; everything else is ~5 min/m
   guides, club_profiles, barometer, leadership, zrrs, guest_requests,
   membership_applications. Storage bucket: `project-images`
 - **Email**: `api/notify-request.js` — Gmail SMTP via nodemailer
-- **AI**: `api/rota-gpt.js` — DeepSeek/Pollinations chat for the RotaGPT widget
+- **AI**: `api/rota-gpt.js` — DeepSeek/Pollinations chat for the RotaGPT widget.
+  Works without any key: `rota-gpt.js` answers instantly from the built-in
+  knowledge base, then upgrades the same bubble with an LLM reply when Vercel
+  has `DEEPSEEK_API_KEY` or `POLLINATIONS_API_KEY` set (get a key at
+  enter.pollinations.ai; the current endpoint is `gen.pollinations.ai/v1/chat/completions`)
 
 ## Deploy (manual file upload — no git/CLI)
 
