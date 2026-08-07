@@ -141,7 +141,8 @@
   .theater-html{padding:34px 40px 64px;}
   .theater-body{max-width:660px; margin:0 auto;}
 
-  .player{position:relative; border-radius:18px; overflow:hidden; margin-bottom:16px; background:linear-gradient(150deg, var(--g1), var(--g2));}
+  .player{position:relative; border-radius:18px; overflow:hidden; margin-bottom:20px; background:linear-gradient(150deg, var(--g1), var(--g2)); box-shadow:0 10px 30px rgba(27,24,54,0.12);}
+  .player::after{content:""; position:absolute; inset:0; border:1px solid rgba(255,255,255,0.14); border-radius:inherit; pointer-events:none; z-index:3;}
   .p-stage{position:relative; aspect-ratio:16/8; display:flex; align-items:center; justify-content:center;}
   .p-stage::before{content:""; position:absolute; inset:0; background:radial-gradient(circle at 80% 15%, rgba(255,255,255,0.14), transparent 46%);}
   .p-progress{position:absolute; top:0; left:0; right:0; height:4px; background:rgba(255,255,255,0.2); z-index:4;}
@@ -167,8 +168,9 @@
   .t-head{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:14px;}
   .t-genre{font-size:.64rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); background:var(--gold); padding:5px 11px; border-radius:100px;}
   .t-reel{font-size:.64rem; font-weight:800; letter-spacing:.14em; color:rgba(27,24,54,0.4);}
-  .theater-body h2{font-size:1.6rem; margin-top:12px; text-wrap:balance; letter-spacing:-0.02em;}
-  .t-tagline{color:rgba(27,24,54,0.7); font-size:.95rem; margin-top:8px; margin-bottom:22px; line-height:1.65; font-weight:500;
+  .theater-body h2{font-size:1.65rem; margin-top:12px; text-wrap:balance; letter-spacing:-0.02em;}
+  .theater-body h2::after{content:""; display:block; width:64px; height:4px; border-radius:100px; margin-top:10px; background:linear-gradient(90deg, var(--magenta), var(--gold));}
+  .t-tagline{color:rgba(27,24,54,0.7); font-size:.95rem; margin-top:6px; margin-bottom:22px; line-height:1.65; font-weight:500;
     background:linear-gradient(90deg, rgba(242,169,0,0.12), transparent 85%); border-left:3px solid var(--gold); padding:13px 18px; border-radius:0 14px 14px 0; text-wrap:pretty;}
   .t-orig{display:inline-flex; align-items:center; gap:6px; font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; border-radius:100px; padding:5px 12px; margin-bottom:18px;}
   .t-orig.zone{color:var(--magenta-deep); background:rgba(225,26,110,0.08);}
@@ -182,13 +184,13 @@
   .t-scenes-label{font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:rgba(27,24,54,0.5); margin-bottom:12px; display:inline-flex; align-items:center; gap:8px;}
   .t-scenes-label::after{content:""; width:8px; height:8px; border-radius:50%; background:var(--gold); animation:pulse 1.6s infinite;}
   .scene-list{list-style:none; margin-bottom:22px;}
-  .scene-list li{font-size:.93rem; color:var(--ink); font-weight:500; padding:13px 0 13px 46px; position:relative; line-height:1.6; border-bottom:1px dashed var(--line); cursor:pointer; user-select:none; transition:color .15s, opacity .15s, background .15s; border-radius:10px;}
+  .scene-list li{font-size:.93rem; color:var(--ink); font-weight:500; padding:13px 0 13px 46px; position:relative; line-height:1.6; border-bottom:1px dashed var(--line); cursor:pointer; user-select:none; transition:color .15s, opacity .15s, background .15s, transform .15s; border-radius:10px;}
   .scene-list li:last-child{border-bottom:none;}
   .scene-list li .scene-num{position:absolute; left:6px; top:12px; width:26px; height:26px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:.58rem; font-weight:800; letter-spacing:.06em; color:var(--magenta-deep); background:rgba(225,26,110,0.08); border:1px solid rgba(225,26,110,0.22); transition:background .15s, border-color .15s, color .15s;}
-  .scene-list li:hover{background:rgba(225,26,110,0.04);}
+  .scene-list li:hover{background:rgba(225,26,110,0.04); transform:translateX(3px);}
   .scene-list li.done{color:rgba(27,24,54,.42); text-decoration:line-through;}
   .scene-list li.done .scene-num{background:var(--magenta); border-color:var(--magenta); color:#fff;}
-  .t-credits-label{font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:rgba(27,24,54,0.45); margin-bottom:12px;}
+  .t-credits-label{font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:rgba(27,24,54,0.45); margin:6px 0 14px;}
   .t-credits{display:flex; flex-wrap:wrap; gap:10px;}
   .credit-link{display:inline-flex; align-items:center; gap:7px; font-size:.84rem; font-weight:700; color:var(--magenta-deep); background:rgba(225,26,110,0.07); padding:9px 15px; border-radius:100px; transition:background .2s;}
   .credit-link:hover{background:rgba(225,26,110,0.15);}
@@ -230,10 +232,39 @@
     .film-grid{grid-template-columns:1fr;}
     .np-poster{width:100%;}
     .film-poster{width:100%;}
-    .theater{padding:12px;}
-    .theater-stage{max-height:calc(100dvh - 24px); border-radius:18px;}
-    .theater-html{padding:26px 24px 48px;}
-    .theater-close{top:14px; right:14px;}
+    .theater{padding:8px;}
+    .theater-stage{max-height:calc(100dvh - 16px); border-radius:16px;}
+    .theater-html{padding:20px 18px 44px;}
+    .theater-close{top:12px; right:12px; width:36px; height:36px; font-size:.95rem;}
+    .theater-body h2{font-size:1.35rem;}
+    .theater-body h2::after{width:48px; height:3.5px;}
+    .player{margin-bottom:14px;}
+    .p-stage{aspect-ratio:16/9;}
+    .p-slide svg{width:min(64%, 230px);}
+    .p-caption{font-size:.88rem; line-height:1.55; min-height:auto; margin-bottom:12px;}
+    .p-auto-btn{width:100%; justify-content:center;}
+    .t-tagline{font-size:.9rem; padding:11px 14px; margin-bottom:16px;}
+    .t-stat{flex-direction:column; align-items:flex-start; gap:10px; padding:13px 15px; margin-bottom:18px;}
+    .scene-list li{padding:13px 0 13px 40px; font-size:.9rem;}
+    .scene-list li .scene-num{top:12px; left:5px; width:25px; height:25px; font-size:.7rem;}
+    .t-scenes-label{letter-spacing:.08em;}
+    .credit-link{font-size:.8rem; padding:8px 13px;}
+    .mu-card{padding:20px 18px;}
+    .mu-fields{grid-template-columns:1fr; gap:14px;}
+    .mu-stamp{font-size:.56rem; padding:5px 9px; transform:rotate(5deg);}
+    .mu-stamp-circle{width:48px; height:48px; font-size:.5rem;}
+    .mu-sign{gap:12px;}
+  }
+
+  @media (max-height: 560px) and (orientation: landscape){
+    .theater{padding:8px 16px;}
+    .theater-stage{max-height:calc(100dvh - 16px);}
+    .theater-html{padding:14px 20px 36px;}
+    .p-stage{aspect-ratio:16/7;}
+    .p-slide svg{width:min(48%, 240px);}
+    .t-tagline{margin-bottom:12px;}
+    .scene-list li{padding:10px 0 10px 40px;}
+    .mu-field .mu-line{height:20px;}
   }
 </style>
 </head>

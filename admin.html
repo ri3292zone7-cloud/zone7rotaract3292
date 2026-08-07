@@ -953,11 +953,16 @@
         </div>
       </div>
       <div class="de-body">
+        <div class="baro-mode-tabs" id="psTabs" style="margin:0 0 18px;">
+          <span class="bmt active" data-psmode="guide">📖 Bid Guide</span>
+          <span class="bmt" data-psmode="exec">🚀 Bid Execution</span>
+        </div>
+        <div id="psGuide">
         <div class="de-facts">
           <div class="de-fact"><b>📅 Proposed date</b><span>21 November 2026</span></div>
           <div class="de-fact"><b>⏱ Duration</b><span>1 day &middot; 8:00 AM &ndash; 8:00 PM</span></div>
           <div class="de-fact"><b>👥 Expected turnout</b><span>Approx. 500&ndash;800 participants</span></div>
-          <div class="de-fact"><b>🏢 Venue needed</b><span>Two air-conditioned halls (800 + 300&ndash;400 seats)</span></div>
+          <div class="de-fact"><b>🏢 Venue needed</b><span>Two air-conditioned halls (400 + 350&ndash;450 seats)</span></div>
         </div>
 
         <div class="de-sec">
@@ -1030,6 +1035,109 @@
           </div>
         </div>
       </div>
+      </div><!-- /psGuide -->
+
+      <div id="psExec" style="display:none;">
+        <div class="de-hero" style="height:250px;"><img class="de-hero-img" src="images/dist-exec-hero.jpg" alt="PS Meet at full capacity" loading="lazy"></div>
+        <div class="de-kicker" style="margin:20px 0 10px;">🚀 The Winning Formula &middot; Bid Execution</div>
+        <h3 style="font-size:1.4rem; margin-bottom:12px;">The math that wins: how Zone 7 throws the PS Meet and leaves the district talking.</h3>
+        <p class="de-lead">Clicking <b>President/Secretary Meet</b>? Hosting isn&rsquo;t a lottery, it&rsquo;s arithmetic. Here&rsquo;s the full execution model &mdash; the budget in lakhs, the partner engine (co-hosts Rs 10K, collaborator clubs Rs 50K), the venue shortlist and the 15-day run to a winning bid. Every figure below is at the approved Rs 600&ndash;1,400 registration ceiling, so the numbers stay honest and the morale stays high.</p>
+
+        <div class="de-facts" style="margin-top:16px;">
+          <div class="de-fact"><b>🎯 Break-even attendance</b><span>~650 delegates · 0 for the "Target" scenario</span></div>
+          <div class="de-fact"><b>📍 Hosting format</b><span>Zone 7 consortium · 1 lead + co-hosts + collaborator clubs</span></div>
+          <div class="de-fact"><b>💸 Net at 700</b><span>+1.3 lakh (Target+) — everyone wins</span></div>
+          <div class="de-fact"><b>🗓 Winning deadline</b><span>23 August 2026 · bid lands in exactly 2 weeks</span></div>
+        </div>
+
+        <div class="de-sec">
+          <h4>The financial model — all figures in lakhs (Rs 100,000)</h4>
+          <p>For 650 delegates at a <b>4-tier slab ceiling of Rs 1,400</b>: average ticket ≈ Rs 1,030. Registrations finance about half the event; the <b>10K co-host + 50K collaborator engine</b> finances the rest. The venue covers the rent in exchange for a <b>Hosting-Partner</b> title and the second hall to its name.</p>
+        </div>
+
+        <div class="de-sec">
+          <h4>Projected income &amp; expenditure — scenario matrix (lakhs)</h4>
+          <table class="de-table">
+            <thead><tr><th>Scenario</th><th>Delegates</th><th class="de-rdc">Income</th><th class="de-host">Cost</th><th>Net</th></tr></thead>
+            <tbody>
+              <tr><td>Baseline</td><td>600</td><td>11.15</td><td>12.20</td><td style="color:#A80F52;font-weight:800;">&minus;1.05</td></tr>
+              <tr><td>Target</td><td>650</td><td>13.90</td><td>13.20</td><td style="color:#1c6e3a;font-weight:800;">+0.70</td></tr>
+              <tr><td>Target+</td><td>700</td><td>15.50</td><td>14.20</td><td style="color:#1c6e3a;font-weight:800;">+1.30</td></tr>
+              <tr><td>Full house</td><td>800</td><td>16.80</td><td>15.40</td><td style="color:#1c6e3a;font-weight:800;">+1.40</td></tr>
+            </tbody>
+          </table>
+          <canvas id="psNetChart" style="max-width:480px; margin-top:14px; background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px;" height="190"></canvas>
+        </div>
+
+        <div class="de-sec">
+          <h4>The ticket ladder (4 tiers &mdash; never above Rs 1,400)</h4>
+          <table class="de-table">
+            <thead><tr><th>Tier</th><th>Price</th><th>Window</th></tr></thead>
+            <tbody>
+              <tr><td>Launch</td><td>Rs 600</td><td>Announcement &rarr; 30 Jun</td></tr>
+              <tr><td>Early Bird</td><td>Rs 900</td><td>1 Aug &ndash; 30 Sep</td></tr>
+              <tr><td>Standard</td><td>Rs 1,200</td><td>1 Oct &ndash; 25 Oct</td></tr>
+              <tr><td>Late / Walk-in</td><td>Rs 1,400</td><td>26 Oct &ndash; event day</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="de-sec">
+          <h4>Where every lakh comes from (650-delegate target)</h4>
+          <div class="de-seg">
+            <div class="seg"><b>🎫 Tickets</b><span>650 &times; ~1,030 avg<br><b style="color:var(--de-c,#E11A6E);">6.0</b></span></div>
+            <div class="seg"><b>🤝 Co-host clubs</b><span>7 &times; 0.1 (Rs 10K each)<br><b style="color:var(--de-c,#E11A6E);">0.7</b></span></div>
+            <div class="seg"><b>🚀 Collaborator clubs</b><span>8 &times; 0.5 (Rs 50K each)<br><b style="color:var(--de-c,#E11A6E);">4.0</b></span></div>
+            <div class="seg"><b>🏷 Title + sponsors</b><span>1&times;2.0 + 2&times;0.5 gold<br><b style="color:var(--de-c,#E11A6E);">3.0</b></span></div>
+            <div class="seg"><b>🏢 District program</b><span>Official RDC program cost<br><b style="color:var(--de-c,#E11A6E);">0.25</b></span></div>
+            <div class="seg"><b>🕘 In-kind venue</b><span>Hosting-Partner balance &mdash; not cash<br><b style="color:var(--de-c,#E11A6E);">~2.0</b></span></div>
+          </div>
+          <p style="font-size:.8rem; color:rgba(27,24,54,.55); margin-top:10px;"><b>Total cash build ≈ 13.90 L</b> &nbsp;·&nbsp; lean cost ≈ 13.20 L &nbsp;·&nbsp; projected net <b style="color:#1c6e3a;">+0.70 L</b> (Target).</p>
+        </div>
+
+        <div class="de-sec">
+          <h4>The 15-day bid sprint (calendar)</h4>
+          <table class="de-table">
+            <thead><tr><th>Window</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>6 &ndash; 8 Aug</td><td>Zone energy call &rarr; pick your lead club &amp; finance committee</td></tr>
+              <tr><td>11 &ndash; 14 Aug</td><td>Venue LOI + 3 quotes + authorization letter (required in bid)</td></tr>
+              <tr><td>15 &ndash; 19 Aug</td><td>Recruit co-hosts (10K) &amp; collaborators (50K) &mdash; target 7 + 8</td></tr>
+              <tr><td>20 &ndash; 22 Aug</td><td>Build package: bidding form, budget, fundraising plan, photos &amp; map</td></tr>
+              <tr><td><b>23 Aug</b></td><td><b>Submit PDF to both emails before 11:59 PM</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="de-sec">
+          <h4>Venue shortlist for Kathmandu (two-hall capacity)</h4>
+          <table class="de-table">
+            <thead><tr><th>Venue</th><th>Fit</th><th>Estimate</th></tr></thead>
+            <tbody>
+              <tr><td>Everest Hotel (Baneshwor)</td><td>Primary bid · in-kind pitch</td><td>1.5&ndash;2.5</td></tr>
+              <tr><td>Radisson KTM (Lazimpat)</td><td>Reserve · central</td><td>2.0&ndash;3.0</td></tr>
+              <tr><td>Yak &amp; Yeti ICC</td><td>Prestige swing</td><td>3.0&ndash;4.0</td></tr>
+              <tr><td>Banquet hall (Alfa Beta / Krishna Pavilion)</td><td>Lean value backup</td><td>1.2&ndash;1.8</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="de-cta">
+          <div class="emails">
+            <b>This &ldquo;social proof&rdquo; is Zone 7&rsquo;s edge.</b><br>
+            Largest cluster of clubs, a proven city network, a budget that closes at 650 &mdash; and a committee that&rsquo;s already built the plan. Present with confidence.
+          </div>
+          <div class="dl">
+            <a class="de-dl-btn" href="guides/1st%20PS%20Meet%20Bidding%20document.pdf" download>📄 Re-read the bid terms</a>
+          </div>
+        </div>
+        <div class="de-sec" style="margin-top:18px;">
+          <h4>Picture it: the confetti, the applause, the banner with your club&rsquo;s logo.</h4>
+          <div class="de-hero" style="height:250px;"><img class="de-hero-img" src="images/dist-exec-trophy.jpg" alt="Zone 7 PS Meet victory moment" loading="lazy"></div>
+          <p style="font-size:.8rem; color:rgba(27,24,54,.55); margin-top:10px;">Every club that hosts walks away with district-wide recognition &mdash; and this is what it feels like. The board approves, the partners pitch in, and your club history page gets its flagship event.</p>
+        </div>
+      </div>
+
     </div>
 
     <div class="de-event" style="--de-c:#0E7490">
@@ -1401,6 +1509,40 @@ document.getElementById("baroModeTabs").addEventListener("click", (e) => {
 });
 
 function baroMinFor(id){ return BARO_MULTI_PROJECT[id] || 1; }
+
+// --- PS1: Bid Guide / Bid Execution toggle (mirrors barometer mode tabs) ---
+let psChartRendered = false;
+const psTabs = document.getElementById("psTabs");
+if(psTabs){
+  psTabs.addEventListener("click", (e) => {
+    const tab = e.target.closest(".bmt");
+    if(!tab) return;
+    const mode = tab.dataset.psmode;
+    document.querySelectorAll("#psTabs .bmt").forEach(t => t.classList.toggle("active", t === tab));
+    document.getElementById("psGuide").style.display = mode === "guide" ? "block" : "none";
+    document.getElementById("psExec").style.display = mode === "exec" ? "block" : "none";
+    if(mode === "exec" && !psChartRendered){
+      psChartRendered = true;
+      renderPsNetChart();
+    }
+  });
+}
+function renderPsNetChart(){
+  const cv = document.getElementById("psNetChart");
+  if(!cv || typeof Chart === "undefined") return;
+  new Chart(cv, {
+    type: "bar",
+    data: {
+      labels: ["Baseline 600", "Target 650", "Target+ 700", "Full house 800"],
+      datasets: [{ data: [-1.05, 0.70, 1.30, 1.40], backgroundColor: ["rgba(225,26,110,.5)","rgba(28,138,77,.85)","rgba(28,138,77,.95)","rgba(242,169,0,.95)"], borderRadius: 6 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display:false }, title: { display:true, text:"Projected net position (lakhs)", font:{ size:12, weight:"bold" } }, tooltip: { callbacks: { label: c => ` ${c.raw > 0 ? "+" : ""}${c.raw} lakh` } } },
+      scales: { y: { beginAtZero:true, ticks:{ callback: v => v+" L" } } }
+    }
+  });
+}
 
 function baroIsDone(id){
   if(baroAutoIds.has(id)) return true;
