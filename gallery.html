@@ -126,9 +126,12 @@ function addPhoto(p){
   imgs.forEach(src => PHOTOS.push({src, title:p.title, club:p.club, clubName:clubName(p.club), id:p.id, cat:p.category||"Project"}));
 }
 
-function sortPhotos(){
-  function hashStr(s){let h=0;for(let i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))|0;}return h;}
-  PHOTOS.sort((a,b)=>hashStr(a.src)-hashStr(b.src));
+function shuffle(a){
+  for(let i = a.length - 1; i > 0; i--){
+    const j = (Math.random() * (i + 1)) | 0;
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
 function renderChips(){
@@ -177,16 +180,21 @@ masonry.addEventListener("click", e => {
 });
 
 async function loadGallery(){
-  renderChips();
-  for(const s of Object.keys(CLUB_DIRECTORY)){
-    try{
-      const projects = await ZONE7_DB.getProjects(s, { limit: 80 });
-      projects.forEach(p => addPhoto({...p, club:s}));
-    }catch(e){}
-    sortPhotos();
-    renderChips();
-    render();
+  const slugs = Object.keys(CLUB_DIRECTORY);
+  try{
+    const grouped = await ZONE7_DB.getProjectsBatch(slugs, 80);
+    slugs.forEach(s => (grouped[s] || []).forEach(p => addPhoto({...p, club:s})));
+  }catch(e){
+    for(const s of slugs){
+      try{
+        const projects = await ZONE7_DB.getProjects(s, { limit: 80 });
+        projects.forEach(p => addPhoto({...p, club:s}));
+      }catch(e2){}
+    }
   }
+  shuffle(PHOTOS);
+  renderChips();
+  render();
 }
 
 const lb = document.getElementById("lightbox"), lbImg = document.getElementById("lightboxImg"), lbCap = document.getElementById("lbCap"), lbCount = document.getElementById("lbCount");
