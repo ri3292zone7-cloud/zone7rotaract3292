@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
-<script src="zone7-data.js"></script>
+<script src="zone7-data.js" defer></script>
 <style>
   :root{--ink:#1B1836;--magenta:#E11A6E;--magenta-deep:#A80F52;--gold:#F2A900;--cream:#FFF8EF;--paper:#FFFDF9;--line:rgba(27,24,54,0.1);}
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -40,7 +40,7 @@
   .chip.active{background:var(--ink);border-color:var(--ink);color:#fff;}
   .g-count{font-size:.82rem;color:rgba(27,24,54,.45);margin:10px 0 26px;}
   .masonry{column-count:4;column-gap:14px;padding-bottom:80px;}
-  .g-item{break-inside:avoid;margin-bottom:14px;border-radius:16px;overflow:hidden;position:relative;cursor:pointer;background:var(--paper);border:1px solid var(--line);}
+  .g-item{break-inside:avoid;margin-bottom:14px;border-radius:16px;overflow:hidden;position:relative;cursor:pointer;background:var(--paper);border:1px solid var(--line);content-visibility:auto;contain-intrinsic-size:260px;}
   .g-item img{width:100%;display:block;transition:transform .3s;}
   .g-item:hover img{transform:scale(1.04);}
   .g-cap{position:absolute;left:0;right:0;bottom:0;padding:16px 14px 12px;background:linear-gradient(0deg,rgba(27,24,54,.88),transparent);opacity:0;transition:opacity .2s;}
@@ -107,56 +107,107 @@
 <footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan.</footer>
 <script>
 let PHOTOS = [], view = [], lbIndex = 0, activeClub = "All";
+const CHUNK = 42;
+const masonry = document.getElementById("masonry");
 function esc(s){return zone7Esc(s);}
+function clubName(slug){ return CLUB_DIRECTORY[slug].name.replace('Rotaract Club of ',''); }
 
-async function loadGallery(){
-  const slugs = Object.keys(CLUB_DIRECTORY);
-  const lists = await Promise.all(slugs.map(s => ZONE7_DB.getProjects(s, { limit: 80 })));
-  lists.forEach((projects, i) => {
-    const slug = slugs[i];
-    projects.forEach(p => {
-      const imgs = [p.cover, ...(p.gallery||[])].filter(Boolean);
-      imgs.forEach(src => PHOTOS.push({src, title:p.title, club:slug, clubName:CLUB_DIRECTORY[slug].name.replace('Rotaract Club of ',''), id:p.id, cat:p.category||"Project"}));
+if(typeof SUPABASE_URL === "string"){
+  try{
+    const origin = new URL(SUPABASE_URL).origin;
+    ["preconnect","dns-prefetch"].forEach(rel => {
+      const l = document.createElement("link"); l.rel = rel; l.href = origin; document.head.appendChild(l);
     });
-  });
-  // deterministic order (stable across visits) — same photos, same layout
+  }catch(e){}
+}
+
+function addPhoto(p){
+  const imgs = [p.cover, ...(p.gallery||[])].filter(Boolean);
+  imgs.forEach(src => PHOTOS.push({src, title:p.title, club:p.club, clubName:clubName(p.club), id:p.id, cat:p.category||"Project"}));
+}
+
+function sortPhotos(){
   function hashStr(s){let h=0;for(let i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))|0;}return h;}
   PHOTOS.sort((a,b)=>hashStr(a.src)-hashStr(b.src));
+}
 
-  const chips = ["All", ...new Set(slugs.filter(s => lists[slugs.indexOf(s)].length))];
-  document.getElementById("chipRow").innerHTML = chips.map(c => `<span class="chip${c===activeClub?' active':''}" data-c="${c}">${c==="All"?"All Clubs":CLUB_DIRECTORY[c].name.replace('Rotaract Club of ','')}</span>`).join("");
-  document.querySelectorAll(".chip").forEach(el => el.addEventListener("click", () => { activeClub = el.dataset.c; render(); }));
-  render();
+function renderChips(){
+  const withPhotos = new Set(PHOTOS.map(p=>p.club));
+  const chips = ["All", ...Object.keys(CLUB_DIRECTORY).filter(s=>withPhotos.has(s))];
+  document.getElementById("chipRow").innerHTML = chips.map(c =>
+    `<span class="chip${c===activeClub?' active':''}" data-c="${c}">${c==="All"?"All Clubs":clubName(c)}</span>`).join("");
+}
+
+function itemHTML(p,i){
+  return `<div class="g-item" data-i="${i}">
+    <img src="${esc(p.src)}" alt="${esc(p.title)}, ${esc(p.clubName)}" loading="lazy" decoding="async" fetchpriority="low">
+    <div class="g-cap"><b>${esc(p.title)}</b><span>${esc(p.clubName)} · ${esc(p.cat)}</span></div>
+  </div>`;
 }
 
 function render(){
   document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c.dataset.c === activeClub));
   view = activeClub === "All" ? PHOTOS : PHOTOS.filter(p => p.club === activeClub);
-  const m = document.getElementById("masonry");
   document.getElementById("gCount").textContent = view.length ? `${view.length} photo${view.length===1?"":"s"} across ${activeClub==="All"?"Zone 7":"this club"}.` : "";
-  if(!view.length){ m.innerHTML = `<div class="empty">No photos uploaded yet${activeClub==="All"?"":" for this club"}. Check back once clubs add projects via the Club Admin panel.</div>`; return; }
-  m.innerHTML = view.map((p,i) => `
-    <div class="g-item" data-i="${i}">
-      <img src="${esc(p.src)}" alt="${esc(p.title)}, ${esc(p.clubName)}" loading="lazy">
-      <div class="g-cap"><b>${esc(p.title)}</b><span>${esc(p.clubName)} · ${esc(p.cat)}</span></div>
-    </div>
-  `).join("");
-  m.querySelectorAll(".g-item").forEach(el => {
-    el.addEventListener("click", () => showLb(+el.dataset.i));
-  });
+  if(!view.length){
+    masonry.innerHTML = `<div class="empty">No photos uploaded yet${activeClub==="All"?"":" for this club"}. Check back once clubs add projects via the Club Admin panel.</div>`;
+    return;
+  }
+  masonry.innerHTML = "";
+  let i = 0;
+  const step = () => {
+    const end = Math.min(i + CHUNK, view.length);
+    let html = "";
+    for(; i < end; i++) html += itemHTML(view[i], i);
+    masonry.insertAdjacentHTML("beforeend", html);
+    if(i < view.length) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+document.getElementById("chipRow").addEventListener("click", e => {
+  const c = e.target.closest(".chip");
+  if(!c) return;
+  activeClub = c.dataset.c;
+  renderChips();
+  render();
+});
+masonry.addEventListener("click", e => {
+  const it = e.target.closest(".g-item");
+  if(it) showLb(+it.dataset.i);
+});
+
+async function loadGallery(){
+  renderChips();
+  for(const s of Object.keys(CLUB_DIRECTORY)){
+    try{
+      const projects = await ZONE7_DB.getProjects(s, { limit: 80 });
+      projects.forEach(p => addPhoto({...p, club:s}));
+    }catch(e){}
+    sortPhotos();
+    renderChips();
+    render();
+  }
 }
 
 const lb = document.getElementById("lightbox"), lbImg = document.getElementById("lightboxImg"), lbCap = document.getElementById("lbCap"), lbCount = document.getElementById("lbCount");
+function preloadAdj(i){
+  [i+1, i-1].forEach(x => {
+    const q = view[(x + view.length) % view.length];
+    if(q){ const im = new Image(); im.src = q.src; }
+  });
+}
 function showLb(i){
   if(!view.length) return;
   lbIndex = (i + view.length) % view.length;
   const p = view[lbIndex];
+  lbImg.fetchPriority = "high";
   lbImg.src = p.src;
   lbImg.alt = p.title + ", " + p.clubName;
   lbCap.innerHTML = `<b>${esc(p.title)}</b><span>${esc(p.clubName)} · ${esc(p.cat)}</span><br><a href="/project.html?club=${p.club}&id=${encodeURIComponent(p.id)}">View the full project →</a>`;
   lbCount.textContent = (lbIndex+1) + " / " + view.length;
   lb.classList.add("open");
   document.body.style.overflow = "hidden";
+  preloadAdj(lbIndex);
 }
 function closeLb(){ lb.classList.remove("open"); document.body.style.overflow = ""; }
 document.getElementById("lbClose").addEventListener("click", closeLb);
@@ -169,7 +220,7 @@ document.addEventListener("keydown", e => {
   if(e.key === "ArrowLeft") showLb(lbIndex-1);
   if(e.key === "ArrowRight") showLb(lbIndex+1);
 });
-loadGallery();
+document.addEventListener("DOMContentLoaded", loadGallery);
 </script>
 <script src="rota-gpt-data.js" defer></script>
 <script src="rota-gpt.js" defer></script>
