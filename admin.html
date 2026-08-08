@@ -385,6 +385,23 @@
     .de-table th, .de-table td{padding:9px 8px; font-size:.78rem;}
     .de-table td:first-child{white-space:normal;}
   }
+  /* BID EXECUTION (PS) scoped styles */
+  #psExec .de-lead{border-left:3px solid var(--magenta); padding-left:16px;}
+  .ps-matrix{display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start; margin-top:4px;}
+  .ps-matrix .a-bar-list{margin-top:6px;}
+  .de-tbl-scroll{overflow-x:auto; border-radius:12px;}
+  .de-tbl-scroll table{min-width:520px;}
+  @media (max-width:860px){
+    .ps-matrix{grid-template-columns:1fr;}
+    #psExec .de-tbl-scroll table{min-width:480px;}
+  }
+  @media (max-width:600px){
+    #psExec .de-facts{grid-template-columns:1fr;}
+    #psExec .de-cta{flex-direction:column; align-items:stretch; text-align:center;}
+    #psExec .de-cta .dl{justify-content:center;}
+    #psExec .de-seg{grid-template-columns:1fr;}
+    .ps-matrix .a-bar-label{flex:0 0 110px;}
+  }
 
   /* SIDEBAR NAV */
   .admin-sidebar{
@@ -1038,103 +1055,153 @@
       </div><!-- /psGuide -->
 
       <div id="psExec" style="display:none;">
-        <div class="de-hero" style="height:250px;"><img class="de-hero-img" src="images/dist-exec-hero.jpg" alt="PS Meet at full capacity" loading="lazy"></div>
-        <div class="de-kicker" style="margin:20px 0 10px;">🚀 The Winning Formula &middot; Bid Execution</div>
-        <h3 style="font-size:1.4rem; margin-bottom:12px;">The math that wins: how Zone 7 throws the PS Meet and leaves the district talking.</h3>
-        <p class="de-lead">Clicking <b>President/Secretary Meet</b>? Hosting isn&rsquo;t a lottery, it&rsquo;s arithmetic. Here&rsquo;s the full execution model &mdash; the budget in lakhs, the partner engine (co-hosts Rs 10K, collaborator clubs Rs 50K), the venue shortlist and the 15-day run to a winning bid. Every figure below is at the approved Rs 600&ndash;1,400 registration ceiling, so the numbers stay honest and the morale stays high.</p>
-
-        <div class="de-facts" style="margin-top:16px;">
-          <div class="de-fact"><b>🎯 Break-even attendance</b><span>~650 delegates · 0 for the "Target" scenario</span></div>
-          <div class="de-fact"><b>📍 Hosting format</b><span>Zone 7 consortium · 1 lead + co-hosts + collaborator clubs</span></div>
-          <div class="de-fact"><b>💸 Net at 700</b><span>+1.3 lakh (Target+) — everyone wins</span></div>
-          <div class="de-fact"><b>🗓 Winning deadline</b><span>23 August 2026 · bid lands in exactly 2 weeks</span></div>
-        </div>
-
-        <div class="de-sec">
-          <h4>The financial model — all figures in lakhs (Rs 100,000)</h4>
-          <p>For 650 delegates at a <b>4-tier slab ceiling of Rs 1,400</b>: average ticket ≈ Rs 1,030. Registrations finance about half the event; the <b>10K co-host + 50K collaborator engine</b> finances the rest. The venue covers the rent in exchange for a <b>Hosting-Partner</b> title and the second hall to its name.</p>
-        </div>
-
-        <div class="de-sec">
-          <h4>Projected income &amp; expenditure — scenario matrix (lakhs)</h4>
-          <table class="de-table">
-            <thead><tr><th>Scenario</th><th>Delegates</th><th class="de-rdc">Income</th><th class="de-host">Cost</th><th>Net</th></tr></thead>
-            <tbody>
-              <tr><td>Baseline</td><td>600</td><td>11.15</td><td>12.20</td><td style="color:#A80F52;font-weight:800;">&minus;1.05</td></tr>
-              <tr><td>Target</td><td>650</td><td>13.90</td><td>13.20</td><td style="color:#1c6e3a;font-weight:800;">+0.70</td></tr>
-              <tr><td>Target+</td><td>700</td><td>15.50</td><td>14.20</td><td style="color:#1c6e3a;font-weight:800;">+1.30</td></tr>
-              <tr><td>Full house</td><td>800</td><td>16.80</td><td>15.40</td><td style="color:#1c6e3a;font-weight:800;">+1.40</td></tr>
-            </tbody>
-          </table>
-          <div class="a-bar-list" id="psNetBarList"></div>
-        </div>
-
-        <div class="de-sec">
-          <h4>The ticket ladder (4 tiers &mdash; never above Rs 1,400)</h4>
-          <table class="de-table">
-            <thead><tr><th>Tier</th><th>Price</th><th>Window</th></tr></thead>
-            <tbody>
-              <tr><td>Launch</td><td>Rs 600</td><td>Announcement &rarr; 30 Jun</td></tr>
-              <tr><td>Early Bird</td><td>Rs 900</td><td>1 Aug &ndash; 30 Sep</td></tr>
-              <tr><td>Standard</td><td>Rs 1,200</td><td>1 Oct &ndash; 25 Oct</td></tr>
-              <tr><td>Late / Walk-in</td><td>Rs 1,400</td><td>26 Oct &ndash; event day</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="de-sec">
-          <h4>Where every lakh comes from (650-delegate target)</h4>
-          <div class="de-seg">
-            <div class="seg"><b>🎫 Tickets</b><span>650 &times; ~1,030 avg<br><b style="color:var(--de-c,#E11A6E);">6.0</b></span></div>
-            <div class="seg"><b>🤝 Co-host clubs</b><span>7 &times; 0.1 (Rs 10K each)<br><b style="color:var(--de-c,#E11A6E);">0.7</b></span></div>
-            <div class="seg"><b>🚀 Collaborator clubs</b><span>8 &times; 0.5 (Rs 50K each)<br><b style="color:var(--de-c,#E11A6E);">4.0</b></span></div>
-            <div class="seg"><b>🏷 Title + sponsors</b><span>1&times;2.0 + 2&times;0.5 gold<br><b style="color:var(--de-c,#E11A6E);">3.0</b></span></div>
-            <div class="seg"><b>🏢 District program</b><span>Official RDC program cost<br><b style="color:var(--de-c,#E11A6E);">0.25</b></span></div>
-            <div class="seg"><b>🕘 In-kind venue</b><span>Hosting-Partner balance &mdash; not cash<br><b style="color:var(--de-c,#E11A6E);">~2.0</b></span></div>
-          </div>
-          <p style="font-size:.8rem; color:rgba(27,24,54,.55); margin-top:10px;"><b>Total cash build ≈ 13.90 L</b> &nbsp;·&nbsp; lean cost ≈ 13.20 L &nbsp;·&nbsp; projected net <b style="color:#1c6e3a;">+0.70 L</b> (Target).</p>
-        </div>
-
-        <div class="de-sec">
-          <h4>The 15-day bid sprint (calendar)</h4>
-          <table class="de-table">
-            <thead><tr><th>Window</th><th>Action</th></tr></thead>
-            <tbody>
-              <tr><td>6 &ndash; 8 Aug</td><td>Zone energy call &rarr; pick your lead club &amp; finance committee</td></tr>
-              <tr><td>11 &ndash; 14 Aug</td><td>Venue LOI + 3 quotes + authorization letter (required in bid)</td></tr>
-              <tr><td>15 &ndash; 19 Aug</td><td>Recruit co-hosts (10K) &amp; collaborators (50K) &mdash; target 7 + 8</td></tr>
-              <tr><td>20 &ndash; 22 Aug</td><td>Build package: bidding form, budget, fundraising plan, photos &amp; map</td></tr>
-              <tr><td><b>23 Aug</b></td><td><b>Submit PDF to both emails before 11:59 PM</b></td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="de-sec">
-          <h4>Venue shortlist for Kathmandu (two-hall capacity)</h4>
-          <table class="de-table">
-            <thead><tr><th>Venue</th><th>Fit</th><th>Estimate</th></tr></thead>
-            <tbody>
-              <tr><td>Everest Hotel (Baneshwor)</td><td>Primary bid · in-kind pitch</td><td>1.5&ndash;2.5</td></tr>
-              <tr><td>Radisson KTM (Lazimpat)</td><td>Reserve · central</td><td>2.0&ndash;3.0</td></tr>
-              <tr><td>Yak &amp; Yeti ICC</td><td>Prestige swing</td><td>3.0&ndash;4.0</td></tr>
-              <tr><td>Banquet hall (Alfa Beta / Krishna Pavilion)</td><td>Lean value backup</td><td>1.2&ndash;1.8</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="de-cta">
-          <div class="emails">
-            <b>This &ldquo;social proof&rdquo; is Zone 7&rsquo;s edge.</b><br>
-            Largest cluster of clubs, a proven city network, a budget that closes at 650 &mdash; and a committee that&rsquo;s already built the plan. Present with confidence.
-          </div>
-          <div class="dl">
-            <a class="de-dl-btn" href="guides/1st%20PS%20Meet%20Bidding%20document.pdf" download>📄 Re-read the bid terms</a>
+        <div class="de-hero">
+          <img class="de-hero-img" src="images/dist-exec-hero.jpg" alt="PS Meet at full capacity" loading="lazy">
+          <div class="de-hero-inner">
+            <span class="de-hero-tag">The Winning Formula &middot; Bid Execution</span>
+            <h3>Hosting isn&rsquo;t a lottery. It&rsquo;s arithmetic.</h3>
+            <p>Clicking President/Secretary Meet is the easy part. Winning the right to host it is a different game, and this section is the playbook.</p>
           </div>
         </div>
-        <div class="de-sec" style="margin-top:18px;">
-          <h4>Picture it: the confetti, the applause, the banner with your club&rsquo;s logo.</h4>
-          <div class="de-hero" style="height:250px;"><img class="de-hero-img" src="images/dist-exec-trophy.jpg" alt="Zone 7 PS Meet victory moment" loading="lazy"></div>
-          <p style="font-size:.8rem; color:rgba(27,24,54,.55); margin-top:10px;">Every club that hosts walks away with district-wide recognition &mdash; and this is what it feels like. The board approves, the partners pitch in, and your club history page gets its flagship event.</p>
+
+        <div class="de-body">
+          <p class="de-lead">Here&rsquo;s the honest version. Every number below sits at the approved Rs 600 to Rs 1,400 registration ceiling. Registrations cover about a third of the real bill. The partner engine covers another third, and the last third is the gap this bid must close: roughly Rs 5.9 L at the 650-delegate target. Short sentences, real math, no surprises.</p>
+
+          <div class="de-facts">
+            <div class="de-fact"><b>🍽 Food per guest</b><span>≈ Rs 1,700: breakfast, lunch, 2 teas, non-veg dinner</span></div>
+            <div class="de-fact"><b>📍 Hosting format</b><span>Zone 7 consortium. One lead club, co-hosts, collaborators</span></div>
+            <div class="de-fact"><b>💸 Sponsor gap at Target</b><span>≈ Rs 5.9 L. The partner engine's whole job</span></div>
+            <div class="de-fact"><b>🗓 Winning deadline</b><span>23 August 2026. Exactly two weeks from today</span></div>
+          </div>
+
+          <div class="de-sec">
+            <h4>The financial model, in lakhs (Rs 100,000)</h4>
+            <p>Run the math at 650 delegates with a 4-tier ceiling of Rs 1,400 and the average ticket lands near Rs 1,030. That covers about a third of the real bill. Co-hosts, collaborators and the district program roughly cover another third, and the venue covers its own rent in exchange for the Hosting-Partner title plus naming rights on the second hall. A small trade. It saves lakhs.</p>
+            <p>Now the part every guest actually remembers: the food. A good buffet dinner, a proper breakfast and two rounds of tea and hi-tea will cost roughly Rs 1,700 per head at honest Kathmandu banquet rates. At 650 guests that single line lands near <b>Rs 11 lakh</b> before the crew and crockery, and about <b>Rs 12.25 lakh</b> all-in. It is close to 60% of everything the day spends. Everything else, from the LED wall to the welcome gate, hangs off it. The full breakdown is two sections down.</p>
+          </div>
+
+          <div class="de-sec">
+            <h4>Projected income and expenditure, scenario by scenario</h4>
+            <div class="ps-matrix">
+              <div>
+                <div class="de-tbl-scroll">
+                  <table class="de-table">
+                    <thead><tr><th>Scenario</th><th>Delegates</th><th class="de-rdc">Income</th><th class="de-host">Cost</th><th>Gap to fund</th></tr></thead>
+                    <tbody>
+                      <tr><td>Baseline</td><td>600</td><td>14.13</td><td>19.60</td><td style="color:#A80F52;font-weight:800;">&minus;5.47</td></tr>
+                      <tr><td>Target</td><td>650</td><td>14.65</td><td>20.58</td><td style="color:#A80F52;font-weight:800;">&minus;5.93</td></tr>
+                      <tr><td>Target+</td><td>700</td><td>15.16</td><td>21.55</td><td style="color:#A80F52;font-weight:800;">&minus;6.39</td></tr>
+                      <tr><td>Full house</td><td>800</td><td>16.19</td><td>23.50</td><td style="color:#A80F52;font-weight:800;">&minus;7.31</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div>
+                <div class="a-bar-list" id="psNetBarList"></div>
+                <p style="font-size:.78rem; color:rgba(27,24,54,.55); margin-top:8px;">Bars show the funding gap in lakhs at today&rsquo;s partner engine. Every bar is the work the bid must sell.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="de-sec">
+            <h4>The ticket ladder: four tiers, never above Rs 1,400</h4>
+            <div class="de-tbl-scroll">
+              <table class="de-table">
+                <thead><tr><th>Tier</th><th>Price</th><th>Window</th></tr></thead>
+                <tbody>
+                  <tr><td>Launch</td><td>Rs 600</td><td>Announcement to 30 Jun</td></tr>
+                  <tr><td>Early Bird</td><td>Rs 900</td><td>1 Aug to 30 Sep</td></tr>
+                  <tr><td>Standard</td><td>Rs 1,200</td><td>1 Oct to 25 Oct</td></tr>
+                  <tr><td>Late / Walk-in</td><td>Rs 1,400</td><td>26 Oct to event day</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="de-sec">
+            <h4>Where every lakh comes from (650-delegate target)</h4>
+            <div class="de-seg">
+              <div class="seg"><b>🎫 Tickets</b><span>650 &times; ~1,030 avg<br><b style="color:var(--de-c,#E11A6E);">6.7</b></span></div>
+              <div class="seg"><b>🤝 Co-host clubs</b><span>7 &times; 0.1 (Rs 10K each)<br><b style="color:var(--de-c,#E11A6E);">0.7</b></span></div>
+              <div class="seg"><b>🚀 Collaborator clubs</b><span>8 &times; 0.5 (Rs 50K each)<br><b style="color:var(--de-c,#E11A6E);">4.0</b></span></div>
+              <div class="seg"><b>🏷 Title + sponsors</b><span>1&times;2.0 + 2&times;0.5 gold<br><b style="color:var(--de-c,#E11A6E);">3.0</b></span></div>
+              <div class="seg"><b>🏢 District program</b><span>Official RDC program cost<br><b style="color:var(--de-c,#E11A6E);">0.25</b></span></div>
+              <div class="seg"><b>🕘 In-kind venue</b><span>Hosting-Partner balance. Not cash<br><b style="color:var(--de-c,#E11A6E);">~2.0</b></span></div>
+            </div>
+            <p style="font-size:.8rem; color:rgba(27,24,54,.55); margin-top:10px;"><b>Total cash build ≈ 14.65 L</b> (incl. venue-in-kind value ≈ 16.65 L) &nbsp;·&nbsp; full cost with food ≈ 20.6 L &nbsp;·&nbsp; sponsor gap <b style="color:#A80F52;">≈ Rs 5.9 L</b> (Target).</p>
+          </div>
+
+          <div class="de-sec">
+            <h4>Where every rupee goes: the cost ledger, food first (650-delegate target)</h4>
+            <p>Guests come for the agenda, but they judge on the buffet. So meals were priced first, at honest Kathmandu banquet rates, and every other line was built around them. The ledger below adds up to the <b>Rs 2,057,500</b> this day actually costs to run.</p>
+            <div class="de-tbl-scroll">
+              <table class="de-table">
+                <thead><tr><th>Expense</th><th>Basis</th><th>Amount</th></tr></thead>
+                <tbody>
+                  <tr><td>Buffet breakfast</td><td>650 guests &times; Rs 300</td><td>Rs 195,000</td></tr>
+                  <tr><td>Buffet lunch, non-veg included</td><td>650 &times; Rs 550</td><td>Rs 357,500</td></tr>
+                  <tr><td>Tea &amp; hi-tea (2 breaks, sides incl.)</td><td>650 &times; Rs 150</td><td>Rs 97,500</td></tr>
+                  <tr><td>Buffet dinner, non-veg included</td><td>650 &times; Rs 700</td><td>Rs 455,000</td></tr>
+                  <tr><td>Cooked-food crew, service &amp; crockery</td><td>Outside caterer</td><td>Rs 120,000</td></tr>
+                  <tr><td style="color:rgba(27,24,54,.9); font-weight:800;">Food &amp; refreshments subtotal</td><td></td><td style="color:#A80F52; font-weight:800;">Rs 1,225,000</td></tr>
+                  <tr><td>Sound, LED screen, mics &amp; technician</td><td>Hall kit + operator</td><td>Rs 180,000</td></tr>
+                  <tr><td>Stage, dais, backdrop, décor &amp; branding</td><td>Banners, welcome gate, photo point</td><td>Rs 200,000</td></tr>
+                  <tr><td>Delegate kits, ID, schedule &amp; printing</td><td>650 &times; Rs 250 + batch print</td><td>Rs 162,500</td></tr>
+                  <tr><td>Photographer + videographer</td><td>Full-day coverage</td><td>Rs 90,000</td></tr>
+                  <tr><td>Power backup, drinking water, first aid</td><td>Genset, 100 L, stand-by</td><td>Rs 90,000</td></tr>
+                  <tr><td>Contingency buffer</td><td>~7% of the build</td><td>Rs 110,000</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p style="font-size:.8rem; color:rgba(27,24,54,.55); margin-top:10px;"><b>Total ≈ Rs 2,057,500 (Rs 20.6 L).</b> Food alone is <b style="color:#A80F52;">Rs 1,225,000</b>, about 60% of everything spent. Close the Rs 5.9 L gap with twelve more collaborators at Rs 50K each, one title sponsor at Rs 6 L, or a venue that throws in lunch and dinner. That&rsquo;s the honest shape of hosting: the plate is the biggest line, and the light, sound and banners are what&rsquo;s left. The venue stays in-kind, roughly Rs 2 L of value but zero cash.</p>
+          </div>
+
+          <div class="de-sec">
+            <h4>The 15-day bid sprint</h4>
+            <div class="de-tbl-scroll">
+              <table class="de-table">
+                <thead><tr><th>Window</th><th>Action</th></tr></thead>
+                <tbody>
+                  <tr><td>6 to 8 Aug</td><td>Zone energy call. Pick your lead club and finance committee</td></tr>
+                  <tr><td>11 to 14 Aug</td><td>Venue LOI, 3 quotes and the authorization letter. All required in the bid</td></tr>
+                  <tr><td>15 to 19 Aug</td><td>Recruit co-hosts (Rs 10K) and collaborators (Rs 50K). Target: 7 + 8</td></tr>
+                  <tr><td>20 to 22 Aug</td><td>Build the package: bidding form, budget, fundraising plan, photos and map</td></tr>
+                  <tr><td><b>23 Aug</b></td><td><b>Submit the PDF to both emails before 11:59 PM</b></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="de-sec">
+            <h4>Venue shortlist for Kathmandu (two-hall capacity)</h4>
+            <div class="de-tbl-scroll">
+              <table class="de-table">
+                <thead><tr><th>Venue</th><th>Fit</th><th>Estimate</th></tr></thead>
+                <tbody>
+                  <tr><td>Everest Hotel (Baneshwor)</td><td>Primary bid, in-kind pitch</td><td>Rs 150,000&ndash;250,000</td></tr>
+                  <tr><td>Radisson KTM (Lazimpat)</td><td>Reserve, central</td><td>Rs 200,000&ndash;300,000</td></tr>
+                  <tr><td>Yak &amp; Yeti ICC</td><td>Prestige swing</td><td>Rs 300,000&ndash;400,000</td></tr>
+                  <tr><td>Banquet hall (Alfa Beta / Krishna Pavilion)</td><td>Lean value backup</td><td>Rs 120,000&ndash;180,000</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="de-cta">
+            <div class="emails">
+              <b>This &ldquo;social proof&rdquo; is Zone 7&rsquo;s edge.</b><br>
+              The largest cluster of clubs in the district. A proven city network. A budget with every rupee priced, including the food. And a committee that has already done the homework. Walk in with this plan, and present with confidence.
+            </div>
+            <div class="dl">
+              <a class="de-dl-btn" href="guides/1st%20PS%20Meet%20Bidding%20document.pdf" download>📄 Re-read the bid terms</a>
+            </div>
+          </div>
+
+          <div class="de-sec" style="margin-top:18px;">
+            <h4>Picture it: the confetti, the applause, the banner with your club&rsquo;s logo</h4>
+            <div class="de-hero" style="height:250px;"><img class="de-hero-img" src="images/dist-exec-trophy.jpg" alt="Zone 7 PS Meet victory moment" loading="lazy"></div>
+            <p style="font-size:.8rem; color:rgba(27,24,54,.55); margin-top:10px;">Every club that hosts walks away with district-wide recognition, and this is what it feels like. The board approves. The partners pitch in. Your club history page gets its flagship event.</p>
+          </div>
         </div>
       </div>
 
@@ -1531,10 +1598,10 @@ function renderPsNetChart(){
   const el = document.getElementById("psNetBarList");
   if(!el) return;
   const rows = [
-    { label: "Baseline 600", val: -1.05, color: "rgba(225,26,110,.5)" },
-    { label: "Target 650", val: 0.70, color: "rgba(28,138,77,.85)" },
-    { label: "Target+ 700", val: 1.30, color: "rgba(28,138,77,.95)" },
-    { label: "Full house 800", val: 1.40, color: "rgba(242,169,0,.95)" }
+    { label: "Baseline 600", val: -5.47, color: "rgba(225,26,110,.45)" },
+    { label: "Target 650", val: -5.93, color: "rgba(225,26,110,.6)" },
+    { label: "Target+ 700", val: -6.39, color: "rgba(225,26,110,.75)" },
+    { label: "Full house 800", val: -7.31, color: "rgba(225,26,110,.9)" }
   ];
   const max = Math.max(...rows.map(r => Math.abs(r.val)));
   el.innerHTML = rows.map(r => `
