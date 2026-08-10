@@ -48,7 +48,7 @@ export default function IslandNav({ current, context, children }) {
             {...linkProps('/')}
             aria-label="Zone 7 — back to the homepage"
           >
-            <span className="in-z">Z</span>
+            <span className="in-z">7</span>
             <span>
               Zone 7
               <span className="in-ctx">{ctx}</span>

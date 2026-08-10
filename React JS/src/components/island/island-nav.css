@@ -41,10 +41,11 @@ html { scrollbar-gutter: stable; }
 .in-brand .in-z {
   width: 34px;
   height: 34px;
-  border-radius: 9px;
+  border-radius: 8px;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, var(--gold), var(--magenta));
+  /* matches the main site nav mark — magenta square with a white 7 */
+  background: var(--magenta);
   color: #fff;
   font-size: 1.05rem;
   box-shadow: 0 8px 18px rgba(225, 26, 110, 0.4);
