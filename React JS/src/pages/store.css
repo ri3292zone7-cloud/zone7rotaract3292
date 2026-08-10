@@ -450,6 +450,45 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 22px;
 }
+.st-grid.anim { animation: stGridIn 0.28s ease; }
+@keyframes stGridIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ── filter chips ───────────────────────────────────────────────── */
+.st-shop-side { display: flex; flex-direction: column; align-items: flex-end; gap: 16px; }
+.st-filters { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.st-filter {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: rgba(27, 24, 54, 0.65);
+  background: transparent;
+  border: 1.6px solid rgba(27, 24, 54, 0.16);
+  padding: 9px 18px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: color 0.22s, background 0.22s, border-color 0.22s, transform 0.22s;
+}
+.st-filter:hover { color: var(--magenta-deep); border-color: rgba(225, 26, 110, 0.4); transform: translateY(-2px); }
+.st-filter.on {
+  color: #fff;
+  background: linear-gradient(135deg, var(--magenta), var(--magenta-deep));
+  border-color: transparent;
+  box-shadow: 0 10px 22px rgba(225, 26, 110, 0.3);
+}
+
+/* ── 3D product visual inside the card ──────────────────────────── */
+.st-card-media { position: relative; }
+.st-visual3d {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.st-visual3d canvas { display: block; }
 
 /* ── product card ──────────────────────────────────────────────────── */
 .st-card {
@@ -463,6 +502,20 @@
   transform: translateY(-8px);
   box-shadow: 0 26px 50px rgba(27, 24, 54, 0.16);
 }
+/* whole card opens the variant modal */
+.st-card-open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+.st-card-open:focus-visible { outline: 2px solid var(--magenta); outline-offset: -4px; }
+.st-card-body { cursor: pointer; }
+.st-card-open:hover .st-visual3d { transform: scale(1.045); }
+.st-visual3d { transition: transform 0.35s ease; }
 .st-card-media {
   position: relative;
   min-height: 240px;
@@ -531,19 +584,20 @@
   gap: 10px;
   margin-bottom: 14px;
 }
-.st-swatches { display: flex; gap: 8px; }
-.st-swatch {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 0 0 1.4px rgba(27, 24, 54, 0.2);
-  cursor: pointer;
-  padding: 0;
-  transition: transform 0.2s, box-shadow 0.2s;
+.st-card-styles {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(27, 24, 54, 0.5);
+  background: rgba(27, 24, 54, 0.06);
+  border-radius: 100px;
+  padding: 6px 11px;
 }
-.st-swatch:hover { transform: scale(1.12); }
-.st-swatch.on { box-shadow: 0 0 0 2px var(--ink), 0 0 0 4px #fff; }
+.st-card-styles i { color: var(--magenta); font-style: normal; font-size: 0.6rem; }
 .st-card-price {
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
@@ -1008,3 +1062,122 @@
   .st-vendor-grid { grid-template-columns: 1fr; }
 }
 .st-vendors { background: linear-gradient(180deg, var(--cream) 0%, #FFF7EC 100%); border-top: 1px solid rgba(27, 24, 54, 0.05); border-bottom: 1px solid rgba(27, 24, 54, 0.05); }
+
+/* ── variant modal (opens from a product card) ──────────────────── */
+.st-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.st-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 13, 34, 0.55);
+  backdrop-filter: blur(6px);
+  animation: stBackdropIn 0.25s ease;
+}
+@keyframes stBackdropIn { from { opacity: 0; } to { opacity: 1; } }
+.st-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: min(860px, 100%);
+  max-height: min(86vh, 720px);
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  background: var(--paper);
+  border: 1px solid rgba(27, 24, 54, 0.1);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 40px 90px rgba(16, 13, 34, 0.45);
+  animation: stPanelIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes stPanelIn {
+  from { opacity: 0; transform: translateY(26px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+.st-modal-x {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(27, 24, 54, 0.08);
+  color: var(--ink);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.st-modal-x:hover { background: rgba(27, 24, 54, 0.16); transform: rotate(90deg); }
+.st-modal-media {
+  position: relative;
+  min-height: 340px;
+  background:
+    radial-gradient(420px 220px at 50% 0%, rgba(255, 255, 255, 0.9), transparent 70%),
+    linear-gradient(180deg, #F3EEE6, #ECE5D9);
+  overflow: hidden;
+}
+.st-modal-body {
+  padding: 34px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+.st-modal-kicker {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--magenta);
+}
+.st-modal-body h3 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 1.45rem;
+  letter-spacing: -0.02em;
+}
+.st-modal-tagline { font-size: 0.84rem; color: rgba(27, 24, 54, 0.6); line-height: 1.6; }
+.st-modal-opts { display: flex; flex-direction: column; gap: 8px; margin: 6px 0 8px; }
+.st-modal-opt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(27, 24, 54, 0.12);
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.st-modal-opt:hover { border-color: rgba(225, 26, 110, 0.45); transform: translateX(3px); }
+.st-modal-opt.on {
+  border-color: var(--magenta);
+  background: linear-gradient(120deg, rgba(225, 26, 110, 0.07), rgba(168, 15, 82, 0.05));
+  box-shadow: 0 8px 20px rgba(225, 26, 110, 0.12);
+}
+.st-modal-dot {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1.4px rgba(27, 24, 54, 0.2);
+}
+.st-modal-opt-name { flex: 1; font-weight: 700; font-size: 0.88rem; }
+.st-modal-opt-price { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 0.86rem; color: var(--magenta-deep); }
+.st-modal-body .st-sizes { margin-top: 2px; }
+.st-modal-body .st-add { width: 100%; justify-content: center; padding: 14px; margin-top: 4px; }
+@media (max-width: 760px) {
+  .st-modal { padding: 12px; align-items: flex-end; }
+  .st-modal-panel { grid-template-columns: 1fr; max-height: 92vh; border-radius: 22px 22px 0 0; }
+  .st-modal-media { min-height: 0; aspect-ratio: 4 / 3; }
+  .st-modal-body { padding: 24px 20px 26px; }
+}

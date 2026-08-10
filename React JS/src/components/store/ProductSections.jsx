@@ -1,11 +1,33 @@
 import { useEffect, useRef, useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Reveal from '../ui/Reveal';
-import { CATALOG, CATEGORIES, money } from '../../data/merch-catalog';
+import { CATALOG, money } from '../../data/merch-catalog';
 import { useStoreCart } from '../../context/useStoreCart';
+import TShirtGLB from './models/TShirtGLB';
+import Badge from './models/Badge';
+import Cap from './models/Cap';
+import Bottle from './models/Bottle';
+import StudioEnv from './models/StudioEnv';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const FILTERS = [
+  { id: 'all', label: 'All' },
+  { id: 'tee', label: 'Tees' },
+  { id: 'badge', label: 'Badges & Pins' },
+  { id: 'cap', label: 'Caps' },
+  { id: 'bottle', label: 'Bottles' }
+];
+
+/* one card per category — variants open inside the card's modal */
+const CARD_KINDS = [
+  { kind: 'tee', label: 'Tees' },
+  { kind: 'badge', label: 'Badges & Pins' },
+  { kind: 'cap', label: 'Caps' },
+  { kind: 'bottle', label: 'Bottles' }
+];
 
 const KIND_LABEL = {
   tee: 'Tee',
@@ -15,30 +37,21 @@ const KIND_LABEL = {
   bottle: 'Bottle'
 };
 
-/*
- * Colorway switcher per kind — clicking a swatch swaps the card to that
- * sibling product (name, colour, price, sizes all follow).
- */
-function KindSwatches({ products, selectedId, onSelect }) {
-  if (products.length < 2) return null;
-  return (
-    <div className="st-swatches">
-      {products.map((p) => (
-        <button
-          key={p.id}
-          type="button"
-          className={`st-swatch ${p.id === selectedId ? 'on' : ''}`}
-          style={{ background: p.color }}
-          aria-label={p.title || p.name}
-          title={p.colorName}
-          onClick={() => onSelect(p.id)}
-        />
-      ))}
-    </div>
-  );
+/* per-kind framing for the card canvas */
+const KIND_FRAME = {
+  tee: { scale: 0.72, y: -0.3 },
+  badge: { scale: 1.15, y: 0.25 },
+  pin: { scale: 0.62, y: 0.55 },
+  cap: { scale: 1.3, y: -0.85 },
+  bottle: { scale: 1.15, y: -0.9 }
+};
+
+function productsForKind(kind) {
+  return CATALOG.filter((p) => p.kind === kind || (kind === 'badge' && p.kind === 'pin'));
 }
 
-function ProductVisual({ product, className }) {
+/* static fallback visual — shows until the 3D canvas mounts */
+function ProductVisual({ product }) {
   const emblem =
     product.kind === 'badge' || product.kind === 'pin' ? (
       <svg viewBox="0 0 64 64" className="st-visual-emblem" aria-hidden="true">
@@ -62,14 +75,14 @@ function ProductVisual({ product, className }) {
 
   if (product.kind === 'tee') {
     return (
-      <div className={`st-visual st-visual-tee ${className || ''}`} style={{ '--tee': product.color }}>
+      <div className="st-visual st-visual-tee" style={{ '--tee': product.color }}>
         <span className="st-tee-chest" style={{ color: product.ink }}>Z7</span>
       </div>
     );
   }
   if (product.kind === 'cap') {
     return (
-      <div className={`st-visual st-visual-cap ${className || ''}`} style={{ '--cap': product.color }}>
+      <div className="st-visual st-visual-cap" style={{ '--cap': product.color }}>
         <span className="st-cap-front">
           <svg viewBox="0 0 64 40" aria-hidden="true">
             <circle cx="32" cy="18" r="13" fill="url(#stCapDisc)" />
@@ -85,113 +98,253 @@ function ProductVisual({ product, className }) {
     );
   }
   if (product.kind === 'bottle') {
-    return <div className={`st-visual st-visual-bottle ${className || ''}`} style={{ '--bottle': product.color }} />;
+    return <div className="st-visual st-visual-bottle" style={{ '--bottle': product.color }} />;
   }
 
-  return <div className={`st-visual st-visual-badge ${className || ''}`}>{emblem}</div>;
+  return <div className="st-visual st-visual-badge">{emblem}</div>;
 }
 
-function ProductCard({ product, siblings, onSelect, selectedId }) {
-  const cart = useStoreCart();
-  const [size, setSize] = useState(product.sizes?.[0] || '');
-  const go = product.sizes.length ? size : '';
+/* gentle turntable for models */
+function Turntable({ children }) {
+  const group = useRef(null);
+  useFrame((_, delta) => {
+    if (group.current) group.current.rotation.y += delta * 0.5;
+  });
+  return <group ref={group}>{children}</group>;
+}
 
-  const addToCart = (e) => {
-    e.preventDefault();
-    if (product.price <= 0) return;
-    cart.add(product.id, go || undefined);
-    cart.setOpen(true);
-  };
+function ModelContent({ product }) {
+  const frame = KIND_FRAME[product.kind] || KIND_FRAME.tee;
+  return (
+    <group scale={frame.scale} position={[0, frame.y, 0]}>
+      {product.kind === 'tee' && <TShirtGLB color={product.color} />}
+      {(product.kind === 'badge' || product.kind === 'pin') && (
+        <group scale={product.kind === 'pin' ? 0.55 : 1}>
+          <Badge color={product.color} accentDeep={product.ink || '#A80F52'} />
+        </group>
+      )}
+      {product.kind === 'cap' && <Cap color={product.color} />}
+      {product.kind === 'bottle' && <Bottle color={product.color} />}
+    </group>
+  );
+}
 
-  const needsSize = product.kind === 'tee' || product.kind === 'cap';
+function ModelCanvas({ product, style }) {
+  return (
+    <Canvas
+      camera={{ position: [0, 0.55, 5.0], fov: 38 }}
+      dpr={[1, 1.6]}
+      gl={{ antialias: true, alpha: true }}
+      style={{ position: 'absolute', inset: 0, ...style }}
+    >
+      <StudioEnv />
+      <hemisphereLight args={['#ffffff', '#191624', 0.5]} />
+      <directionalLight position={[3, 4, 5]} intensity={1.0} />
+      <pointLight position={[-3.2, 0.8, 2.4]} intensity={10} distance={9} color="#FF5C9D" />
+      <pointLight position={[3.2, -0.6, 2.6]} intensity={8} distance={8} color="#F2A900" />
+      <Turntable>
+        <ModelContent product={product} />
+      </Turntable>
+    </Canvas>
+  );
+}
+
+function Product3D({ product }) {
+  const box = useRef(null);
+  const [live, setLive] = useState(false);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const el = box.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([en]) => {
+      if (en.isIntersecting) {
+        setLive(true);
+        io.disconnect();
+      }
+    }, { rootMargin: '500px', threshold: 0.02 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <Reveal className="st-card" delay={0.05}>
-      <div className="st-card-media">
-        <span className="st-card-glow" style={{ '--glow': product.color }}></span>
-        <ProductVisual product={product} />
-        {product.badge && <span className="st-card-badge">{product.badge}</span>}
-        <span className="st-card-kind">{KIND_LABEL[product.kind]}</span>
-      </div>
+    <div className="st-visual3d" ref={box}>
+      {live ? <ModelCanvas product={product} /> : <ProductVisual product={product} />}
+    </div>
+  );
+}
 
-      <div className="st-card-body">
+function ProductCard({ product, stylesCount, onOpen }) {
+  return (
+    <Reveal className="st-card">
+      <button type="button" className="st-card-open" aria-label={`Open ${product.name} options`} onClick={onOpen}>
+        <div className="st-card-media">
+          <span className="st-card-glow" style={{ '--glow': product.color }}></span>
+          <Product3D product={product} />
+          {product.badge && <span className="st-card-badge">{product.badge}</span>}
+          <span className="st-card-kind">{KIND_LABEL[product.kind]}</span>
+        </div>
+      </button>
+
+      <div className="st-card-body" onClick={onOpen} role="button" tabIndex={0}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(); } }}>
         <h4>{product.name}</h4>
         <p className="st-card-tagline">{product.tagline}</p>
 
         <div className="st-card-row">
-          <KindSwatches products={siblings} selectedId={selectedId} onSelect={onSelect} />
-          <span className="st-card-price">{money(product.price)}</span>
+          <span className="st-card-styles">
+            {stylesCount} {stylesCount === 1 ? 'style' : 'styles'}{' '}
+            <i aria-hidden="true">✦</i>
+          </span>
+          <span className="st-card-price">from {money(product.price)}</span>
         </div>
 
-        {needsSize && product.sizes.length > 0 && (
-          <div className="st-sizes">
-            {product.sizes.map((s) => (
-              <button
-                key={s}
-                type="button"
-                className={`st-size ${s === size ? 'on' : ''}`}
-                onClick={() => setSize(s)}
-              >
-                {s}
-              </button>
-            ))}
-          </div>
-        )}
-
         <div className="st-card-foot">
-          {needsSize ? (
-            <button type="button" className="btn btn-primary st-add" onClick={addToCart}>
-              Add · {money(product.price)}
-            </button>
-          ) : (
-            <button type="button" className="btn btn-primary st-add" onClick={addToCart}>
-              Add to cart · {money(product.price)}
-            </button>
-          )}
+          <button type="button" className="btn btn-primary st-add" onClick={onOpen}>
+            Choose style →
+          </button>
         </div>
       </div>
     </Reveal>
   );
 }
 
+function VariantModal({ kindLabel, products, selectedId, onSelect, onClose }) {
+  const cart = useStoreCart();
+  const product = products.find((p) => p.id === selectedId) || products[0];
+  const [size, setSize] = useState(product.sizes?.[0] || '');
+  const needsSize = product.kind === 'tee' || product.kind === 'cap';
+
+  useEffect(() => {
+    setSize(product.sizes?.[0] || '');
+  }, [product.id, product.sizes]);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  const add = () => {
+    if (product.price <= 0) return;
+    cart.add(product.id, needsSize && product.sizes.length ? size : undefined);
+    cart.setOpen(true);
+    onClose();
+  };
+
+  return (
+    <div className="st-modal" role="dialog" aria-modal="true" aria-label={kindLabel}>
+      <div className="st-modal-backdrop" onClick={onClose} aria-hidden="true"></div>
+      <div className="st-modal-panel">
+        <button type="button" className="st-modal-x" aria-label="Close" onClick={onClose}>✕</button>
+
+        <div className="st-modal-media">
+          <ModelCanvas product={product} />
+        </div>
+
+        <div className="st-modal-body">
+          <span className="st-modal-kicker">{kindLabel} · {KIND_LABEL[product.kind]}</span>
+          <h3>{product.name}</h3>
+          <p className="st-modal-tagline">{product.tagline}</p>
+
+          <div className="st-modal-opts" role="group" aria-label="Choose style">
+            {products.map((p) => (
+              <button
+                key={p.id}
+                type="button"
+                className={`st-modal-opt ${p.id === product.id ? 'on' : ''}`}
+                aria-pressed={p.id === product.id}
+                onClick={() => onSelect(p.id)}
+              >
+                <span className="st-modal-dot" style={{ background: p.color }} />
+                <span className="st-modal-opt-name">{p.colorName}</span>
+                <b className="st-modal-opt-price">{money(p.price)}</b>
+              </button>
+            ))}
+          </div>
+
+          {needsSize && product.sizes.length > 0 && (
+            <div className="st-sizes">
+              {product.sizes.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  className={`st-size ${s === size ? 'on' : ''}`}
+                  onClick={() => setSize(s)}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          )}
+
+          <button type="button" className="btn btn-primary st-add" onClick={add}>
+            Add to cart · {money(product.price)}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ProductSections() {
   const sectionsRef = useRef(null);
+  const [filter, setFilter] = useState('all');
+  const [openKind, setOpenKind] = useState(null);
   const [selected, setSelected] = useState(() => {
     const map = {};
-    CATEGORIES.forEach((c) => {
-      const first = CATALOG.find((p) => p.kind === c.id.replace(/s$/, '') || p.kind === c.id);
-      map[c.id] = first ? first.id : null;
+    CARD_KINDS.forEach(({ kind }) => {
+      const first = productsForKind(kind)[0];
+      map[kind] = first ? first.id : null;
     });
     return map;
   });
 
-  // pins live under the badges section
+  /* the hero's "Shop …" buttons land here and pre-filter the grid */
+  useEffect(() => {
+    const onFilter = (e) => {
+      if (e.detail) setFilter(e.detail);
+    };
+    window.addEventListener('store:filter', onFilter);
+    return () => window.removeEventListener('store:filter', onFilter);
+  }, []);
+
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const ctx = gsap.context(() => {
-      gsap.utils.toArray('.st-section').forEach((sec) => {
-        const big = sec.querySelector('.st-big7');
-        if (big) {
-          gsap.fromTo(
-            big,
-            { yPercent: 30, opacity: 0.15 },
-            {
-              yPercent: -30,
-              opacity: 0.05,
-              ease: 'none',
-              scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true }
-            }
-          );
-        }
-      });
+      const big = sectionsRef.current?.querySelector('.st-big7');
+      if (big) {
+        gsap.fromTo(
+          big,
+          { yPercent: 30, opacity: 0.15 },
+          {
+            yPercent: -30,
+            opacity: 0.05,
+            ease: 'none',
+            scrollTrigger: { trigger: sectionsRef.current, start: 'top bottom', end: 'bottom top', scrub: true }
+          }
+        );
+      }
     }, sectionsRef);
     return () => ctx.revert();
   }, []);
 
-  const selectProduct = (kindId, productId) => setSelected((s) => ({ ...s, [kindId]: productId }));
+  const visibleKinds = CARD_KINDS.filter((k) => filter === 'all' || k.kind === filter);
+
+  const openCard = (kind) => setOpenKind(kind);
+  const selectVariant = (kind, productId) => setSelected((s) => ({ ...s, [kind]: productId }));
+  const activeKind = CARD_KINDS.find((k) => k.kind === openKind) || null;
+  const activeProducts = activeKind ? productsForKind(activeKind.kind) : [];
+  const activeSelected = activeKind ? selected[activeKind.kind] : null;
 
   return (
-    <div className="st-sections" ref={sectionsRef} id="shop">
+    <div className="st-sections" ref={sectionsRef}>
       {/* marquee separator */}
       <div className="st-marquee">
         <div className="st-marquee-track">
@@ -209,46 +362,66 @@ export default function ProductSections() {
         </div>
       </div>
 
-      {CATEGORIES.map((cat, ci) => {
-        const showKind = (cat.id === 'tees' && 'tee') || (cat.id === 'badges' && 'badge') || (cat.id === 'caps' && 'cap') || (cat.id === 'bottles' && 'bottle');
-        const products = CATALOG.filter((p) => p.kind === showKind);
-        if (!products.length) return null;
-        const extraKind = cat.id === 'badges' ? CATALOG.filter((p) => p.kind === 'pin') : [];
-        const gridItems = [...products, ...extraKind];
-        return (
-          <section className={`st-section ${ci % 2 ? 'flip' : ''}`} id={cat.id} key={cat.id}>
-            <span className="st-big7" aria-hidden="true">
-              7
-            </span>
-            <div className="wrap">
-              <div className="st-head">
-                <div>
-                  <span className="st-tag">{cat.tag}</span>
-                  <h2>{cat.title}</h2>
-                  <p className="st-sub">{cat.sub}</p>
-                </div>
-                <span className="st-count">{String(gridItems.length).padStart(2, '0')} pieces</span>
-              </div>
-              <div className="st-grid">
-                {gridItems.map((p) => {
-                  const kindId = p.kind === 'pin' ? 'badges' : cat.id;
-                  const siblings = CATALOG.filter((x) => x.kind === p.kind);
-                  const selId = selected[kindId];
-                  return (
-                    <ProductCard
-                      key={p.id}
-                      product={p}
-                      siblings={siblings}
-                      selectedId={selId}
-                      onSelect={(id) => selectProduct(kindId, id)}
-                    />
-                  );
-                })}
-              </div>
+      <section className="st-section" id="shop">
+        <span className="st-big7" aria-hidden="true">
+          7
+        </span>
+        <div className="wrap">
+          <div className="st-head">
+            <div>
+              <span className="st-tag">The full drop</span>
+              <h2>Everything, in one place.</h2>
+              <p className="st-sub">
+                One card per category — tap a card to see every colourway and pick yours. Real 3D mockups, rotating on the page.
+              </p>
             </div>
-          </section>
-        );
-      })}
+            <div className="st-shop-side">
+              <div className="st-filters" role="group" aria-label="Filter products">
+                {FILTERS.map((f) => (
+                  <button
+                    key={f.id}
+                    type="button"
+                    className={`st-filter ${filter === f.id ? 'on' : ''}`}
+                    aria-pressed={filter === f.id}
+                    onClick={() => setFilter(f.id)}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
+              <span className="st-count">
+                {String(visibleKinds.length).padStart(2, '0')} {visibleKinds.length === 1 ? 'category' : 'categories'}
+              </span>
+            </div>
+          </div>
+
+          <div className={`st-grid ${filter !== 'all' ? 'anim' : ''}`} key={filter}>
+            {visibleKinds.map(({ kind, label }) => {
+              const products = productsForKind(kind);
+              const sel = selected[kind];
+              const product = products.find((p) => p.id === sel) || products[0];
+              return (
+                <ProductCard
+                  key={kind}
+                  product={product}
+                  stylesCount={products.length}
+                  onOpen={() => openCard(kind)}
+                />
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {activeKind && (
+        <VariantModal
+          kindLabel={activeKind.label}
+          products={activeProducts}
+          selectedId={activeSelected}
+          onSelect={(id) => selectVariant(activeKind.kind, id)}
+          onClose={() => setOpenKind(null)}
+        />
+      )}
     </div>
   );
 }

@@ -45,6 +45,7 @@ export default function TShirtGLB({ color = '#17141F' }) {
     <group scale={norm.s} position={[0, norm.y, 0]}>
       <mesh geometry={nodes.tshirt.geometry} material={cloth} dispose={null}>
         {emblem && <Decal position={[0, 0.08, 0.13]} rotation={[0, 0, 0]} scale={0.13} map={emblem} depthTest />}
+        {emblem && <Decal position={[0, 0.08, -0.13]} rotation={[0, Math.PI, 0]} scale={0.09} map={emblem} depthTest />}
       </mesh>
     </group>
   );

@@ -3,78 +3,103 @@ import * as THREE from 'three';
 import { useZone7Texture } from './zone7-texture';
 
 /*
- * Zone 7 steel bottle — lathe-profiled body, painted body colour,
- * wrapped Z7 lockup label band and a matte lid.
+ * Zone 7 double-walled steel bottle — lathe-profiled body (base, tapered
+ * body, shoulder, neck), fluted screw cap, dark label band with the
+ * emblem face, gold accent rings. Steel shows metalness, painted
+ * variants show satin colour. Static: the rig rotates it.
  */
 
-const BODY_LEN = 1.34;
-
-function makeBottleGeometry() {
-  const profile = [
-    [0.07, 0],
-    [0.1, 0.035],
-    [0.115, 0.13],
-    [0.125, 0.42],
-    [0.12, 0.68],
-    [0.108, 0.87],
-    [0.09, 0.94],
-    [0.052, 1.02],
-    [0.032, 1.08],
-    [0.02, 1.13],
-    [0.014, 1.19]
-  ].map(([x, y]) => new THREE.Vector2(x, y / BODY_LEN));
-  return new THREE.LatheGeometry(profile, 56);
-}
-
 export default function Bottle({ color = '#9AA5B1' }) {
-  const labelTex = useZone7Texture({ variant: 'lockup', size: 192, accent: '#F2A900', fg: '#FFFFFF' });
+  const emblem = useZone7Texture({ variant: 'emblem', size: 512, accent: '#E11A6E', accentDeep: '#A80F52' });
+
+  const profile = useMemo(
+    () =>
+      [
+        [0.46, 0],
+        [0.462, 0.02],
+        [0.455, 0.1],
+        [0.44, 0.3],
+        [0.43, 0.62],
+        [0.415, 0.85],
+        [0.375, 1.02],
+        [0.3, 1.14],
+        [0.25, 1.2],
+        [0.24, 1.3],
+        [0.242, 1.42]
+      ].map(([r, y]) => new THREE.Vector2(r, y)),
+    []
+  );
 
   const bodyMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
         color,
-        roughness: 0.32,
-        metalness: 0.62
+        metalness: color === '#9AA5B1' ? 0.88 : 0.32,
+        roughness: color === '#9AA5B1' ? 0.26 : 0.4,
+        envMapIntensity: 1.1
       }),
     [color]
   );
 
-  const geometry = useMemo(() => makeBottleGeometry(), []);
+  const steel = useMemo(
+    () => new THREE.MeshStandardMaterial({ color: '#8d93a0', metalness: 0.9, roughness: 0.3 }),
+    []
+  );
 
   return (
-    <group scale={[1.55, 1.55, 1.55]}>
+    <group>
       {/* body */}
-      <mesh geometry={geometry} material={bodyMat} />
-      {/* Z7 label band */}
-      {labelTex && (
-        <mesh position={[0, 0.46, 0]}>
-          <cylinderGeometry args={[0.128, 0.128, 0.17, 56, 1, true]} />
-          <meshStandardMaterial
-            map={labelTex}
-            transparent
-            alphaTest={0.4}
-            color="#ffffff"
-            roughness={0.35}
-            metalness={0.05}
-            side={THREE.DoubleSide}
-          />
+      <mesh>
+        <latheGeometry args={[profile, 48]} />
+        <mesh material={bodyMat} />
+      </mesh>
+
+      {/* base + neck accent rings (steel) */}
+      <mesh position={[0, 0.015, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.455, 0.014, 10, 48]} />
+        <mesh material={steel} />
+      </mesh>
+      <mesh position={[0, 1.185, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.305, 0.01, 10, 40]} />
+        <mesh material={steel} />
+      </mesh>
+
+      {/* gold rings flanking the label band */}
+      <mesh position={[0, 0.45, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.436, 0.008, 8, 48]} />
+        <meshStandardMaterial color="#F2A900" metalness={0.85} roughness={0.3} emissive="#F2A900" emissiveIntensity={0.15} />
+      </mesh>
+      <mesh position={[0, 0.79, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.421, 0.008, 8, 48]} />
+        <meshStandardMaterial color="#F2A900" metalness={0.85} roughness={0.3} emissive="#F2A900" emissiveIntensity={0.15} />
+      </mesh>
+
+      {/* label band */}
+      <mesh position={[0, 0.62, 0]}>
+        <cylinderGeometry args={[0.429, 0.429, 0.36, 48, 1, true]} />
+        <meshStandardMaterial color="#17141F" roughness={0.5} metalness={0.15} />
+      </mesh>
+      {emblem && (
+        <mesh position={[0, 0.62, 0.432]}>
+          <circleGeometry args={[0.155, 40]} />
+          <meshBasicMaterial map={emblem} toneMapped={false} transparent />
         </mesh>
       )}
-      {/* lid */}
-      <mesh position={[0, 1.32, 0]}>
-        <cylinderGeometry args={[0.028, 0.028, 0.06, 24]} />
-        <meshStandardMaterial color="#232A2F" roughness={0.45} metalness={0.3} />
+
+      {/* threaded screw cap */}
+      <mesh position={[0, 1.445, 0]}>
+        <cylinderGeometry args={[0.268, 0.275, 0.1, 32]} />
+        <meshStandardMaterial color="#27243A" roughness={0.42} metalness={0.35} />
       </mesh>
-      {/* lid cap top */}
-      <mesh position={[0, 1.355, 0]}>
-        <cylinderGeometry args={[0.026, 0.026, 0.012, 24]} />
-        <meshStandardMaterial color="#171D21" roughness={0.5} />
-      </mesh>
-      {/* gold base ring */}
-      <mesh position={[0, 0.005, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[0.075, 0.008, 10, 40]} />
-        <meshStandardMaterial color="#F2A900" roughness={0.3} metalness={0.8} />
-      </mesh>
+      {Array.from({ length: 12 }).map((_, i) => {
+        const a = (i / 12) * Math.PI * 2;
+        return (
+          <mesh key={i} position={[Math.cos(a) * 0.276, 1.445, Math.sin(a) * 0.276]}>
+            <boxGeometry args={[0.022, 0.096, 0.52]} />
+            <meshStandardMaterial color="#171330" roughness={0.55} />
+          </mesh>
+        );
+      })}
     </group>
   );
 }

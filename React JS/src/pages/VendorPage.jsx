@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
 import Reveal from '../components/ui/Reveal';
 import IslandNav from '../components/island/IslandNav';
 import { VENDORS } from '../data/vendors';
