@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="zone7_cover.jpg" alt="Zone 7 Rotaract — District 3292" width="100%" />
+  <img src="zone7_og_image.png" alt="Zone 7 Rotaract | District 3292" width="520" />
 </p>
 
 <p align="center">
@@ -30,15 +30,15 @@
 
 > ## 🫶 This is YOUR website.
 >
-> **Zone 7 Rotaract is completely open source.** Every Rotaractor, club board, alumni and friend of Zone 7 is invited — openly and without gatekeeping — to **fork this repository, make changes, and submit them**. Fix a typo, improve the code, design a new feature, translate a page, or write better documentation. This site belongs to the 9 clubs of Zone 7, not to any one person. **Your pull request is genuinely welcome.** 🚀
+> **Zone 7 Rotaract is completely open source.** That's not a marketing line, we mean it. Any Rotaractor, any club board, any alumni, any curious friend of the zone can fork this repository and start tinkering. Fix a typo. Clean up some code. Dream up a feature nobody asked for. Translate a page into Nepali. Even just rewrite a confusing paragraph. This site belongs to the nine clubs of Zone 7, not to any one person. So go ahead. Your pull request is genuinely welcome. 🚀
 
 ---
 
 ## 🌄 Who We Are
 
-**Rotaract is Rotary International's club for young adults aged 18–30** — sponsored by local Rotary clubs and run entirely by Rotaractors. Zone 7 brings together **9 Rotaract clubs across the Kathmandu Valley** under **Rotary International District 3292 (Nepal–Bhutan)**.
+**Rotaract is Rotary International's club for young adults aged 18 to 30.** A local Rotary club sponsors us, but we run the whole thing ourselves. Zone 7 gathers **9 Rotaract clubs** from across the Kathmandu Valley, all under **Rotary International District 3292 (Nepal and Bhutan)**.
 
-From the streets of Makkhan Tol to the hills of Sankhu, our members turn service, fellowship and leadership into action — one project at a time. Whether it's a blood donation drive, an environmental clean-up, a futsal tournament, or a club assembly, Zone 7 is where young leaders from every corner of the Valley come together.
+We're not a single club with a single crowd. We're nine of them. From the busy lanes of Makkhan Tol to the quiet hills of Sankhu, our members show up week after week. A blood donation drive on a rainy Saturday. A river clean-up before the festival season. A futsal night that turns into a friendly grudge match. Sometimes it's a serious board meeting. Sometimes it's just laughing over chiya after a project. That mix, that's what Zone 7 is.
 
 ---
 
@@ -57,7 +57,7 @@ From the streets of Makkhan Tol to the hills of Sankhu, our members turn service
 
 ## 🏛️ The Clubs of Zone 7
 
-Nine clubs, nine communities, one zone. Click a logo's Instagram to connect with the club.
+Nine clubs, nine neighbourhoods, one zone. Tap any Instagram handle and say hi to that club directly.
 
 | Club | Location | Chartered | Sponsored By | Instagram |
 |---|---|---|---|---|
@@ -71,26 +71,26 @@ Nine clubs, nine communities, one zone. Click a logo's Instagram to connect with
 | <img src="logos/balkumari.jpg" width="42" /> **Balkumari** | Chyasal Marg, Lalitpur | 18 Oct 2023 | Rotary Club of Butwal | [@rac_balkumari](https://www.instagram.com/rac_balkumari/) |
 | <img src="logos/kathmanduheight.jpg" width="42" /> **Kathmandu Height** | Baneshwar, Kathmandu | 6 Jan 2026 | Rotary Club of Kathmandu Height | [@rackathmanduheight](https://www.instagram.com/rackathmanduheight/) |
 
-> 💡 **Note:** *Liberty College* is our university-based club; the remaining eight are community-based clubs — and the platform adapts its excellence barometer accordingly.
+> 💡 **Note:** *Liberty College* runs as our university-based club. The other eight are community clubs. The platform knows the difference and scores them on their own terms.
 
 ---
 
 ## 👥 Zonal Leadership · RY 2026–27
 
-Guided by a zonal team that coordinates between Zone 7's clubs and the wider District 3292 leadership.
+A small crew keeps the zone humming. They juggle the clubs, chase the deadlines, and keep the lines open to District 3292.
 
 | Role | Name | Home Club |
 |---|---|---|
-| 🏆 **ZRR** — Zonal Rotaract Representative | **Rtr. Rajay Bajracharya** | Rotaract Club of Sukedhara |
-| 📝 **ZS** — Zonal Secretary | **Rtr. Peshal Basnet** | Rotaract Club of Liberty College |
-| 🎉 **ZFC** — Zonal Fellowship Chair | **Rtr. Samrat Pandey** | Rotaract Club of Tripureswor |
-| 📣 **ZPIC** — Zonal Public Image Chair | **Rtr. Rishav Thapa** | Rotaract Club of Kathmandu Height |
+| 🏆 **ZRR**: Zonal Rotaract Representative | **Rtr. Rajay Bajracharya** | Rotaract Club of Sukedhara |
+| 📝 **ZS**: Zonal Secretary | **Rtr. Peshal Basnet** | Rotaract Club of Liberty College |
+| 🎉 **ZFC**: Zonal Fellowship Chair | **Rtr. Samrat Pandey** | Rotaract Club of Tripureswor |
+| 📣 **ZPIC**: Zonal Public Image Chair | **Rtr. Rishav Thapa** | Rotaract Club of Kathmandu Height |
 
 ---
 
-## 🕰️ A Line of Leadership — Zone 7's ZRRs, Year by Year
+## 🕰️ A Line of Leadership: Zone 7's ZRRs, Year by Year
 
-Every year, one Rotaractor steps up to guide the zone. This is the line so far:
+Every July, somebody new takes the wheel. Here's everyone who has held it so far:
 
 | Rotary Year | ZRR | Home Club |
 |---|---|---|
@@ -99,26 +99,26 @@ Every year, one Rotaractor steps up to guide the zone. This is the line so far:
 | 23–24 | <img src="team/Gopal-Shah.jpg" width="36" /> **Rtr. Gopal Shah** | Rotaract Club of Baneshwor |
 | 24–25 | <img src="team/Subina.jpg" width="36" /> **Rtr. Subina Kuickel** | Rotaract Club of Sankhu |
 | 25–26 | <img src="team/Nitesh.png" width="36" /> **Rtr. Nitesh Thakur** | Rotaract Club of Balkumari |
-| **26–27** | ⭐ **Rtr. Rajay Bajracharya** *(current)* | Rotaract Club of Sukedhara |
+| **26–27** | <img src="team/Rajay.png" width="36" /> ⭐ **Rtr. Rajay Bajracharya** *(current)* | Rotaract Club of Sukedhara |
 
 ---
 
 ## ✨ What This Website Does
 
-A digital home for the whole zone — not just a brochure, but a living platform for the 9 clubs:
+This isn't a pretty brochure that sits untouched. It's a working home for the whole zone, built for the 9 clubs:
 
-- 🧩 **Live project mosaic** — every project uploaded by Zone 7 clubs, in one skyline
-- 🏘️ **Club profiles** — each club's story, board, projects and letterhead
-- 📅 **District event calendar** — the full RY 2026–27 month-by-month
-- 🏆 **Excellence barometer** — the District 3292 club checklist with auto-verification
-- 👥 **Meet the boards** — faces of every club, year by year
-- 📚 **Guides for clubs & handbooks** — Rotaract Handbook, projects, grants, health, twinship, new-club
-- 🎓 **Tutorials** — board, meetings, assembly, DRR, ZRR, blood drives
-- 🤖 **RotaGPT** — an AI assistant trained on Zone 7 & Rotaract knowledge
-- 🛍️ **Merch store & Zonal Magazine** — flip-book reader + online shop
-- 🧮 **Club tools** — meeting minutes, attendance, motions & voting templates
-- 🎮 **ROTA Quiz** & selftest — knowledge, fun and fellowship
-- 🔐 **Admin dashboard** — clubs log in to manage their own data
+- 🧩 **Live project mosaic**: every project uploaded by Zone 7 clubs lands in one skyline
+- 🏘️ **Club profiles**: each club's story, board, projects and letterhead
+- 📅 **District event calendar**: the full RY 2026–27 month by month
+- 🏆 **Excellence barometer**: the District 3292 club checklist, auto-checked wherever it can be
+- 👥 **Meet the boards**: faces of every club, year by year
+- 📚 **Guides & handbooks**: the Rotaract Handbook, plus projects, grants, health, twinship and new-club packs
+- 🎓 **Tutorials**: board, meetings, assembly, DRR, ZRR, blood drives
+- 🤖 **RotaGPT**: an AI assistant trained on Zone 7 and Rotaract lore
+- 🛍️ **Merch & Zonal Magazine**: a flip-book reader and a little online shop
+- 🧮 **Club tools**: meeting minutes, attendance, motions and voting templates
+- 🎮 **ROTA Quiz** & selftest: some knowledge, some fun, all fellowship
+- 🔐 **Admin dashboard**: clubs log in and manage their own data
 
 ---
 
@@ -131,7 +131,7 @@ A digital home for the whole zone — not just a brochure, but a living platform
 | 🎨 **3D & motion** | Three.js · React Three Fiber · GSAP |
 | 🗄️ **Database & storage** | Supabase (PostgreSQL + Storage) |
 | 🚀 **Hosting** | Vercel serverless + GitHub Pages mirror |
-| 🤖 **AI assistant** | RotaGPT — DeepSeek / Pollinations powered |
+| 🤖 **AI assistant** | RotaGPT (DeepSeek / Pollinations) |
 | ✉️ **Email** | Nodemailer (Gmail SMTP) |
 
 ---
@@ -155,37 +155,35 @@ npm install
 npm run dev
 ```
 
-Open your browser and visit `http://localhost:3000` (or whatever local port your server prints).
+Open your browser to `http://localhost:3000`, or whatever local port your server happens to print.
 
 ---
 
-## 🤝 Contribute — This Is Everyone's Website
+## 🤝 Contribute: This Is Everyone's Website
 
-**Zone 7 is built by its people.** Whether you're a seasoned developer or writing your very first pull request, this repo is your sandbox. Here's how to get involved:
+**Zone 7 is built by its people.** Maybe you've shipped apps for years. Maybe this is your very first pull request. Either way, this repo is your sandbox and nobody here will laugh at you. Here's how to jump in:
 
 1. 🍴 **Fork** this repository to your GitHub account
-2. 🌿 **Create a feature branch** — `git checkout -b my-improvement`
-3. ✏️ **Make your changes** — fix bugs, improve accessibility, design features, update content
-4. 🚀 **Submit a pull request** — and say *namaste* in the description 🙏
+2. 🌿 **Create a feature branch** with `git checkout -b my-improvement`
+3. ✏️ **Make your changes**. Fix bugs, polish accessibility, design features, update content.
+4. 🚀 **Submit a pull request**, and drop a *namaste* in the description 🙏
 
 ### 💡 Ways you can help
 
-- 🐛 **Fixing bugs** — spot one, squash it
+- 🐛 **Fixing bugs**: spot one, squash it
 - ♿ **Improving accessibility & performance**
 - ✨ **Designing new features**
 - 🎨 **Enhancing the user experience**
 - 📝 **Updating content & documentation**
 - 👀 **Reviewing code & submitting suggestions**
 
-> 🛟 Don't know where to start? Open an **issue**, ask in the **discussions**, or reach the ZRR directly at **ri3292zone7@gmail.com**. Collaboration over competition — always.
+> 🛟 Stuck on where to begin? Open an issue, poke around the discussions, or email the ZRR at **ri3292zone7@gmail.com**. Collaboration over competition, every single time.
 
 ---
 
 ## 📜 License
 
-This project is licensed under the **MIT License**.
-
-You are free to use, modify, distribute and sublicense this software, provided the original copyright notice and license are included in all copies or substantial portions of the software.
+This project is released under the **MIT License**. Take it, use it, change it, hand it to someone else. Just keep the original copyright notice and license text in there. That's the whole deal.
 
 > 📖 A full operating runbook for maintainers lives in [OPS-README.md](OPS-README.md).
 
@@ -196,7 +194,7 @@ You are free to use, modify, distribute and sublicense this software, provided t
 </p>
 
 <p align="center">
-  Made with ❤️ by the clubs and members of <strong>Zone 7, Rotaract District 3292 Nepal–Bhutan</strong>.
+  Made with ❤️ (and a lot of chiya) by the clubs and members of <strong>Zone 7, Rotaract District 3292 Nepal–Bhutan</strong>.
 </p>
 
 <p align="center">
