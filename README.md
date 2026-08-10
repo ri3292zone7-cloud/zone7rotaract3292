@@ -1,29 +1,26 @@
 <p align="center">
-  <img src="zone7_og_image.png" alt="Zone 7 Rotaract | District 3292" width="520" />
+  <img src="zone7_og_image.png" alt="Zone 7 Rotaract | District 3292" width="440" />
 </p>
 
 <p align="center">
-  <img src="zone7_logos.png" alt="Rotaract District 3292 Nepal–Bhutan" width="420" />
+  <img src="zone7_logos.png" alt="Rotaract District 3292 Nepal–Bhutan" width="360" />
 </p>
 
-<h1 align="center">ZONE 7 · ROTARACT DISTRICT 3292</h1>
+<h1 align="center">Zone 7 · Rotaract District 3292</h1>
 
 <p align="center">
-  <strong>Nepal 🇳🇵 · Bhutan 🇧🇹</strong> &nbsp;|&nbsp; 9 Rotaract clubs across the Kathmandu Valley, united in service.
-</p>
-
-<p align="center">
-  <a href="https://zone7rotaract3292.vercel.app/" target="_blank"><img alt="Live Site" src="https://img.shields.io/badge/Live%20Site-zone7rotaract3292.vercel.app-0A0A23?style=for-the-badge&logo=vercel&logoColor=white" /></a>
-  <a href="https://ri3292zone7-cloud.github.io/zone7rotaract3292/" target="_blank"><img alt="GitHub Pages" src="https://img.shields.io/badge/GitHub%20Pages-mirror-E11A6E?style=for-the-badge&logo=github&logoColor=white" /></a>
-  <a href="https://www.instagram.com/zone7rotaract3292/" target="_blank"><img alt="Instagram" src="https://img.shields.io/badge/%40zone7rotaract3292-E4405F?style=for-the-badge&logo=instagram&logoColor=white" /></a>
-  <a href="https://opensource.org/licenses/MIT" target="_blank"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" /></a>
+  <em>Rotaract District 3292 · Nepal 🇳🇵 &amp; Bhutan 🇧🇹</em>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Open%20Source-100%25%20for%20Zone%207-2ea44f?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Clubs-9-1b1836?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Age%20Range-18--30-0A0A23?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Rotary%20Year-2026--27-E11A6E?style=for-the-badge" />
+  <a href="https://zone7rotaract3292.vercel.app/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/Website-zone7rotaract3292.vercel.app-1b1836?style=flat-square&logo=vercel&logoColor=white" /></a>
+  <a href="https://ri3292zone7-cloud.github.io/zone7rotaract3292/" target="_blank"><img alt="GitHub Pages" src="https://img.shields.io/badge/GitHub%20Pages-mirror-E11A6E?style=flat-square&logo=github&logoColor=white" /></a>
+  <a href="https://www.instagram.com/zone7rotaract3292/" target="_blank"><img alt="Instagram" src="https://img.shields.io/badge/Instagram-%40zone7rotaract3292-405DE6?style=flat-square&logo=instagram&logoColor=white" /></a>
+  <a href="https://opensource.org/licenses/MIT" target="_blank"><img alt="License" src="https://img.shields.io/badge/License-MIT-2EA44F?style=flat-square" /></a>
+</p>
+
+<p align="center">
+  <sub>9 clubs in the Kathmandu Valley · 180+ clubs districtwide · 5,500+ Rotaractors · ages 18–30 · RY 2026–27</sub>
 </p>
 
 ---
