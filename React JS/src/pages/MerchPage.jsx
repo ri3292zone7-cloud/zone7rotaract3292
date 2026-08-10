@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import IslandNav from '../components/island/IslandNav';
 import SiteFooter from '../components/layout/SiteFooter';
 import MagazineHero from '../components/magazine/MagazineHero';
 import MarqueeBand from '../components/magazine/MarqueeBand';
@@ -18,7 +17,6 @@ export default function MerchPage() {
 
   return (
     <div className="island-anim">
-      <IslandNav current="merch" />
       <main>
         <MagazineHero />
         <MarqueeBand />

@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import './store.css';
-import StoreNav from '../components/store/StoreNav';
 import StoreHero from '../components/store/StoreHero';
 import ProductSections from '../components/store/ProductSections';
 import VendorsSection from '../components/store/VendorsSection';
@@ -24,7 +23,6 @@ export default function StorePage() {
 
   return (
     <div className="st-page">
-      <StoreNav />
       <StoreHero />
       <ProductSections />
       <VendorsSection />
