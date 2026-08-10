@@ -157,9 +157,5 @@ html { scrollbar-gutter: stable; }
   .in-ctx { display: none; }
 }
 
-/* ── seamless page switch: soft fade-in, nav never shifts ──────── */
-@keyframes islandPageIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-.st-page, .island-anim { animation: islandPageIn 0.3s ease; }
+/* ── seamless page switch: instant swap, no fade, no flash ──────── */
+.st-page, .island-anim { background: var(--paper); }
