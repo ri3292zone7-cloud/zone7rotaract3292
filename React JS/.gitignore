@@ -25,5 +25,5 @@ dist-ssr
 
 dist-merch
 
-
-dist-vendor-pawsnepal
+# dist-vendor-pawsnepal is intentionally tracked: it's deployed to
+# Vercel directly (the vendor page is served straight from the repo).
