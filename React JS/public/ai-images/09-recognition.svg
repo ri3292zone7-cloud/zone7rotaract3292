@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#FDF4E8"/>
+  <defs>
+    <linearGradient id="bg9" x1="1" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#FFFDF9"/>
+      <stop offset="1" stop-color="#FBF0DF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg9)"/>
+  <circle cx="140" cy="200" r="230" fill="none" stroke="#F2A900" stroke-opacity="0.22" stroke-width="4"/>
+  <circle cx="1450" cy="700" r="250" fill="#E11A6E" opacity="0.05"/>
+
+  <g fill="none" stroke="#1B1836" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <!-- trophy -->
+    <path d="M620 300h260v140a130 130 0 01-260 0z" fill="#FFFDF7"/>
+    <path d="M620 310H540a90 90 0 0080 70M880 310h80a90 90 0 01-80 70" stroke="#1B1836" stroke-width="11" fill="none"/>
+    <path d="M750 440v100M690 600h120M720 620l10-20h40l10 20" stroke="#E11A6E" stroke-width="12"/>
+    <path d="M750 360c20-40 70-50 130-30-20 40-70 50-130 30z" fill="#F2A900" stroke="none"/>
+    <!-- medal -->
+    <circle cx="1150" cy="330" r="90" stroke="#A80F52" stroke-width="12"/>
+    <path d="M1150 330l40-60-80 0z" fill="#F2A900" stroke="none"/>
+    <path d="M1040 500l18-30 8 34 26-24 2 34 28-20-8 33 30-6-18 30" fill="#E11A6E" stroke="none"/>
+    <!-- star -->
+    <path d="M400 420l20 48 52-4-40 32 12 50-44-26-44 26 12-50-40-32 52 4z" fill="#F2A900" stroke="none"/>
+    <path d="M500 700h600" stroke-opacity="0.5"/>
+  </g>
+</svg>

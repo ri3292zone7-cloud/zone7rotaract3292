@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" role="img" aria-label="Seven areas of focus illustration">
+  <circle cx="400" cy="320" r="255" fill="#F4F0FB"/>
+  <circle cx="400" cy="320" r="205" fill="none" stroke="#A80F52" stroke-width="2.5" stroke-dasharray="3 14" opacity=".3"/>
+
+  <g>
+    <g fill="#1B1836">
+      <rect x="393" y="252" width="14" height="136" rx="7"/>
+      <rect x="393" y="252" width="14" height="136" rx="7" transform="rotate(45 400 320)"/>
+      <rect x="393" y="252" width="14" height="136" rx="7" transform="rotate(90 400 320)"/>
+      <rect x="393" y="252" width="14" height="136" rx="7" transform="rotate(135 400 320)"/>
+    </g>
+    <circle cx="400" cy="320" r="46" fill="#1B1836"/>
+    <circle cx="400" cy="320" r="18" fill="#fff"/>
+  </g>
+
+  <g stroke="#fff" stroke-width="4.5" stroke-linecap="round">
+    <g transform="translate(400 148)">
+      <circle r="12" fill="none"/>
+      <line x1="-12" y1="0" x2="12" y2="0"/>
+    </g>
+  </g>
+  <g transform="translate(536 205)">
+    <rect x="-37" y="-37" width="74" height="74" rx="19" fill="#C2410C"/>
+    <g stroke="#fff" stroke-width="4.5" stroke-linecap="round">
+      <line x1="-12" y1="0" x2="12" y2="0"/>
+      <line x1="0" y1="-12" x2="0" y2="12"/>
+    </g>
+  </g>
+  <g transform="translate(552 342)">
+    <rect x="-37" y="-37" width="74" height="74" rx="19" fill="#0E7490"/>
+    <path d="M0 -18 C 10 -9 10 3 0 12 C -10 3 -10 -9 0 -18 Z" fill="#fff"/>
+  </g>
+  <g transform="translate(520 472)">
+    <rect x="-37" y="-37" width="74" height="74" rx="19" fill="#A80F52"/>
+    <path d="M0 8 C -15 -6 -20 -16 -9 -16 C -2 -16 0 -10 0 -10 C 0 -10 2 -16 9 -16 C 20 -16 15 -6 0 8 Z" fill="#fff"/>
+  </g>
+  <g transform="translate(400 502)">
+    <rect x="-37" y="-37" width="74" height="74" rx="19" fill="#F2A900"/>
+    <rect x="-16" y="-9" width="32" height="18" rx="3" fill="#fff"/>
+    <line x1="0" y1="-9" x2="0" y2="9" stroke="#F2A900" stroke-width="3"/>
+  </g>
+  <g transform="translate(280 472)">
+    <rect x="-37" y="-37" width="74" height="74" rx="19" fill="#1B1836"/>
+    <rect x="-15" y="-7" width="30" height="21" rx="3" fill="#fff"/>
+    <path d="M-6 -7 v-4 a6 6 0 0 1 12 0 v4" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(248 342)">
+    <rect x="-37" y="-37" width="74" height="74" rx="19" fill="#3F8F5B"/>
+    <path d="M0 14 C -3 6 -9 -5 -17 -11 C -11 -12 3 -9 5 0 C 7 7 4 14 0 14 Z" fill="#fff"/>
+  </g>
+
+  <g>
+    <circle cx="400" cy="148" r="37" fill="#E11A6E"/>
+    <g stroke="#fff" stroke-width="4.5" stroke-linecap="round">
+      <circle cx="400" cy="148" r="12" fill="none"/>
+      <line x1="388" y1="148" x2="412" y2="148"/>
+    </g>
+  </g>
+
+  <g>
+    <path d="M120 220 l8 18 19 2 -14 13 4 19 -17 -10 -17 10 4 -19 -14 -13 19 -2 z" fill="#F2A900" opacity=".85"/>
+    <path d="M692 430 l8 18 19 2 -14 13 4 19 -17 -10 -17 10 4 -19 -14 -13 19 -2 z" fill="#E11A6E" opacity=".7"/>
+    <circle cx="150" cy="430" r="7" fill="#0E7490" opacity=".55"/>
+    <circle cx="662" cy="220" r="7" fill="#C2410C" opacity=".55"/>
+  </g>
+</svg>

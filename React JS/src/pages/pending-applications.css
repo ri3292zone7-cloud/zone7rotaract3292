@@ -1,0 +1,32 @@
+  body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; background: #12102b; color: #eee; overflow-x: hidden; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px; }
+  h1 { color: #F2A900; font-size: 1.4rem; }
+  p.hint { color: #b9b4e0; font-size: .92rem; }
+  .card { background: #1d1a3d; border: 1px solid #35316b; border-radius: 10px; padding: 16px 18px; margin: 14px 0; }
+  .card h3 { margin: 0 0 8px; color: #E11A6E; font-size: 1rem; }
+  .card pre { white-space: pre-wrap; word-break: break-word; margin: 0; font-size: .85rem; color: #ddd; }
+  .empty { color: #8a86b8; text-align: center; padding: 40px 0; }
+  .btn { display: inline-block; margin: 6px 6px 0 0; padding: 8px 14px; border: none; border-radius: 8px;
+         background: #E11A6E; color: #fff; cursor: pointer; font-size: .9rem; }
+  .btn.ghost { background: transparent; border: 1px solid #55508f; color: #ccc; }
+  .count { font-weight: 600; color: #F2A900; }
+
+  /* Supabase applications section (React port) */
+  .pa-hr { border: none; border-top: 1px solid #35316b; margin: 44px 0 26px; }
+  .pa-title { color: #F2A900; font-size: 1.1rem; margin: 0 0 8px; }
+  .pa-status {
+    display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 100px;
+    font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
+    background: rgba(242,169,0,.15); color: #F2A900; vertical-align: middle;
+  }
+  .pa-status.approved, .pa-status.contacted, .pa-status.onboarded { background: rgba(34,160,90,.18); color: #4ade80; }
+  .pa-status.rejected { background: rgba(225,26,110,.18); color: #f78cae; }
+  .pa-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .pa-actions .btn { margin: 0; }
+  .pa-actions .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .pa-actions .btn.approve { background: #1c8a4d; }
+  .pa-actions .btn.approve:hover { background: #156b3b; }
+  .pa-actions .btn.reject { background: #a80f52; }
+  .pa-actions .btn.reject:hover { background: #8a0c43; }
+  .pa-meta { font-size: .8rem; color: #8a86b8; margin: 10px 0 4px; }

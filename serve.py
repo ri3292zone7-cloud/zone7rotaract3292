@@ -9,6 +9,7 @@ Usage:
 """
 import http.server
 import os
+import re
 import sys
 import urllib.parse
 
@@ -82,9 +83,9 @@ class Zone7Handler(http.server.SimpleHTTPRequestHandler):
             self.serve_file("/club.html")
             return
 
-        self.serve_file(path)
+        self.serve_file(path, range_support=True)
 
-    def serve_file(self, rel):
+    def serve_file(self, rel, range_support=False):
         target = os.path.normpath(os.path.join(ROOT, rel.lstrip("/")))
         if not target.startswith(ROOT):
             self.send_error(404, "Not Found")
@@ -105,13 +106,37 @@ class Zone7Handler(http.server.SimpleHTTPRequestHandler):
             return
         ext = os.path.splitext(target)[1].lower()
         ctype = MIME.get(ext, "application/octet-stream")
-        with open(target, "rb") as f:
-            data = f.read()
+        size = os.path.getsize(target)
+        range_header = self.headers.get("Range")
+        if range_support and range_header:
+            m = re.match(r"bytes=(\d*)-(\d*)", range_header)
+            if m:
+                start = int(m.group(1)) if m.group(1) else 0
+                end = int(m.group(2)) if m.group(2) else size - 1
+                if start >= size:
+                    self.send_response(416)
+                    self.send_header("Content-Range", "bytes */%d" % size)
+                    self.end_headers()
+                    return
+                end = min(end, size - 1)
+                length = end - start + 1
+                self.send_response(206)
+                self.send_header("Content-Type", ctype)
+                self.send_header("Accept-Ranges", "bytes")
+                self.send_header("Content-Range", "bytes %d-%d/%d" % (start, end, size))
+                self.send_header("Content-Length", str(length))
+                self.end_headers()
+                with open(target, "rb") as f:
+                    f.seek(start)
+                    self.wfile.write(f.read(length))
+                return
         self.send_response(200)
         self.send_header("Content-Type", ctype)
-        self.send_header("Content-Length", str(len(data)))
+        self.send_header("Accept-Ranges", "bytes")
+        self.send_header("Content-Length", str(size))
         self.end_headers()
-        self.wfile.write(data)
+        with open(target, "rb") as f:
+            self.wfile.write(f.read())
 
     def log_message(self, fmt, *args):
         sys.stderr.write("[%s] %s\n" % (self.address_string(), fmt % args))

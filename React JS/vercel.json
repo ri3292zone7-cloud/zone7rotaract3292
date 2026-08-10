@@ -1,0 +1,39 @@
+{
+  "rewrites": [
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    { "source": "/DRR Visit RY 23-24/:path*", "destination": "/404" },
+    { "source": "/DRR%20Visit%20RY%2023-24/:path*", "destination": "/404" },
+    { "source": "/rkt-quiz", "destination": "/quiz" },
+    { "source": "/tutorial-meetings", "destination": "/tutorial/meetings" },
+    { "source": "/tutorial-board", "destination": "/tutorial/board" },
+    { "source": "/tutorial-assembly", "destination": "/tutorial/assembly" },
+    { "source": "/tutorial-zrr", "destination": "/tutorial/zrr" },
+    { "source": "/tutorial-drr", "destination": "/tutorial/drr" },
+    { "source": "/tutorial-blood", "destination": "/tutorial/blood" },
+    { "source": "/handbook-grants", "destination": "/handbook/grants" },
+    { "source": "/handbook-twinship", "destination": "/handbook/twinship" },
+    { "source": "/handbook-newclub", "destination": "/handbook/newclub" },
+    { "source": "/handbook-projects", "destination": "/handbook/projects" },
+    { "source": "/handbook-health", "destination": "/handbook/health" },
+    { "source": "/balkumari", "destination": "/club/balkumari" },
+    { "source": "/baneshwor", "destination": "/club/baneshwor" },
+    { "source": "/liberty", "destination": "/club/liberty" },
+    { "source": "/kathmanduwest", "destination": "/club/kathmanduwest" },
+    { "source": "/kathmanduheight", "destination": "/club/kathmanduheight" },
+    { "source": "/sankhu", "destination": "/club/sankhu" },
+    { "source": "/newroadcity", "destination": "/club/newroadcity" },
+    { "source": "/sukedhara", "destination": "/club/sukedhara" },
+    { "source": "/tripureswor", "destination": "/club/tripureswor" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)\\.(jpg|jpeg|png|gif|webp|svg|ico|woff2?|ttf|pdf)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }]
+    },
+    {
+      "source": "/(.*)\\.(css|js)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=86400" }]
+    }
+  ]
+}

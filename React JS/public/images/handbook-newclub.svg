@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" role="img" aria-label="New club launch illustration">
+  <circle cx="400" cy="330" r="250" fill="#FBEFF5"/>
+  <circle cx="400" cy="330" r="200" fill="none" stroke="#E11A6E" stroke-width="2.5" stroke-dasharray="3 14" opacity=".35"/>
+
+  <g>
+    <path d="M400 150 L445 330 C439 342 361 342 355 330 Z" fill="#1B1836"/>
+    <circle cx="400" cy="265" r="24" fill="#C9E7F0" stroke="#F2A900" stroke-width="7"/>
+    <path d="M362 316 L326 362 L374 352 Z" fill="#E11A6E"/>
+    <path d="M438 316 L474 362 L426 352 Z" fill="#E11A6E"/>
+    <path d="M382 338 L400 402 L418 338 Z" fill="#F2A900"/>
+    <ellipse cx="400" cy="424" rx="30" ry="12" fill="#1B1836" opacity=".12"/>
+  </g>
+
+  <g>
+    <rect x="228" y="180" width="9" height="230" rx="4.5" fill="#A80F52"/>
+    <path d="M237 180 L332 196 L237 212 Z" fill="#F2A900"/>
+    <g stroke="#1B1836" stroke-width="5" stroke-linecap="round">
+      <circle cx="272" cy="196" r="11" fill="none"/>
+      <line x1="272" y1="183" x2="272" y2="209"/>
+      <line x1="259" y1="196" x2="285" y2="196"/>
+    </g>
+  </g>
+
+  <g>
+    <circle cx="642" cy="300" r="22" fill="#0E7490"/>
+    <rect x="606" y="330" width="72" height="38" rx="19" fill="#0E7490"/>
+    <circle cx="712" cy="322" r="17" fill="#E11A6E"/>
+    <rect x="684" y="346" width="56" height="30" rx="15" fill="#E11A6E"/>
+  </g>
+
+  <g fill="#E11A6E">
+    <rect x="480" y="120" width="14" height="14" rx="4" transform="rotate(24 487 127)"/>
+    <circle cx="560" cy="150" r="7"/>
+    <rect x="330" y="90" width="12" height="12" rx="3.5" transform="rotate(-20 336 96)"/>
+  </g>
+  <g fill="#F2A900">
+    <circle cx="150" cy="180" r="8"/>
+    <rect x="636" y="210" width="12" height="12" rx="3.5" transform="rotate(30 642 216)"/>
+  </g>
+  <g fill="#0E7490">
+    <rect x="190" y="340" width="12" height="12" rx="3.5" transform="rotate(-25 196 346)"/>
+    <circle cx="680" y="452" r="7"/>
+  </g>
+  <path d="M656 300 l9 20 21 3 -16 14 5 21 -19 -11 -19 11 5 -21 -16 -14 21 -3 z" fill="#C2410C" opacity=".75"/>
+</svg>

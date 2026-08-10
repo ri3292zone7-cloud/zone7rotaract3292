@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#FFFDF9"/>
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#FEF6EC"/>
+      <stop offset="1" stop-color="#FFFDF9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg4)"/>
+  <circle cx="1400" cy="200" r="240" fill="#F2A900" opacity="0.10"/>
+  <circle cx="140" cy="680" r="260" fill="#E11A6E" opacity="0.06"/>
+
+  <g fill="none" stroke="#1B1836" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <!-- calendar -->
+    <rect x="420" y="260" width="340" height="420" rx="36"/>
+    <path d="M480 240v-60M700 240v-60M440 380h300" stroke-width="10"/>
+    <path d="M520 480l28 46 56-72 80 20" stroke="#E11A6E" stroke-width="12"/>
+    <!-- meeting table -->
+    <path d="M1040 560l140-150 140 150h-280z" fill="#1B1836" stroke="none"/>
+    <path d="M1090 410l-18-70M1134 410l14-70M1178 410l20-60" stroke="#1B1836" stroke-width="8"/>
+    <!-- clock -->
+    <circle cx="1210" cy="560" r="150"/>
+    <path d="M1210 500v70l50 34" stroke="#A80F52" stroke-width="10"/>
+    <circle cx="1210" cy="560" r="18" fill="#A80F52" stroke="none"/>
+    <!-- dots -->
+    <circle cx="300" cy="260" r="12" fill="#F2A900" stroke="none"/>
+    <circle cx="340" cy="300" r="9" fill="#E11A6E" stroke="none"/>
+  </g>
+</svg>

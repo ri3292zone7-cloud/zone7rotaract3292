@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#F2F8F5"/>
+  <defs>
+    <linearGradient id="bg10" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFFDF9"/>
+      <stop offset="1" stop-color="#EAF4F0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg10)"/>
+  <circle cx="200" cy="230" r="280" fill="none" stroke="#A80F52" stroke-opacity="0.08" stroke-width="4"/>
+  <circle cx="1400" cy="720" r="210" fill="#F2A900" opacity="0.12"/>
+
+  <g fill="none" stroke="#1B1836" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <!-- sprout -->
+    <path d="M800 780V520M760 560c-20-60-60-100-140-120 30 90 80 140 140 120M840 560c20-60 60-100 140-120-30 90-80 140-140 120" stroke="#E11A6E" stroke-width="12"/>
+    <path d="M800 460c-30-40-70-60-130-60 20 60 60 90 130 60z" fill="#F2A900" stroke="none"/>
+    <path d="M800 460c30-40 70-60 130-60-20 60-60 90-130 60z" fill="#F2A900" stroke="none"/>
+    <!-- sun -->
+    <circle cx="1150" cy="400" r="120" fill="none" stroke="#F2A900" stroke-width="14"/>
+    <path d="M1150 220v-50M1150 580v50M970 400h-50M1330 400h50M1030 280l-36-36M1270 520l36 36M1270 280l36-36M1030 520l-36 36" stroke="#F2A900" stroke-width="10"/>
+    <!-- heart -->
+    <path d="M960 640c8-44 40-70 84-70 40 0 66 26 66 70 0 54-120 96-150 96s-150-42-150-96z" fill="#E11A6E" stroke="none"/>
+  </g>
+</svg>

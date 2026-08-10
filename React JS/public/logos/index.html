@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zone 7 Rotaract | District 3292 Nepal-Bhutan</title>
+
+<!-- SEO -->
+<meta name="description" content="Zone 7 unites 9 Rotaract clubs across the Kathmandu Valley under District 3292 Nepal-Bhutan — service, fellowship and leadership for young adults aged 18–30.">
+<link rel="canonical" href="https://zone7rotaract3292.vercel.app/">
+
+<!-- Favicon -->
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon.png">
+
+<!-- Open Graph / rich link previews -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zone 7 Rotaract">
+<meta property="og:title" content="Zone 7 Rotaract | District 3292 Nepal-Bhutan">
+<meta property="og:description" content="Zone 7 unites 9 Rotaract clubs across the Kathmandu Valley under District 3292 Nepal-Bhutan — service, fellowship and leadership for young adults aged 18–30.">
+<meta property="og:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
+<meta property="og:url" content="https://zone7rotaract3292.vercel.app/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="zone7-data.js"></script>
+<style>
+  :root{
+    --ink:#1B1836;
+    --magenta:#E11A6E;
+    --magenta-deep:#A80F52;
+    --gold:#F2A900;
+    --cream:#FFF8EF;
+    --paper:#FFFDF9;
+    --line: rgba(27,24,54,0.1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.disp{
+    font-family:'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight:800;
+    letter-spacing:-0.02em;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+  /* NAV */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(255,253,249,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Poppins'; font-weight:800; font-size:1.1rem;}
+  .brand .z{
+    background:var(--magenta); color:#fff; width:34px; height:34px; border-radius:8px;
+    display:flex; align-items:center; justify-content:center; font-size:1.05rem;
+  }
+  .navlinks{display:flex; gap:34px; font-weight:600; font-size:0.92rem; align-items:center;}
+  .navlinks > a{position:relative; padding:4px 0; color:var(--ink); opacity:0.75; transition:opacity .2s;}
+  .navlinks > a:hover{opacity:1;}
+
+  /* NAV DROPDOWNS */
+  .nav-drop{position:relative;}
+  .nav-drop::before{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);width:440px;height:20px;}
+  .nav-drop-trigger{
+    display:flex; align-items:center; gap:5px; background:none; border:none; cursor:pointer;
+    font-family:'Inter'; font-weight:600; font-size:0.92rem; color:var(--ink); opacity:0.75; padding:4px 0; transition:opacity .2s;
+  }
+  .nav-drop-trigger svg{transition:transform .2s;}
+  .nav-drop:hover .nav-drop-trigger, .nav-drop.open .nav-drop-trigger{opacity:1;}
+  .nav-drop.open .nav-drop-trigger svg{transform:rotate(180deg);}
+  .nav-drop-panel{
+    position:absolute; top:calc(100% + 18px); left:50%; transform:translateX(-50%) translateY(6px);
+    background:var(--paper); border:1px solid var(--line); border-radius:18px; box-shadow:0 24px 48px rgba(27,24,54,0.14);
+    padding:14px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; z-index:60;
+  }
+  .nav-drop:hover .nav-drop-panel, .nav-drop.open .nav-drop-panel{opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);}
+  .nav-drop-panel::before{
+    content:""; position:absolute; top:-6px; left:50%; transform:translateX(-50%) rotate(45deg);
+    width:12px; height:12px; background:var(--paper); border-left:1px solid var(--line); border-top:1px solid var(--line);
+  }
+  .clubs-drop-panel{width:420px;}
+  .clubs-drop-grid{display:grid; grid-template-columns:1fr 1fr; gap:4px;}
+  .clubs-drop-item{
+    display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:12px; transition:background .15s;
+  }
+  .clubs-drop-item:hover{background:rgba(225,26,110,0.07);}
+  .clubs-drop-item img{width:28px; height:28px; border-radius:8px; object-fit:contain; background:#fff; border:1px solid var(--line); padding:3px; flex-shrink:0;}
+  .clubs-drop-item span{font-size:0.82rem; font-weight:600; color:var(--ink); line-height:1.25;}
+  .clubs-drop-foot{
+    display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:10px; padding-top:10px;
+    border-top:1px solid var(--line);
+  }
+  .clubs-drop-foot a{font-size:0.8rem; font-weight:700; color:var(--magenta-deep);}
+  .res-drop-panel{width:290px;}
+  .res-drop-item{display:flex; gap:12px; padding:11px 10px; border-radius:12px; transition:background .15s; align-items:flex-start;}
+  .res-drop-item:hover{background:rgba(225,26,110,0.07);}
+  .res-drop-ico{
+    width:34px; height:34px; border-radius:10px; background:rgba(225,26,110,0.09); color:var(--magenta-deep);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:1rem;
+  }
+  .res-drop-item h5{font-size:0.86rem; font-weight:700; color:var(--ink); margin-bottom:2px;}
+  .res-drop-item p{font-size:0.74rem; color:rgba(27,24,54,0.5); line-height:1.4; margin:0;}
+  @media (max-width:920px){ .nav-drop{display:none;} }
+  .nav-cta{
+    background:var(--ink); color:#fff !important; padding:10px 20px; border-radius:100px;
+    font-weight:700; font-size:0.85rem; opacity:1 !important;
+  }
+  .nav-admin{
+    font-weight:700; font-size:0.85rem; color:var(--magenta-deep); opacity:0.85; transition:opacity .2s;
+  }
+  .nav-admin:hover{opacity:1;}
+  .burger{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+  .burger span{display:block; width:22px; height:2px; background:var(--ink); margin:5px 0; border-radius:2px;}
+  .mobile-menu{display:none; position:fixed; top:76px; left:0; right:0; background:var(--paper); border-bottom:1px solid var(--line); z-index:99; padding:18px 28px; flex-direction:column; gap:16px;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-weight:600; font-size:1rem; color:var(--ink);}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:170px 0 120px;
+    overflow:hidden;
+    background:
+      linear-gradient(180deg, rgba(15,12,28,0.72) 0%, rgba(15,12,28,0.55) 38%, rgba(27,24,54,0.88) 82%, var(--ink) 100%),
+      radial-gradient(1200px 500px at 85% -10%, rgba(225,26,110,0.22), transparent 60%),
+      url('zone7_cover.jpg');
+    background-size:cover;
+    background-position:center 30%;
+    background-repeat:no-repeat;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:radial-gradient(900px 500px at 15% 15%, rgba(225,26,110,0.16), transparent 65%);
+  }
+  .hero-orbit{
+    position:absolute;
+    right:-2%; top:50%; transform:translateY(-50%);
+    width:min(54vw, 640px); height:min(54vw, 640px);
+    z-index:0; user-select:none; cursor:default;
+  }
+  .orbit-seven-anim{
+    position:absolute; inset:0;
+    transform-origin:center;
+    animation:sevenBreathe 7s ease-in-out infinite;
+  }
+  .orbit-seven{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Poppins'; font-weight:900; font-size:min(40vw, 500px);
+    line-height:1; color:transparent;
+    pointer-events:none;
+    background:linear-gradient(165deg, rgba(255,255,255,0.14) 0%, rgba(242,169,0,0.12) 100%);
+    -webkit-background-clip:text; background-clip:text;
+  }
+  @keyframes sevenBreathe{
+    0%, 100%{ transform:scale(1); filter:drop-shadow(0 20px 44px rgba(225,26,110,0.1)); }
+    50%{ transform:scale(1.06); filter:drop-shadow(0 26px 60px rgba(225,26,110,0.16)); }
+  }
+  @media(max-width:920px){ .hero-orbit{ right:-10%; width:min(60vw,380px); height:min(60vw,380px); } }
+  @media(max-width:600px){ .hero-orbit{ display:none; } }
+  @media (prefers-reduced-motion: reduce){ .orbit-seven-anim{ animation:none; } }
+  @media (prefers-reduced-motion: reduce){
+    #rpSeven{ animation:none; opacity:1; transform:none; clip-path:none; }
+  }
+  .eyebrow{
+    position:relative; z-index:1;
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    color:#fff; background:rgba(255,255,255,0.14); backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,0.22);
+    padding:8px 16px; border-radius:100px; margin-bottom:26px;
+  }
+  .eyebrow span.dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
+  .hero h1{
+    position:relative; z-index:1;
+    font-size:clamp(2.6rem, 6vw, 4.6rem);
+    line-height:1.02;
+    max-width:820px;
+    color:#fff;
+    text-shadow:0 4px 26px rgba(0,0,0,0.35);
+  }
+  .hero h1 .hl{
+    background:linear-gradient(100deg, #ff5fa0, var(--gold));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero h1 .hl .mag-word-boost{
+    background:inherit; -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lead{
+    position:relative; z-index:1;
+    font-size:1.18rem; color:rgba(255,255,255,0.82); max-width:560px; margin-top:26px; line-height:1.65;
+    text-shadow:0 2px 14px rgba(0,0,0,0.3);
+  }
+  .hero-actions{position:relative; z-index:1; display:flex; gap:16px; margin-top:42px; flex-wrap:wrap;}
+  .hero-actions-secondary{margin-top:14px;}
+  .btn{
+    padding:15px 30px; border-radius:100px; font-weight:700; font-size:0.95rem;
+    display:inline-flex; align-items:center; gap:8px; transition:transform .2s, box-shadow .2s;
+  }
+  .btn-primary{background:var(--ink); color:#fff;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(27,24,54,0.22);}
+  .btn-ghost{border:1.6px solid var(--ink); color:var(--ink);}
+  .btn-ghost:hover{background:var(--ink); color:#fff;}
+  .hero .btn-ghost{border:1.6px solid rgba(255,255,255,0.55); color:#fff;}
+  .hero .btn-ghost:hover{background:#fff; color:var(--ink); border-color:#fff;}
+
+  .stat-row{
+    position:relative; z-index:1;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    margin-top:90px; padding-top:40px; border-top:1px solid rgba(255,255,255,0.18);
+    max-width:920px;
+  }
+  .stat b{display:block; font-family:'Poppins'; font-weight:800; font-size:2.3rem; color:var(--gold);}
+  .stat span{font-size:0.85rem; color:rgba(255,255,255,0.68); font-weight:600;}
+
+  /* SECTION HEADER PATTERN */
+  .section{padding:110px 0;}
+  .section-tag{
+    font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--magenta-deep); margin-bottom:18px; display:block;
+  }
+  .section h2{font-size:clamp(1.9rem,3.4vw,2.7rem); max-width:640px; margin-bottom:24px; line-height:1.15;}
+  .section p.sub{color:rgba(27,24,54,0.65); font-size:1.05rem; max-width:600px; line-height:1.75;}
+
+  /* ABOUT */
+  .about{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line); position:relative; overflow:hidden;}
+  .about::before{
+    content:""; position:absolute; top:-120px; left:50%; transform:translateX(-50%); width:600px; height:600px;
+    background:radial-gradient(circle, rgba(225,26,110,0.07), transparent 65%); z-index:0; pointer-events:none;
+  }
+  .about .wrap{position:relative; z-index:1;}
+  .about .section-tag{
+    display:inline-flex; align-items:center; gap:8px; background:rgba(225,26,110,0.09); color:var(--magenta-deep);
+    padding:7px 16px; border-radius:100px; margin-bottom:0;
+  }
+  .about .section-tag::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--gold); display:inline-block;}
+  .about h2{margin-top:18px;}
+  .about h2 .mark{
+    background:linear-gradient(100deg, var(--magenta), var(--magenta-deep));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .about-copy p{color:rgba(27,24,54,0.72); line-height:1.85; margin-bottom:22px; font-size:1.02rem;}
+
+  /* SKYLINE PROJECT MOSAIC — refined */
+  .mosaic-head{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:14px; margin:36px 0 22px;}
+  .mosaic-head h3{font-size:1.2rem;}
+  .mosaic-tabs{display:flex; gap:6px; background:var(--paper); border:1px solid var(--line); border-radius:100px; padding:4px;}
+  .mt{
+    font-size:0.74rem; font-weight:700; color:rgba(27,24,54,0.45); cursor:pointer; text-transform:uppercase;
+    letter-spacing:0.04em; padding:7px 14px; border-radius:100px; transition:background .2s, color .2s;
+  }
+  .mt.active{color:#fff; background:var(--ink);}
+  .mt:hover:not(.active){color:var(--magenta-deep);}
+  .mosaic-frame{
+    background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:28px 24px 20px;
+    position:relative; overflow:hidden;
+  }
+  .mosaic-frame::before{
+    content:""; position:absolute; top:-80px; right:-60px; width:280px; height:280px; border-radius:50%;
+    background:radial-gradient(circle, rgba(225,26,110,0.06), transparent 70%); pointer-events:none;
+  }
+  .mosaic-columns{
+    position:relative; display:flex; flex-wrap:wrap; align-items:flex-end; align-content:flex-end;
+    gap:10px 3px; padding:6px 2px 18px; justify-content:flex-start;
+  }
+  .mosaic-col{
+    display:flex; flex-direction:column; align-items:center; flex:0 0 auto; width:auto; min-width:32px;
+    transition:opacity .25s;
+  }
+  .mosaic-columns.dim .mosaic-col{opacity:0.25;}
+  .mosaic-columns.dim .mosaic-col.hi{opacity:1;}
+  .mosaic-substacks{display:flex; align-items:flex-end; gap:3px;}
+  .mosaic-stack{display:flex; flex-direction:column-reverse; gap:2px; position:relative; z-index:1;}
+  .mosaic-tile{
+    width:32px; height:32px; border-radius:7px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.88rem;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -2px 4px rgba(0,0,0,0.12);
+    transition:transform .18s cubic-bezier(.34,1.4,.64,1), box-shadow .18s, filter .18s;
+  }
+  /* Hover-lift effect scoped to devices that actually support hover
+     (mouse/trackpad). On touch devices this rule used to "stick" after a
+     tap — since there's no mouseleave event — which made tiles stay
+     scaled up and overlapping their neighbors on mobile. */
+  @media (hover: hover) and (pointer: fine) {
+    .mosaic-tile:hover{
+      transform:translateY(-5px) scale(1.16); z-index:3; filter:brightness(1.08);
+      box-shadow:0 12px 20px rgba(27,24,54,0.32), inset 0 1px 0 rgba(255,255,255,0.4);
+    }
+  }
+  .mosaic-col-code{
+    margin-top:10px; padding-top:8px; width:100%; text-align:center; border-top:1px solid var(--line);
+    font-family:'Poppins'; font-size:0.62rem; font-weight:800; color:rgba(27,24,54,0.4);
+    letter-spacing:0.06em; white-space:nowrap;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .mosaic-col:hover .mosaic-col-code{color:var(--magenta-deep);}
+  }
+  .mosaic-note{margin-top:14px; font-size:0.78rem; color:rgba(27,24,54,0.4);}
+  .mosaic-popup{
+    position:fixed; z-index:500; width:230px; background:var(--paper); border:1px solid var(--line);
+    border-radius:14px; padding:14px 16px; box-shadow:0 20px 40px rgba(27,24,54,0.22); pointer-events:none;
+    opacity:0; transform:translateY(6px); transition:opacity .15s, transform .15s;
+  }
+  .mosaic-popup.show{opacity:1; transform:translateY(0);}
+  .mosaic-popup .mp-tag{font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:3px 9px; border-radius:100px; display:inline-block; margin-bottom:8px;}
+  .mosaic-popup h5{font-size:0.9rem; margin-bottom:4px; font-family:'Poppins'; font-weight:700;}
+  .mosaic-popup p{font-size:0.76rem; color:rgba(27,24,54,0.55); margin:0;}
+  @media (max-width:600px){ .mosaic-tile,.mosaic-col{width:26px;} .mosaic-tile{height:26px; font-size:0.72rem;} .mosaic-frame{padding:20px 14px 14px;} }
+  .pillar{
+    background:var(--cream); border:1px solid var(--line); border-radius:18px; padding:28px 30px;
+    display:flex; gap:20px; align-items:flex-start;
+  }
+  .pillar .num{
+    font-family:'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-weight:800; font-size:1.4rem; color:var(--gold); min-width:34px;
+  }
+  .pillar h4{font-size:1.02rem; margin-bottom:8px;}
+  .pillar p{font-size:0.9rem; color:rgba(27,24,54,0.62); line-height:1.6;}
+
+  /* ZRR / LEADERSHIP */
+  .leader{padding:80px 0 30px;}
+  .leader-card{
+    background:linear-gradient(135deg, var(--ink), #2b2555);
+    border-radius:24px; padding:40px 44px; color:#fff;
+    position:relative; overflow:hidden;
+  }
+  .leader-card::after{
+    content:"7"; position:absolute; right:-30px; bottom:-60px; font-family:'Poppins'; font-weight:900;
+    font-size:14rem; color:rgba(255,255,255,0.045); line-height:1;
+  }
+  .leader-grid{
+    position:relative; z-index:1;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:28px;
+  }
+  .leader-item .role{
+    color:var(--gold); font-weight:700; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
+    margin-bottom:8px; display:block;
+  }
+  .leader-item{
+    background:none; border:none; padding:0; text-align:left; font-family:inherit; cursor:pointer; width:100%; color:#fff;
+  }
+  .leader-avatar{
+    width:92px; height:92px; border-radius:50%; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.22);
+    display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:18px;
+    font-family:'Poppins'; font-weight:800; font-size:1.5rem; color:rgba(255,255,255,0.7);
+  }
+  .leader-avatar img{width:100%; height:100%; object-fit:cover;}
+  .leader-item h4{font-size:1.05rem; font-weight:700; font-family:'Poppins'; transition:color .2s;}
+  .leader-item:hover h4{color:var(--gold);}
+  .leader-item .role-full{
+    display:block; font-size:0.74rem; font-weight:500; color:rgba(255,255,255,0.5); margin-top:4px;
+  }
+  .leader-item .leader-club{
+    display:block; font-size:0.72rem; font-weight:600; color:rgba(255,255,255,0.55); margin-top:6px;
+  }
+  @media (max-width:920px){
+    .leader-grid{grid-template-columns:repeat(2,1fr); row-gap:24px;}
+  }
+
+  /* ZRR TIMELINE */
+  .zrr-timeline{padding:44px 0 56px;}
+  .zrr-timeline .section-tag, .zrr-timeline h2{text-align:center; margin-left:auto; margin-right:auto;}
+  .zrr-timeline h2{max-width:640px; margin-bottom:0;}
+  @media (max-width:600px){
+    .zrr-timeline h2{font-size:1.5rem;}
+  }
+  .zrr-track{
+    position:relative; display:flex; justify-content:space-between; align-items:flex-start;
+    margin:48px auto 0; gap:4px; max-width:1040px;
+  }
+  .zrr-track::before{
+    content:""; position:absolute; top:15px; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, var(--line) 0%, var(--magenta) 50%, var(--line) 100%);
+    z-index:0;
+  }
+  .zrr-node{
+    position:relative; z-index:1; flex:1; display:flex; flex-direction:column; align-items:center;
+    text-align:center; cursor:pointer; background:none; border:none; font-family:inherit; padding:0;
+  }
+  .zrr-avatar{
+    width:46px; height:46px; border-radius:50%; background:var(--paper); border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:10px; flex-shrink:0;
+    font-family:'Poppins'; font-weight:800; font-size:0.78rem; color:var(--magenta-deep); transition:border-color .25s, box-shadow .25s;
+  }
+  .zrr-avatar img{width:100%; height:100%; object-fit:cover;}
+  .zrr-node:hover .zrr-avatar, .zrr-node:focus-visible .zrr-avatar{border-color:var(--magenta-deep); box-shadow:0 0 0 5px rgba(225,26,110,0.12);}
+  .zrr-node.current .zrr-avatar{border-color:var(--magenta); box-shadow:0 0 0 5px rgba(225,26,110,0.16);}
+  .zrr-dot{display:none;}
+  .zrr-node:hover .zrr-dot, .zrr-node:focus-visible .zrr-dot{transform:scale(1.35); background:var(--magenta-deep); box-shadow:0 0 0 6px rgba(225,26,110,0.14);}
+  .zrr-node.current .zrr-dot{
+    background:var(--magenta); border-color:var(--magenta); width:17px; height:17px;
+    box-shadow:0 0 0 6px rgba(225,26,110,0.16);
+  }
+  .zrr-year{font-size:0.7rem; font-weight:700; color:rgba(27,24,54,0.45); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;}
+  .zrr-node.current .zrr-year{color:var(--magenta-deep);}
+  .zrr-name{font-family:'Poppins'; font-weight:700; font-size:0.86rem; line-height:1.3; max-width:130px; transition:color .2s;}
+  .zrr-node:hover .zrr-name, .zrr-node:focus-visible .zrr-name{color:var(--magenta-deep);}
+  .zrr-club{font-size:0.66rem; font-weight:600; color:rgba(27,24,54,0.4); margin-top:4px; max-width:140px; line-height:1.3;}
+  .zrr-tag{
+    margin-top:8px; font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em;
+    color:#fff; background:var(--magenta); padding:3px 10px; border-radius:100px;
+  }
+  @media (max-width:920px){
+    .zrr-track{flex-wrap:wrap; row-gap:26px; column-gap:12px; justify-content:center;}
+    .zrr-track::before{display:none;}
+    .zrr-node{flex:0 0 33.33%; max-width:33.33%;}
+    .zrr-dot{margin-bottom:10px;}
+    .zrr-year{margin-bottom:6px;}
+  }
+  @media (max-width:600px){
+    .zrr-timeline{padding:30px 0 36px;}
+    .zrr-track{row-gap:20px; column-gap:8px; margin-top:28px;}
+    .zrr-node{flex:0 0 50%; max-width:50%;}
+    .zrr-name{font-size:0.8rem; max-width:130px; margin:0 auto;}
+    .zrr-tag{margin-top:8px;}
+  }
+
+  /* ZRR MODAL */
+  .zrr-modal-overlay{
+    position:fixed; inset:0; background:rgba(27,24,54,0.55); backdrop-filter:blur(3px);
+    display:none; align-items:center; justify-content:center; z-index:1000; padding:24px;
+  }
+  .zrr-modal-overlay.open{display:flex;}
+  .zrr-modal{
+    background:var(--paper); border-radius:24px; max-width:420px; width:100%; padding:36px 34px;
+    position:relative; box-shadow:0 30px 70px rgba(27,24,54,0.28); text-align:center;
+  }
+  .zrr-modal-close{
+    position:absolute; top:16px; right:16px; width:32px; height:32px; border-radius:50%; border:1.5px solid var(--line);
+    background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1rem; color:var(--ink);
+  }
+  .zrr-modal-close:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .zrr-modal-avatar{
+    width:84px; height:84px; border-radius:50%; margin:0 auto 18px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, var(--magenta), var(--magenta-deep)); color:#fff; font-family:'Poppins'; font-weight:800;
+    font-size:1.6rem; overflow:hidden;
+  }
+  .zrr-modal .zrr-modal-year{
+    display:inline-block; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:6px 14px; border-radius:100px; margin-bottom:14px;
+  }
+  .zrr-modal h3{font-size:1.25rem; margin-bottom:6px;}
+  .zrr-modal p.zrr-modal-role{font-size:0.85rem; font-weight:700; color:rgba(27,24,54,0.45); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;}
+  .zrr-modal p.zrr-modal-club{font-size:0.82rem; font-weight:700; color:var(--magenta-deep); margin-bottom:18px;}
+  .zrr-modal p.zrr-modal-body{font-size:0.95rem; color:rgba(27,24,54,0.7); line-height:1.7;}
+
+  /* CLUBS */
+  .clubs-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:56px;
+  }
+  .club-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:26px 22px;
+    transition:transform .25s, box-shadow .25s, border-color .25s;
+    display:block; cursor:pointer;
+  }
+  .club-card:hover{transform:translateY(-6px); box-shadow:0 20px 40px rgba(27,24,54,0.1); border-color:transparent;}
+  .club-card.no-link{cursor:pointer;}
+  .club-mark{
+    width:52px; height:52px; border-radius:14px; background:#fff; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden;
+    padding:6px;
+  }
+  .club-mark img{width:100%; height:100%; object-fit:contain;}
+  .club-card h4{font-size:1rem; margin-bottom:6px;}
+  .club-card p{font-size:0.85rem; color:rgba(27,24,54,0.55);}
+  .club-ig{
+    display:flex; align-items:center; gap:7px; margin-top:14px; font-size:0.82rem; font-weight:700;
+    color:var(--magenta-deep); position:relative; z-index:2; width:fit-content;
+  }
+  .club-ig:hover{text-decoration:underline;}
+  .club-ig svg{flex-shrink:0;}
+  .club-card.no-link .club-ig{color:rgba(27,24,54,0.4); font-weight:600;}
+  .clubs-note{
+    margin-top:30px; font-size:0.85rem; color:rgba(27,24,54,0.5); border-left:3px solid var(--gold); padding-left:14px;
+  }
+
+  /* EVENTS */
+  .events{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .events-list{margin-top:56px; display:flex; flex-direction:column;}
+  .event-row{
+    display:grid; grid-template-columns:110px 1fr auto; gap:30px; align-items:center;
+    padding:26px 0; border-bottom:1px solid var(--line);
+  }
+  .event-row:first-child{border-top:1px solid var(--line);}
+  .event-date{font-family:'Poppins'; font-weight:800; color:var(--magenta-deep); line-height:1.2;}
+  .event-date small{display:block; font-weight:600; color:rgba(27,24,54,0.45); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;}
+  .event-info h4{font-size:1.05rem; margin-bottom:6px;}
+  .event-info p{font-size:0.88rem; color:rgba(27,24,54,0.55);}
+  .event-arrow{
+    width:40px; height:40px; border-radius:50%; border:1.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center; transition:background .2s, transform .2s;
+  }
+  .event-row:hover .event-arrow{background:var(--magenta); border-color:var(--magenta); transform:rotate(45deg);}
+  .event-row:hover .event-arrow svg path{stroke:#fff;}
+
+  /* GALLERY / SOCIAL */
+  .social{padding:110px 0; text-align:center;}
+  .social h2{max-width:none; margin:0 auto 14px;}
+  .social p.sub{margin:0 auto;}
+  .ig-grid{
+    display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin-top:56px;
+  }
+  .ig-cell{
+    aspect-ratio:1; border-radius:16px;
+    background:linear-gradient(150deg, rgba(225,26,110,0.15), rgba(242,169,0,0.12));
+    display:flex; align-items:center; justify-content:center; color:rgba(27,24,54,0.35);
+    font-size:0.75rem; font-weight:600; position:relative; overflow:hidden;
+  }
+  .ig-cell:nth-child(3n+1){background:linear-gradient(150deg, rgba(225,26,110,0.22), rgba(168,15,82,0.1));}
+  .ig-cell:nth-child(3n+2){background:linear-gradient(150deg, rgba(242,169,0,0.2), rgba(225,26,110,0.08));}
+  .ig-follow{
+    margin-top:40px; display:inline-flex; align-items:center; gap:10px;
+    background:var(--ink); color:#fff; padding:14px 28px; border-radius:100px; font-weight:700;
+  }
+
+  /* LOGO STRIP */
+  .logostrip{background:var(--paper); padding:60px 0; border-top:1px solid var(--line);}
+  .logostrip img{margin:0 auto; opacity:0.92;}
+
+  /* JOIN CTA */
+  .join-cta{padding:100px 0;}
+  .join-card{
+    background:linear-gradient(120deg, var(--magenta), var(--magenta-deep));
+    border-radius:28px; padding:70px 60px; color:#fff; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .join-card::after{
+    content:"7"; position:absolute; left:-40px; top:-60px; font-family:'Poppins'; font-weight:900;
+    font-size:16rem; color:rgba(255,255,255,0.08); line-height:1;
+  }
+  .join-card h2{position:relative; z-index:1; max-width:none; color:#fff; margin-bottom:16px;}
+  .join-card p{position:relative; z-index:1; color:rgba(255,255,255,0.85); max-width:560px; margin:0 auto 36px; font-size:1.05rem; line-height:1.65;}
+  .join-card .btn-primary{position:relative; z-index:1; background:#fff; color:var(--magenta-deep);}
+  .join-card .btn-primary:hover{box-shadow:0 12px 24px rgba(0,0,0,0.25);}
+  @media (max-width:920px){ .join-card{padding:50px 28px;} }
+
+  /* FOOTER */
+  footer{background:var(--ink); color:#fff; padding:80px 0 30px;}
+  .foot-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:50px;}
+  .foot-brand .brand{color:#fff;}
+  .foot-brand p{color:rgba(255,255,255,0.55); margin-top:16px; font-size:0.9rem; line-height:1.7; max-width:280px;}
+  footer h5{font-size:0.82rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); margin-bottom:20px;}
+  footer ul{list-style:none;}
+  footer li{margin-bottom:12px;}
+  footer a{color:rgba(255,255,255,0.65); font-size:0.92rem; transition:color .2s;}
+  footer a:hover{color:#fff;}
+  .foot-bottom{
+    margin-top:70px; padding-top:26px; border-top:1px solid rgba(255,255,255,0.12);
+    display:flex; justify-content:space-between; font-size:0.82rem; color:rgba(255,255,255,0.45); flex-wrap:wrap; gap:10px;
+  }
+
+  @media (max-width:920px){
+    .navlinks{display:none;}
+    .burger{display:block;}
+    .hero{padding:130px 0 70px;}
+    .section{padding:70px 0;}
+    .leader{padding:50px 0 20px;}
+    .mosaic-head{margin-top:36px;}
+    .clubs-grid{grid-template-columns:repeat(2,1fr);}
+    .ig-grid{grid-template-columns:repeat(3,1fr);}
+    .stat-row{grid-template-columns:repeat(2,1fr); row-gap:30px; margin-top:50px;}
+    .foot-grid{grid-template-columns:1fr 1fr; row-gap:40px;}
+    .event-row{grid-template-columns:70px 1fr auto; gap:16px;}
+    .join-card{padding:44px 26px;}
+    footer{padding:56px 0 26px;}
+  }
+
+  /* ROTARY WHEEL PRELOADER — clean, confident entrance: wordmark stack
+     fades/rises in, the "7" wipes in from the left edge with a soft
+     gradient, and a thin progress bar ties the hold time together. */
+  #rotaryPreloader{
+    position:fixed; inset:0; z-index:9999; background:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    transition:opacity .7s cubic-bezier(.4,0,.2,1), visibility .7s;
+    overflow:hidden;
+  }
+  #rotaryPreloader.hide{ opacity:0; visibility:hidden; pointer-events:none; transform:scale(1.02); }
+
+  #rpStage{
+    position:relative; z-index:1;
+    display:flex; align-items:center; justify-content:center;
+    gap:clamp(28px, 5vw, 64px);
+  }
+
+  #rpSevenWrap{
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+    width:clamp(180px, 30vh, 340px); height:clamp(220px, 42vh, 460px);
+    flex-shrink:0;
+  }
+  #rpSeven{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Poppins', sans-serif; font-weight:900;
+    font-size:clamp(220px, 42vh, 460px); line-height:1; white-space:nowrap;
+    user-select:none; pointer-events:none;
+    background:linear-gradient(165deg, #FF2E87 0%, #E11A6E 24%, #A80F52 52%, #C2410C 76%, #F2A900 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter:drop-shadow(0 18px 40px rgba(225,26,110,0.25));
+    clip-path:inset(0 100% 0 0);
+    animation:rpSevenWipe .9s cubic-bezier(.22,.61,.36,1) forwards .2s;
+  }
+  @keyframes rpSevenWipe{ to{ clip-path:inset(0 0 0 0); } }
+
+  #rpContent{
+    position:relative;
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+  }
+  #rpWheelWrap{
+    opacity:0; transform:scale(0.4) rotate(-40deg);
+    animation:rpWheelIn .7s cubic-bezier(.34,1.56,.64,1) forwards;
+  }
+  #rpWheelWrap img{
+    height:96px; width:96px; object-fit:contain;
+    animation:rotarySpin 2.2s linear infinite;
+  }
+  @keyframes rpWheelIn{ to{ opacity:1; transform:scale(1) rotate(0deg); } }
+  @keyframes rotarySpin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+
+  #rotaractWordmark{
+    height:58px; width:auto; object-fit:contain; margin-top:22px;
+    opacity:0; transform:translateY(10px);
+    animation:rpFadeUp .7s cubic-bezier(.16,1,.3,1) forwards .45s;
+  }
+  #rpTagline{
+    margin-top:14px; font-size:0.78rem; font-weight:700; letter-spacing:0.22em;
+    color:rgba(255,255,255,0.5); text-transform:uppercase;
+    opacity:0; transform:translateY(8px);
+    animation:rpFadeUp .6s cubic-bezier(.16,1,.3,1) forwards .85s;
+  }
+  @keyframes rpFadeUp{ to{ opacity:1; transform:translateY(0); } }
+
+  #rpBarTrack{
+    margin-top:26px; width:160px; height:2px; border-radius:100px;
+    background:rgba(255,255,255,0.12); overflow:hidden;
+    opacity:0; animation:rpFadeUp .5s ease forwards 1.1s;
+  }
+  #rpBarFill{
+    height:100%; width:0%; border-radius:100px;
+    background:linear-gradient(90deg, var(--magenta), var(--gold));
+    transition:width linear; /* duration set inline via JS to match hold time */
+  }
+
+  @media (max-width:760px){
+    #rpStage{ flex-direction:column-reverse; gap:0; }
+    #rpSevenWrap{ width:clamp(150px,50vw,240px); height:clamp(150px,50vw,240px); margin-bottom:8px; }
+    #rpSeven{ font-size:clamp(150px,50vw,240px); }
+    #rpWheelWrap img{ height:72px; width:72px; }
+    #rotaractWordmark{ height:42px; }
+  }
+
+  @media (max-width:600px){
+    .hero{padding:120px 0 56px;}
+    .section{padding:56px 0;}
+    .hero h1{font-size:clamp(2rem,8vw,2.6rem);}
+    .hero p.lead{font-size:1rem;}
+    .hero-actions{gap:12px;}
+    .clubs-grid{grid-template-columns:1fr;}
+    .ig-grid{grid-template-columns:repeat(2,1fr);}
+    .stat-row{grid-template-columns:1fr 1fr; gap:20px;}
+    .stat b{font-size:1.9rem;}
+    .foot-grid{grid-template-columns:1fr; row-gap:30px;}
+    .foot-bottom{flex-direction:column; gap:6px;}
+    .event-row{grid-template-columns:1fr auto; gap:10px 16px;}
+    .event-row .event-date{grid-row:1; grid-column:1;}
+    .event-row .event-arrow{grid-row:1; grid-column:2;}
+    .event-row .event-info{grid-column:1 / -1;}
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Zone 7 Rotaract",
+  "alternateName": "Zone 7, Rotaract District 3292 Nepal-Bhutan",
+  "url": "https://zone7rotaract3292.vercel.app/",
+  "logo": "https://zone7rotaract3292.vercel.app/favicon.png",
+  "description": "Zone 7 unites 9 Rotaract clubs across the Kathmandu Valley under District 3292 Nepal-Bhutan — service, fellowship and leadership for young adults aged 18–30.",
+  "sameAs": [
+    "https://www.instagram.com/zone7rotaract3292/"
+  ],
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "Rotaract District 3292 Nepal-Bhutan",
+    "url": "https://rotaract3292.org/"
+  }
+}
+</script>
+</head>
+<body>
+
+<div id="rotaryPreloader">
+  <div id="rpStage">
+    <div id="rpContent">
+      <div id="rpWheelWrap"><img id="rotaryWheelImg" src="logos/RotaryMoE-R_REV.png" alt=""></div>
+      <img id="rotaractWordmark" src="logos/Rotaract-Simple_CMYK-Crop.png" alt="Rotaract">
+      <div id="rpTagline">ZONE 7 · DISTRICT 3292</div>
+      <div id="rpBarTrack"><div id="rpBarFill"></div></div>
+    </div>
+    <div id="rpSevenWrap">
+      <div id="rpSeven" aria-hidden="true">7</div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  const already = sessionStorage.getItem("zone7_splash_seen");
+  const el = document.getElementById("rotaryPreloader");
+
+  if(already){
+    el.remove();
+    return;
+  }
+
+  const HOLD_MS = 2900;
+  document.getElementById("rpBarFill").style.transitionDuration = HOLD_MS + "ms";
+
+  window.addEventListener("load", () => {
+    requestAnimationFrame(() => {
+      document.getElementById("rpBarFill").style.width = "100%";
+    });
+    setTimeout(() => {
+      el.classList.add("hide");
+      sessionStorage.setItem("zone7_splash_seen", "1");
+      setTimeout(() => el.remove(), 700);
+    }, HOLD_MS);
+  });
+})();
+</script>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="z">7</span> Zone 7 Rotaract</div>
+    <div class="navlinks">
+      <a href="/about.html">About</a>
+
+      <div class="nav-drop" id="clubsDrop">
+        <button type="button" class="nav-drop-trigger">Clubs <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-drop-panel clubs-drop-panel" id="clubsDropPanel">
+          <div class="clubs-drop-grid" id="clubsDropGrid"></div>
+          <div class="clubs-drop-foot">
+            <span style="font-size:0.74rem; color:rgba(27,24,54,0.45);">9 clubs in Zone 7</span>
+            <a href="#clubs">See all on homepage →</a>
+          </div>
+        </div>
+      </div>
+
+      <a href="/gallery.html">Gallery</a>
+
+      <div class="nav-drop" id="resDrop">
+        <button type="button" class="nav-drop-trigger">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-drop-panel res-drop-panel">
+          <a class="res-drop-item" href="/guides.html">
+            <div class="res-drop-ico">📄</div>
+            <div><h5>Rotaract Resources</h5><p>Official constitutions, forms & district documents</p></div>
+          </a>
+          <a class="res-drop-item" href="/club-guides.html">
+            <div class="res-drop-ico">📚</div>
+            <div><h5>Guides for Clubs</h5><p>The playbook — leadership, finance, projects & more</p></div>
+          </a>
+          <a class="res-drop-item" href="#connect">
+            <div class="res-drop-ico">📷</div>
+            <div><h5>Follow Along</h5><p>Recaps and reels from across the zone</p></div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:18px;">
+      <a href="admin.html" class="nav-admin">Club Admin</a>
+      <a href="/join.html" class="btn nav-cta">Join Us</a>
+      <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/about.html">About</a>
+    <a href="#clubs">Clubs</a>
+    <a href="/gallery.html">Gallery</a>
+    <a href="/guides.html">Rotaract Resources</a>
+    <a href="/club-guides.html">Guides for Clubs</a>
+    <a href="#connect">Connect</a>
+  </div>
+</nav>
+<script>
+  document.getElementById("clubsDropGrid").innerHTML = Object.entries(CLUB_DIRECTORY).map(([slug,c]) => `
+    <a class="clubs-drop-item" href="/club.html?club=${slug}">
+      <img src="${c.logo}" alt="" loading="lazy">
+      <span>${c.name.replace('Rotaract Club of ','')}</span>
+    </a>
+  `).join("");
+  // Click-to-toggle for touch/keyboard users alongside the CSS hover
+  document.querySelectorAll(".nav-drop-trigger").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const drop = btn.closest(".nav-drop");
+      const wasOpen = drop.classList.contains("open");
+      document.querySelectorAll(".nav-drop").forEach(d => d.classList.remove("open"));
+      if(!wasOpen) drop.classList.add("open");
+    });
+  });
+  document.addEventListener("click", (e) => {
+    if(!e.target.closest(".nav-drop")) document.querySelectorAll(".nav-drop").forEach(d => d.classList.remove("open"));
+  });
+</script>
+<script>
+  document.getElementById('burgerBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+  document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }));
+</script>
+
+<header class="hero">
+  <canvas id="heroDots" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+  <div class="hero-orbit" id="heroOrbit">
+    <div class="orbit-seven-anim">
+      <div class="orbit-seven">7</div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Rotaract District 3292 · Nepal-Bhutan</div>
+    <h1 id="heroHeading">Young leaders in the<br>Kathmandu Valley,<br><span class="hl">united as Zone 7.</span></h1>
+    <p class="lead">Zone 7 brings together Rotaract clubs across the Kathmandu Valley under District 3292, turning service, fellowship and leadership into action &mdash; one project at a time.</p>
+    <div class="hero-actions">
+      <a href="/join.html" class="btn btn-primary">Fill the Form, Become a Rotaractor →</a>
+      <a href="#clubs" class="btn btn-ghost">Explore our Clubs</a>
+    </div>
+    <div class="hero-actions hero-actions-secondary">
+      <a href="/guides.html" class="btn btn-ghost">Rotaract Resources</a>
+      <a href="/club-guides.html" class="btn btn-ghost">Guides for Clubs</a>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><b>9</b><span>Clubs in Zone 7</span></div>
+      <div class="stat"><b>180+</b><span>Clubs districtwide</span></div>
+      <div class="stat"><b>5,500+</b><span>Rotaractors, D3292</span></div>
+      <div class="stat"><b>18–30</b><span>Age range to join</span></div>
+    </div>
+  </div>
+</header>
+<script>
+(function(){
+  const hero = document.querySelector(".hero");
+  const canvas = document.getElementById("heroDots");
+  if(!hero || !canvas) return;
+  if(window.matchMedia("(max-width:760px)").matches) return;
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const ctx = canvas.getContext("2d");
+  let dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let w = 0, h = 0;
+  const SPACING = 26;
+  const RADIUS = 130;     // how far the wave reaches from the cursor
+  const PUSH = 14;        // max px a dot is pushed
+  let mouse = null;       // lerped cursor pos, {x,y} or null
+  let target = null;
+  let rafId = null;
+
+  function resize(){
+    w = hero.clientWidth; h = hero.clientHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    canvas.style.width = w + "px"; canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, w, h);
+    const cols = Math.ceil(w / SPACING) + 1;
+    const rows = Math.ceil(h / SPACING) + 1;
+    for(let i = 0; i < cols; i++){
+      for(let j = 0; j < rows; j++){
+        let x = i * SPACING, y = j * SPACING;
+        let radius = 1.2, alpha = 0.08;
+        if(mouse){
+          const dx = x - mouse.x, dy = y - mouse.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if(dist < RADIUS && dist > 0.01){
+            const t = 1 - dist / RADIUS;               // 0..1, closer = stronger
+            const wave = Math.sin(t * Math.PI) * PUSH;  // smooth push, eases to 0 at edges
+            x += (dx / dist) * wave;
+            y += (dy / dist) * wave;
+            radius = 1.2 + t * 1.8;
+            alpha = 0.08 + t * 0.3;
+          }
+        }
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        ctx.fill();
+      }
+    }
+  }
+
+  function loop(){
+    if(target){
+      if(!mouse) mouse = {...target};
+      mouse.x += (target.x - mouse.x) * 0.15;
+      mouse.y += (target.y - mouse.y) * 0.15;
+    }
+    draw();
+    rafId = requestAnimationFrame(loop);
+  }
+
+  hero.addEventListener("mousemove", (e) => {
+    const r = hero.getBoundingClientRect();
+    target = { x: e.clientX - r.left, y: e.clientY - r.top };
+    if(!rafId) rafId = requestAnimationFrame(loop);
+  });
+  hero.addEventListener("mouseleave", () => {
+    target = null; mouse = null;
+    if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
+    draw();
+  });
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 150);
+  });
+
+  resize();
+})();
+</script>
+
+<script>
+/* Magnetic text: split the hero heading into per-letter spans, and push/shear
+   each whole word away from the cursor based on distance, with a stronger,
+   more theatrical push on the closing "Zone 7" line — that's the payoff
+   line of the headline, so it gets the most motion. Eases back to rest
+   when the cursor moves off. */
+(function(){
+  const h1 = document.getElementById("heroHeading");
+  if(!h1) return;
+  if(window.matchMedia("(max-width:760px)").matches) return;
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if(window.matchMedia("(hover:none)").matches) return;
+
+  // Wrap each word (not each letter) in a span, preserving <br> and spacing.
+  function wrap(node, boosted){
+    node.childNodes.forEach(child => {
+      if(child.nodeType === 3){ // text node
+        const frag = document.createDocumentFragment();
+        child.textContent.split(/(\s+)/).forEach(part => {
+          if(!part) return;
+          if(/^\s+$/.test(part)){ frag.appendChild(document.createTextNode(part)); return; }
+          const span = document.createElement("span");
+          span.className = "mag-word" + (boosted ? " mag-word-boost" : "");
+          span.textContent = part;
+          span.style.display = "inline-block";
+          span.style.willChange = "transform";
+          frag.appendChild(span);
+        });
+        child.replaceWith(frag);
+      } else if(child.nodeType === 1 && child.tagName !== "BR"){
+        wrap(child, boosted || child.classList.contains("hl"));
+      }
+    });
+  }
+  wrap(h1.querySelector(".hl"), true);
+
+  const words = [...h1.querySelectorAll(".mag-word")];
+  let mouse = null, rafId = null;
+  const RADIUS = 180;
+  const PUSH = 20;
+
+  function update(){
+    words.forEach(el => {
+      if(!mouse){ el.style.transform = ""; return; }
+      const boost = el.classList.contains("mag-word-boost") ? 1.5 : 1;
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width/2, cy = r.top + r.height/2;
+      const dx = cx - mouse.x, dy = cy - mouse.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      const radius = RADIUS * (boost > 1 ? 1.15 : 1);
+      if(dist < radius){
+        const t = 1 - dist / radius;
+        const push = t * PUSH * boost;
+        const angle = Math.atan2(dy, dx);
+        const tx = Math.cos(angle) * push;
+        const ty = Math.sin(angle) * push;
+        const skew = (dx / radius) * t * 5 * boost;
+        const scale = 1 + t * 0.05 * boost;
+        el.style.transform = `translate(${tx}px, ${ty}px) skewX(${skew}deg) scale(${scale})`;
+      } else {
+        el.style.transform = "";
+      }
+    });
+    rafId = requestAnimationFrame(update);
+  }
+
+  h1.closest("header.hero").addEventListener("mousemove", (e) => {
+    mouse = { x: e.clientX, y: e.clientY };
+    if(!rafId) rafId = requestAnimationFrame(update);
+  });
+  h1.closest("header.hero").addEventListener("mouseleave", () => {
+    mouse = null;
+    if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
+    words.forEach(el => { el.style.transition = "transform .45s cubic-bezier(.16,1,.3,1)"; el.style.transform = ""; });
+    setTimeout(() => words.forEach(el => el.style.transition = ""), 470);
+  });
+})();
+</script>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <span class="section-tag">Who we are</span>
+    <h2>Service above self, <span class="mark">led by youth.</span></h2>
+    <p class="sub">Rotaract is Rotary International's club for young adults aged 18&ndash;30 &mdash; sponsored by local Rotary clubs, entirely run by Rotaractors. Zone 7 unites 9 such clubs across the Kathmandu Valley under District 3292. <a href="/about.html" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Read our full story →</a></p>
+
+    <div class="mosaic-head">
+      <h3>Every Zone 7 project, one skyline.</h3>
+      <div class="mosaic-tabs" id="mosaicTabs">
+        <span class="mt active" data-mode="category">By Category</span>
+        <span class="mt" data-mode="avenue">By Avenue</span>
+        <span class="mt" data-mode="club">By Club</span>
+        <span class="mt" data-mode="az">A&ndash;Z</span>
+      </div>
+    </div>
+    <div class="mosaic-frame"><div class="mosaic-columns" id="mosaicColumns"></div></div>
+    <p class="mosaic-note">Mockup preview &mdash; live club-uploaded projects populate this automatically.</p>
+  </div>
+</section>
+<div class="mosaic-popup" id="mosaicPopup"><span class="mp-tag" id="mpTag"></span><h5 id="mpTitle"></h5><p id="mpClub"></p></div>
+<script>
+(async function(){
+  // curated, brand-adjacent palette — no raw neon, everything sits in the same tonal family
+  const COLORS=["#E11A6E","#A80F52","#F2A900","#8a6300","#1c8a4d","#3a3170","#1B1836","#c1502e"];
+  const ICONS=["🩸","📚","🌳","💧","🎓","🤝","🎤","🌍","🧺","🎨","⚽","🏥","🧵","🔥","📷","🎗️"];
+
+  // short display codes so column width never depends on label length
+  const CODES={
+    Health:"HLTH", International:"INTL", Fellowship:"FLWS", Education:"EDU", Leadership:"LEAD",
+    Community:"CMTY", Environment:"ENVR", WASH:"WASH", "Prof. Dev.":"PDEV", "Public Image":"PIMG", Fundraising:"FUND",
+    Uncategorized:"UNCT", Balkumari:"BALK", Baneshwor:"BANE", Sankhu:"SANK", "Liberty College":"LIBC", Sukedhara:"SUKD",
+    Tripureswor:"TRIP", "Kathmandu West":"KTMW", "Kathmandu Height":"KTMH", "New Road City":"NRC"
+  };
+  const codeFor=(label,mode)=> mode==="az" ? label : (CODES[label] || label.replace(/[^A-Za-z]/g,"").slice(0,4).toUpperCase());
+
+  const AVENUES=["Membership Development","Club Administration","Service Project","International Service","Professional Development","Finance","The Rotary Foundation","Public Image","Young Leaders Contact"];
+  Object.assign(CODES,{"Membership Development":"MBRD","Club Administration":"ADMN","Service Project":"SERV","International Service":"INTL","Professional Development":"PDEV","Finance":"FNCE","The Rotary Foundation":"TRF","Public Image":"PIMG","Young Leaders Contact":"YLC"});
+  const AVENUE_KW={
+    "Membership Development":["membership","member growth","retention"],
+    "Club Administration":["administration","installation","bod","assembly","drr visit","governance","transition"],
+    "International Service":["international","twin","goodwill visit","exchange","mother language"],
+    "Professional Development":["professional","career","skill","workshop","training","seminar","counsel"],
+    "Finance":["finance","fundrais","budget","carnival"],
+    "The Rotary Foundation":["rotary foundation","trf","grant"],
+    "Public Image":["public image","publicity","social media","photowalk","public relation"],
+    "Young Leaders Contact":["interact","young leader","youth leader"]
+  };
+  function avenueFor(p){
+    const text=(p.c+" "+p.t).toLowerCase();
+    for(const av in AVENUE_KW) if(AVENUE_KW[av].some(k=>text.includes(k))) return av;
+    return "Service Project";
+  }
+
+  const MOCK_DEMO=[ // shown only until real clubs have uploaded projects
+    {t:"Blood Donation Drive",c:"Health",club:"balkumari",cn:"Balkumari",id:"mock-1"},
+    {t:"Twin Club Meet",c:"International",club:"balkumari",cn:"Balkumari",id:"mock-2"},
+    {t:"Fellowship Night",c:"Fellowship",club:"balkumari",cn:"Balkumari",id:"mock-3"},
+    {t:"School Repaint",c:"Education",club:"baneshwor",cn:"Baneshwor",id:"mock-4"},
+    {t:"Youth Leadership Camp",c:"Leadership",club:"baneshwor",cn:"Baneshwor",id:"mock-5"},
+    {t:"Community Meal Drive",c:"Community",club:"baneshwor",cn:"Baneshwor",id:"mock-6"},
+    {t:"River Clean-Up",c:"Environment",club:"sankhu",cn:"Sankhu",id:"mock-7"},
+    {t:"Water Aid Project",c:"WASH",club:"sankhu",cn:"Sankhu",id:"mock-8"},
+    {t:"Literacy Drive",c:"Education",club:"sankhu",cn:"Sankhu",id:"mock-9"},
+    {t:"Career Talk Series",c:"Prof. Dev.",club:"liberty",cn:"Liberty College",id:"mock-10"},
+    {t:"Entrepreneurship Bootcamp",c:"Prof. Dev.",club:"liberty",cn:"Liberty College",id:"mock-11"},
+    {t:"Cultural Exchange Meet",c:"International",club:"liberty",cn:"Liberty College",id:"mock-12"},
+    {t:"Elder Home Visit",c:"Community",club:"sukedhara",cn:"Sukedhara",id:"mock-13"},
+    {t:"Sports Fest",c:"Fellowship",club:"sukedhara",cn:"Sukedhara",id:"mock-14"},
+    {t:"Health Camp",c:"Health",club:"sukedhara",cn:"Sukedhara",id:"mock-15"},
+    {t:"Tree Plantation",c:"Environment",club:"tripureswor",cn:"Tripureswor",id:"mock-16"},
+    {t:"Public Image Photowalk",c:"Public Image",club:"tripureswor",cn:"Tripureswor",id:"mock-17"},
+    {t:"District Grant Project",c:"Fundraising",club:"tripureswor",cn:"Tripureswor",id:"mock-18"},
+    {t:"Menstrual Health Camp",c:"Health",club:"kathmanduwest",cn:"Kathmandu West",id:"mock-19"},
+    {t:"Joint Rotary Meeting",c:"Fellowship",club:"kathmanduwest",cn:"Kathmandu West",id:"mock-20"},
+    {t:"Skill Development Workshop",c:"Prof. Dev.",club:"kathmanduwest",cn:"Kathmandu West",id:"mock-21"},
+    {t:"Literacy Workshop",c:"Education",club:"kathmanduheight",cn:"Kathmandu Height",id:"mock-22"},
+    {t:"Installation Ceremony",c:"Fellowship",club:"kathmanduheight",cn:"Kathmandu Height",id:"mock-23"},
+    {t:"Sapling Distribution",c:"Environment",club:"kathmanduheight",cn:"Kathmandu Height",id:"mock-24"},
+    {t:"Fundraiser Gala",c:"Fundraising",club:"newroadcity",cn:"New Road City",id:"mock-25"},
+    {t:"Interact Mentorship Day",c:"Leadership",club:"newroadcity",cn:"New Road City",id:"mock-26"},
+    {t:"Public Image Campaign",c:"Public Image",club:"newroadcity",cn:"New Road City",id:"mock-27"}
+  ];
+
+  // Pull every real project every club has uploaded via the Club Admin panel (Supabase-backed,
+  // same source club.html/project.html read from) — falls back to the mock set only if empty.
+  let MOSAIC=MOCK_DEMO, isLive=false;
+  try{
+    const live=(typeof ZONE7_DB!=="undefined") ? await ZONE7_DB.getAllProjects() : [];
+    if(live && live.length){
+      MOSAIC=live.map(p=>({
+        t:p.title || "Untitled Project",
+        c:(p.category||"").trim() || "Uncategorized",
+        club:p.club_slug,
+        cn:(CLUB_DIRECTORY[p.club_slug] && CLUB_DIRECTORY[p.club_slug].name.replace(/^Rotaract Club of /i,"")) || p.club_slug,
+        id:p.id
+      }));
+      isLive=true;
+    }
+  } catch(e){ console.error("Mosaic: falling back to demo projects", e); }
+
+  // Shuffle every (icon,color) combo, then hand out one unique pair per project —
+  // guarantees no two tiles ever repeat the same icon+color combination.
+  const combos=[];
+  ICONS.forEach(ic=>COLORS.forEach(c=>combos.push({ic,c})));
+  for(let i=combos.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [combos[i],combos[j]]=[combos[j],combos[i]]; }
+  MOSAIC.forEach((p,i)=>{ const combo=combos[i%combos.length]; p.ic=combo.ic; p.bg=combo.c; p.av=avenueFor(p); });
+
+  const cols=document.getElementById("mosaicColumns");
+  const pop=document.getElementById("mosaicPopup"), mpTag=document.getElementById("mpTag"), mpTitle=document.getElementById("mpTitle"), mpClub=document.getElementById("mpClub");
+  const keyFor={ category:p=>p.c, club:p=>p.cn, az:p=>p.t[0].toUpperCase(), avenue:p=>p.av };
+  const noteEl=document.querySelector(".mosaic-note");
+  if(noteEl) noteEl.textContent = isLive
+    ? `Live — ${MOSAIC.length} project${MOSAIC.length===1?"":"s"} uploaded by Zone 7 clubs.`
+    : "Mockup preview — real club-uploaded projects will populate this automatically.";
+
+  function render(mode){
+    const key=keyFor[mode];
+    const groups={};
+    MOSAIC.slice().sort((a,b)=> mode==="az" ? a.t.localeCompare(b.t) : 0)
+      .forEach(p=>{ const k=key(p); (groups[k]=groups[k]||[]).push(p); });
+    const ROWCAP=6;
+    cols.innerHTML=Object.entries(groups).map(([label,items],ci)=>{
+      const chunks=[];
+      for(let i=0;i<items.length;i+=ROWCAP) chunks.push(items.slice(i,i+ROWCAP));
+      const stacksHtml=chunks.map(chunk=>`
+        <div class="mosaic-stack">${chunk.map(p=>{
+          const gi=MOSAIC.indexOf(p);
+          return `<div class="mosaic-tile" style="background:${p.bg}" data-i="${gi}">${p.ic}</div>`;
+        }).join("")}</div>
+      `).join("");
+      return `
+        <div class="mosaic-col" data-ci="${ci}">
+          <div class="mosaic-substacks">${stacksHtml}</div>
+          <div class="mosaic-col-code" title="${label}">${codeFor(label,mode)}</div>
+        </div>
+      `;
+    }).join("");
+
+    cols.querySelectorAll(".mosaic-col").forEach(colEl=>{
+      colEl.addEventListener("mouseenter",()=>{ cols.classList.add("dim"); colEl.classList.add("hi"); });
+      colEl.addEventListener("mouseleave",()=>{ cols.classList.remove("dim"); colEl.classList.remove("hi"); });
+    });
+    cols.querySelectorAll(".mosaic-tile").forEach(el=>{
+      const p=MOSAIC[el.dataset.i];
+      el.addEventListener("mousemove",e=>{
+        pop.style.left=Math.min(e.clientX+16,window.innerWidth-246)+"px";
+        pop.style.top=Math.min(e.clientY+16,window.innerHeight-100)+"px";
+      });
+      el.addEventListener("mouseenter",()=>{
+        mpTag.textContent=p.c; mpTitle.textContent=p.t; mpClub.textContent="Rotaract Club of "+p.cn;
+        pop.classList.add("show");
+      });
+      el.addEventListener("mouseleave",()=>pop.classList.remove("show"));
+      el.addEventListener("click",()=>{ location.href=`project.html?club=${p.club}&id=${encodeURIComponent(p.id)}`; });
+    });
+  }
+
+  document.querySelectorAll(".mt").forEach(tab=>{
+    tab.addEventListener("click",()=>{
+      document.querySelectorAll(".mt").forEach(t=>t.classList.remove("active"));
+      tab.classList.add("active");
+      render(tab.dataset.mode);
+    });
+  });
+  render("category");
+})();
+</script>
+
+<section class="leader" id="leadership">
+  <div class="wrap">
+    <span class="section-tag">Zone Leadership · RY 2026&ndash;27</span>
+    <h2 style="margin-bottom:40px; max-width:600px;">Guided by the Zone 7 leadership team.</h2>
+    <div class="leader-card">
+      <div class="leader-grid" id="leaderGrid"></div>
+    </div>
+
+    <div class="zrr-timeline">
+      <span class="section-tag">A Line of Leadership</span>
+      <h2 style="margin-bottom:0;">Zone 7's ZRRs, year by year.</h2>
+      <div class="zrr-track" id="zrrTrack"></div>
+    </div>
+  </div>
+</section>
+
+<div class="zrr-modal-overlay" id="zrrModalOverlay">
+  <div class="zrr-modal">
+    <div class="zrr-modal-close" id="zrrModalClose">✕</div>
+    <div class="zrr-modal-avatar" id="zrrModalAvatar"></div>
+    <span class="zrr-modal-year" id="zrrModalYear"></span>
+    <h3 id="zrrModalName"></h3>
+    <p class="zrr-modal-role" id="zrrModalRole"></p>
+    <p class="zrr-modal-club" id="zrrModalClub"></p>
+    <p class="zrr-modal-body" id="zrrModalBody"></p>
+  </div>
+</div>
+
+<div class="zrr-modal-overlay" id="leaderModalOverlay">
+  <div class="zrr-modal">
+    <div class="zrr-modal-close" id="leaderModalClose">✕</div>
+    <div class="zrr-modal-avatar" id="leaderModalAvatar"></div>
+    <span class="zrr-modal-year" id="leaderModalRoleTag"></span>
+    <h3 id="leaderModalName"></h3>
+    <p class="zrr-modal-role" id="leaderModalRoleFull"></p>
+    <p class="zrr-modal-club" id="leaderModalClub"></p>
+    <p class="zrr-modal-body" id="leaderModalBody"></p>
+  </div>
+</div>
+
+<script>
+if(typeof zone7Esc !== "function"){
+  window.zone7Esc = function(str){
+    return String(str ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  };
+}
+let ZONE_LEADERSHIP = [];
+const leaderOverlay = document.getElementById("leaderModalOverlay");
+
+function renderLeaderGrid(leaders){
+  ZONE_LEADERSHIP = leaders;
+  document.getElementById("leaderGrid").innerHTML = leaders.map((p,i) => `
+    <button type="button" class="leader-item" data-i="${i}" title="${zone7Esc(p.name)}, ${zone7Esc(p.role_full || p.roleFull || '')}">
+      <div class="leader-avatar">${p.photo ? `<img src="${zone7Esc(p.photo)}" alt="${zone7Esc(p.name)}">` : zone7Esc((p.name||'').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase())}</div>
+      <span class="role">${zone7Esc(p.role)}</span>
+      <h4>${zone7Esc(p.name)}</h4>
+      <span class="role-full">${zone7Esc(p.role_full || p.roleFull || '')}</span>
+      ${p.club ? `<span class="leader-club">${zone7Esc(p.club)}</span>` : ''}
+    </button>
+  `).join("");
+  document.querySelectorAll(".leader-item").forEach(btn => {
+    btn.addEventListener("click", () => openLeaderModal(Number(btn.dataset.i)));
+  });
+}
+
+function openLeaderModal(i){
+  const p = ZONE_LEADERSHIP[i];
+  const avatarEl = document.getElementById("leaderModalAvatar");
+  avatarEl.innerHTML = p.photo
+    ? `<img src="${zone7Esc(p.photo)}" alt="${zone7Esc(p.name)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+    : p.name.split(" ").map(w => w[0]).join("").slice(0,2).toUpperCase();
+  document.getElementById("leaderModalRoleTag").textContent = p.role;
+  document.getElementById("leaderModalName").textContent = p.name;
+  document.getElementById("leaderModalRoleFull").textContent = p.role_full || p.roleFull || "";
+  document.getElementById("leaderModalClub").textContent = p.club || "";
+  document.getElementById("leaderModalBody").textContent = p.bio || "";
+  leaderOverlay.classList.add("open");
+}
+
+document.getElementById("leaderModalClose").addEventListener("click", () => leaderOverlay.classList.remove("open"));
+leaderOverlay.addEventListener("click", (e) => { if(e.target === leaderOverlay) leaderOverlay.classList.remove("open"); });
+document.addEventListener("keydown", (e) => { if(e.key === "Escape") leaderOverlay.classList.remove("open"); });
+
+(async () => {
+  const leaders = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getLeadership() : [];
+  renderLeaderGrid(leaders);
+})();
+</script>
+
+<script>
+let ZRR_HISTORY = [];
+
+(async () => {
+  const rows = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getZRRs() : [];
+  ZRR_HISTORY = rows.map(r => ({
+    name: r.name,
+    years: r.years,
+    current: !!r.is_current,
+    bio: r.bio || "",
+    photo: r.photo || "",
+    club: r.club || ""
+  }));
+
+  document.getElementById("zrrTrack").innerHTML = ZRR_HISTORY.map((z,i) => `
+    <button type="button" class="zrr-node${z.current ? ' current' : ''}" data-i="${i}" title="Rtr. ${zone7Esc(z.name)}, ${zone7Esc(z.years)}">
+      <div class="zrr-year">${zone7Esc(z.years)}</div>
+      <div class="zrr-avatar">${z.photo ? `<img src="${zone7Esc(z.photo)}" alt="${zone7Esc(z.name)}">` : zone7Esc(z.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase())}</div>
+      <div class="zrr-dot"></div>
+      <div class="zrr-name">Rtr. ${zone7Esc(z.name)}</div>
+      ${z.club ? `<div class="zrr-club">${zone7Esc(z.club)}</div>` : ''}
+      ${z.current ? '<span class="zrr-tag">Current ZRR</span>' : ''}
+    </button>
+  `).join("");
+
+  document.querySelectorAll(".zrr-node").forEach(btn => {
+    btn.addEventListener("click", () => openZrrModal(Number(btn.dataset.i)));
+  });
+})();
+
+const zrrOverlay = document.getElementById("zrrModalOverlay");
+function zrrInitials(name){
+  return name.split(" ").map(w => w[0]).join("").slice(0,2).toUpperCase();
+}
+function openZrrModal(i){
+  const z = ZRR_HISTORY[i];
+  const avatarEl = document.getElementById("zrrModalAvatar");
+  avatarEl.innerHTML = z.photo ? `<img src="${zone7Esc(z.photo)}" alt="${zone7Esc(z.name)}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">` : zrrInitials(z.name);
+  document.getElementById("zrrModalYear").textContent = `RY 20${z.years.replace("-","–20")}`;
+  document.getElementById("zrrModalName").textContent = `Rtr. ${z.name}`;
+  document.getElementById("zrrModalRole").textContent = z.current ? "Current Zone Rotaract Representative" : "Zone Rotaract Representative";
+  document.getElementById("zrrModalClub").textContent = z.club || "";
+  document.getElementById("zrrModalBody").textContent = z.bio
+    ? z.bio
+    : (z.current
+      ? `Rtr. ${z.name} is currently serving as Zone 7's Rotaract Representative for RY 20${z.years.replace("-","–20")}, guiding the zone's clubs through the year's goals and events.`
+      : `Rtr. ${z.name} served as Zone 7's Rotaract Representative for RY 20${z.years.replace("-","–20")}, guiding the zone's clubs through that Rotary year.`);
+  zrrOverlay.classList.add("open");
+}
+document.querySelectorAll(".zrr-node").forEach(btn => {
+  btn.addEventListener("click", () => openZrrModal(Number(btn.dataset.i)));
+});
+document.getElementById("zrrModalClose").addEventListener("click", () => zrrOverlay.classList.remove("open"));
+zrrOverlay.addEventListener("click", (e) => { if(e.target === zrrOverlay) zrrOverlay.classList.remove("open"); });
+document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.classList.remove("open"); });
+</script>
+
+<section class="section" id="clubs" style="padding-top:40px;">
+  <div class="wrap">
+    <span class="section-tag">Our Clubs</span>
+    <h2>The clubs that make up Zone 7.</h2>
+    <p class="sub">Nine Rotaract clubs across the Kathmandu Valley. Click a card to view the club's profile, or tap its Instagram handle to open Instagram directly.</p>
+
+    <div class="clubs-grid">
+      <div class="club-card" onclick="location.href='/balkumari'">
+        <div class="club-mark"><img src="logos/balkumari.jpg" alt="BK logo" loading="lazy"></div><h4>Rotaract Club of Balkumari</h4><p>Chyasal Marg, Lalitpur · Zone 7</p>
+        <a class="club-ig" href="https://www.instagram.com/rac_balkumari/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rac_balkumari</a>
+      </div>
+      <div class="club-card" onclick="location.href='/baneshwor'">
+        <div class="club-mark"><img src="logos/baneshwor.jpg" alt="BN logo" loading="lazy"></div><h4>Rotaract Club of Baneshwor</h4><p>Devkota Sadak, Kathmandu · Zone 7</p>
+        <a class="club-ig" href="https://www.instagram.com/racbaneshwor/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racbaneshwor</a>
+      </div>
+      <div class="club-card" onclick="location.href='/kathmanduheight'">
+        <div class="club-mark"><img src="logos/kathmanduheight.jpg" alt="KH logo" loading="lazy"></div><h4>Rotaract Club of Kathmandu Height</h4><p>Baneshwar, Kathmandu · Zone 7</p>
+        <a class="club-ig" href="https://www.instagram.com/rackathmanduheight/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rackathmanduheight</a>
+      </div>
+      <div class="club-card" onclick="location.href='/kathmanduwest'">
+        <div class="club-mark"><img src="logos/kathmanduwest.jpg" alt="KW logo" loading="lazy"></div><h4>Rotaract Club of Kathmandu West</h4><p>Baghbazar, Kathmandu · Zone 7</p>
+        <a class="club-ig" href="https://www.instagram.com/kathmanduwest/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @kathmanduwest</a>
+      </div>
+      <div class="club-card" onclick="location.href='/liberty'">
+        <div class="club-mark"><img src="logos/liberty.jpg" alt="LC logo" loading="lazy"></div><h4>Rotaract Club of Liberty College</h4><p>Buddha Nagar, Kathmandu · Zone 7</p>
+        <a class="club-ig" href="https://www.instagram.com/rotaractcluboflibertycollege/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rotaractcluboflibertycollege</a>
+      </div>
+      <div class="club-card" onclick="location.href='/newroadcity'">
+        <div class="club-mark"><img src="logos/newroadcity.jpg" alt="NR logo" loading="lazy"></div><h4>Rotaract Club of New Road City</h4><p>Makkhan Tol, Kathmandu · Zone 7</p>
+        <a class="club-ig" href="https://www.instagram.com/racnewroadcity1/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racnewroadcity1</a>
+      </div>
+      <div class="club-card" onclick="location.href='/sankhu'">
+        <div class="club-mark"><img src="logos/sankhu.jpg" alt="SK logo" loading="lazy"></div><h4>Rotaract Club of Sankhu</h4><p>Sankhu, Kathmandu · Zone 7</p>
+        <a class="club-ig" href="https://www.instagram.com/racsankhu/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racsankhu</a>
+      </div>
+      <div class="club-card" onclick="location.href='/sukedhara'">
+        <div class="club-mark"><img src="logos/sukedhara.jpg" alt="SD logo" loading="lazy"></div><h4>Rotaract Club of Sukedhara</h4><p>Baneshwar, Kathmandu · Zone 7</p>
+        <a class="club-ig" href="https://www.instagram.com/rac_sukedhara/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rac_sukedhara</a>
+      </div>
+      <div class="club-card" onclick="location.href='/tripureswor'">
+        <div class="club-mark"><img src="logos/tripureswor.jpg" alt="TP logo" loading="lazy"></div><h4>Rotaract Club of Tripureswor</h4><p>Baneshwar, Kathmandu · Zone 7</p>
+        <a class="club-ig" href="https://www.instagram.com/ractripureswor/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @ractripureswor</a>
+      </div>
+    </div>
+    <p class="clubs-note">Instagram handles were sourced from each club's public profile.</p>
+  </div>
+</section>
+
+<section class="section" id="dcal" style="padding-top:90px; padding-bottom:20px;">
+  <div class="wrap">
+    <span class="section-tag">District 3292 · RY 2026&ndash;27</span>
+    <h2>District event calendar.</h2>
+    <p class="sub">Swipe or use the arrows to browse the Rotary year, month by month.</p>
+    <div class="dcal-card" style="margin-top:40px;">
+      <div class="dcal-topbar">
+        <button class="dcal-nav" id="dcalPrev" aria-label="Previous month">&larr;</button>
+        <div class="dcal-title">
+          <h4 id="dcalMonthLabel"></h4>
+          <span class="theme" id="dcalTheme"></span>
+        </div>
+        <button class="dcal-nav" id="dcalNext" aria-label="Next month">&rarr;</button>
+      </div>
+      <div class="dcal-swipe" id="dcalSwipe">
+        <div class="dcal-inner">
+          <div class="dcal-grid" id="dcalGrid"></div>
+          <ul id="dcalList"></ul>
+        </div>
+      </div>
+      <div class="dcal-dots" id="dcalDots"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .dcal-card{background:var(--paper); border:1px solid var(--line); border-radius:20px; overflow:hidden;}
+  .dcal-topbar{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:22px 26px; border-bottom:1px solid var(--line);}
+  .dcal-title{text-align:center;}
+  .dcal-title h4{font-size:1.15rem; font-family:'Poppins'; font-weight:700;}
+  .dcal-title span.theme{font-size:0.82rem; color:var(--magenta-deep); font-weight:600;}
+  .dcal-nav{
+    width:38px; height:38px; border-radius:50%; border:1.5px solid var(--line); background:#fff;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem; color:var(--ink);
+    transition:background .2s, color .2s, border-color .2s; flex-shrink:0;
+  }
+  .dcal-nav:hover{background:var(--magenta); border-color:var(--magenta); color:#fff;}
+  .dcal-swipe{overflow:hidden; touch-action:pan-y;}
+  .dcal-inner{padding:26px; display:grid; grid-template-columns:280px 1fr; gap:34px;}
+  .dcal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:5px;}
+  .dcal-dow{font-size:0.66rem; font-weight:700; text-transform:uppercase; color:rgba(27,24,54,0.4); text-align:center; padding-bottom:4px;}
+  .dcal-cell{aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:0.8rem; border-radius:8px; color:rgba(27,24,54,0.55);}
+  .dcal-cell.hl{background:var(--magenta); color:#fff; font-weight:700;}
+  .dcal-cell.empty{visibility:hidden;}
+  #dcalList{list-style:none; padding:0; margin:0;}
+  #dcalList li{font-size:0.88rem; color:rgba(27,24,54,0.68); line-height:1.7; padding-left:16px; position:relative;}
+  #dcalList li::before{content:"•"; position:absolute; left:0; color:var(--gold);}
+  .dcal-dots{display:flex; justify-content:center; gap:7px; padding:0 0 22px;}
+  .dcal-dots span{width:6px; height:6px; border-radius:50%; background:var(--line); cursor:pointer;}
+  .dcal-dots span.active{background:var(--magenta);}
+  @media (max-width:760px){ .dcal-inner{grid-template-columns:1fr; padding:20px;} .dcal-grid{max-width:320px; margin:0 auto;} }
+</style>
+
+<section class="events" id="events">
+  <div class="wrap">
+    <span class="section-tag">What's Coming Up</span>
+    <h2>Zone 7 events &amp; meets.</h2>
+    <div class="events-list" id="eventsList">
+      <p style="padding:30px 0; color:rgba(27,24,54,0.5); font-size:0.9rem;">Loading events…</p>
+    </div>
+  </div>
+</section>
+
+<script>
+const DISTRICT_CALENDAR = [
+[2026,6,"Maternal & Child Health Month",[1,2,7,11,30],["1 Jul – Club President & DG Installation","2 Jul – District Interact Rep. Installation","7 Jul – Guru Purnima","11 Jul – DRR Installation","30 Jul – International Friendship Day","Jul–Aug – Zonal COTS & Club Installation"]],
+[2026,7,"Membership & New Club Development Month",[1,12,19,28,29],["1 Aug – Grant Management Seminar","12 Aug – International Youth Day","19 Aug – World Photography Day","28 Aug – Janai Purnima (Raksha Bandhan)","29 Aug – Gai Jatra","Jul–Aug – Zonal COTS & Club Installation"]],
+[2026,8,"Basic Education & Literacy Month",[4,5,8,11,12,13,14,19,25,26],["From Sep – DRR Visit","4 Sep – Gaura Parba / Krishna Janmashtami","5 Sep – Int'l Day of Charity","8 Sep – Gen-Z Sahid Diwas","11–13 Sep – SEARIC Summit, Sri Lanka","14 Sep – Hartalika Teej (women only)","19 Sep – Constitution Day","19 Sep – Nationwide Inter College Quiz (Region-wise)","25–26 Sep – President Night 2026"]],
+[2026,9,"Community Economic Development Month",[5,10,11,16,17,18,19,20,21],["5 Oct – World Teachers' Day (UNESCO)","10 Oct – World Mental Health Day","11 Oct – Int'l Day of the Girl Child","11 Oct – Dashain (Ghatasthapana)","16 Oct – World Food Day","17–21 Oct – Dashain Week"]],
+[2026,10,"Rotary Foundation Month",[6,7,8,9,10,15,20,21,24,25,28],["6–10 Nov – Laxmi Puja to Bhai Tika","15 Nov – Chhath Parba","20 Nov – Universal Children's Day","21 Nov – 1st President-Secretary Meet","24 Nov – Guru Nanak Jayanti (Sikhs only)","25 Nov – Elimination of Violence Against Women","28 Nov – 13th Late Rtr. Sachin Memorial Blood Donation"]],
+[2026,11,"Disease Prevention & Treatment Month",[3,5,7,8,9,10,11,12,13,19,24,25,30],["3 Dec – Int'l Day of Disabled Persons","5 Dec – International Volunteer Day","7–13 Dec – Computer Science Education Week","10 Dec – Human Rights Day","19 Dec – Nationwide Futsal Tournament (Zonal Round)","24 Dec – Udauli Parwa / Yomari Purnima","25 Dec – Christmas (Christians only)","30 Dec – Tamu Lhosar","Dec – District Fundraiser: Rotaract Sahayatra"]],
+[2027,0,"Vocational Service Month",[1,11,14,29,30],["1 Jan – Gregorian New Year","11 Jan – Prithvi Jayanti","14 Jan – Maghe Sankranti","29 Jan – Nationwide Inter College Quiz (Final)","29–30 Jan – 19th Rotaract District Conference","30 Jan – Martyrs' Day","Jan – District Fundraiser: Rotaract Sahayatra"]],
+[2027,1,"Peacebuilding & Conflict Prevention Month",[4,5,6,7,11,19],["4–7 Feb – ROTASIA Indore","5–6 Feb – 19th District Rotary Conference","7 Feb – Sonam Lohsar","11 Feb – Saraswati Puja","19 Feb – Democracy Day","Feb – District Fundraiser: Rotaract Sahayatra"]],
+[2027,2,"Water, Sanitation & Hygiene Month",[6,8,9,13,21,22,27],["6 Mar – Maha Shivaratri","8 Mar – International Women's Day","8–14 Mar – Rotaract Week","9 Mar – Gyalpo Lohsar","13 Mar – World Rotaract Day","21–22 Mar – Holi Festival","22 Mar – World Water Day","27 Mar – 2nd PS Meet & PETS-SETS"]],
+[2027,3,"Environmental Month",[6,7,10,14,22,24],["6 Apr – Ghode Jatra","7 Apr – World Health Day","10 Apr – Late Rtr. Santosh Memorial ROTA Quiz (Zonal)","14 Apr – Nepali New Year + Bisket Jatra","22 Apr – World Earth Day","24 Apr – Nationwide Futsal Tournament (Regional)"]],
+[2027,4,"Youth Service Month",[1,8,20,29],["1 May – Labour Day","8 May – Late Rtr. Santosh Memorial ROTA Quiz (Cluster)","20 May – Buddha Jayanti","29 May – Nationwide Futsal Tournament (Final)","29 May – Republic Day"]],
+[2027,5,"Rotary Fellowships Month",[5,19,21,26,27,28,29,30],["5 Jun – World Environment Day","19 Jun – 20th Rotaract District Assembly, DLTS & Recognition","19 Jun – Late Rtr. Santosh Memorial ROTA Quiz (Final)","19 Jun – Nepal Investigative Journalism Award","21 Jun – International Day of Yoga","26–30 Jun – RI Convention 2027, Barcelona"]]
+];
+const DOW = ["S","M","T","W","T","F","S"];
+const MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+let dcalIndex = 0;
+
+function buildGrid(year, month, hlDays){
+  const firstDow = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  let cells = DOW.map(d => `<div class="dcal-dow">${d}</div>`).join("");
+  for(let i=0;i<firstDow;i++) cells += `<div class="dcal-cell empty">.</div>`;
+  for(let d=1; d<=daysInMonth; d++){
+    cells += `<div class="dcal-cell${hlDays.includes(d)?' hl':''}">${d}</div>`;
+  }
+  return cells;
+}
+
+function renderDCal(){
+  const [year, month, theme, hlDays, items] = DISTRICT_CALENDAR[dcalIndex];
+  document.getElementById("dcalMonthLabel").textContent = `${MONTH_NAMES[month]} ${year}`;
+  document.getElementById("dcalTheme").textContent = theme;
+  document.getElementById("dcalGrid").innerHTML = buildGrid(year, month, hlDays);
+  document.getElementById("dcalList").innerHTML = items.map(x => `<li>${x}</li>`).join("");
+  document.querySelectorAll(".dcal-dots span").forEach((d,i) => d.classList.toggle("active", i === dcalIndex));
+  document.getElementById("dcalPrev").disabled = dcalIndex === 0;
+  document.getElementById("dcalNext").disabled = dcalIndex === DISTRICT_CALENDAR.length - 1;
+}
+
+function goDCal(delta){
+  dcalIndex = Math.max(0, Math.min(DISTRICT_CALENDAR.length - 1, dcalIndex + delta));
+  renderDCal();
+}
+
+(function initDCal(){
+  document.getElementById("dcalDots").innerHTML = DISTRICT_CALENDAR.map((_,i) => `<span data-i="${i}"></span>`).join("");
+  document.querySelectorAll(".dcal-dots span").forEach(dot => {
+    dot.addEventListener("click", () => { dcalIndex = Number(dot.dataset.i); renderDCal(); });
+  });
+  document.getElementById("dcalPrev").addEventListener("click", () => goDCal(-1));
+  document.getElementById("dcalNext").addEventListener("click", () => goDCal(1));
+
+  const swipeEl = document.getElementById("dcalSwipe");
+  let touchStartX = 0;
+  swipeEl.addEventListener("touchstart", e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+  swipeEl.addEventListener("touchend", e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 40) goDCal(dx < 0 ? 1 : -1);
+  }, {passive:true});
+
+  renderDCal();
+})();
+
+(async () => {
+  const list = document.getElementById("eventsList");
+  const events = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getEvents() : [];
+  if(!events.length){
+    list.innerHTML = `<p style="padding:30px 0; color:rgba(27,24,54,0.5); font-size:0.9rem;">No upcoming events posted yet — check back soon.</p>`;
+    return;
+  }
+  list.innerHTML = events.map(ev => {
+    const [year, ...rest] = (ev.event_date || "TBD").split("-");
+    const label = ev.event_date && ev.event_date !== "TBD" ? new Date(ev.event_date).toLocaleDateString('en-US',{month:'short', day:'numeric'}) : "TBD";
+    const yr = ev.event_date && ev.event_date !== "TBD" ? new Date(ev.event_date).getFullYear() : (year || "2026");
+    const href = ev.rsvp_link || "#";
+    return `
+      <a class="event-row" href="${zone7Esc(href)}" ${ev.rsvp_link ? 'target="_blank" rel="noopener"' : ''} style="text-decoration:none; color:inherit; display:grid;">
+        <div class="event-date">${zone7Esc(label)}<small>${zone7Esc(String(yr))}</small></div>
+        <div class="event-info"><h4>${zone7Esc(ev.title)}</h4><p>${zone7Esc(ev.description || "")}</p></div>
+        <div class="event-arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="#1B1836" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </a>`;
+  }).join("");
+})();
+</script>
+
+<section class="social" id="connect">
+  <div class="wrap">
+    <span class="section-tag">Follow Along</span>
+    <h2>@zone7rotaract3292</h2>
+    <p class="sub">Carousel recaps, reels and club spotlights from across the zone.</p>
+    <div style="margin-top:56px;">
+      <behold-widget feed-id="oACl7lyBKgqQ9BqPUEJt"></behold-widget>
+    </div>
+    <script>
+      (() => {
+        if(window.__bhldScript)return;window.__bhldScript=true;
+        const d=document,s=d.createElement("script");s.type="module";
+        s.src="https://w.behold.so/widget.js";setTimeout(()=>{d.head.append(s);},0);
+      })();
+    </script>
+    <a href="https://www.instagram.com/zone7rotaract3292/" target="_blank" class="ig-follow">Follow on Instagram →</a>
+  </div>
+</section>
+
+<div class="logostrip">
+  <div class="wrap">
+    <img src="zone7_logos.png" alt="Rotaract District 3292 Nepal-Bhutan logo" style="max-width:420px;">
+  </div>
+</div>
+
+<section class="join-cta">
+  <div class="wrap">
+    <div class="join-card">
+      <h2>One form is all it takes to become a Rotaractor.</h2>
+      <p>Fill out our short membership form &mdash; share a few details about yourself, your age, and why you want to serve &mdash; and a Zone 7 club will welcome you in as a Rotaractor.</p>
+      <a href="/join.html" class="btn btn-primary">Fill the Join Form →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand"><span class="z">7</span> Zone 7 Rotaract</div>
+        <p>Zone 7, Rotaract District 3292 Nepal-Bhutan &mdash; Rotaract clubs of the Kathmandu Valley, united in service.</p>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="/join.html">Join Us</a></li>
+          <li><a href="#about">About Zone 7</a></li>
+          <li><a href="#clubs">Our Clubs</a></li>
+          <li><a href="#events">Events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>District</h5>
+        <ul>
+          <li><a href="https://rotaract3292.org/" target="_blank">Rotaract 3292</a></li>
+          <li><a href="https://rotarydistrict3292.org.np/" target="_blank">Rotary District 3292</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="https://www.instagram.com/zone7rotaract3292/" target="_blank">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="mailto:zone7@rotaract3292.org">Email the ZRR</a></li>
+          <li><a href="admin.html">Club Admin Login</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan.</span>
+      <span>Create Lasting Impact.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 /* Zone 7 shared navigation — injected into every content page via <div id="siteNav">
-   Usage: <div id="siteNav" data-current="about|clubs|tutorials|handbook|resources|guides|gallery|join" data-cta="join|home|club"></div>
+   Usage: <div id="siteNav" data-current="about|clubs|tutorials|handbook|resources|guides|gallery|merch|join" data-cta="join|home|club"></div>
    Requires zone7-data.js (CLUB_DIRECTORY) loaded beforehand. Falls back gracefully without it.
 */
 (function () {
@@ -154,6 +154,7 @@
     '<div class="nav-drop-panel learn-drop-panel">' + learnItems + "</div>" +
     "</div>" +
     item("/gallery.html", "Gallery", "gallery") +
+    item("/merch", "Merch", "merch") +
     "</div>" +
     '<div style="display:flex;align-items:center;gap:16px;">' +
     '<a href="/admin.html" class="nav-admin">Club Admin</a>' +
@@ -173,6 +174,7 @@
     '<a href="/rkt-quiz.html">RKT Practice Quiz</a>' +
     '<div class="mm-group">Community</div>' +
     item("/gallery.html", "Gallery", "gallery") +
+    item("/merch", "Merch", "merch") +
     '<a href="/join.html">Join Us</a>' +
     '<a href="/admin.html">Club Admin</a>' +
     '<a class="mm-cta" href="/join.html">Fill the Form, Become a Rotaractor →</a>' +
