@@ -7,7 +7,11 @@ import IslandNav from '../components/island/IslandNav';
 import { VENDORS } from '../data/vendors';
 import './vendor-paws-nepal.css';
 
-import heroDog from '../vendors/paws-nepal/hero/dog-hero.png';
+import dog1 from '../vendors/paws-nepal/hero/dog-1.png';
+import dog2 from '../vendors/paws-nepal/hero/dog-2.png';
+import dog3 from '../vendors/paws-nepal/hero/dog-3.png';
+import dog4 from '../vendors/paws-nepal/hero/dog-4.png';
+import dog5 from '../vendors/paws-nepal/hero/dog-5.png';
 
 import img1 from '../vendors/paws-nepal/media/1.jpg';
 import img2 from '../vendors/paws-nepal/media/2.jpg';
@@ -118,8 +122,11 @@ function AmbientScene() {
   );
 }
 
-/* ── hero pup: a real photo, floating & interactive ─────────────── */
-function DogPhoto({ onPet }) {
+/* ── hero pack: real dog cutouts, floating & interactive ────────── */
+const PACK = [dog1, dog2, dog3, dog4, dog5];
+
+function RealDogPack({ onPet }) {
+  const [idx, setIdx] = useState(0);
   const [pop, setPop] = useState(0);
 
   useEffect(() => {
@@ -129,9 +136,13 @@ function DogPhoto({ onPet }) {
   }, [pop]);
 
   const pet = () => {
+    setIdx((i) => (i + 1) % PACK.length);
     setPop((p) => p + 1);
     if (onPet) onPet();
   };
+
+  const backA = PACK[(idx + 2) % PACK.length];
+  const backB = PACK[(idx + 4) % PACK.length];
 
   return (
     <div className="vp-dog-float">
@@ -147,13 +158,19 @@ function DogPhoto({ onPet }) {
         </span>
       )}
 
-      <img
-        src={heroDog}
-        alt="A happy PAWS dog, ready for a stay"
-        className={`vp-dog-photo${pop ? ' pop' : ''}`}
-        onClick={pet}
-        draggable="false"
-      />
+      <div className="vp-pack">
+        <img src={backA} alt="" aria-hidden="true" className="vp-dog-back back-a" draggable="false" />
+        <img src={backB} alt="" aria-hidden="true" className="vp-dog-back back-b" draggable="false" />
+        <button type="button" className="vp-dog-hit" onClick={pet} aria-label="Meet the next PAWS dog" title="tap for the next pup">
+          <img
+            key={idx}
+            src={PACK[idx]}
+            alt="A happy PAWS dog, ready for a stay"
+            className={`vp-dog-photo${pop ? ' pop' : ''}`}
+            draggable="false"
+          />
+        </button>
+      </div>
 
       <span className="vp-dog-badge">🐾 PAWS approved</span>
     </div>
@@ -270,7 +287,7 @@ export default function VendorPage() {
           </div>
 
           <div className="vp-dog-stage">
-            <DogPhoto onPet={petPup} />
+            <RealDogPack onPet={petPup} />
           </div>
         </div>
 

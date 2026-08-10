@@ -3,6 +3,7 @@ import { Link, useInRouterContext } from 'react-router-dom';
 import './island-nav.css';
 
 const SITE_LINKS = [
+  { key: 'home', label: 'Home', href: '/' },
   { key: 'store', label: 'Store', href: '/store' },
   { key: 'merch', label: 'Magazine', href: '/merch' }
 ];
@@ -88,7 +89,6 @@ export default function IslandNav({ current, context, children }) {
             {l.label}
           </NavLink>
         ))}
-        <NavLink className="in-panel-home" {...linkProps('/')}>← Back to the homepage</NavLink>
       </div>
     </>
   );

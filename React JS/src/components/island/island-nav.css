@@ -58,6 +58,8 @@ html { scrollbar-gutter: stable; }
   text-transform: uppercase;
   color: var(--gold);
   margin-top: 2px;
+  /* fixed footprint — Store/Magazine swap content, never layout */
+  min-width: 96px;
 }
 
 .in-links {
@@ -140,16 +142,6 @@ html { scrollbar-gutter: stable; }
   padding: 10px 20px;
 }
 .in-panel-link.active { color: var(--gold); }
-.in-panel-home {
-  margin-top: 26px;
-  color: rgba(255, 255, 255, 0.45);
-  text-decoration: none;
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  padding-bottom: 3px;
-}
-.in-panel-home:hover { color: var(--gold); }
 
 @media (max-width: 900px) {
   .in-links { display: none; }
