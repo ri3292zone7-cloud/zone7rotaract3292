@@ -1,9 +1,7 @@
 <p align="center">
-  <img src="zone7_og_image.png" alt="Zone 7 Rotaract | District 3292" width="440" />
-</p>
-
-<p align="center">
-  <img src="zone7_logos.png" alt="Rotaract District 3292 Nepal–Bhutan" width="360" />
+  <img src="zone7_og_image.png" alt="Zone 7 Rotaract | District 3292" width="260" style="vertical-align:middle" />
+  &nbsp;&nbsp;&nbsp;
+  <img src="zone7_logos.png" alt="Rotaract District 3292 Nepal–Bhutan" width="220" style="vertical-align:middle" />
 </p>
 
 <h1 align="center">Zone 7 · Rotaract District 3292</h1>
