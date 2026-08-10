@@ -32,6 +32,20 @@
 .vp-aurora.a1 { width: 520px; height: 520px; top: -160px; left: -120px; background: radial-gradient(circle, rgba(225, 26, 110, 0.55), transparent 70%); }
 .vp-aurora.a2 { width: 620px; height: 620px; bottom: -220px; right: -160px; background: radial-gradient(circle, rgba(242, 169, 0, 0.4), transparent 70%); }
 .vp-aurora.a3 { width: 420px; height: 420px; top: -140px; right: -100px; background: radial-gradient(circle, rgba(242, 169, 0, 0.4), transparent 70%); }
+/* faint dot grid behind the 3D stage */
+.vp-hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1.6px),
+    radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1.6px);
+  background-size: 46px 46px, 23px 23px;
+  background-position: 0 0, 23px 23px;
+}
+/* cinematic vignette over the scene */
+.vp-hero::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 92% at 50% 112%, transparent 55%, rgba(11, 9, 20, 0.62) 100%);
+}
 .vp-hero-inner {
   position: relative; z-index: 2; text-align: center; padding: 120px 24px 110px;
   display: flex; flex-direction: column; align-items: center; gap: 18px;

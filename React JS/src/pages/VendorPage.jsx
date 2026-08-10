@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
+import { Float, Sparkles } from '@react-three/drei';
+import * as THREE from 'three';
 import Reveal from '../components/ui/Reveal';
 import IslandNav from '../components/island/IslandNav';
+import StudioEnv from '../components/store/models/StudioEnv';
 import { VENDORS } from '../data/vendors';
 import './vendor-paws-nepal.css';
 
@@ -20,50 +23,157 @@ import dog08 from '../vendors/paws-nepal/media/dog-08.jpg';
 
 const VENDOR = VENDORS[0];
 
-/* ── 3D: a field of gently floating paw prints ─────────────────── */
-function PawPrint({ position, scale = 1, rotation = [0, 0, 0], color = '#F2A900', opacity = 0.35 }) {
+/* ── 3D: soft glow orbs drifting behind the pup ─────────────────── */
+function GlowOrb({ position, color, scale = 1, speed = 0.25 }) {
+  const ref = useRef(null);
+  useFrame((state) => {
+    if (!ref.current) return;
+    const t = state.clock.elapsedTime;
+    ref.current.position.y = position[1] + Math.sin(t * speed + position[0] * 0.7) * 0.35;
+  });
   return (
-    <group position={position} rotation={rotation} scale={scale}>
+    <mesh ref={ref} position={position} scale={scale}>
+      <sphereGeometry args={[0.6, 20, 16]} />
+      <meshBasicMaterial color={color} transparent opacity={0.14} blending={THREE.AdditiveBlending} depthWrite={false} />
+    </mesh>
+  );
+}
+
+/* ── 3D: ghost paw prints floating in the dark ──────────────────── */
+function PawPrint({ position, scale = 1, rotation = [0, 0, 0], color = '#F2A900', opacity = 0.3 }) {
+  const ref = useRef(null);
+  useFrame((state) => {
+    if (!ref.current) return;
+    const t = state.clock.elapsedTime;
+    ref.current.position.y = position[1] + Math.sin(t * 0.6 + position[0] * 2) * 0.22;
+    ref.current.rotation.y += 0.003;
+  });
+  const m = (color) => ({ color, transparent: true, opacity, emissive: color, emissiveIntensity: 0.4 });
+  return (
+    <group ref={ref} position={position} rotation={rotation} scale={scale}>
       <mesh>
         <sphereGeometry args={[0.42, 12, 10]} />
-        <meshStandardMaterial color={color} transparent opacity={opacity} emissive={color} emissiveIntensity={0.35} />
+        <meshStandardMaterial {...m(color)} />
       </mesh>
       <mesh position={[-0.26, 0, -0.52]}>
         <sphereGeometry args={[0.15, 10, 8]} />
-        <meshStandardMaterial color={color} transparent opacity={opacity} emissive={color} emissiveIntensity={0.35} />
+        <meshStandardMaterial {...m(color)} />
       </mesh>
       <mesh position={[-0.09, 0, -0.72]}>
         <sphereGeometry args={[0.15, 10, 8]} />
-        <meshStandardMaterial color={color} transparent opacity={opacity} emissive={color} emissiveIntensity={0.35} />
+        <meshStandardMaterial {...m(color)} />
       </mesh>
       <mesh position={[0.09, 0, -0.72]}>
         <sphereGeometry args={[0.15, 10, 8]} />
-        <meshStandardMaterial color={color} transparent opacity={opacity} emissive={color} emissiveIntensity={0.35} />
+        <meshStandardMaterial {...m(color)} />
       </mesh>
       <mesh position={[0.26, 0, -0.52]}>
         <sphereGeometry args={[0.15, 10, 8]} />
-        <meshStandardMaterial color={color} transparent opacity={opacity} emissive={color} emissiveIntensity={0.35} />
+        <meshStandardMaterial {...m(color)} />
       </mesh>
-      <mesh position={[0, 0.06, -0.12]} scale={[0.9, 0.6, 1.5]}>
+      <mesh position={[0, 0.06, -0.12]} scale={[0.9, 0.5, 1.5]}>
         <sphereGeometry args={[0.34, 12, 10]} />
-        <meshStandardMaterial color={color} transparent opacity={opacity} emissive={color} emissiveIntensity={0.35} />
+        <meshStandardMaterial {...m(color)} />
       </mesh>
     </group>
   );
 }
 
-/* ── 3D: the PAWS pup — sitting on his disc, wagging for attention ── */
-const FUR = '#E3B07C';
-const FUR_DARK = '#C98F4E';
-const CREAM = '#FFF3DC';
-const PUP_INK = '#231E38';
+function PawField() {
+  const paws = [
+    { position: [-4.4, 2.2, -3], scale: 1.15, color: '#F2A900' },
+    { position: [-1.6, 0.6, -3.8], scale: 0.8, color: '#E11A6E' },
+    { position: [2.2, 2.4, -3.2], scale: 1.3, color: '#F2A900' },
+    { position: [4.9, 0.7, -3.9], scale: 0.9, color: '#E11A6E' },
+    { position: [-2.6, -0.9, -5.2], scale: 1.25, color: '#F2A900' },
+    { position: [0.4, -0.7, -5.4], scale: 1.0, color: '#E11A6E' },
+    { position: [3.6, 2.6, -5.6], scale: 0.72, color: '#F2A900' },
+    { position: [5.8, -0.4, -5.2], scale: 0.8, color: '#E11A6E' }
+  ];
+  return (
+    <group>
+      {paws.map((p, i) => (
+        <PawPrint key={i} {...p} />
+      ))}
+    </group>
+  );
+}
 
-function HeroDog({ onPet }) {
+/* ── 3D: flat paw decal used on the medallion ring ──────────────── */
+function FlatPaw({ color = '#F2A900', opacity = 0.9 }) {
+  return (
+    <group rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh scale={[1, 1, 0.3]}>
+        <sphereGeometry args={[0.3, 12, 10]} />
+        <meshStandardMaterial color={color} transparent opacity={opacity} emissive={color} emissiveIntensity={0.55} />
+      </mesh>
+      {[[-0.22, -0.38], [-0.08, -0.54], [0.08, -0.54], [0.22, -0.38]].map(([x, z], i) => (
+        <mesh key={i} position={[x, 0, z]} scale={[1, 1, 0.32]}>
+          <sphereGeometry args={[0.11, 10, 8]} />
+          <meshStandardMaterial color={color} transparent opacity={opacity} emissive={color} emissiveIntensity={0.55} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+/* ── 3D: glossy pedestal + slow-turning paw medallion ───────────── */
+function Pedestal() {
+  const ring = useRef(null);
+  useFrame((state) => {
+    if (ring.current) ring.current.rotation.y = state.clock.elapsedTime * 0.28;
+  });
+  const paws = Array.from({ length: 6 }, (_, i) => {
+    const a = (i / 6) * Math.PI * 2;
+    return { x: Math.cos(a) * 2.12, z: Math.sin(a) * 2.12, rot: -a + 0.5 };
+  });
+  return (
+    <group>
+      {/* soft ground shadow */}
+      <mesh position={[0, -0.16, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <circleGeometry args={[3.1, 48]} />
+        <meshBasicMaterial color="#0B0914" transparent opacity={0.62} depthWrite={false} />
+      </mesh>
+      {/* dark glossy pedestal */}
+      <mesh position={[0, -0.12, 0]}>
+        <cylinderGeometry args={[1.92, 2.3, 0.24, 48]} />
+        <meshStandardMaterial color="#221C3E" metalness={0.45} roughness={0.3} />
+      </mesh>
+      {/* gold rim */}
+      <mesh position={[0, 0.015, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[1.85, 1.97, 72]} />
+        <meshStandardMaterial color="#F2A900" emissive="#F2A900" emissiveIntensity={0.55} metalness={0.75} roughness={0.22} />
+      </mesh>
+      {/* orbiting paw medallion */}
+      <group ref={ring} position={[0, 0.05, 0]} rotation={[-1.12, 0, 0]}>
+        {paws.map((p, i) => (
+          <group key={i} position={[p.x, 0, p.z]} rotation={[0, p.rot, 0]}>
+            <FlatPaw color={i % 2 ? '#E11A6E' : '#F2A900'} opacity={0.85} />
+          </group>
+        ))}
+      </group>
+    </group>
+  );
+}
+
+/* ── 3D: the PAWS pup — a fully rigged little character ────────── */
+const FUR = '#E8B87E';
+const FUR_DARK = '#C9914F';
+const CREAM = '#FFF4DE';
+const PUP_INK = '#251F3C';
+
+function Puppy({ onPet }) {
   const root = useRef(null);
-  const tail = useRef(null);
+  const torso = useRef(null);
+  const head = useRef(null);
+  const eyes = useRef(null);
   const earL = useRef(null);
   const earR = useRef(null);
+  const tail = useRef(null);
+  const tag = useRef(null);
+  const [hovered, setHovered] = useState(false);
   const bounce = useRef(0);
+  const blink = useRef(0);
 
   const pet = (e) => {
     e.stopPropagation();
@@ -74,206 +184,240 @@ function HeroDog({ onPet }) {
   useFrame((state, dt) => {
     const t = state.clock.elapsedTime;
     if (!root.current) return;
-    bounce.current = Math.max(0, bounce.current - dt * 0.25);
+    bounce.current = Math.max(0, bounce.current - dt * 0.3);
     const b = bounce.current;
-    const hop = Math.abs(Math.sin(t * 9)) * b * 0.55;
-    const s = Math.min(1, Math.max(0.55, state.viewport.width / 6.4));
-    root.current.scale.setScalar(s);
-    root.current.position.y = -2.05 + hop + Math.sin(t * 1.4) * 0.03;
-    if (tail.current) tail.current.rotation.y = Math.sin(t * 13) * 0.6 + b * 1.1;
-    if (earL.current) { earL.current.rotation.z = -0.28 + Math.sin(t * 3 + 1) * 0.08 + b * 0.2; earL.current.rotation.x = b * 0.35; }
-    if (earR.current) { earR.current.rotation.z = 0.28 - Math.sin(t * 3) * 0.08 - b * 0.2; earR.current.rotation.x = b * 0.35; }
+    const hop = Math.abs(Math.sin(t * 9)) * b * 0.5;
+    root.current.position.y = hop + Math.sin(t * 1.4) * 0.025;
+
+    if (torso.current) torso.current.scale.y = 1 + Math.sin(t * 2.4) * 0.016;
+    if (tail.current) {
+      tail.current.rotation.y = Math.sin(t * 13) * (hovered ? 0.85 : 0.5) + b * 1.2;
+      tail.current.rotation.x = -0.1 + Math.sin(t * 2.1) * 0.05;
+    }
+    if (head.current) {
+      head.current.rotation.y = THREE.MathUtils.damp(head.current.rotation.y, state.pointer.x * 0.26, 3, dt);
+      head.current.rotation.x = THREE.MathUtils.damp(head.current.rotation.x, -state.pointer.y * 0.1 + Math.sin(t * 0.9) * 0.03, 3, dt);
+    }
+    if (eyes.current) {
+      if (blink.current <= 0 && Math.random() < dt * 0.45) blink.current = 0.12;
+      blink.current = Math.max(0, blink.current - dt);
+      eyes.current.scale.y = 1 - blink.current * 0.88;
+    }
+    if (earL.current) {
+      earL.current.rotation.z = -0.4 + Math.sin(t * 3 + 1) * 0.1 + b * 0.5;
+      earL.current.rotation.x = 0.1 + b * 0.6;
+    }
+    if (earR.current) {
+      earR.current.rotation.z = 0.4 - Math.sin(t * 3) * 0.1 - b * 0.5;
+      earR.current.rotation.x = 0.1 + b * 0.6;
+    }
+    if (tag.current) tag.current.rotation.x = Math.sin(t * 2.4) * 0.12 + b * 0.9;
   });
 
   const cursor = (c) => ({
-    onPointerOver: (e) => { e.stopPropagation(); document.body.style.cursor = c; },
-    onPointerOut: (e) => { e.stopPropagation(); document.body.style.cursor = 'auto'; }
+    onPointerOver: (e) => { e.stopPropagation(); setHovered(true); document.body.style.cursor = c; },
+    onPointerOut: (e) => { e.stopPropagation(); setHovered(false); document.body.style.cursor = 'auto'; }
   });
 
   return (
-    <group ref={root} position={[0, -2.05, -0.5]} onClick={pet} {...cursor('pointer')}>
-      {/* floor disc */}
-      <mesh position={[0, 0.06, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <cylinderGeometry args={[1.45, 1.62, 0.1, 32]} />
-        <meshStandardMaterial color="#2A2345" />
+    <group ref={root} onClick={pet} {...cursor('pointer')}>
+
+      {/* warm pool of light under the pup */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.04, 0]}>
+        <circleGeometry args={[1.1, 32]} />
+        <meshBasicMaterial color="#F2A900" transparent opacity={0.16} blending={THREE.AdditiveBlending} depthWrite={false} />
       </mesh>
 
-      {/* doghouse + bone + ball */}
-      <group position={[-1.8, 0, 0.5]}>
-        <mesh position={[0, 0.52, 0]}>
-          <boxGeometry args={[1.2, 0.98, 1.05]} />
-          <meshStandardMaterial color="#2A2345" />
-        </mesh>
-        <mesh position={[0, 1.06, 0]} rotation={[0, Math.PI / 4, 0]}>
-          <coneGeometry args={[0.95, 0.6, 4]} />
-          <meshStandardMaterial color="#F2A900" emissive="#F2A900" emissiveIntensity={0.25} />
-        </mesh>
-        <mesh position={[0, 0.3, 0.53]}>
-          <boxGeometry args={[0.4, 0.55, 0.08]} />
-          <meshStandardMaterial color="#171330" />
-        </mesh>
-        <group position={[0, 0.1, 0.62]}>
-          <mesh rotation={[0, 0, Math.PI / 2]}>
-            <capsuleGeometry args={[0.05, 0.24, 4, 10]} />
-            <meshStandardMaterial color="#FFF3DC" />
-          </mesh>
-          <mesh position={[0.17, 0, 0]}>
-            <sphereGeometry args={[0.06, 10, 8]} />
-            <meshStandardMaterial color="#FFF3DC" />
-          </mesh>
-          <mesh position={[-0.17, 0, 0]}>
-            <sphereGeometry args={[0.06, 10, 8]} />
-            <meshStandardMaterial color="#FFF3DC" />
-          </mesh>
-        </group>
-      </group>
-      <mesh position={[1.0, 0.13, 0.45]}>
-        <sphereGeometry args={[0.13, 14, 12]} />
-        <meshStandardMaterial color="#E11A6E" emissive="#E11A6E" emissiveIntensity={0.2} />
+      {/* hind haunches */}
+      <mesh position={[-0.44, 0.52, -0.28]}>
+        <sphereGeometry args={[0.34, 16, 12]} />
+        <meshStandardMaterial color={FUR_DARK} />
+      </mesh>
+      <mesh position={[0.44, 0.52, -0.28]}>
+        <sphereGeometry args={[0.34, 16, 12]} />
+        <meshStandardMaterial color={FUR_DARK} />
       </mesh>
 
-      {/* sitting body */}
-      <mesh position={[0, 0.62, -0.3]}>
-        <sphereGeometry args={[0.55, 18, 14]} />
+      {/* torso + belly */}
+      <mesh ref={torso} position={[0, 1.02, -0.08]} scale={[1, 0.82, 1.12]}>
+        <sphereGeometry args={[0.6, 18, 14]} />
         <meshStandardMaterial color={FUR} />
       </mesh>
-      <mesh position={[-0.36, 0.5, -0.15]}>
-        <sphereGeometry args={[0.3, 14, 12]} />
-        <meshStandardMaterial color={FUR_DARK} />
+      <mesh position={[0, 0.52, 0.16]} scale={[1, 0.55, 1.05]}>
+        <sphereGeometry args={[0.32, 14, 12]} />
+        <meshStandardMaterial color={CREAM} />
       </mesh>
-      <mesh position={[0.36, 0.5, -0.15]}>
-        <sphereGeometry args={[0.3, 14, 12]} />
-        <meshStandardMaterial color={FUR_DARK} />
-      </mesh>
-      <mesh position={[0, 1.05, 0.05]}>
-        <sphereGeometry args={[0.56, 18, 14]} />
-        <meshStandardMaterial color={FUR} />
-      </mesh>
-      <mesh position={[0, 0.98, 0.38]} scale={[0.9, 0.72, 0.8]}>
-        <sphereGeometry args={[0.42, 16, 12]} />
+      <mesh position={[0, 0.92, 0.34]} scale={[0.9, 0.78, 0.85]}>
+        <sphereGeometry args={[0.34, 16, 12]} />
         <meshStandardMaterial color={CREAM} />
       </mesh>
 
       {/* front legs + paws */}
-      <mesh position={[-0.34, 0.58, 0.2]} rotation={[0.08, 0, 0.06]}>
-        <capsuleGeometry args={[0.15, 0.38, 4, 12]} />
+      <mesh position={[-0.32, 0.55, 0.26]} rotation={[0.12, 0, 0.05]}>
+        <capsuleGeometry args={[0.14, 0.4, 4, 12]} />
         <meshStandardMaterial color={FUR} />
       </mesh>
-      <mesh position={[0.34, 0.58, 0.2]} rotation={[0.08, 0, -0.06]}>
-        <capsuleGeometry args={[0.15, 0.38, 4, 12]} />
+      <mesh position={[0.32, 0.55, 0.26]} rotation={[0.12, 0, -0.05]}>
+        <capsuleGeometry args={[0.14, 0.4, 4, 12]} />
         <meshStandardMaterial color={FUR} />
       </mesh>
-      <mesh position={[-0.34, 0.14, 0.3]}>
-        <sphereGeometry args={[0.13, 12, 10]} />
+      <mesh position={[-0.32, 0.17, 0.34]}>
+        <sphereGeometry args={[0.15, 14, 12]} />
         <meshStandardMaterial color={CREAM} />
       </mesh>
-      <mesh position={[0.34, 0.14, 0.3]}>
-        <sphereGeometry args={[0.13, 12, 10]} />
+      <mesh position={[0.32, 0.17, 0.34]}>
+        <sphereGeometry args={[0.15, 14, 12]} />
         <meshStandardMaterial color={CREAM} />
       </mesh>
-
-      {/* head */}
-      <mesh position={[0, 1.78, 0.42]}>
-        <sphereGeometry args={[0.44, 18, 14]} />
-        <meshStandardMaterial color={FUR} />
-      </mesh>
-      <mesh position={[0, 1.7, 0.9]} scale={[1, 0.85, 1.2]}>
-        <sphereGeometry args={[0.26, 14, 12]} />
-        <meshStandardMaterial color={CREAM} />
-      </mesh>
-      <mesh position={[0, 1.74, 1.13]}>
-        <sphereGeometry args={[0.09, 12, 10]} />
-        <meshStandardMaterial color={PUP_INK} />
-      </mesh>
-      <mesh position={[0, 1.61, 1.06]}>
-        <boxGeometry args={[0.26, 0.045, 0.03]} />
-        <meshStandardMaterial color={PUP_INK} transparent opacity={0.85} />
-      </mesh>
-      <mesh position={[-0.19, 1.9, 0.78]}>
-        <sphereGeometry args={[0.07, 12, 10]} />
-        <meshStandardMaterial color={PUP_INK} />
-      </mesh>
-      <mesh position={[0.19, 1.9, 0.78]}>
-        <sphereGeometry args={[0.07, 12, 10]} />
-        <meshStandardMaterial color={PUP_INK} />
-      </mesh>
-      <mesh position={[-0.145, 1.935, 0.83]}>
-        <sphereGeometry args={[0.024, 8, 6]} />
-        <meshStandardMaterial color="#fff" />
-      </mesh>
-      <mesh position={[0.145, 1.935, 0.83]}>
-        <sphereGeometry args={[0.024, 8, 6]} />
-        <meshStandardMaterial color="#fff" />
-      </mesh>
-
-      {/* floppy ears */}
-      <group ref={earL} position={[-0.4, 1.94, 0.22]}>
-        <mesh position={[0, -0.3, 0]} scale={[0.75, 1.4, 0.4]}>
-          <sphereGeometry args={[0.22, 12, 10]} />
-          <meshStandardMaterial color={FUR_DARK} />
+      {[-0.44, -0.32, -0.2].map((x, i) => (
+        <mesh key={i} position={[x, 0.09, 0.44]}>
+          <sphereGeometry args={[0.045, 8, 6]} />
+          <meshStandardMaterial color={CREAM} />
         </mesh>
-      </group>
-      <group ref={earR} position={[0.4, 1.94, 0.22]}>
-        <mesh position={[0, -0.3, 0]} scale={[0.75, 1.4, 0.4]}>
-          <sphereGeometry args={[0.22, 12, 10]} />
-          <meshStandardMaterial color={FUR_DARK} />
+      ))}
+      {[0.2, 0.32, 0.44].map((x, i) => (
+        <mesh key={i} position={[x, 0.09, 0.44]}>
+          <sphereGeometry args={[0.045, 8, 6]} />
+          <meshStandardMaterial color={CREAM} />
         </mesh>
-      </group>
-
-      {/* collar + tag */}
-      <mesh position={[0, 1.54, 0.45]} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[0.3, 0.05, 10, 24]} />
-        <meshStandardMaterial color="#F2A900" emissive="#F2A900" emissiveIntensity={0.5} />
-      </mesh>
-      <mesh position={[0, 1.44, 0.78]}>
-        <sphereGeometry args={[0.075, 12, 10]} />
-        <meshStandardMaterial color="#F2A900" emissive="#F2A900" emissiveIntensity={0.5} />
-      </mesh>
+      ))}
 
       {/* wagging tail */}
-      <group ref={tail} position={[0, 1.02, -0.55]}>
-        <mesh position={[0, 0.3, -0.35]} rotation={[-1.35, 0, 0]}>
-          <capsuleGeometry args={[0.1, 0.5, 4, 12]} />
+      <group ref={tail} position={[0, 1.32, -0.58]}>
+        <mesh position={[0, 0.16, -0.26]} rotation={[-1.15, 0, 0]}>
+          <capsuleGeometry args={[0.105, 0.4, 4, 12]} />
           <meshStandardMaterial color={FUR} />
+        </mesh>
+        <mesh position={[0, 0.3, -0.55]} rotation={[-1.15, 0, 0]} scale={[0.85, 1.15, 0.85]}>
+          <capsuleGeometry args={[0.09, 0.18, 4, 10]} />
+          <meshStandardMaterial color={FUR_DARK} />
+        </mesh>
+      </group>
+
+      {/* collar + jangling bone tag */}
+      <mesh position={[0, 1.5, 0.16]} rotation={[1.3, 0, 0]}>
+        <torusGeometry args={[0.32, 0.06, 10, 28]} />
+        <meshStandardMaterial color="#F2A900" emissive="#F2A900" emissiveIntensity={0.5} metalness={0.7} roughness={0.3} />
+      </mesh>
+      <group ref={tag} position={[0, 1.45, 0.52]}>
+        <mesh>
+          <boxGeometry args={[0.16, 0.06, 0.035]} />
+          <meshStandardMaterial color="#F2A900" emissive="#F2A900" emissiveIntensity={0.5} metalness={0.7} roughness={0.3} />
+        </mesh>
+        <mesh position={[-0.09, 0, 0]}>
+          <sphereGeometry args={[0.058, 10, 8]} />
+          <meshStandardMaterial color="#F2A900" emissive="#F2A900" emissiveIntensity={0.5} metalness={0.7} roughness={0.3} />
+        </mesh>
+        <mesh position={[0.09, 0, 0]}>
+          <sphereGeometry args={[0.058, 10, 8]} />
+          <meshStandardMaterial color="#F2A900" emissive="#F2A900" emissiveIntensity={0.5} metalness={0.7} roughness={0.3} />
+        </mesh>
+      </group>
+
+      {/* head */}
+      <group ref={head} position={[0, 1.88, 0.16]}>
+        {/* skull + cheeks */}
+        <mesh position={[0, 0.02, 0.06]}>
+          <sphereGeometry args={[0.46, 20, 16]} />
+          <meshStandardMaterial color={FUR} />
+        </mesh>
+        <mesh position={[-0.32, -0.08, 0.3]} scale={[0.85, 1, 1]}>
+          <sphereGeometry args={[0.2, 14, 12]} />
+          <meshStandardMaterial color={FUR_DARK} />
+        </mesh>
+        <mesh position={[0.32, -0.08, 0.3]} scale={[0.85, 1, 1]}>
+          <sphereGeometry args={[0.2, 14, 12]} />
+          <meshStandardMaterial color={FUR_DARK} />
+        </mesh>
+        {/* muzzle */}
+        <mesh position={[0, -0.14, 0.5]} scale={[1, 0.78, 1.3]}>
+          <sphereGeometry args={[0.25, 16, 12]} />
+          <meshStandardMaterial color={CREAM} />
+        </mesh>
+        {/* shiny nose + glint */}
+        <mesh position={[0, -0.02, 0.74]}>
+          <sphereGeometry args={[0.085, 12, 10]} />
+          <meshStandardMaterial color={PUP_INK} metalness={0.35} roughness={0.28} />
+        </mesh>
+        <mesh position={[0.03, 0.04, 0.79]}>
+          <sphereGeometry args={[0.026, 8, 6]} />
+          <meshStandardMaterial color="#fff" emissive="#fff" emissiveIntensity={0.4} />
+        </mesh>
+        {/* smile */}
+        <mesh position={[0, -0.25, 0.66]} rotation={[Math.PI / 2, 0, 0]}>
+          <capsuleGeometry args={[0.02, 0.16, 4, 8]} />
+          <meshStandardMaterial color={PUP_INK} transparent opacity={0.8} />
+        </mesh>
+        {/* blinking eyes */}
+        <group ref={eyes} position={[0, 0.12, 0.55]}>
+          <mesh position={[-0.2, 0, 0]}>
+            <sphereGeometry args={[0.08, 12, 10]} />
+            <meshStandardMaterial color={PUP_INK} />
+          </mesh>
+          <mesh position={[0.2, 0, 0]}>
+            <sphereGeometry args={[0.08, 12, 10]} />
+            <meshStandardMaterial color={PUP_INK} />
+          </mesh>
+          <mesh position={[-0.215, 0.02, 0.065]}>
+            <sphereGeometry args={[0.026, 8, 6]} />
+            <meshStandardMaterial color="#fff" />
+          </mesh>
+          <mesh position={[0.185, 0.02, 0.065]}>
+            <sphereGeometry args={[0.026, 8, 6]} />
+            <meshStandardMaterial color="#fff" />
+          </mesh>
+        </group>
+      </group>
+
+      {/* floppy ears with cream inner ear */}
+      <group ref={earL} position={[-0.42, 2.02, 0.08]} rotation={[-0.4, 0, -0.4]}>
+        <mesh position={[0, -0.3, -0.02]} scale={[0.6, 1.5, 0.34]}>
+          <sphereGeometry args={[0.24, 14, 12]} />
+          <meshStandardMaterial color={FUR_DARK} />
+        </mesh>
+        <mesh position={[0, -0.26, 0.03]} scale={[0.5, 1.15, 0.45]}>
+          <sphereGeometry args={[0.13, 12, 10]} />
+          <meshStandardMaterial color={CREAM} />
+        </mesh>
+      </group>
+      <group ref={earR} position={[0.42, 2.02, 0.08]} rotation={[0.4, 0, 0.4]}>
+        <mesh position={[0, -0.3, -0.02]} scale={[0.6, 1.5, 0.34]}>
+          <sphereGeometry args={[0.24, 14, 12]} />
+          <meshStandardMaterial color={FUR_DARK} />
+        </mesh>
+        <mesh position={[0, -0.26, 0.03]} scale={[0.5, 1.15, 0.45]}>
+          <sphereGeometry args={[0.13, 12, 10]} />
+          <meshStandardMaterial color={CREAM} />
         </mesh>
       </group>
     </group>
   );
 }
 
-function PawField() {  const group = useRef(null);
-
-  const paws = [
-    { position: [-3.4, 1.1, -2.5], scale: 1.15, color: '#F2A900' },
-    { position: [-1.2, 0.4, -3.2], scale: 0.8, color: '#E11A6E' },
-    { position: [1.6, 1.4, -2.8], scale: 1.3, color: '#F2A900' },
-    { position: [3.6, 0.5, -3.4], scale: 0.9, color: '#E11A6E' },
-    { position: [-4.6, -0.9, -4.2], scale: 1.5, color: '#F2A900' },
-    { position: [-0.4, -1.3, -4.6], scale: 1.0, color: '#E11A6E' },
-    { position: [2.8, -0.7, -4.4], scale: 1.35, color: '#F2A900' },
-    { position: [4.9, -1.2, -4.8], scale: 1.05, color: '#E11A6E' },
-    { position: [0.6, 2.0, -4.9], scale: 0.7, color: '#F2A900' },
-    { position: [5.4, 1.8, -5.4], scale: 0.75, color: '#E11A6E' },
-    { position: [-5.6, 1.9, -5.6], scale: 0.8, color: '#E11A6E' },
-    { position: [-2.1, -1.9, -5.6], scale: 1.25, color: '#F2A900' }
-  ];
-
-  useFrame((state) => {
-    const t = state.clock.elapsedTime;
-    if (!group.current) return;
-    group.current.rotation.z = Math.sin(t * 0.08) * 0.04;
-    group.current.children.forEach((paw, i) => {
-      paw.position.y += Math.sin(t * 0.7 + i * 1.7) * 0.0016;
-      paw.rotation.y = Math.sin(t * 0.25 + i) * 0.5;
-      paw.rotation.z = Math.sin(t * 0.4 + i * 2.1) * 0.35;
-    });
+/* ── 3D: the full stage — parallax, dust, pedestal, dog ─────────── */
+function Stage({ onPet }) {
+  const rig = useRef(null);
+  useFrame((state, dt) => {
+    if (!rig.current) return;
+    const s = Math.min(1.15, Math.max(0.62, state.viewport.width / 6.4));
+    rig.current.scale.x = THREE.MathUtils.damp(rig.current.scale.x, s, 2.6, dt);
+    rig.current.scale.y = rig.current.scale.x;
+    rig.current.scale.z = rig.current.scale.x;
+    rig.current.rotation.y = THREE.MathUtils.damp(rig.current.rotation.y, state.pointer.x * 0.16, 2.5, dt);
+    rig.current.rotation.x = THREE.MathUtils.damp(rig.current.rotation.x, -state.pointer.y * 0.06, 2.5, dt);
   });
 
   return (
-    <group ref={group}>
-      {paws.map((p, i) => (
-        <PawPrint key={i} {...p} />
-      ))}
+    <group ref={rig}>
+      <Sparkles count={130} scale={[12, 7, 9]} position={[0, 1.8, -1]} size={2.4} speed={0.3} opacity={0.5} color="#F6C453" />
+      <GlowOrb position={[-4.4, 1.6, -3.2]} color="#E11A6E" scale={1.5} speed={0.25} />
+      <GlowOrb position={[4.6, 0.8, -3.6]} color="#F2A900" scale={1.9} speed={0.2} />
+      <GlowOrb position={[0, 2.6, -5]} color="#6C5CE7" scale={2.4} speed={0.18} />
+      <Pedestal />
+      <PawField />
+      <Float speed={1.2} rotationIntensity={0.14} floatIntensity={0.4}>
+        <Puppy onPet={onPet} />
+      </Float>
     </group>
   );
 }
@@ -281,17 +425,18 @@ function PawField() {  const group = useRef(null);
 function PawScene({ onPet }) {
   return (
     <Canvas
-      camera={{ position: [0, 0, 7], fov: 60 }}
+      camera={{ position: [0, 1.35, 7.6], fov: 40 }}
       gl={{ antialias: true, alpha: true }}
       dpr={[1, 1.8]}
       style={{ position: 'absolute', inset: 0 }}
     >
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[4, 6, 4]} intensity={1.1} color="#FFF3D6" />
-      <pointLight position={[-5, -3, 3]} intensity={1.4} color="#E11A6E" />
-      <pointLight position={[5, 3, 2]} intensity={1.4} color="#F2A900" />
-      <PawField />
-      <HeroDog onPet={onPet} />
+      <StudioEnv />
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[4, 6, 4]} intensity={1.1} color="#FFE3B3" />
+      <pointLight position={[-5, 3, 2.5]} intensity={10} distance={9} color="#FF6AA0" />
+      <pointLight position={[5, 1.5, 3.5]} intensity={8} distance={8} color="#F2A900" />
+      <pointLight position={[0, 4, 6]} intensity={6} distance={12} color="#9B8CFF" />
+      <Stage onPet={onPet} />
     </Canvas>
   );
 }
