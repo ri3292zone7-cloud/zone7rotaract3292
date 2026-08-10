@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Sparkles } from '@react-three/drei';
+import { Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 import Reveal from '../components/ui/Reveal';
 import IslandNav from '../components/island/IslandNav';
-import StudioEnv from '../components/store/models/StudioEnv';
 import { VENDORS } from '../data/vendors';
 import './vendor-paws-nepal.css';
+
+import heroDog from '../vendors/paws-nepal/hero/dog-hero.png';
 
 import img1 from '../vendors/paws-nepal/media/1.jpg';
 import img2 from '../vendors/paws-nepal/media/2.jpg';
@@ -99,350 +100,68 @@ function PawField() {
   );
 }
 
-/* ── 3D: flat paw decal used on the medallion ring ──────────────── */
-function FlatPaw({ color = '#F2A900', opacity = 0.9 }) {
-  return (
-    <group rotation={[-Math.PI / 2, 0, 0]}>
-      <mesh scale={[1, 1, 0.3]}>
-        <sphereGeometry args={[0.3, 12, 10]} />
-        <meshStandardMaterial color={color} transparent opacity={opacity} emissive={color} emissiveIntensity={0.55} />
-      </mesh>
-      {[[-0.22, -0.38], [-0.08, -0.54], [0.08, -0.54], [0.22, -0.38]].map(([x, z], i) => (
-        <mesh key={i} position={[x, 0, z]} scale={[1, 1, 0.32]}>
-          <sphereGeometry args={[0.11, 10, 8]} />
-          <meshStandardMaterial color={color} transparent opacity={opacity} emissive={color} emissiveIntensity={0.55} />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
-/* ── 3D: glossy pedestal + slow-turning paw medallion ───────────── */
-function Pedestal() {
-  const ring = useRef(null);
-  useFrame((state) => {
-    if (ring.current) ring.current.rotation.y = state.clock.elapsedTime * 0.28;
-  });
-  const paws = Array.from({ length: 6 }, (_, i) => {
-    const a = (i / 6) * Math.PI * 2;
-    return { x: Math.cos(a) * 2.12, z: Math.sin(a) * 2.12, rot: -a + 0.5 };
-  });
-  return (
-    <group>
-      {/* soft ground shadow */}
-      <mesh position={[0, -0.16, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <circleGeometry args={[3.1, 48]} />
-        <meshBasicMaterial color="#0B0914" transparent opacity={0.62} depthWrite={false} />
-      </mesh>
-      {/* dark glossy pedestal */}
-      <mesh position={[0, -0.12, 0]}>
-        <cylinderGeometry args={[1.92, 2.3, 0.24, 48]} />
-        <meshStandardMaterial color="#221C3E" metalness={0.45} roughness={0.3} />
-      </mesh>
-      {/* gold rim */}
-      <mesh position={[0, 0.015, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[1.85, 1.97, 72]} />
-        <meshStandardMaterial color="#F2A900" emissive="#F2A900" emissiveIntensity={0.55} metalness={0.75} roughness={0.22} />
-      </mesh>
-      {/* orbiting paw medallion */}
-      <group ref={ring} position={[0, 0.05, 0]} rotation={[-1.12, 0, 0]}>
-        {paws.map((p, i) => (
-          <group key={i} position={[p.x, 0, p.z]} rotation={[0, p.rot, 0]}>
-            <FlatPaw color={i % 2 ? '#E11A6E' : '#F2A900'} opacity={0.85} />
-          </group>
-        ))}
-      </group>
-    </group>
-  );
-}
-
-/* ── 3D: the PAWS pup — a fully rigged little character ────────── */
-const FUR = '#E8B87E';
-const FUR_DARK = '#C9914F';
-const CREAM = '#FFF4DE';
-const PUP_INK = '#251F3C';
-
-function Puppy({ onPet }) {
-  const root = useRef(null);
-  const torso = useRef(null);
-  const head = useRef(null);
-  const eyes = useRef(null);
-  const earL = useRef(null);
-  const earR = useRef(null);
-  const tail = useRef(null);
-  const tag = useRef(null);
-  const [hovered, setHovered] = useState(false);
-  const bounce = useRef(0);
-  const blink = useRef(0);
-
-  const pet = (e) => {
-    e.stopPropagation();
-    bounce.current = 1;
-    if (onPet) onPet();
-  };
-
-  useFrame((state, dt) => {
-    const t = state.clock.elapsedTime;
-    if (!root.current) return;
-    bounce.current = Math.max(0, bounce.current - dt * 0.3);
-    const b = bounce.current;
-    const hop = Math.abs(Math.sin(t * 9)) * b * 0.5;
-    root.current.position.y = hop + Math.sin(t * 1.4) * 0.025;
-
-    if (torso.current) torso.current.scale.y = 1 + Math.sin(t * 2.4) * 0.016;
-    if (tail.current) {
-      tail.current.rotation.y = Math.sin(t * 13) * (hovered ? 0.85 : 0.5) + b * 1.2;
-      tail.current.rotation.x = -0.1 + Math.sin(t * 2.1) * 0.05;
-    }
-    if (head.current) {
-      head.current.rotation.y = THREE.MathUtils.damp(head.current.rotation.y, state.pointer.x * 0.26, 3, dt);
-      head.current.rotation.x = THREE.MathUtils.damp(head.current.rotation.x, -state.pointer.y * 0.1 + Math.sin(t * 0.9) * 0.03, 3, dt);
-    }
-    if (eyes.current) {
-      if (blink.current <= 0 && Math.random() < dt * 0.45) blink.current = 0.12;
-      blink.current = Math.max(0, blink.current - dt);
-      eyes.current.scale.y = 1 - blink.current * 0.88;
-    }
-    if (earL.current) {
-      earL.current.rotation.z = -0.4 + Math.sin(t * 3 + 1) * 0.1 + b * 0.5;
-      earL.current.rotation.x = 0.1 + b * 0.6;
-    }
-    if (earR.current) {
-      earR.current.rotation.z = 0.4 - Math.sin(t * 3) * 0.1 - b * 0.5;
-      earR.current.rotation.x = 0.1 + b * 0.6;
-    }
-    if (tag.current) tag.current.rotation.x = Math.sin(t * 2.4) * 0.12 + b * 0.9;
-  });
-
-  const cursor = (c) => ({
-    onPointerOver: (e) => { e.stopPropagation(); setHovered(true); document.body.style.cursor = c; },
-    onPointerOut: (e) => { e.stopPropagation(); setHovered(false); document.body.style.cursor = 'auto'; }
-  });
-
-  return (
-    <group ref={root} onClick={pet} {...cursor('pointer')}>
-
-      {/* warm pool of light under the pup */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.04, 0]}>
-        <circleGeometry args={[1.1, 32]} />
-        <meshBasicMaterial color="#F2A900" transparent opacity={0.16} blending={THREE.AdditiveBlending} depthWrite={false} />
-      </mesh>
-
-      {/* hind haunches */}
-      <mesh position={[-0.44, 0.52, -0.28]}>
-        <sphereGeometry args={[0.34, 16, 12]} />
-        <meshStandardMaterial color={FUR_DARK} />
-      </mesh>
-      <mesh position={[0.44, 0.52, -0.28]}>
-        <sphereGeometry args={[0.34, 16, 12]} />
-        <meshStandardMaterial color={FUR_DARK} />
-      </mesh>
-
-      {/* torso + belly */}
-      <mesh ref={torso} position={[0, 1.02, -0.08]} scale={[1, 0.82, 1.12]}>
-        <sphereGeometry args={[0.6, 18, 14]} />
-        <meshStandardMaterial color={FUR} />
-      </mesh>
-      <mesh position={[0, 0.52, 0.16]} scale={[1, 0.55, 1.05]}>
-        <sphereGeometry args={[0.32, 14, 12]} />
-        <meshStandardMaterial color={CREAM} />
-      </mesh>
-      <mesh position={[0, 0.92, 0.34]} scale={[0.9, 0.78, 0.85]}>
-        <sphereGeometry args={[0.34, 16, 12]} />
-        <meshStandardMaterial color={CREAM} />
-      </mesh>
-
-      {/* front legs + paws */}
-      <mesh position={[-0.32, 0.55, 0.26]} rotation={[0.12, 0, 0.05]}>
-        <capsuleGeometry args={[0.14, 0.4, 4, 12]} />
-        <meshStandardMaterial color={FUR} />
-      </mesh>
-      <mesh position={[0.32, 0.55, 0.26]} rotation={[0.12, 0, -0.05]}>
-        <capsuleGeometry args={[0.14, 0.4, 4, 12]} />
-        <meshStandardMaterial color={FUR} />
-      </mesh>
-      <mesh position={[-0.32, 0.17, 0.34]}>
-        <sphereGeometry args={[0.15, 14, 12]} />
-        <meshStandardMaterial color={CREAM} />
-      </mesh>
-      <mesh position={[0.32, 0.17, 0.34]}>
-        <sphereGeometry args={[0.15, 14, 12]} />
-        <meshStandardMaterial color={CREAM} />
-      </mesh>
-      {[-0.44, -0.32, -0.2].map((x, i) => (
-        <mesh key={i} position={[x, 0.09, 0.44]}>
-          <sphereGeometry args={[0.045, 8, 6]} />
-          <meshStandardMaterial color={CREAM} />
-        </mesh>
-      ))}
-      {[0.2, 0.32, 0.44].map((x, i) => (
-        <mesh key={i} position={[x, 0.09, 0.44]}>
-          <sphereGeometry args={[0.045, 8, 6]} />
-          <meshStandardMaterial color={CREAM} />
-        </mesh>
-      ))}
-
-      {/* wagging tail */}
-      <group ref={tail} position={[0, 1.32, -0.58]}>
-        <mesh position={[0, 0.16, -0.26]} rotation={[-1.15, 0, 0]}>
-          <capsuleGeometry args={[0.105, 0.4, 4, 12]} />
-          <meshStandardMaterial color={FUR} />
-        </mesh>
-        <mesh position={[0, 0.3, -0.55]} rotation={[-1.15, 0, 0]} scale={[0.85, 1.15, 0.85]}>
-          <capsuleGeometry args={[0.09, 0.18, 4, 10]} />
-          <meshStandardMaterial color={FUR_DARK} />
-        </mesh>
-      </group>
-
-      {/* collar + jangling bone tag */}
-      <mesh position={[0, 1.5, 0.16]} rotation={[1.3, 0, 0]}>
-        <torusGeometry args={[0.32, 0.06, 10, 28]} />
-        <meshStandardMaterial color="#F2A900" emissive="#F2A900" emissiveIntensity={0.5} metalness={0.7} roughness={0.3} />
-      </mesh>
-      <group ref={tag} position={[0, 1.45, 0.52]}>
-        <mesh>
-          <boxGeometry args={[0.16, 0.06, 0.035]} />
-          <meshStandardMaterial color="#F2A900" emissive="#F2A900" emissiveIntensity={0.5} metalness={0.7} roughness={0.3} />
-        </mesh>
-        <mesh position={[-0.09, 0, 0]}>
-          <sphereGeometry args={[0.058, 10, 8]} />
-          <meshStandardMaterial color="#F2A900" emissive="#F2A900" emissiveIntensity={0.5} metalness={0.7} roughness={0.3} />
-        </mesh>
-        <mesh position={[0.09, 0, 0]}>
-          <sphereGeometry args={[0.058, 10, 8]} />
-          <meshStandardMaterial color="#F2A900" emissive="#F2A900" emissiveIntensity={0.5} metalness={0.7} roughness={0.3} />
-        </mesh>
-      </group>
-
-      {/* head */}
-      <group ref={head} position={[0, 1.88, 0.16]}>
-        {/* skull + cheeks */}
-        <mesh position={[0, 0.02, 0.06]}>
-          <sphereGeometry args={[0.46, 20, 16]} />
-          <meshStandardMaterial color={FUR} />
-        </mesh>
-        <mesh position={[-0.32, -0.08, 0.3]} scale={[0.85, 1, 1]}>
-          <sphereGeometry args={[0.2, 14, 12]} />
-          <meshStandardMaterial color={FUR_DARK} />
-        </mesh>
-        <mesh position={[0.32, -0.08, 0.3]} scale={[0.85, 1, 1]}>
-          <sphereGeometry args={[0.2, 14, 12]} />
-          <meshStandardMaterial color={FUR_DARK} />
-        </mesh>
-        {/* muzzle */}
-        <mesh position={[0, -0.14, 0.5]} scale={[1, 0.78, 1.3]}>
-          <sphereGeometry args={[0.25, 16, 12]} />
-          <meshStandardMaterial color={CREAM} />
-        </mesh>
-        {/* shiny nose + glint */}
-        <mesh position={[0, -0.02, 0.74]}>
-          <sphereGeometry args={[0.085, 12, 10]} />
-          <meshStandardMaterial color={PUP_INK} metalness={0.35} roughness={0.28} />
-        </mesh>
-        <mesh position={[0.03, 0.04, 0.79]}>
-          <sphereGeometry args={[0.026, 8, 6]} />
-          <meshStandardMaterial color="#fff" emissive="#fff" emissiveIntensity={0.4} />
-        </mesh>
-        {/* smile */}
-        <mesh position={[0, -0.25, 0.66]} rotation={[Math.PI / 2, 0, 0]}>
-          <capsuleGeometry args={[0.02, 0.16, 4, 8]} />
-          <meshStandardMaterial color={PUP_INK} transparent opacity={0.8} />
-        </mesh>
-        {/* blinking eyes */}
-        <group ref={eyes} position={[0, 0.12, 0.55]}>
-          <mesh position={[-0.2, 0, 0]}>
-            <sphereGeometry args={[0.08, 12, 10]} />
-            <meshStandardMaterial color={PUP_INK} />
-          </mesh>
-          <mesh position={[0.2, 0, 0]}>
-            <sphereGeometry args={[0.08, 12, 10]} />
-            <meshStandardMaterial color={PUP_INK} />
-          </mesh>
-          <mesh position={[-0.215, 0.02, 0.065]}>
-            <sphereGeometry args={[0.026, 8, 6]} />
-            <meshStandardMaterial color="#fff" />
-          </mesh>
-          <mesh position={[0.185, 0.02, 0.065]}>
-            <sphereGeometry args={[0.026, 8, 6]} />
-            <meshStandardMaterial color="#fff" />
-          </mesh>
-        </group>
-      </group>
-
-      {/* floppy ears with cream inner ear */}
-      <group ref={earL} position={[-0.42, 2.02, 0.08]} rotation={[-0.4, 0, -0.4]}>
-        <mesh position={[0, -0.3, -0.02]} scale={[0.6, 1.5, 0.34]}>
-          <sphereGeometry args={[0.24, 14, 12]} />
-          <meshStandardMaterial color={FUR_DARK} />
-        </mesh>
-        <mesh position={[0, -0.26, 0.03]} scale={[0.5, 1.15, 0.45]}>
-          <sphereGeometry args={[0.13, 12, 10]} />
-          <meshStandardMaterial color={CREAM} />
-        </mesh>
-      </group>
-      <group ref={earR} position={[0.42, 2.02, 0.08]} rotation={[0.4, 0, 0.4]}>
-        <mesh position={[0, -0.3, -0.02]} scale={[0.6, 1.5, 0.34]}>
-          <sphereGeometry args={[0.24, 14, 12]} />
-          <meshStandardMaterial color={FUR_DARK} />
-        </mesh>
-        <mesh position={[0, -0.26, 0.03]} scale={[0.5, 1.15, 0.45]}>
-          <sphereGeometry args={[0.13, 12, 10]} />
-          <meshStandardMaterial color={CREAM} />
-        </mesh>
-      </group>
-    </group>
-  );
-}
-
-/* ── 3D: the full stage — parallax, dust, pedestal, dog ─────────── */
-function Stage({ onPet }) {
-  const rig = useRef(null);
-  useFrame((state, dt) => {
-    if (!rig.current) return;
-    const s = Math.min(1.15, Math.max(0.62, state.viewport.width / 6.4));
-    rig.current.scale.x = THREE.MathUtils.damp(rig.current.scale.x, s, 2.6, dt);
-    rig.current.scale.y = rig.current.scale.x;
-    rig.current.scale.z = rig.current.scale.x;
-    rig.current.rotation.y = THREE.MathUtils.damp(rig.current.rotation.y, state.pointer.x * 0.16, 2.5, dt);
-    rig.current.rotation.x = THREE.MathUtils.damp(rig.current.rotation.x, -state.pointer.y * 0.06, 2.5, dt);
-  });
-
-  return (
-    <group ref={rig}>
-      <Sparkles count={130} scale={[12, 7, 9]} position={[0, 1.8, -1]} size={2.4} speed={0.3} opacity={0.5} color="#F6C453" />
-      <GlowOrb position={[-4.4, 1.6, -3.2]} color="#E11A6E" scale={1.5} speed={0.25} />
-      <GlowOrb position={[4.6, 0.8, -3.6]} color="#F2A900" scale={1.9} speed={0.2} />
-      <GlowOrb position={[0, 2.6, -5]} color="#6C5CE7" scale={2.4} speed={0.18} />
-      <Pedestal />
-      <PawField />
-      <Float speed={1.2} rotationIntensity={0.14} floatIntensity={0.4}>
-        <Puppy onPet={onPet} />
-      </Float>
-    </group>
-  );
-}
-
-function PawScene({ onPet }) {
+/* ── 3D: ambient backdrop — orbs, ghost paws, golden dust ──────── */
+function AmbientScene() {
   return (
     <Canvas
-      camera={{ position: [0, 1.35, 7.6], fov: 40 }}
+      camera={{ position: [0, 1.5, 8], fov: 40 }}
       gl={{ antialias: true, alpha: true }}
       dpr={[1, 1.8]}
       style={{ position: 'absolute', inset: 0 }}
     >
-      <StudioEnv />
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[4, 6, 4]} intensity={1.1} color="#FFE3B3" />
-      <pointLight position={[-5, 3, 2.5]} intensity={10} distance={9} color="#FF6AA0" />
-      <pointLight position={[5, 1.5, 3.5]} intensity={8} distance={8} color="#F2A900" />
-      <pointLight position={[0, 4, 6]} intensity={6} distance={12} color="#9B8CFF" />
-      <Stage onPet={onPet} />
+      <GlowOrb position={[-4.6, 1.8, -3]} color="#E11A6E" scale={1.5} speed={0.25} />
+      <GlowOrb position={[4.8, 0.9, -3.4]} color="#F2A900" scale={1.9} speed={0.2} />
+      <GlowOrb position={[0, 2.8, -5]} color="#6C5CE7" scale={2.4} speed={0.18} />
+      <PawField />
+      <Sparkles count={120} scale={[12, 7, 9]} position={[0, 1.8, -1]} size={2.2} speed={0.3} opacity={0.45} color="#F6C453" />
     </Canvas>
   );
 }
 
-/* ── Lazy 3D hero canvas (mounts only when visible) ────────────── */
-function Hero3D({ onPet }) {
+/* ── hero pup: a real photo, floating & interactive ─────────────── */
+function DogPhoto({ onPet }) {
+  const [pop, setPop] = useState(0);
+
+  useEffect(() => {
+    if (!pop) return;
+    const t = setTimeout(() => setPop(0), 900);
+    return () => clearTimeout(t);
+  }, [pop]);
+
+  const pet = () => {
+    setPop((p) => p + 1);
+    if (onPet) onPet();
+  };
+
+  return (
+    <div className="vp-dog-float">
+      <span className="vp-dog-spark s1" aria-hidden="true">✦</span>
+      <span className="vp-dog-spark s2" aria-hidden="true">✧</span>
+      <span className="vp-dog-spark s3" aria-hidden="true">★</span>
+
+      {pop > 0 && (
+        <span className="vp-dog-hearts" key={pop} aria-hidden="true">
+          <i className="vh1">♥</i>
+          <i className="vh2">♥</i>
+          <i className="vh3">✦</i>
+        </span>
+      )}
+
+      <img
+        src={heroDog}
+        alt="A happy PAWS dog, ready for a stay"
+        className={`vp-dog-photo${pop ? ' pop' : ''}`}
+        onClick={pet}
+        draggable="false"
+      />
+
+      <span className="vp-dog-badge">🐾 PAWS approved</span>
+    </div>
+  );
+}
+
+/* ── Lazy ambient canvas (mounts only when the hero is visible) ─── */
+function HeroAmbient() {
   const [on, setOn] = useState(false);
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -455,7 +174,7 @@ function Hero3D({ onPet }) {
     io.observe(document.getElementById('vendor-hero'));
     return () => io.disconnect();
   }, []);
-  return on ? <PawScene onPet={onPet} /> : null;
+  return on ? <AmbientScene /> : null;
 }
 
 /* ── Marquee ticker ────────────────────────────────────────────── */
@@ -531,24 +250,32 @@ export default function VendorPage() {
       <header className="vp-hero" id="vendor-hero">
         <div className="vp-aurora a1"></div>
         <div className="vp-aurora a2"></div>
-        <Hero3D onPet={petPup} />
+        <HeroAmbient />
         {bark > 0 && (
           <div className="vp-bark" key={bark} role="status">Woof! <span className="vp-bark-heart">♥</span></div>
         )}
-        <div className="vp-hero-inner">
-          <span className="vp-eyebrow">Zone 7 · Local Vendor</span>
-          <h1 className="vp-title">PAWS <span className="vp-em">— Play &amp; Stay</span></h1>
-          <p className="vp-tagline">
-            A home away from home for your four-legged family.
-            <br />Pet boarding &amp; day care in Kathmandu.
-          </p>
-          <div className="vp-cta-row">
-            <a className="vp-btn vp-btn-gold" href={VENDOR.site} target="_blank" rel="noreferrer">Visit pawsnepal.com →</a>
-            <a className="vp-btn vp-btn-glass" href={VENDOR.instagram} target="_blank" rel="noreferrer">Follow @pawsnepal</a>
+
+        <div className="vp-hero-frame">
+          <div className="vp-hero-copy">
+            <span className="vp-eyebrow">Zone 7 · Local Vendor</span>
+            <h1 className="vp-title">PAWS <span className="vp-em">— Play &amp; Stay</span></h1>
+            <p className="vp-tagline">
+              A home away from home for your four-legged family.
+              <br />Pet boarding &amp; day care in Kathmandu.
+            </p>
+            <div className="vp-cta-row">
+              <a className="vp-btn vp-btn-gold" href={VENDOR.site} target="_blank" rel="noreferrer">Visit pawsnepal.com →</a>
+              <a className="vp-btn vp-btn-glass" href={VENDOR.instagram} target="_blank" rel="noreferrer">Follow @pawsnepal</a>
+            </div>
           </div>
-          <a className="vp-scroll-cue" href="#story">Meet the pack <span className="vp-cue-arrow">↓</span></a>
+
+          <div className="vp-dog-stage">
+            <DogPhoto onPet={petPup} />
+          </div>
         </div>
+
         <div className="vp-pup-hint">🐾 tap the pup</div>
+        <a className="vp-scroll-cue" href="#story">Meet the pack <span className="vp-cue-arrow">↓</span></a>
       </header>
 
       <Ticker />
