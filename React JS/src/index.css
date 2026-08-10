@@ -451,6 +451,37 @@ button { font-family: inherit; }
 .pc-foot .btn { padding: 11px 16px; font-size: .8rem; flex: 1; justify-content: center; }
 .product-card.ghost { background: rgba(255, 255, 255, .45); border: 1.5px dashed rgba(27, 24, 54, .18); }
 .product-card.ghost .pc-media { background: rgba(255, 255, 255, .5); }
+
+/* ── Store promo card (magazine → /store) ──────────────────────── */
+.store-promo {
+  margin-top: 18px; display: flex; align-items: center; gap: 22px; padding: 26px 30px;
+  background: var(--ink); color: #fff; border-radius: 24px; text-decoration: none;
+  position: relative; overflow: hidden; transition: transform .28s, box-shadow .28s;
+}
+.store-promo::before {
+  content: ''; position: absolute; top: -70px; right: -70px; width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(225, 26, 110, .55), transparent 65%);
+}
+.store-promo::after {
+  content: ''; position: absolute; bottom: -90px; right: 90px; width: 240px; height: 240px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 169, 0, .35), transparent 65%);
+}
+.store-promo:hover { transform: translateY(-5px); box-shadow: 0 24px 50px rgba(27, 24, 54, .25); }
+.sp-mark {
+  flex: 0 0 auto; width: 66px; height: 66px; border-radius: 18px; display: grid; place-items: center;
+  font-family: 'Poppins'; font-weight: 900; font-size: 1.5rem; color: var(--ink);
+  background: linear-gradient(135deg, var(--gold), #FFD35C);
+}
+.sp-body { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0; position: relative; z-index: 1; }
+.sp-tag { font-size: .62rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.sp-title { font-family: 'Poppins'; font-weight: 800; font-size: 1.15rem; }
+.sp-desc { font-size: .8rem; color: rgba(255, 255, 255, .7); line-height: 1.55; max-width: 520px; }
+.sp-cta {
+  flex: 0 0 auto; font-size: .82rem; font-weight: 800; color: #fff; padding: 12px 22px;
+  border: 1.5px solid rgba(255, 255, 255, .35); border-radius: 100px; transition: .25s; position: relative; z-index: 1;
+}
+.store-promo:hover .sp-cta { background: var(--magenta); border-color: var(--magenta); }
+@media (max-width: 720px) { .store-promo { flex-wrap: wrap; padding: 24px; } .sp-cta { width: 100%; text-align: center; } }
 .product-card.ghost .pc-badge { background: rgba(225, 26, 110, .08); color: var(--magenta-deep); border-color: transparent; }
 
 /* ── How buying works ──────────────────────────────────────────── */

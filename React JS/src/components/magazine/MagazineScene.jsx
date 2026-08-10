@@ -10,10 +10,10 @@ const COVER_RATIO = 842 / 595;
 const BOOK_W = 1.0;
 const BOOK_H = BOOK_W * COVER_RATIO;
 const THICK = 0.09;
-const REVOLVE_SPEED = 0.15;
+const YAW_LIMIT = 0.5;
 const ZOOM_MIN = 0.7;
 const ZOOM_MAX = 1.4;
-const PITCH_LIMIT = 0.9;
+const PITCH_LIMIT = 0.5;
 
 const lerp = (a, b, t) => a + (b - a) * t;
 const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
@@ -130,10 +130,10 @@ function DragController({ ctl, onFirstGrab }) {
         const dx = e.clientX - prev.clientX;
         const dy = e.clientY - prev.clientY;
         if (ctl.dragging && (dx || dy)) {
-          ctl.yaw += dx * 0.008;
-          ctl.pitch = clamp(ctl.pitch + dy * 0.008, -PITCH_LIMIT, PITCH_LIMIT);
-          ctl.velY = dx * 0.04;
-          ctl.velX = dy * 0.04;
+          ctl.yaw = clamp(ctl.yaw + dx * 0.005, -YAW_LIMIT, YAW_LIMIT);
+          ctl.pitch = clamp(ctl.pitch + dy * 0.005, -PITCH_LIMIT, PITCH_LIMIT);
+          ctl.velY = dx * 0.02;
+          ctl.velX = dy * 0.02;
         }
         pointers.set(e.pointerId, { clientX: e.clientX, clientY: e.clientY });
       } else if (pointers.size === 2) {
@@ -175,11 +175,6 @@ function Book({ textures, pointerRef, ctl }) {
   const zoomSmooth = useRef(1);
   const spin = useRef({ rotY: -0.55, rotX: -0.28, rotZ: 0, x: 1.7, y: -0.05, scale: 1 });
 
-  const reduceMotion = useMemo(
-    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    []
-  );
-
   useFrame((state, delta) => {
     const t = bookMotion;
     const damp = 1 - Math.pow(0.001, delta);
@@ -198,17 +193,14 @@ function Book({ textures, pointerRef, ctl }) {
     const posY = spin.current.y * ny;
     const scale = spin.current.scale * t.intro.scale * ns;
 
-    // ── interaction: drag rotates with momentum, idle auto-revolves ──
+    // ── interaction: drag rotates within a front-only range ──
     const dt = Math.min(delta, 0.05);
     if (!ctl.dragging) {
       const decay = Math.pow(0.0001, dt);
       ctl.velY *= decay;
       ctl.velX *= decay;
-      ctl.yaw += ctl.velY * dt;
-      ctl.pitch += ctl.velX * dt;
-      if (!reduceMotion && Math.abs(ctl.velY) < 0.002 && Math.abs(ctl.velX) < 0.001) {
-        ctl.yaw += dt * REVOLVE_SPEED;
-      }
+      ctl.yaw = clamp(ctl.yaw + ctl.velY * dt, -YAW_LIMIT, YAW_LIMIT);
+      ctl.pitch = clamp(ctl.pitch + ctl.velX * dt, -PITCH_LIMIT, PITCH_LIMIT);
     }
     ctl.pitch = clamp(ctl.pitch, -PITCH_LIMIT, PITCH_LIMIT);
     zoomSmooth.current = lerp(zoomSmooth.current, ctl.zoom, damp);
@@ -218,11 +210,11 @@ function Book({ textures, pointerRef, ctl }) {
 
     const g = group.current;
     if (!g) return;
-    g.rotation.y = spin.current.rotY + ctl.yaw + pointer.x * 0.35 * par;
-    g.rotation.x = spin.current.rotX + ctl.pitch + pointer.y * 0.22 * par;
+    g.rotation.y = spin.current.rotY + ctl.yaw + pointer.x * 0.18 * par;
+    g.rotation.x = spin.current.rotX + ctl.pitch + pointer.y * 0.14 * par;
     g.rotation.z = spin.current.rotZ;
-    g.position.x = posX + pointer.x * 0.35 * par;
-    g.position.y = posY - pointer.y * 0.3 * par;
+    g.position.x = posX + pointer.x * 0.2 * par;
+    g.position.y = posY - pointer.y * 0.18 * par;
     g.scale.setScalar(scale * zoomSmooth.current);
 
     // gentle idle bob

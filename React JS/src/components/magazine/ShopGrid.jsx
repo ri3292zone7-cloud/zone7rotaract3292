@@ -51,6 +51,16 @@ export default function ShopGrid() {
           </Reveal>
         ))}
       </div>
+
+      <a className="store-promo" href="/store">
+        <span className="sp-mark">Z7</span>
+        <span className="sp-body">
+          <span className="sp-tag">Official merch drop</span>
+          <span className="sp-title">Tees · Badges · Caps · Bottles</span>
+          <span className="sp-desc">Heavyweight cotton, enamel pins and steel bottles — designed by the zone, printed locally. Order on WhatsApp, pay with eSewa, Khalti or cash.</span>
+        </span>
+        <span className="sp-cta">Browse the full store →</span>
+      </a>
     </>
   );
 }

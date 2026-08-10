@@ -37,6 +37,8 @@ PAGE_REWRITES = {
     "/handbook-newclub": "/handbook-newclub.html",
     "/handbook-projects": "/handbook-projects.html",
     "/handbook-health": "/handbook-health.html",
+    "/store": "/React JS/dist-store/store-standalone.html",
+    "/store-react.html": "/React JS/dist-store/store-standalone.html",
 }
 
 CLUB_SLUGS = [
@@ -47,6 +49,7 @@ CLUB_SLUGS = [
 MIME = {
     ".html": "text/html; charset=utf-8",
     ".js": "text/javascript; charset=utf-8",
+    ".mjs": "text/javascript; charset=utf-8",
     ".css": "text/css; charset=utf-8",
     ".png": "image/png",
     ".jpg": "image/jpeg",

@@ -6,6 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:store": "vite build --config vite.store.config.js && node scripts/encode-store.mjs",
+    "build:merch": "vite build --config vite.merch.config.js",
+    "build:vendor": "vite build --config vite.vendor.config.js && node scripts/encode-vendor.mjs",
+    "deploy:merch": "npm run build:merch && node scripts/deploy-merch.mjs",
+    "serve:store": "node scripts/serve-store.mjs",
     "lint": "oxlint",
     "preview": "vite preview"
   },

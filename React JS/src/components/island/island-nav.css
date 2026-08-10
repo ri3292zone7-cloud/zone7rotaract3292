@@ -1,0 +1,164 @@
+/* ═══════════════ SHARED ISLAND NAV — Zone 7 bar ═══════════════ */
+
+html { scrollbar-gutter: stable; }
+
+.island-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 120;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.in-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 15px 28px;
+  transition: padding 0.3s, background 0.3s;
+}
+.island-nav.scrolled {
+  background: rgba(23, 19, 48, 0.84);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+.island-nav.scrolled .in-bar { padding: 10px 28px; }
+
+.in-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  line-height: 1.05;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.in-brand .in-z {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--gold), var(--magenta));
+  color: #fff;
+  font-size: 1.05rem;
+  box-shadow: 0 8px 18px rgba(225, 26, 110, 0.4);
+}
+.in-ctx {
+  display: block;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 2px;
+}
+
+.in-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.in-link {
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+  transition: color 0.25s, background 0.25s;
+}
+.in-link:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
+.in-link.active {
+  color: #fff;
+  background: rgba(242, 169, 0, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(242, 169, 0, 0.45);
+}
+
+.in-actions { display: flex; align-items: center; gap: 10px; min-width: 44px; justify-content: flex-end; }
+
+.in-burger {
+  display: none;
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  padding: 0;
+}
+.in-burger span {
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  height: 2px;
+  border-radius: 2px;
+  background: #fff;
+  transition: transform 0.3s, top 0.3s, opacity 0.3s;
+}
+.in-burger span:nth-child(1) { top: 13px; }
+.in-burger span:nth-child(2) { top: 20px; }
+.in-burger span:nth-child(3) { top: 27px; }
+.in-burger.open span:nth-child(1) { top: 20px; transform: rotate(45deg); }
+.in-burger.open span:nth-child(2) { opacity: 0; }
+.in-burger.open span:nth-child(3) { top: 20px; transform: rotate(-45deg); }
+
+.in-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 119;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(23, 19, 48, 0.96);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.in-panel.open { opacity: 1; pointer-events: auto; }
+.in-panel-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  padding: 10px 20px;
+}
+.in-panel-link.active { color: var(--gold); }
+.in-panel-home {
+  margin-top: 26px;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding-bottom: 3px;
+}
+.in-panel-home:hover { color: var(--gold); }
+
+@media (max-width: 900px) {
+  .in-links { display: none; }
+  .in-burger { display: block; }
+  .in-ctx { display: none; }
+}
+
+/* ── seamless page switch: soft fade-in, nav never shifts ──────── */
+@keyframes islandPageIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.st-page, .island-anim { animation: islandPageIn 0.3s ease; }

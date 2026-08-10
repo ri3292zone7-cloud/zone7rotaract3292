@@ -26,6 +26,8 @@
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/merch", "destination": "/merch-react.html" },
+    { "source": "/store", "destination": "/React%20JS/dist-store/store-standalone.html" },
+    { "source": "/store-react.html", "destination": "/React%20JS/dist-store/store-standalone.html" },
     { "source": "/district-overview", "destination": "/district-overview.html" },
     { "source": "/club", "destination": "/club.html" },
     { "source": "/pending-applications", "destination": "/pending-applications.html" },

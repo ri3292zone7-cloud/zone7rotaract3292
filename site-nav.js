@@ -154,7 +154,7 @@
     '<div class="nav-drop-panel learn-drop-panel">' + learnItems + "</div>" +
     "</div>" +
     item("/gallery.html", "Gallery", "gallery") +
-    item("/merch", "Merch", "merch") +
+    item("/store", "Store", "merch") +
     "</div>" +
     '<div style="display:flex;align-items:center;gap:16px;">' +
     '<a href="/admin.html" class="nav-admin">Club Admin</a>' +
@@ -174,7 +174,7 @@
     '<a href="/rkt-quiz.html">RKT Practice Quiz</a>' +
     '<div class="mm-group">Community</div>' +
     item("/gallery.html", "Gallery", "gallery") +
-    item("/merch", "Merch", "merch") +
+    item("/store", "Store", "merch") +
     '<a href="/join.html">Join Us</a>' +
     '<a href="/admin.html">Club Admin</a>' +
     '<a class="mm-cta" href="/join.html">Fill the Form, Become a Rotaractor →</a>' +

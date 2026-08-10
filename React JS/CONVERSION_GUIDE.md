@@ -104,7 +104,7 @@ chat widget, page title, per-page CSS injection (removed on unmount), and fade-i
 | `meetings.html` | `/meetings` |
 | `selftest.html` | `/selftest` |
 | `pending-applications.html` | `/pending-applications` |
-| `merch.html` | `/merch` (already handled — redirect to `/#shop`) |
+| `merch.html` | `/merch` (now the **magazine React island** — see "Islands" below; `vercel.json` rewrites `/merch` → `merch-react.html`) |
 | `404.html` | `*` fallback (already stubbed) |
 
 **Do not edit `src/App.jsx`** — every route already exists and lazy-loads
@@ -135,11 +135,36 @@ pages can be unified with small data objects — keep ALL text content intact.
   scroll-reveal animations, hover micro-interactions, spacing polish — but never at the
   cost of functionality or readability.
 
+## Store & magazine islands (exceptions to the rules above)
+
+Two standalone React islands are deployed on the static site without touching the original
+HTML pages. They are the ONLY places where the "Must NOT do" rules below are relaxed:
+
+- **Store** (`/store`): `src/pages/StorePage.jsx`, `src/components/store/*`,
+  `src/context/StoreCartProvider.jsx` (+ `store-cart-context.js`, `useStoreCart.js`),
+  `src/data/merch-catalog.js`, `src/store-standalone.jsx`,
+  `vite.store.config.js` → `dist-store/`, `scripts/encode-store.mjs`.
+  Deploy: `npm run build:store` (output stays inside `dist-store/`, served by Vercel
+  rewrite; the .js bundle is inlined into `dist-store/store-standalone.html`).
+- **Magazine** (`/merch` + `/merch-react.html`): `src/pages/MerchPage.jsx`,
+  `src/components/magazine/*` (CartDrawer renders on the island via `CartProvider`),
+  `src/merch-standalone.jsx`, `vite.merch.config.js` → `dist-merch/`,
+  `scripts/deploy-merch.mjs`. Deploy: `npm run deploy:merch` — builds with base
+  `/assets/`, copies `dist-merch/assets/*` (bundle + pdfjs worker) into the repo-root
+  `assets/`, and rewrites `merch-react.html` to the new hashed names. `dist-merch` is
+  gitignored; the repo-root `assets/merch-standalone-*` files ARE committed.
+- **Shared island data**: `src/data/store.js` (magazine cart products) and
+  `src/data/merch-catalog.js` (store catalog) mirror each other — keep them in sync.
+- `App.jsx` may be edited for the lazy `/store` route only.
+
 ## Must NOT do
 
-- Never modify anything outside `React JS/src` (especially the original HTML/JS files).
-- Never modify `App.jsx`, `main.jsx`, `SiteShell.jsx`, `ClassicNav.jsx`, `ChatWidget.jsx`,
-  `src/data/*`, or `index.css`.
+- Never modify anything outside `React JS/src` (especially the original HTML/JS files),
+  except via the island deploy scripts above (`scripts/*`, `vite.*.config.js`,
+  repo-root `assets/`, `merch-react.html`).
+- Never modify `App.jsx` (except the `/store` lazy route), `main.jsx`,
+  `SiteShell.jsx`, `ClassicNav.jsx`, `ChatWidget.jsx`, `src/data/*` (except the island
+  data files listed above), or `index.css`.
 - Do not add new routes or new npm packages.
 - Do not remove content, sections, or features from the source pages.
 
