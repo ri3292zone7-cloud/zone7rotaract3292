@@ -123,19 +123,19 @@
   }
 
   var learnItems =
-    learnItem("/tutorials.html", "🎓", "Tutorials", "Monthly steps, board, assembly, ZRR, DRR and blood drive – step by step", "tutorials") +
-    learnItem("/handbook.html", "📘", "Handbook", "District rules made simple: grants, twins, projects, health", "handbook") +
-    learnItem("/guides.html", "📄", "Resources", "Official documents, constitutions and downloadable forms", "resources") +
-    learnItem("/club-guides.html", "📚", "Guides for Clubs", "The playbook for running a great club all year", "guides") +
-    learnItem("/rkt-quiz.html", "🧠", "RKT Practice Quiz", "Test your Rotaract knowledge in 2 minutes", "quiz");
+    learnItem("/tutorials", "🎓", "Tutorials", "Monthly steps, board, assembly, ZRR, DRR and blood drive – step by step", "tutorials") +
+    learnItem("/handbook", "📘", "Handbook", "District rules made simple: grants, twins, projects, health", "handbook") +
+    learnItem("/guides", "📄", "Resources", "Official documents, constitutions and downloadable forms", "resources") +
+    learnItem("/club-guides", "📚", "Guides for Clubs", "The playbook for running a great club all year", "guides") +
+    learnItem("/rkt-quiz", "🧠", "RKT Practice Quiz", "Test your Rotaract knowledge in 2 minutes", "quiz");
 
   var ctaHtml = "";
   if (ctaMode === "home") {
     ctaHtml = '<a href="/" class="btn nav-cta">← Back Home</a>';
   } else if (ctaMode === "club") {
-    ctaHtml = '<a href="#" id="clubBackLink" class="back">← Back to Club</a><a href="/join.html" class="btn nav-cta">Join Us</a>';
+    ctaHtml = '<a href="#" id="clubBackLink" class="back">← Back to Club</a><a href="/join" class="btn nav-cta">Join Us</a>';
   } else {
-    ctaHtml = '<a href="/join.html" class="btn nav-cta">Join Us</a>';
+    ctaHtml = '<a href="/join" class="btn nav-cta">Join Us</a>';
   }
 
   var html =
@@ -143,7 +143,7 @@
     '<div class="wrap">' +
     '<a href="/" aria-label="Zone 7 Rotaract home"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>' +
     '<div class="navlinks">' +
-    item("/about.html", "About", "about") +
+    item("/about", "About", "about") +
     '<div class="nav-drop" id="clubsDrop">' +
     '<button type="button" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false"' + (current === "clubs" ? ' style="opacity:1;color:#A80F52"' : "") + '>Clubs ' + CHEV + "</button>" +
     '<div class="nav-drop-panel clubs-drop-panel"><div class="clubs-drop-grid" id="clubsDropGrid"></div>' +
@@ -153,31 +153,31 @@
     '<button type="button" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false"' + (current === "tutorials" || current === "handbook" || current === "resources" || current === "guides" || current === "quiz" ? ' style="opacity:1;color:#A80F52"' : "") + '>Learn ' + CHEV + "</button>" +
     '<div class="nav-drop-panel learn-drop-panel">' + learnItems + "</div>" +
     "</div>" +
-    item("/gallery.html", "Gallery", "gallery") +
+    item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
     "</div>" +
     '<div style="display:flex;align-items:center;gap:16px;">' +
-    '<a href="/admin.html" class="nav-admin">Club Admin</a>' +
+    '<a href="/admin" class="nav-admin">Club Admin</a>' +
     ctaHtml +
     '<button class="burger" id="burgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>' +
     "</div>" +
     "</div>" +
     '<div class="mobile-menu" id="mobileMenu">' +
-    item("/about.html", "About", "about") +
+    item("/about", "About", "about") +
     '<div class="mm-group">Clubs</div>' +
     '<a href="/#clubs">All 9 Clubs in Zone 7</a>' +
     '<div class="mm-group">Learn</div>' +
-'<a href="/tutorials.html">Tutorials</a>' +
-    '<a href="/handbook.html">Handbook</a>' +
-    '<a href="/guides.html">Resources &amp; Documents</a>' +
-    '<a href="/club-guides.html">Guides for Clubs</a>' +
-    '<a href="/rkt-quiz.html">RKT Practice Quiz</a>' +
+'<a href="/tutorials">Tutorials</a>' +
+    '<a href="/handbook">Handbook</a>' +
+    '<a href="/guides">Resources &amp; Documents</a>' +
+    '<a href="/club-guides">Guides for Clubs</a>' +
+    '<a href="/rkt-quiz">RKT Practice Quiz</a>' +
     '<div class="mm-group">Community</div>' +
-    item("/gallery.html", "Gallery", "gallery") +
+    item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
-    '<a href="/join.html">Join Us</a>' +
-    '<a href="/admin.html">Club Admin</a>' +
-    '<a class="mm-cta" href="/join.html">Fill the Form, Become a Rotaractor →</a>' +
+    '<a href="/join">Join Us</a>' +
+    '<a href="/admin">Club Admin</a>' +
+    '<a class="mm-cta" href="/join">Fill the Form, Become a Rotaractor →</a>' +
     "</div>" +
     "</nav>";
 

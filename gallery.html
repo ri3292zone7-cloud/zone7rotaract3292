@@ -211,7 +211,7 @@ function showLb(i){
   lbImg.fetchPriority = "high";
   lbImg.src = p.src;
   lbImg.alt = p.title + ", " + p.clubName;
-  lbCap.innerHTML = `<b>${esc(p.title)}</b><span>${esc(p.clubName)} · ${esc(p.cat)}</span><br><a href="/project.html?club=${p.club}&id=${encodeURIComponent(p.id)}">View the full project →</a>`;
+  lbCap.innerHTML = `<b>${esc(p.title)}</b><span>${esc(p.clubName)} · ${esc(p.cat)}</span><br><a href="/project?club=${p.club}&id=${encodeURIComponent(p.id)}">View the full project →</a>`;
   lbCount.textContent = (lbIndex+1) + " / " + view.length;
   lb.classList.add("open");
   document.body.style.overflow = "hidden";

@@ -18,7 +18,7 @@ export const VENDORS = [
     emoji: '\ud83d\udc3e',
     site: 'https://pawsnepal.com',
     instagram: 'https://www.instagram.com/pawsnepal',
-    page: '/React%20JS/dist-vendor-pawsnepal/vendor-pawsnepal.html'
+    page: '/vendor/paws-nepal'
   }
 ];
 

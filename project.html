@@ -306,7 +306,7 @@ document.getElementById("content").innerHTML = `<div class="empty-state wrap"><h
 const project = (clubSlug && projectId) ? await ZONE7_DB.getProject(clubSlug, projectId) : null;
 
 if(project && club){
-  const shareUrl = "https://zone7rotaract3292.vercel.app/project.html?club=" + encodeURIComponent(clubSlug) + "&id=" + encodeURIComponent(project.id);
+  const shareUrl = "https://zone7rotaract3292.vercel.app/project?club=" + encodeURIComponent(clubSlug) + "&id=" + encodeURIComponent(project.id);
   const metaDesc = (project.summary || project.body || "").slice(0, 160);
   const metaImg = project.cover || "https://zone7rotaract3292.vercel.app/zone7_og_image.png";
   document.title = project.title + " | " + club.name;

@@ -44,6 +44,15 @@ const STATIC_PAGES = [
   { path: "/club", priority: 0.7, changefreq: "weekly" },
   { path: "/project", priority: 0.7, changefreq: "weekly" },
   { path: "/meetings", priority: 0.5, changefreq: "monthly" },
+  { path: "/admin", priority: 0.4, changefreq: "monthly" },
+  { path: "/merch", priority: 0.8, changefreq: "monthly" },
+  { path: "/store", priority: 0.8, changefreq: "monthly" },
+  { path: "/district-overview", priority: 0.6, changefreq: "monthly" },
+  { path: "/pending-applications", priority: 0.4, changefreq: "monthly" },
+  { path: "/club-tools", priority: 0.5, changefreq: "monthly" },
+  { path: "/selftest", priority: 0.3, changefreq: "monthly" },
+  { path: "/ne-about", priority: 0.6, changefreq: "monthly" },
+  { path: "/vendor/paws-nepal", priority: 0.6, changefreq: "monthly" },
 ];
 
 const CLUB_PAGES = CLUB_SLUGS.map((slug) => ({
@@ -108,7 +117,7 @@ export default async function handler(req, res) {
     const id = encodeURIComponent(p.id);
     const lastmod = p.updated ? new Date(p.updated).toISOString().slice(0, 10) : now;
     projectEntries.push(
-      urlEntry(`${SITE}/project.html?club=${slug}&id=${id}`, lastmod, 0.6, "monthly")
+      urlEntry(`${SITE}/project?club=${slug}&id=${id}`, lastmod, 0.6, "monthly")
     );
   }
 
