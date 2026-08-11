@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: '/',
-  assetsInclude: ['**/*.pdf', '**/*.glb'],
+  assetsInclude: ['**/*.pdf', '**/*.glb', '**/*.mp4'],
   publicDir: false,
   build: {
     outDir: 'dist-merch',

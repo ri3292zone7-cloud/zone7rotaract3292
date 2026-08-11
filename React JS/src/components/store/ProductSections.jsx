@@ -5,11 +5,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Reveal from '../ui/Reveal';
 import { CATALOG, money } from '../../data/merch-catalog';
 import { useStoreCart } from '../../context/useStoreCart';
-import TShirtGLB from './models/TShirtGLB';
 import Badge from './models/Badge';
 import Cap from './models/Cap';
 import Bottle from './models/Bottle';
 import StudioEnv from './models/StudioEnv';
+import tshirtVideo from './models/tshirt-video.mp4';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -113,11 +113,26 @@ function Turntable({ children }) {
   return <group ref={group}>{children}</group>;
 }
 
+/* real product shot — the Zone 7 tee video replaces the 3D mockup */
+function TeeVideo({ controls = false }) {
+  return (
+    <video
+      src={tshirtVideo}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      controls={controls}
+      aria-label="Zone 7 t-shirt — real product video"
+    />
+  );
+}
+
 function ModelContent({ product }) {
   const frame = KIND_FRAME[product.kind] || KIND_FRAME.tee;
   return (
     <group scale={frame.scale} position={[0, frame.y, 0]}>
-      {product.kind === 'tee' && <TShirtGLB color={product.color} />}
       {(product.kind === 'badge' || product.kind === 'pin') && (
         <group scale={product.kind === 'pin' ? 0.55 : 1}>
           <Badge color={product.color} accentDeep={product.ink || '#A80F52'} />
@@ -169,7 +184,13 @@ function Product3D({ product }) {
 
   return (
     <div className="st-visual3d" ref={box}>
-      {live ? <ModelCanvas product={product} /> : <ProductVisual product={product} />}
+      {product.kind === 'tee'
+        ? live
+          ? <TeeVideo />
+          : <ProductVisual product={product} />
+        : live
+          ? <ModelCanvas product={product} />
+          : <ProductVisual product={product} />}
     </div>
   );
 }
@@ -245,7 +266,7 @@ function VariantModal({ kindLabel, products, selectedId, onSelect, onClose }) {
         <button type="button" className="st-modal-x" aria-label="Close" onClick={onClose}>✕</button>
 
         <div className="st-modal-media">
-          <ModelCanvas product={product} />
+          {product.kind === 'tee' ? <TeeVideo controls /> : <ModelCanvas product={product} />}
         </div>
 
         <div className="st-modal-body">

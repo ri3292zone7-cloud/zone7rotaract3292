@@ -490,6 +490,18 @@
 }
 .st-visual3d canvas { display: block; }
 
+/* real product video (tees) — fills the media area like the 3D canvas */
+.st-visual3d video,
+.st-modal-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+
 /* ── product card ──────────────────────────────────────────────────── */
 .st-card {
   background: var(--paper);
