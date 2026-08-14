@@ -624,7 +624,7 @@ if(club){(async () => {
       </div>
       ${(club.board && club.board.length) ? `<div class="board-track reveal">${club.board.map((m,i) => `
         <div class="board-card${i===0?' featured':''}">
-          <div class="board-photo">${m.photo ? `<img src="${esc(zone7MediaPath(m.photo))}" alt="${esc(m.name)}">` : `<span class="board-initials">${esc((m.name||"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase() || "-")}</span>`}${i===0?'<span class="board-crown">👑 '+esc(m.role)+'</span>':''}</div>
+          <div class="board-photo">${m.photo ? `<img loading="lazy" decoding="async" src="${esc(zone7MediaPath(m.photo))}" alt="${esc(m.name)}">` : `<span class="board-initials">${esc((m.name||"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase() || "-")}</span>`}${i===0?'<span class="board-crown">👑 '+esc(m.role)+'</span>':''}</div>
           <div class="board-info"><h5>${esc(m.name)}</h5><span>${esc(m.role)}</span></div>
         </div>`).join("")}</div>` : `<div class="board-empty reveal">This club hasn't added its board lineup yet. <b>Club officers</b> can add photos and roles for the President and team via the Club Admin panel.</div>`}
     </section>
