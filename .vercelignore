@@ -1,0 +1,25 @@
+# Local-only tooling & workspace sources — not needed on Vercel
+serve.py
+database/
+_source-media/
+.git/
+
+# React build sources — only the dist outputs are used by vercel.json rewrites
+React JS/node_modules/
+React JS/src/
+React JS/public/
+React JS/scripts/
+React JS/dist-merch/
+React JS/*.html
+React JS/package*.json
+React JS/vite.config.js
+React JS/vite.*.config.js
+React JS/api/
+React JS/vercel.json
+React JS/.oxlintrc.json
+React JS/*.md
+React JS/.gitignore
+
+# OS cruft
+Thumbs.db
+.DS_Store

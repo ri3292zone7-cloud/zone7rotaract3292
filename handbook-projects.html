@@ -167,13 +167,15 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
     .org-cols-3{grid-template-columns:1fr;}
   }
 </style>
-</head>
+<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+  </head>
 <body>
 
 <div id="progress"></div>
 
 <div id="siteNav" data-current="handbook" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
+    <script src="site-transition.js" defer></script>
 
 <div class="wrap">
   <div class="crumb"><a href="/handbook">&larr; The Handbook</a> &middot; Chapter 04</div>
@@ -194,13 +196,13 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <div class="eyebrow"><span class="dot"></span>Handbook &middot; Chapter 04</div>
   <h1 id="heroTitle">Seven areas. Endless ways to serve.</h1>
   <p class="sub">Rotary concentrates its service on seven Areas of Focus, the causes every grant and most club projects align with. This chapter carries the directory's low-cost project designs: one featured project per area with a real budget and timeline, plus five more ideas that cost almost nothing but change a lot.</p>
-  <p class="note">Budgets, timelines and designs come from the <a href="guides/RC. Dis. Dinesh Gaire BW 2082 Final District directory.pdf">District 3292 Directory</a> (Area of Focus section). Prices are indicative NPR budgets from the directory. Adjust to your community.</p>
+  <p class="note">Budgets, timelines and designs come from the <a href="media/guides/RC. Dis. Dinesh Gaire BW 2082 Final District directory.pdf">District 3292 Directory</a> (Area of Focus section). Prices are indicative NPR budgets from the directory. Adjust to your community.</p>
 
   <div class="hero-grid">
     <div></div>
     <div class="hero-char">
       <div class="char-ring"></div>
-      <img src="images/handbook-projects.svg" alt="Seven areas of focus illustration" data-parallax="0.6">
+      <img src="media/images/handbook-projects.svg" alt="Seven areas of focus illustration" data-parallax="0.6">
       <div class="hc-badge hc1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#E11A6E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>7 <b>areas</b></div>
       <div class="hc-badge hc2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>NPR 5,000 <b>start</b></div>
       <div class="hc-badge hc3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>7 <b>featured</b></div>
@@ -227,19 +229,19 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <p class="section-sub" data-reveal>Great project ideas deserve funding and a healthy club to run them.</p>
   <div class="related-grid">
     <a class="rel-card" href="/handbook-grants" data-reveal>
-      <img src="images/handbook-grants.svg" alt="Grants chapter">
+      <img src="media/images/handbook-grants.svg" alt="Grants chapter">
       <h5>Grants: Funding Service</h5>
       <p>Take a design from this chapter and fund it with a District or Global Grant.</p>
       <span class="go">Open chapter &rarr;</span>
     </a>
     <a class="rel-card" href="/handbook-health" data-reveal style="--d:.08s">
-      <img src="images/handbook-health.svg" alt="Health checkup chapter">
+      <img src="media/images/handbook-health.svg" alt="Health checkup chapter">
       <h5>The Club Health Checkup</h5>
       <p>A strong club runs projects well. Measure how strong yours is.</p>
       <span class="go">Open chapter &rarr;</span>
     </a>
     <a class="rel-card" href="/handbook" data-reveal style="--d:.16s">
-      <img src="images/handbook-hub.svg" alt="Handbook hub">
+      <img src="media/images/handbook-hub.svg" alt="Handbook hub">
       <h5>The Handbook</h5>
       <p>Back to all five chapters. Rules, checklists and videos in one place.</p>
       <span class="go">Open hub &rarr;</span>
@@ -279,7 +281,7 @@ const SECTIONS = [
     id:"peace", icon:"peace",
     title:"Peacebuilding & Conflict Prevention",
     tagline:"Dialogue, understanding and cooperation",
-    img:"images/handbook-projects.svg",
+    img:"media/images/handbook-projects.svg",
     alt:"Illustration of the peace area of focus",
     body:`<p class="intro">Promote dialogue, understanding and cooperation to prevent conflicts and foster peace, through peace education, mediation training and community reconciliation.</p>
       <div class="guide-stat"><div class="g-icon">${SPARK_SVG}</div><p><span>Featured project: Peace Talks at Tea Time.</span> Host 3 monthly "Tea &amp; Talk" gatherings with diverse community members, invite local leaders to share peaceful conflict resolution stories, and let youth volunteers act as dialogue facilitators. Budget NPR 10,000 · Timeline 3 months.</p></div>`,
@@ -297,7 +299,7 @@ const SECTIONS = [
     id:"disease", icon:"plus",
     title:"Disease Prevention & Treatment",
     tagline:"Vaccination, medical camps, awareness",
-    img:"images/handbook-projects.svg",
+    img:"media/images/handbook-projects.svg",
     alt:"Illustration of the disease prevention area of focus",
     body:`<p class="intro">Reduce the spread of diseases and strengthen healthcare systems, through vaccination programs, medical camps and health awareness campaigns.</p>
       <div class="guide-stat"><div class="g-icon">${SPARK_SVG}</div><p><span>Featured project: Checkup in Your Pocket.</span> Partner with a local health post for BP, sugar and BMI screening; run a health talk on diet and exercise; distribute health tip leaflets. Reaches 200 people. Budget NPR 8,000 · Timeline 1 day.</p></div>`,
@@ -317,7 +319,7 @@ const SECTIONS = [
     id:"wash", icon:"drop",
     title:"Water, Sanitation & Hygiene (WASH)",
     tagline:"Clean water, safe sanitation, hygiene education",
-    img:"images/handbook-projects.svg",
+    img:"media/images/handbook-projects.svg",
     alt:"Illustration of the water and sanitation area of focus",
     body:`<p class="intro">Provide clean water, safe sanitation and hygiene education to improve health and living conditions.</p>
       <div class="guide-stat"><div class="g-icon">${SPARK_SVG}</div><p><span>Featured project: Soap &amp; Smile.</span> Handwashing demonstrations in 3 schools, soap bars and posters for classrooms, and a school hygiene quiz competition. Reaches 300 schoolchildren. Budget NPR 15,000 · Timeline 2 weeks.</p></div>`,
@@ -335,7 +337,7 @@ const SECTIONS = [
     id:"maternal", icon:"heart",
     title:"Maternal & Child Health",
     tagline:"Medical care and nutrition for mothers and children",
-    img:"images/handbook-projects.svg",
+    img:"media/images/handbook-projects.svg",
     alt:"Illustration of the maternal and child health area of focus",
     body:`<p class="intro">Reduce maternal and child mortality by improving medical care and nutrition, through prenatal care programs, nutrition support and child immunizations.</p>
       <div class="guide-stat"><div class="g-icon">${SPARK_SVG}</div><p><span>Featured project: Mother's Circle.</span> A local nurse gives a free maternal health talk, printed checklists guide safe pregnancy and newborn care, and basic hygiene kits (soap, sanitary pads) are distributed. Educates 30 pregnant women and mothers. Budget NPR 12,000 · Timeline 1 month.</p></div>`,
@@ -353,7 +355,7 @@ const SECTIONS = [
     id:"education", icon:"book",
     title:"Basic Education & Literacy",
     tagline:"Quality education and lower illiteracy",
-    img:"images/handbook-projects.svg",
+    img:"media/images/handbook-projects.svg",
     alt:"Illustration of the basic education area of focus",
     body:`<p class="intro">Support quality education and reduce illiteracy, through teacher training, school materials and adult literacy programs.</p>
       <div class="guide-stat"><div class="g-icon">${SPARK_SVG}</div><p><span>Featured project: Reading Corner.</span> Collect used books from community donors, set up a small reading space in a school, and run weekly volunteer reading sessions. Budget NPR 5,000 · Timeline ongoing after setup.</p></div>`,
@@ -371,7 +373,7 @@ const SECTIONS = [
     id:"economy", icon:"briefcase",
     title:"Community Economic Development",
     tagline:"Livelihoods, entrepreneurship, vocational training",
-    img:"images/handbook-projects.svg",
+    img:"media/images/handbook-projects.svg",
     alt:"Illustration of the community economic development area of focus",
     body:`<p class="intro">Create sustainable livelihoods and reduce poverty through entrepreneurship, vocational training and microfinance.</p>
       <div class="guide-stat"><div class="g-icon">${SPARK_SVG}</div><p><span>Featured project: Skill in a Day.</span> Partner with a local tailor or trainer for a 1-day sewing or handicraft workshop, teach simple products like cloth bags or keychains, and link participants to local markets. Trains 20 women or youth. Budget NPR 15,000 · Timeline 1 day.</p></div>`,
@@ -389,7 +391,7 @@ const SECTIONS = [
     id:"environment", icon:"leaf",
     title:"Protecting the Environment",
     tagline:"Conservation, waste management, climate action",
-    img:"images/handbook-projects.svg",
+    img:"media/images/handbook-projects.svg",
     alt:"Illustration of the environment area of focus",
     body:`<p class="intro">Conserve natural resources and address climate change, through tree planting, waste management and renewable energy projects.</p>
       <div class="guide-stat"><div class="g-icon">${SPARK_SVG}</div><p><span>Featured project: One Member, One Tree.</span> Every club member plants one tree in a community location, the municipality provides saplings, and a short awareness talk covers waste segregation. Budget NPR 5,000 · Timeline 1 week.</p></div>`,
@@ -402,8 +404,8 @@ const SECTIONS = [
       "Eco-Brick Project: plastic waste into eco-bricks for small construction"
     ],
     links:[
-      { label:"Effective Planning Guide for Clubs", url:"guides/Effective-Planning-Guide-to-Clubs.docx" },
-      { label:"Strategic Planning Guide", url:"guides/Strategic-Planning-Guide.docx" }
+      { label:"Effective Planning Guide for Clubs", url:"media/guides/Effective-Planning-Guide-to-Clubs.docx" },
+      { label:"Strategic Planning Guide", url:"media/guides/Strategic-Planning-Guide.docx" }
     ]
   }
 ];

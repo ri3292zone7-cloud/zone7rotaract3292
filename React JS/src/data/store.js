@@ -26,7 +26,7 @@ export const MAGAZINE = {
   accent: "#E11A6E",
   accent2: "#F2A900",
   edition: "2024-25 Edition",
-  file: "/magazine/zonal-magazine.pdf",
+  file: "/media/magazine/zonal-magazine.pdf",
   pdfName: "Zonal Magazine 2024-25.pdf",
   flip: true
 };

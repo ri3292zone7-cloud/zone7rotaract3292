@@ -203,13 +203,15 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
     .org-cols-3{grid-template-columns:1fr;}
   }
 </style>
-</head>
+<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+  </head>
 <body>
 
 <div id="progress"></div>
 
 <div id="siteNav" data-current="handbook" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
+    <script src="site-transition.js" defer></script>
 
 <div class="wrap">
   <div class="crumb"><a href="/handbook">&larr; The Handbook</a> &middot; Chapter 05</div>
@@ -230,13 +232,13 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <div class="eyebrow"><span class="dot"></span>Handbook &middot; Chapter 05</div>
   <h1 id="heroTitle">Give your club a 75-point checkup.</h1>
   <p class="sub">Every six months, the district's health checkup asks your club 75 honest yes-or-no questions across five sections: Club Experience, Service &amp; Socials, Members, Public Image, and Business &amp; Operations. One point per yes, a score you compute in a single meeting, and a two-or-three-item action plan that makes the next checkup better.</p>
-  <p class="note">Process, section names and item counts come from the <a href="guides/RC. Dis. Dinesh Gaire BW 2082 Final District directory.pdf">District 3292 Directory</a> (Club Health Checkup section). The sample checks below follow the directory's section themes; the official full 75-item table lives in the directory and in <a href="https://on.rotary.org/club-health-check" target="_blank" rel="noopener" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Rotary's club health check</a>.</p>
+  <p class="note">Process, section names and item counts come from the <a href="media/guides/RC. Dis. Dinesh Gaire BW 2082 Final District directory.pdf">District 3292 Directory</a> (Club Health Checkup section). The sample checks below follow the directory's section themes; the official full 75-item table lives in the directory and in <a href="https://on.rotary.org/club-health-check" target="_blank" rel="noopener" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Rotary's club health check</a>.</p>
 
   <div class="hero-grid">
     <div></div>
     <div class="hero-char">
       <div class="char-ring"></div>
-      <img src="images/handbook-health.svg" alt="Club health checkup illustration" data-parallax="0.6">
+      <img src="media/images/handbook-health.svg" alt="Club health checkup illustration" data-parallax="0.6">
       <div class="hc-badge hc1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#E11A6E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>75 <b>items</b></div>
       <div class="hc-badge hc2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>5 <b>sections</b></div>
       <div class="hc-badge hc3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Every <b>6 months</b></div>
@@ -277,19 +279,19 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <p class="section-sub" data-reveal>A healthy club needs healthy meetings, and the handbook's other chapters cover the rules it runs on.</p>
   <div class="related-grid">
     <a class="rel-card" href="/tutorial-meetings" data-reveal>
-      <img src="images/tutorial-meeting.png" alt="Meetings tutorial">
+      <img src="media/images/tutorial-meeting.png" alt="Meetings tutorial">
       <h5>Running General Meetings</h5>
       <p>Meeting quality is the first thing the checkup measures. Master the rhythm.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
     <a class="rel-card" href="/handbook-grants" data-reveal style="--d:.08s">
-      <img src="images/handbook-grants.svg" alt="Grants chapter">
+      <img src="media/images/handbook-grants.svg" alt="Grants chapter">
       <h5>Grants: Funding Service</h5>
       <p>Weak in Service &amp; Socials? Funded projects are often the fix.</p>
       <span class="go">Open chapter &rarr;</span>
     </a>
     <a class="rel-card" href="/handbook" data-reveal style="--d:.16s">
-      <img src="images/handbook-hub.svg" alt="Handbook hub">
+      <img src="media/images/handbook-hub.svg" alt="Handbook hub">
       <h5>The Handbook</h5>
       <p>Back to all five chapters: rules, checklists and videos in one place.</p>
       <span class="go">Open hub &rarr;</span>
@@ -329,7 +331,7 @@ const SECTIONS = [
     id:"how-it-works", icon:"clip",
     title:"How the checkup works",
     tagline:"One review team, 1–2 hours, seven steps, twice a year",
-    img:"images/handbook-health.svg",
+    img:"media/images/handbook-health.svg",
     alt:"Illustration of the health checkup process",
     body:`<p class="intro">The directory defines a simple, repeatable process, no consultants needed, just honest discussion.</p>
       <ol class="steps">
@@ -368,7 +370,7 @@ const SECTIONS = [
     id:"club-experience", icon:"users",
     title:"Club Experience: 15 items",
     tagline:"Meetings, engagement, inclusiveness, recognition, fellowship",
-    img:"images/handbook-health.svg",
+    img:"media/images/handbook-health.svg",
     alt:"Illustration of the club experience section",
     body:`<p class="intro">The first section asks whether being in your club feels good, because everything else follows from that. Sample checks from the directory's theme:</p>`,
     stat:{icon:SPARK_SVG, text:`Meeting quality is the <span>single most visible health signal</span>; visitors see it in the first five minutes.`},
@@ -390,7 +392,7 @@ const SECTIONS = [
     id:"service-socials", icon:"calendar",
     title:"Service &amp; Socials: 14 items",
     tagline:"Service projects, community involvement, social events, leadership",
-    img:"images/handbook-health.svg",
+    img:"media/images/handbook-health.svg",
     alt:"Illustration of the service and socials section",
     body:`<p class="intro">This section measures what the club does, in the community and for its own members. Sample checks from the directory's theme:</p>`,
     stat:{icon:SPARK_SVG, text:`Weak here? The <span>7 Areas of Focus chapter</span> has 42 ready project designs, starting at NPR 5,000.`},
@@ -413,7 +415,7 @@ const SECTIONS = [
     id:"members", icon:"userplus",
     title:"Members: 16 items",
     tagline:"Growth, diversity, retention, induction, mentoring, alumni",
-    img:"images/handbook-health.svg",
+    img:"media/images/handbook-health.svg",
     alt:"Illustration of the members section",
     body:`<p class="intro">Membership is the club's engine room. The official section carries 16 items; these sample checks follow its themes.</p>`,
     stat:{icon:SPARK_SVG, text:`Retention beats recruitment: <span>a member who is mentored in year one</span> is overwhelmingly likely to stay past year three.`},
@@ -433,7 +435,7 @@ const SECTIONS = [
     id:"public-image", icon:"camera",
     title:"Public Image: 15 items",
     tagline:"Website, social media, media coverage, branding, visibility",
-    img:"images/handbook-health.svg",
+    img:"media/images/handbook-health.svg",
     alt:"Illustration of the public image section",
     body:`<p class="intro">If nobody knows what the club does, the club doesn't exist in the community's mind. The directory's themes, sampled:</p>`,
     stat:{icon:SPARK_SVG, text:`Posting <span>within 48 hours of every event</span> keeps the club's feed alive; a silent club reads as an inactive club.`},
@@ -455,7 +457,7 @@ const SECTIONS = [
     id:"business-ops", icon:"chart",
     title:"Business &amp; Operations: 15 items",
     tagline:"Strategic plan, goals, continuity, finances, reporting",
-    img:"images/handbook-health.svg",
+    img:"media/images/handbook-health.svg",
     alt:"Illustration of the business and operations section",
     body:`<p class="intro">The least glamorous section, and the one whose failure silently kills clubs. Sample checks from the directory's theme:</p>`,
     stat:{icon:SPARK_SVG, text:`A club with <span>written goals and a named treasurer</span> survives leadership changes; one without them does not.`},
@@ -471,7 +473,7 @@ const SECTIONS = [
     ],
     links:[
       { label:"Club Admin: minutes & treasury", url:"/admin" },
-      { label:"Effective Planning Guide for Clubs", url:"guides/Effective-Planning-Guide-to-Clubs.docx" }
+      { label:"Effective Planning Guide for Clubs", url:"media/guides/Effective-Planning-Guide-to-Clubs.docx" }
     ]
   }
 ];

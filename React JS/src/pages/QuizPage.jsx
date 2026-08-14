@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SiteShell from '../components/layout/SiteShell';
 import pageCss from './QuizPage.css?inline';
@@ -519,7 +519,7 @@ export default function QuizPage() {
           <div className="eyebrow"><span className="dot"></span>Rota Quiz 25-26 · Official Reading Materials</div>
           <h1>Train like the quiz is tomorrow.</h1>
           <p className="sub">District 3292 runs a real Rota Quiz every year, and these questions come straight from the official reading materials. Learn with flashcards, test yourself with a challenge that gives you hearts, streaks and instant explanations, then prove you know your acronyms.</p>
-          <p className="note">Source documents: <a href="/guides/Rotary-Rotaract-Reading-Materials-Rota-Quiz-2025-26.pdf" target="_blank" rel="noopener noreferrer">Rotary-Rotaract Reading Materials 2025-26 (PDF)</a> and <a href="/guides/Reading%20materials%20for%20Rota%20Quiz%2025-26.pdf" target="_blank" rel="noopener noreferrer">Reading Materials for Rota Quiz 25-26 (PDF)</a>. Every fact here is pulled from those pages.</p>
+          <p className="note">Source documents: <a href="/media/guides/Rotary-Rotaract-Reading-Materials-Rota-Quiz-2025-26.pdf" target="_blank" rel="noopener noreferrer">Rotary-Rotaract Reading Materials 2025-26 (PDF)</a> and <a href="/media/guides/Reading%20materials%20for%20Rota%20Quiz%2025-26.pdf" target="_blank" rel="noopener noreferrer">Reading Materials for Rota Quiz 25-26 (PDF)</a>. Every fact here is pulled from those pages.</p>
         </div>
       </header>
 

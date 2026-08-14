@@ -14,3 +14,7 @@ __pycache__/
 
 # Local backup of the old site (keep out of the repo)
 ../zone7-backup-old-site/
+
+# Raw source media (AI chapter images, store/vendor clips) — referenced by nothing,
+# kept only as build source. The pre-reorg backup holds the originals.
+_source-media/

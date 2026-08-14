@@ -184,13 +184,15 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
     .org-cols-3{grid-template-columns:1fr;}
   }
 </style>
-</head>
+<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+  </head>
 <body>
 
 <div id="progress"></div>
 
 <div id="siteNav" data-current="handbook" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
+    <script src="site-transition.js" defer></script>
 
 <div class="wrap">
   <div class="crumb"><a href="/handbook">&larr; The Handbook</a> &middot; Chapter 03</div>
@@ -211,13 +213,13 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <div class="eyebrow"><span class="dot"></span>Handbook &middot; Chapter 03</div>
   <h1 id="heroTitle">Start a club the whole community feels.</h1>
   <p class="sub">A new Rotaract club is a new group of young leaders in your community, and a fresh wave of energy for your Rotary club. The directory lays out nine steps from first idea to certified club, and then the ceremonial bookends: the charter presentation ceremony when the club is born, and the installation meeting every year after.</p>
-  <p class="note">The nine-step process below is the directory's own sequence for a Rotary club sponsoring a new Rotaract club. Forms and dues figures come from the <a href="guides/Rotaract-Guidebook.pdf">Rotaract Guidebook</a> and official Rotary International guidance.</p>
+  <p class="note">The nine-step process below is the directory's own sequence for a Rotary club sponsoring a new Rotaract club. Forms and dues figures come from the <a href="media/guides/Rotaract-Guidebook.pdf">Rotaract Guidebook</a> and official Rotary International guidance.</p>
 
   <div class="hero-grid">
     <div></div>
     <div class="hero-char">
       <div class="char-ring"></div>
-      <img src="images/handbook-newclub.svg" alt="New club launch illustration" data-parallax="0.6">
+      <img src="media/images/handbook-newclub.svg" alt="New club launch illustration" data-parallax="0.6">
       <div class="hc-badge hc1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#E11A6E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>9 <b>steps</b></div>
       <div class="hc-badge hc2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Charter <b>ceremony</b></div>
       <div class="hc-badge hc3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Installation <b>yearly</b></div>
@@ -244,19 +246,19 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <p class="section-sub" data-reveal>A new club deserves a healthy start. The health checkup chapter shows how to keep it strong from month one.</p>
   <div class="related-grid">
     <a class="rel-card" href="/handbook-health" data-reveal>
-      <img src="images/handbook-health.svg" alt="Health checkup chapter">
+      <img src="media/images/handbook-health.svg" alt="Health checkup chapter">
       <h5>The Club Health Checkup</h5>
       <p>Give your new club its first checkup within six months: 75 questions, one meeting.</p>
       <span class="go">Open chapter &rarr;</span>
     </a>
     <a class="rel-card" href="/handbook-twinship" data-reveal style="--d:.08s">
-      <img src="images/handbook-twinship.svg" alt="Twinship chapter">
+      <img src="media/images/handbook-twinship.svg" alt="Twinship chapter">
       <h5>Twinship &amp; the MOU</h5>
       <p>A new club that twins early builds its network twice as fast.</p>
       <span class="go">Open chapter &rarr;</span>
     </a>
     <a class="rel-card" href="/handbook" data-reveal style="--d:.16s">
-      <img src="images/handbook-hub.svg" alt="Handbook hub">
+      <img src="media/images/handbook-hub.svg" alt="Handbook hub">
       <h5>The Handbook</h5>
       <p>Back to all five chapters. Rules, checklists and videos in one place.</p>
       <span class="go">Open hub &rarr;</span>
@@ -294,7 +296,7 @@ const SECTIONS = [
     id:"groundwork", icon:"bulb",
     title:"Before the first member",
     tagline:"The groundwork a sponsor needs before step one",
-    img:"images/handbook-newclub.svg",
+    img:"media/images/handbook-newclub.svg",
     alt:"Illustration of a rocket and flag representing a club launch",
     body:`<p class="intro">Getting involved in Rotaract can be a fun, impactful and transformational experience for more than just young leaders in your community. It will inspire and engage your Rotary club members too. Three moves come before any promotion:</p>
       <ol class="steps">
@@ -311,15 +313,15 @@ const SECTIONS = [
       "Share the club's success with Rotary International at rotaract@rotary.org"
     ],
     links:[
-      { label:"Standard Rotaract Club Constitution", url:"guides/Standard-Rotaract-Club-Constitution.docx" },
-      { label:"Recommended Club Bylaws", url:"guides/662_rotaract_club_recommended_bylaws_en.docx" }
+      { label:"Standard Rotaract Club Constitution", url:"media/guides/Standard-Rotaract-Club-Constitution.docx" },
+      { label:"Recommended Club Bylaws", url:"media/guides/662_rotaract_club_recommended_bylaws_en.docx" }
     ]
   },
   {
     id:"buzz", icon:"megaphone",
     title:"Build the buzz",
     tagline:"Strategy, promotion, and the kickoff event",
-    img:"images/handbook-newclub.svg",
+    img:"media/images/handbook-newclub.svg",
     alt:"Illustration of promotion for a new club",
     body:`<p class="intro">Now the idea goes public. Four steps turn strategy into a room full of curious young people.</p>
       <ol class="steps">
@@ -341,7 +343,7 @@ const SECTIONS = [
     id:"launch", icon:"rocket",
     title:"Launch & certify",
     tagline:"The first months, and the form that makes it official",
-    img:"images/handbook-newclub.svg",
+    img:"media/images/handbook-newclub.svg",
     alt:"Illustration of a club being launched and certified",
     body:`<p class="intro">The ceremony comes later; first come the months of actual club life, then the paperwork.</p>
       <ol class="steps">
@@ -359,8 +361,8 @@ const SECTIONS = [
       "Budget for Rotary International dues ($5 university / $8 community per member)"
     ],
     links:[
-      { label:"Rotaract Membership Form", url:"guides/Rotaract_-Membership_Form.docx" },
-      { label:"Rotaract Guidebook", url:"guides/Rotaract-Guidebook.pdf" },
+      { label:"Rotaract Membership Form", url:"media/guides/Rotaract_-Membership_Form.docx" },
+      { label:"Rotaract Guidebook", url:"media/guides/Rotaract-Guidebook.pdf" },
       { label:"Rotaract Clubs: Rotary International", url:"https://www.rotary.org/en/get-involved/our-clubs/rotaract-clubs" }
     ]
   },
@@ -368,7 +370,7 @@ const SECTIONS = [
     id:"charter", icon:"award",
     title:"The charter presentation ceremony",
     tagline:"The day the club is officially born",
-    img:"images/handbook-newclub.svg",
+    img:"media/images/handbook-newclub.svg",
     alt:"Illustration of a charter ceremony with awards",
     body:`<p class="intro">The district's ceremony procedure runs like this; adapt the optional items to your club. In the case of Rotaract sponsoring and self-sponsoring Rotaract clubs, district officials (DG, AG, DRR, ADRR and other district representatives) take on the roles normally played by the parent Rotary Club President, including collaring the charter president and handing over the charter certificate.</p>
       <ol class="steps">
@@ -387,14 +389,14 @@ const SECTIONS = [
       "Keep the ceremony under two hours; refreshments follow promptly"
     ],
     links:[
-      { label:"Statement of Policy", url:"guides/statement-of-policy.docx" }
+      { label:"Statement of Policy", url:"media/guides/statement-of-policy.docx" }
     ]
   },
   {
     id:"installation", icon:"gavel",
     title:"The annual installation meeting",
     tagline:"Every year after: old leadership hands over, new takes the gavel",
-    img:"images/handbook-newclub.svg",
+    img:"media/images/handbook-newclub.svg",
     alt:"Illustration of a gavel and ceremony",
     body:`<p class="intro">Once chartered, the club repeats an installation rhythm every Rota Year. The directory's procedure covers the full arc:</p>
       <ol class="steps">

@@ -56,15 +56,15 @@ Nine clubs, nine neighbourhoods, one zone. Tap any Instagram handle and say hi t
 
 | Club | Location | Chartered | Sponsored By | Instagram |
 |---|---|---|---|---|
-| <img src="logos/tripureswor.jpg" width="42" /> **Tripureswor** | Baneshwar, Kathmandu | 24 Nov 2003 | Rotary Club of Tripureswor | [@ractripureswor](https://www.instagram.com/ractripureswor/) |
-| <img src="logos/newroadcity.jpg" width="42" /> **New Road City** | Makkhan Tol, Kathmandu | 1 Sep 2004 | Rotary Club of New Road City | [@racnewroadcity1](https://www.instagram.com/racnewroadcity1/) |
-| <img src="logos/kathmanduwest.jpg" width="42" /> **Kathmandu West** | Baghbazar, Kathmandu | 10 Sep 2007 | Rotary Club of Kathmandu West | [@kathmanduwest](https://www.instagram.com/kathmanduwest/) |
-| <img src="logos/liberty.jpg" width="42" /> **Liberty College** | Buddha Nagar, Kathmandu | 1 May 2012 | Rotary Club of Nagarjun | [@rotaractcluboflibertycollege](https://www.instagram.com/rotaractcluboflibertycollege/) |
-| <img src="logos/sukedhara.jpg" width="42" /> **Sukedhara** | Baneshwar, Kathmandu | 1 Jul 2019 | Rotary Club of Nagarjun | [@rac_sukedhara](https://www.instagram.com/rac_sukedhara/) |
-| <img src="logos/baneshwor.jpg" width="42" /> **Baneshwor** | Devkota Sadak, Kathmandu | 13 Oct 2020 | Rotary Club of Baneshwor | [@racbaneshwor](https://www.instagram.com/racbaneshwor/) |
-| <img src="logos/sankhu.jpg" width="42" /> **Sankhu** | Sankhu, Kathmandu | 25 Jun 2020 | Rotary Club of Sankhu | [@racsankhu](https://www.instagram.com/racsankhu/) |
-| <img src="logos/balkumari.jpg" width="42" /> **Balkumari** | Chyasal Marg, Lalitpur | 18 Oct 2023 | Rotary Club of Butwal | [@rac_balkumari](https://www.instagram.com/rac_balkumari/) |
-| <img src="logos/kathmanduheight.jpg" width="42" /> **Kathmandu Height** | Baneshwar, Kathmandu | 6 Jan 2026 | Rotary Club of Kathmandu Height | [@rackathmanduheight](https://www.instagram.com/rackathmanduheight/) |
+| <img src="media/logos/tripureswor.jpg" width="42" /> **Tripureswor** | Baneshwar, Kathmandu | 24 Nov 2003 | Rotary Club of Tripureswor | [@ractripureswor](https://www.instagram.com/ractripureswor/) |
+| <img src="media/logos/newroadcity.jpg" width="42" /> **New Road City** | Makkhan Tol, Kathmandu | 1 Sep 2004 | Rotary Club of New Road City | [@racnewroadcity1](https://www.instagram.com/racnewroadcity1/) |
+| <img src="media/logos/kathmanduwest.jpg" width="42" /> **Kathmandu West** | Baghbazar, Kathmandu | 10 Sep 2007 | Rotary Club of Kathmandu West | [@kathmanduwest](https://www.instagram.com/kathmanduwest/) |
+| <img src="media/logos/liberty.jpg" width="42" /> **Liberty College** | Buddha Nagar, Kathmandu | 1 May 2012 | Rotary Club of Nagarjun | [@rotaractcluboflibertycollege](https://www.instagram.com/rotaractcluboflibertycollege/) |
+| <img src="media/logos/sukedhara.jpg" width="42" /> **Sukedhara** | Baneshwar, Kathmandu | 1 Jul 2019 | Rotary Club of Nagarjun | [@rac_sukedhara](https://www.instagram.com/rac_sukedhara/) |
+| <img src="media/logos/baneshwor.jpg" width="42" /> **Baneshwor** | Devkota Sadak, Kathmandu | 13 Oct 2020 | Rotary Club of Baneshwor | [@racbaneshwor](https://www.instagram.com/racbaneshwor/) |
+| <img src="media/logos/sankhu.jpg" width="42" /> **Sankhu** | Sankhu, Kathmandu | 25 Jun 2020 | Rotary Club of Sankhu | [@racsankhu](https://www.instagram.com/racsankhu/) |
+| <img src="media/logos/balkumari.jpg" width="42" /> **Balkumari** | Chyasal Marg, Lalitpur | 18 Oct 2023 | Rotary Club of Butwal | [@rac_balkumari](https://www.instagram.com/rac_balkumari/) |
+| <img src="media/logos/kathmanduheight.jpg" width="42" /> **Kathmandu Height** | Baneshwar, Kathmandu | 6 Jan 2026 | Rotary Club of Kathmandu Height | [@rackathmanduheight](https://www.instagram.com/rackathmanduheight/) |
 
 > 💡 **Note:** *Liberty College* runs as our university-based club. The other eight are community clubs. The platform knows the difference and scores them on their own terms.
 
@@ -89,12 +89,12 @@ Every July, somebody new takes the wheel. Here's everyone who has held it so far
 
 | Rotary Year | ZRR | Home Club |
 |---|---|---|
-| 21–22 | <img src="team/Binaya.png" width="36" /> **Rtr. Binaya Maharjan** | Rotaract Club of Liberty College |
-| 22–23 | <img src="team/Ankush.jpg" width="36" /> **Rtr. Ankush Adhikari** | Rotaract Club of Tripureswor |
-| 23–24 | <img src="team/Gopal-Shah.jpg" width="36" /> **Rtr. Gopal Shah** | Rotaract Club of Baneshwor |
-| 24–25 | <img src="team/Subina.jpg" width="36" /> **Rtr. Subina Kuickel** | Rotaract Club of Sankhu |
-| 25–26 | <img src="team/Nitesh.png" width="36" /> **Rtr. Nitesh Thakur** | Rotaract Club of Balkumari |
-| **26–27** | <img src="team/Rajay.png" width="36" /> ⭐ **Rtr. Rajay Bajracharya** *(current)* | Rotaract Club of Sukedhara |
+| 21–22 | <img src="media/team/Binaya.png" width="36" /> **Rtr. Binaya Maharjan** | Rotaract Club of Liberty College |
+| 22–23 | <img src="media/team/Ankush.jpg" width="36" /> **Rtr. Ankush Adhikari** | Rotaract Club of Tripureswor |
+| 23–24 | <img src="media/team/Gopal-Shah.jpg" width="36" /> **Rtr. Gopal Shah** | Rotaract Club of Baneshwor |
+| 24–25 | <img src="media/team/Subina.jpg" width="36" /> **Rtr. Subina Kuickel** | Rotaract Club of Sankhu |
+| 25–26 | <img src="media/team/Nitesh.png" width="36" /> **Rtr. Nitesh Thakur** | Rotaract Club of Balkumari |
+| **26–27** | <img src="media/team/Rajay.png" width="36" /> ⭐ **Rtr. Rajay Bajracharya** *(current)* | Rotaract Club of Sukedhara |
 
 ---
 

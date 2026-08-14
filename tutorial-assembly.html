@@ -190,13 +190,15 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
     .org-cols-3{grid-template-columns:1fr;}
   }
 </style>
-</head>
+<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+  </head>
 <body>
 
 <div id="progress"></div>
 
 <div id="siteNav" data-current="tutorials" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
+    <script src="site-transition.js" defer></script>
 
 <div class="wrap">
   <div class="crumb"><a href="/tutorials">&larr; All Tutorials</a> &middot; Tutorial 03</div>
@@ -217,13 +219,13 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <div class="eyebrow"><span class="dot"></span>Membership &middot; The Voice</div>
   <h1 id="heroTitle">The whole club plans together.</h1>
   <p class="sub">A club assembly is the one meeting where the entire membership decides where the club is going: planning the year, reviewing programs and learning together. No motions, no voting on routine business, just the club talking, agreeing and committing. This tutorial covers how assemblies differ from other meetings, the planning and education assemblies, facilitation that keeps every voice in the room, and the follow-up that turns talk into a plan.</p>
-  <p class="note">Based on the <a href="guides/Standard-Rotaract-Club-Constitution.docx" style="color:var(--tc);font-weight:700;text-decoration:underline;">Standard Rotaract Club Constitution</a>, the <a href="guides/Rotaract-Guidebook.pdf" style="color:var(--tc);font-weight:700;text-decoration:underline;">District 3292 Rotaract Guidebook</a> and Rotary's planning guidance. Your club's own constitution and bylaws always win when they differ.</p>
+  <p class="note">Based on the <a href="media/guides/Standard-Rotaract-Club-Constitution.docx" style="color:var(--tc);font-weight:700;text-decoration:underline;">Standard Rotaract Club Constitution</a>, the <a href="media/guides/Rotaract-Guidebook.pdf" style="color:var(--tc);font-weight:700;text-decoration:underline;">District 3292 Rotaract Guidebook</a> and Rotary's planning guidance. Your club's own constitution and bylaws always win when they differ.</p>
 
   <div class="hero-grid">
     <div></div>
     <div class="hero-char">
       <div class="char-ring"></div>
-      <img src="images/tutorial-assembly.png" alt="Rotaract club assembly illustration" data-parallax="0.6">
+      <img src="media/images/tutorial-assembly.png" alt="Rotaract club assembly illustration" data-parallax="0.6">
       <div class="hc-badge hc1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Goals <b>agreed</b></div>
       <div class="hc-badge hc2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Plan <b>shared</b></div>
       <div class="hc-badge hc3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#E11A6E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>All voices <b>heard</b></div>
@@ -250,19 +252,19 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <p class="section-sub" data-reveal>Assemblies align the club internally. Next, see how the club connects to the zone and the district through ZRR and DRR visits, and how planning feeds your biggest service events.</p>
   <div class="related-grid">
     <a class="rel-card" href="/tutorial-zrr" data-reveal>
-      <img src="images/tutorial-zrr.png" alt="ZRR visits tutorial">
+      <img src="media/images/tutorial-zrr.png" alt="ZRR visits tutorial">
       <h5>ZRR Visits</h5>
       <p>Your zonal bridge to the district, and the visits that keep it alive.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
     <a class="rel-card" href="/tutorial-drr" data-reveal style="--d:.08s">
-      <img src="images/tutorial-drr.png" alt="DRR visits tutorial">
+      <img src="media/images/tutorial-drr.png" alt="DRR visits tutorial">
       <h5>DRR Visits</h5>
       <p>When the District Rotaract Representative visits your club.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
     <a class="rel-card" href="/tutorial-blood" data-reveal style="--d:.16s">
-      <img src="images/tutorial-blood.png" alt="Blood donation tutorial">
+      <img src="media/images/tutorial-blood.png" alt="Blood donation tutorial">
       <h5>Blood Donation Programs</h5>
       <p>Put the club's plan into practice with your biggest service event.</p>
       <span class="go">Open tutorial &rarr;</span>
@@ -301,7 +303,7 @@ const SECTIONS = [
     id:"vs-others", icon:"bell",
     title:"Assembly vs. General vs. Board",
     tagline:"Three meetings, three jobs, do not blur them",
-    img:"images/meeting-call-to-order.jpg",
+    img:"media/images/meeting-call-to-order.jpg",
     alt:"Minimal flat illustration of a club assembly opening",
     body:`<p class="intro">The assembly is often the most misunderstood meeting in Rotaract. It is not a general meeting with extra snacks; it is the club's planning and education forum, open to all members, where direction gets set rather than business processed.</p>
       <table class="type-table">
@@ -327,7 +329,7 @@ const SECTIONS = [
     id:"planning", icon:"agenda",
     title:"The Planning Assembly",
     tagline:"Set the year before the year sets you",
-    img:"images/tutorial-assembly.png",
+    img:"media/images/tutorial-assembly.png",
     alt:"Illustration of members planning together at a club assembly",
     body:`<p class="intro">The planning assembly is where the club agrees what it will achieve, usually at the start of the Rotaract year, and again mid-year to correct course. It feeds the board, which turns the club's choices into the formal plan and budget.</p>
       <ol class="steps">
@@ -345,15 +347,15 @@ const SECTIONS = [
       "Close the planning assembly by reading the agreed plan aloud so everyone leaves with the same words"
     ],
     links:[
-      { label:"Strategic Planning Guide", url:"guides/Strategic-Planning-Guide.docx" },
-      { label:"Effective Planning Guide to Clubs", url:"guides/Effective-Planning-Guide-to-Clubs.docx" }
+      { label:"Strategic Planning Guide", url:"media/guides/Strategic-Planning-Guide.docx" },
+      { label:"Effective Planning Guide to Clubs", url:"media/guides/Effective-Planning-Guide-to-Clubs.docx" }
     ]
   },
   {
     id:"education", icon:"clip",
     title:"The Educational Assembly",
     tagline:"A meeting that leaves members smarter",
-    img:"images/tutorial-mascot.png",
+    img:"media/images/tutorial-mascot.png",
     alt:"Zone 7 tutorial mascot with a book, symbolising education",
     body:`<p class="intro">Rotaract is a leadership development program, and the assembly is the natural classroom. One assembly per quarter can be given wholly to education, on leadership, service skills, district systems or public speaking, and members leave more capable than they arrived.</p>
       <ol class="steps">
@@ -371,14 +373,14 @@ const SECTIONS = [
       "Collect one-line feedback at the end and use it for the next session"
     ],
     links:[
-      { label:"Rotaract Guidebook: education & training", url:"guides/Rotaract-Guidebook.pdf" }
+      { label:"Rotaract Guidebook: education & training", url:"media/guides/Rotaract-Guidebook.pdf" }
     ]
   },
   {
     id:"running", icon:"people",
     title:"Running the Assembly",
     tagline:"Facilitate, do not lecture, and never rush a voice",
-    img:"images/meeting-agenda.jpg",
+    img:"media/images/meeting-agenda.jpg",
     alt:"Minimal flat illustration of an assembly agenda",
     body:`<p class="intro">An assembly succeeds or dies on facilitation. The chair's job is to make it easy for every member to contribute, not to deliver a presentation at a room of people. The flow below works for both planning and education assemblies.</p>
       <ol class="steps">
@@ -402,7 +404,7 @@ const SECTIONS = [
     id:"followup", icon:"pen",
     title:"Outcomes & Follow-Up",
     tagline:"An assembly without minutes evaporates in a week",
-    img:"images/meeting-minutes-report.jpg",
+    img:"media/images/meeting-minutes-report.jpg",
     alt:"Minimal flat illustration of a secretary writing assembly minutes",
     body:`<p class="intro">The value of an assembly is measured in what changes afterwards. If the agreements are not written down, shared and tracked, the next assembly starts from zero again.</p>
       <ol class="steps">
@@ -426,7 +428,7 @@ const SECTIONS = [
     id:"everyone", icon:"vote",
     title:"Making Every Member Count",
     tagline:"The member who never speaks is the one you lose",
-    img:"images/meeting-attendance.jpg",
+    img:"media/images/meeting-attendance.jpg",
     alt:"Minimal flat illustration of members signing in to an assembly",
     body:`<p class="intro">New members, shy members and quiet members decide whether they belong based on whether their voice was wanted. A few simple techniques make participation the default rather than the brave exception.</p>
       <ol class="steps">

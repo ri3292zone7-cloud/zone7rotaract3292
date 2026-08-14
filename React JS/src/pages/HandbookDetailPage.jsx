@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import SiteShell from '../components/layout/SiteShell';
 import Reveal from '../components/ui/Reveal';
@@ -35,10 +35,10 @@ const GRANTS = {
   sub: "Rotary funding comes in two speeds. District Grants are small, local and fast; they support short-term projects that answer an urgent community need. Global Grants are large, international and rigorous; they fund sustainable projects aligned with the 7 Areas of Focus. This chapter walks both paths end to end, with the rules that keep the money honest.",
   note: (
     <>
-      Rules per the <a href="/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf">District Fund &amp; Grant Criterion Document</a> and the directory's Global Grant guide. Amounts, matching percentages and deadlines that change every year (set by the District Governor) are noted as such. Check the current directory before applying.
+      Rules per the <a href="/media/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf">District Fund &amp; Grant Criterion Document</a> and the directory's Global Grant guide. Amounts, matching percentages and deadlines that change every year (set by the District Governor) are noted as such. Check the current directory before applying.
     </>
   ),
-  img: '/images/handbook-grants.svg',
+  img: '/media/images/handbook-grants.svg',
   imgAlt: 'Grants and funding illustration',
   badges: [
     { cls: 'hc1', stroke: '#E11A6E', width: 2.6, d: 'M5 12.5l4.5 4.5L19 7.5', label: <>District <b>&amp;</b> Global</> },
@@ -54,7 +54,7 @@ const GRANTS = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" strokeWidth="1.6" /><circle cx="12" cy="12" r="4.5" stroke="#fff" strokeWidth="1.6" /><path d="M12 4.5v3M12 16.5v3M4.5 12h3M16.5 12h3" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
       title: 'District Grants: the fast track',
       tagline: 'Small-scale, short-term, local, decided by the District Governor',
-      img: '/images/handbook-grants.svg',
+      img: '/media/images/handbook-grants.svg',
       alt: 'Illustration of grant funding and application documents',
       intro: 'District Grants support small, urgent, community-specific projects. Every year the District Governor fixes the total pool and splits it between Rotary and Rotaract clubs, sets the amount per approved project, and decides the matching share that sponsoring Rotary clubs and partner Rotaract clubs pay. Rotaract clubs apply as implementation partners with their sponsoring Rotary club, and the funds go to the sponsoring Rotary club.',
       steps: [
@@ -73,14 +73,14 @@ const GRANTS = {
         'Draft on paper first, then submit. Mistakes are harder to fix after the click',
         'Keep the submission confirmation email; it is your proof of application',
       ],
-      links: [{ label: 'District Fund & Grant Criterion Document', url: '/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf' }],
+      links: [{ label: 'District Fund & Grant Criterion Document', url: '/media/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf' }],
     },
     {
       id: 'global-grants', color: '#0E7490',
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" strokeWidth="1.6" /><ellipse cx="12" cy="12" rx="9" ry="3.6" stroke="#fff" strokeWidth="1.6" /><line x1="12" y1="3" x2="12" y2="21" stroke="#fff" strokeWidth="1.6" /></svg>,
       title: 'Global Grants: the big leagues',
       tagline: 'Large, international, sustainable, run through the Grant Center',
-      img: '/images/handbook-grants.svg',
+      img: '/media/images/handbook-grants.svg',
       alt: 'Illustration of a globe representing international grants',
       intro: 'A Global Grant is a commitment to design and deliver a project with lasting, measurable change. It demands planning, partnerships, transparent finances and timely reporting. A good idea alone is not enough. Before you begin, the project must meet every qualification below.',
       steps: [
@@ -109,7 +109,7 @@ const GRANTS = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-5.5L21 9" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /><path d="M5 9v8M9.5 9v8M14.5 9v8M19 9v8M4 21h16M3.5 19.5h17" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
       title: 'The money rules that protect everyone',
       tagline: 'Where funds live, how they move, and what you may never do',
-      img: '/images/handbook-grants.svg',
+      img: '/media/images/handbook-grants.svg',
       alt: 'Illustration of a bank with coins and funding rules',
       intro: "Grant money is public trust. The directory's rules are short and absolute. Clubs that respect them keep qualifying for more funding, and clubs that don't lose it for everyone.",
       stat: <><span>At least 15% of Global Grant funding</span> must come from outside the project country. It is the rule that makes a project genuinely international.</>,
@@ -129,7 +129,7 @@ const GRANTS = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 013 3L8 19l-4 1z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /><path d="M14.5 6.5l3 3" stroke="#fff" strokeWidth="1.6" /></svg>,
       title: 'The application, done properly',
       tagline: 'Grant Center, club approval, district approval, 90 days of buffer',
-      img: '/images/handbook-grants.svg',
+      img: '/media/images/handbook-grants.svg',
       alt: 'Illustration of an application form being prepared',
       intro: "Precision beats speed. A rejected application usually fails because the plan or the paperwork was incomplete, not because the idea was bad. Treat the application like the club's best report card.",
       stat: <>Submitting <span>at least 90 days before</span> planned travel or project start is a hard rule. Mark the calendar the day you decide to apply.</>,
@@ -148,7 +148,7 @@ const GRANTS = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 21h8a2 2 0 002-2V7l-4-4H8a2 2 0 00-2 2v14a2 2 0 002 2z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /><path d="M14 3v4h4M8 12h8M8 16h8" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
       title: 'Reporting & record-keeping',
       tagline: 'Twelve months, two months, five years. The calendar that never lies',
-      img: '/images/handbook-grants.svg',
+      img: '/media/images/handbook-grants.svg',
       alt: 'Illustration of a clipboard with reports and records',
       intro: "A grant is not finished when the money arrives or when the project ends. It is finished when every report is in and every record is filed. The directory's deadlines are strict.",
       stat: <>Keep all financial and project documents for <span>at least 5 years</span>. Long after the project ends, that file can still be audited.</>,
@@ -171,9 +171,9 @@ const GRANTS = {
   ],
   keepSub: 'Grants fund the projects. The twinships and the Areas of Focus chapters tell you what to build and with whom.',
   related: [
-    { to: '/handbook/twinship', img: '/images/handbook-twinship.svg', alt: 'Twinship chapter', title: 'Twinship & the MOU', desc: 'Joint projects with a twin club are some of the strongest grant applications.', go: 'Open chapter' },
-    { to: '/handbook/projects', img: '/images/handbook-projects.svg', alt: 'Areas of focus chapter', title: 'Projects: 7 Areas of Focus', desc: 'Global Grants must fit one of the seven areas. See ready-made designs.', go: 'Open chapter' },
-    { to: '/handbook', img: '/images/handbook-hub.svg', alt: 'Handbook hub', title: 'The Handbook', desc: 'Back to all five chapters. Rules, checklists and videos in one place.', go: 'Open hub' },
+    { to: '/handbook/twinship', img: '/media/images/handbook-twinship.svg', alt: 'Twinship chapter', title: 'Twinship & the MOU', desc: 'Joint projects with a twin club are some of the strongest grant applications.', go: 'Open chapter' },
+    { to: '/handbook/projects', img: '/media/images/handbook-projects.svg', alt: 'Areas of focus chapter', title: 'Projects: 7 Areas of Focus', desc: 'Global Grants must fit one of the seven areas. See ready-made designs.', go: 'Open chapter' },
+    { to: '/handbook', img: '/media/images/handbook-hub.svg', alt: 'Handbook hub', title: 'The Handbook', desc: 'Back to all five chapters. Rules, checklists and videos in one place.', go: 'Open hub' },
   ],
   cta: {
     title: 'Funded projects need partners.',
@@ -193,10 +193,10 @@ const HEALTH = {
   sub: "Every six months, the district's health checkup asks your club 75 honest yes-or-no questions across five sections: Club Experience, Service & Socials, Members, Public Image, and Business & Operations. One point per yes, a score you compute in a single meeting, and a two-or-three-item action plan that makes the next checkup better.",
   note: (
     <>
-      Process, section names and item counts come from the <a href="/guides/RC. Dis. Dinesh Gaire BW 2082 Final District directory.pdf">District 3292 Directory</a> (Club Health Checkup section). The sample checks below follow the directory's section themes; the official full 75-item table lives in the directory and in <a href="https://on.rotary.org/club-health-check" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 700 }}>Rotary's club health check</a>.
+      Process, section names and item counts come from the <a href="/media/guides/RC. Dis. Dinesh Gaire BW 2082 Final District directory.pdf">District 3292 Directory</a> (Club Health Checkup section). The sample checks below follow the directory's section themes; the official full 75-item table lives in the directory and in <a href="https://on.rotary.org/club-health-check" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 700 }}>Rotary's club health check</a>.
     </>
   ),
-  img: '/images/handbook-health.svg',
+  img: '/media/images/handbook-health.svg',
   imgAlt: 'Club health checkup illustration',
   badges: [
     { cls: 'hc1', stroke: '#E11A6E', width: 2.6, d: 'M5 12.5l4.5 4.5L19 7.5', label: <>75 <b>items</b></> },
@@ -219,7 +219,7 @@ const HEALTH = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 21h8a2 2 0 002-2V7l-4-4H8a2 2 0 00-2 2v14a2 2 0 002 2z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /><path d="M14 3v4h4M8.5 13l2.5 2.5 4.5-5" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>,
       title: 'How the checkup works',
       tagline: 'One review team, 1\u20132 hours, seven steps, twice a year',
-      img: '/images/handbook-health.svg',
+      img: '/media/images/handbook-health.svg',
       alt: 'Illustration of the health checkup process',
       intro: 'The directory defines a simple, repeatable process, no consultants needed, just honest discussion.',
       steps: [
@@ -259,7 +259,7 @@ const HEALTH = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.4" stroke="#fff" strokeWidth="1.6" /><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 5.5a3.4 3.4 0 010 6.4M17.5 14.2c2.3.6 4 2.7 4 5.8" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
       title: 'Club Experience: 15 items',
       tagline: 'Meetings, engagement, inclusiveness, recognition, fellowship',
-      img: '/images/handbook-health.svg',
+      img: '/media/images/handbook-health.svg',
       alt: 'Illustration of the club experience section',
       intro: "The first section asks whether being in your club feels good, because everything else follows from that. Sample checks from the directory's theme:",
       stat: <>Meeting quality is the <span>single most visible health signal</span>; visitors see it in the first five minutes.</>,
@@ -282,7 +282,7 @@ const HEALTH = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15.5" rx="2" stroke="#fff" strokeWidth="1.6" /><path d="M8 3v4M16 3v4M3.5 10.5h17" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /><path d="M8 15h8" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
       title: 'Service & Socials: 14 items',
       tagline: 'Service projects, community involvement, social events, leadership',
-      img: '/images/handbook-health.svg',
+      img: '/media/images/handbook-health.svg',
       alt: 'Illustration of the service and socials section',
       intro: "This section measures what the club does, in the community and for its own members. Sample checks from the directory's theme:",
       stat: <>Weak here? The <span>7 Areas of Focus chapter</span> has 42 ready project designs, starting at NPR 5,000.</>,
@@ -308,7 +308,7 @@ const HEALTH = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="8" r="3.4" stroke="#fff" strokeWidth="1.6" /><path d="M3.5 20c0-3.6 2.9-6 6.5-6 1.3 0 2.5.3 3.5.9M18.5 14v6M15.5 17h6" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
       title: 'Members: 16 items',
       tagline: 'Growth, diversity, retention, induction, mentoring, alumni',
-      img: '/images/handbook-health.svg',
+      img: '/media/images/handbook-health.svg',
       alt: 'Illustration of the members section',
       intro: "Membership is the club's engine room. The official section carries 16 items; these sample checks follow its themes.",
       stat: <>Retention beats recruitment: <span>a member who is mentored in year one</span> is overwhelmingly likely to stay past year three.</>,
@@ -331,7 +331,7 @@ const HEALTH = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 8h3l2-2.5h6L17 8h3a1.5 1.5 0 011.5 1.5V18a1.5 1.5 0 01-1.5 1.5H4A1.5 1.5 0 012.5 18V9.5A1.5 1.5 0 014 8z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /><circle cx="12" cy="13" r="3.5" stroke="#fff" strokeWidth="1.6" /></svg>,
       title: 'Public Image: 15 items',
       tagline: 'Website, social media, media coverage, branding, visibility',
-      img: '/images/handbook-health.svg',
+      img: '/media/images/handbook-health.svg',
       alt: 'Illustration of the public image section',
       intro: "If nobody knows what the club does, the club doesn't exist in the community's mind. The directory's themes, sampled:",
       stat: <>Posting <span>within 48 hours of every event</span> keeps the club's feed alive; a silent club reads as an inactive club.</>,
@@ -354,7 +354,7 @@ const HEALTH = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>,
       title: 'Business & Operations: 15 items',
       tagline: 'Strategic plan, goals, continuity, finances, reporting',
-      img: '/images/handbook-health.svg',
+      img: '/media/images/handbook-health.svg',
       alt: 'Illustration of the business and operations section',
       intro: "The least glamorous section, and the one whose failure silently kills clubs. Sample checks from the directory's theme:",
       stat: <>A club with <span>written goals and a named treasurer</span> survives leadership changes; one without them does not.</>,
@@ -372,7 +372,7 @@ const HEALTH = {
       ],
       links: [
         { label: 'Club Admin: minutes & treasury', url: '/admin', internal: true },
-        { label: 'Effective Planning Guide for Clubs', url: '/guides/Effective-Planning-Guide-to-Clubs.docx' },
+        { label: 'Effective Planning Guide for Clubs', url: '/media/guides/Effective-Planning-Guide-to-Clubs.docx' },
       ],
     },
   ],
@@ -382,9 +382,9 @@ const HEALTH = {
   ],
   keepSub: "A healthy club needs healthy meetings, and the handbook's other chapters cover the rules it runs on.",
   related: [
-    { to: '/tutorial/meetings', img: '/images/tutorial-meeting.png', alt: 'Meetings tutorial', title: 'Running General Meetings', desc: 'Meeting quality is the first thing the checkup measures. Master the rhythm.', go: 'Open tutorial' },
-    { to: '/handbook/grants', img: '/images/handbook-grants.svg', alt: 'Grants chapter', title: 'Grants: Funding Service', desc: 'Weak in Service & Socials? Funded projects are often the fix.', go: 'Open chapter' },
-    { to: '/handbook', img: '/images/handbook-hub.svg', alt: 'Handbook hub', title: 'The Handbook', desc: 'Back to all five chapters: rules, checklists and videos in one place.', go: 'Open hub' },
+    { to: '/tutorial/meetings', img: '/media/images/tutorial-meeting.png', alt: 'Meetings tutorial', title: 'Running General Meetings', desc: 'Meeting quality is the first thing the checkup measures. Master the rhythm.', go: 'Open tutorial' },
+    { to: '/handbook/grants', img: '/media/images/handbook-grants.svg', alt: 'Grants chapter', title: 'Grants: Funding Service', desc: 'Weak in Service & Socials? Funded projects are often the fix.', go: 'Open chapter' },
+    { to: '/handbook', img: '/media/images/handbook-hub.svg', alt: 'Handbook hub', title: 'The Handbook', desc: 'Back to all five chapters: rules, checklists and videos in one place.', go: 'Open hub' },
   ],
   cta: {
     title: "That's the whole handbook.",
@@ -404,10 +404,10 @@ const NEWCLUB = {
   sub: 'A new Rotaract club is a new group of young leaders in your community, and a fresh wave of energy for your Rotary club. The directory lays out nine steps from first idea to certified club, and then the ceremonial bookends: the charter presentation ceremony when the club is born, and the installation meeting every year after.',
   note: (
     <>
-      The nine-step process below is the directory's own sequence for a Rotary club sponsoring a new Rotaract club. Forms and dues figures come from the <a href="/guides/Rotaract-Guidebook.pdf">Rotaract Guidebook</a> and official Rotary International guidance.
+      The nine-step process below is the directory's own sequence for a Rotary club sponsoring a new Rotaract club. Forms and dues figures come from the <a href="/media/guides/Rotaract-Guidebook.pdf">Rotaract Guidebook</a> and official Rotary International guidance.
     </>
   ),
-  img: '/images/handbook-newclub.svg',
+  img: '/media/images/handbook-newclub.svg',
   imgAlt: 'New club launch illustration',
   badges: [
     { cls: 'hc1', stroke: '#E11A6E', width: 2.6, d: 'M5 12.5l4.5 4.5L19 7.5', label: <>9 <b>steps</b></> },
@@ -423,7 +423,7 @@ const NEWCLUB = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-3.6 10.8c.8.6 1.1 1.4 1.1 2.2h5c0-.8.3-1.6 1.1-2.2A6 6 0 0012 3z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /></svg>,
       title: 'Before the first member',
       tagline: 'The groundwork a sponsor needs before step one',
-      img: '/images/handbook-newclub.svg',
+      img: '/media/images/handbook-newclub.svg',
       alt: 'Illustration of a rocket and flag representing a club launch',
       intro: "Getting involved in Rotaract can be a fun, impactful and transformational experience for more than just young leaders in your community. It will inspire and engage your Rotary club members too. Three moves come before any promotion:",
       steps: [
@@ -442,8 +442,8 @@ const NEWCLUB = {
         "Share the club's success with Rotary International at rotaract@rotary.org",
       ],
       links: [
-        { label: 'Standard Rotaract Club Constitution', url: '/guides/Standard-Rotaract-Club-Constitution.docx' },
-        { label: 'Recommended Club Bylaws', url: '/guides/662_rotaract_club_recommended_bylaws_en.docx' },
+        { label: 'Standard Rotaract Club Constitution', url: '/media/guides/Standard-Rotaract-Club-Constitution.docx' },
+        { label: 'Recommended Club Bylaws', url: '/media/guides/662_rotaract_club_recommended_bylaws_en.docx' },
       ],
     },
     {
@@ -451,7 +451,7 @@ const NEWCLUB = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11v3l3 .5v-4L3 11zM6 14.5l10 4V6.5l-10 4" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /><path d="M18.5 8.5a3.5 3.5 0 010 5" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
       title: 'Build the buzz',
       tagline: 'Strategy, promotion, and the kickoff event',
-      img: '/images/handbook-newclub.svg',
+      img: '/media/images/handbook-newclub.svg',
       alt: 'Illustration of promotion for a new club',
       intro: 'Now the idea goes public. Four steps turn strategy into a room full of curious young people.',
       steps: [
@@ -476,7 +476,7 @@ const NEWCLUB = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3c4 1.5 6.5 5 6.5 9.5L15 14l-1.5 6h-3L9 14l-3.5-1.5C5.5 8 8 4.5 12 3z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /><circle cx="12" cy="9.5" r="2" stroke="#fff" strokeWidth="1.6" /><path d="M4 21c1.5-2 4-2.5 6-2" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
       title: 'Launch & certify',
       tagline: 'The first months, and the form that makes it official',
-      img: '/images/handbook-newclub.svg',
+      img: '/media/images/handbook-newclub.svg',
       alt: 'Illustration of a club being launched and certified',
       intro: 'The ceremony comes later; first come the months of actual club life, then the paperwork.',
       steps: [
@@ -496,8 +496,8 @@ const NEWCLUB = {
         'Budget for Rotary International dues ($5 university / $8 community per member)',
       ],
       links: [
-        { label: 'Rotaract Membership Form', url: '/guides/Rotaract_-Membership_Form.docx' },
-        { label: 'Rotaract Guidebook', url: '/guides/Rotaract-Guidebook.pdf' },
+        { label: 'Rotaract Membership Form', url: '/media/guides/Rotaract_-Membership_Form.docx' },
+        { label: 'Rotaract Guidebook', url: '/media/guides/Rotaract-Guidebook.pdf' },
         { label: 'Rotaract Clubs: Rotary International', url: 'https://www.rotary.org/en/get-involved/our-clubs/rotaract-clubs', external: true },
       ],
     },
@@ -506,7 +506,7 @@ const NEWCLUB = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="5.5" stroke="#fff" strokeWidth="1.6" /><path d="M9.5 13.5L8 21l4-2.5L16 21l-1.5-7.5" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /></svg>,
       title: 'The charter presentation ceremony',
       tagline: 'The day the club is officially born',
-      img: '/images/handbook-newclub.svg',
+      img: '/media/images/handbook-newclub.svg',
       alt: 'Illustration of a charter ceremony with awards',
       intro: "The district's ceremony procedure runs like this; adapt the optional items to your club. In the case of Rotaract sponsoring and self-sponsoring Rotaract clubs, district officials (DG, AG, DRR, ADRR and other district representatives) take on the roles normally played by the parent Rotary Club President, including collaring the charter president and handing over the charter certificate.",
       steps: [
@@ -526,14 +526,14 @@ const NEWCLUB = {
         'Rehearse the order of oaths with the MC beforehand',
         'Keep the ceremony under two hours; refreshments follow promptly',
       ],
-      links: [{ label: 'Statement of Policy', url: '/guides/statement-of-policy.docx' }],
+      links: [{ label: 'Statement of Policy', url: '/media/guides/statement-of-policy.docx' }],
     },
     {
       id: 'installation', color: '#0E7490',
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 15l8-8 4 4-8 8-4-4z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /><path d="M12 7l5.5-5.5 4 4L16 11M3 21h18" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>,
       title: 'The annual installation meeting',
       tagline: 'Every year after: old leadership hands over, new takes the gavel',
-      img: '/images/handbook-newclub.svg',
+      img: '/media/images/handbook-newclub.svg',
       alt: 'Illustration of a gavel and ceremony',
       intro: 'Once chartered, the club repeats an installation rhythm every Rota Year. The directory\u2019s procedure covers the full arc:',
       steps: [
@@ -562,9 +562,9 @@ const NEWCLUB = {
   ],
   keepSub: 'A new club deserves a healthy start. The health checkup chapter shows how to keep it strong from month one.',
   related: [
-    { to: '/handbook/health', img: '/images/handbook-health.svg', alt: 'Health checkup chapter', title: 'The Club Health Checkup', desc: 'Give your new club its first checkup within six months: 75 questions, one meeting.', go: 'Open chapter' },
-    { to: '/handbook/twinship', img: '/images/handbook-twinship.svg', alt: 'Twinship chapter', title: 'Twinship & the MOU', desc: 'A new club that twins early builds its network twice as fast.', go: 'Open chapter' },
-    { to: '/handbook', img: '/images/handbook-hub.svg', alt: 'Handbook hub', title: 'The Handbook', desc: 'Back to all five chapters. Rules, checklists and videos in one place.', go: 'Open hub' },
+    { to: '/handbook/health', img: '/media/images/handbook-health.svg', alt: 'Health checkup chapter', title: 'The Club Health Checkup', desc: 'Give your new club its first checkup within six months: 75 questions, one meeting.', go: 'Open chapter' },
+    { to: '/handbook/twinship', img: '/media/images/handbook-twinship.svg', alt: 'Twinship chapter', title: 'Twinship & the MOU', desc: 'A new club that twins early builds its network twice as fast.', go: 'Open chapter' },
+    { to: '/handbook', img: '/media/images/handbook-hub.svg', alt: 'Handbook hub', title: 'The Handbook', desc: 'Back to all five chapters. Rules, checklists and videos in one place.', go: 'Open hub' },
   ],
   cta: {
     title: 'New club, new projects.',
@@ -584,10 +584,10 @@ const PROJECTS = {
   sub: "Rotary concentrates its service on seven Areas of Focus, the causes every grant and most club projects align with. This chapter carries the directory's low-cost project designs: one featured project per area with a real budget and timeline, plus five more ideas that cost almost nothing but change a lot.",
   note: (
     <>
-      Budgets, timelines and designs come from the <a href="/guides/RC. Dis. Dinesh Gaire BW 2082 Final District directory.pdf">District 3292 Directory</a> (Area of Focus section). Prices are indicative NPR budgets from the directory. Adjust to your community.
+      Budgets, timelines and designs come from the <a href="/media/guides/RC. Dis. Dinesh Gaire BW 2082 Final District directory.pdf">District 3292 Directory</a> (Area of Focus section). Prices are indicative NPR budgets from the directory. Adjust to your community.
     </>
   ),
-  img: '/images/handbook-projects.svg',
+  img: '/media/images/handbook-projects.svg',
   imgAlt: 'Seven areas of focus illustration',
   badges: [
     { cls: 'hc1', stroke: '#E11A6E', width: 2.6, d: 'M5 12.5l4.5 4.5L19 7.5', label: <>7 <b>areas</b></> },
@@ -603,7 +603,7 @@ const PROJECTS = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#fff" strokeWidth="1.7" /><path d="M12 4v16" stroke="#fff" strokeWidth="1.7" strokeLinecap="round" /></svg>,
       title: 'Peacebuilding & Conflict Prevention',
       tagline: 'Dialogue, understanding and cooperation',
-      img: '/images/handbook-projects.svg',
+      img: '/media/images/handbook-projects.svg',
       alt: 'Illustration of the peace area of focus',
       intro: 'Promote dialogue, understanding and cooperation to prevent conflicts and foster peace, through peace education, mediation training and community reconciliation.',
       featured: <><span>Featured project: Peace Talks at Tea Time.</span> Host 3 monthly "Tea & Talk" gatherings with diverse community members, invite local leaders to share peaceful conflict resolution stories, and let youth volunteers act as dialogue facilitators. Budget NPR 10,000 \u00b7 Timeline 3 months.</>,
@@ -624,7 +624,7 @@ const PROJECTS = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4.5v15M4.5 12h15" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" /><circle cx="12" cy="12" r="8" stroke="#fff" strokeWidth="1.6" /></svg>,
       title: 'Disease Prevention & Treatment',
       tagline: 'Vaccination, medical camps, awareness',
-      img: '/images/handbook-projects.svg',
+      img: '/media/images/handbook-projects.svg',
       alt: 'Illustration of the disease prevention area of focus',
       intro: 'Reduce the spread of diseases and strengthen healthcare systems, through vaccination programs, medical camps and health awareness campaigns.',
       featured: <><span>Featured project: Checkup in Your Pocket.</span> Partner with a local health post for BP, sugar and BMI screening; run a health talk on diet and exercise; distribute health tip leaflets. Reaches 200 people. Budget NPR 8,000 \u00b7 Timeline 1 day.</>,
@@ -645,7 +645,7 @@ const PROJECTS = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3.5c3.6 4.2 6 7.4 6 10.2a6 6 0 01-12 0c0-2.8 2.4-6 6-10.2z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /></svg>,
       title: 'Water, Sanitation & Hygiene (WASH)',
       tagline: 'Clean water, safe sanitation, hygiene education',
-      img: '/images/handbook-projects.svg',
+      img: '/media/images/handbook-projects.svg',
       alt: 'Illustration of the water and sanitation area of focus',
       intro: 'Provide clean water, safe sanitation and hygiene education to improve health and living conditions.',
       featured: <><span>Featured project: Soap & Smile.</span> Handwashing demonstrations in 3 schools, soap bars and posters for classrooms, and a school hygiene quiz competition. Reaches 300 schoolchildren. Budget NPR 15,000 \u00b7 Timeline 2 weeks.</>,
@@ -666,7 +666,7 @@ const PROJECTS = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7.5-4.5-7.5-10a4 4 0 017.5-2 4 4 0 017.5 2c0 5.5-7.5 10-7.5 10z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /></svg>,
       title: 'Maternal & Child Health',
       tagline: 'Medical care and nutrition for mothers and children',
-      img: '/images/handbook-projects.svg',
+      img: '/media/images/handbook-projects.svg',
       alt: 'Illustration of the maternal and child health area of focus',
       intro: 'Reduce maternal and child mortality by improving medical care and nutrition, through prenatal care programs, nutrition support and child immunizations.',
       featured: <><span>Featured project: Mother's Circle.</span> A local nurse gives a free maternal health talk, printed checklists guide safe pregnancy and newborn care, and basic hygiene kits (soap, sanitary pads) are distributed. Educates 30 pregnant women and mothers. Budget NPR 12,000 \u00b7 Timeline 1 month.</>,
@@ -687,7 +687,7 @@ const PROJECTS = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h12a2 2 0 012 2v13l-3-2-3 2-3-2-3 2-3-2-3 2z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /></svg>,
       title: 'Basic Education & Literacy',
       tagline: 'Quality education and lower illiteracy',
-      img: '/images/handbook-projects.svg',
+      img: '/media/images/handbook-projects.svg',
       alt: 'Illustration of the basic education area of focus',
       intro: 'Support quality education and reduce illiteracy, through teacher training, school materials and adult literacy programs.',
       featured: <><span>Featured project: Reading Corner.</span> Collect used books from community donors, set up a small reading space in a school, and run weekly volunteer reading sessions. Budget NPR 5,000 \u00b7 Timeline ongoing after setup.</>,
@@ -708,7 +708,7 @@ const PROJECTS = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="7.5" width="18" height="12" rx="2" stroke="#fff" strokeWidth="1.6" /><path d="M9 7.5v-1a2 2 0 012-2h2a2 2 0 012 2v1" stroke="#fff" strokeWidth="1.6" /><path d="M3 12.5h18" stroke="#fff" strokeWidth="1.6" /></svg>,
       title: 'Community Economic Development',
       tagline: 'Livelihoods, entrepreneurship, vocational training',
-      img: '/images/handbook-projects.svg',
+      img: '/media/images/handbook-projects.svg',
       alt: 'Illustration of the community economic development area of focus',
       intro: 'Create sustainable livelihoods and reduce poverty through entrepreneurship, vocational training and microfinance.',
       featured: <><span>Featured project: Skill in a Day.</span> Partner with a local tailor or trainer for a 1-day sewing or handicraft workshop, teach simple products like cloth bags or keychains, and link participants to local markets. Trains 20 women or youth. Budget NPR 15,000 \u00b7 Timeline 1 day.</>,
@@ -729,7 +729,7 @@ const PROJECTS = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4.5 19.5C5 11 11 5 20 4.5c.5 9-5 15-13 15-1 0-2-.5-2.5-1z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /><path d="M4.5 19.5c2-4 5-7.5 8.5-9.5" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
       title: 'Protecting the Environment',
       tagline: 'Conservation, waste management, climate action',
-      img: '/images/handbook-projects.svg',
+      img: '/media/images/handbook-projects.svg',
       alt: 'Illustration of the environment area of focus',
       intro: 'Conserve natural resources and address climate change, through tree planting, waste management and renewable energy projects.',
       featured: <><span>Featured project: One Member, One Tree.</span> Every club member plants one tree in a community location, the municipality provides saplings, and a short awareness talk covers waste segregation. Budget NPR 5,000 \u00b7 Timeline 1 week.</>,
@@ -744,8 +744,8 @@ const PROJECTS = {
         'Eco-Brick Project: plastic waste into eco-bricks for small construction',
       ],
       links: [
-        { label: 'Effective Planning Guide for Clubs', url: '/guides/Effective-Planning-Guide-to-Clubs.docx' },
-        { label: 'Strategic Planning Guide', url: '/guides/Strategic-Planning-Guide.docx' },
+        { label: 'Effective Planning Guide for Clubs', url: '/media/guides/Effective-Planning-Guide-to-Clubs.docx' },
+        { label: 'Strategic Planning Guide', url: '/media/guides/Strategic-Planning-Guide.docx' },
       ],
     },
   ],
@@ -756,9 +756,9 @@ const PROJECTS = {
   ],
   keepSub: 'Great project ideas deserve funding and a healthy club to run them.',
   related: [
-    { to: '/handbook/grants', img: '/images/handbook-grants.svg', alt: 'Grants chapter', title: 'Grants: Funding Service', desc: 'Take a design from this chapter and fund it with a District or Global Grant.', go: 'Open chapter' },
-    { to: '/handbook/health', img: '/images/handbook-health.svg', alt: 'Health checkup chapter', title: 'The Club Health Checkup', desc: 'A strong club runs projects well. Measure how strong yours is.', go: 'Open chapter' },
-    { to: '/handbook', img: '/images/handbook-hub.svg', alt: 'Handbook hub', title: 'The Handbook', desc: 'Back to all five chapters. Rules, checklists and videos in one place.', go: 'Open hub' },
+    { to: '/handbook/grants', img: '/media/images/handbook-grants.svg', alt: 'Grants chapter', title: 'Grants: Funding Service', desc: 'Take a design from this chapter and fund it with a District or Global Grant.', go: 'Open chapter' },
+    { to: '/handbook/health', img: '/media/images/handbook-health.svg', alt: 'Health checkup chapter', title: 'The Club Health Checkup', desc: 'A strong club runs projects well. Measure how strong yours is.', go: 'Open chapter' },
+    { to: '/handbook', img: '/media/images/handbook-hub.svg', alt: 'Handbook hub', title: 'The Handbook', desc: 'Back to all five chapters. Rules, checklists and videos in one place.', go: 'Open hub' },
   ],
   cta: {
     title: 'Projects only matter in healthy clubs.',
@@ -778,10 +778,10 @@ const TWINSHIP = {
   sub: "Twinship is Rotaract's oldest relationship: two clubs that choose each other, across the district or across the world, and commit to joint projects, exchanged ideas and mutual celebration. This chapter covers the two kinds of twinship, how to find the right partner, the Memorandum of Understanding that makes it official, and the goodwill visits that keep it warm.",
   note: (
     <>
-      Sources: the directory's <a href="/guides/MOU-Document.doc">Twinship &amp; MOU sections</a> and the <a href="/guides/Rotaract-Guidebook.pdf">District Rotaract Guidebook</a>. The MOU template in the guides folder matches the directory's sample exactly.
+      Sources: the directory's <a href="/media/guides/MOU-Document.doc">Twinship &amp; MOU sections</a> and the <a href="/media/guides/Rotaract-Guidebook.pdf">District Rotaract Guidebook</a>. The MOU template in the guides folder matches the directory's sample exactly.
     </>
   ),
-  img: '/images/handbook-twinship.svg',
+  img: '/media/images/handbook-twinship.svg',
   imgAlt: 'Two twinned clubs illustration',
   badges: [
     { cls: 'hc1', stroke: '#E11A6E', width: 2.6, d: 'M5 12.5l4.5 4.5L19 7.5', label: <>Intra <b>&amp;</b> inter</> },
@@ -797,7 +797,7 @@ const TWINSHIP = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9.5 14.5l5-5M8 12l-2.8 2.8a3.5 3.5 0 005 5L14 16.5M16 12l2.8-2.8a3.5 3.5 0 00-5-5L10 9.5" stroke="#fff" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>,
       title: 'What is a Twinship?',
       tagline: 'A voluntary partnership between two Rotaract clubs',
-      img: '/images/handbook-twinship.svg',
+      img: '/media/images/handbook-twinship.svg',
       alt: 'Illustration of two clubs linked by a chain',
       intro: "Twinship is a special relationship formed between two Rotaract clubs. Twinning is a voluntary partnership, typically between clubs from different countries or regions, that promotes international understanding, fosters friendship and encourages collaboration. In District 3292 it comes in two flavors.",
       table: {
@@ -822,7 +822,7 @@ const TWINSHIP = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="#fff" strokeWidth="1.6" /><path d="M16 16l4.5 4.5" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
       title: 'Finding the right partner',
       tagline: "Start with your Rotary club's network, then go through the district",
-      img: '/images/handbook-twinship.svg',
+      img: '/media/images/handbook-twinship.svg',
       alt: 'Illustration of searching for a twin club partner',
       intro: 'After deciding the type of club that would be an appropriate match, look for a club that meets your criteria. A few reliable routes from the directory:',
       steps: [
@@ -848,7 +848,7 @@ const TWINSHIP = {
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 013 3L8 19l-4 1z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" /><path d="M14.5 6.5l3 3" stroke="#fff" strokeWidth="1.6" /></svg>,
       title: 'The MOU: making it official',
       tagline: 'One joint meeting and one joint service project every year',
-      img: '/images/handbook-twinship.svg',
+      img: '/media/images/handbook-twinship.svg',
       alt: 'Illustration of a memorandum of understanding document',
       intro: "The district's sample Memorandum of Understanding is short, fair and adaptable. Clubs can define their own terms, but the sample is what most Zone 7 twinships sign. Its key commitments:",
       steps: [
@@ -868,14 +868,14 @@ const TWINSHIP = {
         'Sign in two copies with a District Committee Member present as observer',
         "Print both clubs' names and emblems on every publication during the twinship",
       ],
-      links: [{ label: 'MOU Template (guides folder)', url: '/guides/MOU-Document.doc' }],
+      links: [{ label: 'MOU Template (guides folder)', url: '/media/guides/MOU-Document.doc' }],
     },
     {
       id: 'alive', color: '#E11A6E',
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.4" stroke="#fff" strokeWidth="1.6" /><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 5.5a3.4 3.4 0 010 6.4M17.5 14.2c2.3.6 4 2.7 4 5.8" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" /></svg>,
       title: "Keeping it alive: joint projects & goodwill visits",
       tagline: 'A twinship is a relationship, not a certificate',
-      img: '/images/handbook-twinship.svg',
+      img: '/media/images/handbook-twinship.svg',
       alt: 'Illustration of members from two clubs visiting each other',
       intro: "The directory is full of ideas for developing a strong relationship, and a clear protocol for the goodwill visit, the twinship's signature event. A goodwill visit typically involves a minimum of five members from one club visiting another club's meeting, ensuring enough people to really engage.",
       steps: [
@@ -895,7 +895,7 @@ const TWINSHIP = {
         'Exchange club pins, flags or souvenirs as a symbolic close',
         'Follow up with a thank-you and a written visit summary for both boards',
       ],
-      links: [{ label: 'District Rotaract Guidebook', url: '/guides/Rotaract-Guidebook.pdf' }],
+      links: [{ label: 'District Rotaract Guidebook', url: '/media/guides/Rotaract-Guidebook.pdf' }],
     },
   ],
   watchSub: 'Twinship is a worldwide habit. This is an international twin story, from Rotaract clubs in Beograd and Roma Est, to show what a real one looks like.',
@@ -904,9 +904,9 @@ const TWINSHIP = {
   ],
   keepSub: 'A twin club is your best partner for joint service and joint grants. See what to build together next.',
   related: [
-    { to: '/handbook/grants', img: '/images/handbook-grants.svg', alt: 'Grants chapter', title: 'Grants: Funding Service', desc: 'Two clubs working together make a far stronger grant application.', go: 'Open chapter' },
-    { to: '/handbook/projects', img: '/images/handbook-projects.svg', alt: 'Areas of focus chapter', title: 'Projects: 7 Areas of Focus', desc: 'Ready-to-run project designs to plan jointly with your twin club.', go: 'Open chapter' },
-    { to: '/handbook', img: '/images/handbook-hub.svg', alt: 'Handbook hub', title: 'The Handbook', desc: 'Back to all five chapters. Rules, checklists and videos in one place.', go: 'Open hub' },
+    { to: '/handbook/grants', img: '/media/images/handbook-grants.svg', alt: 'Grants chapter', title: 'Grants: Funding Service', desc: 'Two clubs working together make a far stronger grant application.', go: 'Open chapter' },
+    { to: '/handbook/projects', img: '/media/images/handbook-projects.svg', alt: 'Areas of focus chapter', title: 'Projects: 7 Areas of Focus', desc: 'Ready-to-run project designs to plan jointly with your twin club.', go: 'Open chapter' },
+    { to: '/handbook', img: '/media/images/handbook-hub.svg', alt: 'Handbook hub', title: 'The Handbook', desc: 'Back to all five chapters. Rules, checklists and videos in one place.', go: 'Open hub' },
   ],
   cta: {
     title: 'No twin club yet? No problem.',

@@ -13,16 +13,30 @@
 const SUPABASE_URL = "https://pdlolyghlgztjrpxwytl.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_MNRC6w2H8lZ9OANmmntZaQ__OBFwqCj";
 
+/* Media path normalizer — DB rows may hold legacy paths (team/…, /logos/…)
+   from before the 2026 media reorg; always render through this. */
+if(typeof zone7MediaPath !== "function"){
+  window.zone7MediaPath = function(p){
+    if(!p) return "";
+    const s = String(p);
+    if(/^(https?:)?\/\//.test(s) || /^data:/.test(s)) return s;
+    const t = s.replace(/^\/+/, "");
+    if(t.startsWith("media/")) return "/" + t;
+    if(/^(images|logos|team|guides|magazine|libs|docs|vendor)\//.test(t)) return "/media/" + t;
+    return "/" + t;
+  };
+}
+
 const CLUB_DIRECTORY = {
-  balkumari:        { name:"Rotaract Club of Balkumari",              ig:"rac_balkumari",              logo:"logos/balkumari.jpg" },
-  baneshwor:         { name:"Rotaract Club of Baneshwor",               ig:"racbaneshwor",                logo:"logos/baneshwor.jpg" },
-  liberty:           { name:"Rotaract Club of Liberty College",         ig:"rotaractcluboflibertycollege", logo:"logos/liberty.jpg" },
-  kathmanduwest:     { name:"Rotaract Club of Kathmandu West",          ig:"kathmanduwest",               logo:"logos/kathmanduwest.jpg" },
-  kathmanduheight:   { name:"Rotaract Club of Kathmandu Height",        ig:"rackathmanduheight",          logo:"logos/kathmanduheight.jpg" },
-  sankhu:            { name:"Rotaract Club of Sankhu",                  ig:"racsankhu",                   logo:"logos/sankhu.jpg" },
-  newroadcity:       { name:"Rotaract Club of New Road City Kathmandu", ig:"racnewroadcity1",             logo:"logos/newroadcity.jpg" },
-  sukedhara:         { name:"Rotaract Club of Sukedhara",               ig:"rac_sukedhara",               logo:"logos/sukedhara.jpg" },
-  tripureswor:       { name:"Rotaract Club of Tripureswor",             ig:"ractripureswor",              logo:"logos/tripureswor.jpg" }
+  balkumari:        { name:"Rotaract Club of Balkumari",              ig:"rac_balkumari",              logo:"media/logos/balkumari.jpg" },
+  baneshwor:         { name:"Rotaract Club of Baneshwor",               ig:"racbaneshwor",                logo:"media/logos/baneshwor.jpg" },
+  liberty:           { name:"Rotaract Club of Liberty College",         ig:"rotaractcluboflibertycollege", logo:"media/logos/liberty.jpg" },
+  kathmanduwest:     { name:"Rotaract Club of Kathmandu West",          ig:"kathmanduwest",               logo:"media/logos/kathmanduwest.jpg" },
+  kathmanduheight:   { name:"Rotaract Club of Kathmandu Height",        ig:"rackathmanduheight",          logo:"media/logos/kathmanduheight.jpg" },
+  sankhu:            { name:"Rotaract Club of Sankhu",                  ig:"racsankhu",                   logo:"media/logos/sankhu.jpg" },
+  newroadcity:       { name:"Rotaract Club of New Road City Kathmandu", ig:"racnewroadcity1",             logo:"media/logos/newroadcity.jpg" },
+  sukedhara:         { name:"Rotaract Club of Sukedhara",               ig:"rac_sukedhara",               logo:"media/logos/sukedhara.jpg" },
+  tripureswor:       { name:"Rotaract Club of Tripureswor",             ig:"ractripureswor",              logo:"media/logos/tripureswor.jpg" }
 };
 
 /* Demo login gate — front-end only. Anyone who reads this file can see
@@ -654,7 +668,10 @@ const ZONE7_DB = {
   /* ---- guides (Guides for Clubs resource page) ---- */
   async getGuides(){
     try{
-      const res = await fetch(`${GUIDES_URL}?order=updated.desc`, { headers: REST_HEADERS });
+      /* Select only lightweight columns: legacy rows carry embedded file_data
+         (multi-MB base64 docs) that we never need to transmit — files are served
+         from Storage/Vercel via file_url. */
+      const res = await fetch(`${GUIDES_URL}?select=id,title,category,description,file_name,file_url,updated&order=updated.desc`, { headers: REST_HEADERS });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
       return await res.json();
     } catch(e){
@@ -794,11 +811,11 @@ const ZONE7_DB = {
 
   /* ---- ZRR history (Line of Leadership timeline on /) ---- */
   _zrrFallback: [
-    { id:"zrr-2122", name:"Binaya Maharjan", years:"21-22", sort_order:1, is_current:false, club:"Rotaract Club of Liberty College", photo:"team/Binaya.png" },
-    { id:"zrr-2223", name:"Ankush Adhikari", years:"22-23", sort_order:2, is_current:false, club:"Rotaract Club of Tripureswor", photo:"team/Ankush.jpg" },
-    { id:"zrr-2324", name:"Gopal Shah", years:"23-24", sort_order:3, is_current:false, club:"Rotaract Club of Baneshwor", photo:"team/Gopal-Shah.jpg" },
-    { id:"zrr-2425", name:"Subina Kuickel", years:"24-25", sort_order:4, is_current:false, club:"Rotaract Club of Sankhu", photo:"team/Subina.jpg" },
-    { id:"zrr-2526", name:"Nitesh Thakur", years:"25-26", sort_order:5, is_current:false, club:"Rotaract Club of Balkumari", photo:"team/Nitesh.png" },
+    { id:"zrr-2122", name:"Binaya Maharjan", years:"21-22", sort_order:1, is_current:false, club:"Rotaract Club of Liberty College", photo:"media/team/Binaya.png" },
+    { id:"zrr-2223", name:"Ankush Adhikari", years:"22-23", sort_order:2, is_current:false, club:"Rotaract Club of Tripureswor", photo:"media/team/Ankush.jpg" },
+    { id:"zrr-2324", name:"Gopal Shah", years:"23-24", sort_order:3, is_current:false, club:"Rotaract Club of Baneshwor", photo:"media/team/Gopal-Shah.jpg" },
+    { id:"zrr-2425", name:"Subina Kuickel", years:"24-25", sort_order:4, is_current:false, club:"Rotaract Club of Sankhu", photo:"media/team/Subina.jpg" },
+    { id:"zrr-2526", name:"Nitesh Thakur", years:"25-26", sort_order:5, is_current:false, club:"Rotaract Club of Balkumari", photo:"media/team/Nitesh.png" },
     { id:"zrr-2627", name:"Rajay Bajracharya", years:"26-27", sort_order:6, is_current:true, club:"Rotaract Club of Sukedhara" }
   ],
 
@@ -848,9 +865,9 @@ const ZONE7_DB = {
   /* ---- current zonal team / leadership (editable from admin) ---- */
   _leadershipFallback: [
     { id:"leader-zrr",  role:"ZRR",  role_full:"Zonal Rotaract Representative", name:"Rajay Bajracharya", club:"Rotaract Club of Sukedhara",         bio:"Rajay Bajracharya serves as Zone 7's Rotaract Representative for RY 2026–27, guiding the zone's clubs and coordinating between Zone 7 and the wider District 3292 leadership.", photo:"", sort_order:1 },
-    { id:"leader-zs",   role:"ZS",   role_full:"Zonal Secretary",               name:"Peshal Basnet",     club:"Rotaract Club of Liberty College",   bio:"Peshal Basnet serves as Zone 7's Secretary for RY 2026–27, supporting the zone's administration, communication and record-keeping across its clubs.", photo:"team/Peshal.jpg", sort_order:2 },
-    { id:"leader-zfc",  role:"ZFC",  role_full:"Zonal Fellowship Chair",         name:"Samrat Pandey",    club:"Rotaract Club of Tripureswor",       bio:"Samrat Pandey serves as Zone 7's Fellowship Chair for RY 2026–27, organizing fellowship activities that bring Zone 7's clubs together.", photo:"team/Samrat.jpg", sort_order:3 },
-    { id:"leader-zpic", role:"ZPIC", role_full:"Zonal Public Image Chair",       name:"Rishav Thapa",     club:"Rotaract Club of Kathmandu Height",  bio:"Rishav Thapa serves as Zone 7's Public Image Chair for RY 2026–27, leading how the zone and its clubs are represented publicly.", photo:"team/Rishav.jpg", sort_order:4 }
+    { id:"leader-zs",   role:"ZS",   role_full:"Zonal Secretary",               name:"Peshal Basnet",     club:"Rotaract Club of Liberty College",   bio:"Peshal Basnet serves as Zone 7's Secretary for RY 2026–27, supporting the zone's administration, communication and record-keeping across its clubs.", photo:"media/team/Peshal.jpg", sort_order:2 },
+    { id:"leader-zfc",  role:"ZFC",  role_full:"Zonal Fellowship Chair",         name:"Samrat Pandey",    club:"Rotaract Club of Tripureswor",       bio:"Samrat Pandey serves as Zone 7's Fellowship Chair for RY 2026–27, organizing fellowship activities that bring Zone 7's clubs together.", photo:"media/team/Samrat.jpg", sort_order:3 },
+    { id:"leader-zpic", role:"ZPIC", role_full:"Zonal Public Image Chair",       name:"Rishav Thapa",     club:"Rotaract Club of Kathmandu Height",  bio:"Rishav Thapa serves as Zone 7's Public Image Chair for RY 2026–27, leading how the zone and its clubs are represented publicly.", photo:"media/team/Rishav.jpg", sort_order:4 }
   ],
 
   async getLeadership(){

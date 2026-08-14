@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Chart from 'chart.js/auto';
 import { jsPDF } from 'jspdf';
@@ -196,7 +196,7 @@ function DistEventsPanel({ psMode, setPsMode, psNetShown, setPsNetShown }) {
 
       <div className="de-event" style={{ '--de-c': '#E11A6E' }}>
         <div className="de-hero">
-          <img className="de-hero-img" src="images/dist-events-psmeet.jpg" alt="1st President–Secretary Meet illustration" loading="lazy" />
+          <img className="de-hero-img" src="media/images/dist-events-psmeet.jpg" alt="1st President–Secretary Meet illustration" loading="lazy" />
           <div className="de-hero-inner">
             <span className="de-hero-tag">Event 1 · RY 2026-27</span>
             <h3>1st President&ndash;Secretary Meet</h3>
@@ -282,8 +282,8 @@ function DistEventsPanel({ psMode, setPsMode, psNetShown, setPsNetShown }) {
                   Submit PDF to <a href="mailto:rtrprakash3292@gmail.com">rtrprakash3292@gmail.com</a> &amp; <a href="mailto:rtrsurajbhandari@gmail.com">rtrsurajbhandari@gmail.com</a>
                 </div>
                 <div className="dl">
-                  <a className="de-dl-btn" href="guides/1st%20PS%20Meet%20Bidding%20document.pdf" download>📄 Bidding Document (PDF)</a>
-                  <a className="de-dl-btn" href="guides/Bidding%20Form.docx" download>📝 Bidding Form (DOCX)</a>
+                  <a className="de-dl-btn" href="media/guides/1st%20PS%20Meet%20Bidding%20document.pdf" download>📄 Bidding Document (PDF)</a>
+                  <a className="de-dl-btn" href="media/guides/Bidding%20Form.docx" download>📝 Bidding Form (DOCX)</a>
                 </div>
               </div>
             </div>
@@ -292,7 +292,7 @@ function DistEventsPanel({ psMode, setPsMode, psNetShown, setPsNetShown }) {
           {psMode === 'exec' && (
             <div id="psExec">
               <div className="de-hero">
-                <img className="de-hero-img" src="images/dist-exec-hero.jpg" alt="PS Meet at full capacity" loading="lazy" />
+                <img className="de-hero-img" src="media/images/dist-exec-hero.jpg" alt="PS Meet at full capacity" loading="lazy" />
                 <div className="de-hero-inner">
                   <span className="de-hero-tag">The Winning Formula · Bid Execution</span>
                   <h3>Hosting isn&rsquo;t a lottery. It&rsquo;s arithmetic.</h3>
@@ -434,13 +434,13 @@ function DistEventsPanel({ psMode, setPsMode, psNetShown, setPsNetShown }) {
                     The largest cluster of clubs in the district. A proven city network. A budget with every rupee priced, including the food. And a committee that has already done the homework. Walk in with this plan, and present with confidence.
                   </div>
                   <div className="dl">
-                    <a className="de-dl-btn" href="guides/1st%20PS%20Meet%20Bidding%20document.pdf" download>📄 Re-read the bid terms</a>
+                    <a className="de-dl-btn" href="media/guides/1st%20PS%20Meet%20Bidding%20document.pdf" download>📄 Re-read the bid terms</a>
                   </div>
                 </div>
 
                 <div className="de-sec" style={{ marginTop: 18 }}>
                   <h4>Picture it: the confetti, the applause, the banner with your club&rsquo;s logo</h4>
-                  <div className="de-hero" style={{ height: 250 }}><img className="de-hero-img" src="images/dist-exec-trophy.jpg" alt="Zone 7 PS Meet victory moment" loading="lazy" /></div>
+                  <div className="de-hero" style={{ height: 250 }}><img className="de-hero-img" src="media/images/dist-exec-trophy.jpg" alt="Zone 7 PS Meet victory moment" loading="lazy" /></div>
                   <p style={{ fontSize: '.8rem', color: 'rgba(27,24,54,.55)', marginTop: 10 }}>Every club that hosts walks away with district-wide recognition, and this is what it feels like. The board approves. The partners pitch in. Your club history page gets its flagship event.</p>
                 </div>
               </div>
@@ -451,7 +451,7 @@ function DistEventsPanel({ psMode, setPsMode, psNetShown, setPsNetShown }) {
 
       <div className="de-event" style={{ '--de-c': '#0E7490' }}>
         <div className="de-hero">
-          <img className="de-hero-img" src="images/dist-events-pnight.jpg" alt="President Night illustration" loading="lazy" />
+          <img className="de-hero-img" src="media/images/dist-events-pnight.jpg" alt="President Night illustration" loading="lazy" />
           <div className="de-hero-inner">
             <span className="de-hero-tag">Event 2 · RY 2026-27</span>
             <h3>President Night</h3>
@@ -531,8 +531,8 @@ function DistEventsPanel({ psMode, setPsMode, psNetShown, setPsNetShown }) {
               Submit PDF to <a href="mailto:rtrprakash3292@gmail.com, rtrsurajbhandari@gmail.com">rtrprakash3292@gmail.com</a> &amp; <a href="mailto:rtrsurajbhandari@gmail.com">rtrsurajbhandari@gmail.com</a>
             </div>
             <div className="dl">
-              <a className="de-dl-btn" href="guides/President%20Night%20Bidding%20document.pdf" download>📄 Bidding Document (PDF)</a>
-              <a className="de-dl-btn" href="guides/Bidding%20Form%20(1).docx" download>📝 Bidding Form (DOCX)</a>
+              <a className="de-dl-btn" href="media/guides/President%20Night%20Bidding%20document.pdf" download>📄 Bidding Document (PDF)</a>
+              <a className="de-dl-btn" href="media/guides/Bidding%20Form%20(1).docx" download>📝 Bidding Form (DOCX)</a>
             </div>
           </div>
         </div>
@@ -551,10 +551,10 @@ function DistEventsPanel({ psMode, setPsMode, psNetShown, setPsNetShown }) {
         <h3 style={{ marginTop: 28 }}>Bidding documents &amp; forms</h3>
         <p className="de-lead" style={{ marginBottom: 16 }}>Official files every club admin can access anytime &mdash; same documents live in the <i>guides</i> folder.</p>
         <div className="de-files">
-          <a className="de-file" href="guides/1st%20PS%20Meet%20Bidding%20document.pdf" download><span className="ic">📄</span><span><b>1st PS Meet &mdash; Bidding Document</b><span>PDF · full criteria, logistics &amp; terms</span></span></a>
-          <a className="de-file" href="guides/Bidding%20Form.docx" download><span className="ic">📝</span><span><b>1st PS Meet &mdash; Bidding Form</b><span>DOCX · fill-in form for your proposal</span></span></a>
-          <a className="de-file" href="guides/President%20Night%20Bidding%20document.pdf" download><span className="ic">📄</span><span><b>President Night &mdash; Bidding Document</b><span>PDF · full criteria &amp; requirements</span></span></a>
-          <a className="de-file" href="guides/Bidding%20Form%20(1).docx" download><span className="ic">📝</span><span><b>President Night &mdash; Bidding Form</b><span>DOCX · fill-in form with budget tables</span></span></a>
+          <a className="de-file" href="media/guides/1st%20PS%20Meet%20Bidding%20document.pdf" download><span className="ic">📄</span><span><b>1st PS Meet &mdash; Bidding Document</b><span>PDF · full criteria, logistics &amp; terms</span></span></a>
+          <a className="de-file" href="media/guides/Bidding%20Form.docx" download><span className="ic">📝</span><span><b>1st PS Meet &mdash; Bidding Form</b><span>DOCX · fill-in form for your proposal</span></span></a>
+          <a className="de-file" href="media/guides/President%20Night%20Bidding%20document.pdf" download><span className="ic">📄</span><span><b>President Night &mdash; Bidding Document</b><span>PDF · full criteria &amp; requirements</span></span></a>
+          <a className="de-file" href="media/guides/Bidding%20Form%20(1).docx" download><span className="ic">📝</span><span><b>President Night &mdash; Bidding Form</b><span>DOCX · fill-in form with budget tables</span></span></a>
         </div>
       </div>
     </div>

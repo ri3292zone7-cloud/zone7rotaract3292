@@ -297,11 +297,13 @@
 }
 </script>
 <link rel="preload" as="image" href="zone7_cover.jpg" fetchpriority="high">
-</head>
+<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+  </head>
 <body>
 
 <div id="siteNav" data-current="about" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
+    <script src="site-transition.js" defer></script>
 
 <header class="hero">
   <div class="wrap">
@@ -409,7 +411,7 @@
         <p class="interact-how">Is your school interested in starting an Interact club? Email <a href="mailto:ri3292zone7@gmail.com">ri3292zone7@gmail.com</a> and Zone 7 will connect you with a Rotaract club that can support and guide you.</p>
       </div>
       <div class="interact-badge">
-        <img src="images/interact-logo.png" alt="Interact In Action logo" class="interact-logo">
+        <img src="media/images/interact-logo.png" alt="Interact In Action logo" class="interact-logo">
         <p>Interaction in Action</p>
       </div>
     </div>
@@ -506,7 +508,7 @@ function initials(name){
   if(zrrs.length){
     track.innerHTML = zrrs.map(z => `
       <a class="journey-item${z.is_current ? ' current' : ''}" href="/#leadership">
-        <div class="journey-avatar">${z.photo ? `<img src="${zone7Esc(z.photo)}" alt="${zone7Esc(z.name)}">` : initials(z.name)}</div>
+        <div class="journey-avatar">${z.photo ? `<img src="${zone7Esc(zone7MediaPath(z.photo))}" alt="${zone7Esc(z.name)}">` : initials(z.name)}</div>
         <div class="journey-body">
           <div class="journey-meta">
             <span class="journey-years">RY 20${zone7Esc(z.years.replace("-","–20"))}</span>
@@ -529,7 +531,7 @@ function initials(name){
   const leaders = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getLeadership() : [];
   teamGrid.innerHTML = leaders.length ? leaders.map(p => `
     <a class="hero-team-row" href="/#leadership">
-      <div class="hero-team-avatar">${p.photo ? `<img src="${zone7Esc(p.photo)}" alt="${zone7Esc(p.name)}">` : initials(p.name)}</div>
+      <div class="hero-team-avatar">${p.photo ? `<img src="${zone7Esc(zone7MediaPath(p.photo))}" alt="${zone7Esc(p.name)}">` : initials(p.name)}</div>
       <div class="hero-team-info">
         <h5>${zone7Esc(p.name)}</h5>
         <div class="role">${zone7Esc(p.role)} · ${zone7Esc(p.role_full || '')}</div>

@@ -24,13 +24,15 @@ function Shell() {
   return (
     <>
       <StoreNav current={isStore ? 'store' : 'merch'} withCart={isStore} />
-      <Routes>
-        <Route path="/store" element={<StorePage />} />
-        <Route path="/store-react.html" element={<StorePage />} />
-        <Route path="/merch" element={<MerchPage />} />
-        <Route path="/merch-react.html" element={<MerchPage />} />
-        <Route path="*" element={<RedirectToRoot />} />
-      </Routes>
+      <div key={pathname} className="pt-route">
+        <Routes>
+          <Route path="/store" element={<StorePage />} />
+          <Route path="/store-react.html" element={<StorePage />} />
+          <Route path="/merch" element={<MerchPage />} />
+          <Route path="/merch-react.html" element={<MerchPage />} />
+          <Route path="*" element={<RedirectToRoot />} />
+        </Routes>
+      </div>
     </>
   );
 }

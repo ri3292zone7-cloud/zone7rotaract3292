@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <title>selftest-overflow</title>
 <style>body{font-family:monospace;font-size:11px;background:#111;color:#eee;padding:10px}pre{white-space:pre-wrap}</style>
-</head>
+<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+  </head>
 <body>
 <pre id="out">running…</pre>
 <script>
@@ -59,5 +60,6 @@
   out.textContent = results.join("\n\n") + "\n\nDONE";
 })();
 </script>
+<script src="site-transition.js" defer></script>
 </body>
 </html>

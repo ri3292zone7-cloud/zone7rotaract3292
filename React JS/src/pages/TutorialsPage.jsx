@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SiteShell from '../components/layout/SiteShell';
 import pageCss from './tutorials.css?inline';
@@ -11,7 +11,7 @@ const TUTORIALS = [
     tc: '#E11A6E',
     delay: '',
     num: 'TUTORIAL 01',
-    img: '/images/tutorial-meeting.png',
+    img: '/media/images/tutorial-meeting.png',
     alt: 'Rotaract general meeting illustration',
     tag: 'Meetings \u00b7 The Core',
     title: 'Running General Meetings',
@@ -23,7 +23,7 @@ const TUTORIALS = [
     tc: '#1B1836',
     delay: '.06s',
     num: 'TUTORIAL 02',
-    img: '/images/tutorial-board.png',
+    img: '/media/images/tutorial-board.png',
     alt: 'Rotaract board meeting illustration',
     tag: 'Leadership \u00b7 The Engine',
     title: 'Running Board Meetings',
@@ -35,7 +35,7 @@ const TUTORIALS = [
     tc: '#0E7490',
     delay: '.12s',
     num: 'TUTORIAL 03',
-    img: '/images/tutorial-assembly.png',
+    img: '/media/images/tutorial-assembly.png',
     alt: 'Rotaract club assembly illustration',
     tag: 'Membership \u00b7 The Voice',
     title: 'Club Assemblies',
@@ -47,7 +47,7 @@ const TUTORIALS = [
     tc: '#C2410C',
     delay: '.18s',
     num: 'TUTORIAL 04',
-    img: '/images/tutorial-zrr.png',
+    img: '/media/images/tutorial-zrr.png',
     alt: 'ZRR zonal visit illustration',
     tag: 'Zone \u00b7 The Bridge',
     title: 'ZRR Visits',
@@ -59,7 +59,7 @@ const TUTORIALS = [
     tc: '#A80F52',
     delay: '.24s',
     num: 'TUTORIAL 05',
-    img: '/images/tutorial-drr.png',
+    img: '/media/images/tutorial-drr.png',
     alt: 'DRR district visit illustration',
     tag: 'District \u00b7 The Bigger Picture',
     title: 'DRR Visits',
@@ -71,7 +71,7 @@ const TUTORIALS = [
     tc: '#D32027',
     delay: '.3s',
     num: 'TUTORIAL 06',
-    img: '/images/tutorial-blood.png',
+    img: '/media/images/tutorial-blood.png',
     alt: 'Blood donation camp illustration',
     tag: 'Service \u00b7 The Impact',
     title: 'Blood Donation Programs',
@@ -227,7 +227,7 @@ export default function TutorialsPage() {
               ])}
             </h1>
             <p className="sub">Everything Zone 7 clubs actually run (meetings, board meetings, club assemblies, ZRR and DRR visits, and full blood donation programs), explained step by step, with motion, visuals, videos and the official documents to back it up. Pick a tutorial and follow along.</p>
-            <p className="note">Each tutorial is based on the <a href="/guides/Standard-Rotaract-Club-Constitution.docx" style={{ color: 'var(--magenta-deep)', fontWeight: 700, textDecoration: 'underline' }}>Standard Rotaract Club Constitution</a>, the <a href="/guides/Rotaract-Guidebook.pdf" style={{ color: 'var(--magenta-deep)', fontWeight: 700, textDecoration: 'underline' }}>District 3292 Rotaract Guidebook</a>, Rotary International guidance and WHO-aligned practices. Your club&apos;s own constitution and bylaws always win when they differ.</p>
+            <p className="note">Each tutorial is based on the <a href="/media/guides/Standard-Rotaract-Club-Constitution.docx" style={{ color: 'var(--magenta-deep)', fontWeight: 700, textDecoration: 'underline' }}>Standard Rotaract Club Constitution</a>, the <a href="/media/guides/Rotaract-Guidebook.pdf" style={{ color: 'var(--magenta-deep)', fontWeight: 700, textDecoration: 'underline' }}>District 3292 Rotaract Guidebook</a>, Rotary International guidance and WHO-aligned practices. Your club&apos;s own constitution and bylaws always win when they differ.</p>
 
             <div className="hero-grid">
               <div>
@@ -242,7 +242,7 @@ export default function TutorialsPage() {
               </div>
               <div className="hero-mascot">
                 <div className="mascot-ring"></div>
-                <img src="/images/tutorial-mascot.png" alt="Zone 7 tutorial mascot waving with a book" data-parallax="0.6" />
+                <img src="/media/images/tutorial-mascot.png" alt="Zone 7 tutorial mascot waving with a book" data-parallax="0.6" />
                 {BADGES.map((b) => (
                   <div key={b.cls} className={`hm-badge ${b.cls}`}>
                     {b.svg}

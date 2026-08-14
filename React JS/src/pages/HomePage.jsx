@@ -38,9 +38,9 @@ function RotaryPreloader() {
       <div id="rpStage">
         <div id="rpContent">
           <div id="rpWheelWrap">
-            <img src="/logos/RotaryMoE-R_REV.png" alt="Rotary wheel" />
+            <img src="/media/logos/RotaryMoE-R_REV.png" alt="Rotary wheel" />
           </div>
-          <img id="rotaractWordmark" src="/logos/Rotaract-Simple_CMYK-Crop.png" alt="Rotaract" />
+          <img id="rotaractWordmark" src="/media/logos/Rotaract-Simple_CMYK-Crop.png" alt="Rotaract" />
           <div id="rpTagline">ZONE 7 · DISTRICT 3292</div>
           <div id="rpBarTrack">
             <div id="rpBarFill" style={{ transitionDuration: '450ms' }} />

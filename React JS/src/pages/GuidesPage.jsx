@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SiteShell from '../components/layout/SiteShell';
 import Reveal from '../components/ui/Reveal';
@@ -6,43 +6,43 @@ import { ZONE7_DB, CLUB_DIRECTORY } from '../data/zone7-data';
 import pageCss from './guides.css?inline';
 
 const STATIC_GUIDES = [
-  { id: 's1', file: '/guides/Standard-Rotaract-Club-Constitution.docx', tag: 'Governance', icon: '📜', size: 'DOCX · 76 KB',
+  { id: 's1', file: '/media/guides/Standard-Rotaract-Club-Constitution.docx', tag: 'Governance', icon: '📜', size: 'DOCX · 76 KB',
     title: 'Standard Rotaract Club Constitution', desc: 'The base constitution every Rotaract club operates under. It covers name, purpose, membership, meetings and officer roles.',
     inside: ['Name, purpose and membership rules', 'Meeting structure and officer roles', 'Council powers and amendments'] },
-  { id: 's2', file: '/guides/662_rotaract_club_recommended_bylaws_en.docx', tag: 'Governance', icon: '📝', size: 'DOCX · 99 KB',
+  { id: 's2', file: '/media/guides/662_rotaract_club_recommended_bylaws_en.docx', tag: 'Governance', icon: '📝', size: 'DOCX · 99 KB',
     title: 'Recommended Club Bylaws', desc: "RI's model bylaws that supplement the constitution. Customize these to set your own club's practices around dues, attendance and elections.",
     inside: ['Customizing dues and attendance', 'Election and officer rules', 'Committees and standing practices'] },
-  { id: 's3', file: '/guides/statement-of-policy.docx', tag: 'Governance', icon: '🏛️', size: 'DOCX · 128 KB',
+  { id: 's3', file: '/media/guides/statement-of-policy.docx', tag: 'Governance', icon: '🏛️', size: 'DOCX · 128 KB',
     title: 'Statement of Policy', desc: "Rotary International's official policy on Rotaract, covering sponsorship, authority, and the standards every club is expected to follow.",
     inside: ['Sponsorship and authority', 'RI standards for Rotaract clubs', 'Conduct and expectations'] },
-  { id: 's4', file: '/guides/MOU-Document.doc', tag: 'Governance', icon: '🤝', size: 'DOC · 106 KB',
+  { id: 's4', file: '/media/guides/MOU-Document.doc', tag: 'Governance', icon: '🤝', size: 'DOC · 106 KB',
     title: 'MOU Document', desc: 'Memorandum of Understanding template outlining the relationship and responsibilities between a Rotaract club and its sponsoring Rotary club, or between twin clubs.',
     inside: ['Twin club commitments', 'Joint meeting and project terms', 'Signature and renewal format'] },
-  { id: 's5', file: '/guides/Strategic-Planning-Guide.docx', tag: 'Planning', icon: '🎯', size: 'DOCX · 102 KB',
+  { id: 's5', file: '/media/guides/Strategic-Planning-Guide.docx', tag: 'Planning', icon: '🎯', size: 'DOCX · 102 KB',
     title: 'Strategic Planning Guide', desc: "A real district club's strategic plan, used as a template for setting a multi-year vision and goals for your own club.",
     inside: ['Multi-year vision and goals', 'Goal-setting worksheets', 'Annual review calendar'] },
-  { id: 's6', file: '/guides/Effective-Planning-Guide-to-Clubs.docx', tag: 'Planning', icon: '📅', size: 'DOCX · 95 KB',
+  { id: 's6', file: '/media/guides/Effective-Planning-Guide-to-Clubs.docx', tag: 'Planning', icon: '📅', size: 'DOCX · 95 KB',
     title: 'Effective Planning Guide for Clubs', desc: 'A goal-setting worksheet to help clubs track membership trends and plan a strong Rotary year.',
     inside: ['Membership trend tracking', 'Yearly goal planning', 'Rotary year alignment'] },
-  { id: 's7', file: '/guides/Rotaract_-Membership_Form.docx', tag: 'Templates', icon: '📋', size: 'DOCX · 28 KB',
+  { id: 's7', file: '/media/guides/Rotaract_-Membership_Form.docx', tag: 'Templates', icon: '📋', size: 'DOCX · 28 KB',
     title: 'Membership Application Form', desc: 'Standard form for onboarding new members, covering personal details, ID number and sponsoring club info.',
     inside: ['Personal details fields', 'Rotaract ID number section', 'Sponsor confirmation area'] },
-  { id: 's8', file: '/guides/Sample-GM-attendance-sheet.docx', tag: 'Templates', icon: '✅', size: 'DOCX · 88 KB',
+  { id: 's8', file: '/media/guides/Sample-GM-attendance-sheet.docx', tag: 'Templates', icon: '✅', size: 'DOCX · 88 KB',
     title: 'Sample GM Attendance Sheet', desc: 'Ready-to-use attendance sheet for General Meetings, including guests, visiting Rotaractors and past presidents.',
     inside: ['Members, guests and visitors', 'Visiting Rotaractor column', 'General-meeting-ready layout'] },
-  { id: 's9', file: '/guides/Sample-Agenda-Paper.doc', tag: 'Templates', icon: '🗒️', size: 'DOC · 94 KB',
+  { id: 's9', file: '/media/guides/Sample-Agenda-Paper.doc', tag: 'Templates', icon: '🗒️', size: 'DOC · 94 KB',
     title: 'Sample Agenda Paper', desc: 'A template agenda format clubs can adapt for board meetings or general meetings.',
     inside: ['Board meeting structure', 'Action item tracking', 'Easily adaptable template'] },
-  { id: 's10', file: '/guides/Rotaract-Guidebook.pdf', tag: 'Handbook', icon: '📘', size: 'PDF · 1.5 MB',
+  { id: 's10', file: '/media/guides/Rotaract-Guidebook.pdf', tag: 'Handbook', icon: '📘', size: 'PDF · 1.5 MB',
     title: 'Rotaract Guidebook (District 3292)', desc: "The district's full guidebook: starting a club, board roles, running meetings, elections, finances and working with the district, all in one reference.",
     inside: ['Starting a club', 'Board roles and meetings', 'Elections, finance, district links'] },
-  { id: 's11', file: '/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf', tag: 'Funding', icon: '💵', size: 'PDF · 434 KB',
+  { id: 's11', file: '/media/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf', tag: 'Funding', icon: '💵', size: 'PDF · 434 KB',
     title: 'District Fund (RDG) Grant Criterion', desc: 'How to apply for the Rotaract District Grant, including eligibility, evaluation criteria, funding installments and the application form and timeline.',
     inside: ['Eligibility and evaluation criteria', 'Funding installments', 'Application form and timeline'] },
-  { id: 's12', file: '/guides/Rotary-Rotaract-Reading-Materials-Rota-Quiz-2025-26.pdf', tag: 'Quiz', icon: '🏆', size: 'PDF · 929 KB',
+  { id: 's12', file: '/media/guides/Rotary-Rotaract-Reading-Materials-Rota-Quiz-2025-26.pdf', tag: 'Quiz', icon: '🏆', size: 'PDF · 929 KB',
     title: 'Rotary-Rotaract Reading Materials (Rota Quiz 2025-26)', desc: 'The big Rota Quiz question bank: Rotary history, mottoes, the Four-Way Test, club structure and service above self, plus the acronym list every team should memorize.',
     inside: ['300+ practice questions', 'Rotary and Rotaract history', 'Acronym cheat-sheet list'] },
-  { id: 's13', file: '/guides/Reading%20materials%20for%20Rota%20Quiz%2025-26.pdf', tag: 'Quiz', icon: '🧠', size: 'PDF · 641 KB',
+  { id: 's13', file: '/media/guides/Reading%20materials%20for%20Rota%20Quiz%2025-26.pdf', tag: 'Quiz', icon: '🧠', size: 'PDF · 641 KB',
     title: 'Reading Materials for Rota Quiz 25-26', desc: 'A second question set for quiz prep: founder and foundation facts, the Object of Rotary, and general knowledge questions used in district quiz rounds.',
     inside: ['Founder and foundation facts', 'Object of Rotary breakdown', 'General knowledge questions'] }
 ];
@@ -79,7 +79,7 @@ export default function GuidesPage() {
       try {
         const rows = await ZONE7_DB.getGuides();
         if (!mounted) return;
-        setDynamic(rows.map(r => ({
+        setDynamic(rows.filter(r => r.file_url).map(r => ({
           id: r.id,
           file: r.file_url || r.file_data,
           fileName: r.file_name,

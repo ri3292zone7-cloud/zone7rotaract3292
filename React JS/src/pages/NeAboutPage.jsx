@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -183,7 +183,7 @@ export default function NeAboutPage() {
                 <p className="interact-how">के तपाईंको विद्यालयले इन्टर्याक्ट क्लब सुरु गर्न चाहन्छ? <a href="mailto:ri3292zone7@gmail.com">ri3292zone7@gmail.com</a> मा ईमेल गर्नुहोस् र जोन ७ ले तपाईंलाई एउटा समर्थन गर्न सक्ने रोटरेक्ट क्लबसँग जोड्छ।</p>
               </div>
               <div className="interact-badge">
-                <img src="/images/interact-logo.png" alt="इन्टर्याक्ट इन एकेशन लोगो" className="interact-logo" />
+                <img src="/media/images/interact-logo.png" alt="इन्टर्याक्ट इन एकेशन लोगो" className="interact-logo" />
                 <p>इन्टर्याक्टइनएक्सन</p>
               </div>
             </div>

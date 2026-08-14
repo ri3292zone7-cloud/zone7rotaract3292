@@ -190,13 +190,15 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
     .org-cols-3{grid-template-columns:1fr;}
   }
 </style>
-</head>
+<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+  </head>
 <body>
 
 <div id="progress"></div>
 
 <div id="siteNav" data-current="tutorials" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
+    <script src="site-transition.js" defer></script>
 
 <div class="wrap">
   <div class="crumb"><a href="/tutorials">&larr; All Tutorials</a> &middot; Tutorial 01</div>
@@ -217,13 +219,13 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <div class="eyebrow"><span class="dot"></span>Meetings &middot; The Core</div>
   <h1 id="heroTitle">Run general meetings people actually show up for.</h1>
   <p class="sub">A general meeting is the heartbeat of a Rotaract club, usually held weekly or every two weeks, open to all members, and where the club's business, reports and fellowship come together. This tutorial walks the entire arc: calling to order, the agenda, officer reports, motions and voting, attendance and minutes that hold up. Your constitution sets the exact rules; this is how clubs across Zone 7 run it in practice.</p>
-  <p class="note">Based on the <a href="guides/Standard-Rotaract-Club-Constitution.docx" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Standard Rotaract Club Constitution</a>, the <a href="guides/Rotaract-Guidebook.pdf" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">District 3292 Rotaract Guidebook</a> and common Zone 7 practice. Your club's constitution and bylaws always win when they differ.</p>
+  <p class="note">Based on the <a href="media/guides/Standard-Rotaract-Club-Constitution.docx" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Standard Rotaract Club Constitution</a>, the <a href="media/guides/Rotaract-Guidebook.pdf" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">District 3292 Rotaract Guidebook</a> and common Zone 7 practice. Your club's constitution and bylaws always win when they differ.</p>
 
   <div class="hero-grid">
     <div></div>
     <div class="hero-char">
       <div class="char-ring"></div>
-      <img src="images/tutorial-meeting.png" alt="Rotaract general meeting illustration" data-parallax="0.6">
+      <img src="media/images/tutorial-meeting.png" alt="Rotaract general meeting illustration" data-parallax="0.6">
       <div class="hc-badge hc1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#E11A6E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Quorum <b>met</b></div>
       <div class="hc-badge hc2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Agenda <b>sent</b></div>
       <div class="hc-badge hc3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Minutes <b>approved</b></div>
@@ -250,19 +252,19 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <p class="section-sub" data-reveal>The meetings tutorial builds the foundation. Next, learn how the board plans those meetings, and how the whole club aligns at assemblies.</p>
   <div class="related-grid">
     <a class="rel-card" href="/tutorial-board" data-reveal>
-      <img src="images/tutorial-board.png" alt="Board meetings tutorial">
+      <img src="media/images/tutorial-board.png" alt="Board meetings tutorial">
       <h5>Running Board Meetings</h5>
       <p>Every seat on the board and what a monthly board meeting should cover.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
     <a class="rel-card" href="/tutorial-assembly" data-reveal style="--d:.08s">
-      <img src="images/tutorial-assembly.png" alt="Club assemblies tutorial">
+      <img src="media/images/tutorial-assembly.png" alt="Club assemblies tutorial">
       <h5>Club Assemblies</h5>
       <p>When the whole club plans together: goals, programs and education.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
     <a class="rel-card" href="/tutorial-blood" data-reveal style="--d:.16s">
-      <img src="images/tutorial-blood.png" alt="Blood donation tutorial">
+      <img src="media/images/tutorial-blood.png" alt="Blood donation tutorial">
       <h5>Blood Donation Programs</h5>
       <p>Turn great meeting discipline into your club's biggest service event.</p>
       <span class="go">Open tutorial &rarr;</span>
@@ -301,7 +303,7 @@ const SECTIONS = [
     id:"meeting-types", icon:"bell",
     title:"Which Meeting, When",
     tagline:"General, board and special meetings, each with a job",
-    img:"images/meeting-call-to-order.jpg",
+    img:"media/images/meeting-call-to-order.jpg",
     alt:"Minimal flat illustration of a meeting being called to order",
     body:`<p class="intro">Rotaract clubs run on a few distinct meeting types. Knowing which one you are in keeps expectations honest; a general meeting is not a board meeting, and neither is a planning session pretending to be one. Typical patterns below; your constitution sets the exact frequency and notice rules.</p>
       <table class="type-table">
@@ -327,7 +329,7 @@ const SECTIONS = [
     id:"agenda", icon:"agenda",
     title:"The Agenda: A Meeting's Backbone",
     tagline:"Same order every time, so nothing gets missed",
-    img:"images/meeting-agenda.jpg",
+    img:"media/images/meeting-agenda.jpg",
     alt:"Minimal flat illustration of an agenda paper on a meeting table",
     body:`<p class="intro">A predictable order of business is what separates a meeting from a chat. When members can anticipate what comes next, they prepare, they speak up, and the meeting moves. This is the classic order used by Rotaract clubs across the zone. Adapt the format from the Sample Agenda Paper in the guides folder.</p>
       <ol class="steps">
@@ -347,14 +349,14 @@ const SECTIONS = [
       "Keep the agenda in the same format every week so members can scan it in seconds"
     ],
     links:[
-      { label:"Sample Agenda Paper (guides folder)", url:"guides/Sample-Agenda-Paper.doc" }
+      { label:"Sample Agenda Paper (guides folder)", url:"media/guides/Sample-Agenda-Paper.doc" }
     ]
   },
   {
     id:"motions", icon:"vote",
     title:"Motions, Debate & Voting",
     tagline:"How a group actually decides things",
-    img:"images/meeting-motions-voting.jpg",
+    img:"media/images/meeting-motions-voting.jpg",
     alt:"Minimal flat illustration of members voting with raised hands",
     body:`<p class="intro">Decisions get made by motion, a formal proposal that members can discuss and vote on. It sounds heavy, but the rhythm is simple and it protects the club from decisions that only the loudest voices wanted.</p>
       <ol class="steps">
@@ -378,7 +380,7 @@ const SECTIONS = [
     id:"attendance", icon:"clip",
     title:"Attendance That Means Something",
     tagline:"The sheet is a record, the follow-up is the point",
-    img:"images/meeting-attendance.jpg",
+    img:"media/images/meeting-attendance.jpg",
     alt:"Minimal flat illustration of members signing an attendance sheet",
     body:`<p class="intro">Attendance tracking exists for three reasons: quorum (knowing a decision is valid), recognition (knowing who shows up), and care (knowing who stopped showing up). A simple sign-in sheet covers all three, provided someone actually follows up.</p>`,
     stat:{icon:SPARK_SVG, text:`A <span>personal follow-up message to absent members</span> within 48 hours brings many of them back; silence loses them quietly.`},
@@ -389,14 +391,14 @@ const SECTIONS = [
       "Reach out personally after two consecutive absences; usually life got busy, and a message is all it takes"
     ],
     links:[
-      { label:"Sample GM Attendance Sheet (guides folder)", url:"guides/Sample-GM-attendance-sheet.docx" }
+      { label:"Sample GM Attendance Sheet (guides folder)", url:"media/guides/Sample-GM-attendance-sheet.docx" }
     ]
   },
   {
     id:"minutes", icon:"pen",
     title:"Minutes & Meeting Reports",
     tagline:"If it is not written down, it did not happen",
-    img:"images/meeting-minutes-report.jpg",
+    img:"media/images/meeting-minutes-report.jpg",
     alt:"Minimal flat illustration of a secretary writing meeting minutes",
     body:`<p class="intro">Minutes are the club's institutional memory. They are what the next board (and next year's board) will rely on. Good minutes record decisions and owners, not transcripts of every sentence.</p>`,
     stat:{icon:SPARK_SVG, text:`Minutes approved at the <span>next meeting within 14 days</span> keep clubs honest; minutes that take two months to appear keep nothing.`},
@@ -415,7 +417,7 @@ const SECTIONS = [
     id:"hosting", icon:"people",
     title:"Hosting Great Guests & Visitors",
     tagline:"Visiting Rotaractors, alumni and Rotary guests are the club's PR",
-    img:"images/tutorial-meeting.png",
+    img:"media/images/tutorial-meeting.png",
     alt:"Illustration of a Rotaract meeting with visitors",
     body:`<p class="intro">A general meeting is also the front door of your club. When a visiting Rotaractor, a past president or a Rotarian walks in, how you receive them decides whether they come back, and what they tell everyone else about your club.</p>
       <ol class="steps">

@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import SiteShell from '../components/layout/SiteShell';
 import Reveal from '../components/ui/Reveal';
@@ -12,7 +12,7 @@ import pageCss from './club.css?inline';
  * ------------------------------------------------------------------ */
 const CLUBS = {
   balkumari: {
-    logo: "logos/balkumari.jpg", name: "Rotaract Club of Balkumari", ig: "rac_balkumari", email: "rotaractclubofbalkumari@gmail.com",
+    logo: "media/logos/balkumari.jpg", name: "Rotaract Club of Balkumari", ig: "rac_balkumari", email: "rotaractclubofbalkumari@gmail.com",
     loc: "Chyasal Marg, Lalitpur, Bagmati Province · Zone VII",
     founded: "18 Oct 2023", active: "15", inactive: "50", events: "7", reports: "144",
     sponsor: "Rotary Club of Butwal",
@@ -44,7 +44,7 @@ const CLUBS = {
     ]
   },
   baneshwor: {
-    logo: "logos/baneshwor.jpg", name: "Rotaract Club of Baneshwor", ig: "racbaneshwor", email: "rcbaneshwor@gmail.com",
+    logo: "media/logos/baneshwor.jpg", name: "Rotaract Club of Baneshwor", ig: "racbaneshwor", email: "rcbaneshwor@gmail.com",
     loc: "Devkota Sadak, Kathmandu, Bagmati Province · Zone VII",
     founded: "13 Oct 2020", active: "20", inactive: "61", events: "31", reports: "326",
     sponsor: "Rotary Club of Baneshwor",
@@ -64,7 +64,7 @@ const CLUBS = {
     ]
   },
   liberty: {
-    logo: "logos/liberty.jpg", name: "Rotaract Club of Liberty College", ig: "rotaractcluboflibertycollege", email: "raclibertycollege123@gmail.com",
+    logo: "media/logos/liberty.jpg", name: "Rotaract Club of Liberty College", ig: "rotaractcluboflibertycollege", email: "raclibertycollege123@gmail.com",
     loc: "Liberty College, Shanti Binayak Marg, Pushpa Nagar, Buddha Nagar, Kathmandu-10, Bagmati Province · Zone VII",
     founded: "1 May 2012", active: "21", inactive: "140", events: "45", reports: "304",
     sponsor: "Rotary Club of Nagarjun",
@@ -85,7 +85,7 @@ const CLUBS = {
     ]
   },
   kathmanduwest: {
-    logo: "logos/kathmanduwest.jpg", name: "Rotaract Club of Kathmandu West", ig: "kathmanduwest", email: "Kathmanduwest@rotaract3292.org",
+    logo: "media/logos/kathmanduwest.jpg", name: "Rotaract Club of Kathmandu West", ig: "kathmanduwest", email: "Kathmanduwest@rotaract3292.org",
     loc: "Kathmandu Model College, Narayan Bilash Marg, Bhotahity, Baghbazar, Kathmandu, Bagmati Province · Zone VII",
     founded: "10 Sep 2007", active: "24", inactive: "147", events: "16", reports: "455",
     sponsor: "Rotary Club of Kathmandu West",
@@ -104,7 +104,7 @@ const CLUBS = {
     ]
   },
   kathmanduheight: {
-    logo: "logos/kathmanduheight.jpg", name: "Rotaract Club of Kathmandu Height", ig: "rackathmanduheight", email: "Kathmanduheight@rotaract3292.org",
+    logo: "media/logos/kathmanduheight.jpg", name: "Rotaract Club of Kathmandu Height", ig: "rackathmanduheight", email: "Kathmanduheight@rotaract3292.org",
     loc: "New Summit College, Basuki Marg, Baneshwar, Kathmandu-31, Bagmati Province · Zone VII",
     founded: "6 Jan 2026", active: "23", inactive: "0", events: "1", reports: "24",
     sponsor: "Rotary Club of Kathmandu Height",
@@ -121,7 +121,7 @@ const CLUBS = {
     ]
   },
   sankhu: {
-    logo: "logos/sankhu.jpg", name: "Rotaract Club of Sankhu", ig: "racsankhu", email: "Rotaractclubofsankhu@gmail.com",
+    logo: "media/logos/sankhu.jpg", name: "Rotaract Club of Sankhu", ig: "racsankhu", email: "Rotaractclubofsankhu@gmail.com",
     loc: "Sankhu, Shankharapur-07, Shankharapur, Kathmandu, Bagmati Province · Zone VII",
     founded: "25 Jun 2020", active: "19", inactive: "25", events: "17", reports: "178",
     sponsor: "Rotary Club of Sankhu",
@@ -138,7 +138,7 @@ const CLUBS = {
     ]
   },
   newroadcity: {
-    logo: "logos/newroadcity.jpg", name: "Rotaract Club of New Road City Kathmandu", ig: "racnewroadcity1", email: "racnewroadcitykathmandu@gmail.com",
+    logo: "media/logos/newroadcity.jpg", name: "Rotaract Club of New Road City Kathmandu", ig: "racnewroadcity1", email: "racnewroadcitykathmandu@gmail.com",
     loc: "New Road, Makkhan Tol, Yetkha, Kathmandu, Bagmati Province · Zone VII",
     founded: "1 Sep 2004", active: "14", inactive: "180", events: "33", reports: "186",
     sponsor: "Rotary Club of New Road City",
@@ -150,7 +150,7 @@ const CLUBS = {
     goals: []
   },
   sukedhara: {
-    logo: "logos/sukedhara.jpg", name: "Rotaract Club of Sukedhara", ig: "rac_sukedhara", email: "s.sukedhara@rotaract3292.org",
+    logo: "media/logos/sukedhara.jpg", name: "Rotaract Club of Sukedhara", ig: "rac_sukedhara", email: "s.sukedhara@rotaract3292.org",
     loc: "Kathmandu National School, Surya Bikram Gyawali Marga, Baneshwar, Kathmandu-31, Bagmati Province · Zone VII",
     founded: "1 Jul 2019", active: "20", inactive: "68", events: "21", reports: "309",
     sponsor: "Rotary Club of Nagarjun",
@@ -167,7 +167,7 @@ const CLUBS = {
     ]
   },
   tripureswor: {
-    logo: "logos/tripureswor.jpg", name: "Rotaract Club of Tripureswor", ig: "ractripureswor", email: "tripureshwor@rotaract3292.org",
+    logo: "media/logos/tripureswor.jpg", name: "Rotaract Club of Tripureswor", ig: "ractripureswor", email: "tripureshwor@rotaract3292.org",
     loc: "Apex College, Devkota Sadak, Srijana Tole, Baneshwar, Kathmandu, Bagmati Province · Zone VII",
     founded: "24 Nov 2003", active: "25", inactive: "219", events: "17", reports: "316",
     sponsor: "Rotary Club of Tripureswor",

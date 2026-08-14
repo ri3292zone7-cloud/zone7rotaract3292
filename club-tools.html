@@ -54,7 +54,8 @@ th{font-size:.68rem;text-transform:uppercase;color:rgba(27,24,54,.45);}
 .saved-item{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-size:.83rem;cursor:pointer;}
 .saved-item:hover{border-color:var(--magenta);}
 </style>
-</head>
+<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+  </head>
 <body>
 
 <!-- LOGIN GATE (reuses the same Club Admin / Zonal Team login as admin.html) -->
@@ -479,6 +480,7 @@ function loadAll(){
   fillMinutes({}); renderSavedMinutes(); renderLedger();
 }
 </script>
+<script src="site-transition.js" defer></script>
 </body>
 </html>
 

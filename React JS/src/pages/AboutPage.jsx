@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -178,7 +178,7 @@ export default function AboutPage() {
                 <p className="interact-how">Is your school interested in starting an Interact club? Email <a href="mailto:ri3292zone7@gmail.com">ri3292zone7@gmail.com</a> and Zone 7 will connect you with a Rotaract club that can support and guide you.</p>
               </div>
               <div className="interact-badge">
-                <img src="/images/interact-logo.png" alt="Interact In Action logo" className="interact-logo" />
+                <img src="/media/images/interact-logo.png" alt="Interact In Action logo" className="interact-logo" />
                 <p>Interaction in Action</p>
               </div>
             </div>

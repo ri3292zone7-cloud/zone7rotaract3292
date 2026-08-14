@@ -190,13 +190,15 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
     .org-cols-3{grid-template-columns:1fr;}
   }
 </style>
-</head>
+<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+  </head>
 <body>
 
 <div id="progress"></div>
 
 <div id="siteNav" data-current="tutorials" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
+    <script src="site-transition.js" defer></script>
 
 <div class="wrap">
   <div class="crumb"><a href="/tutorials">&larr; All Tutorials</a> &middot; Tutorial 06</div>
@@ -217,13 +219,13 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <div class="eyebrow"><span class="dot"></span>Service &middot; The Impact</div>
   <h1 id="heroTitle">A blood camp is a medical event. Run it like one.</h1>
   <p class="sub">Blood donation is the service event Zone 7 clubs are best known for, and the one with the least room for improvisation. Every camp must be run with a licensed blood bank under national rules, with trained medical staff, screened donors and a documented flow. This tutorial covers the legal and medical basics, partnering with a blood bank, donor eligibility, planning and promotion, the day-of flow, first aid, and the records that make the event repeatable.</p>
-  <p class="note">Based on the <a href="guides/MOU-Document.doc" style="color:var(--tc);font-weight:700;text-decoration:underline;">club MOU template</a>, the <a href="guides/Rotaract-Guidebook.pdf" style="color:var(--tc);font-weight:700;text-decoration:underline;">District 3292 Rotaract Guidebook</a>, national blood transfusion standards and common Zone 7 practice. Always confirm the current rules with your blood bank and local authorities.</p>
+  <p class="note">Based on the <a href="media/guides/MOU-Document.doc" style="color:var(--tc);font-weight:700;text-decoration:underline;">club MOU template</a>, the <a href="media/guides/Rotaract-Guidebook.pdf" style="color:var(--tc);font-weight:700;text-decoration:underline;">District 3292 Rotaract Guidebook</a>, national blood transfusion standards and common Zone 7 practice. Always confirm the current rules with your blood bank and local authorities.</p>
 
   <div class="hero-grid">
     <div></div>
     <div class="hero-char">
       <div class="char-ring"></div>
-      <img src="images/tutorial-blood.png" alt="Blood donation camp illustration" data-parallax="0.6">
+      <img src="media/images/tutorial-blood.png" alt="Blood donation camp illustration" data-parallax="0.6">
       <div class="hc-badge hc1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#D32027" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Bank <b>licensed</b></div>
       <div class="hc-badge hc2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Donors <b>screened</b></div>
       <div class="hc-badge hc3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Units <b>collected</b></div>
@@ -250,19 +252,19 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <p class="section-sub" data-reveal>That is the full Zone 7 tutorial set. If you are just starting out, the foundation everything else stands on is the meetings tutorial, and the hub is always open.</p>
   <div class="related-grid">
     <a class="rel-card" href="/tutorial-meetings" data-reveal>
-      <img src="images/tutorial-meeting.png" alt="General meetings tutorial">
+      <img src="media/images/tutorial-meeting.png" alt="General meetings tutorial">
       <h5>Running General Meetings</h5>
       <p>The core meeting skills every big event is planned in.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
     <a class="rel-card" href="/tutorial-assembly" data-reveal style="--d:.08s">
-      <img src="images/tutorial-assembly.png" alt="Club assemblies tutorial">
+      <img src="media/images/tutorial-assembly.png" alt="Club assemblies tutorial">
       <h5>Club Assemblies</h5>
       <p>Where the club plans the year that includes camps like this.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
     <a class="rel-card" href="/tutorials" data-reveal style="--d:.16s">
-      <img src="images/tutorial-mascot.png" alt="All tutorials hub">
+      <img src="media/images/tutorial-mascot.png" alt="All tutorials hub">
       <h5>All Six Tutorials</h5>
       <p>Back to the hub; pick any playbook and follow along.</p>
       <span class="go">Open hub &rarr;</span>
@@ -302,7 +304,7 @@ const SECTIONS = [
     id:"legal", icon:"law",
     title:"Legal & Medical Basics",
     tagline:"The rules are not paperwork; they are the safety",
-    img:"images/tutorial-blood.png",
+    img:"media/images/tutorial-blood.png",
     alt:"Illustration of a blood donation camp setup",
     body:`<p class="intro">A blood donation camp is a medical procedure event, regulated by the state. The blood bank runs the medical side; the club runs the logistics side. Neither can do the other's job, and the rules are the reason why.</p>
       <table class="type-table">
@@ -324,14 +326,14 @@ const SECTIONS = [
       "Keep the blood bank's emergency contact and the camp agreement in the club records"
     ],
     links:[
-      { label:"MOU Document (partnership template)", url:"guides/MOU-Document.doc" }
+      { label:"MOU Document (partnership template)", url:"media/guides/MOU-Document.doc" }
     ]
   },
   {
     id:"partner", icon:"people",
     title:"Partnering with a Blood Bank",
     tagline:"The partnership makes the camp legal, safe and possible",
-    img:"images/meeting-agenda.jpg",
+    img:"media/images/meeting-agenda.jpg",
     alt:"Minimal flat illustration of a partnership agreement",
     body:`<p class="intro">Everything follows from the partnership. A blood bank agrees to bring staff, equipment and medical responsibility to your venue; the club brings donors, logistics and promotion. Do this step properly and the camp runs itself medically.</p>
       <ol class="steps">
@@ -349,14 +351,14 @@ const SECTIONS = [
       "Introduce the bank's team to your logistics team at the site visit"
     ],
     links:[
-      { label:"MOU Document (partnership template)", url:"guides/MOU-Document.doc" }
+      { label:"MOU Document (partnership template)", url:"media/guides/MOU-Document.doc" }
     ]
   },
   {
     id:"eligibility", icon:"vote",
     title:"Donor Eligibility",
     tagline:"Screening protects donors; publish the basics honestly",
-    img:"images/meeting-attendance.jpg",
+    img:"media/images/meeting-attendance.jpg",
     alt:"Minimal flat illustration of a donor being screened",
     body:`<p class="intro">Eligibility protects the donor, not just the blood. The blood bank's staff do the final screening, but the club must communicate the basics so members and the public know whether they are likely to qualify, and come prepared.</p>
       <table class="type-table">
@@ -384,7 +386,7 @@ const SECTIONS = [
     id:"planning", icon:"bell",
     title:"Planning & Promotion",
     tagline:"Six weeks of planning make six hours of smooth camp",
-    img:"images/meeting-call-to-order.jpg",
+    img:"media/images/meeting-call-to-order.jpg",
     alt:"Minimal flat illustration of a camp planning meeting",
     body:`<p class="intro">A blood camp is a full club project: it needs a chair, a plan, a budget and real promotion. Use the same planning discipline as any big program; this is the timeline that works.</p>
       <ol class="steps">
@@ -403,15 +405,15 @@ const SECTIONS = [
       "Confirm all partners and volunteers seven days before the camp"
     ],
     links:[
-      { label:"District Fund Grant Criterion Document", url:"guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf" },
-      { label:"Effective Planning Guide to Clubs", url:"guides/Effective-Planning-Guide-to-Clubs.docx" }
+      { label:"District Fund Grant Criterion Document", url:"media/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf" },
+      { label:"Effective Planning Guide to Clubs", url:"media/guides/Effective-Planning-Guide-to-Clubs.docx" }
     ]
   },
   {
     id:"day", icon:"agenda",
     title:"The Day-Of Flow",
     tagline:"Every donor moves through the same five stations",
-    img:"images/bod-meeting-minimal.jpg",
+    img:"media/images/bod-meeting-minimal.jpg",
     alt:"Minimal flat illustration of the camp's stations in action",
     body:`<p class="intro">A well-run camp is a five-station flow, with volunteers at each point and clear signage. Donors enter at one end and leave with a certificate at the other; the flow is the same whether the camp collects forty units or a hundred.</p>
       <ol class="steps">
@@ -434,7 +436,7 @@ const SECTIONS = [
     id:"firstaid", icon:"clip",
     title:"First Aid & Emergencies",
     tagline:"Fainting is common, panic is optional",
-    img:"images/tutorial-mascot.png",
+    img:"media/images/tutorial-mascot.png",
     alt:"Zone 7 tutorial mascot caring for a donor, symbolising first aid",
     body:`<p class="intro">Most donors feel fine; a few feel faint, and that is normal, not a crisis. The difference between a handled moment and a story is preparation: know the likely reactions, keep the calm routine, and let medical staff handle anything medical.</p>
       <ol class="steps">
@@ -457,7 +459,7 @@ const SECTIONS = [
     id:"after", icon:"pen",
     title:"After the Camp",
     tagline:"Records, thanks and the next camp",
-    img:"images/meeting-minutes-report.jpg",
+    img:"media/images/meeting-minutes-report.jpg",
     alt:"Minimal flat illustration of a secretary writing the camp report",
     body:`<p class="intro">The camp ends when the beds are cleared, but the project ends when the report is filed. The records make the camp repeatable, reportable and increasingly respected.</p>
       <ol class="steps">
@@ -475,8 +477,8 @@ const SECTIONS = [
       "Book the debrief meeting and note the next camp date"
     ],
     links:[
-      { label:"Statement of Policy: reporting", url:"guides/statement-of-policy.docx" },
-      { label:"District Fund Grant Criterion Document", url:"guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf" }
+      { label:"Statement of Policy: reporting", url:"media/guides/statement-of-policy.docx" },
+      { label:"District Fund Grant Criterion Document", url:"media/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf" }
     ]
   }
 ];

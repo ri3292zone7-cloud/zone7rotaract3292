@@ -105,7 +105,7 @@ window.ROTA_KB = [
   {
     k: ["grant", "grants", "district grant", "district fund", "rdg", "funding", "money for projects", "how to get funding"],
     a: "The Grants chapter covers both district grants and global grants. A District (RDG) grant supports club projects from the district fund pool, with amounts and matching set yearly by the District Governor. A Global Grant is a bigger Rotary Foundation grant (USD 30,000 minimum) that needs at least 15% of the budget funded from outside your country, three competitive quotes, and a separate club-controlled bank account. Apply at least 90 days before the project start date, first report due within 12 months, final report within 2 months.",
-    links: [{ label: "Grants chapter", url: "/handbook-grants" }, { label: "Grant criteria document", url: "guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf" }]
+    links: [{ label: "Grants chapter", url: "/handbook-grants" }, { label: "Grant criteria document", url: "media/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf" }]
   },
   {
     k: ["global grant", "global grants", "foundation grant", "trf"],
@@ -115,12 +115,12 @@ window.ROTA_KB = [
   {
     k: ["twinship", "twin club", "sister club", "twinning", "partnership", "international club"],
     a: "A twinship is a long-term relationship between two clubs – intra-district (same district) or inter-district (different districts or countries). It is made official with a Memorandum of Understanding (MOU), usually 1 joint meeting and 1 joint project per year, and renewed each June 30. Goodwill visits need at least 5 members. The chapter has the MOU template and the finding-a-partner guide.",
-    links: [{ label: "Twinship chapter", url: "/handbook-twinship" }, { label: "MOU template", url: "guides/MOU-Document.doc" }]
+    links: [{ label: "Twinship chapter", url: "/handbook-twinship" }, { label: "MOU template", url: "media/guides/MOU-Document.doc" }]
   },
   {
     k: ["mou", "memorandum of understanding", "twin agreement"],
     a: "The MOU is the signed agreement that makes a twinship official. The district's sample template is short and adaptable: both clubs agree to be twin clubs, follow Rotary International rules, run joint meetings and projects, and print both clubs' names and emblems on publications during the twinship. The template is downloadable from the Resources library.",
-    links: [{ label: "Twinship chapter", url: "/handbook-twinship" }, { label: "Download MOU template", url: "guides/MOU-Document.doc" }]
+    links: [{ label: "Twinship chapter", url: "/handbook-twinship" }, { label: "Download MOU template", url: "media/guides/MOU-Document.doc" }]
   },
   {
     k: ["goodwill visit", "visit", "interclub", "inter-club"],

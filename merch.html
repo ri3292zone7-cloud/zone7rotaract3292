@@ -351,13 +351,15 @@
     .feat-info{padding:28px 24px 30px;}
   }
 </style>
-</head>
+<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+  </head>
 <body>
 
 <div id="progress"></div>
 
 <div id="siteNav" data-current="merch" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
+    <script src="site-transition.js" defer></script>
 
 <header class="hero">
   <div class="aurora a1"></div>
@@ -414,7 +416,7 @@
         </ul>
         <div class="feat-actions">
           <a class="btn btn-primary" href="#reader" id="featReadBtn">📖&nbsp; Read the flip book</a>
-          <a class="btn btn-dark" href="guides/Zonal%20Magazine.pdf" download="Zonal Magazine 2025-26.pdf" id="featDlBtn">⬇&nbsp; Download PDF</a>
+          <a class="btn btn-dark" href="media/magazine/zonal-magazine.pdf" download="Zonal Magazine 2025-26.pdf" id="featDlBtn">⬇&nbsp; Download PDF</a>
         </div>
       </div>
     </div>
@@ -455,7 +457,7 @@
         <svg class="cico" id="fullIco" viewBox="0 0 18 18" fill="none"><path d="M2 6V2h4M12 2h4v4M16 12v4h-4M6 16H2v-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <div class="c-divider"></div>
-      <a class="dl-btn" id="dlBtn" href="guides/Zonal%20Magazine.pdf" download="Zonal Magazine 2025-26.pdf">
+      <a class="dl-btn" id="dlBtn" href="media/magazine/zonal-magazine.pdf" download="Zonal Magazine 2025-26.pdf">
         <svg class="cico" viewBox="0 0 18 18" fill="none"><path d="M9 2v8m0 0l-3.2-3.2M9 10l3.2-3.2M3 14v1.5A1.5 1.5 0 004.5 17h9a1.5 1.5 0 001.5-1.5V14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Download
       </a>
@@ -484,7 +486,7 @@
         <div class="f-ico" id="fbIco">📕</div>
         <h3 id="fbTitle">Couldn't open the reader</h3>
         <p id="fbMsg">The magazine file may be missing or the reader library couldn't load. You can still grab the PDF directly.</p>
-        <a class="dl-btn" id="fbDl" href="guides/Zonal%20Magazine.pdf" download="Zonal Magazine 2025-26.pdf">Download the PDF</a>
+        <a class="dl-btn" id="fbDl" href="media/magazine/zonal-magazine.pdf" download="Zonal Magazine 2025-26.pdf">Download the PDF</a>
       </div>
     </div>
   </section>
@@ -555,7 +557,7 @@
 /*
  * ── Zone 7 Store ────────────────────────────────────────────────────────────
  * PUBLISH A NEW DROP (magazine / merch / product / announcement / asset):
- *   1. Drop the PDF anywhere in the repo (e.g. guides/ or merch/)
+ *   1. Drop the PDF anywhere in the repo (e.g. media/guides/ or media/magazine/)
  *   2. Add one entry to PRODUCTS below — a shop card + (optionally) a flip book
  *      tab appear automatically. Price > 0 enables the cart + WhatsApp order.
  *   3. Replace WHATSAPP_NUMBER with the zone's order line.
@@ -582,7 +584,7 @@ const PRODUCTS = [
     accent: "#E11A6E",
     accent2: "#F2A900",
     edition: "2025-26 Edition",
-    file: "guides/Zonal%20Magazine.pdf",
+    file: "media/magazine/zonal-magazine.pdf",
     pdfName: "Zonal Magazine 2025-26.pdf",
     flip: true
   }
@@ -595,9 +597,9 @@ const COMING_SOON = [
   { icon: "🚀", name: "Asset Launches", desc: "Brand kits, logos and creative assets ready to use." }
 ];
 
-const PDF_SRC = "vendor/pdf.min.js";
-const PDF_WORKER = "vendor/pdf.worker.min.js";
-const FLIP_SRC = "vendor/page-flip.browser.js";
+const PDF_SRC = "media/libs/pdf.min.js";
+const PDF_WORKER = "media/libs/pdf.worker.min.js";
+const FLIP_SRC = "media/libs/page-flip.browser.js";
 const LOAD_TIMEOUT = 15000;
 const RENDER_SCALE = Math.min(1.5, Math.max(1, 0.9 * (window.devicePixelRatio || 1)));
 const THUMB_SCALE = 0.22;

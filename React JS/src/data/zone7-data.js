@@ -14,15 +14,15 @@ const SUPABASE_URL = "https://pdlolyghlgztjrpxwytl.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_MNRC6w2H8lZ9OANmmntZaQ__OBFwqCj";
 
 const CLUB_DIRECTORY = {
-  balkumari:        { name:"Rotaract Club of Balkumari",              ig:"rac_balkumari",              logo:"logos/balkumari.jpg" },
-  baneshwor:         { name:"Rotaract Club of Baneshwor",               ig:"racbaneshwor",                logo:"logos/baneshwor.jpg" },
-  liberty:           { name:"Rotaract Club of Liberty College",         ig:"rotaractcluboflibertycollege", logo:"logos/liberty.jpg" },
-  kathmanduwest:     { name:"Rotaract Club of Kathmandu West",          ig:"kathmanduwest",               logo:"logos/kathmanduwest.jpg" },
-  kathmanduheight:   { name:"Rotaract Club of Kathmandu Height",        ig:"rackathmanduheight",          logo:"logos/kathmanduheight.jpg" },
-  sankhu:            { name:"Rotaract Club of Sankhu",                  ig:"racsankhu",                   logo:"logos/sankhu.jpg" },
-  newroadcity:       { name:"Rotaract Club of New Road City Kathmandu", ig:"racnewroadcity1",             logo:"logos/newroadcity.jpg" },
-  sukedhara:         { name:"Rotaract Club of Sukedhara",               ig:"rac_sukedhara",               logo:"logos/sukedhara.jpg" },
-  tripureswor:       { name:"Rotaract Club of Tripureswor",             ig:"ractripureswor",              logo:"logos/tripureswor.jpg" }
+  balkumari:        { name:"Rotaract Club of Balkumari",              ig:"rac_balkumari",              logo:"media/logos/balkumari.jpg" },
+  baneshwor:         { name:"Rotaract Club of Baneshwor",               ig:"racbaneshwor",                logo:"media/logos/baneshwor.jpg" },
+  liberty:           { name:"Rotaract Club of Liberty College",         ig:"rotaractcluboflibertycollege", logo:"media/logos/liberty.jpg" },
+  kathmanduwest:     { name:"Rotaract Club of Kathmandu West",          ig:"kathmanduwest",               logo:"media/logos/kathmanduwest.jpg" },
+  kathmanduheight:   { name:"Rotaract Club of Kathmandu Height",        ig:"rackathmanduheight",          logo:"media/logos/kathmanduheight.jpg" },
+  sankhu:            { name:"Rotaract Club of Sankhu",                  ig:"racsankhu",                   logo:"media/logos/sankhu.jpg" },
+  newroadcity:       { name:"Rotaract Club of New Road City Kathmandu", ig:"racnewroadcity1",             logo:"media/logos/newroadcity.jpg" },
+  sukedhara:         { name:"Rotaract Club of Sukedhara",               ig:"rac_sukedhara",               logo:"media/logos/sukedhara.jpg" },
+  tripureswor:       { name:"Rotaract Club of Tripureswor",             ig:"ractripureswor",              logo:"media/logos/tripureswor.jpg" }
 };
 
 /* Demo login gate — front-end only. Anyone who reads this file can see
@@ -278,7 +278,7 @@ const STORAGE_BUCKET = "project-images";
 
 /* Resolve a stored image reference into an <img>-ready src. Stored values
    can be base64 data URLs, full URLs, or bare repo-relative paths like
-   "team/Binaya.png" (seeded ZRR/leadership photos that ship with the app
+   "media/team/Binaya.png" (seeded ZRR/leadership photos that ship with the app
    under /team/*). Only the bare paths need a leading slash. */
 function zone7Photo(u){
   if(!u) return '';
@@ -674,7 +674,10 @@ const ZONE7_DB = {
   /* ---- guides (Guides for Clubs resource page) ---- */
   async getGuides(){
     try{
-      const res = await fetch(`${GUIDES_URL}?order=updated.desc`, { headers: REST_HEADERS });
+      /* Select only lightweight columns: legacy rows carry embedded file_data
+         (multi-MB base64 docs) that we never need to transmit — files are served
+         from Storage/Vercel via file_url. */
+      const res = await fetch(`${GUIDES_URL}?select=id,title,category,description,file_name,file_url,updated&order=updated.desc`, { headers: REST_HEADERS });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
       return await res.json();
     } catch(e){
@@ -814,7 +817,7 @@ const ZONE7_DB = {
 
   /* ---- ZRR history (Line of Leadership timeline on /) ---- */
   _zrrFallback: [
-    { id:"zrr-2122", name:"Binaya Maharjan", years:"21-22", sort_order:1, is_current:false, club:"Rotaract Club of Liberty College", photo:"team/Binaya.png" },
+    { id:"zrr-2122", name:"Binaya Maharjan", years:"21-22", sort_order:1, is_current:false, club:"Rotaract Club of Liberty College", photo:"media/team/Binaya.png" },
     { id:"zrr-2223", name:"Ankush Adhikari", years:"22-23", sort_order:2, is_current:false, club:"Rotaract Club of Tripureswor", photo:"team/Ankush.jpg" },
     { id:"zrr-2324", name:"Gopal Shah", years:"23-24", sort_order:3, is_current:false, club:"Rotaract Club of Baneshwor", photo:"team/Gopal-Shah.jpg" },
     { id:"zrr-2425", name:"Subina Kuickel", years:"24-25", sort_order:4, is_current:false, club:"Rotaract Club of Sankhu", photo:"team/Subina.jpg" },

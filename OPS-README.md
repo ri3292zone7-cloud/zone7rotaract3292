@@ -24,8 +24,8 @@ patch. The one-time operating checklist lives below; everything else is ~5 min/m
 
 ## First-time / one-time setup (already done)
 
-- `supabase_schema.sql` → run in Supabase SQL Editor (creates tables + RLS).
-- **Migration 1** → run `supabase-migration-1-scalability.sql` in the SQL Editor
+- `database/supabase_schema.sql` → run in Supabase SQL Editor (creates tables + RLS).
+- **Migration 1** → run `database/supabase-migration-1-scalability.sql` in the SQL Editor
   (adds indexes, `guides.file_url`, unique `(club_slug, project_code)`).
 - Vercel env vars for the API functions (Email, etc.).
 - GitHub: add repo secret `SUPABASE_ANON_KEY` for the backup workflow.
@@ -77,4 +77,3 @@ To restore a table:
 - Security hardening (RLS to anon=false, real auth, rate limits on /api) — deferred;
   credentials are hardcoded in `zone7-data.js` (see CLUB_CREDENTIALS / ZONAL_PASSWORD).
 - SEO phase (dynamic meta, OG/Twitter cards, PWA) — planned next.
-- `files.zip` in repo root is publicly downloadable — remove it when convenient.

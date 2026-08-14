@@ -190,13 +190,15 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
     .org-cols-3{grid-template-columns:1fr;}
   }
 </style>
-</head>
+<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+  </head>
 <body>
 
 <div id="progress"></div>
 
 <div id="siteNav" data-current="tutorials" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
+    <script src="site-transition.js" defer></script>
 
 <div class="wrap">
   <div class="crumb"><a href="/tutorials">&larr; All Tutorials</a> &middot; Tutorial 04</div>
@@ -217,13 +219,13 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <div class="eyebrow"><span class="dot"></span>Zone &middot; The Bridge</div>
   <h1 id="heroTitle">The zone's bridge to your club.</h1>
   <p class="sub">The Zonal Rotaract Representative, or ZRR, is the link between your club and the district: a trained Rotaractor who knows the zone's clubs, visits them regularly, monitors their health and connects them to district programs. Every Zone 7 club should host at least two ZRR visits a year. This tutorial covers who the ZRR is, why those visits matter, and exactly how to host one that strengthens your club instead of just filling an hour.</p>
-  <p class="note">Based on the <a href="guides/Rotaract-Guidebook.pdf" style="color:var(--tc);font-weight:700;text-decoration:underline;">District 3292 Rotaract Guidebook</a> and the <a href="guides/Standard-Rotaract-Club-Constitution.docx" style="color:var(--tc);font-weight:700;text-decoration:underline;">Standard Rotaract Club Constitution</a>. The exact visit requirements come from the district's annual plan.</p>
+  <p class="note">Based on the <a href="media/guides/Rotaract-Guidebook.pdf" style="color:var(--tc);font-weight:700;text-decoration:underline;">District 3292 Rotaract Guidebook</a> and the <a href="media/guides/Standard-Rotaract-Club-Constitution.docx" style="color:var(--tc);font-weight:700;text-decoration:underline;">Standard Rotaract Club Constitution</a>. The exact visit requirements come from the district's annual plan.</p>
 
   <div class="hero-grid">
     <div></div>
     <div class="hero-char">
       <div class="char-ring"></div>
-      <img src="images/tutorial-zrr.png" alt="ZRR zonal visit illustration" data-parallax="0.6">
+      <img src="media/images/tutorial-zrr.png" alt="ZRR zonal visit illustration" data-parallax="0.6">
       <div class="hc-badge hc1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#C2410C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Visit <b>booked</b></div>
       <div class="hc-badge hc2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Status <b>shared</b></div>
       <div class="hc-badge hc3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Agenda <b>agreed</b></div>
@@ -250,19 +252,19 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <p class="section-sub" data-reveal>The ZRR connects you to the zone. Next, meet the person above the zone, and put your club's readiness to work in service.</p>
   <div class="related-grid">
     <a class="rel-card" href="/tutorial-drr" data-reveal>
-      <img src="images/tutorial-drr.png" alt="DRR visits tutorial">
+      <img src="media/images/tutorial-drr.png" alt="DRR visits tutorial">
       <h5>DRR Visits</h5>
       <p>When the District Rotaract Representative visits your club.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
     <a class="rel-card" href="/tutorial-assembly" data-reveal style="--d:.08s">
-      <img src="images/tutorial-assembly.png" alt="Club assemblies tutorial">
+      <img src="media/images/tutorial-assembly.png" alt="Club assemblies tutorial">
       <h5>Club Assemblies</h5>
       <p>Have a plan to show the ZRR; plan it together at assemblies.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
     <a class="rel-card" href="/tutorial-blood" data-reveal style="--d:.16s">
-      <img src="images/tutorial-blood.png" alt="Blood donation tutorial">
+      <img src="media/images/tutorial-blood.png" alt="Blood donation tutorial">
       <h5>Blood Donation Programs</h5>
       <p>Impressive club activity makes every visit a celebration.</p>
       <span class="go">Open tutorial &rarr;</span>
@@ -301,7 +303,7 @@ const SECTIONS = [
     id:"who", icon:"people",
     title:"Who Is the ZRR?",
     tagline:"Your club's link to the district, one zone away",
-    img:"images/tutorial-zrr.png",
+    img:"media/images/tutorial-zrr.png",
     alt:"Illustration of a ZRR connecting a club to the district",
     body:`<p class="intro">The Zonal Rotaract Representative sits between the clubs and the district: above the clubs, below the DRR. A ZRR is a trained Rotaract leader who looks after a cluster of clubs (in our case, Zone 7 and its nine clubs) and is supported by Assistant DRRs in the work.</p>
       <table class="type-table">
@@ -322,14 +324,14 @@ const SECTIONS = [
       "Treat the ZRR as a coach, not a supervisor; clubs that ask questions get answers"
     ],
     links:[
-      { label:"Rotaract Guidebook: zone & district structure", url:"guides/Rotaract-Guidebook.pdf" }
+      { label:"Rotaract Guidebook: zone & district structure", url:"media/guides/Rotaract-Guidebook.pdf" }
     ]
   },
   {
     id:"why-two", icon:"bell",
     title:"Why Two Visits a Year",
     tagline:"Monitoring with a human face",
-    img:"images/meeting-call-to-order.jpg",
+    img:"media/images/meeting-call-to-order.jpg",
     alt:"Minimal flat illustration of a visit meeting opening",
     body:`<p class="intro">The district expects each club to host at least two ZRR visits a year, spread across the year, not two weeks before the district conference. The visits exist for three reasons, and understanding them changes how you prepare.</p>
       <ol class="steps">
@@ -351,7 +353,7 @@ const SECTIONS = [
     id:"before", icon:"agenda",
     title:"Before the Visit",
     tagline:"A prepared club makes the visit a pleasure",
-    img:"images/meeting-agenda.jpg",
+    img:"media/images/meeting-agenda.jpg",
     alt:"Minimal flat illustration of a visit preparation agenda",
     body:`<p class="intro">Ninety percent of a good visit happens before the ZRR arrives. The board agrees the date and agenda with the ZRR in advance, and the club walks in ready to show its real self, good and bad.</p>
       <ol class="steps">
@@ -369,14 +371,14 @@ const SECTIONS = [
       "Confirm the venue and timing with the ZRR the day before"
     ],
     links:[
-      { label:"Sample Agenda Paper (guides folder)", url:"guides/Sample-Agenda-Paper.doc" }
+      { label:"Sample Agenda Paper (guides folder)", url:"media/guides/Sample-Agenda-Paper.doc" }
     ]
   },
   {
     id:"hosting", icon:"clip",
     title:"Hosting the Visit",
     tagline:"The meeting, the project, the conversation",
-    img:"images/bod-meeting-minimal.jpg",
+    img:"media/images/bod-meeting-minimal.jpg",
     alt:"Minimal flat illustration of a board meeting hosting a visit",
     body:`<p class="intro">A visit usually has three parts: the meeting, the activity, and the conversation. Run the meeting in your normal format; the ZRR wants to see the club as it is, not a performance.</p>
       <ol class="steps">
@@ -400,7 +402,7 @@ const SECTIONS = [
     id:"agenda", icon:"pen",
     title:"A Visit Agenda That Works",
     tagline:"Structure the hour so nothing is wasted",
-    img:"images/tutorial-mascot.png",
+    img:"media/images/tutorial-mascot.png",
     alt:"Zone 7 tutorial mascot holding a checklist, symbolising the visit agenda",
     body:`<p class="intro">Whether the visit is a full general meeting or a shorter working session, a written agenda shared with the ZRR beforehand keeps it useful. Adapt this flow to your club's format and the visit's purpose.</p>
       <table class="type-table">
@@ -422,14 +424,14 @@ const SECTIONS = [
       "Assign someone to photograph the visit for the club's records and social media"
     ],
     links:[
-      { label:"Sample Agenda Paper (guides folder)", url:"guides/Sample-Agenda-Paper.doc" }
+      { label:"Sample Agenda Paper (guides folder)", url:"media/guides/Sample-Agenda-Paper.doc" }
     ]
   },
   {
     id:"after", icon:"vote",
     title:"After the Visit",
     tagline:"The minutes make the visit permanent",
-    img:"images/meeting-minutes-report.jpg",
+    img:"media/images/meeting-minutes-report.jpg",
     alt:"Minimal flat illustration of a secretary writing visit minutes",
     body:`<p class="intro">A visit that is not followed up is a visit that evaporates. The follow-up is short, but it is what turns a pleasant hour into a strengthened club.</p>
       <ol class="steps">
@@ -446,7 +448,7 @@ const SECTIONS = [
       "Note the next visit's provisional date before the ZRR leaves"
     ],
     links:[
-      { label:"Statement of Policy: reporting & recognition", url:"guides/statement-of-policy.docx" }
+      { label:"Statement of Policy: reporting & recognition", url:"media/guides/statement-of-policy.docx" }
     ]
   }
 ];

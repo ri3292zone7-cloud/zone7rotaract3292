@@ -39,6 +39,19 @@ PAGE_REWRITES = {
     "/handbook-health": "/handbook-health.html",
     "/store": "/React JS/dist-store/store-standalone.html",
     "/store-react.html": "/React JS/dist-store/store-standalone.html",
+    "/merch": "/merch-react.html",
+    "/vendor/paws-nepal": "/React JS/dist-vendor-pawsnepal/vendor-pawsnepal.html",
+    "/vendor/paws-nepal/": "/React JS/dist-vendor-pawsnepal/vendor-pawsnepal.html",
+    "/district-overview": "/district-overview.html",
+    "/selftest": "/selftest.html",
+    "/ne-about": "/ne-about.html",
+    "/ne/about": "/ne-about.html",
+    "/ne/join": "/join.html",
+    "/club-tools": "/club-tools.html",
+    "/club": "/club.html",
+    "/pending-applications": "/pending-applications.html",
+    "/rkt-quiz": "/rkt-quiz.html",
+    "/admin": "/admin.html",
 }
 
 CLUB_SLUGS = [

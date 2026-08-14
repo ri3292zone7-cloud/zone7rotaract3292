@@ -636,3 +636,7 @@ footer a:hover { color: var(--magenta-deep); }
 /* subpage entrance animation */
 .site-main{animation:siteFadeUp .55s cubic-bezier(.22,1,.36,1) both}
 @keyframes siteFadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* island route switch -- soft fade between /store and /merch */
+.pt-route{animation:ptRouteIn .32s cubic-bezier(.25,.6,.35,1) both}
+@keyframes ptRouteIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}

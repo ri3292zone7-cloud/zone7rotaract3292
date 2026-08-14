@@ -1,4 +1,4 @@
-﻿import { useRef } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SiteShell from '../components/layout/SiteShell';
 import Reveal from '../components/ui/Reveal';
@@ -11,31 +11,31 @@ const TICKER_ITEMS = [
 
 const CHAPTERS = [
   {
-    n: '01', to: '/handbook/grants', img: '/images/handbook-grants.svg', alt: 'Grants illustration',
+    n: '01', to: '/handbook/grants', img: '/media/images/handbook-grants.svg', alt: 'Grants illustration',
     title: 'Grants: Funding Service',
     desc: 'District Grants for quick local wins, Global Grants for big international projects, and the reporting rules that keep the money honest.',
     tags: ['District Grant', 'Global Grant', 'Reports'],
   },
   {
-    n: '02', to: '/handbook/twinship', img: '/images/handbook-twinship.svg', alt: 'Twinship illustration',
+    n: '02', to: '/handbook/twinship', img: '/media/images/handbook-twinship.svg', alt: 'Twinship illustration',
     title: 'Twinship & the MOU',
     desc: 'How two clubs become twins. Intra-district and international, the memorandum of understanding, and goodwill visits done right.',
     tags: ['Twinship', 'MOU', 'Goodwill visits'],
   },
   {
-    n: '03', to: '/handbook/newclub', img: '/images/handbook-newclub.svg', alt: 'New club illustration',
+    n: '03', to: '/handbook/newclub', img: '/media/images/handbook-newclub.svg', alt: 'New club illustration',
     title: 'Starting a New Club',
     desc: "The nine-step path from first idea to certified club, then the charter presentation ceremony, step by ceremonial step.",
     tags: ['Start a club', 'Charter', 'Installation'],
   },
   {
-    n: '04', to: '/handbook/projects', img: '/images/handbook-projects.svg', alt: 'Seven areas of focus illustration',
+    n: '04', to: '/handbook/projects', img: '/media/images/handbook-projects.svg', alt: 'Seven areas of focus illustration',
     title: 'Projects: 7 Areas of Focus',
     desc: "Rotary's seven causes with low-cost project designs from the directory, ready to run on budgets of NPR 5,000\u201315,000.",
     tags: ['Peace', 'Health', 'Education', 'Environment'],
   },
   {
-    n: '05', to: '/handbook/health', img: '/images/handbook-health.svg', alt: 'Club health checkup illustration',
+    n: '05', to: '/handbook/health', img: '/media/images/handbook-health.svg', alt: 'Club health checkup illustration',
     title: 'The Club Health Checkup',
     desc: 'Seventy-five questions across five sections, a score you can compute in one meeting, and a six-month rhythm that keeps clubs strong.',
     tags: ['75 items', '5 sections', 'Score & act'],
@@ -107,12 +107,12 @@ export default function HandbookPage() {
           <div className="eyebrow"><span className="dot"></span>The Handbook &middot; Rules That Run Clubs</div>
           <WordTitle text="Everything a club runs on. One place." />
           <p className="sub">The handbook takes the permanent parts of the District 3292 Directory and turns them into plain-language chapters with videos, vector graphics and tickable checklists, covering grant rules, twinship and the MOU, starting new clubs, the 7 Areas of Focus, and the club health checkup. Themes, goals and award points change every year; this is the stuff that stays.</p>
-          <p className="note">Compiled from the <a href="/guides/RC. Dis. Dinesh Gaire BW 2082 Final District directory.pdf">District 3292 Directory</a>, the <a href="/guides/Rotaract-Guidebook.pdf">District Rotaract Guidebook</a> and official <a href="https://www.rotary.org" target="_blank" rel="noopener noreferrer">Rotary International</a> sources. Where a rule changes, the official document wins.</p>
+          <p className="note">Compiled from the <a href="/media/guides/RC. Dis. Dinesh Gaire BW 2082 Final District directory.pdf">District 3292 Directory</a>, the <a href="/media/guides/Rotaract-Guidebook.pdf">District Rotaract Guidebook</a> and official <a href="https://www.rotary.org" target="_blank" rel="noopener noreferrer">Rotary International</a> sources. Where a rule changes, the official document wins.</p>
           <div className="hero-grid">
             <div></div>
             <div className="hero-char">
               <div className="char-ring"></div>
-              <img src="/images/handbook-hub.svg" alt="Open handbook illustration" data-parallax="0.6" />
+              <img src="/media/images/handbook-hub.svg" alt="Open handbook illustration" data-parallax="0.6" />
               {HERO_BADGES.map((b) => (
                 <div className={`hc-badge ${b.cls}`} key={b.cls}>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
@@ -157,7 +157,7 @@ export default function HandbookPage() {
 
           <Reveal className="cc-wide" delay={0.3}>
             <Link className="chapter-card cc-wide" style={{ flex: 1 }} to="/tutorials">
-              <div className="cc-hero"><img src="/images/tutorial-meeting.png" alt="Tutorials illustration" /></div>
+              <div className="cc-hero"><img src="/media/images/tutorial-meeting.png" alt="Tutorials illustration" /></div>
               <div className="cc-body">
                 <h3>Need the how, not the rule? &rarr; The Tutorials</h3>
                 <p>The handbook explains what the rules are; the tutorials walk you through running meetings, board meetings, assemblies, ZRR and DRR visits and blood donation drives, one practice at a time. Each tutorial page uses the same design language of steps, checklists, videos and documents.</p>

@@ -190,13 +190,15 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
     .org-cols-3{grid-template-columns:1fr;}
   }
 </style>
-</head>
+<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+  </head>
 <body>
 
 <div id="progress"></div>
 
 <div id="siteNav" data-current="handbook" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
+    <script src="site-transition.js" defer></script>
 
 <div class="wrap">
   <div class="crumb"><a href="/handbook">&larr; The Handbook</a> &middot; Chapter 02</div>
@@ -217,13 +219,13 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <div class="eyebrow"><span class="dot"></span>Handbook &middot; Chapter 02</div>
   <h1 id="heroTitle">Two clubs. One friendship.</h1>
   <p class="sub">Twinship is Rotaract's oldest relationship: two clubs that choose each other, across the district or across the world, and commit to joint projects, exchanged ideas and mutual celebration. This chapter covers the two kinds of twinship, how to find the right partner, the Memorandum of Understanding that makes it official, and the goodwill visits that keep it warm.</p>
-  <p class="note">Sources: the directory's <a href="guides/MOU-Document.doc">Twinship &amp; MOU sections</a> and the <a href="guides/Rotaract-Guidebook.pdf">District Rotaract Guidebook</a>. The MOU template in the guides folder matches the directory's sample exactly.</p>
+  <p class="note">Sources: the directory's <a href="media/guides/MOU-Document.doc">Twinship &amp; MOU sections</a> and the <a href="media/guides/Rotaract-Guidebook.pdf">District Rotaract Guidebook</a>. The MOU template in the guides folder matches the directory's sample exactly.</p>
 
   <div class="hero-grid">
     <div></div>
     <div class="hero-char">
       <div class="char-ring"></div>
-      <img src="images/handbook-twinship.svg" alt="Two twinned clubs illustration" data-parallax="0.6">
+      <img src="media/images/handbook-twinship.svg" alt="Two twinned clubs illustration" data-parallax="0.6">
       <div class="hc-badge hc1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#E11A6E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Intra <b>&amp;</b> inter</div>
       <div class="hc-badge hc2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>MOU <b>signed</b></div>
       <div class="hc-badge hc3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>5 <b>members</b></div>
@@ -250,19 +252,19 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
   <p class="section-sub" data-reveal>A twin club is your best partner for joint service and joint grants. See what to build together next.</p>
   <div class="related-grid">
     <a class="rel-card" href="/handbook-grants" data-reveal>
-      <img src="images/handbook-grants.svg" alt="Grants chapter">
+      <img src="media/images/handbook-grants.svg" alt="Grants chapter">
       <h5>Grants: Funding Service</h5>
       <p>Two clubs working together make a far stronger grant application.</p>
       <span class="go">Open chapter &rarr;</span>
     </a>
     <a class="rel-card" href="/handbook-projects" data-reveal style="--d:.08s">
-      <img src="images/handbook-projects.svg" alt="Areas of focus chapter">
+      <img src="media/images/handbook-projects.svg" alt="Areas of focus chapter">
       <h5>Projects: 7 Areas of Focus</h5>
       <p>Ready-to-run project designs to plan jointly with your twin club.</p>
       <span class="go">Open chapter &rarr;</span>
     </a>
     <a class="rel-card" href="/handbook" data-reveal style="--d:.16s">
-      <img src="images/handbook-hub.svg" alt="Handbook hub">
+      <img src="media/images/handbook-hub.svg" alt="Handbook hub">
       <h5>The Handbook</h5>
       <p>Back to all five chapters. Rules, checklists and videos in one place.</p>
       <span class="go">Open hub &rarr;</span>
@@ -299,7 +301,7 @@ const SECTIONS = [
     id:"what-is", icon:"link",
     title:"What is a Twinship?",
     tagline:"A voluntary partnership between two Rotaract clubs",
-    img:"images/handbook-twinship.svg",
+    img:"media/images/handbook-twinship.svg",
     alt:"Illustration of two clubs linked by a chain",
     body:`<p class="intro">Twinship is a special relationship formed between two Rotaract clubs. Twinning is a voluntary partnership, typically between clubs from different countries or regions, that promotes international understanding, fosters friendship and encourages collaboration. In District 3292 it comes in two flavors.</p>
       <table class="type-table">
@@ -321,7 +323,7 @@ const SECTIONS = [
     id:"finding-partner", icon:"search",
     title:"Finding the right partner",
     tagline:"Start with your Rotary club's network, then go through the district",
-    img:"images/handbook-twinship.svg",
+    img:"media/images/handbook-twinship.svg",
     alt:"Illustration of searching for a twin club partner",
     body:`<p class="intro">After deciding the type of club that would be an appropriate match, look for a club that meets your criteria. A few reliable routes from the directory:</p>
       <ol class="steps">
@@ -344,7 +346,7 @@ const SECTIONS = [
     id:"mou", icon:"pen",
     title:"The MOU: making it official",
     tagline:"One joint meeting and one joint service project every year",
-    img:"images/handbook-twinship.svg",
+    img:"media/images/handbook-twinship.svg",
     alt:"Illustration of a memorandum of understanding document",
     body:`<p class="intro">The district's sample Memorandum of Understanding is short, fair and adaptable. Clubs can define their own terms, but the sample is what most Zone 7 twinships sign. Its key commitments:</p>
       <ol class="steps">
@@ -363,14 +365,14 @@ const SECTIONS = [
       "Print both clubs' names and emblems on every publication during the twinship"
     ],
     links:[
-      { label:"MOU Template (guides folder)", url:"guides/MOU-Document.doc" }
+      { label:"MOU Template (guides folder)", url:"media/guides/MOU-Document.doc" }
     ]
   },
   {
     id:"alive", icon:"people",
     title:"Keeping it alive: joint projects & goodwill visits",
     tagline:"A twinship is a relationship, not a certificate",
-    img:"images/handbook-twinship.svg",
+    img:"media/images/handbook-twinship.svg",
     alt:"Illustration of members from two clubs visiting each other",
     body:`<p class="intro">The directory is full of ideas for developing a strong relationship, and a clear protocol for the goodwill visit, the twinship's signature event. A goodwill visit typically involves a minimum of five members from one club visiting another club's meeting, ensuring enough people to really engage.</p>
       <ol class="steps">
@@ -389,7 +391,7 @@ const SECTIONS = [
       "Follow up with a thank-you and a written visit summary for both boards"
     ],
     links:[
-      { label:"District Rotaract Guidebook", url:"guides/Rotaract-Guidebook.pdf" }
+      { label:"District Rotaract Guidebook", url:"media/guides/Rotaract-Guidebook.pdf" }
     ]
   }
 ];
