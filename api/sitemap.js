@@ -23,6 +23,7 @@ const CLUB_SLUGS = [
 const STATIC_PAGES = [
   { path: "/", priority: 1.0, changefreq: "weekly" },
   { path: "/about", priority: 0.8, changefreq: "monthly" },
+  { path: "/search", priority: 0.4, changefreq: "monthly" },
   { path: "/join", priority: 0.9, changefreq: "monthly" },
   { path: "/gallery", priority: 0.7, changefreq: "weekly" },
   { path: "/guides", priority: 0.8, changefreq: "monthly" },
@@ -44,10 +45,8 @@ const STATIC_PAGES = [
   { path: "/club", priority: 0.7, changefreq: "weekly" },
   { path: "/project", priority: 0.7, changefreq: "weekly" },
   { path: "/meetings", priority: 0.5, changefreq: "monthly" },
-  { path: "/admin", priority: 0.4, changefreq: "monthly" },
   { path: "/merch", priority: 0.8, changefreq: "monthly" },
   { path: "/store", priority: 0.8, changefreq: "monthly" },
-  { path: "/district-overview", priority: 0.6, changefreq: "monthly" },
   { path: "/pending-applications", priority: 0.4, changefreq: "monthly" },
   { path: "/club-tools", priority: 0.5, changefreq: "monthly" },
   { path: "/selftest", priority: 0.3, changefreq: "monthly" },

@@ -3,6 +3,7 @@
     { "source": "/DRR Visit RY 23-24/:path*", "destination": "/404.html" },
     { "source": "/DRR%20Visit%20RY%2023-24/:path*", "destination": "/404.html" },
     { "source": "/about", "destination": "/about.html" },
+    { "source": "/search", "destination": "/search.html" },
     { "source": "/gallery", "destination": "/gallery.html" },
     { "source": "/guides", "destination": "/guides.html" },
     { "source": "/club-guides", "destination": "/club-guides.html" },
