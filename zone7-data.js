@@ -820,22 +820,23 @@ const ZONE7_DB = {
   ],
 
   async getZRRs(){
+    const newestFirst = arr => arr.slice().sort((a,b) => (b.sort_order||0) - (a.sort_order||0));
     try{
       const cached = zone7CacheGet("zrrs", 600000);
-      if(cached){ this._zrrCache = cached; return cached; }
-      const res = await fetch(`${ZRRS_URL}?order=sort_order.asc`, { headers: REST_HEADERS });
+      if(cached){ this._zrrCache = cached; return newestFirst(cached); }
+      const res = await fetch(`${ZRRS_URL}?order=sort_order.desc`, { headers: REST_HEADERS });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
       const rows = await res.json();
-      if(rows.length){ zone7CacheSet("zrrs", rows); this._zrrCache = rows; return rows; }
+      if(rows.length){ zone7CacheSet("zrrs", rows); this._zrrCache = rows; return newestFirst(rows); }
       // Seed the fallback history into Supabase so it persists
       for(const z of this._zrrFallback){
         await this.saveZRR({...z});
       }
       this._zrrCache = this._zrrFallback;
-      return this._zrrFallback;
+      return newestFirst(this._zrrFallback);
     } catch(e){
       console.error("ZONE7_DB.getZRRs error", e);
-      return this._zrrCache || this._zrrFallback;
+      return newestFirst(this._zrrCache || this._zrrFallback);
     }
   },
 

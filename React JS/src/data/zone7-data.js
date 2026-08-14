@@ -826,20 +826,21 @@ const ZONE7_DB = {
   ],
 
   async getZRRs(){
+    const newestFirst = arr => arr.slice().sort((a,b) => (b.sort_order||0) - (a.sort_order||0));
     try{
-      const res = await fetch(`${ZRRS_URL}?order=sort_order.asc`, { headers: REST_HEADERS });
+      const res = await fetch(`${ZRRS_URL}?order=sort_order.desc`, { headers: REST_HEADERS });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
       const rows = await res.json();
-      if(rows.length){ this._zrrCache = rows; return rows.map((r) => ({ ...r, photo: zone7Photo(r.photo) })); }
+      if(rows.length){ this._zrrCache = rows; return newestFirst(rows).map((r) => ({ ...r, photo: zone7Photo(r.photo) })); }
       // Seed the fallback history into Supabase so it persists
       for(const z of this._zrrFallback){
         await this.saveZRR({...z});
       }
       this._zrrCache = this._zrrFallback;
-      return this._zrrFallback.map((r) => ({ ...r, photo: zone7Photo(r.photo) }));
+      return newestFirst(this._zrrFallback).map((r) => ({ ...r, photo: zone7Photo(r.photo) }));
     } catch(e){
       console.error("ZONE7_DB.getZRRs error", e);
-      return (this._zrrCache || this._zrrFallback).map((r) => ({ ...r, photo: zone7Photo(r.photo) }));
+      return newestFirst(this._zrrCache || this._zrrFallback).map((r) => ({ ...r, photo: zone7Photo(r.photo) }));
     }
   },
 

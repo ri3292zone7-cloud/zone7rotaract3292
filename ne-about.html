@@ -505,7 +505,7 @@ var bioText = {
   if(zrrs.length){
     track.innerHTML = zrrs.map(z => `
       <a class="journey-item${z.is_current ? ' current' : ''}" href="/#leadership">
-        <div class="journey-avatar">${z.photo ? `<img src="${zone7Esc(z.photo)}" alt="${zone7Esc(z.name)}">` : initials(z.name)}</div>
+        <div class="journey-avatar">${z.photo ? `<img src="${zone7Esc(zone7MediaPath(z.photo))}" alt="${zone7Esc(z.name)}">` : initials(z.name)}</div>
         <div class="journey-body">
           <div class="journey-meta">
             <span class="journey-years">आर्य २०${zone7Esc(z.years.replace("-","–२०"))}</span>
@@ -526,7 +526,7 @@ var bioText = {
   const leaders = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getLeadership() : [];
   teamGrid.innerHTML = leaders.length ? leaders.map(p => `
     <a class="hero-team-row" href="/#leadership">
-      <div class="hero-team-avatar">${p.photo ? `<img src="${zone7Esc(p.photo)}" alt="${zone7Esc(p.name)}">` : initials(p.name)}</div>
+      <div class="hero-team-avatar">${p.photo ? `<img src="${zone7Esc(zone7MediaPath(p.photo))}" alt="${zone7Esc(p.name)}">` : initials(p.name)}</div>
       <div class="hero-team-info">
         <h5>${zone7Esc(p.name)}</h5>
         <div class="role">${zone7Esc(p.role)} · ${zone7Esc(p.role_full || '')}</div>

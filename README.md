@@ -89,12 +89,12 @@ Every July, somebody new takes the wheel. Here's everyone who has held it so far
 
 | Rotary Year | ZRR | Home Club |
 |---|---|---|
-| 21–22 | <img src="media/team/Binaya.png" width="36" /> **Rtr. Binaya Maharjan** | Rotaract Club of Liberty College |
-| 22–23 | <img src="media/team/Ankush.jpg" width="36" /> **Rtr. Ankush Adhikari** | Rotaract Club of Tripureswor |
-| 23–24 | <img src="media/team/Gopal-Shah.jpg" width="36" /> **Rtr. Gopal Shah** | Rotaract Club of Baneshwor |
-| 24–25 | <img src="media/team/Subina.jpg" width="36" /> **Rtr. Subina Kuickel** | Rotaract Club of Sankhu |
-| 25–26 | <img src="media/team/Nitesh.png" width="36" /> **Rtr. Nitesh Thakur** | Rotaract Club of Balkumari |
 | **26–27** | <img src="media/team/Rajay.png" width="36" /> ⭐ **Rtr. Rajay Bajracharya** *(current)* | Rotaract Club of Sukedhara |
+| 25–26 | <img src="media/team/Nitesh.png" width="36" /> **Rtr. Nitesh Thakur** | Rotaract Club of Balkumari |
+| 24–25 | <img src="media/team/Subina.jpg" width="36" /> **Rtr. Subina Kuickel** | Rotaract Club of Sankhu |
+| 23–24 | <img src="media/team/Gopal-Shah.jpg" width="36" /> **Rtr. Gopal Shah** | Rotaract Club of Baneshwor |
+| 22–23 | <img src="media/team/Ankush.jpg" width="36" /> **Rtr. Ankush Adhikari** | Rotaract Club of Tripureswor |
+| 21–22 | <img src="media/team/Binaya.png" width="36" /> **Rtr. Binaya Maharjan** | Rotaract Club of Liberty College |
 
 ---
 
