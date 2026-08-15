@@ -1,5 +1,5 @@
 /* Zone 7 shared navigation — injected into every content page via <div id="siteNav">
-   Usage: <div id="siteNav" data-current="about|clubs|tutorials|handbook|resources|guides|gallery|merch|join" data-cta="join|home|club"></div>
+   Usage: <div id="siteNav" data-current="about|clubs|tutorials|handbook|resources|guides|gallery|merch|vendors|join" data-cta="join|home|club"></div>
    Requires zone7-data.js (CLUB_DIRECTORY) loaded beforehand. Falls back gracefully without it.
 */
 (function () {
@@ -101,6 +101,7 @@
     "#siteNav .mobile-menu .mm-group{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:rgba(27,24,54,.42);margin:14px 0 2px}",
     "#siteNav .mobile-menu a.mm-cta{background:#1B1836;color:#fff;border-radius:100px;text-align:center;padding:13px;border:none;margin-top:14px}",
     "@media (max-width:920px){#siteNav .navlinks,#siteNav .nav-admin,#siteNav .nav-cta,#siteNav .back{display:none}#siteNav .burger{display:block}}",
+    "@media (max-width:1160px) and (min-width:921px){#siteNav .navlinks{gap:16px}#siteNav .wrap{gap:14px}}",
     ".skip-link{position:fixed;top:-70px;left:16px;z-index:300;background:#A80F52;color:#fff;padding:11px 20px;border-radius:0 0 12px 12px;font-weight:700;font-size:.85rem;box-shadow:0 12px 28px rgba(27,24,54,.25);transition:top .2s}",
     ".skip-link:focus{top:0}",
     "#backTop{position:fixed;left:22px;bottom:26px;z-index:94;width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;background:#1B1836;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s,background .2s;box-shadow:0 12px 28px rgba(27,24,54,.3)}",
@@ -155,6 +156,7 @@
     "</div>" +
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
+    item("/vendors", "Support Local", "vendors") +
     "</div>" +
     '<div style="display:flex;align-items:center;gap:16px;">' +
     '<a href="/admin" class="nav-admin">Club Admin</a>' +
@@ -175,6 +177,7 @@
     '<div class="mm-group">Community</div>' +
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
+    '<a href="/vendors">Support Local</a>' +
     '<a href="/join">Join Us</a>' +
     '<a href="/admin">Club Admin</a>' +
     '<a class="mm-cta" href="/join">Fill the Form, Become a Rotaractor →</a>' +

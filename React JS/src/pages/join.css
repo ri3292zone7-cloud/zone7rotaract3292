@@ -1,4 +1,4 @@
-  :root{
+﻿  :root{
     --ink:#1B1836;
     --magenta:#E11A6E;
     --magenta-deep:#A80F52;
@@ -320,3 +320,9 @@
   .form-status{margin-top:12px; font-size:0.85rem; font-weight:600;}
   .form-status.error{color:#C0392B;}
   .form-status.ok{color:#1c8a4d;}
+
+/* Mobile: put the join form on top, keep the why-cards below */
+@media (max-width: 920px) {
+  .site-main { display: flex; flex-direction: column; }
+  .site-main .form-section { order: -1; }
+}

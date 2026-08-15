@@ -9,6 +9,8 @@
     "build:store": "vite build --config vite.store.config.js && node scripts/encode-store.mjs",
     "build:merch": "vite build --config vite.merch.config.js",
     "build:vendor": "vite build --config vite.vendor.config.js && node scripts/encode-vendor.mjs",
+    "build:vendor-mannka": "vite build --config vite.vendor-mannka.config.js && node scripts/encode-vendor-mannka.mjs",
+    "build:vendors": "vite build --config vite.vendors.config.js && node scripts/encode-vendors.mjs",
     "deploy:merch": "npm run build:merch && node scripts/deploy-merch.mjs",
     "serve:store": "node scripts/serve-store.mjs",
     "lint": "oxlint",

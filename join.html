@@ -290,6 +290,12 @@
     .check-grid{grid-template-columns:1fr;}
     .btn-back, .btn-next{width:100%; min-width:0;}
   }
+  /* Mobile: put the join form on top, keep the why-cards below */
+  @media (max-width:920px){
+    body{display:flex; flex-direction:column;}
+    #siteNav{order:-2;}
+    section.form-section{order:-1;}
+  }
 </style>
 <script type="application/ld+json">
 {

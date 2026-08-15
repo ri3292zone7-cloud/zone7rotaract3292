@@ -251,8 +251,16 @@ export default function QuizPage() {
 
   const showPanel = (name) => {
     setPanel(name);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const PANEL_IDS = { study: 'panelStudy', quiz: 'panelQuiz', sprint: 'panelSprint' };
+
+  useEffect(() => {
+    if (!panel) return undefined;
+    const el = document.getElementById(PANEL_IDS[panel]);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return undefined;
+  }, [panel]);
 
   /* study deck */
   const [deckCat, setDeckCat] = useState('all');

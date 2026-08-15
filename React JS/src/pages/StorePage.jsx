@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import './store.css';
 import StoreHero from '../components/store/StoreHero';
 import ProductSections from '../components/store/ProductSections';
-import VendorsSection from '../components/store/VendorsSection';
+import VendorsTeaser from '../components/store/VendorsTeaser';
 import OrderBand from '../components/store/OrderBand';
 import CartDrawer from '../components/store/CartDrawer';
 import SiteFooter from '../components/layout/SiteFooter';
@@ -25,7 +25,7 @@ export default function StorePage() {
     <div className="st-page">
       <StoreHero />
       <ProductSections />
-      <VendorsSection />
+      <VendorsTeaser />
       <OrderBand />
       <CartDrawer />
       <SiteFooter />

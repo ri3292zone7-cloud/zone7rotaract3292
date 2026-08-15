@@ -19,6 +19,19 @@ export const VENDORS = [
     site: 'https://pawsnepal.com',
     instagram: 'https://www.instagram.com/pawsnepal',
     page: '/vendor/paws-nepal'
+  },
+  {
+    id: 'mannka-creation',
+    name: 'Mannka Creations',
+    shortName: 'Mannka Creations',
+    tagline: 'Fresh flowers, hand-wrapped bouquets and blooms for every occasion.',
+    desc: 'A Kathmandu flower studio crafting bouquets, gift wraps and event florals \u2014 fresh stems, careful hands and a little bit of magic for every occasion.',
+    location: 'Kathmandu',
+    category: 'Flowers \u00b7 Gifts',
+    emoji: '\ud83c\udf38',
+    site: 'https://www.instagram.com/mannka_creation',
+    instagram: 'https://www.instagram.com/mannka_creation',
+    page: '/vendor/mannka-creation'
   }
 ];
 

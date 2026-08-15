@@ -13,10 +13,10 @@ import dog3 from '../vendors/paws-nepal/hero/dog-3.png';
 import dog4 from '../vendors/paws-nepal/hero/dog-4.png';
 import dog5 from '../vendors/paws-nepal/hero/dog-5.png';
 
-import img1 from '../vendors/paws-nepal/media/1.jpg';
-import img2 from '../vendors/paws-nepal/media/2.jpg';
-import vid1 from '../vendors/paws-nepal/media/1.mp4';
-import vid2 from '../vendors/paws-nepal/media/2.mp4';
+import dog09 from '../vendors/paws-nepal/media/dog-09.jpg';
+import dog10 from '../vendors/paws-nepal/media/dog-10.jpg';
+import dog11 from '../vendors/paws-nepal/media/dog-11.jpg';
+import dog12 from '../vendors/paws-nepal/media/dog-12.jpg';
 import dog01 from '../vendors/paws-nepal/media/dog-01.jpg';
 import dog02 from '../vendors/paws-nepal/media/dog-02.jpg';
 import dog03 from '../vendors/paws-nepal/media/dog-03.jpg';
@@ -238,16 +238,16 @@ const SERVICES = [
 ];
 
 const GALLERY = [
-  { img: img1, span: 'tall' },
+  { img: dog09, span: 'tall' },
   { img: dog01, span: '' },
   { img: dog02, span: '' },
-  { video: vid1, span: 'wide' },
+  { img: dog11, span: 'wide' },
   { img: dog03, span: '' },
   { img: dog04, span: 'tall' },
   { img: dog05, span: '' },
-  { video: vid2, span: 'wide' },
+  { img: dog12, span: 'wide' },
   { img: dog06, span: '' },
-  { img: img2, span: 'tall' },
+  { img: dog10, span: 'tall' },
   { img: dog07, span: '' },
   { img: dog08, span: '' }
 ];
@@ -322,7 +322,7 @@ export default function VendorPage() {
           </Reveal>
           <Reveal className="vp-story-media" delay={0.12}>
             <img src={dog01} alt="A happy dog enjoying life" loading="lazy" />
-            <img className="vp-stacked" src={img2} alt="A dog at PAWS" loading="lazy" />
+            <img className="vp-stacked" src={dog10} alt="A dog at PAWS" loading="lazy" />
           </Reveal>
         </div>
       </section>

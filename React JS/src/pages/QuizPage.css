@@ -37,7 +37,7 @@
   .meta-chip{font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; padding:5px 12px; border-radius:100px; background:rgba(27,24,54,0.06); color:rgba(27,24,54,0.65);}
   .meta-chip.hot{background:rgba(242,169,0,0.16); color:#8a6200;}
 
-  .panel{display:none; margin-bottom:70px;}
+  .panel{display:none; margin-bottom:70px; scroll-margin-top:96px;}
   .panel.active{display:block;}
 
   .p-head{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:18px;}
