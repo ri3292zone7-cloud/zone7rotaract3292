@@ -18,6 +18,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 
 PAGE_REWRITES = {
     "/about": "/about.html",
+    "/search": "/search.html",
     "/gallery": "/gallery.html",
     "/project": "/project.html",
     "/guides": "/guides.html",
@@ -42,6 +43,9 @@ PAGE_REWRITES = {
     "/merch": "/merch-react.html",
     "/vendor/paws-nepal": "/React JS/dist-vendor-pawsnepal/vendor-pawsnepal.html",
     "/vendor/paws-nepal/": "/React JS/dist-vendor-pawsnepal/vendor-pawsnepal.html",
+    "/vendor/mannka-creation": "/React JS/dist-vendor-mannka/vendor-mannka.html",
+    "/vendor/mannka-creation/": "/React JS/dist-vendor-mannka/vendor-mannka.html",
+    "/vendors": "/React JS/dist-vendors/vendors-react.html",
     "/district-overview": "/district-overview.html",
     "/selftest": "/selftest.html",
     "/ne-about": "/ne-about.html",

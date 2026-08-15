@@ -5,7 +5,8 @@ import './island-nav.css';
 const SITE_LINKS = [
   { key: 'home', label: 'Home', href: '/' },
   { key: 'store', label: 'Store', href: '/store' },
-  { key: 'merch', label: 'Magazine', href: '/merch' }
+  { key: 'merch', label: 'Magazine', href: '/merch' },
+  { key: 'vendors', label: 'Local Vendors', href: '/vendors' }
 ];
 
 /*
@@ -33,20 +34,21 @@ export default function IslandNav({ current, context, children }) {
   }, [menu]);
 
   /*
-   * The Home link is always a plain <a> — '/' is not a route in the island
-   * app, so it must leave the island entirely (full page load, cross-faded
-   * by site-transition.js). Store/Magazine stay router Links: inside the
-   * combined app they navigate client-side without reloading.
+   * The Home and Local Vendors links are always plain <a> tags — '/' and
+   * '/vendors' are not routes in the island app, so they must leave the
+   * island entirely (full page load, cross-faded by site-transition.js).
+   * Store/Magazine stay router Links: inside the combined app they navigate
+   * client-side without reloading.
    */
-  const isHome = (href) => href === '/';
+  const isRouterExternal = (href) => href === '/' || href === '/vendors';
   const linkProps = (href) => {
     const onClick = () => setMenu(false);
-    if (isHome(href)) return { href: '/', onClick };
+    if (isRouterExternal(href)) return { href, onClick };
     return inRouter ? { to: href, onClick } : { href, onClick };
   };
 
   const NavLink = ({ href, ...rest }) => {
-    const Tag = isHome(href) ? 'a' : (inRouter ? Link : 'a');
+    const Tag = isRouterExternal(href) ? 'a' : (inRouter ? Link : 'a');
     return Tag === 'a' ? <a href={href} {...rest} /> : <Tag {...rest} />;
   };
   const ctx = context || (current === 'store' ? 'Store' : current === 'merch' ? 'Magazine' : 'Vendor');

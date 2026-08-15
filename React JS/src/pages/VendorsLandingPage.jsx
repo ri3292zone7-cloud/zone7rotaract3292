@@ -103,12 +103,12 @@ const REASONS = [
 
 export default function VendorsLandingPage() {
   useEffect(() => {
-    document.title = 'Support Local — Zone 7 Vendors | Rotaract District 3292';
+    document.title = 'Local Vendors — Zone 7 Vendors | Rotaract District 3292';
   }, []);
 
   return (
     <div className="vl-page">
-      <IslandNav current="vendors" context="Support Local" />
+      <IslandNav current="vendors" context="Local Vendors" />
 
       {/* ── HERO ── */}
       <header className="vl-hero" id="vendors-hero">
@@ -224,7 +224,7 @@ export default function VendorsLandingPage() {
       {/* ── FOOTER ── */}
       <footer className="vl-footer">
         <div className="vl-wrap vl-footer-inner">
-          <span><span className="vl-dot">✦</span> Support Local · Zone 7</span>
+          <span><span className="vl-dot">✦</span> Local Vendors · Zone 7</span>
           <span>A Rotaract District 3292 initiative · Kathmandu, Nepal</span>
           <span><a href="/store">Store</a> · <a href="/">Home</a> · Rotaract District 3292</span>
         </div>

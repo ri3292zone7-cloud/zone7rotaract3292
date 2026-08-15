@@ -156,7 +156,6 @@
     "</div>" +
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
-    item("/vendors", "Support Local", "vendors") +
     "</div>" +
     '<div style="display:flex;align-items:center;gap:16px;">' +
     '<a href="/admin" class="nav-admin">Club Admin</a>' +
@@ -177,7 +176,6 @@
     '<div class="mm-group">Community</div>' +
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
-    '<a href="/vendors">Support Local</a>' +
     '<a href="/join">Join Us</a>' +
     '<a href="/admin">Club Admin</a>' +
     '<a class="mm-cta" href="/join">Fill the Form, Become a Rotaractor →</a>' +

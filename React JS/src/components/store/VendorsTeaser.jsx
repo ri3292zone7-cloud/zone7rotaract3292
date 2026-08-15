@@ -21,7 +21,7 @@ export default function VendorsTeaser() {
             </p>
           </div>
           <a className="st-teaser-btn" href="/vendors">
-            Visit Support Local →
+            Visit Local Vendors →
           </a>
         </Reveal>
       </div>
