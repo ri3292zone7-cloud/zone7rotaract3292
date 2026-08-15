@@ -10,6 +10,9 @@ import Cap from './models/Cap';
 import Bottle from './models/Bottle';
 import StudioEnv from './models/StudioEnv';
 import tshirtVideo from './models/tshirt-video.mp4';
+import pinVideo from './models/pin-video.mp4';
+import capVideo from './models/cap-video.mp4';
+import bottleVideo from './models/bottle-video.mp4';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -129,6 +132,54 @@ function TeeVideo({ controls = false }) {
   );
 }
 
+/* real product shot — the lapel pin video replaces the 3D mockup */
+function PinVideo({ controls = false }) {
+  return (
+    <video
+      src={pinVideo}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      controls={controls}
+      aria-label="Zone 7 lapel pin — real product video"
+    />
+  );
+}
+
+/* real product shot — the cap video replaces the 3D mockup */
+function CapVideo({ controls = false }) {
+  return (
+    <video
+      src={capVideo}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      controls={controls}
+      aria-label="Zone 7 cap — real product video"
+    />
+  );
+}
+
+/* real product shot — the coffee mug video replaces the 3D mockup */
+function BottleVideo({ controls = false }) {
+  return (
+    <video
+      src={bottleVideo}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      controls={controls}
+      aria-label="Zone 7 coffee mug — real product video"
+    />
+  );
+}
+
 function ModelContent({ product }) {
   const frame = KIND_FRAME[product.kind] || KIND_FRAME.tee;
   return (
@@ -188,9 +239,21 @@ function Product3D({ product }) {
         ? live
           ? <TeeVideo />
           : <ProductVisual product={product} />
-        : live
-          ? <ModelCanvas product={product} />
-          : <ProductVisual product={product} />}
+        : product.kind === 'pin'
+          ? live
+            ? <PinVideo />
+            : <ProductVisual product={product} />
+          : product.kind === 'cap'
+            ? live
+              ? <CapVideo />
+              : <ProductVisual product={product} />
+            : product.kind === 'bottle' && product.id === 'bottle-steel'
+              ? live
+                ? <BottleVideo />
+                : <ProductVisual product={product} />
+              : live
+                ? <ModelCanvas product={product} />
+                : <ProductVisual product={product} />}
     </div>
   );
 }
@@ -266,7 +329,7 @@ function VariantModal({ kindLabel, products, selectedId, onSelect, onClose }) {
         <button type="button" className="st-modal-x" aria-label="Close" onClick={onClose}>✕</button>
 
         <div className="st-modal-media">
-          {product.kind === 'tee' ? <TeeVideo controls /> : <ModelCanvas product={product} />}
+          {product.kind === 'tee' ? <TeeVideo controls /> : product.kind === 'pin' ? <PinVideo controls /> : product.kind === 'cap' ? <CapVideo controls /> : product.kind === 'bottle' && product.id === 'bottle-steel' ? <BottleVideo controls /> : <ModelCanvas product={product} />}
         </div>
 
         <div className="st-modal-body">

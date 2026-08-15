@@ -98,11 +98,11 @@ export const CATALOG = [
   {
     id: "bottle-steel",
     kind: "bottle",
-    name: "Zone 7 Steel Bottle — 750ml",
-    tagline: "Double-walled steel with the Z7 crest laser-printed.",
+    name: "Zone 7 Coffee Mug",
+    tagline: "Ceramic mug with the Z7 crest. Start the day in the zone.",
     price: 400,
     color: "#9AA5B1",
-    colorName: "Steel",
+    colorName: "Mug",
     sizes: [],
     badge: "Hydrate in style"
   },
