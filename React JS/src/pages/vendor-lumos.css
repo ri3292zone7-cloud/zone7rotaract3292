@@ -74,7 +74,7 @@
   filter: blur(7px);
 }
 
-/* simple product photo collage — subtle 3D stage */
+/* product photo collage — each photo lives in its own 3D space */
 .sl-hero-shots {
   position: absolute;
   right: 5%;
@@ -85,9 +85,6 @@
   grid-template-rows: 160px 160px;
   gap: 16px;
   pointer-events: none;
-  transform-style: preserve-3d;
-  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1);
-  will-change: transform;
 }
 
 .sl-shot {
@@ -97,32 +94,34 @@
   border: 8px solid #FFFFFF;
   border-radius: 4px;
   box-shadow: 0 14px 44px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.14);
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) rotate(-2deg) translateZ(46px);
+  transition: transform 0.15s ease-out;
+  will-change: transform;
 }
 
 .sl-shot-main {
   grid-column: 1;
   grid-row: 1 / span 2;
-  transform: rotate(-2deg) translateZ(46px);
 }
 
 .sl-shot-a {
-  transform: rotate(3deg) translateZ(20px);
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) rotate(3deg) translateZ(20px);
 }
 
 .sl-shot-b {
-  transform: rotate(-4deg) translateZ(28px);
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) rotate(-4deg) translateZ(28px);
 }
 
 .sl-shot-c {
-  transform: rotate(5deg) translateZ(16px);
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) rotate(5deg) translateZ(16px);
 }
 
 .sl-shot-d {
-  transform: rotate(-3deg) translateZ(26px);
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) rotate(-3deg) translateZ(26px);
 }
 
 .sl-shot-e {
-  transform: rotate(4deg) translateZ(18px);
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) rotate(4deg) translateZ(18px);
 }
 
 /* die-cut sticker accents */

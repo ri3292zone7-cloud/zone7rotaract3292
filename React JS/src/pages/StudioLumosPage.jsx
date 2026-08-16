@@ -165,25 +165,45 @@ export default function StudioLumosPage() {
   const [flurry, setFlurry] = useState(false);
   const [reduced] = useState(() => (typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false));
   const heroRef = useRef(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const shotsRef = useRef([]);
 
   useEffect(() => {
     document.title = 'StudioLumos.np | Zone 7 Local Vendor';
   }, []);
 
-  // gentle 3D tilt on the photo collage — mouse driven, off for touch & reduced motion
+  // each photo tilts in its own 3D space toward the cursor — off for touch & reduced motion
   useEffect(() => {
     const el = heroRef.current;
     if (!el || reduced || (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches)) return;
+    const BASE = [-2, 3, -4, 5, -3, 4];
+    const DEPTH = [46, 20, 28, 16, 26, 18];
     let raf = 0;
-    const onMove = (e) => {
-      const r = el.getBoundingClientRect();
-      const nx = (e.clientX - r.left) / r.width - 0.5;
-      const ny = (e.clientY - r.top) / r.height - 0.5;
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => setTilt({ x: +(ny * -7).toFixed(2), y: +(nx * 9).toFixed(2) }));
+    let mouseX = 0, mouseY = 0;
+    const apply = () => {
+      shotsRef.current.forEach((shot, i) => {
+        if (!shot) return;
+        const r = shot.getBoundingClientRect();
+        const nx = (mouseX - (r.left + r.width / 2)) / (r.width / 2);
+        const ny = (mouseY - (r.top + r.height / 2)) / (r.height / 2);
+        // atan soft-falloff: cards near the cursor respond most, distant ones settle gently
+        const tx = Math.atan(ny * 1.3) * 7.5;
+        const ty = Math.atan(nx * 1.3) * 10;
+        shot.style.transform =
+          `perspective(900px) rotateX(${tx.toFixed(2)}deg) rotateY(${ty.toFixed(2)}deg) rotate(${BASE[i]}deg) translateZ(${DEPTH[i]}px)`;
+      });
+      raf = 0;
     };
-    const onLeave = () => { cancelAnimationFrame(raf); setTilt({ x: 0, y: 0 }); };
+    const onMove = (e) => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+    const onLeave = () => {
+      cancelAnimationFrame(raf); raf = 0;
+      shotsRef.current.forEach((shot, i) => {
+        if (shot) shot.style.transform =
+          `perspective(900px) rotateX(0deg) rotateY(0deg) rotate(${BASE[i]}deg) translateZ(${DEPTH[i]}px)`;
+      });
+    };
     el.addEventListener('mousemove', onMove, { passive: true });
     el.addEventListener('mouseleave', onLeave);
     return () => {
@@ -207,17 +227,13 @@ export default function StudioLumosPage() {
       {/* ── HERO ── */}
       <header className="sl-hero" id="lumos-hero" ref={heroRef}>
         <div className="sl-graph" aria-hidden="true"></div>
-        <div
-          className="sl-hero-shots"
-          aria-hidden="true"
-          style={{ transform: `translateY(-50%) perspective(1100px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}
-        >
-          <img className="sl-shot sl-shot-main" src={stickers2Img} alt="" loading="eager" />
-          <img className="sl-shot sl-shot-a" src={gokuImg} alt="" loading="lazy" />
-          <img className="sl-shot sl-shot-b" src={notebooksImg} alt="" loading="lazy" />
-          <img className="sl-shot sl-shot-c" src={stickersImg} alt="" loading="lazy" />
-          <img className="sl-shot sl-shot-d" src={garoImg} alt="" loading="lazy" />
-          <img className="sl-shot sl-shot-e" src={spidermanImg} alt="" loading="lazy" />
+        <div className="sl-hero-shots" aria-hidden="true">
+          <img className="sl-shot sl-shot-main" ref={(el) => (shotsRef.current[0] = el)} src={stickers2Img} alt="" loading="eager" />
+          <img className="sl-shot sl-shot-a" ref={(el) => (shotsRef.current[1] = el)} src={gokuImg} alt="" loading="lazy" />
+          <img className="sl-shot sl-shot-b" ref={(el) => (shotsRef.current[2] = el)} src={notebooksImg} alt="" loading="lazy" />
+          <img className="sl-shot sl-shot-c" ref={(el) => (shotsRef.current[3] = el)} src={stickersImg} alt="" loading="lazy" />
+          <img className="sl-shot sl-shot-d" ref={(el) => (shotsRef.current[4] = el)} src={garoImg} alt="" loading="lazy" />
+          <img className="sl-shot sl-shot-e" ref={(el) => (shotsRef.current[5] = el)} src={spidermanImg} alt="" loading="lazy" />
           <span className="sl-sticker sl-sticker-star"><StickerStar /></span>
           <span className="sl-sticker sl-sticker-badge"><StickerBadge /></span>
           <span className="sl-sticker sl-sticker-pill"><StickerPill /></span>
