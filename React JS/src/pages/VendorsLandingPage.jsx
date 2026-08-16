@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
@@ -16,6 +16,22 @@ const PHOTOS = {
   'mannka-creation': mannkaPhoto,
   'studio-lumos': lumosPhoto
 };
+
+/* per-vendor accent — contrast colors used across spotlight, chips and cards */
+const ACCENTS = {
+  'paws-nepal': '#38D9C4',
+  'mannka-creation': '#FF6BA9',
+  'studio-lumos': '#FFD34D'
+};
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 /* ── 3D: soft glow orbs behind the headline ─────────────────────── */
 function GlowOrb({ position, color, scale = 1, speed = 0.25 }) {
@@ -43,7 +59,7 @@ function AmbientScene() {
     >
       <GlowOrb position={[-4.6, 1.8, -3]} color="#E11A6E" scale={1.5} speed={0.25} />
       <GlowOrb position={[4.8, 0.9, -3.4]} color="#F2A900" scale={1.9} speed={0.2} />
-      <GlowOrb position={[0, 2.8, -5]} color="#1B1836" scale={2.4} speed={0.18} />
+      <GlowOrb position={[0, 2.8, -5]} color="#4C4A8E" scale={2.4} speed={0.18} />
       <Sparkles count={140} scale={[12, 7, 9]} position={[0, 1.8, -1]} size={2.2} speed={0.3} opacity={0.45} color="#F6C453" />
     </Canvas>
   );
@@ -84,6 +100,26 @@ function Ticker() {
   );
 }
 
+/* ── Small inline icons ────────────────────────────────────────── */
+function IgIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4.2" />
+      <circle cx="17.1" cy="6.9" r="1.3" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function GlobeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3c2.6 2.5 3.9 5.6 3.9 9S14.6 18.5 12 21c-2.6-2.5-3.9-5.6-3.9-9S9.4 5.5 12 3z" />
+    </svg>
+  );
+}
+
 /* ── Why it matters ────────────────────────────────────────────── */
 const REASONS = [
   {
@@ -104,9 +140,33 @@ const REASONS = [
 ];
 
 export default function VendorsLandingPage() {
+  const [order, setOrder] = useState(() => shuffle(VENDORS));
+  const [spotIdx, setSpotIdx] = useState(() => Math.floor(Math.random() * VENDORS.length));
+  const [query, setQuery] = useState('');
+  const [chip, setChip] = useState('All');
+
+  const CATEGORIES = useMemo(() => {
+    const set = new Set();
+    VENDORS.forEach((v) => v.category.split('·').forEach((c) => set.add(c.trim())));
+    return [...set];
+  }, []);
+
   useEffect(() => {
     document.title = 'Local Vendors — Zone 7 Vendors | Rotaract District 3292';
   }, []);
+
+  const spotlight = order[spotIdx % Math.max(order.length, 1)];
+  const q = query.trim().toLowerCase();
+  const filtered = order.filter(
+    (v) =>
+      (chip === 'All' || v.category.includes(chip)) &&
+      (!q || `${v.name} ${v.tagline} ${v.category} ${v.location} ${v.club}`.toLowerCase().includes(q))
+  );
+
+  const reshuffle = () => {
+    setOrder(shuffle(VENDORS));
+    setSpotIdx(Math.floor(Math.random() * VENDORS.length));
+  };
 
   return (
     <div className="vl-page">
@@ -114,6 +174,7 @@ export default function VendorsLandingPage() {
 
       {/* ── HERO ── */}
       <header className="vl-hero" id="vendors-hero">
+        <div className="vl-graph" aria-hidden="true"></div>
         <div className="vl-aurora a1"></div>
         <div className="vl-aurora a2"></div>
         <HeroAmbient />
@@ -127,33 +188,93 @@ export default function VendorsLandingPage() {
             home to the community.
           </p>
           <div className="vl-cta-row">
-            <a className="vl-btn vl-btn-dark" href="#vendors">Browse the vendors ↓</a>
+            <a className="vl-btn vl-btn-gold" href="#vendors">Browse the shops ↓</a>
             <a className="vl-btn vl-btn-ghost" href="/store">Visit the store →</a>
           </div>
+
+          <div className="vl-jump-row" role="navigation" aria-label="Jump to a shop">
+            {order.map((v) => (
+              <a className="vl-jump" key={v.id} href={`#shop-${v.id}`} style={{ '--acc': ACCENTS[v.id] }}>
+                <span aria-hidden="true">{v.emoji}</span> {v.shortName}
+              </a>
+            ))}
+          </div>
+
           <div className="vl-hero-stats">
             <span><b>{VENDORS.length}</b> local partner{VENDORS.length === 1 ? '' : 's'}</span>
             <span><b>Zone 7</b> Kathmandu Valley</span>
             <span><b>100%</b> community-first</span>
           </div>
         </div>
-        <a className="vl-scroll-cue" href="#vendors">Meet them <span className="vl-cue-arrow">↓</span></a>
+        <a className="vl-scroll-cue" href="#spotlight">Meet them <span className="vl-cue-arrow">↓</span></a>
       </header>
 
       <Ticker />
 
-      {/* ── VENDORS GRID ── */}
+      {/* ── SPOTLIGHT ── */}
+      {spotlight ? (
+        <section className="vl-spot" id="spotlight">
+          <div className="vl-wrap">
+            <Reveal className="vl-spot-card" style={{ '--acc': ACCENTS[spotlight.id] }}>
+              <div className="vl-spot-media">
+                <img src={PHOTOS[spotlight.id]} alt={spotlight.name} loading="eager" />
+                <span className="vl-spot-emoji" aria-hidden="true">{spotlight.emoji}</span>
+              </div>
+              <div className="vl-spot-body">
+                <span className="vl-spot-kicker">✨ Shop spotlight — shuffled every visit</span>
+                <h2>{spotlight.name}</h2>
+                <span className="vl-chip" style={{ '--acc': ACCENTS[spotlight.id] }}>{spotlight.category}</span>
+                <p className="vl-spot-tag">{spotlight.tagline}</p>
+                <p className="vl-spot-desc">{spotlight.desc}</p>
+                <div className="vl-spot-meta">
+                  <span className="vl-pin">📍 {spotlight.location}</span>
+                  <span className="vl-club">{spotlight.club}</span>
+                </div>
+                <div className="vl-spot-actions">
+                  <a className="vl-btn vl-btn-acc" href={spotlight.page}>Enter the shop →</a>
+                  <a className="vl-icon-btn" href={spotlight.instagram} target="_blank" rel="noreferrer" aria-label={`${spotlight.name} on Instagram`}><IgIcon /></a>
+                  {spotlight.site && spotlight.site !== spotlight.instagram ? (
+                    <a className="vl-icon-btn" href={spotlight.site} target="_blank" rel="noreferrer" aria-label={`${spotlight.name} website`}><GlobeIcon /></a>
+                  ) : null}
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
+
+      {/* ── DIRECTORY ── */}
       <section className="vl-vendors" id="vendors">
         <div className="vl-wrap">
-          <Reveal className="vl-center-head">
-            <span className="vl-kicker">Our local vendors</span>
-            <h2>The businesses building Zone 7.</h2>
-            <p>Each vendor has its own page — their story, their craft and the good work your purchase helps carry forward.</p>
-          </Reveal>
+          <div className="vl-toolbar">
+            <div className="vl-toolbar-top">
+              <div className="vl-search">
+                <span aria-hidden="true">🔍</span>
+                <input
+                  type="search"
+                  placeholder="Search shops, categories, clubs…"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  aria-label="Search local vendors"
+                />
+              </div>
+              <button type="button" className="vl-shuffle" onClick={reshuffle} aria-label="Shuffle the shops">
+                🔀 Shuffle
+              </button>
+            </div>
+            <div className="vl-chips" role="tablist" aria-label="Filter by category">
+              <button type="button" className={`vl-chip-btn${chip === 'All' ? ' active' : ''}`} onClick={() => setChip('All')}>All</button>
+              {CATEGORIES.map((c) => (
+                <button type="button" key={c} className={`vl-chip-btn${chip === c ? ' active' : ''}`} onClick={() => setChip(c)}>{c}</button>
+              ))}
+              <span className="vl-count">{filtered.length} shop{filtered.length === 1 ? '' : 's'}</span>
+            </div>
+          </div>
 
           <div className="vl-vendor-grid">
-            {VENDORS.map((v, i) => (
-              <Reveal className="vl-card" key={v.id} delay={i * 0.08}>
-                <a className="vl-card-link" href={v.page}>
+            {filtered.map((v, i) => (
+              <Reveal className="vl-card" key={`${v.id}-${i}`} delay={Math.min(i, 4) * 0.06}>
+                <a className="vl-card-link" href={v.page} id={`shop-${v.id}`} style={{ '--acc': ACCENTS[v.id] }}>
                   <div className={`vl-card-media${v.id === 'paws-nepal' ? ' fit' : ''}`}>
                     <img src={PHOTOS[v.id]} alt={v.shortName} loading="lazy" />
                     <span className="vl-card-badge">{v.category}</span>
@@ -165,15 +286,38 @@ export default function VendorsLandingPage() {
                     <div className="vl-card-meta">
                       <span className="vl-pin">📍 {v.location}</span>
                       <span className="vl-club">{v.club}</span>
-                      <span className="vl-more">Visit vendor →</span>
+                    </div>
+                    <div className="vl-card-actions">
+                      <span className="vl-more">Visit shop →</span>
+                      <span className="vl-icon-row">
+                        <span className="vl-icon-btn" aria-hidden="true"><IgIcon /></span>
+                        {v.site && v.site !== v.instagram ? <span className="vl-icon-btn" aria-hidden="true"><GlobeIcon /></span> : null}
+                      </span>
                     </div>
                   </div>
                 </a>
               </Reveal>
             ))}
 
+            {filtered.length === 0 ? (
+              <Reveal className="vl-card vl-empty">
+                <div className="vl-card-link">
+                  <div className="vl-card-media">
+                    <span className="vl-plus" aria-hidden="true">?</span>
+                  </div>
+                  <div className="vl-card-body">
+                    <h3>No shops found</h3>
+                    <p className="vl-card-desc">Nothing matches that search. Try a different word, or clear the filters.</p>
+                    <div className="vl-card-meta">
+                      <span className="vl-more" onClick={(e) => { e.preventDefault(); setQuery(''); setChip('All'); }}>Clear filters →</span>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ) : null}
+
             {Array.from({ length: VENDOR_SLOTS }).map((_, i) => (
-              <Reveal className="vl-card ghost" key={`slot-${i}`} delay={(VENDORS.length + i) * 0.08}>
+              <Reveal className="vl-card ghost" key={`slot-${i}`} delay={(filtered.length + i) * 0.05}>
                 <div className="vl-card-link">
                   <div className="vl-card-media">
                     <span className="vl-plus" aria-hidden="true">+</span>
@@ -197,7 +341,7 @@ export default function VendorsLandingPage() {
       <section className="vl-why">
         <div className="vl-wrap">
           <Reveal className="vl-center-head">
-            <span className="vl-kicker light">Why it matters</span>
+            <span className="vl-kicker">Why it matters</span>
             <h2>Small shops, big neighbourhood.</h2>
             <p>Buying local is the easiest way to make your money mean something.</p>
           </Reveal>
@@ -215,6 +359,7 @@ export default function VendorsLandingPage() {
 
       {/* ── PARTNER BAND ── */}
       <section className="vl-partner">
+        <div className="vl-graph" aria-hidden="true"></div>
         <div className="vl-aurora a3"></div>
         <Reveal className="vl-partner-inner">
           <span className="vl-partner-mark" aria-hidden="true">✦</span>

@@ -4,6 +4,7 @@ import IslandNav from '../components/island/IslandNav';
 import './vendor-lumos.css';
 
 import stickersImg from '../vendors/studiolumos/media/stickers.jpg';
+import sauravImg from '../vendors/studiolumos/media/Saurav.jpg';
 import stickers2Img from '../vendors/studiolumos/media/stickers-2.jpg';
 import notebooksImg from '../vendors/studiolumos/media/notebooks.jpg';
 import garoImg from '../vendors/studiolumos/media/garo.jpg';
@@ -166,6 +167,7 @@ export default function StudioLumosPage() {
   const [reduced] = useState(() => (typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false));
   const heroRef = useRef(null);
   const shotsRef = useRef([]);
+  const stickersRef = useRef([]);
 
   useEffect(() => {
     document.title = 'StudioLumos.np | Zone 7 Local Vendor';
@@ -175,8 +177,8 @@ export default function StudioLumosPage() {
   useEffect(() => {
     const el = heroRef.current;
     if (!el || reduced || (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches)) return;
-    const BASE = [-2, 3, -4, 5, -3, 4];
-    const DEPTH = [46, 20, 28, 16, 26, 18];
+    const BASE = [-2, 3, -4, 5, -3, 4, 2];
+    const DEPTH = [46, 20, 28, 16, 26, 18, 24];
     let raf = 0;
     let mouseX = 0, mouseY = 0;
     const apply = () => {
@@ -191,6 +193,16 @@ export default function StudioLumosPage() {
         shot.style.transform =
           `perspective(900px) rotateX(${tx.toFixed(2)}deg) rotateY(${ty.toFixed(2)}deg) rotate(${BASE[i]}deg) translateZ(${DEPTH[i]}px)`;
       });
+      // stickers tilt gently in their own space too
+      stickersRef.current.forEach((st) => {
+        if (!st) return;
+        const r = st.getBoundingClientRect();
+        const nx = (mouseX - (r.left + r.width / 2)) / (r.width / 2);
+        const ny = (mouseY - (r.top + r.height / 2)) / (r.height / 2);
+        const tx = Math.atan(ny * 1.3) * 3.5;
+        const ty = Math.atan(nx * 1.3) * 4.5;
+        st.style.transform = `perspective(700px) rotateX(${tx.toFixed(2)}deg) rotateY(${ty.toFixed(2)}deg)`;
+      });
       raf = 0;
     };
     const onMove = (e) => {
@@ -202,6 +214,9 @@ export default function StudioLumosPage() {
       shotsRef.current.forEach((shot, i) => {
         if (shot) shot.style.transform =
           `perspective(900px) rotateX(0deg) rotateY(0deg) rotate(${BASE[i]}deg) translateZ(${DEPTH[i]}px)`;
+      });
+      stickersRef.current.forEach((st) => {
+        if (st) st.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg)';
       });
     };
     el.addEventListener('mousemove', onMove, { passive: true });
@@ -234,9 +249,10 @@ export default function StudioLumosPage() {
           <img className="sl-shot sl-shot-c" ref={(el) => (shotsRef.current[3] = el)} src={stickersImg} alt="" loading="lazy" />
           <img className="sl-shot sl-shot-d" ref={(el) => (shotsRef.current[4] = el)} src={garoImg} alt="" loading="lazy" />
           <img className="sl-shot sl-shot-e" ref={(el) => (shotsRef.current[5] = el)} src={spidermanImg} alt="" loading="lazy" />
-          <span className="sl-sticker sl-sticker-star"><StickerStar /></span>
-          <span className="sl-sticker sl-sticker-badge"><StickerBadge /></span>
-          <span className="sl-sticker sl-sticker-pill"><StickerPill /></span>
+          <img className="sl-shot sl-shot-f" ref={(el) => (shotsRef.current[6] = el)} src={sauravImg} alt="" loading="lazy" />
+          <span className="sl-sticker sl-sticker-star"><span className="sl-sticker-inner" ref={(el) => (stickersRef.current[0] = el)}><StickerStar /></span></span>
+          <span className="sl-sticker sl-sticker-badge"><span className="sl-sticker-inner" ref={(el) => (stickersRef.current[1] = el)}><StickerBadge /></span></span>
+          <span className="sl-sticker sl-sticker-pill"><span className="sl-sticker-inner" ref={(el) => (stickersRef.current[2] = el)}><StickerPill /></span></span>
         </div>
         <div className="sl-hero-scrim"></div>
 
