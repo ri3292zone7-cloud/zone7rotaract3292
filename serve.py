@@ -45,6 +45,8 @@ PAGE_REWRITES = {
     "/vendor/paws-nepal/": "/React JS/dist-vendor-pawsnepal/vendor-pawsnepal.html",
     "/vendor/mannka-creation": "/React JS/dist-vendor-mannka/vendor-mannka.html",
     "/vendor/mannka-creation/": "/React JS/dist-vendor-mannka/vendor-mannka.html",
+    "/vendor/studio-lumos": "/React JS/dist-vendor-lumos/vendor-lumos.html",
+    "/vendor/studio-lumos/": "/React JS/dist-vendor-lumos/vendor-lumos.html",
     "/vendors": "/React JS/dist-vendors/vendors-react.html",
     "/district-overview": "/district-overview.html",
     "/selftest": "/selftest.html",

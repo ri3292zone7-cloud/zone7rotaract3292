@@ -9,10 +9,12 @@ import './vendors-landing.css';
 
 import pawsLogo from '../vendors/paws-nepal/media/paws-logo.webp';
 import mannkaPhoto from '../vendors/mannka-creation/media/mannka-card.jpg';
+import lumosPhoto from '../vendors/studiolumos/media/stickers.jpg';
 
 const PHOTOS = {
   'paws-nepal': pawsLogo,
-  'mannka-creation': mannkaPhoto
+  'mannka-creation': mannkaPhoto,
+  'studio-lumos': lumosPhoto
 };
 
 /* ── 3D: soft glow orbs behind the headline ─────────────────────── */
@@ -65,8 +67,8 @@ function HeroAmbient() {
 
 /* ── Marquee ticker ────────────────────────────────────────────── */
 const TICKER = [
-  'Support local', 'Paws Nepal', 'Mannka Creations', 'Pet boarding & day care',
-  'Fresh flowers', 'Kathmandu', 'Community first', 'Every purchase gives back'
+  'Support local', 'Paws Nepal', 'Mannka Creations', 'StudioLumos.np', 'Pet boarding & day care',
+  'Fresh flowers', 'Custom stickers', 'Kathmandu', 'Community first', 'Every purchase gives back'
 ];
 
 function Ticker() {

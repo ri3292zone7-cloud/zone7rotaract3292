@@ -34,11 +34,25 @@ export const VENDORS = [
     site: 'https://www.instagram.com/mannka_creation',
     instagram: 'https://www.instagram.com/mannka_creation',
     page: '/vendor/mannka-creation'
+  },
+  {
+    id: 'studio-lumos',
+    name: 'StudioLumos.np',
+    shortName: 'StudioLumos.np',
+    tagline: 'Custom stickers, anime posters, notebooks and frames \u2014 your ideas, printed beautifully.',
+    desc: 'A creative sticker, frame and printing studio founded by Rtr. Saurav Singh in 2021. Custom stickers, anime posters, notebooks, frames and bulk printing \u2014 turn your ideas into high-quality, customized products.',
+    location: 'Kathmandu',
+    club: 'Rotaract Club of Tripureswor Kathmandu',
+    category: 'Stickers \u00b7 Printing',
+    emoji: '\ud83c\udf89',
+    site: 'https://www.instagram.com/studiolumos.np/',
+    instagram: 'https://www.instagram.com/studiolumos.np/',
+    page: '/vendor/studio-lumos'
   }
 ];
 
 /* Ghost card slots shown for vendors that join later. */
-export const VENDOR_SLOTS = 2;
+export const VENDOR_SLOTS = 1;
 
 export function vendorPagePath(id) {
   const v = VENDORS.find((x) => x.id === id);
