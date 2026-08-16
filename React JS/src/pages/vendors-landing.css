@@ -149,6 +149,8 @@
 .vl-card-link { display: block; text-decoration: none; color: inherit; }
 .vl-card-media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
 .vl-card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vl-card-media.fit { background: #14161c; }
+.vl-card-media.fit img { object-fit: contain; }
 .vl-card-badge {
   position: absolute;
   top: 14px;
@@ -175,7 +177,9 @@
 .vl-card-body h3 { font-family: 'Poppins', sans-serif; font-size: 1.12rem; font-weight: 700; margin: 0 0 8px; color: var(--ink); }
 .vl-card-desc { font-size: 0.87rem; line-height: 1.6; color: var(--soft); margin: 0 0 16px; }
 .vl-card-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.vl-card-meta .vl-club { flex-basis: 100%; }
 .vl-pin { font-size: 0.8rem; color: var(--faint); }
+.vl-club { font-size: 0.78rem; font-weight: 600; color: var(--rose); letter-spacing: 0.02em; }
 .vl-more { font-size: 0.82rem; font-weight: 700; color: var(--rose); }
 .vl-card.ghost { border-style: dashed; background: rgba(255, 255, 255, 0.5); }
 .vl-card.ghost:hover { border-color: rgba(225, 26, 110, 0.35); transform: none; box-shadow: none; }

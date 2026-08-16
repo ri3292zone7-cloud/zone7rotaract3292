@@ -255,14 +255,14 @@ const GALLERY = [
 export default function VendorPage() {
   const [bark, setBark] = useState(0);
   useEffect(() => {
-    document.title = 'PAWS — Play & Stay | Zone 7 Local Vendor';
+    document.title = 'Paws Nepal | Zone 7 Local Vendor';
   }, []);
 
   const petPup = () => setBark((b) => b + 1);
 
   return (
     <div className="vp-page">
-      <IslandNav current="vendor" context="PAWS — Play & Stay" />
+      <IslandNav current="vendor" context="Paws Nepal" />
       {/* ── HERO ── */}
       <header className="vp-hero" id="vendor-hero">
         <div className="vp-aurora a1"></div>
@@ -275,7 +275,7 @@ export default function VendorPage() {
         <div className="vp-hero-frame">
           <div className="vp-hero-copy">
             <span className="vp-eyebrow">Zone 7 · Local Vendor</span>
-            <h1 className="vp-title">PAWS <span className="vp-em">— Play &amp; Stay</span></h1>
+            <h1 className="vp-title">PAWS <span className="vp-em">Play &amp; Stay Store</span></h1>
             <p className="vp-tagline">
               A home away from home for your four-legged family.
               <br />Pet boarding &amp; day care in Kathmandu.
@@ -305,7 +305,7 @@ export default function VendorPage() {
             <h2>The dogs make the house a home.</h2>
             <p>
               When you leave town, someone has to keep the routines, the walks and the
-              treats flowing. PAWS — Play &amp; Stay exists for exactly that: a clean,
+              treats flowing. Paws Nepal exists for exactly that: a clean,
               quiet and comfortable second home where your pet is the guest of honour.
             </p>
             <p>
@@ -378,7 +378,7 @@ export default function VendorPage() {
           <p className="vp-quote-text">
             Every guest arrives with a story — and leaves as family.
           </p>
-          <span className="vp-quote-by">— The pack at PAWS, Play &amp; Stay</span>
+          <span className="vp-quote-by">— The pack at Paws Nepal</span>
         </Reveal>
       </section>
 

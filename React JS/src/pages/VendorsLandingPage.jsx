@@ -7,11 +7,11 @@ import IslandNav from '../components/island/IslandNav';
 import { VENDORS, VENDOR_SLOTS } from '../data/vendors';
 import './vendors-landing.css';
 
-import pawsPhoto from '../vendors/paws-nepal/media/dog-01.jpg';
-import mannkaPhoto from '../vendors/mannka-creation/media/photo-1.jpg';
+import pawsLogo from '../vendors/paws-nepal/media/paws-logo.webp';
+import mannkaPhoto from '../vendors/mannka-creation/media/mannka-card.jpg';
 
 const PHOTOS = {
-  'paws-nepal': pawsPhoto,
+  'paws-nepal': pawsLogo,
   'mannka-creation': mannkaPhoto
 };
 
@@ -65,7 +65,7 @@ function HeroAmbient() {
 
 /* ── Marquee ticker ────────────────────────────────────────────── */
 const TICKER = [
-  'Support local', 'PAWS — Play & Stay', 'Mannka Creations', 'Pet boarding & day care',
+  'Support local', 'Paws Nepal', 'Mannka Creations', 'Pet boarding & day care',
   'Fresh flowers', 'Kathmandu', 'Community first', 'Every purchase gives back'
 ];
 
@@ -152,7 +152,7 @@ export default function VendorsLandingPage() {
             {VENDORS.map((v, i) => (
               <Reveal className="vl-card" key={v.id} delay={i * 0.08}>
                 <a className="vl-card-link" href={v.page}>
-                  <div className="vl-card-media">
+                  <div className={`vl-card-media${v.id === 'paws-nepal' ? ' fit' : ''}`}>
                     <img src={PHOTOS[v.id]} alt={v.shortName} loading="lazy" />
                     <span className="vl-card-badge">{v.category}</span>
                     <span className="vl-card-emoji" aria-hidden="true">{v.emoji}</span>
@@ -162,6 +162,7 @@ export default function VendorsLandingPage() {
                     <p className="vl-card-desc">{v.tagline}</p>
                     <div className="vl-card-meta">
                       <span className="vl-pin">📍 {v.location}</span>
+                      <span className="vl-club">{v.club}</span>
                       <span className="vl-more">Visit vendor →</span>
                     </div>
                   </div>

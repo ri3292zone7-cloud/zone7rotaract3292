@@ -9,11 +9,12 @@
 export const VENDORS = [
   {
     id: 'paws-nepal',
-    name: 'PAWS \u2014 Play & Stay',
+    name: 'Paws Nepal',
     shortName: 'Paws Nepal',
     tagline: 'A home away from home for your four-legged family.',
     desc: 'Pet boarding and day care in the heart of Kathmandu \u2014 day care, sleepovers and short or long stays wrapped in clean, quiet, comfortable care.',
     location: 'Kathmandu',
+    club: 'Rotaract Club of New Road City Kathmandu',
     category: 'Pet boarding \u00b7 Day care',
     emoji: '\ud83d\udc3e',
     site: 'https://pawsnepal.com',
@@ -27,6 +28,7 @@ export const VENDORS = [
     tagline: 'Fresh flowers, hand-wrapped bouquets and blooms for every occasion.',
     desc: 'A Kathmandu flower studio crafting bouquets, gift wraps and event florals \u2014 fresh stems, careful hands and a little bit of magic for every occasion.',
     location: 'Kathmandu',
+    club: 'Rotaract Club of New Road City Kathmandu',
     category: 'Flowers \u00b7 Gifts',
     emoji: '\ud83c\udf38',
     site: 'https://www.instagram.com/mannka_creation',
