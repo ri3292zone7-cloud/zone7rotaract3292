@@ -10,18 +10,21 @@ import './vendors-landing.css';
 import pawsLogo from '../vendors/paws-nepal/media/paws-logo.webp';
 import mannkaPhoto from '../vendors/mannka-creation/media/mannka-card.jpg';
 import lumosPhoto from '../vendors/studiolumos/media/stickers.jpg';
+import pustakCover from '../vendors/shankharapur-pustak-pasal/media/cover.jpg';
 
 const PHOTOS = {
   'paws-nepal': pawsLogo,
   'mannka-creation': mannkaPhoto,
-  'studio-lumos': lumosPhoto
+  'studio-lumos': lumosPhoto,
+  'shankharapur-pustak-pasal': pustakCover
 };
 
 /* per-vendor accent — contrast colors used across spotlight, chips and cards */
 const ACCENTS = {
   'paws-nepal': '#38D9C4',
   'mannka-creation': '#FF6BA9',
-  'studio-lumos': '#FFD34D'
+  'studio-lumos': '#FFD34D',
+  'shankharapur-pustak-pasal': '#E8832A'
 };
 
 function shuffle(arr) {
@@ -83,8 +86,9 @@ function HeroAmbient() {
 
 /* ── Marquee ticker ────────────────────────────────────────────── */
 const TICKER = [
-  'Support local', 'Paws Nepal', 'Mannka Creations', 'StudioLumos.np', 'Pet boarding & day care',
-  'Fresh flowers', 'Custom stickers', 'Kathmandu', 'Community first', 'Every purchase gives back'
+  'Support local', 'Paws Nepal', 'Mannka Creations', 'StudioLumos.np', 'Shree Shankharapur Pustak Pasal',
+  'Pet boarding & day care', 'Fresh flowers', 'Custom stickers', 'Books & stationery',
+  'Kathmandu', 'Community first', 'Every purchase gives back'
 ];
 
 function Ticker() {
@@ -144,6 +148,17 @@ export default function VendorsLandingPage() {
   const [spotIdx, setSpotIdx] = useState(() => Math.floor(Math.random() * VENDORS.length));
   const [query, setQuery] = useState('');
   const [chip, setChip] = useState('All');
+  const [stuck, setStuck] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const t = window.scrollY > 140;
+      setStuck((prev) => (prev === t ? prev : t));
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const CATEGORIES = useMemo(() => {
     const set = new Set();
@@ -216,7 +231,7 @@ export default function VendorsLandingPage() {
         <section className="vl-spot" id="spotlight">
           <div className="vl-wrap">
             <Reveal className="vl-spot-card" style={{ '--acc': ACCENTS[spotlight.id] }}>
-              <div className="vl-spot-media">
+              <div className={`vl-spot-media${spotlight.id === 'paws-nepal' ? ' fit' : ''}`}>
                 <img src={PHOTOS[spotlight.id]} alt={spotlight.name} loading="eager" />
                 <span className="vl-spot-emoji" aria-hidden="true">{spotlight.emoji}</span>
               </div>
@@ -232,7 +247,9 @@ export default function VendorsLandingPage() {
                 </div>
                 <div className="vl-spot-actions">
                   <a className="vl-btn vl-btn-acc" href={spotlight.page}>Enter the shop →</a>
-                  <a className="vl-icon-btn" href={spotlight.instagram} target="_blank" rel="noreferrer" aria-label={`${spotlight.name} on Instagram`}><IgIcon /></a>
+                  {spotlight.instagram ? (
+                    <a className="vl-icon-btn" href={spotlight.instagram} target="_blank" rel="noreferrer" aria-label={`${spotlight.name} on Instagram`}><IgIcon /></a>
+                  ) : null}
                   {spotlight.site && spotlight.site !== spotlight.instagram ? (
                     <a className="vl-icon-btn" href={spotlight.site} target="_blank" rel="noreferrer" aria-label={`${spotlight.name} website`}><GlobeIcon /></a>
                   ) : null}
@@ -246,7 +263,7 @@ export default function VendorsLandingPage() {
       {/* ── DIRECTORY ── */}
       <section className="vl-vendors" id="vendors">
         <div className="vl-wrap">
-          <div className="vl-toolbar">
+          <div className={`vl-toolbar${stuck ? ' compact' : ''}`}>
             <div className="vl-toolbar-top">
               <div className="vl-search">
                 <span aria-hidden="true">🔍</span>
@@ -290,7 +307,7 @@ export default function VendorsLandingPage() {
                     <div className="vl-card-actions">
                       <span className="vl-more">Visit shop →</span>
                       <span className="vl-icon-row">
-                        <span className="vl-icon-btn" aria-hidden="true"><IgIcon /></span>
+                        {v.instagram ? <span className="vl-icon-btn" aria-hidden="true"><IgIcon /></span> : null}
                         {v.site && v.site !== v.instagram ? <span className="vl-icon-btn" aria-hidden="true"><GlobeIcon /></span> : null}
                       </span>
                     </div>

@@ -48,6 +48,21 @@ export const VENDORS = [
     site: 'https://www.instagram.com/studiolumos.np/',
     instagram: 'https://www.instagram.com/studiolumos.np/',
     page: '/vendor/studio-lumos'
+  },
+  {
+    id: 'shankharapur-pustak-pasal',
+    name: 'Shree Shankharapur Pustak Pasal',
+    shortName: 'Shree Shankharapur Pustak Pasal',
+    tagline: 'Books, stationery and everything a student needs — in the heart of Sankhu.',
+    desc: 'The neighbourhood book and stationery shop of Shankharapur-6 — textbooks, storybooks, pens, notebooks, school supplies and quick copies, served with 10% off for every Rotaractor.',
+    location: 'Shankharapur-6, Sankhu',
+    club: 'Rotaract Club of Sankhu',
+    category: 'Books \u00b7 Stationery',
+    emoji: '\ud83d\udcda',
+    site: 'https://www.facebook.com/shankharapurbook',
+    facebook: 'https://www.facebook.com/shankharapurbook',
+    instagram: '',
+    page: '/vendor/shankharapur-pustak-pasal'
   }
 ];
 

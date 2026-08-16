@@ -35,6 +35,8 @@
     { "source": "/vendor/mannka-creation/", "destination": "/React%20JS/dist-vendor-mannka/vendor-mannka.html" },
     { "source": "/vendor/studio-lumos", "destination": "/React%20JS/dist-vendor-lumos/vendor-lumos.html" },
     { "source": "/vendor/studio-lumos/", "destination": "/React%20JS/dist-vendor-lumos/vendor-lumos.html" },
+    { "source": "/vendor/shankharapur-pustak-pasal", "destination": "/React%20JS/dist-vendor-shankharapur/vendor-shankharapur.html" },
+    { "source": "/vendor/shankharapur-pustak-pasal/", "destination": "/React%20JS/dist-vendor-shankharapur/vendor-shankharapur.html" },
     { "source": "/vendors", "destination": "/React%20JS/dist-vendors/vendors-react.html" },
     { "source": "/district-overview", "destination": "/district-overview.html" },
     { "source": "/selftest", "destination": "/selftest.html" },

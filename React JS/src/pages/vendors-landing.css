@@ -201,6 +201,8 @@
 }
 .vl-spot-media { position: relative; min-height: 300px; }
 .vl-spot-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vl-spot-media.fit { background: #14161c; }
+.vl-spot-media.fit img { object-fit: contain; padding: 34px; }
 .vl-spot-emoji {
   position: absolute;
   right: 18px;
@@ -261,6 +263,15 @@
   margin-bottom: 34px;
   box-shadow: 0 12px 34px rgba(27, 24, 54, 0.09);
 }
+.vl-toolbar.compact {
+  padding: 8px 10px;
+  border-radius: 100px;
+  box-shadow: 0 10px 28px rgba(27, 24, 54, 0.12);
+}
+.vl-toolbar.compact .vl-search input { padding: 7px 0; }
+.vl-toolbar.compact .vl-shuffle { padding: 8px 14px; font-size: 0.8rem; }
+.vl-toolbar.compact .vl-chips,
+.vl-toolbar.compact .vl-count { display: none; }
 .vl-toolbar-top { display: flex; gap: 12px; align-items: center; }
 .vl-search {
   flex: 1;
@@ -468,7 +479,7 @@
   .vl-vendor-grid { grid-template-columns: 1fr; }
   .vl-why-grid { grid-template-columns: 1fr; }
   .vl-hero { padding: 104px 0 64px; }
-  .vl-toolbar { top: 56px; }
+  .vl-toolbar { position: static; }
 }
 @media (max-width: 640px) {
   .vl-jump-row { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 6px; -webkit-overflow-scrolling: touch; }

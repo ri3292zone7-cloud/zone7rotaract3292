@@ -11,6 +11,7 @@
     "build:vendor": "vite build --config vite.vendor.config.js && node scripts/encode-vendor.mjs",
     "build:vendor-mannka": "vite build --config vite.vendor-mannka.config.js && node scripts/encode-vendor-mannka.mjs",
     "build:vendor-lumos": "vite build --config vite.vendor-lumos.config.js && node scripts/encode-vendor-lumos.mjs",
+    "build:vendor-shankharapur": "vite build --config vite.vendor-shankharapur.config.js && node scripts/encode-vendor-shankharapur.mjs",
     "build:vendors": "vite build --config vite.vendors.config.js && node scripts/encode-vendors.mjs",
     "deploy:merch": "npm run build:merch && node scripts/deploy-merch.mjs",
     "serve:store": "node scripts/serve-store.mjs",
