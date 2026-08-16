@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Reveal from '../components/ui/Reveal';
 import IslandNav from '../components/island/IslandNav';
 import './vendor-lumos.css';
@@ -37,7 +37,8 @@ function StickerFlurry({ on }) {
     delay: Math.random() * 0.9,
     dur: 2.4 + Math.random() * 1.6,
     color: BURST_COLORS[i % BURST_COLORS.length],
-    rot: Math.random() * 360
+    rot: Math.random() * 360,
+    dx: Math.round(Math.random() * 160 - 80)
   }));
   return (
     <div className="sl-flurry" aria-hidden="true">
@@ -49,14 +50,49 @@ function StickerFlurry({ on }) {
             left: `${b.left}%`,
             width: b.size,
             height: b.size,
+            borderRadius: b.id % 5 === 0 ? '50%' : '6px',
             animationDelay: `${b.delay}s`,
             animationDuration: `${b.dur}s`,
             background: b.color,
-            transform: `rotate(${b.rot}deg)`
+            ['--rot']: `${b.rot}deg`,
+            ['--dx']: `${b.dx}px`
           }}
         />
       ))}
     </div>
+  );
+}
+
+/* ── Die-cut sticker accents (inline SVG) ───────────────────────── */
+function StickerStar() {
+  return (
+    <svg viewBox="0 0 100 100" className="sl-sticker-art" aria-hidden="true">
+      <path d="M50 4 L61.8 37.4 L97.5 37.4 L68.8 58 L78.5 91.3 L50 71.5 L21.5 91.3 L31.2 58 L2.5 37.4 L38.2 37.4 Z" fill="#FFFFFF" />
+      <path d="M50 14 L59.2 39.8 L87.6 39.8 L65.3 55.8 L72.9 84.2 L50 68.6 L27.1 84.2 L34.7 55.8 L12.4 39.8 L40.8 39.8 Z" fill="#F2A900" stroke="#B8860B" strokeWidth="2" strokeLinejoin="round" />
+      <circle cx="50" cy="47" r="4.5" fill="#FFF8EF" opacity="0.8" />
+    </svg>
+  );
+}
+
+function StickerBadge() {
+  return (
+    <svg viewBox="0 0 100 100" className="sl-sticker-art" aria-hidden="true">
+      <circle cx="50" cy="50" r="45" fill="#FFFFFF" />
+      <circle cx="50" cy="50" r="38" fill="#E11A6E" />
+      <circle cx="50" cy="50" r="38" fill="none" stroke="#A80F52" strokeWidth="3" />
+      <text x="50" y="66" textAnchor="middle" fontFamily="Poppins, sans-serif" fontWeight="900" fontSize="46" fill="#FFF8EF">7</text>
+      <circle cx="50" cy="50" r="43" fill="none" stroke="#FFF8EF" strokeWidth="1.5" opacity="0.45" />
+    </svg>
+  );
+}
+
+function StickerPill() {
+  return (
+    <svg viewBox="0 0 160 56" className="sl-sticker-art" aria-hidden="true">
+      <rect x="6" y="6" width="148" height="44" rx="22" fill="#FFFFFF" />
+      <rect x="6" y="6" width="148" height="44" rx="22" fill="none" stroke="#F01010" strokeWidth="3" />
+      <text x="80" y="36" textAnchor="middle" fontFamily="Poppins, sans-serif" fontWeight="800" fontSize="21" letterSpacing="1.5" fill="#1B1836">✦ LUMOS ✦</text>
+    </svg>
   );
 }
 
@@ -128,10 +164,34 @@ const GALLERY = [
 export default function StudioLumosPage() {
   const [flurry, setFlurry] = useState(false);
   const [reduced] = useState(() => (typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false));
+  const heroRef = useRef(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     document.title = 'StudioLumos.np | Zone 7 Local Vendor';
   }, []);
+
+  // gentle 3D tilt on the photo collage — mouse driven, off for touch & reduced motion
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el || reduced || (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches)) return;
+    let raf = 0;
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width - 0.5;
+      const ny = (e.clientY - r.top) / r.height - 0.5;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setTilt({ x: +(ny * -7).toFixed(2), y: +(nx * 9).toFixed(2) }));
+    };
+    const onLeave = () => { cancelAnimationFrame(raf); setTilt({ x: 0, y: 0 }); };
+    el.addEventListener('mousemove', onMove, { passive: true });
+    el.addEventListener('mouseleave', onLeave);
+    return () => {
+      el.removeEventListener('mousemove', onMove);
+      el.removeEventListener('mouseleave', onLeave);
+      cancelAnimationFrame(raf);
+    };
+  }, [reduced]);
 
   const burstFlurry = () => {
     if (reduced) return;
@@ -145,15 +205,22 @@ export default function StudioLumosPage() {
       <StickerFlurry on={flurry} />
 
       {/* ── HERO ── */}
-      <header className="sl-hero" id="lumos-hero">
+      <header className="sl-hero" id="lumos-hero" ref={heroRef}>
         <div className="sl-graph" aria-hidden="true"></div>
-        <div className="sl-hero-shots" aria-hidden="true">
+        <div
+          className="sl-hero-shots"
+          aria-hidden="true"
+          style={{ transform: `translateY(-50%) perspective(1100px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}
+        >
           <img className="sl-shot sl-shot-main" src={stickers2Img} alt="" loading="eager" />
           <img className="sl-shot sl-shot-a" src={gokuImg} alt="" loading="lazy" />
           <img className="sl-shot sl-shot-b" src={notebooksImg} alt="" loading="lazy" />
           <img className="sl-shot sl-shot-c" src={stickersImg} alt="" loading="lazy" />
           <img className="sl-shot sl-shot-d" src={garoImg} alt="" loading="lazy" />
           <img className="sl-shot sl-shot-e" src={spidermanImg} alt="" loading="lazy" />
+          <span className="sl-sticker sl-sticker-star"><StickerStar /></span>
+          <span className="sl-sticker sl-sticker-badge"><StickerBadge /></span>
+          <span className="sl-sticker sl-sticker-pill"><StickerPill /></span>
         </div>
         <div className="sl-hero-scrim"></div>
 

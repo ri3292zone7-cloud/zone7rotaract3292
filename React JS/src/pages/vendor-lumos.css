@@ -74,7 +74,7 @@
   filter: blur(7px);
 }
 
-/* simple product photo collage */
+/* simple product photo collage — subtle 3D stage */
 .sl-hero-shots {
   position: absolute;
   right: 5%;
@@ -85,6 +85,9 @@
   grid-template-rows: 160px 160px;
   gap: 16px;
   pointer-events: none;
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1);
+  will-change: transform;
 }
 
 .sl-shot {
@@ -99,27 +102,57 @@
 .sl-shot-main {
   grid-column: 1;
   grid-row: 1 / span 2;
-  transform: rotate(-2deg);
+  transform: rotate(-2deg) translateZ(46px);
 }
 
 .sl-shot-a {
-  transform: rotate(3deg);
+  transform: rotate(3deg) translateZ(20px);
 }
 
 .sl-shot-b {
-  transform: rotate(-4deg);
+  transform: rotate(-4deg) translateZ(28px);
 }
 
 .sl-shot-c {
-  transform: rotate(5deg);
+  transform: rotate(5deg) translateZ(16px);
 }
 
 .sl-shot-d {
-  transform: rotate(-3deg);
+  transform: rotate(-3deg) translateZ(26px);
 }
 
 .sl-shot-e {
-  transform: rotate(4deg);
+  transform: rotate(4deg) translateZ(18px);
+}
+
+/* die-cut sticker accents */
+.sl-sticker {
+  position: absolute;
+  z-index: 2;
+  pointer-events: auto;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.4));
+  animation: sl-float 6s ease-in-out infinite;
+  cursor: default;
+}
+.sl-sticker-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.25s ease;
+}
+.sl-sticker:hover .sl-sticker-art {
+  transform: scale(1.14) rotate(-3deg);
+}
+.sl-sticker-star { width: 92px; left: -26px; top: -30px; rotate: -14deg; }
+.sl-sticker-badge { width: 82px; right: 40px; top: -34px; rotate: 9deg; animation-delay: 1.2s; }
+.sl-sticker-pill { width: 150px; left: 96px; bottom: -20px; rotate: -5deg; animation-delay: 0.6s; }
+
+@keyframes sl-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sl-sticker { animation: none; }
 }
 
 .sl-hero-scrim {
@@ -346,14 +379,15 @@
 .sl-flurry-bit {
   position: absolute;
   top: -40px;
-  border-radius: 4px;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.28);
   opacity: 0.95;
   animation: sl-fall linear forwards;
+  will-change: transform, opacity;
 }
 
 @keyframes sl-fall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 0.95; }
-  100% { transform: translateY(110vh) rotate(var(--rot)); opacity: 0; }
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0.95; }
+  100% { transform: translate(var(--dx, 0px), 110vh) rotate(var(--rot, 0deg)); opacity: 0; }
 }
 
 /* ── TICKER ── */
