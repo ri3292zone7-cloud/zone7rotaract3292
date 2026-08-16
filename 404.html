@@ -28,7 +28,10 @@
   .game-hint b{color:var(--magenta-deep);}
   #game{display:block;width:100%;height:auto;background:linear-gradient(180deg,#FFE9D6 0%,#FFD9B8 55%,#F7C48F 56%,#E0A86B 57%,#C98F52 100%);cursor:pointer;touch-action:manipulation;}
   .game-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px;border-top:1px solid var(--line);flex-wrap:wrap;}
+  .game-foot-actions{display:flex;gap:10px;align-items:center;}
   .best{font-size:.82rem;font-weight:700;color:var(--magenta-deep);}
+  .sound-btn{background:rgba(27,24,54,.08);color:var(--ink);border:none;border-radius:100px;padding:10px 16px;font-family:'Inter';font-weight:700;font-size:.85rem;cursor:pointer;transition:transform .15s,background .15s;}
+  .sound-btn:hover{transform:translateY(-2px);background:rgba(27,24,54,.14);}
   .restart{background:var(--ink);color:#fff;border:none;border-radius:100px;padding:10px 20px;font-family:'Inter';font-weight:700;font-size:.85rem;cursor:pointer;transition:transform .15s,background .15s;}
   .restart:hover{transform:translateY(-2px);background:var(--magenta-deep);}
   .links{display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap;}
@@ -52,17 +55,20 @@
   <main>
     <div class="code">404</div>
     <h1>This page got buried in paperwork.</h1>
-    <p class="sub">Not all heroes avoid the paperwork pile. Help the Rotaract gear jump over it and run home. Press space, tap, or click to jump.</p>
+    <p class="sub">Not all heroes avoid the paperwork pile. Help the Rotaractor in magenta double-jump over it, grab the 🪙 coins and catch the ⭐ golden gear for a speed run home. Press space, tap, or click to jump.</p>
 
     <div class="game-card">
       <div class="game-hint">
-        <span><b>Jump</b> the paperwork, grab the 🪙 coins</span>
+        <span><b>Jump</b> (double jump!) · 🪙 coins · ⭐ golden gear</span>
         <span>Score <b id="scoreNow">0</b> · Best <b id="bestNow">0</b></span>
       </div>
       <canvas id="game" width="820" height="300" aria-label="Jumping gear game"></canvas>
       <div class="game-foot">
         <span class="best">🏆 Best run: <span id="bestVal">0</span>m</span>
-        <button class="restart" id="restartBtn">Run again</button>
+        <div class="game-foot-actions">
+          <button class="sound-btn" id="muteBtn" type="button" aria-label="Toggle sound">🔊</button>
+          <button class="restart" id="restartBtn" type="button">Run again</button>
+        </div>
       </div>
     </div>
 
@@ -83,40 +89,91 @@
   var scoreEl = document.getElementById("scoreNow");
   var bestEl = document.getElementById("bestNow");
   var bestVal = document.getElementById("bestVal");
+  var muteBtn = document.getElementById("muteBtn");
   var W = canvas.width, H = canvas.height;
   var GROUND = H - 46;
   var best = +(localStorage.getItem("z7gearBest") || 0);
   bestVal.textContent = best; bestEl.textContent = best;
 
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   var state = "idle"; // idle | play | dead
-  var gear = { x: 120, y: GROUND - 34, w: 34, h: 34, vy: 0, angle: 0, onGround: true };
+  var gear = { x: 120, y: GROUND - 34, w: 34, h: 34, vy: 0, angle: 0, onGround: true, jumps: 2, squash: 0 };
   var GRAV = 0.7, JUMP = -12.5;
   var obstacles = [];
   var speed = 3.6, baseSpeed = 3.6;
   var dist = 0;
   var spawnT = 0;
-  var clouds = [], dust = [], coins = [];
+  var clouds = [], dust = [], coins = [], pops = [];
   var t = 0, coinSpawnT = 0, coinsGot = 0;
+  var power = null, powerT = 0, powerSpawnT = 0, shake = 0;
+
+  /* ── tiny WebAudio sound kit (no assets) ── */
+  var audio = null;
+  var muted = localStorage.getItem("z7gearMute") === "1";
+  function ensureAudio(){
+    if (audio || muted || reduceMotion) return;
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      audio = new AC();
+    } catch (e) {}
+  }
+  function tone(f0, f1, dur, type, vol, delay){
+    if (!audio || muted) return;
+    var t0 = audio.currentTime + (delay || 0);
+    var o = audio.createOscillator(), g = audio.createGain();
+    o.type = type;
+    o.frequency.setValueAtTime(f0, t0);
+    o.frequency.exponentialRampToValueAtTime(Math.max(f1, 1), t0 + dur);
+    g.gain.setValueAtTime(vol, t0);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(audio.destination);
+    o.start(t0); o.stop(t0 + dur + 0.02);
+  }
+  function beep(kind){
+    if (kind === "jump") tone(320, 560, 0.09, "square", 0.05);
+    else if (kind === "djump") tone(420, 780, 0.1, "square", 0.05);
+    else if (kind === "coin"){ tone(880, 880, 0.07, "sine", 0.08); tone(1318, 1318, 0.12, "sine", 0.06, 0.06); }
+    else if (kind === "crash"){ tone(170, 50, 0.3, "triangle", 0.13); tone(120, 35, 0.25, "sawtooth", 0.05); }
+    else if (kind === "power"){ tone(523, 523, 0.09, "sine", 0.08); tone(659, 659, 0.09, "sine", 0.08, 0.09); tone(784, 784, 0.16, "sine", 0.08, 0.18); }
+  }
+  muteBtn.textContent = muted ? "🔇" : "🔊";
+  muteBtn.addEventListener("click", function(){
+    muted = !muted;
+    localStorage.setItem("z7gearMute", muted ? "1" : "0");
+    muteBtn.textContent = muted ? "🔇" : "🔊";
+    if (!muted) ensureAudio();
+  });
 
   function reset(){
     state = "play";
-    gear.y = GROUND - 34; gear.vy = 0; gear.onGround = true; gear.angle = 0;
-    obstacles = []; coins = []; speed = baseSpeed; dist = 0; spawnT = 0; coinSpawnT = 0; coinsGot = 0;
+    gear.y = GROUND - 34; gear.vy = 0; gear.onGround = true; gear.angle = 0; gear.jumps = 2; gear.squash = 0;
+    obstacles = []; coins = []; pops = [];
+    power = null; powerT = 0; powerSpawnT = 0;
+    speed = baseSpeed; dist = 0; spawnT = 80; coinSpawnT = 0; coinsGot = 0; shake = 0;
   }
 
   function jump(){
-    if(state === "idle"){ reset(); }
-    if(state === "play" && gear.onGround){
-      gear.vy = JUMP; gear.onGround = false;
+    ensureAudio();
+    if (state === "idle"){ reset(); }
+    if (state === "play"){
+      if (gear.onGround){
+        gear.vy = JUMP; gear.onGround = false; gear.jumps = 1; gear.squash = 1; beep("jump");
+      } else if (gear.jumps > 0){
+        gear.vy = JUMP * 0.94; gear.jumps--; gear.squash = 1; beep("djump");
+        dust.push({ x: gear.x + gear.w / 2, y: gear.y + gear.h, r: 7, v: -2, ring: true });
+      }
     }
   }
 
   function spawn(){
     var r = Math.random();
-    if (r < 0.62) { // paperwork stack
-      obstacles.push({ type:"paper", x: W + 30, y: GROUND - 24, w: 22, h: 24 });
-    } else { // chai cup
-      obstacles.push({ type:"chai", x: W + 30, y: GROUND - 18, w: 18, h: 18 });
+    if (r < 0.55){ // paperwork stack
+      obstacles.push({ type: "paper", x: W + 30, y: GROUND - 24, w: 22, h: 24 });
+    } else if (r < 0.85){ // chai cup
+      obstacles.push({ type: "chai", x: W + 30, y: GROUND - 18, w: 18, h: 18 });
+    } else { // stupa gate — tall, needs the double jump
+      obstacles.push({ type: "stupa", x: W + 30, y: GROUND - 46, w: 26, h: 46 });
     }
   }
 
@@ -169,31 +226,75 @@
     }
   }
 
-  function drawGear(x, y, size, angle, squashed){
+  function drawRunner(x, y, size, angle, squashed){
+    var skin = "#F3C89B";
+    var ink = "#1B1836";
+    var pants = "#2A2560";
+    var shirt = powerT > 0 ? "#F2A900" : "#E11A6E";
+    var shirtDark = powerT > 0 ? "#A87908" : "#A80F52";
+    var sx = 1, sy = 1;
+    if (squashed){ sx = 1.25; sy = 0.55; }
+    else if (gear.squash > 0){ sx = 0.8; sy = 1.28; }
+    else if (gear.squash < 0){ sx = 1.28; sy = 0.62; }
     ctx.save();
     ctx.translate(x + size / 2, y + size / 2);
     ctx.rotate(angle);
-    if (squashed){ ctx.scale(1.25, 0.55); }
-    ctx.fillStyle = "#1B1836";
-    ctx.strokeStyle = "#1B1836"; ctx.lineWidth = 6;
-    // teeth
-    for (var i = 0; i < 8; i++){
-      var a = (Math.PI * 2 / 8) * i;
-      ctx.save(); ctx.rotate(a);
-      ctx.fillRect(-4, -size * 0.62, 8, size * 0.24);
-      ctx.restore();
-    }
-    ctx.beginPath(); ctx.arc(0, 0, size / 2 - 3, 0, 7); ctx.fill();
-    ctx.fillStyle = "#E11A6E";
-    ctx.beginPath(); ctx.arc(0, 0, size / 2 - 11, 0, 7); ctx.fill();
+    ctx.scale(sx, sy);
+    // golden-gear shimmer
+    if (powerT > 0 && state === "play"){ ctx.globalAlpha = 0.65 + Math.sin(t * 0.5) * 0.35; }
+
+    var base = size / 2;
+    var phase = gear.onGround ? t * speed * 0.09 : 0;
+    var legA = gear.onGround ? Math.sin(phase) * 0.85 : (gear.vy < 0 ? -0.6 : 0.9);
+    var legB = gear.onGround ? Math.sin(phase + Math.PI) * 0.85 : (gear.vy < 0 ? 1.3 : -0.5);
+    var armA = gear.onGround ? Math.sin(phase + Math.PI) * 0.9 : 0.5;
+    var armB = gear.onGround ? Math.sin(phase) * 0.9 : -0.8;
+
+    // legs (shorts) then shoes
+    ctx.save(); ctx.translate(-4, base - 11); ctx.rotate(legA);
+    ctx.fillStyle = pants; ctx.fillRect(-1.8, 0, 3.6, 11);
+    ctx.fillStyle = "#F2A900"; ctx.fillRect(-2.2, 9.5, 4.4, 2.6);
+    ctx.restore();
+    ctx.save(); ctx.translate(4, base - 11); ctx.rotate(legB);
+    ctx.fillStyle = pants; ctx.fillRect(-1.8, 0, 3.6, 11);
+    ctx.fillStyle = "#F2A900"; ctx.fillRect(-2.2, 9.5, 4.4, 2.6);
+    ctx.restore();
+
+    // body — Rotaract t-shirt with gear badge
+    ctx.fillStyle = shirt;
+    ctx.beginPath(); ctx.roundRect(-7, -12, 14, 12, 3); ctx.fill();
     ctx.fillStyle = "#FFF8EF";
-    ctx.beginPath(); ctx.arc(0, 0, size / 2 - 16, 0, 7); ctx.fill();
-    // keyhole eyes + smile
-    ctx.fillStyle = "#1B1836";
-    ctx.beginPath(); ctx.arc(-5, -4, 2.6, 0, 7); ctx.fill();
-    ctx.beginPath(); ctx.arc(5, -4, 2.6, 0, 7); ctx.fill();
-    ctx.strokeStyle = "#1B1836"; ctx.lineWidth = 1.6; ctx.lineCap = "round";
-    ctx.beginPath(); ctx.arc(0, 2, 4.5, 0.25, Math.PI - 0.25); ctx.stroke();
+    ctx.beginPath(); ctx.arc(0, -6.5, 2.7, 0, 7); ctx.fill();
+    ctx.fillStyle = shirtDark;
+    ctx.beginPath(); ctx.arc(0, -6.5, 1.3, 0, 7); ctx.fill();
+    ctx.fillStyle = ink;
+    ctx.font = "900 4.5px Poppins, sans-serif";
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText("7", 0, -6.3);
+    ctx.textBaseline = "alphabetic";
+
+    // arms
+    ctx.save(); ctx.translate(-5, -9); ctx.rotate(armA);
+    ctx.fillStyle = skin; ctx.fillRect(-1.4, 0, 2.8, 9);
+    ctx.restore();
+    ctx.save(); ctx.translate(5, -9); ctx.rotate(armB);
+    ctx.fillStyle = skin; ctx.fillRect(-1.4, 0, 2.8, 9);
+    ctx.restore();
+
+    // head + cap
+    ctx.fillStyle = skin;
+    ctx.beginPath(); ctx.arc(0, -18, 6.2, 0, 7); ctx.fill();
+    ctx.fillStyle = shirt;
+    ctx.beginPath(); ctx.arc(0, -18.6, 6.6, Math.PI, 0); ctx.fill();
+    ctx.fillStyle = shirtDark;
+    ctx.beginPath(); ctx.roundRect(-7.2, -21.8, 13.6, 2.3, 1.2); ctx.fill();
+    ctx.fillStyle = shirt;
+    ctx.beginPath(); ctx.arc(0, -24.4, 1.1, 0, 7); ctx.fill();
+    ctx.fillStyle = ink;
+    ctx.beginPath(); ctx.arc(-2.2, -17.2, 1.1, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.arc(2.2, -17.2, 1.1, 0, 7); ctx.fill();
+    ctx.strokeStyle = ink; ctx.lineWidth = 1.2; ctx.lineCap = "round";
+    ctx.beginPath(); ctx.arc(0, -15.4, 3.2, 0.3, Math.PI - 0.3); ctx.stroke();
     ctx.restore();
   }
 
@@ -208,7 +309,7 @@
       ctx.moveTo(o.x + 3, o.y + 13); ctx.lineTo(o.x + o.w - 3, o.y + 13);
       ctx.moveTo(o.x + 3, o.y + 19); ctx.lineTo(o.x + o.w - 3, o.y + 19);
       ctx.stroke();
-    } else {
+    } else if (o.type === "chai"){
       ctx.fillStyle = "#E11A6E";
       ctx.beginPath();
       ctx.moveTo(o.x, o.y + o.h); ctx.lineTo(o.x + 4, o.y); ctx.lineTo(o.x + o.w - 4, o.y); ctx.lineTo(o.x + o.w, o.y + o.h);
@@ -217,13 +318,30 @@
       ctx.beginPath(); ctx.moveTo(o.x + 2, o.y + 3); ctx.lineTo(o.x + o.w - 2, o.y + 3); ctx.stroke();
       ctx.fillStyle = "rgba(255,255,255,.8)";
       ctx.beginPath(); ctx.moveTo(o.x + 5, o.y + 5); ctx.quadraticCurveTo(o.x + o.w / 2, o.y - 7, o.x + o.w - 5, o.y + 5); ctx.fill();
+    } else { // stupa
+      ctx.fillStyle = "#FFFDF9";
+      ctx.beginPath(); ctx.arc(o.x + o.w / 2, o.y + 16, 13, Math.PI, 0); ctx.fill();
+      ctx.fillRect(o.x, o.y + 16, o.w, o.h - 16);
+      ctx.strokeStyle = "#A80F52"; ctx.lineWidth = 1.5;
+      ctx.strokeRect(o.x, o.y, o.w, o.h);
+      ctx.strokeStyle = "rgba(168,15,82,.45)";
+      ctx.beginPath(); ctx.moveTo(o.x + 4, o.y + 26); ctx.lineTo(o.x + o.w - 4, o.y + 26); ctx.stroke();
+      ctx.fillStyle = "#F2A900";
+      ctx.fillRect(o.x + o.w / 2 - 2, o.y - 7, 4, 9);
+      ctx.beginPath(); ctx.arc(o.x + o.w / 2, o.y - 8, 3, 0, 7); ctx.fill();
     }
   }
 
   function drawDust(){
     dust.forEach(function(d){
-      ctx.fillStyle = d.g ? "rgba(242,169,0,.85)" : "rgba(139,90,46,.25)";
-      ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, 7); ctx.fill();
+      if (d.ring){
+        ctx.strokeStyle = "rgba(242,169,0,.7)";
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(d.x, d.y, (8 - d.r) * 2, 0, 7); ctx.stroke();
+      } else {
+        ctx.fillStyle = d.g ? "rgba(242,169,0,.85)" : "rgba(139,90,46,.25)";
+        ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, 7); ctx.fill();
+      }
       d.x -= d.v; d.y -= 0.4; d.r *= 0.97;
     });
     dust = dust.filter(function(d){ return d.r > 0.6; });
@@ -246,16 +364,41 @@
     });
   }
 
+  function drawPower(){
+    if (!power) return;
+    var s = 1 + Math.sin(power.t) * 0.15;
+    ctx.save();
+    ctx.translate(power.x, power.y);
+    var glow = ctx.createRadialGradient(0, 0, 2, 0, 0, 18 * s);
+    glow.addColorStop(0, "rgba(242,169,0,.9)"); glow.addColorStop(1, "rgba(242,169,0,0)");
+    ctx.fillStyle = glow;
+    ctx.beginPath(); ctx.arc(0, 0, 18 * s, 0, 7); ctx.fill();
+    ctx.fillStyle = "#F2A900";
+    ctx.beginPath(); ctx.arc(0, 0, 10 * s, 0, 7); ctx.fill();
+    ctx.strokeStyle = "#A87908"; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(0, 0, 10 * s, 0, 7); ctx.stroke();
+    ctx.fillStyle = "#FFF8EF";
+    ctx.font = "800 11px Poppins, sans-serif";
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText("7", 0, 1);
+    ctx.textBaseline = "alphabetic";
+    ctx.restore();
+  }
+
   function drawHud(){
     ctx.fillStyle = "rgba(27,24,54,.75)";
     ctx.font = "700 15px Inter, sans-serif";
     ctx.textAlign = "right";
-    ctx.fillText((coinsGot > 0 ? "🪙 " + coinsGot + "  " : "") + "🏃 " + Math.floor(dist) + " m", W - 16, 28);
+    var hud = (coinsGot > 0 ? "🪙 " + coinsGot + "  " : "") + "🏃 " + Math.floor(dist) + " m";
+    if (powerT > 0) hud += "  ⚡" + Math.ceil(powerT / 60);
+    ctx.fillText(hud, W - 16, 28);
     if (state === "idle"){
       ctx.fillStyle = "rgba(27,24,54,.85)";
       ctx.font = "700 17px Poppins, sans-serif";
       ctx.textAlign = "center";
       ctx.fillText("Press space or tap to run!", W / 2, 40);
+      ctx.font = "600 13px Inter, sans-serif";
+      ctx.fillText("Jump again mid-air for a double jump", W / 2, 62);
     }
     if (state === "dead"){
       ctx.fillStyle = "rgba(27,24,54,.72)";
@@ -265,9 +408,18 @@
       ctx.textAlign = "center";
       ctx.fillText("Buried by paperwork!", W / 2, H / 2 - 26);
       ctx.font = "600 15px Inter, sans-serif";
-      ctx.fillText("You ran " + Math.floor(dist) + " m, best " + best + " m", W / 2, H / 2 + 4);
+      ctx.fillText("You ran " + Math.floor(dist) + " m" + (coinsGot ? " and grabbed 🪙 " + coinsGot : "") + " — best " + best + " m", W / 2, H / 2 + 4);
       ctx.fillText("Press space, tap or click to run again", W / 2, H / 2 + 30);
     }
+    // floating popups
+    pops.forEach(function(p){
+      ctx.globalAlpha = Math.max(0, p.life / 45);
+      ctx.fillStyle = p.gold ? "#A87908" : "#E11A6E";
+      ctx.font = "800 13px Poppins, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(p.txt, p.x, p.y);
+      ctx.globalAlpha = 1;
+    });
   }
 
   function step(){
@@ -277,15 +429,23 @@
     }
 
     if (state === "play"){
-      speed = baseSpeed + dist * 0.006;
+      // ease in from a gentle jog: smoothstep up to full pace over the first 130m
+      var ramp = dist < 130 ? 0.63 + 0.37 * (dist / 130) * (2 - dist / 130) : 1;
+      speed = (baseSpeed + dist * 0.006) * ramp;
       dist += speed * 0.16;
       if (Math.floor(dist) > best){ best = Math.floor(dist); localStorage.setItem("z7gearBest", best); bestVal.textContent = best; bestEl.textContent = best; }
       scoreEl.textContent = Math.floor(dist);
 
       gear.vy += GRAV;
       gear.y += gear.vy;
-      gear.angle += 0.16;
-      if (gear.y >= GROUND - gear.h){ gear.y = GROUND - gear.h; gear.vy = 0; gear.onGround = true; }
+      gear.angle = gear.onGround ? 0 : Math.max(-0.3, Math.min(0.35, gear.vy * 0.035));
+      if (gear.squash !== 0){ gear.squash *= 0.86; if (Math.abs(gear.squash) < 0.12) gear.squash = 0; }
+      var wasAir = !gear.onGround;
+      if (gear.y >= GROUND - gear.h){
+        gear.y = GROUND - gear.h; gear.vy = 0;
+        if (wasAir){ gear.squash = -1; gear.jumps = 2; dust.push({ x: gear.x + 8, y: GROUND + 2, r: 6, v: 1.5 }); }
+        gear.onGround = true;
+      }
       if (gear.onGround && Math.random() < 0.12){ dust.push({ x: gear.x + 6, y: GROUND + 4, r: 4 + Math.random() * 4, v: 1.2 }); }
 
       spawnT -= 1;
@@ -294,36 +454,63 @@
       coinSpawnT -= 1;
       if (coinSpawnT <= 0 && coins.length < 3){ coins.push({ x: W + 30, y: GROUND - 50 - Math.random() * 45, r: 9, t: Math.random() * 7 }); coinSpawnT = 70 + Math.random() * 60; }
 
+      powerSpawnT -= 1;
+      if (powerSpawnT <= 0 && !power){ power = { x: W + 30, y: GROUND - 70 - Math.random() * 30, r: 11, t: Math.random() * 7 }; powerSpawnT = 850 + Math.random() * 550; }
+      if (powerT > 0) powerT--;
+
       obstacles.forEach(function(o){ o.x -= speed; });
       obstacles = obstacles.filter(function(o){ return o.x > -40; });
 
       coins.forEach(function(c){ c.x -= speed; c.t += 0.2; });
       coins = coins.filter(function(c){ return c.x > -20; });
 
+      if (power){ power.x -= speed; power.t += 0.2; if (power.x < -20) power = null; }
+
       var gb = { x: gear.x + 6, y: gear.y + 5, w: gear.w - 12, h: gear.h - 10 };
-      obstacles.forEach(function(o){
-        var ob = { x: o.x + 3, y: o.y + 3, w: o.w - 6, h: o.h - 3 };
-        if (rectsHit(gb, ob)){ state = "dead"; }
-      });
+      if (powerT <= 0){
+        obstacles.forEach(function(o){
+          var ob = { x: o.x + 3, y: o.y + 3, w: o.w - 6, h: o.h - 3 };
+          if (rectsHit(gb, ob)){ state = "dead"; gear.angle = 0; shake = 14; beep("crash"); }
+        });
+      }
       coins.forEach(function(c){
         if (Math.abs(c.x - (gear.x + gear.w / 2)) < 22 && Math.abs(c.y - (gear.y + gear.h / 2)) < 26){
           c.got = true;
           coinsGot++;
-          dist += 25;
+          var mult = powerT > 0 ? 2 : 1;
+          dist += 25 * mult;
+          pops.push({ x: c.x, y: c.y - 10, txt: "+" + (25 * mult), life: 45, gold: powerT > 0 });
+          beep("coin");
           var n = 8;
           while (n--){ dust.push({ x: c.x + (Math.random() * 10 - 5), y: c.y + (Math.random() * 10 - 5), r: 4 + Math.random() * 4, v: -2.2, g: true }); }
         }
       });
       coins = coins.filter(function(c){ return !c.got; });
+
+      if (power && Math.abs(power.x - (gear.x + gear.w / 2)) < 30 && Math.abs(power.y - (gear.y + gear.h / 2)) < 34){
+        power = null; powerT = 300; shake = 5;
+        pops.push({ x: gear.x + gear.w / 2, y: gear.y - 14, txt: "⚡ INVINCIBLE!", life: 55, gold: true });
+        beep("power");
+      }
+
+      pops.forEach(function(p){ p.y -= 0.7; p.life--; });
+      pops = pops.filter(function(p){ return p.life > 0; });
     }
 
+    // screen shake (death impact, power-up grab)
+    var shx = 0, shy = 0;
+    if (shake > 0){ shx = (Math.random() * 2 - 1) * shake; shy = (Math.random() * 2 - 1) * shake; shake *= 0.88; if (shake < 0.4) shake = 0; }
+    ctx.save();
+    ctx.translate(shx, shy);
     drawBackground();
     drawCoins();
+    drawPower();
     drawDust();
     obstacles.forEach(drawObstacle);
-    if (state === "idle"){ drawGear(gear.x, gear.y - Math.sin(t * 0.12) * 4, gear.w, Math.sin(t * 0.08) * 0.15, false); }
-    else { drawGear(gear.x, gear.y, gear.w, gear.angle, state === "dead"); }
+    if (state === "idle"){ drawRunner(gear.x, gear.y - Math.sin(t * 0.12) * 4, gear.w, Math.sin(t * 0.08) * 0.15, false); }
+    else { drawRunner(gear.x, gear.y, gear.w, gear.angle, state === "dead"); }
     drawHud();
+    ctx.restore();
   }
 
   function resize(){
@@ -334,13 +521,19 @@
   }
   window.addEventListener("resize", resize);
   resize();
-  // keep internal logic coordinates stable
-  function drawLoop(){ step(); requestAnimationFrame(drawLoop); }
+  // fixed 60Hz timestep: same speed on any display refresh rate
+  var last = performance.now(), acc = 0;
+  function drawLoop(now){
+    acc += Math.min(50, now - last);
+    last = now;
+    var steps = 0;
+    while (acc >= 1000 / 60 && steps < 120){ step(); acc -= 1000 / 60; steps++; }
+    requestAnimationFrame(drawLoop);
+  }
 
   // respect prefers-reduced-motion: show one static frame, skip the game loop
-  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if(reduceMotion){ step(); }
-  else { drawLoop(); }
+  else { requestAnimationFrame(drawLoop); }
 
   var keys = {};
   document.addEventListener("keydown", function(e){
@@ -372,5 +565,3 @@
 </script>
 </body>
 </html>
-
-

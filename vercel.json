@@ -33,6 +33,8 @@
     { "source": "/vendor/paws-nepal/", "destination": "/React%20JS/dist-vendor-pawsnepal/vendor-pawsnepal.html" },
     { "source": "/vendor/mannka-creation", "destination": "/React%20JS/dist-vendor-mannka/vendor-mannka.html" },
     { "source": "/vendor/mannka-creation/", "destination": "/React%20JS/dist-vendor-mannka/vendor-mannka.html" },
+    { "source": "/vendor/studio-lumos", "destination": "/React%20JS/dist-vendor-lumos/vendor-lumos.html" },
+    { "source": "/vendor/studio-lumos/", "destination": "/React%20JS/dist-vendor-lumos/vendor-lumos.html" },
     { "source": "/vendors", "destination": "/React%20JS/dist-vendors/vendors-react.html" },
     { "source": "/district-overview", "destination": "/district-overview.html" },
     { "source": "/selftest", "destination": "/selftest.html" },
