@@ -239,7 +239,7 @@ function Product3D({ product }) {
         ? live
           ? <TeeVideo />
           : <ProductVisual product={product} />
-        : product.kind === 'pin'
+        : product.kind === 'pin' || product.kind === 'badge'
           ? live
             ? <PinVideo />
             : <ProductVisual product={product} />
@@ -329,7 +329,7 @@ function VariantModal({ kindLabel, products, selectedId, onSelect, onClose }) {
         <button type="button" className="st-modal-x" aria-label="Close" onClick={onClose}>✕</button>
 
         <div className="st-modal-media">
-          {product.kind === 'tee' ? <TeeVideo controls /> : product.kind === 'pin' ? <PinVideo controls /> : product.kind === 'cap' ? <CapVideo controls /> : product.kind === 'bottle' && product.id === 'bottle-steel' ? <BottleVideo controls /> : <ModelCanvas product={product} />}
+          {product.kind === 'tee' ? <TeeVideo controls /> : (product.kind === 'pin' || product.kind === 'badge') ? <PinVideo controls /> : product.kind === 'cap' ? <CapVideo controls /> : product.kind === 'bottle' && product.id === 'bottle-steel' ? <BottleVideo controls /> : <ModelCanvas product={product} />}
         </div>
 
         <div className="st-modal-body">
