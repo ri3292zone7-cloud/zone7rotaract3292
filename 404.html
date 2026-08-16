@@ -150,7 +150,7 @@
     gear.y = GROUND - 34; gear.vy = 0; gear.onGround = true; gear.angle = 0; gear.jumps = 2; gear.squash = 0;
     obstacles = []; coins = []; pops = [];
     power = null; powerT = 0; powerSpawnT = 0;
-    speed = baseSpeed; dist = 0; spawnT = 80; coinSpawnT = 0; coinsGot = 0; shake = 0;
+    speed = baseSpeed; dist = 0; spawnT = 55; coinSpawnT = 0; coinsGot = 0; shake = 0;
   }
 
   function jump(){
@@ -166,14 +166,15 @@
     }
   }
 
-  function spawn(){
+  function spawn(xOff){
+    xOff = xOff || 0;
     var r = Math.random();
     if (r < 0.55){ // paperwork stack
-      obstacles.push({ type: "paper", x: W + 30, y: GROUND - 24, w: 22, h: 24 });
+      obstacles.push({ type: "paper", x: W + 30 + xOff, y: GROUND - 24, w: 22, h: 24 });
     } else if (r < 0.85){ // chai cup
-      obstacles.push({ type: "chai", x: W + 30, y: GROUND - 18, w: 18, h: 18 });
+      obstacles.push({ type: "chai", x: W + 30 + xOff, y: GROUND - 18, w: 18, h: 18 });
     } else { // stupa gate — tall, needs the double jump
-      obstacles.push({ type: "stupa", x: W + 30, y: GROUND - 46, w: 26, h: 46 });
+      obstacles.push({ type: "stupa", x: W + 30 + xOff, y: GROUND - 46, w: 26, h: 46 });
     }
   }
 
@@ -449,7 +450,11 @@
       if (gear.onGround && Math.random() < 0.12){ dust.push({ x: gear.x + 6, y: GROUND + 4, r: 4 + Math.random() * 4, v: 1.2 }); }
 
       spawnT -= 1;
-      if (spawnT <= 0){ spawn(); spawnT = 60 + Math.random() * 55; }
+      if (spawnT <= 0){
+        spawn();
+        if (Math.random() < 0.15){ spawn(85); } // occasional double trouble, offset
+        spawnT = 38 + Math.random() * 32;
+      }
 
       coinSpawnT -= 1;
       if (coinSpawnT <= 0 && coins.length < 3){ coins.push({ x: W + 30, y: GROUND - 50 - Math.random() * 45, r: 9, t: Math.random() * 7 }); coinSpawnT = 70 + Math.random() * 60; }
@@ -466,10 +471,11 @@
 
       if (power){ power.x -= speed; power.t += 0.2; if (power.x < -20) power = null; }
 
-      var gb = { x: gear.x + 6, y: gear.y + 5, w: gear.w - 12, h: gear.h - 10 };
+      // full-size hitboxes so visual contact always counts
+      var gb = { x: gear.x + 2, y: gear.y + 2, w: gear.w - 4, h: gear.h - 4 };
       if (powerT <= 0){
         obstacles.forEach(function(o){
-          var ob = { x: o.x + 3, y: o.y + 3, w: o.w - 6, h: o.h - 3 };
+          var ob = { x: o.x + 1, y: o.y + 1, w: o.w - 2, h: o.h - 2 };
           if (rectsHit(gb, ob)){ state = "dead"; gear.angle = 0; shake = 14; beep("crash"); }
         });
       }
