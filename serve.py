@@ -47,6 +47,8 @@ PAGE_REWRITES = {
     "/vendor/mannka-creation/": "/React JS/dist-vendor-mannka/vendor-mannka.html",
     "/vendor/studio-lumos": "/React JS/dist-vendor-lumos/vendor-lumos.html",
     "/vendor/studio-lumos/": "/React JS/dist-vendor-lumos/vendor-lumos.html",
+    "/vendor/shankharapur-pustak-pasal": "/React JS/dist-vendor-shankharapur/vendor-shankharapur.html",
+    "/vendor/shankharapur-pustak-pasal/": "/React JS/dist-vendor-shankharapur/vendor-shankharapur.html",
     "/vendors": "/React JS/dist-vendors/vendors-react.html",
     "/district-overview": "/district-overview.html",
     "/selftest": "/selftest.html",
