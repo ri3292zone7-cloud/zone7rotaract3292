@@ -182,7 +182,7 @@
 
  /* human-friendly missing cards */
  .missing-grid{display:grid; grid-template-columns:1fr; gap:12px; margin-top:16px;}
-  .missing-card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px 16px; display:grid; grid-template-columns:56px 1fr auto; gap:16px; align-items:center; transition:transform .15s, box-shadow .15s, border-color .15s; overflow-wrap:break-word; word-break:break-word;}
+  .missing-card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px 16px; display:grid; grid-template-columns:56px 1fr auto; gap:16px; align-items:center; transition:transform .15s, box-shadow .15s, border-color .15s; overflow-wrap:anywhere; word-break:normal;}
  .missing-card:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(27,24,54,0.07); border-color:rgba(225,26,110,0.14);}
  .missing-card.found{opacity:0.72; background:rgba(22,163,74,0.04);}
  .missing-photo{width:56px; height:56px; border-radius:50%; object-fit:cover; border:3px solid #fff; box-shadow:0 6px 16px rgba(27,24,54,0.12); flex-shrink:0;}
@@ -794,17 +794,13 @@
     statusEl.className='form-status ok';
   }
   var grid=document.getElementById('missingBody');
-  var card=document.createElement('div'); card.className='missing-card'; card.setAttribute('data-name', name); card.setAttribute('data-area', area); card.setAttribute('data-status','missing');
+  var card=document.createElement('div'); card.className='missing-card'; card.setAttribute('data-name', name); card.setAttribute('data-area', area); card.setAttribute('data-status','missing'); card.setAttribute('data-id', id);
   var esc=function(s){ return String(s||'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
   var photoHtml = photoUrl ? '<img class="missing-photo" src="'+esc(photoUrl)+'" alt="'+esc(nameRaw)+'" loading="lazy">' : '<div class="missing-photo ph">'+esc(nameRaw.charAt(0).toUpperCase())+'</div>';
   var safeDetails = esc(details);
-  card.innerHTML='<div class="missing-main" style="display:flex; gap:12px; align-items:center; flex:1;">'+photoHtml+'<div style="min-width:0;"><div class="missing-name"><b>'+esc(nameRaw)+'</b> <span class="pill missing">Missing</span></div><div class="missing-meta"><span>📍 '+esc(areaRaw)+'</span></div>'+(safeDetails ? '<div class="missing-meta" style="margin-top:4px; color:rgba(27,24,54,0.48); font-size:0.74rem;">'+safeDetails+'</div>' : '')+'</div></div><div class="missing-actions"><button class="reveal-btn" data-phone="'+esc(reporterPhone)+'" data-name="'+esc(reporterName)+'">📞 Contact '+esc(reporterName)+'</button><div class="row"><button class="icon-btn" onclick="sharePerson(\''+esc(id)+'\')">↗ Share</button><button class="icon-btn" onclick="posterPerson(\''+esc(id)+'\')">🖨️ Poster</button><button class="icon-btn" onclick="flagPerson(\''+esc(id)+'\')">🏳️ Flag</button></div></div>';
-  // Fallback for browsers where inner card layout broke due to wrapper — fix structure to match existing cards
-  if(!card.querySelector('.missing-photo')){
-    card.innerHTML = photoHtml + '<div class="missing-main"><div class="missing-name"><b>'+esc(nameRaw)+'</b> <span class="pill missing">Missing</span></div><div class="missing-meta"><span>📍 '+esc(areaRaw)+'</span></div>'+(safeDetails ? '<div class="missing-meta" style="margin-top:4px; color:rgba(27,24,54,0.48); font-size:0.74rem;">'+safeDetails+'</div>' : '')+'</div><div class="missing-actions"><button class="reveal-btn" data-phone="'+esc(reporterPhone)+'" data-name="'+esc(reporterName)+'">📞 Contact '+esc(reporterName)+'</button><div class="row"><button class="icon-btn" onclick="sharePerson(\''+esc(id)+'\')">↗ Share</button><button class="icon-btn" onclick="posterPerson(\''+esc(id)+'\')">🖨️ Poster</button></div></div>';
-    card.style.display='grid'; card.style.gridTemplateColumns='56px 1fr auto'; card.style.gap='16px'; card.style.alignItems='center';
-  }
+  card.innerHTML = photoHtml + '<div class="missing-main"><div class="missing-name"><b>'+esc(nameRaw)+'</b> <span class="pill missing">Missing</span></div><div class="missing-meta"><span>📍 '+esc(areaRaw)+'</span></div>'+(safeDetails ? '<div class="missing-meta" style="margin-top:4px; color:rgba(27,24,54,0.48); font-size:0.74rem;">'+safeDetails+'</div>' : '')+'</div><div class="missing-actions"><button class="reveal-btn" data-phone="'+esc(reporterPhone)+'" data-name="'+esc(reporterName)+'">📞 Contact '+esc(reporterName)+'</button><div class="row"><button class="icon-btn" onclick="sharePerson(\''+esc(id)+'\')">↗ Share</button><button class="icon-btn" onclick="posterPerson(\''+esc(id)+'\')">🖨️ Poster</button><button class="icon-btn" onclick="flagPerson(\''+esc(id)+'\')">🏳️ Flag</button><button class="icon-btn" onclick="editPerson(\''+esc(id)+'\')" style="background:rgba(242,169,0,0.12); border-color:rgba(242,169,0,0.22);">✏️ Edit</button></div></div>';
   grid.prepend(card);
+  try{ var my=JSON.parse(localStorage.getItem('zone7_my_reports')||'[]'); my.push(id); localStorage.setItem('zone7_my_reports', JSON.stringify(my)); }catch(e){}
   // Update count
   var vis=[].slice.call(document.querySelectorAll('#missingBody .missing-card')).filter(function(c){ return c.style.display!=='none'; }).length;
   var countEl=document.getElementById('missingCount');
@@ -845,7 +841,152 @@
      var countEl=document.getElementById('missingCount');
      if(countEl) countEl.textContent=vis+' reports • live';
    }catch(err){ console.log('flood_missing load skipped', err.message); }
- })();
+  })();
+  // Fix broken cards from previous buggy submit (Roshan etc.) — restructure any card where photo is nested inside missing-main
+  (function fixBrokenCards(){
+    document.querySelectorAll('#missingBody .missing-card').forEach(function(card){
+      if(card.children.length === 2 && card.children[0].classList.contains('missing-main') && card.children[0].querySelector('.missing-photo')){
+        var innerMain = card.children[0];
+        var photo = innerMain.querySelector('.missing-photo');
+        var innerContent = innerMain.querySelector('div[style*="min-width"]');
+        var actions = card.children[1];
+        card.innerHTML = '';
+        if(photo) card.appendChild(photo);
+        if(innerContent){
+          var newMain = document.createElement('div');
+          newMain.className = 'missing-main';
+          newMain.innerHTML = innerContent.innerHTML;
+          card.appendChild(newMain);
+        } else {
+          var newMain2 = document.createElement('div');
+          newMain2.className = 'missing-main';
+          // Remove photo from innerMain HTML
+          var html = innerMain.innerHTML.replace(/<div class="missing-photo[^>]*>.*?<\/div>/s, '').replace(/<img[^>]*missing-photo[^>]*>/, '');
+          newMain2.innerHTML = html;
+          card.appendChild(newMain2);
+        }
+        card.appendChild(actions);
+        card.style.display='grid';
+        card.style.gridTemplateColumns='56px 1fr auto';
+        card.style.gap='16px';
+        card.style.alignItems='center';
+      }
+    });
+  })();
+  // Edit authority: show Edit for reports created by this browser
+  function refreshEditButtons(){
+    try{
+      var my = JSON.parse(localStorage.getItem('zone7_my_reports')||'[]');
+      document.querySelectorAll('#missingBody .missing-card').forEach(function(card){
+        var id = card.getAttribute('data-id') || card.getAttribute('data-name');
+        var hasEdit = card.querySelector('button[onclick*="editPerson"]');
+        if(my.includes(id) && !hasEdit){
+          var actionsRow = card.querySelector('.missing-actions .row');
+          if(actionsRow){
+            var btn=document.createElement('button');
+            btn.className='icon-btn';
+            btn.style.background='rgba(242,169,0,0.12)';
+            btn.style.borderColor='rgba(242,169,0,0.22)';
+            btn.textContent='✏️ Edit';
+            btn.onclick=function(){ editPerson(id); };
+            actionsRow.appendChild(btn);
+          }
+        }
+      });
+    }catch(e){}
+  }
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(refreshEditButtons, 800); setTimeout(function(){ document.querySelectorAll('#missingBody .missing-card').forEach(function(c){ if(c.children.length===2) fixBrokenCards(); }); }, 500); });
+  setTimeout(refreshEditButtons, 1500);
+  var editingId = null;
+  window.editPerson = async function(idOrName){
+    var card = document.querySelector('[data-id="'+idOrName+'"]') || document.querySelector('[data-name="'+idOrName.toLowerCase()+'"]');
+    if(!card){ alert('Report not found'); return; }
+    try{
+      var my=JSON.parse(localStorage.getItem('zone7_my_reports')||'[]');
+      var cardId = card.getAttribute('data-id') || card.getAttribute('data-name');
+      if(!my.includes(idOrName) && !my.includes(cardId)){
+        alert('You can only edit reports you uploaded on this device.');
+        return;
+      }
+    }catch(e){ alert('Edit check failed'); return; }
+    var name = card.querySelector('.missing-name b') ? card.querySelector('.missing-name b').textContent.trim() : '';
+    var area = card.getAttribute('data-area') || '';
+    var detailsEl = card.querySelectorAll('.missing-meta')[1];
+    var details = detailsEl ? detailsEl.textContent.trim() : '';
+    var phoneBtn = card.querySelector('.reveal-btn');
+    var reporterPhone = phoneBtn ? phoneBtn.getAttribute('data-phone') : '';
+    var reporterName = phoneBtn ? phoneBtn.getAttribute('data-name') : '';
+    var modal = document.getElementById('reportModal');
+    modal.querySelector('input[name="name"]').value = name;
+    modal.querySelector('input[name="last_seen_area"]').value = area;
+    modal.querySelector('input[name="reporter_name"]').value = reporterName;
+    modal.querySelector('input[name="reporter_phone"]').value = reporterPhone;
+    modal.querySelector('textarea[name="details"]').value = details;
+    editingId = idOrName;
+    modal.querySelector('h3').textContent = 'Edit Report';
+    modal.querySelector('.btn-primary').textContent = 'Save Changes →';
+    modal.classList.add('open');
+    reportOpenAt = Date.now();
+  };
+  (function(){
+    var origSubmit = window.submitReport;
+    window.submitReport = async function(e){
+      if(editingId){
+        e.preventDefault();
+        var fd=new FormData(e.target), statusEl=document.getElementById('reportStatus');
+        var nameRaw=(fd.get('name')||'').trim();
+        var areaRaw=(fd.get('last_seen_area')||'').trim();
+        var reporterName=(fd.get('reporter_name')||'').trim();
+        var reporterPhone=(fd.get('reporter_phone')||'').trim();
+        var details=(fd.get('details')||'').trim();
+        var photoFile=fd.get('photo');
+        var photoUrl='';
+        statusEl.textContent='Saving...'; statusEl.className='form-status ok';
+        try{
+          if(photoFile && photoFile.size>0 && typeof zone7UploadImage==='function'){
+            photoUrl = await zone7UploadImage(photoFile, 'flood-missing');
+          }
+        }catch(err){ console.error(err); }
+        var updates={ name: nameRaw, last_seen_area: areaRaw, reporter_name: reporterName, reporter_phone: reporterPhone, details: details, updated_at: Date.now() };
+        if(photoUrl) updates.photo_url = photoUrl;
+        try{
+          if(typeof SUPABASE_URL!=='undefined' && typeof REST_HEADERS!=='undefined'){
+            var res=await fetch(SUPABASE_URL+'/rest/v1/flood_missing_persons?id=eq.'+encodeURIComponent(editingId), { method:'PATCH', headers: REST_HEADERS, body: JSON.stringify(updates) });
+            if(!res.ok) throw new Error(await res.text());
+          }
+          var card=document.querySelector('[data-id="'+editingId+'"]') || document.querySelector('[data-name="'+editingId.toLowerCase()+'"]');
+          if(card){
+            card.setAttribute('data-name', nameRaw.toLowerCase());
+            card.setAttribute('data-area', areaRaw.toLowerCase());
+            var nameEl=card.querySelector('.missing-name b'); if(nameEl) nameEl.textContent=nameRaw;
+            var meta=card.querySelector('.missing-meta span'); if(meta) meta.textContent='📍 '+areaRaw;
+            if(photoUrl){
+              var img=card.querySelector('img.missing-photo');
+              if(img) img.src=photoUrl; else {
+                var ph=card.querySelector('.missing-photo.ph');
+                if(ph){ var newImg=document.createElement('img'); newImg.className='missing-photo'; newImg.src=photoUrl; newImg.alt=nameRaw; newImg.loading='lazy'; ph.replaceWith(newImg); }
+              }
+            }
+            var btn=card.querySelector('.reveal-btn');
+            if(btn){ btn.setAttribute('data-phone', reporterPhone); btn.setAttribute('data-name', reporterName); btn.textContent='📞 Contact '+reporterName; }
+            var detEl=card.querySelectorAll('.missing-meta')[1];
+            if(detEl && details) detEl.textContent=details; else if(details && !detEl){
+              var main=card.querySelector('.missing-main');
+              var d=document.createElement('div'); d.className='missing-meta'; d.style.cssText='margin-top:4px; color:rgba(27,24,54,0.48); font-size:0.74rem;'; d.textContent=details; main.appendChild(d);
+            }
+          }
+          statusEl.textContent='Saved — changes are live.';
+          statusEl.className='form-status ok';
+          setTimeout(function(){ document.getElementById('reportModal').classList.remove('open'); editingId=null; document.querySelector('#reportModal h3').textContent='Report Missing'; document.querySelector('#reportModal .btn-primary').textContent='Submit →'; }, 900);
+        }catch(err){
+          statusEl.textContent='Save failed: '+String(err.message||err).slice(0,90);
+          statusEl.className='form-status err';
+        }
+        return;
+      }
+      return origSubmit(e);
+    };
+  })();
 </script>
 </body>
 </html>
