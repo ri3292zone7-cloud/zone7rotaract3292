@@ -65,10 +65,10 @@
     b.setAttribute("role","alert");
     b.style.cssText="background:linear-gradient(90deg, #FFF3E6 0%, #FFF8EF 100%); border-bottom:1px solid rgba(255,140,26,0.22); padding:10px 0; font-family:'Inter',sans-serif; font-size:0.82rem; line-height:1.5; position:relative; z-index:101;";
     b.innerHTML='<div class="wrap" style="max-width:1080px; margin:0 auto; padding:0 28px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">'
-      +'<b style="background:linear-gradient(120deg,#E11A6E,#F2A900); color:#fff; padding:5px 12px; border-radius:100px; font-size:0.70rem; letter-spacing:0.06em; text-transform:uppercase; flex-shrink:0; box-shadow:0 6px 14px rgba(225,26,110,.18);">🚨 Rasuwa • Volunteers Needed</b>'
+      +'<b style="background:#E11A6E; color:#fff; padding:5px 12px; border-radius:100px; font-size:0.70rem; letter-spacing:0.06em; text-transform:uppercase; flex-shrink:0;">🚨 Rasuwa • Volunteers Needed</b>'
       +'<span style="color:#1B1836;">District 3292 call — register as rescue volunteer. For immediate rescue call <a href="tel:1149" style="color:#A80F52; font-weight:700; text-decoration:underline; text-underline-offset:2px;">1149</a>. <span style="display:none;" class="flood-banner-long">Mobilised only via authorities.</span></span>'
       +'<span style="margin-left:auto; display:flex; gap:8px; align-items:center; flex-wrap:wrap; flex-shrink:0;">'
-      +'<a href="/volunteers" style="background:linear-gradient(120deg,#E11A6E,#F2A900); color:#fff; padding:8px 16px; border-radius:100px; font-weight:800; font-size:0.82rem; white-space:nowrap; text-decoration:none; box-shadow:0 8px 18px rgba(225,26,110,.20);">Register as Volunteer →</a>'
+      +'<a href="/volunteers" style="background:#E11A6E; color:#fff; padding:8px 16px; border-radius:100px; font-weight:700; font-size:0.82rem; white-space:nowrap; text-decoration:none;">Register as Volunteer →</a>'
       +'<a href="/flood-help" style="background:#fff; color:var(--ink, #1B1836); border:1px solid rgba(27,24,54,.12); padding:8px 14px; border-radius:100px; font-weight:700; font-size:0.78rem; white-space:nowrap; text-decoration:none;">Flood Help</a>'
       +'</span>'
       +'<button aria-label="Dismiss" onclick="this.parentElement.parentElement.remove()" style="background:none; border:none; cursor:pointer; font-size:1.1rem; line-height:1; color:rgba(27,24,54,0.45); padding:4px 6px; flex-shrink:0;">×</button>'
@@ -186,7 +186,7 @@
     "</div>" +
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
-    '<a href="/volunteers" style="background:linear-gradient(120deg,#E11A6E,#F2A900); color:#fff; padding:7px 14px; border-radius:100px; font-weight:800; font-size:0.80rem; display:inline-flex; gap:6px; align-items:center; white-space:nowrap; box-shadow:0 6px 14px rgba(225,26,110,.22); text-decoration:none;">🚨 Volunteers</a>' +
+    '<a href="/volunteers" style="background:#E11A6E; color:#fff; padding:7px 14px; border-radius:100px; font-weight:700; font-size:0.80rem; display:inline-flex; gap:6px; align-items:center; white-space:nowrap; text-decoration:none;">🚨 Volunteers</a>' +
     '<a href="/flood-help" style="background:rgba(255,140,26,0.12); color:#9a4a00; border:1px solid rgba(255,140,26,0.22); padding:7px 12px; border-radius:100px; font-weight:800; font-size:0.80rem; display:inline-flex; gap:6px; align-items:center; white-space:nowrap; opacity:1;">🛟 Flood <span style="background:#FF8C1A; color:#fff; padding:2px 7px; border-radius:100px; font-size:0.66rem;">13</span></a>' +
     "</div>" +
     '<div style="display:flex;align-items:center;gap:16px;">' +
@@ -196,6 +196,8 @@
     "</div>" +
     "</div>" +
     '<div class="mobile-menu" id="mobileMenu">' +
+    '<a href="/flood-help" style="background:linear-gradient(135deg,#FF8C1A,#E11A6E); color:#fff; border:none; border-radius:14px; padding:14px 16px; font-weight:800; font-size:1.0rem; display:flex; justify-content:space-between; align-items:center; box-shadow:0 8px 20px rgba(225,26,110,0.18); margin-bottom:10px;"><span>🛟 Flood Help — Rescue & Missing</span><span style="background:#fff; color:#E11A6E; padding:4px 10px; border-radius:100px; font-size:0.74rem; font-weight:900;">13</span></a>' +
+    '<a href="/volunteers" style="background:#E11A6E; color:#fff; border:none; border-radius:14px; padding:12px 16px; font-weight:700; font-size:0.95rem; display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;"><span>🚨 Volunteer for Flood Relief</span><span style="background:#fff; color:#E11A6E; padding:3px 8px; border-radius:100px; font-size:0.70rem; font-weight:700;">Join</span></a>' +
     item("/about", "About", "about") +
     '<div class="mm-group">Clubs</div>' +
     '<a href="/#clubs">All 9 Clubs in Zone 7</a>' +
@@ -206,8 +208,6 @@
     '<a href="/club-guides">Guides for Clubs</a>' +
     '<a href="/rkt-quiz">RKT Practice Quiz</a>' +
     '<div class="mm-group">Community</div>' +
-    '<a href="/volunteers" style="background:linear-gradient(120deg,#E11A6E,#F2A900); color:#fff; border-radius:12px; padding:12px 14px; font-weight:800; display:flex; justify-content:space-between; align-items:center;"><span>🚨 Volunteers Needed</span><span style="background:rgba(255,255,255,.22); color:#fff; padding:3px 8px; border-radius:100px; font-size:0.72rem;">Register →</span></a>' +
-    '<a href="/flood-help" style="background:rgba(255,140,26,0.12); border:1px solid rgba(255,140,26,0.22); border-radius:12px; padding:10px 14px; font-weight:800; color:#9a4a00; display:flex; justify-content:space-between; align-items:center;"><span>🛟 Flood Help</span><span style="background:#FF8C1A; color:#fff; padding:3px 8px; border-radius:100px; font-size:0.72rem;">13 missing</span></a>' +
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
     '<a href="/join">Join Us</a>' +

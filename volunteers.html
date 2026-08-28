@@ -4,54 +4,84 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Volunteers Needed — Rasuwa Flood | Rotaract District 3292</title>
-<meta name="description" content="Register as a rescue volunteer for the Rasuwa flood. District 3292 emergency call — 2 minute form. You will be called only when needed, coordinated with rescue authorities (1149).">
+<meta name="description" content="Register as a rescue volunteer for the Rasuwa flood. District 3292 emergency call — 2 minute form.">
 <link rel="canonical" href="https://zone7rotaract3292.vercel.app/volunteers">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon-192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Zone 7 Rotaract">
 <meta property="og:title" content="Volunteers Needed — Rasuwa Flood | District 3292">
-<meta property="og:description" content="2-minute form. District 3292 needs rescue volunteers for Rasuwa. Register now — mobilised only when needed via 1149.">
+<meta property="og:description" content="2-minute form. Register now — mobilised only when needed via 1149.">
 <meta property="og:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
-<meta property="og:url" content="https://zone7rotaract3292.vercel.app/volunteers">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="zone7-data.js"></script>
 <style>
-  :root{ --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900; --cream:#FFF8EF; --paper:#FFFDF9; --line:rgba(27,24,54,.10)}
+  :root{ --ink:#1B1836; --red:#DC2626; --red-deep:#991B1B; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900; --paper:#F7F5F1; --line:rgba(27,24,54,.10)}
   *{box-sizing:border-box; margin:0; padding:0}
-  html{scroll-behavior:smooth; font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:var(--ink)}
-  h1,h2{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-.02em}
-  .wrap{max-width:760px; margin:0 auto; padding:0 20px}
-  .top-alert{background:#FFF3E6; border-bottom:1px solid rgba(255,140,26,.22); padding:8px 0; font-size:.78rem; text-align:center; line-height:1.5}
-  .top-alert b{background:#FF8C1A; color:#fff; padding:3px 9px; border-radius:100px; font-size:.68rem; letter-spacing:.05em; text-transform:uppercase}
+  html{scroll-behavior:smooth; font-family:'Inter',system-ui,sans-serif; background:#1E0F3A; color:var(--ink)}
+  h1{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-.03em}
+  .wrap{max-width:780px; margin:0 auto; padding:0 20px; position:relative}
+  /* full PURPLE graph background — deeper zonal magazine with higher graph opacity */
+  .page-bg{min-height:calc(100vh - 72px - 34px); position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; padding:42px 20px 44px; background:
+      radial-gradient(920px 540px at 82% -12%, rgba(225,26,110,.42), transparent 58%),
+      radial-gradient(880px 520px at 8% 108%, rgba(142, 26, 225,.30), transparent 62%),
+      radial-gradient(640px 420px at 50% 0%, rgba(110, 45, 255,.22), transparent 65%),
+      linear-gradient(165deg, #2A0F5A 0%, #3B1270 28%, #4A1A85 52%, #2E0D56 78%, #1E0B3A 100%)}
+  .page-bg::before{content:""; position:absolute; inset:0; pointer-events:none; opacity:.14; background:
+      repeating-linear-gradient(0deg, transparent 0 46px, rgba(255,255,255,.95) 46px 47px),
+      repeating-linear-gradient(90deg, transparent 0 46px, rgba(255,255,255,.95) 46px 47px)}
+  .hero-glow{position:absolute; top:50%; left:50%; width:min(94%,760px); aspect-ratio:1/1; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(circle, rgba(225,26,110,.20), rgba(142,26,225,.16) 38%, rgba(242,169,0,.08) 58%, transparent 74%); pointer-events:none}
+  .aurora{position:absolute; border-radius:50%; filter:blur(88px); opacity:.58; pointer-events:none}
+  .a1{width:560px; height:560px; background:#D46AFF; top:-180px; left:-160px; animation:drift 16s ease-in-out infinite alternate}
+  .a2{width:460px; height:460px; background:#7A3DFF; top:-110px; right:-130px; animation:drift 20s ease-in-out infinite alternate-reverse; opacity:.50}
+  .a3{width:400px; height:400px; background:#FF7AC2; bottom:-110px; left:36%; animation:drift 24s ease-in-out infinite alternate; opacity:.38}
+  @keyframes drift{from{transform:translate(0,0) scale(1)} to{transform:translate(50px,-40px) scale(1.15)}}
+  .fshape{position:absolute; pointer-events:none; opacity:.45}
+  .shape-ring{width:46px; height:46px; border:5px solid var(--gold); border-radius:50%; top:18%; left:5%}
+  .shape-tri{width:0; height:0; border-left:18px solid transparent; border-right:18px solid transparent; border-bottom:30px solid rgba(225,26,110,.32); top:12%; right:7%}
+  .shape-dot{width:14px; height:14px; background:var(--magenta); border-radius:50%; bottom:22%; left:9%}
+  .shape-dot2{width:10px; height:10px; background:#0E7490; border-radius:50%; top:32%; right:12%}
+  .shape-sq{width:26px; height:26px; background:rgba(14,116,144,.28); border-radius:7px; bottom:18%; right:26%}
+  .top-alert{background:#FFF3E6; border-bottom:1px solid rgba(255,140,26,.22); padding:7px 0; font-size:.72rem; text-align:center}
+  .top-alert b{background:linear-gradient(120deg,var(--magenta),#F2A900); color:#fff; padding:3px 8px; border-radius:100px; font-size:.64rem; letter-spacing:.06em; text-transform:uppercase}
   .top-alert a{color:var(--magenta-deep); font-weight:700; text-decoration:underline}
-  .hero{padding:28px 0 10px; text-align:center}
-  .eyebrow{display:inline-flex; align-items:center; gap:7px; font-size:.68rem; font-weight:800; letter-spacing:.13em; text-transform:uppercase; color:var(--magenta-deep); background:rgba(225,26,110,.08); padding:6px 12px; border-radius:100px; margin-bottom:14px}
-  .eyebrow i{width:6px; height:6px; border-radius:50%; background:var(--gold); display:inline-block; animation:pulse 1.8s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(242,169,0,.45)}70%{box-shadow:0 0 0 7px rgba(242,169,0,0)}100%{box-shadow:0 0 0 0 rgba(242,169,0,0)}}
-  .hero h1{font-size:clamp(1.9rem, 6vw, 2.6rem); line-height:1.08}
-  .hero h1 span{background:linear-gradient(100deg,var(--magenta),#F2A900); -webkit-background-clip:text; background-clip:text; color:transparent}
-  .hero p.lead{margin:12px auto 0; max-width:620px; color:rgba(27,24,54,.68); font-size:.96rem; line-height:1.6}
-  .hero p.lead strong{color:var(--ink)}
-  .form-card{background:#fff; border:1px solid var(--line); border-radius:18px; overflow:hidden; box-shadow:0 14px 36px rgba(27,24,54,.08); margin:18px 0 14px}
-  .form-card-head{padding:16px 18px 12px; border-bottom:1px solid var(--line); display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between}
-  .form-card-head b{font-family:'Poppins'; font-size:.92rem}
-  .form-card-head span{font-size:.76rem; color:rgba(27,24,54,.55)}
-  .btn{display:inline-flex; align-items:center; justify-content:center; gap:7px; padding:12px 18px; border-radius:100px; font-weight:800; font-size:.86rem; text-decoration:none; border:1px solid transparent; cursor:pointer}
-  .btn-primary{background:linear-gradient(120deg,var(--magenta),#F2A900); color:#fff; flex:1; min-width:160px}
-  .btn-ghost{background:#fff; border-color:var(--line); color:var(--ink); flex:1; min-width:130px}
-  iframe{width:100%; height:760px; border:0; display:block; background:#fff} /* kept for fallback — no longer used */
-  .tiny{font-size:.76rem; color:rgba(27,24,54,.58); line-height:1.6; text-align:center; margin:10px 0 6px}
-  .tiny a{color:var(--magenta-deep); font-weight:700; text-decoration:underline}
-  details.letter{margin:14px 0; background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px}
-  details.letter summary{font-weight:700; font-size:.88rem; cursor:pointer}
-  details.letter blockquote{margin-top:10px; font-size:.88rem; line-height:1.7; color:rgba(27,24,54,.72); border-left:3px solid var(--gold); padding-left:12px}
-  footer{padding:22px 0; text-align:center; font-size:.76rem; color:rgba(27,24,54,.50)}
-  footer a{color:var(--magenta-deep); font-weight:700; text-decoration:underline}
-  @media(max-width:640px){ .form-card-head{flex-direction:column; align-items:stretch} .btn{width:100%} }
+  /* single white container — minimal colors, red is the accent */
+  .form-card{position:relative; z-index:1; width:100%; max-width:540px; background:#fff; border-radius:22px; overflow:hidden; box-shadow:0 28px 70px rgba(0,0,0,.34), 0 12px 24px rgba(0,0,0,.14), 0 1px 0 rgba(255,255,255,.7) inset; border:1px solid rgba(255,255,255,.18)}
+  .form-card::before{content:""; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--red), var(--magenta)); z-index:2}
+  .form-card::after{content:""; position:absolute; top:-60px; right:-40px; width:180px; height:180px; border-radius:50%; background:radial-gradient(circle, rgba(225,26,110,.06), transparent 68%); pointer-events:none; z-index:1}
+  .form-card-inner{padding:32px 26px 24px; text-align:center; position:relative; z-index:1}
+  .eyebrow{display:inline-flex; align-items:center; gap:6px; font-size:.62rem; font-weight:800; letter-spacing:.13em; text-transform:uppercase; color:var(--red-deep); background:rgba(220,38,38,.06); border:1px solid rgba(220,38,38,.14); padding:5px 10px; border-radius:100px; margin-bottom:12px}
+  .eyebrow i{width:5px; height:5px; border-radius:50%; background:var(--red); display:inline-block; animation:pulseRed 1.6s infinite}
+  @keyframes pulseRed{0%{box-shadow:0 0 0 0 rgba(220,38,38,.45)}70%{box-shadow:0 0 0 7px rgba(220,38,38,0)}100%{box-shadow:0 0 0 0 rgba(220,38,38,0)}}
+  .form-card h1{font-size:clamp(1.75rem, 5vw, 2.2rem); line-height:1.07; margin-bottom:10px; color:var(--ink)}
+  .form-card h1 span{background:linear-gradient(100deg,var(--red) 10%, var(--magenta) 42%, var(--red-deep) 100%); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .form-card h1 .red-word{color:var(--red); background:none; -webkit-background-clip:unset; background-clip:unset; -webkit-text-fill-color:var(--red)}
+  .form-sub{font-size:.84rem; color:rgba(27,24,54,.62); line-height:1.6; max-width:420px; margin:0 auto 18px}
+  .form-sub strong{color:var(--red); font-weight:800}
+  .icon-ring{width:56px; height:56px; border-radius:16px; background:#fff; border:1.5px solid rgba(220,38,38,.14); color:var(--red); display:flex; align-items:center; justify-content:center; font-size:1.55rem; margin:0 auto 16px; box-shadow:0 10px 22px rgba(220,38,38,.10), 0 0 0 8px rgba(220,38,38,.06); position:relative}
+  .icon-ring::after{content:""; position:absolute; inset:-8px; border-radius:18px; border:1px solid rgba(220,38,38,.08); pointer-events:none}
+  .trust-row{display:flex; gap:7px; flex-wrap:wrap; justify-content:center; margin-top:14px}
+  .chip{font-size:.68rem; font-weight:700; letter-spacing:.04em; color:rgba(27,24,54,.62); background:rgba(27,24,54,.04); border:1px solid rgba(27,24,54,.07); padding:6px 10px; border-radius:100px; display:inline-flex; gap:5px; align-items:center}
+  .chip::before{content:"✓"; color:var(--red); font-weight:800}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:7px; padding:14px 22px; border-radius:100px; font-weight:800; font-size:.92rem; text-decoration:none; border:1px solid transparent; cursor:pointer; transition:transform .18s cubic-bezier(.16,1,.3,1), box-shadow .18s, background .18s; white-space:nowrap; letter-spacing:.01em}
+  .btn:active{transform:scale(.98)}
+  .btn-primary{background:linear-gradient(120deg,var(--red) 0%, var(--magenta) 55%, #C41E3A 100%); color:#fff; width:100%; box-shadow:0 12px 26px rgba(220,38,38,.28), 0 1px 0 rgba(255,255,255,.20) inset; border-color:rgba(220,38,38,.18)}
+  .btn-primary:hover{transform:translateY(-1px); box-shadow:0 16px 34px rgba(220,38,38,.32)}
+  .btn-ghost{background:#fff; border-color:rgba(27,24,54,.12); color:var(--ink); width:100%; margin-top:10px; box-shadow:0 1px 0 rgba(27,24,54,.04)}
+  .btn-ghost:hover{background:var(--ink); color:#fff; border-color:var(--ink); transform:translateY(-1px)}
+  .btn-xl{padding:15px 26px; font-size:1rem; letter-spacing:.01em}
+  .link-hint{margin-top:12px; font-size:.72rem; color:rgba(27,24,54,.52)}
+  .code{word-break:break-all; font-size:.70rem; background:#FFF8EF; border:1px solid rgba(27,24,54,.08); padding:8px 10px; border-radius:10px; display:block; margin-top:10px; color:rgba(27,24,54,.66); font-family:ui-monospace, monospace; cursor:pointer; transition:border-color .18s, background .18s}
+  .code:hover{border-color:rgba(220,38,38,.18); background:#fff}
+  /* verbatim dropdown — keeps card minimal, letter hidden till opened */
+  details.letter{margin-top:14px; background:rgba(255,255,255,.92); border:1px solid rgba(27,24,54,.08); border-radius:14px; overflow:hidden; text-align:left}
+  details.letter summary{font-weight:700; font-size:.84rem; cursor:pointer; padding:12px 14px; list-style:none; display:flex; align-items:center; justify-content:space-between; color:var(--ink)}
+  details.letter summary::-webkit-details-marker{display:none}
+  details.letter summary::after{content:"›"; color:var(--red); font-size:1.05rem; transform:rotate(90deg); transition:transform .2s}
+  details.letter[open] summary::after{transform:rotate(-90deg)}
+  details.letter blockquote{font-size:.82rem; line-height:1.7; color:rgba(27,24,54,.70); border-left:3px solid var(--red); margin:0 14px 14px; padding-left:12px}
+  footer{padding:14px 0; text-align:center; font-size:.70rem; color:rgba(255,255,255,.55); background:transparent}
+  footer a{color:rgba(255,255,255,.8); font-weight:700; text-decoration:underline}
+  @media(max-width:640px){ .fshape{display:none} .a3{display:none} .page-bg{padding:24px 14px 28px} .form-card-inner{padding:24px 16px 18px} }
 </style>
 </head>
 <body>
@@ -60,80 +90,59 @@
 <script src="site-transition.js" defer></script>
 
 <div class="top-alert">
-  <b>Emergency — Rasuwa Flood</b> &nbsp; For immediate rescue call <a href="tel:1149">1149</a> / <a href="tel:100">100</a> · This page is volunteer registration only.
+  <b>Emergency — Rasuwa</b> &nbsp; For rescue call <a href="tel:1149">1149</a> · Volunteer form only.
 </div>
 
-<main class="wrap" id="siteMain">
-  <div class="hero">
-    <div class="eyebrow"><i></i> Rotaract District 3292 · Nepal-Bhutan</div>
-    <h1>Volunteers Needed — <span>Rasuwa Flood</span></h1>
-    <p class="lead">
-      Many are still waiting for rescue. District 3292 is mobilising volunteers for <strong>field support, transport, first aid, blood &amp; relief</strong>. <strong>Register in 2 minutes.</strong> You will be called <strong>only when needed</strong>, coordinated with rescue authorities.
-    </p>
-  </div>
-
-  <div class="form-card" id="register">
-    <div class="form-card-head">
-      <div>
-        <b>Volunteer Registration Form</b><br>
-        <span>District official · Google Forms · opens in new tab</span>
-      </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; flex:1; justify-content:flex-end; max-width:360px; width:100%">
-        <a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfgQ0YZ1CpaCx-9bfDcsPQ4FaEeYm15wIs-QyoyeMr6ZsQkZg/viewform" target="_blank" rel="noopener">Open form →</a>
-        <button class="btn btn-ghost" type="button" id="copyLink">Copy link</button>
+<div class="page-bg">
+  <div class="hero-glow"></div>
+  <div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div>
+  <div class="fshape shape-ring"></div><div class="fshape shape-tri"></div><div class="fshape shape-dot"></div><div class="fshape shape-dot2"></div><div class="fshape shape-sq"></div>
+  <div class="wrap" style="width:100%; max-width:520px">
+    <div class="form-card">
+      <div class="form-card-inner">
+        <div class="eyebrow"><i></i> District 3292 · Rasuwa Flood · Official</div>
+        <h1>Volunteers Needed — <span>Rasuwa</span></h1>
+        <p class="form-sub">2-minute <strong>Google Form</strong> · <strong style="color:var(--red)">Coordinated via 1149</strong> · No solo deployment</p>
+        <div class="icon-ring">📋</div>
+        <a class="btn btn-primary btn-xl" href="https://docs.google.com/forms/d/e/1FAIpQLSfgQ0YZ1CpaCx-9bfDcsPQ4FaEeYm15wIs-QyoyeMr6ZsQkZg/viewform" target="_blank" rel="noopener">Open Registration Form →</a>
+        <button class="btn btn-ghost" type="button" id="copyLink">Copy form link</button>
+        <div class="trust-row">
+          <span class="chip">Via 1149</span>
+          <span class="chip">2 min form</span>
+          <span class="chip">Contact only if needed</span>
+        </div>
+        <code class="code" id="formCode">https://docs.google.com/forms/d/e/1FAIpQLSfgQ0YZ1CpaCx-9bfDcsPQ4FaEeYm15wIs-QyoyeMr6ZsQkZg/viewform</code>
+        <div class="link-hint">Tap code to copy · Works on any phone · Sign-in may be required</div>
+        <details class="letter">
+          <summary>Read full District 3292 appeal — verbatim</summary>
+          <blockquote>
+            Dear Rotaract Leaders,<br>Greetings from Rotaract District 3292.<br><br>
+            As our communities continue to face the devastating impact of the floods, many individuals are still waiting for rescue and urgent assistance. At this critical hour, we cannot simply stand and watch.<br><br>
+            Rotaract District 3292 is committed to supporting the affected communities at <strong>any cost and through every possible means</strong>. From rescue coordination and volunteer mobilization to relief materials, blood, transportation and other emergency support, we are doing our very best from every possible aspect to reach those in need.<br><br>
+            We now need YOU.<br><br>
+            We are opening a Call for Rescue Volunteers for Rotaractors who are willing and capable of supporting rescue and emergency response efforts. Whether you can assist in the field, provide transportation, offer first aid or contribute in any other meaningful way, your willingness to serve can save a life.<br><br>
+            <em>Please register only if you are genuinely willing and available to respond when required. Volunteers will be mobilised based on the situation and in coordination with the concerned rescue teams and authorities.</em><br><br>
+            This is more than volunteering. This is our moment to stand together.<br>
+            One volunteer. One helping hand. One life saved.<br><br>
+            With Solidarity and Hope,<br><strong>Rotaract District 3292</strong>
+          </blockquote>
+        </details>
       </div>
     </div>
-    <div style="padding:28px 20px; text-align:center; background:linear-gradient(180deg, #fff 0%, #FFF8EF 100%)">
-      <div style="width:56px; height:56px; border-radius:16px; background:linear-gradient(135deg,var(--magenta),#F2A900); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.6rem; margin:0 auto 14px">📋</div>
-      <div style="font-family:'Poppins'; font-weight:800; font-size:1.15rem; margin-bottom:6px">Google Form — 2 minutes</div>
-      <div style="font-size:.88rem; color:rgba(27,24,54,.62); line-height:1.6; max-width:420px; margin:0 auto 18px">Tap the button below. It opens the official District 3292 form in a new tab and works on any phone. If it asks for Google sign-in, please sign in and continue.</div>
-      <a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfgQ0YZ1CpaCx-9bfDcsPQ4FaEeYm15wIs-QyoyeMr6ZsQkZg/viewform" target="_blank" rel="noopener" style="font-size:1.02rem; padding:16px 32px; min-width:260px; box-shadow:0 14px 28px rgba(225,26,110,.25)">Open Registration Form →</a>
-      <div style="margin-top:14px; font-size:.78rem; color:rgba(27,24,54,.55)">Embed is blocked by Google (401). Direct open is the fastest way.</div>
-      <div style="margin-top:16px; background:#FFF8EF; border:1px solid var(--line); border-radius:12px; padding:12px; font-size:.82rem; color:rgba(27,24,54,.68); text-align:left; max-width:480px; margin-left:auto; margin-right:auto">
-        <b style="color:var(--ink)">Link not working?</b> Copy and paste in your browser:<br>
-        <span id="formLinkText" style="word-break:break-all; font-size:.78rem; background:#fff; border:1px solid var(--line); padding:6px 8px; border-radius:8px; display:inline-block; margin-top:6px; width:100%">https://docs.google.com/forms/d/e/1FAIpQLSfgQ0YZ1CpaCx-9bfDcsPQ4FaEeYm15wIs-QyoyeMr6ZsQkZg/viewform</span>
-      </div>
-    </div>
   </div>
+</div>
 
-  <p class="tiny">
-    Please register only if genuinely willing &amp; reachable. By registering you consent to be contacted for this response only.<br>
-    Trouble loading? <a href="https://docs.google.com/forms/d/e/1FAIpQLSfgQ0YZ1CpaCx-9bfDcsPQ4FaEeYm15wIs-QyoyeMr6ZsQkZg/viewform" target="_blank" rel="noopener">Open form in new tab →</a> · Share this page: <a href="#" id="shareBtn">Share ↗</a>
-  </p>
-
-  <details class="letter">
-    <summary>Read full District 3292 appeal (verbatim)</summary>
-    <blockquote>
-      Dear Rotaract Leaders,<br>Greetings from Rotaract District 3292.<br><br>
-      As our communities continue to face the devastating impact of the floods, many individuals are still waiting for rescue and urgent assistance. At this critical hour, we cannot simply stand and watch.<br><br>
-      Rotaract District 3292 is committed to supporting the affected communities at any cost and through every possible means. From rescue coordination and volunteer mobilization to relief materials, blood, transportation and other emergency support, we are doing our very best from every possible aspect to reach those in need.<br><br>
-      We now need YOU.<br><br>
-      We are opening a Call for Rescue Volunteers for Rotaractors who are willing and capable of supporting rescue and emergency response efforts. Whether you can assist in the field, provide transportation, offer first aid or contribute in any other meaningful way, your willingness to serve can save a life.<br><br>
-      <em>Please register only if you are genuinely willing and available to respond when required. Volunteers will be mobilised based on the situation and in coordination with the concerned rescue teams and authorities.</em><br><br>
-      This is more than volunteering. This is our moment to stand together.<br>
-      One volunteer. One helping hand. One life saved.<br><br>
-      With Solidarity and Hope,<br><strong>Rotaract District 3292</strong>
-    </blockquote>
-    <p style="margin-top:8px; font-size:.78rem; color:rgba(27,24,54,.50)">Contact: <a href="mailto:ri3292zone7@gmail.com" style="color:var(--magenta-deep); font-weight:700">ri3292zone7@gmail.com</a> · Missing persons: <a href="/flood-help" style="color:var(--magenta-deep); font-weight:700">flood-help →</a></p>
-  </details>
-</main>
-
-<footer>
-  © 2026 Zone 7 · Rotaract District 3292 · Rescue: <a href="tel:1149">1149</a> · <a href="/">Home</a> · <a href="/flood-help">Flood Help</a>
-</footer>
+<footer>© 2026 Zone 7 · District 3292 · <a href="/">Home</a> · <a href="/flood-help">Flood Help</a></footer>
 
 <script>
 (function(){
-  const formUrl='https://docs.google.com/forms/d/e/1FAIpQLSfgQ0YZ1CpaCx-9bfDcsPQ4FaEeYm15wIs-QyoyeMr6ZsQkZg/viewform';
+  const url='https://docs.google.com/forms/d/e/1FAIpQLSfgQ0YZ1CpaCx-9bfDcsPQ4FaEeYm15wIs-QyoyeMr6ZsQkZg/viewform';
   document.getElementById('copyLink')?.addEventListener('click', async e=>{
-    const btn=e.currentTarget;
-    try{ await navigator.clipboard.writeText(formUrl); const o=btn.textContent; btn.textContent='Copied ✓'; setTimeout(()=>btn.textContent=o,1500);}catch{prompt('Copy link:',formUrl)}
+    const b=e.currentTarget;
+    try{ await navigator.clipboard.writeText(url); const o=b.textContent; b.textContent='Copied ✓'; setTimeout(()=>b.textContent=o,1500);}catch{prompt('Copy link:',url)}
   });
-  document.getElementById('shareBtn')?.addEventListener('click', async e=>{
-    e.preventDefault();
-    const url=location.href;
-    if(navigator.share){ try{ await navigator.share({title:document.title, text:'Join District 3292 rescue volunteers for Rasuwa', url}); return;}catch{} }
-    try{ await navigator.clipboard.writeText(url); const o=e.target.textContent; e.target.textContent='Link copied ✓'; setTimeout(()=>e.target.textContent=o,1500);}catch{prompt('Copy page link:',url)}
+  document.getElementById('formCode')?.addEventListener('click', async ()=>{
+    try{ await navigator.clipboard.writeText(url); const c=document.getElementById('formCode'); const o=c.textContent; c.textContent='Copied!'; setTimeout(()=>c.textContent=o,1200);}catch{prompt('Copy link:',url)}
   });
 })();
 </script>

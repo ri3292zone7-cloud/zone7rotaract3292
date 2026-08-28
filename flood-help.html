@@ -273,9 +273,10 @@
     <div class="toolbar">
       <button class="btn btn-ghost btn-sm" id="btnFound">Mark Found</button>
       <button class="btn btn-ghost btn-sm" onclick="window.print()">Print Posters</button>
- <input id="qSearch" type="search" placeholder="Search name or area…" aria-label="Search">
- <select id="fStatus" aria-label="Filter status"><option value="">All status</option><option value="missing">Missing</option><option value="found">Found</option></select>
- <button class="btn btn-ghost btn-sm" id="btnClear">Clear</button>
+  <input id="qSearch" type="search" placeholder="Search name or area…" aria-label="Search">
+  <select id="fStatus" aria-label="Filter status"><option value="">All status</option><option value="missing">Missing</option><option value="found">Found</option></select>
+  <select id="fArea" aria-label="Filter area"><option value="">All areas</option><option value="flood risk">Flood Risk</option><option value="trishuli">Trishuli</option><option value="rasuwa">Rasuwa</option><option value="bajhang">Bajhang</option></select>
+  <button class="btn btn-ghost btn-sm" id="btnClear">Clear</button>
  </div>
 
  <div class="card">
@@ -597,23 +598,25 @@
  var lc=document.getElementById('lastChecked'); if(lc) lc.textContent=now.toLocaleDateString('en-NP',{timeZone:'Asia/Kathmandu', dateStyle:'medium'});
  var asof=document.getElementById('asOf'); if(asof) asof.textContent=now.toLocaleDateString('en-NP',{timeZone:'Asia/Kathmandu', dateStyle:'medium'})+' '+now.toLocaleTimeString('en-NP',{timeZone:'Asia/Kathmandu', hour:'2-digit', minute:'2-digit'})+' NPT';
  }catch(e){}
- (function(){
- var q=document.getElementById('qSearch'), fs=document.getElementById('fStatus'), clr=document.getElementById('btnClear'), body=document.getElementById('missingBody');
- function apply(){
- var qq=(q.value||'').toLowerCase().trim(), fsv=(fs.value||'').toLowerCase();
- [].slice.call(body.querySelectorAll('.missing-card')).forEach(function(card){
- var name=card.getAttribute('data-name')||'', area=card.getAttribute('data-area')||'', st=card.getAttribute('data-status')||'';
- var hitQ=!qq|| name.indexOf(qq)>-1 || area.indexOf(qq)>-1 || card.textContent.toLowerCase().indexOf(qq)>-1;
- var hitS=!fsv|| st===fsv;
- card.style.display=(hitQ&&hitS)?'':'none';
- });
- var vis=[].slice.call(body.querySelectorAll('.missing-card')).filter(function(c){ return c.style.display!=='none'; }).length;
- document.getElementById('missingCount').textContent=vis+' people shown • 0 pending';
- }
- if(q) q.addEventListener('input', apply);
- if(fs) fs.addEventListener('change', apply);
- if(clr) clr.addEventListener('click', function(){ q.value=''; fs.value=''; apply(); });
- })();
+  (function(){
+  var q=document.getElementById('qSearch'), fs=document.getElementById('fStatus'), fa=document.getElementById('fArea'), clr=document.getElementById('btnClear'), body=document.getElementById('missingBody');
+  function apply(){
+  var qq=(q.value||'').toLowerCase().trim(), fsv=(fs.value||'').toLowerCase(), fav=(fa && fa.value||'').toLowerCase();
+  [].slice.call(body.querySelectorAll('.missing-card')).forEach(function(card){
+  var name=card.getAttribute('data-name')||'', area=card.getAttribute('data-area')||'', st=card.getAttribute('data-status')||'';
+  var hitQ=!qq|| name.indexOf(qq)>-1 || area.indexOf(qq)>-1 || card.textContent.toLowerCase().indexOf(qq)>-1;
+  var hitS=!fsv|| st===fsv;
+  var hitA=!fav|| area.indexOf(fav)>-1;
+  card.style.display=(hitQ&&hitS&&hitA)?'':'none';
+  });
+  var vis=[].slice.call(body.querySelectorAll('.missing-card')).filter(function(c){ return c.style.display!=='none'; }).length;
+  document.getElementById('missingCount').textContent=vis+' people shown • 0 pending';
+  }
+  if(q) q.addEventListener('input', apply);
+  if(fs) fs.addEventListener('change', apply);
+  if(fa) fa.addEventListener('change', apply);
+  if(clr) clr.addEventListener('click', function(){ q.value=''; fs.value=''; if(fa) fa.value=''; apply(); });
+  })();
  var reportOpenAt=0;
  function revealContact(btn){
  var phone=btn.getAttribute('data-phone'), name=btn.getAttribute('data-name');
