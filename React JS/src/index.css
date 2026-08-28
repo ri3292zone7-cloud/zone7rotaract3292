@@ -115,12 +115,16 @@ button { font-family: inherit; }
 .nav-mobile.open { transform: translateY(0); }
 .nav-mobile a { padding: 13px 14px; border-radius: 14px; font-weight: 700; font-size: .98rem; }
 .nav-mobile a:hover { background: rgba(225, 26, 110, .08); }
+.nav-emergency{display:flex; gap:8px; align-items:center; flex-shrink:0}
 @media (max-width: 860px) {
   .nav-links { display: none; }
   .nav-burger { display: flex; }
   .nav .nav-cta { display: none; }
   .nav-mobile .nav-cta { display: inline-flex; justify-content: center; margin: 10px 0 0; }
+  .nav-emergency{gap:6px}
+  .nav-emergency a{padding:6px 10px !important; font-size:.72rem !important}
 }
+@media (max-width: 380px){ .hide-sm{display:none} .nav-emergency{gap:5px} }
 
 /* ── Dark 3D hero stage ────────────────────────────────────────── */
 .darkhero {

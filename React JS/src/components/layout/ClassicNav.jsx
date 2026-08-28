@@ -126,11 +126,14 @@ export default function ClassicNav({ current = '', cta = 'join' }) {
           <Link to="/merch" className={current === 'merch' ? 'current' : ''} onClick={closeAll}>
             Merch
           </Link>
-          <Link to="/volunteers" style={{background:'linear-gradient(120deg,#E11A6E,#F2A900)', color:'#fff', padding:'7px 14px', borderRadius:100, fontWeight:800, fontSize:'.80rem', display:'inline-flex', gap:6, alignItems:'center', whiteSpace:'nowrap', boxShadow:'0 6px 14px rgba(225,26,110,.22)', textDecoration:'none'}} onClick={closeAll}>🚨 Volunteers</Link>
-          <Link to="/flood-help" style={{background:'rgba(255,140,26,0.12)', color:'#9a4a00', border:'1px solid rgba(255,140,26,0.22)', padding:'7px 12px', borderRadius:100, fontWeight:800, fontSize:'.80rem', display:'inline-flex', gap:6, alignItems:'center', whiteSpace:'nowrap'}} onClick={closeAll}>🛟 Flood <span style={{background:'#FF8C1A', color:'#fff', padding:'2px 7px', borderRadius:100, fontSize:'.66rem'}}>13</span></Link>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div className="nav-emergency" style={{display:'flex', gap:8, alignItems:'center', flexShrink:0}}>
+          <Link to="/volunteers" style={{background:'linear-gradient(120deg,#DC2626,#E11A6E)', color:'#fff', padding:'7px 12px', borderRadius:100, fontWeight:800, fontSize:'.78rem', display:'inline-flex', gap:6, alignItems:'center', whiteSpace:'nowrap', boxShadow:'0 6px 14px rgba(220,38,38,.18)', textDecoration:'none'}} onClick={closeAll}><span>🚨</span><span className="hide-sm"> Volunteers</span><span style={{background:'rgba(255,255,255,.22)', color:'#fff', padding:'2px 6px', borderRadius:100, fontSize:'.62rem', marginLeft:2}}>NEW</span></Link>
+          <Link to="/flood-help" style={{background:'#FFF8EF', color:'#9a4a00', border:'1.5px solid rgba(255,140,26,.22)', padding:'7px 12px', borderRadius:100, fontWeight:800, fontSize:'.78rem', display:'inline-flex', gap:6, alignItems:'center', whiteSpace:'nowrap'}} onClick={closeAll}><span>🛟</span><span className="hide-sm"> Flood</span><span style={{background:'#FF8C1A', color:'#fff', padding:'2px 6px', borderRadius:100, fontSize:'.62rem', marginLeft:2}}>13</span></Link>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <Link to="/admin" className="nav-admin" onClick={closeAll}>
             Club Admin
           </Link>

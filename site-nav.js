@@ -124,13 +124,16 @@
     "#siteNav .nav-cta:hover{background:#A80F52}",
     "#siteNav .burger{display:none;background:none;border:none;cursor:pointer;padding:6px}",
     "#siteNav .burger span{display:block;width:22px;height:2px;background:#1B1836;margin:5px 0;border-radius:2px}",
+    "#siteNav .nav-emergency{display:flex;gap:8px;align-items:center;flex-shrink:0}",
+    "#siteNav .nav-emergency a{padding:7px 12px;border-radius:100px;font-weight:800;font-size:.78rem;display:inline-flex;gap:6px;align-items:center;white-space:nowrap;text-decoration:none;line-height:1}",
     "#siteNav .mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:#FFFDF9;border-bottom:1px solid rgba(27,24,54,.1);z-index:99;padding:14px 28px 26px;flex-direction:column;max-height:calc(100vh - 72px);overflow-y:auto}",
     "#siteNav .mobile-menu.open{display:flex}",
     "#siteNav .mobile-menu a{font-weight:600;font-size:1rem;color:#1B1836;padding:10px 0;border-bottom:1px solid rgba(27,24,54,.06)}",
     "#siteNav .mobile-menu a:last-child{border-bottom:none}",
     "#siteNav .mobile-menu .mm-group{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:rgba(27,24,54,.42);margin:14px 0 2px}",
     "#siteNav .mobile-menu a.mm-cta{background:#1B1836;color:#fff;border-radius:100px;text-align:center;padding:13px;border:none;margin-top:14px}",
-    "@media (max-width:920px){#siteNav .navlinks,#siteNav .nav-admin,#siteNav .nav-cta,#siteNav .back{display:none}#siteNav .burger{display:block}}",
+    "@media (max-width:920px){#siteNav .navlinks,#siteNav .nav-admin,#siteNav .nav-cta,#siteNav .back{display:none}#siteNav .burger{display:block} #siteNav .wrap{gap:10px; padding:0 14px} #siteNav .brand{font-size:.95rem} #siteNav .brand .z{width:30px;height:30px;font-size:.95rem}}",
+    "@media (max-width:380px){#siteNav .nav-emergency{gap:5px} #siteNav .nav-emergency a{padding:5px 8px;font-size:.68rem} #siteNav .nav-emergency a .hide-sm{display:none}}",
     "@media (max-width:1160px) and (min-width:921px){#siteNav .navlinks{gap:16px}#siteNav .wrap{gap:14px}}",
     ".skip-link{position:fixed;top:-70px;left:16px;z-index:300;background:#A80F52;color:#fff;padding:11px 20px;border-radius:0 0 12px 12px;font-weight:700;font-size:.85rem;box-shadow:0 12px 28px rgba(27,24,54,.25);transition:top .2s}",
     ".skip-link:focus{top:0}",
@@ -186,8 +189,10 @@
     "</div>" +
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
-    '<a href="/volunteers" style="background:#E11A6E; color:#fff; padding:7px 14px; border-radius:100px; font-weight:700; font-size:0.80rem; display:inline-flex; gap:6px; align-items:center; white-space:nowrap; text-decoration:none;">🚨 Volunteers</a>' +
-    '<a href="/flood-help" style="background:rgba(255,140,26,0.12); color:#9a4a00; border:1px solid rgba(255,140,26,0.22); padding:7px 12px; border-radius:100px; font-weight:800; font-size:0.80rem; display:inline-flex; gap:6px; align-items:center; white-space:nowrap; opacity:1;">🛟 Flood <span style="background:#FF8C1A; color:#fff; padding:2px 7px; border-radius:100px; font-size:0.66rem;">13</span></a>' +
+    "</div>" +
+    '<div class="nav-emergency">' +
+    '<a href="/volunteers" style="background:linear-gradient(120deg,#DC2626,#E11A6E); color:#fff; box-shadow:0 6px 14px rgba(220,38,38,.18);"><span>🚨</span><span class="hide-sm"> Volunteers</span><span style="background:rgba(255,255,255,.22); color:#fff; padding:2px 6px; border-radius:100px; font-size:.62rem; margin-left:2px;">NEW</span></a>' +
+    '<a href="/flood-help" style="background:#FFF8EF; color:#9a4a00; border:1.5px solid rgba(255,140,26,.22);"><span>🛟</span><span class="hide-sm"> Flood</span><span style="background:#FF8C1A; color:#fff; padding:2px 6px; border-radius:100px; font-size:.62rem; margin-left:2px;">13</span></a>' +
     "</div>" +
     '<div style="display:flex;align-items:center;gap:16px;">' +
     '<a href="/admin" class="nav-admin">Club Admin</a>' +
