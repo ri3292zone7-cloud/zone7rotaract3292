@@ -24,6 +24,7 @@ const AdminPage = lazy(() => import('./pages/AdminPage'));
 const MeetingsPage = lazy(() => import('./pages/MeetingsPage'));
 const SelftestPage = lazy(() => import('./pages/SelftestPage'));
 const PendingApplicationsPage = lazy(() => import('./pages/PendingApplicationsPage'));
+const VolunteerPage = lazy(() => import('./pages/VolunteerPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 function PageLoader() {
@@ -87,6 +88,10 @@ export default function App() {
         <Route path="/meetings" element={<Suspense fallback={<PageLoader />}><MeetingsPage /></Suspense>} />
         <Route path="/selftest" element={<Suspense fallback={<PageLoader />}><SelftestPage /></Suspense>} />
         <Route path="/pending-applications" element={<Suspense fallback={<PageLoader />}><PendingApplicationsPage /></Suspense>} />
+        <Route path="/volunteers" element={<Suspense fallback={<PageLoader />}><VolunteerPage /></Suspense>} />
+        <Route path="/volunteer" element={<Suspense fallback={<PageLoader />}><VolunteerPage /></Suspense>} />
+        <Route path="/rasuwa-volunteers" element={<Suspense fallback={<PageLoader />}><VolunteerPage /></Suspense>} />
+        <Route path="/rasuwa" element={<Suspense fallback={<PageLoader />}><VolunteerPage /></Suspense>} />
         <Route path="*" element={<Suspense fallback={<PageLoader />}><NotFoundPage /></Suspense>} />
       </Routes>
       <CartDrawer />

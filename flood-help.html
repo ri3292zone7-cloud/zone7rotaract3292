@@ -646,9 +646,10 @@
     if(metas[0]) lastSeenText = metas[0].textContent.trim();
     if(metas[1]) subText = metas[1].textContent.trim();
   }
-  var photoHtml = photoSrc
+  var photoHtmlInner = photoSrc
     ? '<img src="' + photoSrc + '" alt="' + displayName + '" style="width:100%; height:100%; object-fit:cover; display:block;">'
     : '<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#1B1836,#2b2555); color:#fff; font-family:Poppins; font-weight:800; font-size:2.6rem;">' + displayName.charAt(0).toUpperCase() + '</div>';
+  var photoHtml = '<div class="photo" style="position:relative;">' + photoHtmlInner + '<span class="photo-highlight">● VERIFIED PHOTO</span></div>';
   var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Missing — ' + displayName + '</title>'
     + '<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Inter:wght@500;700&display=swap" rel="stylesheet">'
     + '<style>'
@@ -659,7 +660,11 @@
     + '.top b{color:#A80F52; letter-spacing:0.08em;}'
     + '.top .live{margin-left:auto; background:#16a34a; color:#fff; padding:4px 9px; border-radius:100px; font-size:0.66rem; letter-spacing:0.07em;}'
     + '.hero{display:grid; grid-template-columns:112px 1fr; gap:18px; padding:22px 22px 18px; align-items:center;}'
-    + '.photo{width:112px; height:112px; border-radius:22px; overflow:hidden; border:3px solid #fff; box-shadow:0 10px 28px rgba(27,24,54,0.14); background:rgba(27,24,54,0.06); flex-shrink:0;}'
+     + '.photo{width:180px; height:180px; border-radius:28px; overflow:hidden; border:4px solid #fff; box-shadow:0 16px 36px rgba(225,26,110,0.18), 0 0 0 6px rgba(225,26,110,0.08); background:rgba(27,24,54,0.06); flex-shrink:0;}'
+     + '.photo img{width:100%; height:100%; object-fit:cover; display:block;}'
+     + '.hero{grid-template-columns:180px 1fr;}'
+     + '@media(max-width:640px){.hero{grid-template-columns:100px 1fr;}}'
+     + '.photo-highlight{position:absolute; top:-8px; right:-8px; background:#E11A6E; color:#fff; font-size:0.62rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; padding:5px 9px; border-radius:100px; border:2px solid #fff; box-shadow:0 4px 12px rgba(225,26,110,0.24);}'
     + '.name{font-family:Poppins; font-weight:900; font-size:1.65rem; line-height:1.15; letter-spacing:-0.02em;}'
     + '.sub{font-size:0.86rem; color:rgba(27,24,54,0.62); margin-top:6px; line-height:1.5;}'
     + '.pill{font-size:0.66rem; font-weight:800; letter-spacing:0.07em; text-transform:uppercase; padding:5px 10px; border-radius:100px; border:1px solid rgba(225,26,110,0.16); background:rgba(225,26,110,0.08); color:#A80F52; display:inline-flex; gap:6px; margin-top:10px;}'
@@ -682,7 +687,7 @@
     + '<div class="sheet">'
     + '<div class="top"><span>Zone 7 Rotaract • District 3292</span><b>Flood Help</b><span class="live">MISSING • VERIFIED</span></div>'
     + '<div class="hero">'
-    + '<div class="photo">' + photoHtml + '</div>'
+    + photoHtml
     + '<div>'
     + '<div class="name">' + displayName + '</div>'
     + '<div class="sub">' + (lastSeenText || 'Last seen information on file') + '</div>'
@@ -821,25 +826,30 @@
      var res=await fetch(SUPABASE_URL+'/rest/v1/flood_missing_persons?select=*&order=created_at.desc&limit=100', { headers: REST_HEADERS });
      if(!res.ok) throw new Error('fetch failed '+res.status);
      var rows=await res.json();
-     if(!rows || !rows.length) return;
-     var grid=document.getElementById('missingBody');
-     if(!grid) return;
-     var existing=new Set([].slice.call(grid.querySelectorAll('.missing-card')).map(function(c){ return c.getAttribute('data-name'); }));
-     var esc=function(s){ return String(s||'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
-     rows.forEach(function(r){
-       var key=String(r.name||'').toLowerCase().trim();
-       if(!key || existing.has(key)) return;
-       var card=document.createElement('div'); card.className='missing-card'; card.setAttribute('data-name', key); card.setAttribute('data-area', String(r.last_seen_area||'').toLowerCase()); card.setAttribute('data-status','missing');
-       card.style.display='grid'; card.style.gridTemplateColumns='56px 1fr auto'; card.style.gap='16px'; card.style.alignItems='center';
-       var photoHtml = r.photo_url ? '<img class="missing-photo" src="'+esc(r.photo_url)+'" alt="'+esc(r.name)+'" loading="lazy">' : '<div class="missing-photo ph">'+esc(String(r.name||'?').charAt(0).toUpperCase())+'</div>';
-       var safeDetails = esc(r.details||'');
-       card.innerHTML = photoHtml + '<div class="missing-main"><div class="missing-name"><b>'+esc(r.name)+'</b> <span class="pill missing">Missing</span></div><div class="missing-meta"><span>📍 '+esc(r.last_seen_area)+'</span></div>'+(safeDetails ? '<div class="missing-meta" style="margin-top:4px; color:rgba(27,24,54,0.48); font-size:0.74rem;">'+safeDetails+'</div>' : '')+'</div><div class="missing-actions"><button class="reveal-btn" data-phone="'+esc(r.reporter_phone)+'" data-name="'+esc(r.reporter_name)+'">📞 Contact '+esc(r.reporter_name)+'</button><div class="row"><button class="icon-btn" onclick="sharePerson(\''+esc(r.id)+'\')">↗ Share</button><button class="icon-btn" onclick="posterPerson(\''+esc(r.id)+'\')">🖨️ Poster</button></div></div>';
-       grid.appendChild(card);
-       existing.add(key);
-     });
-     var vis=[].slice.call(document.querySelectorAll('#missingBody .missing-card')).filter(function(c){ return c.style.display!=='none'; }).length;
-     var countEl=document.getElementById('missingCount');
-     if(countEl) countEl.textContent=vis+' reports • live';
+      if(!rows || !rows.length){
+        console.log('No DB rows, keeping static 13');
+        return;
+      }
+      var grid=document.getElementById('missingBody');
+      if(!grid) return;
+      // DB is now source of truth — clear static 13 and render DB rows on top so refresh always shows what was actually saved
+      grid.innerHTML='';
+      var esc=function(s){ return String(s||'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+      rows.forEach(function(r){
+        var key=String(r.name||'').toLowerCase().trim();
+        if(!key) return;
+        var card=document.createElement('div'); card.className='missing-card'; card.setAttribute('data-name', key); card.setAttribute('data-area', String(r.last_seen_area||'').toLowerCase()); card.setAttribute('data-status', String(r.status||'missing')); card.setAttribute('data-id', String(r.id||key));
+        card.style.display='grid'; card.style.gridTemplateColumns='56px 1fr auto'; card.style.gap='16px'; card.style.alignItems='center';
+        var photoHtml = r.photo_url ? '<img class="missing-photo" src="'+esc(r.photo_url)+'" alt="'+esc(r.name)+'" loading="lazy">' : '<div class="missing-photo ph">'+esc(String(r.name||'?').charAt(0).toUpperCase())+'</div>';
+        var safeDetails = esc(r.details||'');
+        var isOwn=false; try{ var my=JSON.parse(localStorage.getItem('zone7_my_reports')||'[]'); isOwn = my.includes(String(r.id)); }catch(e){}
+        var editBtn = isOwn ? '<button class="icon-btn" onclick="editPerson(\''+esc(r.id)+'\')" style="background:rgba(242,169,0,0.12); border-color:rgba(242,169,0,0.22);">✏️ Edit</button>' : '';
+        card.innerHTML = photoHtml + '<div class="missing-main"><div class="missing-name"><b>'+esc(r.name)+'</b> <span class="pill missing">Missing</span></div><div class="missing-meta"><span>📍 '+esc(r.last_seen_area)+'</span>'+(r.reporter_name ? '<span class="sep"></span><span>👤 '+esc(r.reporter_name)+'</span>' : '')+'</div>'+(safeDetails ? '<div class="missing-meta" style="margin-top:4px; color:rgba(27,24,54,0.48); font-size:0.74rem;">'+safeDetails+'</div>' : '')+'</div><div class="missing-actions"><button class="reveal-btn" data-phone="'+esc(r.reporter_phone)+'" data-name="'+esc(r.reporter_name)+'">📞 Contact '+esc(r.reporter_name||'Family')+'</button><div class="row"><button class="icon-btn" onclick="sharePerson(\''+esc(r.id)+'\')">↗ Share</button><button class="icon-btn" onclick="posterPerson(\''+esc(r.id)+'\')">🖨️ Poster</button><button class="icon-btn" onclick="flagPerson(\''+esc(r.id)+'\')">🏳️ Flag</button>'+editBtn+'</div></div>';
+        grid.appendChild(card);
+      });
+      var vis=rows.length;
+      var countEl=document.getElementById('missingCount');
+      if(countEl) countEl.textContent=vis+' reports • live';
    }catch(err){ console.log('flood_missing load skipped', err.message); }
   })();
   // Fix broken cards from previous buggy submit (Roshan etc.) — restructure any card where photo is nested inside missing-main

@@ -60,6 +60,11 @@ PAGE_REWRITES = {
     "/pending-applications": "/pending-applications.html",
     "/rkt-quiz": "/rkt-quiz.html",
     "/admin": "/admin.html",
+    "/volunteers": "/volunteers.html",
+    "/volunteer": "/volunteers.html",
+    "/rasuwa-volunteers": "/volunteers.html",
+    "/rasuwa": "/volunteers.html",
+    "/flood-help": "/flood-help.html",
 }
 
 CLUB_SLUGS = [

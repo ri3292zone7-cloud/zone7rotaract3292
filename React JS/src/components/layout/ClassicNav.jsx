@@ -126,6 +126,8 @@ export default function ClassicNav({ current = '', cta = 'join' }) {
           <Link to="/merch" className={current === 'merch' ? 'current' : ''} onClick={closeAll}>
             Merch
           </Link>
+          <Link to="/volunteers" style={{background:'linear-gradient(120deg,#E11A6E,#F2A900)', color:'#fff', padding:'7px 14px', borderRadius:100, fontWeight:800, fontSize:'.80rem', display:'inline-flex', gap:6, alignItems:'center', whiteSpace:'nowrap', boxShadow:'0 6px 14px rgba(225,26,110,.22)', textDecoration:'none'}} onClick={closeAll}>🚨 Volunteers</Link>
+          <Link to="/flood-help" style={{background:'rgba(255,140,26,0.12)', color:'#9a4a00', border:'1px solid rgba(255,140,26,0.22)', padding:'7px 12px', borderRadius:100, fontWeight:800, fontSize:'.80rem', display:'inline-flex', gap:6, alignItems:'center', whiteSpace:'nowrap'}} onClick={closeAll}>🛟 Flood <span style={{background:'#FF8C1A', color:'#fff', padding:'2px 7px', borderRadius:100, fontSize:'.66rem'}}>13</span></Link>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -165,6 +167,8 @@ export default function ClassicNav({ current = '', cta = 'join' }) {
         <Link to="/club-guides" onClick={closeAll}>Guides for Clubs</Link>
         <Link to="/quiz" onClick={closeAll}>RKT Practice Quiz</Link>
         <div className="mm-group">Community</div>
+        <Link to="/volunteers" style={{background:'linear-gradient(120deg,#E11A6E,#F2A900)', color:'#fff', borderRadius:12, padding:'12px 14px', fontWeight:800, display:'flex', justifyContent:'space-between', alignItems:'center'}} onClick={closeAll}><span>🚨 Volunteers Needed</span><span style={{background:'rgba(255,255,255,.22)', color:'#fff', padding:'3px 8px', borderRadius:100, fontSize:'.72rem'}}>Register →</span></Link>
+        <Link to="/flood-help" style={{background:'rgba(255,140,26,0.12)', border:'1px solid rgba(255,140,26,0.22)', borderRadius:12, padding:'10px 14px', fontWeight:800, color:'#9a4a00', display:'flex', justifyContent:'space-between', alignItems:'center'}} onClick={closeAll}><span>🛟 Flood Help</span><span style={{background:'#FF8C1A', color:'#fff', padding:'3px 8px', borderRadius:100, fontSize:'.72rem'}}>13 missing</span></Link>
         <Link to="/gallery" onClick={closeAll}>Gallery</Link>
         <Link to="/merch" onClick={closeAll}>Merch · Zonal Magazine</Link>
         <Link to="/join" onClick={closeAll}>Join Us</Link>
