@@ -1,0 +1,7 @@
+{
+    "asof":  null,
+    "source":  "BIPAD",
+    "deaths":  null,
+    "missing":  null,
+    "note":  "Populated nightly by .github/workflows/bipad-sync.yml from bipad.gov.np - fallback is link-out. Until first sync, KPI shows - with link to source."
+}

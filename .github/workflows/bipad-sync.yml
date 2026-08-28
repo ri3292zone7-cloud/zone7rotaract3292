@@ -1,0 +1,45 @@
+name: BIPAD nightly sync
+
+on:
+  schedule:
+    - cron: '30 0 * * *' # 06:15 NPT daily
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch BIPAD losses
+        run: |
+          set -e
+          mkdir -p data
+          URL="https://bipad.gov.np/api/v1/loss/?limit=1"
+          echo "Fetching $URL"
+          if curl -fsSL "$URL" -o /tmp/bipad.json; then
+            echo "Fetched BIPAD JSON"
+            cat /tmp/bipad.json | head -c 500
+            sudo apt-get update -qq && sudo apt-get install -y -qq jq > /dev/null
+            DEATHS=$(jq -r '.data[0].peopleDeath // .results[0].deaths // empty' /tmp/bipad.json 2>/dev/null || echo "")
+            MISSING=$(jq -r '.data[0].peopleMissing // .results[0].missing // empty' /tmp/bipad.json 2>/dev/null || echo "")
+            ASOF=$(date -u +"%Y-%m-%d %H:%M UTC")
+            echo "Parsed deaths=$DEATHS missing=$MISSING"
+            jq -n --arg deaths "$DEATHS" --arg missing "$MISSING" --arg asof "$ASOF" '{deaths: (if $deaths == "" then null else (try ($deaths|tonumber) catch $deaths) end), missing: (if $missing == "" then null else (try ($missing|tonumber) catch $missing) end), source: "BIPAD", asof: $asof, note: "Auto-synced from bipad.gov.np — Zone 7 does not generate counts"}' > data/flood-stats.json
+          else
+            echo "BIPAD fetch failed - keeping existing data/flood-stats.json with nulls (fallback to link-out)"
+          fi
+          cat data/flood-stats.json
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet data/flood-stats.json; then
+            echo "No change"
+          else
+            git add data/flood-stats.json
+            git commit -m "chore: nightly BIPAD sync"
+            git push
+          fi

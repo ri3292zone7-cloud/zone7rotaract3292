@@ -1,0 +1,3 @@
+;/*FB_PKG_DELIM*/
+
+__d("IGDSExplicitEFilledIcon.react",["IGDSSVGIconBase.react","react","react-compiler-runtime"],(function(t,n,r,o,a,i,l){"use strict";var e,s=e||(e=o("react"));function u(e){var t=o("react-compiler-runtime").c(3),n;t[0]===Symbol.for("react.memo_cache_sentinel")?(n=s.jsx("path",{d:"M23.953 20.164c0 1.89-.988 2.836-2.96 2.836H3.007c-1.973 0-2.961-.945-2.961-2.836V2.852C.047.949 1.035 0 3.007 0h17.985c1.973 0 2.961.95 2.961 2.852ZM16.06 17.79v-1.637h-5.7v-4.226h5.399v-1.578H10.36V6.703h5.7V5.066H8.242V17.79Zm0 0"}),t[0]=n):n=t[0];var a;return t[1]!==e?(a=s.jsx(r("IGDSSVGIconBase.react"),babelHelpers.extends({},e,{viewBox:"0 0 24 24",children:n})),t[1]=e,t[2]=a):a=t[2],a}var c=s.memo(u);l.default=c}),98);

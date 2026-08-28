@@ -1,5 +1,5 @@
 /* Zone 7 shared navigation — injected into every content page via <div id="siteNav">
-   Usage: <div id="siteNav" data-current="about|clubs|tutorials|handbook|resources|guides|gallery|merch|vendors|join" data-cta="join|home|club"></div>
+   Usage: <div id="siteNav" data-current="about|clubs|tutorials|handbook|resources|guides|gallery|merch|vendors|join|flood-help" data-cta="join|home|club"></div>
    Requires zone7-data.js (CLUB_DIRECTORY) loaded beforehand. Falls back gracefully without it.
 */
 (function () {
@@ -53,6 +53,32 @@
   if (!host) return;
   var current = host.getAttribute("data-current") || "";
   var ctaMode = host.getAttribute("data-cta") || "join";
+
+  // inject global flood banner once per page (visible everywhere, not just index)
+  (function injectFloodBanner(){
+    if(document.getElementById("zone7FloodBanner")) return;
+    // show on all pages except the flood-help page itself (avoid self-link noise)
+    if(location.pathname.replace(/\/+$/,"") === "/flood-help") return;
+    var b=document.createElement("div");
+    b.id="zone7FloodBanner";
+    b.setAttribute("role","alert");
+    b.style.cssText="background:#FFF3E6; border-bottom:1px solid rgba(255,140,26,0.22); padding:10px 0; font-family:'Inter',sans-serif; font-size:0.82rem; line-height:1.5; position:relative; z-index:101;";
+    b.innerHTML='<div class="wrap" style="max-width:1080px; margin:0 auto; padding:0 28px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">'
+      +'<b style="background:#FF8C1A; color:#fff; padding:4px 10px; border-radius:100px; font-size:0.70rem; letter-spacing:0.06em; text-transform:uppercase; flex-shrink:0;">Flood Help • 13 missing</b>'
+      +'<span style="color:#1B1836;">Monsoon 2026 — verified helplines and Zone 7 missing. For rescue call <a href="tel:1149" style="color:#A80F52; font-weight:700; text-decoration:underline; text-underline-offset:2px;">1149</a>. <span style="display:none;" class="flood-banner-long">Tap Open for the Situation Report.</span></span>'
+      +'<a href="/flood-help" style="margin-left:auto; background:#1B1836; color:#fff; padding:8px 16px; border-radius:100px; font-weight:700; font-size:0.82rem; white-space:nowrap; text-decoration:none; flex-shrink:0;">Open Flood Help →</a>'
+      +'<button aria-label="Dismiss" onclick="this.parentElement.parentElement.remove()" style="background:none; border:none; cursor:pointer; font-size:1.1rem; line-height:1; color:rgba(27,24,54,0.45); padding:4px 6px; flex-shrink:0;">×</button>'
+      +'</div>';
+    // insert before siteNav so sticky nav stays below it
+    var host=document.getElementById("siteNav");
+    if(host && host.parentNode) host.parentNode.insertBefore(b, host);
+    else document.body.insertBefore(b, document.body.firstChild);
+    // reveal long text on wider screens
+    if(window.innerWidth>640){
+      var el=b.querySelector(".flood-banner-long");
+      if(el) el.style.display="inline";
+    }
+  })();
 
   var NAV_CSS = [
     "#siteNav{position:sticky;top:0;z-index:100;background:rgba(255,253,249,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,24,54,.1)}",
@@ -156,6 +182,7 @@
     "</div>" +
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
+    '<a href="/flood-help" style="background:rgba(255,140,26,0.12); color:#9a4a00; border:1px solid rgba(255,140,26,0.22); padding:7px 12px; border-radius:100px; font-weight:800; font-size:0.80rem; display:inline-flex; gap:6px; align-items:center; white-space:nowrap; opacity:1;">🛟 Flood Help <span style="background:#FF8C1A; color:#fff; padding:2px 7px; border-radius:100px; font-size:0.66rem;">13</span></a>' +
     "</div>" +
     '<div style="display:flex;align-items:center;gap:16px;">' +
     '<a href="/admin" class="nav-admin">Club Admin</a>' +
@@ -174,6 +201,7 @@
     '<a href="/club-guides">Guides for Clubs</a>' +
     '<a href="/rkt-quiz">RKT Practice Quiz</a>' +
     '<div class="mm-group">Community</div>' +
+    '<a href="/flood-help" style="background:rgba(255,140,26,0.12); border:1px solid rgba(255,140,26,0.22); border-radius:12px; padding:10px 14px; font-weight:800; color:#9a4a00; display:flex; justify-content:space-between; align-items:center;"><span>🛟 Flood Help</span><span style="background:#FF8C1A; color:#fff; padding:3px 8px; border-radius:100px; font-size:0.72rem;">13 missing</span></a>' +
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
     '<a href="/join">Join Us</a>' +
