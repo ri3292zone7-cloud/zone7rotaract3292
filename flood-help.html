@@ -26,7 +26,7 @@
  h1,h2,h3{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
  a{color:inherit; text-decoration:none;}
  img{max-width:100%; display:block;}
- .wrap{max-width:1060px; margin:0 auto; padding:0 24px; overflow-x:hidden; overflow-x:clip;}
+  .wrap{max-width:1060px; margin:0 auto; padding:0 clamp(14px, 3vw, 24px); overflow-x:hidden; overflow-x:clip;}
 
  .flood-alert{background:var(--amber-bg); border-bottom:1px solid rgba(255,140,26,0.22); padding:10px 0; font-size:0.82rem; line-height:1.5;}
  .flood-alert .wrap{display:flex; gap:12px; flex-wrap:wrap; align-items:center;}
@@ -37,21 +37,21 @@
  .hero::before{content:""; position:absolute; top:-80px; right:-6%; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle, rgba(225,26,110,0.06), transparent 70%); pointer-events:none;}
  .eyebrow{display:inline-flex; gap:8px; align-items:center; font-size:0.70rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:7px 12px; border-radius:100px; margin-bottom:14px;}
  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
- .hero h1{font-size:clamp(1.9rem,4.4vw,2.8rem); line-height:1.06; max-width:760px;}
- .hero h1 .hl{background:linear-gradient(100deg,var(--magenta),var(--magenta-deep)); -webkit-background-clip:text; background-clip:text; color:transparent;}
- .hero p.lead{color:rgba(27,24,54,0.66); font-size:1.02rem; max-width:680px; margin-top:14px; line-height:1.7;}
+  .hero h1{font-size:clamp(1.65rem, 5vw, 2.85rem); line-height:1.06; max-width:760px; overflow-wrap:break-word;}
+  .hero h1 .hl{background:linear-gradient(100deg,var(--magenta),var(--magenta-deep)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.lead{color:rgba(27,24,54,0.66); font-size:clamp(0.94rem, 2.4vw, 1.02rem); max-width:680px; margin-top:14px; line-height:1.7;}
  .hero p.lead strong{color:var(--ink);}
  .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;}
  .chip{font-size:0.72rem; font-weight:600; color:rgba(27,24,54,0.58); background:#fff; border:1px solid var(--line); padding:6px 11px; border-radius:100px; display:inline-flex; gap:6px; align-items:center;}
  .chip.live i{width:7px; height:7px; border-radius:50%; background:var(--success); box-shadow:0 0 0 5px rgba(22,163,74,0.15); display:inline-block;}
 
- .section{padding:36px 0;}
- .section.alt{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
- .section-tag{font-size:0.70rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:var(--magenta-deep); margin-bottom:10px; display:inline-block;}
- .section h2{font-size:clamp(1.35rem,2.6vw,1.85rem); line-height:1.2; max-width:720px;}
- .section p.sub{color:rgba(27,24,54,0.60); margin-top:8px; max-width:720px; line-height:1.7; font-size:0.92rem;}
+  .section{padding:clamp(24px, 5vw, 36px) 0;}
+  .section.alt{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .section-tag{font-size:clamp(0.66rem, 1.8vw, 0.70rem); font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:var(--magenta-deep); margin-bottom:10px; display:inline-block;}
+  .section h2{font-size:clamp(1.25rem, 4vw, 1.85rem); line-height:1.2; max-width:720px; overflow-wrap:break-word;}
+  .section p.sub{color:rgba(27,24,54,0.60); margin-top:8px; max-width:720px; line-height:1.7; font-size:clamp(0.86rem, 2.2vw, 0.92rem);}
 
- .helpline-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:22px;}
+  .helpline-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:clamp(10px, 2vw, 14px); margin-top:22px;}
  .help{border-radius:16px; padding:18px 18px 16px; border:1px solid var(--line); background:#fff; position:relative;}
  .help.primary{background:var(--ink); color:#fff; border-color:var(--ink);}
  .help.primary .num{color:var(--gold);}
@@ -59,7 +59,7 @@
  .help h3{font-size:0.98rem; margin-bottom:4px;}
  .help .num{font-family:'Poppins'; font-weight:900; font-size:1.65rem; color:var(--magenta-deep); line-height:1;}
  .help p{font-size:0.82rem; color:rgba(27,24,54,0.56); line-height:1.6; margin:8px 0 14px; min-height:36px;}
- .btn{display:inline-flex; gap:8px; align-items:center; padding:10px 16px; border-radius:100px; font-weight:700; font-size:0.82rem; border:1.5px solid transparent; cursor:pointer; transition:transform .15s, background .15s;}
+  .btn{display:inline-flex; gap:8px; align-items:center; padding:10px 16px; border-radius:100px; font-weight:700; font-size:0.82rem; border:1.5px solid transparent; cursor:pointer; transition:transform .15s, background .15s; min-height:44px; touch-action:manipulation;}
  .btn-call{background:var(--ink); color:#fff;}
  .btn-call:hover{background:var(--magenta-deep); transform:translateY(-1px);}
  .btn-ghost{background:#fff; border-color:var(--ink); color:var(--ink);}
@@ -67,8 +67,8 @@
  .help.primary .btn-ghost{background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.22); color:#fff;}
  .help.primary .btn-ghost:hover{background:#fff; color:var(--ink);}
 
- .toolbar{display:flex; gap:8px; flex-wrap:wrap; margin-top:18px; align-items:center;}
- .toolbar input, .toolbar select{font-family:'Inter'; font-size:0.82rem; padding:10px 12px; border:1px solid var(--line); border-radius:100px; background:#fff; outline:none;}
+  .toolbar{display:flex; gap:8px; flex-wrap:wrap; margin-top:18px; align-items:center;}
+  .toolbar input, .toolbar select{font-family:'Inter'; font-size:0.82rem; padding:10px 12px; border:1px solid var(--line); border-radius:100px; background:#fff; outline:none; min-width:140px; flex:1 1 160px;}
  .toolbar input:focus, .toolbar select:focus{border-color:var(--magenta-deep); box-shadow:0 0 0 3px rgba(225,26,110,0.10);}
  .btn-sm{padding:9px 14px; font-size:0.78rem;}
   .btn-primary{background:var(--magenta); color:#fff; border-color:var(--magenta);}
@@ -126,9 +126,9 @@
  .form-status{font-size:0.76rem; font-weight:600;}
  .form-status.ok{color:var(--success);} .form-status.err{color:var(--magenta-deep);}
 
- /* resource hub, flood websites + prevention */
- .resource-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:18px;}
- .resource-card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px; display:flex; flex-direction:column; gap:10px; transition:transform .15s, box-shadow .15s; position:relative; overflow:hidden;}
+  /* resource hub, flood websites + prevention */
+  .resource-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap:clamp(10px, 2vw, 14px); margin-top:18px;}
+  .resource-card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px; display:flex; flex-direction:column; gap:10px; transition:transform .15s, box-shadow .15s; position:relative; overflow:hidden; min-width:0; overflow-wrap:break-word;}
  .resource-card:hover{transform:translateY(-3px); box-shadow:0 14px 28px rgba(27,24,54,0.08);}
  .resource-card .rc-head{display:flex; gap:10px; align-items:center;}
  .resource-card .rc-ico{width:40px; height:40px; border-radius:12px; background:rgba(225,26,110,0.09); color:var(--magenta-deep); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:1.15rem;}
@@ -182,7 +182,7 @@
 
  /* human-friendly missing cards */
  .missing-grid{display:grid; grid-template-columns:1fr; gap:12px; margin-top:16px;}
- .missing-card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px 16px; display:grid; grid-template-columns:56px 1fr auto; gap:16px; align-items:center; transition:transform .15s, box-shadow .15s, border-color .15s;}
+  .missing-card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px 16px; display:grid; grid-template-columns:56px 1fr auto; gap:16px; align-items:center; transition:transform .15s, box-shadow .15s, border-color .15s; overflow-wrap:break-word; word-break:break-word;}
  .missing-card:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(27,24,54,0.07); border-color:rgba(225,26,110,0.14);}
  .missing-card.found{opacity:0.72; background:rgba(22,163,74,0.04);}
  .missing-photo{width:56px; height:56px; border-radius:50%; object-fit:cover; border:3px solid #fff; box-shadow:0 6px 16px rgba(27,24,54,0.12); flex-shrink:0;}
@@ -204,8 +204,42 @@
  footer{background:var(--ink); color:rgba(255,255,255,0.52); padding:28px 0; text-align:center; font-size:0.82rem;}
  footer a{color:rgba(255,255,255,0.82); font-weight:700;}
 
- @media(max-width:860px){ .helpline-grid{grid-template-columns:1fr 1fr;} .resource-grid{grid-template-columns:1fr 1fr;} .phase-grid{grid-template-columns:1fr 1fr;} .safety-strip{grid-template-columns:1fr 1fr;} .official{flex-direction:column; align-items:stretch;} .official img{width:100%; height:180px;} .steps{grid-template-columns:1fr;} }
- @media(max-width:640px){ .hero{padding:32px 0 22px;} .section{padding:28px 0;} .helpline-grid{grid-template-columns:1fr;} .resource-grid{grid-template-columns:1fr;} .phase-grid{grid-template-columns:1fr;} .safety-strip{grid-template-columns:1fr;} .form-grid{grid-template-columns:1fr;} .table th:nth-child(3), .table td:nth-child(3){display:none;} .table th, .table td{padding:10px 8px;} .missing-card{grid-template-columns:56px 1fr; gap:10px;} .missing-actions{grid-column:1 / -1; flex-direction:row; justify-content:space-between; align-items:center; min-width:0;} }
+  @media(max-width:860px){ .helpline-grid{grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));} .resource-grid{grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));} .phase-grid{grid-template-columns:1fr 1fr;} .safety-strip{grid-template-columns:1fr 1fr;} .official{flex-direction:column; align-items:stretch;} .official img{width:100%; height:180px;} .steps{grid-template-columns:1fr;} .missing-grid{gap:10px;} }
+  @media(max-width:640px){ .hero{padding:28px 0 22px;} .section{padding:24px 0;} .helpline-grid{grid-template-columns:1fr;} .resource-grid{grid-template-columns:1fr;} .phase-grid{grid-template-columns:1fr;} .safety-strip{grid-template-columns:1fr;} .form-grid{grid-template-columns:1fr;} .table th:nth-child(3), .table td:nth-child(3){display:none;} .table th, .table td{padding:10px 8px;} .missing-card{grid-template-columns:56px 1fr; gap:10px; padding:14px 12px;} .missing-actions{grid-column:1 / -1; flex-direction:row; justify-content:space-between; align-items:center; min-width:0; gap:8px;} .missing-photo, .missing-photo.ph{width:48px; height:48px;} .resource-card{padding:16px 14px;} .card-head{flex-direction:column; align-items:flex-start;} .toolbar input, .toolbar select{flex:1 1 100%;} }
+  @media(max-width:480px){
+    .wrap{padding:0 14px;}
+    .hero h1{font-size:1.55rem;}
+    .flood-alert{font-size:0.78rem; padding:8px 0;}
+    .flood-alert .wrap{gap:8px;}
+    .section-tag{font-size:0.64rem;}
+    .help .num{font-size:1.45rem;}
+    .btn, .btn-sm{font-size:0.78rem; padding:9px 14px; min-height:42px;}
+    #btnReport{width:100%; justify-content:center; font-size:0.88rem;}
+    .card-head{font-size:0.72rem; padding:10px 12px;}
+    .missing-name{font-size:0.96rem;}
+    .missing-meta{font-size:0.74rem;}
+    .modal-card{padding:16px 14px; margin:12px;}
+    .resource-card h4{font-size:0.86rem;}
+  }
+  @media(max-width:360px){
+    .hero{padding:22px 0 18px;}
+    .section{padding:20px 0;}
+    .eyebrow{font-size:0.64rem; padding:6px 10px;}
+    .chip{font-size:0.68rem; padding:5px 9px;}
+    .help{padding:16px 14px;}
+    .resource-card{padding:14px 12px;}
+    .missing-card{padding:12px 10px; gap:8px;}
+    .icon-btn{font-size:0.66rem; padding:5px 8px;}
+  }
+  @media(min-width:1400px){
+    .wrap{max-width:1140px;}
+    .hero h1{font-size:3.0rem;}
+    .section{padding:44px 0;}
+  }
+  @media(min-width:1920px){
+    .wrap{max-width:1220px;}
+    html{font-size:17px;}
+  }
 </style>
 <script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
 </head>
@@ -232,7 +266,7 @@
     <div style="background:rgba(225,26,110,0.06); border:1px solid rgba(225,26,110,0.14); border-radius:16px; padding:14px 16px; display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:16px;">
       <div style="min-width:0;">
         <div style="font-family:'Poppins'; font-weight:800; font-size:0.92rem; line-height:1.3;">Know someone missing?</div>
-        <div style="font-size:0.78rem; color:rgba(27,24,54,0.58); margin-top:2px;">Takes 60 seconds. A Zone 7 club checks by phone before it appears publicly.</div>
+        <div style="font-size:0.78rem; color:rgba(27,24,54,0.58); margin-top:2px;">Takes 60 seconds. Reports appear immediately for everyone to see.</div>
       </div>
       <button class="btn btn-primary" id="btnReport" style="margin-left:auto; white-space:nowrap;">🚨 Report Missing Person</button>
     </div>
@@ -245,7 +279,7 @@
  </div>
 
  <div class="card">
- <div class="card-head"><b id="missingCount">13 verified • 0 pending</b><span>Public sees verified only • Reveal contact after tap • <a href="https://flood.sodhera.com" target="_blank" rel="noopener" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">flood.sodhera.com →</a></span></div>
+  <div class="card-head"><b id="missingCount">13 reports • live</b><span>Public • tap a contact to call • <a href="https://flood.sodhera.com" target="_blank" rel="noopener" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">flood.sodhera.com →</a></span></div>
  <div style="overflow:auto;">
  <div class="missing-grid" id="missingBody">
  <!-- Hemanta Joshi, human card -->
@@ -407,14 +441,13 @@
 
  </div>
  </div>
- <div class="notice" style="display:flex; gap:12px; align-items:start;">
- <span style="font-size:1.2rem; line-height:1;">🛡️</span>
- <div>
- <strong>How we keep this list trustworthy, in plain language:</strong><br>
- Every report is <strong>checked by a Zone 7 club member by phone</strong> before it appears here. We never publish a photo without family permission.
- Reports that look like duplicates or stock photos are held for review. If you spot a mistake, tap <strong>Flag</strong>, 3 flags hides the entry until a club reviews it. Pending reports are never public.
- </div>
- </div>
+  <div class="notice" style="display:flex; gap:12px; align-items:start;">
+  <span style="font-size:1.2rem; line-height:1;">🛡️</span>
+  <div>
+  <strong>How this list stays open and useful:</strong><br>
+  Anyone can add a report and it appears immediately, no club approval needed. Please only share with family permission and check for duplicates before posting. If you spot a mistake, tap <strong>Flag</strong>, 3 flags hides the entry for review.
+  </div>
+  </div>
  </div>
 </section>
 
@@ -518,7 +551,7 @@
 <div class="modal" id="reportModal" aria-hidden="true" role="dialog" aria-modal="true">
  <div class="modal-card">
  <div style="display:flex; justify-content:space-between; gap:12px;"><h3>Report Missing</h3><button class="btn btn-ghost btn-sm" onclick="closeReport()">✕</button></div>
- <p class="mini">Anyone can submit, it goes to <code>pending</code> and is not public until a Zone 7 club verifies. False reports harm rescue.</p>
+    <p class="mini">Anyone can submit, it appears immediately. Please only share with family permission.</p>
  <form id="reportForm" onsubmit="submitReport(event)">
  <div class="honey"><label>Leave empty<input type="text" name="website" autocomplete="off" tabindex="-1"></label></div>
  <div class="form-grid">
@@ -684,29 +717,135 @@
  document.getElementById('btnFound').addEventListener('click', openFound);
  reportModal.addEventListener('click', function(e){ if(e.target===reportModal) closeReport(); });
  foundModal.addEventListener('click', function(e){ if(e.target===foundModal) closeFound(); });
- function submitReport(e){
+  async function submitReport(e){
+  e.preventDefault();
+  var fd=new FormData(e.target), statusEl=document.getElementById('reportStatus');
+  if((fd.get('website')||'').trim()!==''){ statusEl.textContent='Bot detected.'; statusEl.className='form-status err'; return; }
+  if(Date.now()-reportOpenAt < 3000){ statusEl.textContent='Please review a moment before submitting.'; statusEl.className='form-status err'; return; }
+  var last=localStorage.getItem('zone7_last_report_at');
+  if(last && Date.now()-parseInt(last,10) < 2*60*1000){ statusEl.textContent='Please wait a minute before another report.'; statusEl.className='form-status err'; return; }
+  var nameRaw=(fd.get('name')||'').trim();
+  var name=nameRaw.toLowerCase();
+  var areaRaw=(fd.get('last_seen_area')||'').trim();
+  var area=areaRaw.toLowerCase();
+  if(!nameRaw || !areaRaw){ statusEl.textContent='Name and area are required.'; statusEl.className='form-status err'; return; }
+  var dup=[].slice.call(document.querySelectorAll('#missingBody .missing-card')).some(function(card){ return card.getAttribute('data-name')===name && card.getAttribute('data-area')===area; });
+  if(dup){ statusEl.textContent='Possible duplicate — this person and area already listed.'; statusEl.className='form-status err'; return; }
+  var reporterName=(fd.get('reporter_name')||'').trim();
+  var reporterPhone=(fd.get('reporter_phone')||'').trim();
+  var reporterRelation=fd.get('reporter_relation')||'Family';
+  var details=(fd.get('details')||'').trim();
+  var consent=!!fd.get('consent');
+  if(!reporterName || !reporterPhone){ statusEl.textContent='Your name and phone are required.'; statusEl.className='form-status err'; return; }
+  statusEl.textContent='Publishing...'; statusEl.className='form-status ok';
+  var photoUrl='';
+  var photoFile=fd.get('photo');
+  try{
+    if(photoFile && photoFile.size>0){
+      statusEl.textContent='Uploading photo...';
+      if(typeof zone7UploadImage==='function'){
+        photoUrl = await zone7UploadImage(photoFile, 'flood-missing');
+      } else {
+        photoUrl = URL.createObjectURL(photoFile);
+      }
+    }
+  }catch(err){
+    console.error('photo upload failed', err);
+    statusEl.textContent='Photo upload failed, publishing without photo...';
+  }
+  var id='flood-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,6);
+  var row={
+    id: id,
+    name: nameRaw,
+    last_seen_area: areaRaw,
+    reporter_name: reporterName,
+    reporter_phone: reporterPhone,
+    reporter_relation: reporterRelation,
+    photo_url: photoUrl,
+    details: details,
+    consent: consent,
+    status: 'missing',
+    created_at: Date.now(),
+    updated_at: Date.now()
+  };
+  var dbOk=false;
+  try{
+    if(typeof SUPABASE_URL!=='undefined' && typeof REST_HEADERS!=='undefined'){
+      var res=await fetch(SUPABASE_URL+'/rest/v1/flood_missing_persons', {
+        method:'POST',
+        headers: REST_HEADERS,
+        body: JSON.stringify(row)
+      });
+      if(!res.ok){
+        var txt=await res.text();
+        throw new Error(txt.slice(0,200));
+      }
+      dbOk=true;
+      console.log('DB insert ok', id);
+    }
+  }catch(err){
+    console.error('DB insert failed', err);
+    statusEl.textContent='Published locally — DB not yet set up. Please run supabase_flood_missing.sql in Supabase. ('+String(err.message||err).slice(0,90)+')';
+    statusEl.className='form-status err';
+  }
+  localStorage.setItem('zone7_last_report_at', String(Date.now()));
+  if(!statusEl.textContent.includes('Published locally')){
+    statusEl.textContent=dbOk ? 'Published — anyone can now see this report.' : 'Published locally — will sync when DB is ready.';
+    statusEl.className='form-status ok';
+  }
+  var grid=document.getElementById('missingBody');
+  var card=document.createElement('div'); card.className='missing-card'; card.setAttribute('data-name', name); card.setAttribute('data-area', area); card.setAttribute('data-status','missing');
+  var esc=function(s){ return String(s||'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+  var photoHtml = photoUrl ? '<img class="missing-photo" src="'+esc(photoUrl)+'" alt="'+esc(nameRaw)+'" loading="lazy">' : '<div class="missing-photo ph">'+esc(nameRaw.charAt(0).toUpperCase())+'</div>';
+  var safeDetails = esc(details);
+  card.innerHTML='<div class="missing-main" style="display:flex; gap:12px; align-items:center; flex:1;">'+photoHtml+'<div style="min-width:0;"><div class="missing-name"><b>'+esc(nameRaw)+'</b> <span class="pill missing">Missing</span></div><div class="missing-meta"><span>📍 '+esc(areaRaw)+'</span></div>'+(safeDetails ? '<div class="missing-meta" style="margin-top:4px; color:rgba(27,24,54,0.48); font-size:0.74rem;">'+safeDetails+'</div>' : '')+'</div></div><div class="missing-actions"><button class="reveal-btn" data-phone="'+esc(reporterPhone)+'" data-name="'+esc(reporterName)+'">📞 Contact '+esc(reporterName)+'</button><div class="row"><button class="icon-btn" onclick="sharePerson(\''+esc(id)+'\')">↗ Share</button><button class="icon-btn" onclick="posterPerson(\''+esc(id)+'\')">🖨️ Poster</button><button class="icon-btn" onclick="flagPerson(\''+esc(id)+'\')">🏳️ Flag</button></div></div>';
+  // Fallback for browsers where inner card layout broke due to wrapper — fix structure to match existing cards
+  if(!card.querySelector('.missing-photo')){
+    card.innerHTML = photoHtml + '<div class="missing-main"><div class="missing-name"><b>'+esc(nameRaw)+'</b> <span class="pill missing">Missing</span></div><div class="missing-meta"><span>📍 '+esc(areaRaw)+'</span></div>'+(safeDetails ? '<div class="missing-meta" style="margin-top:4px; color:rgba(27,24,54,0.48); font-size:0.74rem;">'+safeDetails+'</div>' : '')+'</div><div class="missing-actions"><button class="reveal-btn" data-phone="'+esc(reporterPhone)+'" data-name="'+esc(reporterName)+'">📞 Contact '+esc(reporterName)+'</button><div class="row"><button class="icon-btn" onclick="sharePerson(\''+esc(id)+'\')">↗ Share</button><button class="icon-btn" onclick="posterPerson(\''+esc(id)+'\')">🖨️ Poster</button></div></div>';
+    card.style.display='grid'; card.style.gridTemplateColumns='56px 1fr auto'; card.style.gap='16px'; card.style.alignItems='center';
+  }
+  grid.prepend(card);
+  // Update count
+  var vis=[].slice.call(document.querySelectorAll('#missingBody .missing-card')).filter(function(c){ return c.style.display!=='none'; }).length;
+  var countEl=document.getElementById('missingCount');
+  if(countEl) countEl.textContent=vis+' reports • live';
+  e.target.reset();
+  setTimeout(function(){ closeReport(); }, 900);
+  }
+  function submitFound(e){
  e.preventDefault();
- var fd=new FormData(e.target), statusEl=document.getElementById('reportStatus');
- if((fd.get('website')||'').trim()!==''){ statusEl.textContent='Bot detected.'; statusEl.className='form-status err'; return; }
- if(Date.now()-reportOpenAt < 8000){ statusEl.textContent='Please review >8s (anti-bot).'; statusEl.className='form-status err'; return; }
- var last=localStorage.getItem('zone7_last_report_at');
- if(last && Date.now()-parseInt(last,10) < 6*60*60*1000){ statusEl.textContent='Rate limit: 1/6h.'; statusEl.className='form-status err'; return; }
- var name=(fd.get('name')||'').toLowerCase().trim(), area=(fd.get('last_seen_area')||'').toLowerCase().trim();
- var dup=[].slice.call(document.querySelectorAll('#missingBody .missing-card')).some(function(card){ return card.getAttribute('data-name')===name && card.getAttribute('data-area')===area; });
- if(dup){ statusEl.textContent='Possible duplicate, will be merged.'; statusEl.className='form-status err'; return; }
- localStorage.setItem('zone7_last_report_at', String(Date.now()));
- statusEl.textContent='Submitted as pending, club will verify. (Demo: not yet in DB)'; statusEl.className='form-status ok';
- var grid=document.getElementById('missingBody');
- var card=document.createElement('div'); card.className='missing-card'; card.setAttribute('data-name', name); card.setAttribute('data-area', area); card.setAttribute('data-status','pending');
- card.style.background='rgba(255,243,230,0.7)'; card.style.borderColor='rgba(255,140,26,0.24)';
- card.innerHTML='<div class="missing-photo ph">'+(name.charAt(0)||'?').toUpperCase()+'</div><div class="missing-main"><div class="missing-name"><b>'+fd.get('name')+'</b> <span class="pill pending">Pending</span></div><div class="missing-meta"><span>📍 '+fd.get('last_seen_area')+'</span></div><div class="missing-meta" style="margin-top:4px; color:rgba(27,24,54,0.48); font-size:0.72rem;">Your report is pending, a Zone 7 club will call you to verify before it appears publicly.</div></div><div class="missing-actions"><span style="font-size:0.72rem; color:rgba(27,24,54,0.44);">Hidden until verified</span></div>';
- grid.prepend(card);
+ var el=document.getElementById('foundStatus'); el.textContent='Found submitted — will appear after refresh.'; el.className='form-status ok';
  e.target.reset();
+ setTimeout(function(){ closeFound(); }, 800);
  }
- function submitFound(e){
- e.preventDefault();
- var el=document.getElementById('foundStatus'); el.textContent='Found submitted, club verifies proof. (Demo)'; el.className='form-status ok';
- }
+ // Load existing reports from DB — direct public view, no verification gate
+ (async function loadFloodMissing(){
+   try{
+     if(typeof SUPABASE_URL==='undefined' || typeof REST_HEADERS==='undefined') return;
+     var res=await fetch(SUPABASE_URL+'/rest/v1/flood_missing_persons?select=*&order=created_at.desc&limit=100', { headers: REST_HEADERS });
+     if(!res.ok) throw new Error('fetch failed '+res.status);
+     var rows=await res.json();
+     if(!rows || !rows.length) return;
+     var grid=document.getElementById('missingBody');
+     if(!grid) return;
+     var existing=new Set([].slice.call(grid.querySelectorAll('.missing-card')).map(function(c){ return c.getAttribute('data-name'); }));
+     var esc=function(s){ return String(s||'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+     rows.forEach(function(r){
+       var key=String(r.name||'').toLowerCase().trim();
+       if(!key || existing.has(key)) return;
+       var card=document.createElement('div'); card.className='missing-card'; card.setAttribute('data-name', key); card.setAttribute('data-area', String(r.last_seen_area||'').toLowerCase()); card.setAttribute('data-status','missing');
+       card.style.display='grid'; card.style.gridTemplateColumns='56px 1fr auto'; card.style.gap='16px'; card.style.alignItems='center';
+       var photoHtml = r.photo_url ? '<img class="missing-photo" src="'+esc(r.photo_url)+'" alt="'+esc(r.name)+'" loading="lazy">' : '<div class="missing-photo ph">'+esc(String(r.name||'?').charAt(0).toUpperCase())+'</div>';
+       var safeDetails = esc(r.details||'');
+       card.innerHTML = photoHtml + '<div class="missing-main"><div class="missing-name"><b>'+esc(r.name)+'</b> <span class="pill missing">Missing</span></div><div class="missing-meta"><span>📍 '+esc(r.last_seen_area)+'</span></div>'+(safeDetails ? '<div class="missing-meta" style="margin-top:4px; color:rgba(27,24,54,0.48); font-size:0.74rem;">'+safeDetails+'</div>' : '')+'</div><div class="missing-actions"><button class="reveal-btn" data-phone="'+esc(r.reporter_phone)+'" data-name="'+esc(r.reporter_name)+'">📞 Contact '+esc(r.reporter_name)+'</button><div class="row"><button class="icon-btn" onclick="sharePerson(\''+esc(r.id)+'\')">↗ Share</button><button class="icon-btn" onclick="posterPerson(\''+esc(r.id)+'\')">🖨️ Poster</button></div></div>';
+       grid.appendChild(card);
+       existing.add(key);
+     });
+     var vis=[].slice.call(document.querySelectorAll('#missingBody .missing-card')).filter(function(c){ return c.style.display!=='none'; }).length;
+     var countEl=document.getElementById('missingCount');
+     if(countEl) countEl.textContent=vis+' reports • live';
+   }catch(err){ console.log('flood_missing load skipped', err.message); }
+ })();
 </script>
 </body>
 </html>
