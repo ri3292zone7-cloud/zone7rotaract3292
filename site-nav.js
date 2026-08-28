@@ -83,6 +83,27 @@
       if(el) el.style.display="inline";
     }
   })();
+  (function injectBottomBar(){
+    if(document.getElementById("zone7BottomBar")) return;
+    var p=location.pathname.replace(/\/+$/,"");
+    if(p==="/flood-help" || p==="/volunteers" || p==="/volunteer" || p==="/rasuwa-volunteers" || p==="/rasuwa") return;
+    var bar=document.createElement("div");
+    bar.id="zone7BottomBar";
+    bar.setAttribute("role","navigation");
+    bar.setAttribute("aria-label","Quick flood actions");
+    bar.innerHTML='<a href="/flood-help" style="background:#E11A6E; color:#fff; flex:1; padding:12px 14px; border-radius:100px; font-weight:700; font-size:0.84rem; display:flex; gap:6px; align-items:center; justify-content:center; text-decoration:none; white-space:nowrap;">🛟 Flood Help • 13</a>'
+      +'<a href="/volunteers" style="background:#fff; color:#E11A6E; border:1.5px solid #E11A6E; flex:1; padding:12px 14px; border-radius:100px; font-weight:700; font-size:0.84rem; display:flex; gap:6px; align-items:center; justify-content:center; text-decoration:none; white-space:nowrap;">🚨 Volunteer</a>';
+    document.body.appendChild(bar);
+    function setPad(){
+      if(window.innerWidth<=920){
+        document.body.style.paddingBottom="72px";
+      } else {
+        document.body.style.paddingBottom="";
+      }
+    }
+    setPad();
+    window.addEventListener("resize", setPad);
+  })();
 
   var NAV_CSS = [
     "#siteNav{position:sticky;top:0;z-index:100;background:rgba(255,253,249,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,24,54,.1)}",
@@ -139,7 +160,12 @@
     ".skip-link:focus{top:0}",
     "#backTop{position:fixed;left:22px;bottom:26px;z-index:94;width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;background:#1B1836;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s,background .2s;box-shadow:0 12px 28px rgba(27,24,54,.3)}",
     "#backTop.show{opacity:1;pointer-events:auto;transform:translateY(0)}",
-    "#backTop:hover{background:#A80F52}"
+    "#backTop:hover{background:#A80F52}",
+    "#zone7BottomBar{position:fixed;bottom:0;left:0;right:0;z-index:102;background:#FFFDF9;border-top:1px solid rgba(27,24,54,.1);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;gap:8px;align-items:center;box-shadow:0 -8px 24px rgba(27,24,54,.08)}",
+    "#zone7BottomBar .btn{flex:1; min-height:44px; justify-content:center; font-weight:700; font-size:0.84rem;}",
+    "@media (max-width:920px){#zone7BottomBar{display:flex}}",
+    "@media (min-width:921px){#zone7BottomBar{display:none !important} body{padding-bottom:0 !important}}",
+    "@media (max-width:920px){#backTop{bottom:84px}}"
   ].join("\n");
 
   var CHEV = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
