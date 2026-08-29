@@ -59,7 +59,7 @@
     if(document.getElementById("zone7FloodBanner")) return;
     // hide on both flood pages to avoid self-link
     var p=location.pathname.replace(/\/+$/,"");
-    if(p==="/flood-help" || p==="/volunteers" || p==="/volunteer" || p==="/rasuwa-volunteers" || p==="/rasuwa") return;
+    if(p==="/flood-help" || p==="/volunteers" || p==="/volunteer" || p==="/rasuwa-volunteers" || p==="/rasuwa" || p==="/rasuwa-flood-map" || p==="/flood-map") return;
     var b=document.createElement("div");
     b.id="zone7FloodBanner";
     b.setAttribute("role","alert");
@@ -86,7 +86,7 @@
   (function injectBottomBar(){
     if(document.getElementById("zone7BottomBar")) return;
     var p=location.pathname.replace(/\/+$/,"");
-    if(p==="/flood-help" || p==="/volunteers" || p==="/volunteer" || p==="/rasuwa-volunteers" || p==="/rasuwa") return;
+    if(p==="/flood-help" || p==="/volunteers" || p==="/volunteer" || p==="/rasuwa-volunteers" || p==="/rasuwa" || p==="/rasuwa-flood-map" || p==="/flood-map") return;
     var bar=document.createElement("div");
     bar.id="zone7BottomBar";
     bar.setAttribute("role","navigation");
@@ -163,6 +163,9 @@
     "#backTop.show{opacity:1;pointer-events:auto;transform:translateY(0)}",
     "#backTop:hover{background:#A80F52}",
     "#zone7BottomBar{position:fixed;bottom:0;left:0;right:0;z-index:102;background:#FFFDF9;border-top:1px solid rgba(27,24,54,.1);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;gap:8px;align-items:center;box-shadow:0 -8px 24px rgba(27,24,54,.08)}",
+    "#zone7BottomBar a{transition:transform .2s,background .2s,box-shadow .2s}",
+    "#zone7BottomBar a:active{transform:scale(0.96)}",
+    "#zone7BottomBar a:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(225,26,110,.2)}",
     "#zone7BottomBar .btn{flex:1; min-height:44px; justify-content:center; font-weight:700; font-size:0.84rem;}",
     "@media (max-width:920px){#zone7BottomBar{display:flex}}",
     "@media (min-width:921px){#zone7BottomBar{display:none !important} body{padding-bottom:0 !important}}",

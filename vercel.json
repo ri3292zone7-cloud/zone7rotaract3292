@@ -39,6 +39,8 @@
     { "source": "/vendor/shankharapur-pustak-pasal/", "destination": "/React%20JS/dist-vendor-shankharapur/vendor-shankharapur.html" },
     { "source": "/vendors", "destination": "/React%20JS/dist-vendors/vendors-react.html" },
     { "source": "/flood-help", "destination": "/flood-help.html" },
+    { "source": "/rasuwa-flood-map", "destination": "/rasuwa-flood-map.html" },
+    { "source": "/flood-map", "destination": "/rasuwa-flood-map.html" },
     { "source": "/volunteers", "destination": "/volunteers.html" },
     { "source": "/volunteer", "destination": "/volunteers.html" },
     { "source": "/rasuwa-volunteers", "destination": "/volunteers.html" },

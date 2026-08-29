@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Full-screen interactive GIS dashboard for the Rasuwa flood: 51 affected local units across 5 districts from the current Zone 7 QGIS project.">
+<title>Rasuwa Flood GIS Dashboard | Zone 7 Rotaract</title>
+<link rel="canonical" href="https://zone7rotaract3292.vercel.app/rasuwa-flood-map">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zone 7 Rotaract">
+<meta property="og:title" content="Rasuwa Flood GIS Dashboard | Zone 7">
+<meta property="og:description" content="Full-screen interactive GIS map: affected regions, risk zones, flood corridor and live stats from the Zone 7 QGIS project.">
+<meta property="og:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
+<meta property="og:url" content="https://zone7rotaract3292.vercel.app/rasuwa-flood-map">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<style>
+ :root{--ink:#1B1836;--magenta:#E11A6E;--magenta-deep:#A80F52;--gold:#F2A900;--cream:#FFF8EF;--paper:#FFFDF9;--line:rgba(27,24,54,.12);--nav-h:64px;--alert-h:34px;}
+ *{box-sizing:border-box;margin:0;padding:0;}
+ html{scroll-behavior:smooth;overflow-x:hidden;overscroll-behavior-x:none;font-family:'Inter',sans-serif;background:var(--ink);color:var(--ink);height:100%;}
+ body{height:100%;overflow:hidden;overscroll-behavior-x:none;display:flex;flex-direction:column;background:var(--ink);}
+ a{color:inherit;text-decoration:none;}
+ h1,h2,h3{font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-.02em;}
+ .app{flex:1;min-height:0;position:relative;}
+
+ /* top alert strip */
+ .top-alert{background:#FFF3E6;border-bottom:1px solid rgba(255,140,26,.24);font-size:.76rem;line-height:1.4;padding:5px 14px;text-align:center;}
+ .top-alert b{background:var(--magenta);color:#fff;padding:3px 9px;border-radius:999px;font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;margin-right:6px;}
+ .top-alert a{color:var(--magenta-deep);font-weight:800;text-decoration:underline;text-underline-offset:2px;}
+
+ /* full-screen map */
+ #floodMap{position:absolute;inset:0;width:100%;height:100%;background:#DCE9EA;z-index:1;}
+
+ /* floating dashboard panels */
+ .panel{position:absolute;z-index:500;background:rgba(255,253,249,.94);border:1px solid rgba(27,24,54,.12);border-radius:18px;box-shadow:0 18px 48px rgba(17,10,40,.22);backdrop-filter:blur(10px);overflow:hidden;}
+ .panel.hero{top:14px;left:14px;max-width:340px;width:min(340px,calc(100vw - 28px));}
+ .panel.legend{left:14px;bottom:14px;padding:12px 14px;max-width:310px;}
+ .panel.fab{right:14px;top:14px;padding:8px;display:flex;flex-direction:column;gap:8px;background:transparent;border:none;box-shadow:none;backdrop-filter:none;}
+ .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(27,24,54,.08);background:linear-gradient(90deg,#FFFDF9,#FFF8EF);}
+ .panel-head b{font-family:'Poppins';font-size:.95rem;}
+ .panel-head button{border:none;background:rgba(27,24,54,.06);border-radius:999px;width:28px;height:28px;color:var(--ink);font-size:1rem;cursor:pointer;line-height:1;}
+ .panel-body{padding:12px 14px;display:flex;flex-direction:column;gap:11px;}
+ .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(225,26,110,.09);color:var(--magenta-deep);border:1px solid rgba(225,26,110,.13);padding:6px 11px;border-radius:999px;font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;align-self:flex-start;}
+ .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(242,169,0,.18);}
+ .panel h1{font-size:1.5rem;line-height:1.04;}
+ .panel h1 span{background:linear-gradient(100deg,var(--magenta),var(--magenta-deep));-webkit-background-clip:text;background-clip:text;color:transparent;}
+ .panel p.lead{font-size:.82rem;line-height:1.6;color:rgba(27,24,54,.66);}
+ .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
+ .stat{background:#fff;border:1px solid rgba(27,24,54,.09);border-radius:14px;padding:11px;}
+ .stat strong{display:block;font-family:'Poppins';font-size:1.5rem;line-height:1;color:var(--magenta-deep);}
+ .stat small{display:block;margin-top:6px;font-size:.7rem;line-height:1.3;color:rgba(27,24,54,.6);font-weight:700;}
+ .stat.live strong{color:var(--gold);}
+ .stat.dist strong{color:#0E7490;}
+ .people-box{background:rgba(225,26,110,.06);border:1px solid rgba(225,26,110,.14);border-radius:14px;padding:11px 12px;}
+ .people-box b{font-family:'Poppins';font-size:.88rem;display:block;margin-bottom:3px;}
+ .people-box p{font-size:.74rem;line-height:1.5;color:rgba(27,24,54,.66);}
+ .people-box a{color:var(--magenta-deep);font-weight:800;text-decoration:underline;}
+ .actions{display:flex;gap:8px;flex-wrap:wrap;}
+ .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:10px 15px;border-radius:999px;border:1.5px solid transparent;font-size:.8rem;font-weight:800;cursor:pointer;transition:transform .16s,box-shadow .16s,background .16s;}
+ .btn:active{transform:scale(.97);}
+ .btn-primary{background:var(--magenta);color:#fff;box-shadow:0 10px 22px rgba(225,26,110,.24);flex:1;}
+ .btn-primary:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(225,26,110,.3);}
+ .btn-ghost{background:#fff;color:var(--ink);border-color:var(--line);flex:1;}
+ .btn-ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
+ .legend-row{display:flex;align-items:center;gap:9px;font-size:.72rem;font-weight:700;color:rgba(27,24,54,.68);line-height:1.35;margin-bottom:6px;}
+ .swatch{width:16px;height:16px;border-radius:5px;border:1px solid rgba(27,24,54,.16);flex:0 0 16px;}
+ .swatch.line{height:4px;border-radius:2px;margin-top:6px;}
+ .risk-extreme{background:#7a0000;}.risk-high{background:#d7301f;}.risk-moderate{background:#fc8d59;}.risk-low{background:#fee08b;}.risk-region{background:rgba(225,26,110,.28);border:1.5px solid #E11A6E;}.risk-river{background:#0E7490;}
+ .source-note{font-size:.64rem;line-height:1.5;color:rgba(27,24,54,.52);margin-top:2px;}
+ .fab-btn{width:46px;height:46px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:1.15rem;cursor:pointer;box-shadow:0 10px 24px rgba(17,10,40,.2);display:flex;align-items:center;justify-content:center;transition:transform .16s;}
+ .fab-btn:hover{transform:scale(1.06);}
+ .fab-btn.active{background:var(--magenta);color:#fff;border-color:var(--magenta);}
+
+ /* leaflet polish */
+ .leaflet-container{font-family:'Inter',sans-serif;color:var(--ink);background:#DCE9EA;}
+ .leaflet-popup-content-wrapper{border-radius:16px;box-shadow:0 12px 32px rgba(27,24,54,.2);}
+ .leaflet-popup-content{margin:13px 15px;line-height:1.5;}
+ .popup-title{font-family:'Poppins';font-size:1rem;font-weight:800;color:var(--ink);margin-bottom:3px;}
+ .popup-meta{font-size:.76rem;color:var(--magenta-deep);font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;}
+ .popup-impact{font-size:.82rem;color:rgba(27,24,54,.7);}
+ .settlement-marker{width:22px;height:22px;border-radius:50%;background:var(--magenta);border:3px solid #fff;box-shadow:0 6px 16px rgba(225,26,110,.4),0 0 0 6px rgba(225,26,110,.16);}
+ .leaflet-control-layers{box-shadow:0 8px 22px rgba(17,10,40,.16);border-radius:12px;border:1px solid var(--line);overflow:hidden;}
+ .leaflet-control-layers .leaflet-control-layers-toggle{border-radius:12px;}
+ .leaflet-control-layers-expanded{background:#FFFDF9;padding:8px 10px;font-family:'Inter',sans-serif;font-weight:600;font-size:.78rem;color:var(--ink);}
+
+ /* map credit bar */
+ .map-credit{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;z-index:499;font-size:.66rem;color:rgba(17,10,40,.62);background:rgba(255,253,249,.85);padding:4px 10px;border-radius:999px;border:1px solid rgba(27,24,54,.1);white-space:nowrap;}
+ @media(min-width:981px){.panel.drawer{pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity .18s,transform .18s;}.panel.drawer.show{pointer-events:auto;opacity:1;transform:none;}}
+
+ @media(max-width:980px){
+  .panel.hero{top:12px;left:12px;right:12px;width:auto;max-width:none;}
+  .panel.legend{left:12px;bottom:12px;right:auto;max-width:none;width:auto;}
+  .map-credit{display:none;}
+ }
+ @media(max-width:640px){
+  .panel.legend{left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));width:auto;display:none;}
+  .panel.legend.show{display:block;}
+  .panel.fab{right:12px;top:12px;}
+  .panel.hero{max-height:52vh;overflow:auto;box-shadow:0 20px 60px rgba(17,10,40,.32);}
+  .panel.hero.collapsed .panel-body{display:none;}
+  .panel-head .collapse{display:block;}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr));}
+ }
+ @media(min-width:641px){.panel-head .collapse{display:none;}}
+</style>
+<script>document.documentElement.classList.add('pt-enter');</script>
+</head>
+<body>
+<div id="siteNav" data-current="flood-help" data-cta="join"></div>
+<script src="site-nav.js" defer></script>
+<script src="site-transition.js" defer></script>
+
+<div class="app">
+ <div class="top-alert"><b>GIS Live</b><span>Affected regions from current QGIS project · For rescue call <a href="tel:1149">1149</a> / <a href="tel:100">100</a></span></div>
+
+ <div id="floodMap" role="application" aria-label="Full-screen interactive GIS flood map"></div>
+
+ <aside class="panel hero" id="heroPanel" aria-label="Flood dashboard">
+  <div class="panel-head">
+   <b>Rasuwa Flood Dashboard</b>
+   <button class="collapse" id="toggleHero" aria-label="Collapse dashboard panel">−</button>
+  </div>
+  <div class="panel-body">
+   <span class="eyebrow"><i></i> GIS Spatial Plan · 2026</span>
+   <h1>Interactive <span>affected areas</span> map</h1>
+   <p class="lead">Derived live from the current Zone 7 QGIS project. Tap any region, risk band or settlement on the map for detail.</p>
+   <div class="stats">
+    <div class="stat"><strong id="statRegions">51</strong><small>Affected local units</small></div>
+    <div class="stat dist"><strong id="statDistricts">5</strong><small>Districts in flood corridor</small></div>
+    <div class="stat"><strong id="statSettlements">5</strong><small>Key affected settlements</small></div>
+    <div class="stat live"><strong>1149</strong><small>Rescue helpline</small></div>
+   </div>
+   <div class="people-box">
+    <b>People affected</b>
+    <p id="peopleText">Casualty and affected-population figures are under verification. <a href="/flood-help">Live missing reports →</a></p>
+   </div>
+   <div class="actions">
+    <a class="btn btn-primary" href="/flood-help">Flood Help</a>
+    <a class="btn btn-ghost" href="/volunteers">Volunteer</a>
+   </div>
+  </div>
+ </aside>
+
+ <div class="panel fab">
+  <button class="fab-btn" id="fitMap" title="Fit affected extent" aria-label="Fit map to affected extent">⛶</button>
+  <button class="fab-btn active" id="toggleLegend" aria-label="Toggle legend">🗺</button>
+ </div>
+
+ <aside class="panel legend" id="legendPanel" aria-label="Map legend">
+  <b style="display:block;font-family:'Poppins';font-size:.82rem;margin-bottom:8px;">Map legend</b>
+  <div class="legend-row"><span class="swatch risk-region"></span>Affected local unit (51)</div>
+  <div class="legend-row"><span class="swatch risk-extreme"></span>Extreme risk (0-300 m)</div>
+  <div class="legend-row"><span class="swatch risk-high"></span>High risk (300-800 m)</div>
+  <div class="legend-row"><span class="swatch risk-moderate"></span>Moderate risk (800-2000 m)</div>
+  <div class="legend-row"><span class="swatch risk-low"></span>Low risk (2000-4000 m)</div>
+  <div class="legend-row"><span class="swatch line risk-river"></span>Flood corridor / rivers</div>
+  <div class="legend-row"><span class="swatch risk-river" style="border-radius:50%"></span>Affected settlement (5)</div>
+  <p class="source-note">Data: Nepal_Flash_Flood_2026_Analysis.qgz · Awareness mapping, not an official rescue layer.</p>
+ </aside>
+
+ <div class="map-credit">Zone 7 Rotaract GIS · awareness map · not a rescue ops layer</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+(function(){
+ var map=L.map('floodMap',{scrollWheelZoom:false,zoomControl:true}).setView([27.95,85.15],9);
+ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+
+ var bounds=L.latLngBounds();
+ var layers={};
+ var colors={
+  'Extreme Risk (0-300m)':'#7a0000',
+  'High Risk (300-800m)':'#d7301f',
+  'Moderate Risk (800-2000m)':'#fc8d59',
+  'Low Risk (2000-4000m)':'#fee08b'
+ };
+ var colorRank={0:'Extreme',1:'High',2:'Moderate',3:'Low'};
+
+ function escapeHtml(v){return String(v==null?'':v).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+ function addBounds(layer){try{if(layer.getBounds){bounds.extend(layer.getBounds());}else if(layer.getLatLng){bounds.extend(layer.getLatLng());}}catch(e){}}
+ function updateFit(){if(bounds.isValid()){map.fitBounds(bounds.pad(.06));}}
+ function fetchJson(url){return fetch(url).then(function(res){if(!res.ok){throw new Error(url+' '+res.status);}return res.json();});}
+
+ Promise.all([
+  fetchJson('/data/rasuwa-flood/affected-regions.geojson'),
+  fetchJson('/data/rasuwa-flood/risk-zones.geojson'),
+  fetchJson('/data/rasuwa-flood/flood-corridor.geojson'),
+  fetchJson('/data/rasuwa-flood/affected-settlements.geojson')
+ ]).then(function(data){
+  var regions=data[0], risk=data[1], corridor=data[2], settlements=data[3];
+
+  layers['Affected Areas (current GIS)']=L.geoJSON(regions,{style:{color:'#E11A6E',weight:1.6,opacity:.85,fillColor:'#E11A6E',fillOpacity:.16},onEachFeature:function(feature,layer){
+   var p=feature.properties||{};
+   var name=p.PALIKA||'Affected local unit';
+   var dist=p.DISTRICT||'';
+   var type=p.TYPE||'';
+   var html='<div class="popup-title">'+escapeHtml(name)+'</div>';
+   if(dist) html+='<div class="popup-meta">'+escapeHtml(dist)+' · '+escapeHtml(type||'Local unit')+'</div>';
+   html+='<div class="popup-impact">Mapped as an affected local unit in the current GIS flood analysis.</div>';
+   layer.bindPopup(html);
+   addBounds(layer);
+  }}).addTo(map);
+
+  layers['GLOF Flood Risk Zones']=L.geoJSON(risk,{style:function(feature){var zone=feature.properties&&feature.properties.zone;return{color:colors[zone]||feature.properties.color||'#d7301f',weight:1.1,opacity:.7,fillColor:colors[zone]||feature.properties.color||'#d7301f',fillOpacity:zone&&zone.indexOf('Extreme')>-1?.32:.2};},onEachFeature:function(feature,layer){var zone=feature.properties&&feature.properties.zone||'Flood risk zone';layer.bindPopup('<div class="popup-title">'+escapeHtml(zone)+'</div><div class="popup-impact">Risk band for awareness mapping.</div>');addBounds(layer);}}).addTo(map);
+
+  layers['Flood Corridor']=L.geoJSON(corridor,{style:{color:'#0E7490',weight:3,opacity:.85,lineCap:'round'},onEachFeature:function(feature,layer){layer.bindPopup('<div class="popup-title">Flood corridor</div><div class="popup-impact">Mapped corridor or river feature from the GIS dataset.</div>');addBounds(layer);}}).addTo(map);
+
+  layers['Affected Settlements']=L.geoJSON(settlements,{pointToLayer:function(feature,latlng){return L.marker(latlng,{icon:L.divIcon({className:'',html:'<div class="settlement-marker"></div>',iconSize:[22,22],iconAnchor:[11,11],popupAnchor:[0,-12]})});},onEachFeature:function(feature,layer){var p=feature.properties||{};layer.bindPopup('<div class="popup-title">'+escapeHtml(p.name||'Affected settlement')+'</div><div class="popup-impact">'+escapeHtml(p.impact||'Affected area noted in the GIS layer.')+'</div>');addBounds(layer);}}).addTo(map);
+
+  L.control.layers(null,layers,{collapsed:true,position:'topright'}).addTo(map);
+
+  var distCount={};
+  (regions.features||[]).forEach(function(f){var d=(f.properties||{}).DISTRICT||'Unknown';distCount[d]=(distCount[d]||0)+1;});
+  document.getElementById('statRegions').textContent=(regions.features||[]).length;
+  document.getElementById('statDistricts').textContent=Object.keys(distCount).length;
+  document.getElementById('statSettlements').textContent=(settlements.features||[]).length;
+
+  fetch('/flood-help').then(function(r){return r.text();}).then(function(html){
+   var m=html.match(/<div class="missing-card/g);
+   var n=m?m.length:0;
+   if(n>0){document.getElementById('peopleText').innerHTML='Live missing-person reports on this site: <b>'+n+'</b>. Official affected-population figures are under verification. <a href="/flood-help">Full list →</a>';}
+  }).catch(function(){});
+
+  updateFit();
+ }).catch(function(error){
+  var el=document.getElementById('floodMap');
+  el.innerHTML='<div style="padding:24px;font-family:Inter,sans-serif;color:#1B1836;line-height:1.6"><b>Map data could not load.</b><br>'+escapeHtml(error.message)+'</div>';
+ });
+
+ document.getElementById('fitMap').addEventListener('click',function(){updateFit();});
+ var legendPanel=document.getElementById('legendPanel');
+ document.getElementById('toggleLegend').addEventListener('click',function(){
+  var show=legendPanel.classList.toggle('show');
+  this.classList.toggle('active',show);
+ });
+ var heroPanel=document.getElementById('heroPanel');
+ document.getElementById('toggleHero').addEventListener('click',function(){
+  var collapsed=heroPanel.classList.toggle('collapsed');
+  this.textContent=collapsed?'+':'−';
+ });
+ setTimeout(function(){map.invalidateSize();updateFit();},300);
+})();
+</script>
+</body>
+</html>

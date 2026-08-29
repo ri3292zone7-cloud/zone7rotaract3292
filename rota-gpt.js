@@ -13,6 +13,7 @@
   var CSS = [
     "#rgpt-launcher{position:fixed;right:22px;bottom:22px;z-index:9990;display:flex;align-items:center;gap:10px;background:#1B1836;color:#fff;border:none;border-radius:100px;padding:13px 20px 13px 14px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:700;font-size:.9rem;box-shadow:0 14px 34px rgba(27,24,54,.35);transition:transform .2s,background .2s}",
     "#rgpt-launcher:hover{transform:translateY(-3px);background:#A80F52}",
+    "@media (max-width:920px){#rgpt-launcher{bottom:84px}}",
     "#rgpt-launcher .rgpt-gear{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;flex-shrink:0}",
     "#rgpt-launcher .rgpt-gear svg{width:18px;height:18px;animation:rgptSpin 10s linear infinite}",
     "@keyframes rgptSpin{to{transform:rotate(360deg)}}",
