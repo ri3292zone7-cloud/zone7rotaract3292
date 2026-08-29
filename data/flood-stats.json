@@ -1,7 +1,7 @@
 {
-    "asof":  null,
-    "source":  "BIPAD",
-    "deaths":  null,
-    "missing":  null,
-    "note":  "Populated nightly by .github/workflows/bipad-sync.yml from bipad.gov.np - fallback is link-out. Until first sync, KPI shows - with link to source."
+  "deaths": null,
+  "missing": null,
+  "source": "BIPAD",
+  "asof": "2026-08-29 07:11 UTC",
+  "note": "Auto-synced from bipad.gov.np — Zone 7 does not generate counts"
 }
