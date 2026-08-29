@@ -106,6 +106,7 @@
   })();
 
   var NAV_CSS = [
+    "html,body{overflow-x:hidden;overflow-x:clip}body{position:relative}",
     "#siteNav{position:sticky;top:0;z-index:100;background:rgba(255,253,249,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,24,54,.1)}",
     "#siteNav .wrap{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:72px;gap:22px;overflow:visible}",
     "#siteNav .brand{display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-weight:800;font-size:1.05rem;color:#1B1836;white-space:nowrap}",
@@ -153,7 +154,7 @@
     "#siteNav .mobile-menu a:last-child{border-bottom:none}",
     "#siteNav .mobile-menu .mm-group{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:rgba(27,24,54,.42);margin:14px 0 2px}",
     "#siteNav .mobile-menu a.mm-cta{background:#1B1836;color:#fff;border-radius:100px;text-align:center;padding:13px;border:none;margin-top:14px}",
-    "@media (max-width:920px){#siteNav .navlinks,#siteNav .nav-admin,#siteNav .nav-cta,#siteNav .back{display:none}#siteNav .burger{display:block} #siteNav .wrap{gap:10px; padding:0 14px} #siteNav .brand{font-size:.95rem} #siteNav .brand .z{width:30px;height:30px;font-size:.95rem}}",
+    "@media (max-width:920px){#siteNav .navlinks,#siteNav .nav-admin,#siteNav .nav-cta,#siteNav .back,#siteNav .nav-emergency{display:none}#siteNav .burger{display:block} #siteNav .wrap{gap:10px; padding:0 14px} #siteNav .brand{font-size:.95rem} #siteNav .brand .z{width:30px;height:30px;font-size:.95rem}}",
     "@media (max-width:380px){#siteNav .nav-emergency{gap:5px} #siteNav .nav-emergency a{padding:5px 8px;font-size:.68rem} #siteNav .nav-emergency a .hide-sm{display:none}}",
     "@media (max-width:1160px) and (min-width:921px){#siteNav .navlinks{gap:16px}#siteNav .wrap{gap:14px}}",
     ".skip-link{position:fixed;top:-70px;left:16px;z-index:300;background:#A80F52;color:#fff;padding:11px 20px;border-radius:0 0 12px 12px;font-weight:700;font-size:.85rem;box-shadow:0 12px 28px rgba(27,24,54,.25);transition:top .2s}",

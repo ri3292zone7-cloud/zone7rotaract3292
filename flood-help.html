@@ -350,7 +350,6 @@
  <span style="font-size:0.72rem; color:rgba(27,24,54,0.44);">Via Zone 7 desk</span>
  </div>
  </div>
- </div>
  <div class="missing-card" data-name="aavash neupane" data-area="flood risk" data-status="missing">
  <img class="missing-photo" src="media/Flood%20Risk/Aavash%20Neupane.png" alt="Aavash Neupane" loading="lazy">
  <div class="missing-main">
@@ -853,6 +852,9 @@
       var vis=rows.length;
       var countEl=document.getElementById('missingCount');
       if(countEl) countEl.textContent=vis+' reports • live';
+      document.title='Flood Help, Zone 7 | Helplines and '+vis+' Missing';
+      var og=document.querySelector('meta[property="og:title"]');
+      if(og) og.setAttribute('content','Flood Help, Helplines and '+vis+' Missing | Zone 7');
    }catch(err){ console.log('flood_missing load skipped', err.message); }
   })();
   // Fix broken cards from previous buggy submit (Roshan etc.) — restructure any card where photo is nested inside missing-main
