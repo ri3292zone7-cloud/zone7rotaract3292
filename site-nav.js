@@ -106,7 +106,7 @@
   })();
 
   var NAV_CSS = [
-    "html,body{overflow-x:hidden;overflow-x:clip}body{position:relative}",
+    "html,body{overflow-x:hidden;overflow-x:clip}html{overscroll-behavior-x:none}body{position:relative}",
     "#siteNav{position:sticky;top:0;z-index:100;background:rgba(255,253,249,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,24,54,.1)}",
     "#siteNav .wrap{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:72px;gap:22px;overflow:visible}",
     "#siteNav .brand{display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-weight:800;font-size:1.05rem;color:#1B1836;white-space:nowrap}",
