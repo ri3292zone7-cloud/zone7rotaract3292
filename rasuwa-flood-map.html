@@ -22,8 +22,11 @@
 <style>
  :root{--ink:#1B1836;--magenta:#E11A6E;--magenta-deep:#A80F52;--gold:#F2A900;--cream:#FFF8EF;--paper:#FFFDF9;--line:rgba(27,24,54,.12);--nav-h:64px;--alert-h:34px;}
  *{box-sizing:border-box;margin:0;padding:0;}
- html{scroll-behavior:smooth;overflow-x:hidden;overscroll-behavior-x:none;font-family:'Inter',sans-serif;background:var(--ink);color:var(--ink);height:100%;}
+ html{scroll-behavior:smooth;overflow-x:hidden;overscroll-behavior-x:none;font-family:'Inter',sans-serif;background:var(--ink);color:var(--ink);height:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%;}
  body{height:100%;overflow:hidden;overscroll-behavior-x:none;display:flex;flex-direction:column;background:var(--ink);}
+ /* dynamic viewport height — keeps the map stable under mobile URL bars */
+ @supports(height:100dvh){html,body{height:100dvh;}}
+ a,button{-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
  a{color:inherit;text-decoration:none;}
  h1,h2,h3{font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-.02em;}
  .app{flex:1;min-height:0;position:relative;}
@@ -41,7 +44,7 @@
   
   /* LEFT RAIL — hero + legend share one flex column so they can never overlap:
      hero shrinks and scrolls internally, legend keeps its natural height at the bottom */
-  .rail-left{position:absolute;top:20px;left:20px;bottom:20px;width:360px;display:flex;flex-direction:column;gap:14px;z-index:500;pointer-events:none;}
+  .rail-left{position:absolute;top:calc(20px + env(safe-area-inset-top));left:calc(20px + env(safe-area-inset-left));bottom:calc(20px + env(safe-area-inset-bottom));width:360px;display:flex;flex-direction:column;gap:14px;z-index:500;pointer-events:none;}
   .rail-left>.panel{position:relative;pointer-events:auto;width:auto;max-width:none;}
   .panel.hero{flex:0 1 auto;min-height:0;display:flex;flex-direction:column;}
   .panel.hero .panel-body{overflow:auto;min-height:0;}
@@ -93,6 +96,25 @@
  .swatch.line{height:4px;border-radius:2px;margin-top:6px;}
  .risk-extreme{background:#7a0000;}.risk-high{background:#d7301f;}.risk-moderate{background:#fc8d59;}.risk-low{background:#fee08b;}.risk-region{background:rgba(225,26,110,.28);border:1.5px solid #E11A6E;}.risk-river{background:#0E7490;}
   .source-note{font-size:.64rem;line-height:1.5;color:rgba(255,255,255,.55);margin-top:2px;}
+
+  /* ── scroll experience: slim themed scrollbars + soft edge fades ── */
+  .panel-body,.panel.legend{scrollbar-width:thin;scrollbar-color:rgba(225,26,110,.65) transparent;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;}
+  .panel-body::-webkit-scrollbar,.panel.legend::-webkit-scrollbar{width:10px;height:10px;}
+  .panel-body::-webkit-scrollbar-track,.panel.legend::-webkit-scrollbar-track{background:transparent;}
+  .panel-body::-webkit-scrollbar-thumb,.panel.legend::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ff5fa0,var(--magenta));border-radius:999px;border:3px solid transparent;background-clip:padding-box;}
+  .panel-body::-webkit-scrollbar-thumb:hover,.panel.legend::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#ff8ab8,#ff2f7f);border:3px solid transparent;background-clip:padding-box;}
+  /* edge fades appear only while more content exists in that direction */
+  .panel.hero .panel-head{position:relative;}
+  .panel.hero .panel-head::after{content:"";position:absolute;left:0;right:0;top:100%;height:26px;background:linear-gradient(180deg,rgba(27,24,54,.94),rgba(27,24,54,0));opacity:0;transition:opacity .25s;pointer-events:none;z-index:3;}
+  .panel.hero.more-up .panel-head::after{opacity:1;}
+  .panel.hero::after,.panel.districts::after{content:"";position:absolute;left:0;right:0;bottom:0;height:44px;background:linear-gradient(0deg,rgba(27,24,54,.97),rgba(27,24,54,0));opacity:0;transition:opacity .25s;pointer-events:none;z-index:3;border-radius:0 0 18px 18px;}
+  .panel.hero.more-down::after,.panel.districts.more-down::after{opacity:1;}
+  .panel.hero.collapsed::after,.panel.hero.collapsed .panel-head::after{display:none;}
+  @media(max-width:1200px){
+   body.touring .panel.hero::after,body.touring .panel.hero .panel-head::after,
+   .app:has(.panel.districts.show) .panel.hero::after,.app:has(.panel.districts.show) .panel.hero .panel-head::after{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){.panel.hero::after,.panel.hero .panel-head::after,.panel.districts::after{transition:none;}}
     /* FAB buttons: 48×48 touch targets, clear hover */
     .fab-btn{width:48px;height:48px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(27,24,54,.9);color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;transition:transform .16s,background .16s;}
     .fab-btn:hover{transform:scale(1.06);background:rgba(27,24,54,.98);}
@@ -170,9 +192,10 @@
   .tour-step{font-size:.64rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
   .tour-card h3{font-size:1.1rem;margin-bottom:5px;}
   .tour-card p{font-size:.82rem;line-height:1.6;color:rgba(255,255,255,.75);}
-  .tour-dots{display:flex;gap:6px;margin:12px 0;}
-  .tour-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.25);cursor:pointer;padding:0;}
-  .tour-dots button.on{background:var(--magenta);box-shadow:0 0 8px rgba(225,26,110,.8);}
+  .tour-dots{display:flex;gap:2px;margin:8px 0 8px -6px;}
+  .tour-dots button{position:relative;width:24px;height:24px;border:none;background:transparent;cursor:pointer;padding:0;}
+  .tour-dots button::after{content:"";position:absolute;inset:8px;border-radius:50%;background:rgba(255,255,255,.25);transition:background .16s;}
+  .tour-dots button.on::after{background:var(--magenta);box-shadow:0 0 8px rgba(225,26,110,.8);}
   .tour-nav{display:flex;gap:8px;}
    .tour-nav button{flex:1;border-radius:999px;padding:11px;min-height:44px;font-weight:800;font-size:.78rem;cursor:pointer;font-family:inherit;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:#fff;transition:background .16s,border-color .16s;}
    .tour-nav button.go{background:var(--magenta);border-color:var(--magenta);}
@@ -187,10 +210,10 @@
 
   /* TABLET (641px–1200px): rail stays left, FAB right, district sheet bottom */
   @media(max-width:1200px){
-   .rail-left{top:16px;left:16px;bottom:16px;width:340px;}
-   .panel.fab{right:16px;top:16px;}
-   .panel.districts{right:16px;left:16px;top:auto;bottom:16px;width:auto;max-width:none;max-height:42vh;}
-   .tour-card{left:16px;right:16px;bottom:16px;transform:none;width:auto;}
+   .rail-left{top:calc(16px + env(safe-area-inset-top));left:calc(16px + env(safe-area-inset-left));bottom:calc(16px + env(safe-area-inset-bottom));width:340px;}
+   .panel.fab{right:calc(16px + env(safe-area-inset-right));top:calc(16px + env(safe-area-inset-top));}
+   .panel.districts{right:calc(16px + env(safe-area-inset-right));left:calc(16px + env(safe-area-inset-left));top:auto;bottom:calc(16px + env(safe-area-inset-bottom));width:auto;max-width:none;max-height:42vh;}
+   .tour-card{left:calc(16px + env(safe-area-inset-left));right:calc(16px + env(safe-area-inset-right));bottom:calc(16px + env(safe-area-inset-bottom));transform:none;width:auto;}
    /* sheets own the screen while open — collapse the dashboard body so nothing stacks */
    .app:has(.panel.districts.show) .panel.legend{display:none;}
    .app:has(.panel.districts.show) .panel.hero .panel-body{display:none;}
@@ -201,23 +224,65 @@
   /* MOBILE (≤640px): rail dissolves, hero collapsible on top, sheets anchored bottom */
   @media(max-width:640px){
    .rail-left{position:static;display:contents;}
-   .panel.hero{position:absolute;top:12px;left:12px;right:84px;max-height:52vh;}
+   .panel.hero{position:absolute;top:calc(12px + env(safe-area-inset-top));left:calc(12px + env(safe-area-inset-left));right:calc(84px + env(safe-area-inset-right));max-height:52vh;}
    .panel.hero.collapsed .panel-body{display:none;}
    .panel-head .collapse{display:block;}
+   .panel-head button{width:38px;height:38px;font-size:1.05rem;}
    
-   .panel.legend{position:absolute;left:12px;right:12px;bottom:12px;display:none;max-height:44vh;overflow:auto;}
+   .panel.legend{position:absolute;left:calc(12px + env(safe-area-inset-left));right:calc(12px + env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom));display:none;max-height:44vh;overflow:auto;}
    .panel.legend.show{display:block;}
+   /* legend drawer + dashboard would stack on short phones — collapse the dashboard while it is open */
+   .app:has(.panel.legend.show) .panel.hero .panel-body{display:none;}
    
-   .panel.fab{right:12px;top:12px;padding:8px;gap:8px;}
+   .panel.fab{right:calc(12px + env(safe-area-inset-right));top:calc(12px + env(safe-area-inset-top));padding:8px;gap:8px;}
    .fab-btn{width:46px;height:46px;font-size:1.1rem;}
    
-   .panel.districts{left:12px;right:12px;bottom:12px;max-height:44vh;}
+   .panel.districts{left:calc(12px + env(safe-area-inset-left));right:calc(12px + env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom));max-height:44vh;}
    .map-credit{display:none;}
-   .tour-card{left:12px;right:12px;bottom:12px;width:auto;}
+   .tour-card{left:calc(12px + env(safe-area-inset-left));right:calc(12px + env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom));transform:none;width:auto;}
+   .load-note{top:auto;bottom:calc(12px + env(safe-area-inset-bottom));}
    .stats{grid-template-columns:repeat(2,minmax(0,1fr));}
    .leaflet-control-zoom{display:none;}
   }
   @media(min-width:641px){.panel-head .collapse{display:none;}}
+
+  /* TINY PHONES (≤380px): trim chrome so nothing crowds */
+  @media(max-width:380px){
+   .top-alert{font-size:.68rem;padding:5px 10px;}
+   .panel.hero{right:calc(74px + env(safe-area-inset-right));}
+   .panel.fab{padding:6px;gap:6px;}
+   .fab-btn{width:42px;height:42px;font-size:1rem;}
+   .stat{padding:9px;}
+   .stat strong{font-size:1.3rem;}
+   .stat small{font-size:.66rem;}
+   .tour-nav button{font-size:.72rem;padding:10px 6px;}
+  }
+
+  /* SHORT VIEWPORTS (landscape phones / small windows ≤560px tall):
+     one surface at a time — horizontal controls, corner sheets, dashboard hides on demand */
+  @media(max-height:560px){
+   .rail-left{position:static;display:contents;}
+   .panel.hero{position:absolute;top:calc(10px + env(safe-area-inset-top));left:calc(10px + env(safe-area-inset-left));right:auto;max-width:min(420px,calc(100vw - 236px));max-height:56vh;}
+   .panel.hero.collapsed .panel-body{display:none;}
+   .panel-head .collapse{display:block;}
+   /* only one surface fits — hide the dashboard while a sheet or the tour is up */
+   .app:has(.panel.legend.show) .panel.hero,
+   .app:has(.panel.districts.show) .panel.hero,
+   body.touring .panel.hero,
+   body.touring .panel.fab{display:none;}
+   
+   .panel.legend{position:absolute;left:calc(10px + env(safe-area-inset-left));bottom:calc(10px + env(safe-area-inset-bottom));width:min(300px,calc(100vw - 20px));max-height:calc(100% - 84px);display:none;overflow:auto;}
+   .panel.legend.show{display:block;}
+   
+   .panel.fab{flex-direction:row;right:calc(10px + env(safe-area-inset-right));top:calc(10px + env(safe-area-inset-top));padding:6px;gap:6px;}
+   .fab-btn{width:44px;height:44px;font-size:1.05rem;}
+   
+   .panel.districts{left:auto;top:auto;right:calc(10px + env(safe-area-inset-right));bottom:calc(10px + env(safe-area-inset-bottom));width:min(320px,calc(100vw - 20px));max-height:calc(100% - 84px);}
+   
+   .tour-card{left:calc(10px + env(safe-area-inset-left));right:calc(10px + env(safe-area-inset-right));bottom:calc(10px + env(safe-area-inset-bottom));width:auto;transform:none;padding:12px 14px;}
+   .tour-dots{margin:8px 0;}
+   .load-note{top:auto;bottom:calc(10px + env(safe-area-inset-bottom));}
+  }
 </style>
 <script>document.documentElement.classList.add('pt-enter');</script>
 </head>
@@ -545,8 +610,10 @@
    var show=districtPanel.classList.toggle('show');
    this.setAttribute('aria-expanded',show?'true':'false');
    if(show){ legendPanel.classList.remove('show'); syncLegendBtn(); }
+   if(distCue) distCue();
+   if(heroCue) heroCue();
   });
-  document.getElementById('closeDistricts').addEventListener('click',function(){ districtPanel.classList.remove('show'); });
+  document.getElementById('closeDistricts').addEventListener('click',function(){ districtPanel.classList.remove('show'); if(distCue) distCue(); if(heroCue) heroCue(); });
   document.getElementById('resetDistrict').addEventListener('click',function(){ resetDistrict(); });
 
   // settlement stories in the help hub — tap to fly there
@@ -614,11 +681,15 @@
    tourCard.hidden=false;
    document.body.classList.add('touring');
    showStep(0);
+   if(heroCue) heroCue();
+   if(distCue) distCue();
   }
   function endTour(){
    tour.active=false;
    tourCard.hidden=true;
    document.body.classList.remove('touring');
+   if(heroCue) heroCue();
+   if(distCue) distCue();
   }
   document.getElementById('tourBtn').addEventListener('click',function(){ startTour(); });
   document.getElementById('tourNext').addEventListener('click',function(){
@@ -640,9 +711,9 @@
    this.setAttribute('aria-expanded',show?'true':'false');
    if(show) districtPanel.classList.remove('show');
   });
-  // the button starts "active" but the legend starts hidden on phones — sync to reality
+  // the button starts "active" but the legend starts hidden on phones/short screens — sync to reality
   function syncLegendBtn(){
-   var small=window.matchMedia('(max-width:640px)').matches;
+   var small=window.matchMedia('(max-width:640px)').matches||window.matchMedia('(max-height:560px)').matches;
    var vis=!small||legendPanel.classList.contains('show');
    legendBtn.classList.toggle('active',vis);
    legendBtn.setAttribute('aria-expanded',vis?'true':'false');
@@ -654,10 +725,31 @@
    var collapsed=heroPanel.classList.toggle('collapsed');
    document.getElementById('toggleHero').textContent=collapsed?'+':'−';
    document.getElementById('toggleHero').setAttribute('aria-expanded',collapsed?'false':'true');
+   if(heroCue) heroCue();
   }
   document.getElementById('toggleHero').addEventListener('click',function(e){e.stopPropagation();toggleHeroPanel();});
   // whole header is tappable — the − button alone is a hard touch target
   document.querySelector('#heroPanel .panel-head').addEventListener('click',function(){toggleHeroPanel();});
+
+  // scroll cues — edge fades show only while more content exists in that direction
+  function wireScrollCue(scroller){
+   if(!scroller||!scroller.closest) return null;
+   var host=scroller.closest('.panel');
+   if(!host) return null;
+   function update(){
+    var down=scroller.scrollHeight-scroller.scrollTop-scroller.clientHeight>6;
+    var up=scroller.scrollTop>6;
+    host.classList.toggle('more-down',down);
+    host.classList.toggle('more-up',up);
+   }
+   scroller.addEventListener('scroll',update,{passive:true});
+   window.addEventListener('resize',update);
+   if(window.MutationObserver) new MutationObserver(update).observe(scroller,{childList:true,subtree:true});
+   setTimeout(update,80); setTimeout(update,700);
+   return update;
+  }
+  var heroCue=wireScrollCue(document.querySelector('#heroPanel .panel-body'));
+  var distCue=wireScrollCue(document.querySelector('#districtPanel .panel-body'));
  setTimeout(function(){map.invalidateSize();updateFit();},300);
 })();
 </script>
