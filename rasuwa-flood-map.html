@@ -221,18 +221,23 @@
    body.touring .panel.hero .panel-body{display:none;}
   }
 
-  /* MOBILE (≤640px): rail dissolves, hero collapsible on top, sheets anchored bottom */
+  /* MOBILE (≤640px): the record docks as a bottom bar — tap, swipe or scroll up to
+     grow it upward. Sheets stay bottom-anchored and replace the bar while open. */
   @media(max-width:640px){
    .rail-left{position:static;display:contents;}
-   .panel.hero{position:absolute;top:calc(12px + env(safe-area-inset-top));left:calc(12px + env(safe-area-inset-left));right:calc(84px + env(safe-area-inset-right));max-height:52vh;}
+   .panel.hero{position:absolute;top:auto;left:calc(12px + env(safe-area-inset-left));right:calc(12px + env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom));max-height:calc(100% - 256px);}
    .panel.hero.collapsed .panel-body{display:none;}
+   .panel.hero::before{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:38px;height:4px;border-radius:999px;background:rgba(255,255,255,.35);z-index:4;pointer-events:none;}
+   .panel.hero .panel-head{padding-top:16px;}
    .panel-head .collapse{display:block;}
    .panel-head button{width:38px;height:38px;font-size:1.05rem;}
    
    .panel.legend{position:absolute;left:calc(12px + env(safe-area-inset-left));right:calc(12px + env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom));display:none;max-height:44vh;overflow:auto;}
    .panel.legend.show{display:block;}
-   /* legend drawer + dashboard would stack on short phones — collapse the dashboard while it is open */
-   .app:has(.panel.legend.show) .panel.hero .panel-body{display:none;}
+   /* one surface at a time — the bar steps aside for sheets and the tour */
+   .app:has(.panel.legend.show) .panel.hero,
+   .app:has(.panel.districts.show) .panel.hero,
+   body.touring .panel.hero{display:none;}
    
    .panel.fab{right:calc(12px + env(safe-area-inset-right));top:calc(12px + env(safe-area-inset-top));padding:8px;gap:8px;}
    .fab-btn{width:46px;height:46px;font-size:1.1rem;}
@@ -242,7 +247,9 @@
    .tour-card{left:calc(12px + env(safe-area-inset-left));right:calc(12px + env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom));transform:none;width:auto;}
    .load-note{top:auto;bottom:calc(12px + env(safe-area-inset-bottom));}
    .stats{grid-template-columns:repeat(2,minmax(0,1fr));}
-   .leaflet-control-zoom{display:none;}
+   /* phone: keep the map clean — hide attribution + zoom, move layers toggle top-left */
+   .leaflet-control-zoom,.leaflet-control-attribution{display:none;}
+   .leaflet-bottom.leaflet-right{bottom:auto;top:calc(12px + env(safe-area-inset-top));right:auto;left:calc(12px + env(safe-area-inset-left));}
   }
   @media(min-width:641px){.panel-head .collapse{display:none;}}
 
@@ -262,7 +269,7 @@
      one surface at a time — horizontal controls, corner sheets, dashboard hides on demand */
   @media(max-height:560px){
    .rail-left{position:static;display:contents;}
-   .panel.hero{position:absolute;top:calc(10px + env(safe-area-inset-top));left:calc(10px + env(safe-area-inset-left));right:auto;max-width:min(420px,calc(100vw - 236px));max-height:56vh;}
+   .panel.hero{position:absolute;top:calc(10px + env(safe-area-inset-top));left:calc(10px + env(safe-area-inset-left));right:auto;bottom:auto;max-width:min(420px,calc(100vw - 236px));max-height:56vh;}
    .panel.hero.collapsed .panel-body{display:none;}
    .panel-head .collapse{display:block;}
    /* only one surface fits — hide the dashboard while a sheet or the tour is up */
@@ -347,7 +354,7 @@
     <div class="legend-row"><span class="swatch risk-low"></span>Low risk (2000-4000 m)</div>
     <div class="legend-row"><span class="swatch line risk-river"></span>Flood corridor / rivers</div>
     <div class="legend-row"><span class="swatch risk-river" style="border-radius:50%"></span>Affected settlement (5)</div>
-    <p class="source-note">Data: Nepal_Flash_Flood_2026_Analysis.qgz · Awareness mapping, not an official rescue layer.</p>
+    <p class="source-note">Data: Nepal_Flash_Flood_2026_Analysis.qgz · Awareness mapping, not an official rescue layer. Base maps © OpenStreetMap contributors · Imagery © Google.</p>
    </aside>
   </div>
 
@@ -721,15 +728,31 @@
   syncLegendBtn();
   var rsT; window.addEventListener('resize',function(){clearTimeout(rsT);rsT=setTimeout(syncLegendBtn,150);});
   var heroPanel=document.getElementById('heroPanel');
-  function toggleHeroPanel(){
-   var collapsed=heroPanel.classList.toggle('collapsed');
+  function setHeroCollapsed(collapsed){
+   heroPanel.classList.toggle('collapsed',collapsed);
    document.getElementById('toggleHero').textContent=collapsed?'+':'−';
    document.getElementById('toggleHero').setAttribute('aria-expanded',collapsed?'false':'true');
    if(heroCue) heroCue();
   }
+  function toggleHeroPanel(){ setHeroCollapsed(!heroPanel.classList.contains('collapsed')); }
+  function heroPhoneMode(){ return window.matchMedia('(max-width:640px)').matches; }
   document.getElementById('toggleHero').addEventListener('click',function(e){e.stopPropagation();toggleHeroPanel();});
   // whole header is tappable — the − button alone is a hard touch target
-  document.querySelector('#heroPanel .panel-head').addEventListener('click',function(){toggleHeroPanel();});
+  var heroHead=document.querySelector('#heroPanel .panel-head');
+  var heroGesture=false, heroTouchY=null;
+  heroHead.addEventListener('click',function(){ if(heroGesture){ heroGesture=false; return; } toggleHeroPanel(); });
+  // phones: swipe up on the bar to grow the record upward, swipe down to tuck it away
+  heroHead.addEventListener('touchstart',function(e){ if(!heroPhoneMode()) return; heroTouchY=e.touches[0].clientY; },{passive:true});
+  heroHead.addEventListener('touchmove',function(e){
+   if(heroTouchY==null||!heroPhoneMode()) return;
+   var dy=e.touches[0].clientY-heroTouchY;
+   if(dy<-24){ heroTouchY=null; heroGesture=true; setTimeout(function(){heroGesture=false;},600); setHeroCollapsed(false); }
+   else if(dy>24){ heroTouchY=null; heroGesture=true; setTimeout(function(){heroGesture=false;},600); setHeroCollapsed(true); }
+  },{passive:true});
+  // wheel/scroll up on the collapsed bar grows it upward (phones only)
+  heroPanel.addEventListener('wheel',function(e){
+   if(heroPhoneMode()&&heroPanel.classList.contains('collapsed')&&e.deltaY<0){ setHeroCollapsed(false); }
+  },{passive:true});
 
   // scroll cues — edge fades show only while more content exists in that direction
   function wireScrollCue(scroller){
@@ -750,6 +773,8 @@
   }
   var heroCue=wireScrollCue(document.querySelector('#heroPanel .panel-body'));
   var distCue=wireScrollCue(document.querySelector('#districtPanel .panel-body'));
+  // phones start with the record tucked into its bottom bar
+  if(heroPhoneMode()) setHeroCollapsed(true);
  setTimeout(function(){map.invalidateSize();updateFit();},300);
 })();
 </script>
