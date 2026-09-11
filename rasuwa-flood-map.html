@@ -132,7 +132,7 @@
   .leaflet-control-attribution a{color:rgba(255,255,255,.75)!important;}
   .leaflet-popup-content-wrapper{background:#1B1836;color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,.5);}
   .leaflet-popup-tip{background:#1B1836;border:1px solid rgba(255,255,255,.14);}
-  .leaflet-popup-content{margin:13px 15px;line-height:1.5;}
+   .leaflet-popup-content{margin:13px 15px;line-height:1.5;}
   .popup-title{font-family:'Poppins';font-size:1rem;font-weight:800;color:#fff;margin-bottom:3px;}
   .popup-meta{font-size:.76rem;color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;}
    .popup-impact{font-size:.82rem;color:rgba(255,255,255,.75);}
@@ -249,6 +249,7 @@
    .stats{grid-template-columns:repeat(2,minmax(0,1fr));}
    /* phone: keep the map clean — hide attribution + zoom, move layers toggle top-left */
    .leaflet-control-zoom,.leaflet-control-attribution{display:none;}
+   .leaflet-popup-content-wrapper{max-width:min(300px,calc(100vw - 48px));}
    .leaflet-bottom.leaflet-right{bottom:auto;top:calc(12px + env(safe-area-inset-top));right:auto;left:calc(12px + env(safe-area-inset-left));}
   }
   @media(min-width:641px){.panel-head .collapse{display:none;}}
@@ -298,9 +299,8 @@
 <script src="site-nav.js" defer></script>
 <script src="site-transition.js" defer></script>
 
+<div class="top-alert"><b>Response record</b><span>Affected regions from the Sept 2026 QGIS analysis · For any current emergency call <a href="tel:1149">1149</a> / <a href="tel:100">100</a></span></div>
 <div class="app">
-  <div class="top-alert"><b>Response record</b><span>Affected regions from the Sept 2026 QGIS analysis · For any current emergency call <a href="tel:1149">1149</a> / <a href="tel:100">100</a></span></div>
-
   <div id="floodMap" role="application" aria-label="Full-screen interactive GIS flood map"></div>
 
   <div class="map-loader" id="mapLoader" role="status">

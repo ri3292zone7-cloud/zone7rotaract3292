@@ -1,8 +1,15 @@
 # Local-only tooling & workspace sources — not needed on Vercel
 serve.py
+serve-vercel.py
+serve-preview.mjs
 database/
 _source-media/
 .git/
+
+# Dev/diagnostic sources — must not be publicly readable
+*.py
+*.sql
+OPS-README.md
 
 # React build sources — only the dist outputs are used by vercel.json rewrites
 React JS/node_modules/

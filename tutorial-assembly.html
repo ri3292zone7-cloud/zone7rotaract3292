@@ -39,42 +39,24 @@ a{color:inherit;text-decoration:none}
 .wrap{max-width:1120px;margin:0 auto;padding:0 22px;overflow-x:hidden;overflow-x:clip;} @media (max-width: 600px){ .wrap{padding:0 16px;} }
 #progress{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--magenta),var(--gold));transform-origin:0 50%;transform:scaleX(0);z-index:999}
 
-.hero{position:relative;overflow-x:clip;padding-top:64px;padding-bottom:40px}
-.aurora{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none}
-.a1{width:420px;height:420px;background:#C9E7F0;top:-140px;left:-120px;animation:drift 16s ease-in-out infinite alternate}
-.a2{width:380px;height:380px;background:#FBE9B9;top:-80px;right:-100px;animation:drift 20s ease-in-out infinite alternate-reverse}
-.a3{width:300px;height:300px;background:#F9C6DC;bottom:-120px;left:40%;animation:drift 24s ease-in-out infinite alternate}
-@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(50px,-40px) scale(1.15)}}
-.fshape{position:absolute;pointer-events:none;will-change:translate}
-.shape-ring{width:46px;height:46px;border:5px solid var(--gold);border-radius:50%;top:30%;left:6%;opacity:.5}
-.shape-tri{width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-bottom:30px solid rgba(14,116,144,.35);top:18%;right:9%}
-.shape-dot{width:14px;height:14px;background:var(--teal);border-radius:50%;bottom:24%;left:12%;opacity:.5}
-.shape-dot2{width:10px;height:10px;background:var(--magenta);border-radius:50%;top:40%;right:16%;opacity:.5}
-.shape-sq{width:26px;height:26px;background:rgba(225,26,110,.3);border-radius:7px;bottom:12%;right:30%}
+.hero{position:relative;overflow-x:clip;padding-top:64px;padding-bottom:44px;background:linear-gradient(180deg,#fff 0%,rgba(14,116,144,.05) 100%)}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tc);background:#fff;border:1px solid var(--line);padding:7px 14px;border-radius:100px;margin-bottom:18px}
 .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--tc)}
-.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.12;max-width:780px;margin-bottom:18px}
-.rword{display:inline-block;overflow:hidden;vertical-align:bottom}
-.rword>span{display:inline-block;transform:translateY(110%);animation:wordIn .7s cubic-bezier(.22,1,.36,1) forwards}
-.rword:nth-child(2)>span{animation-delay:.08s}.rword:nth-child(3)>span{animation-delay:.16s}.rword:nth-child(4)>span{animation-delay:.24s}.rword:nth-child(5)>span{animation-delay:.32s}.rword:nth-child(6)>span{animation-delay:.4s}.rword:nth-child(7)>span{animation-delay:.48s}.rword:nth-child(8)>span{animation-delay:.56s}.rword:nth-child(9)>span{animation-delay:.64s}.rword:nth-child(10)>span{animation-delay:.72s}
-@keyframes wordIn{to{transform:translateY(0)}}
-.hero .sub{font-size:1.02rem;line-height:1.7;color:rgba(27,24,54,.72);max-width:680px;margin-bottom:14px}
-.hero .note{font-size:.8rem;color:rgba(27,24,54,.5);max-width:680px;line-height:1.55}
-.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;margin-top:32px}
+.hero h1{font-size:clamp(2rem,4.4vw,2.9rem);font-weight:800;line-height:1.15;max-width:640px;margin-bottom:18px}
+.hero .sub{font-size:1.02rem;line-height:1.7;color:rgba(27,24,54,.72);max-width:640px;margin-bottom:14px}
+.hero .note{font-size:.8rem;color:rgba(27,24,54,.5);max-width:640px;line-height:1.55}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
 .hero-char{position:relative;display:grid;place-items:center}
-.hero-char img{width:min(320px,80%);animation:bob 4.5s ease-in-out infinite;filter:drop-shadow(0 24px 34px rgba(27,24,54,.22))}
-@keyframes bob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-16px) rotate(1.5deg)}}
-.hc-badge{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:.74rem;font-weight:700;box-shadow:0 12px 28px rgba(27,24,54,.14);display:flex;align-items:center;gap:7px;animation:bob 4s ease-in-out infinite}
+.hero-char img{width:min(300px,80%);filter:drop-shadow(0 24px 34px rgba(27,24,54,.22))}
+.hc-badge{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:.74rem;font-weight:700;box-shadow:0 12px 28px rgba(27,24,54,.14);display:flex;align-items:center;gap:7px}
 .hc-badge b{color:var(--tc)}
-.hc1{top:4%;left:0%}.hc2{top:20%;right:-2%;animation-delay:.7s}.hc3{bottom:6%;left:6%;animation-delay:1.2s}.hc4{bottom:18%;right:2%;animation-delay:1.8s}
-.char-ring{position:absolute;width:min(360px,92%);aspect-ratio:1;border-radius:50%;border:2px dashed rgba(14,116,144,.35);animation:spin 30s linear infinite;pointer-events:none}
-@keyframes spin{to{transform:rotate(360deg)}}
+.hc1{top:4%;left:0%}.hc2{top:20%;right:-2%}.hc3{bottom:6%;left:6%}.hc4{bottom:18%;right:2%}
+.char-ring{position:absolute;width:min(340px,92%);aspect-ratio:1;border-radius:50%;border:2px dashed rgba(14,116,144,.35);pointer-events:none}
 
-.ticker{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;padding:13px 0;margin:10px 0 40px}
-.ticker-track{display:flex;gap:44px;white-space:nowrap;animation:marquee 26s linear infinite;width:max-content}
-.ticker:hover .ticker-track{animation-play-state:paused}
-@keyframes marquee{to{transform:translateX(-50%)}}
-.ticker-track span{font-family:'Poppins';font-weight:700;font-size:.82rem;letter-spacing:.08em;color:rgba(27,24,54,.55)}
+.fact-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;padding:14px 0;margin:10px 0 40px}
+.fact-strip-inner{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 0;max-width:1120px}
+.fact-strip-inner span{font-family:'Poppins';font-weight:700;font-size:.8rem;letter-spacing:.08em;color:rgba(27,24,54,.6);padding:0 18px;position:relative;white-space:nowrap}
+.fact-strip-inner span:not(:last-child)::after{content:"";position:absolute;right:-3px;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--gold)}
 
 .section-title{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;margin:10px 0 8px}
 .section-sub{color:rgba(27,24,54,.65);max-width:640px;line-height:1.65;margin-bottom:26px}
@@ -83,6 +65,7 @@ a{color:inherit;text-decoration:none}
 .guide-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;cursor:pointer;user-select:none;transition:.2s}
 .guide-head:hover{background:rgba(14,116,144,.04)}
 .guide-head-left{display:flex;align-items:center;gap:16px}
+.guide-num{font-family:'Poppins';font-weight:800;font-size:.78rem;color:var(--tc);background:rgba(14,116,144,.08);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:9px 11px;flex:none;letter-spacing:.04em}
 .guide-icon{width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;color:#fff}
 .guide-head h3{font-size:1.12rem;font-weight:800}
 .guide-head .tagline{font-size:.8rem;color:rgba(27,24,54,.55);margin-top:2px}
@@ -111,7 +94,7 @@ a{color:inherit;text-decoration:none}
 @keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
 .steps h5{font-size:.98rem;font-weight:800;margin-bottom:3px}
 .steps p{font-size:.88rem;color:rgba(27,24,54,.68);line-height:1.6}
-.type-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.86rem;background:#fff;border-radius:14px;overflow:hidden}@media (max-width:700px){.type-table{display:block;overflow-x:auto}.type-table th,.type-table td{white-space:nowrap}}
+.type-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.86rem;background:#fff;border-radius:14px;overflow:hidden}
 .type-table th{background:var(--ink);color:#fff;text-align:left;padding:12px 14px;font-weight:700;font-size:.78rem;letter-spacing:.04em}
 .type-table td{padding:12px 14px;border-bottom:1px solid var(--line);line-height:1.5;color:rgba(27,24,54,.75)}
 .type-table tr:last-child td{border-bottom:none}
@@ -123,14 +106,9 @@ a{color:inherit;text-decoration:none}
 .checklist-label{font-family:'Poppins';font-weight:800;font-size:.92rem;margin:18px 0 8px;display:flex;align-items:center;gap:8px}
 .checklist-label::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--magenta);display:inline-block}
 .guide-checklist{list-style:none}
-.guide-checklist li{position:relative;padding:9px 0 9px 34px;font-size:.88rem;line-height:1.55;color:rgba(27,24,54,.78);cursor:pointer;transition:.2s;border-bottom:1px dashed rgba(27,24,54,.08)}
+.guide-checklist li{position:relative;padding:9px 0 9px 28px;font-size:.88rem;line-height:1.55;color:rgba(27,24,54,.78);border-bottom:1px dashed rgba(27,24,54,.08)}
 .guide-checklist li:last-child{border-bottom:none}
-.guide-checklist li::before{content:"";position:absolute;left:0;top:9px;width:20px;height:20px;border:2px solid rgba(27,24,54,.25);border-radius:6px;transition:.2s}
-.guide-checklist li::after{content:"";position:absolute;left:6px;top:13px;width:9px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg) scale(0);transition:.2s}
-.guide-checklist li:hover::before{border-color:var(--magenta)}
-.guide-checklist li.ticked{color:rgba(27,24,54,.45);text-decoration:line-through}
-.guide-checklist li.ticked::before{background:var(--magenta);border-color:var(--magenta)}
-.guide-checklist li.ticked::after{transform:rotate(-45deg) scale(1)}
+.guide-checklist li::before{content:"";position:absolute;left:2px;top:16px;width:8px;height:8px;border-radius:2px;background:var(--magenta)}
 .guide-links{margin:18px 0 0}
 .guide-links-label{font-family:'Poppins';font-weight:800;font-size:.92rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .guide-links-label::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--tc);display:inline-block}
@@ -138,7 +116,7 @@ a{color:inherit;text-decoration:none}
 .guide-link:hover{background:var(--tc);color:#fff}
 
 .video-section{margin:26px 0}
-.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.video-grid{display:grid;grid-template-columns:minmax(0,660px);justify-content:center;gap:18px}
 .video-card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(27,24,54,.05)}
 .video-card .v-thumb{position:relative;cursor:pointer;aspect-ratio:16/9;background:var(--ink)}
 .video-card .v-thumb img{width:100%;height:100%;object-fit:cover;opacity:.85}
@@ -153,7 +131,7 @@ a{color:inherit;text-decoration:none}
 .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:10px}
 .rel-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;transition:.25s;box-shadow:0 10px 30px rgba(27,24,54,.05)}
 .rel-card:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(27,24,54,.12)}
-.rel-card img{height:64px;object-fit:contain;margin-bottom:10px;animation:bob 5s ease-in-out infinite}
+.rel-card img{height:64px;object-fit:contain;margin-bottom:10px}
 .rel-card h5{font-size:.9rem;font-weight:800;margin-bottom:4px}
 .rel-card p{font-size:.76rem;color:rgba(27,24,54,.58);line-height:1.5}
 .rel-card .go{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:800;color:var(--tc)}
@@ -165,15 +143,77 @@ a{color:inherit;text-decoration:none}
 .cta-band .btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(242,169,0,.35)}
 .crumb{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;font-weight:700;color:rgba(27,24,54,.5);margin:34px 0 0}
 .crumb a{color:var(--tc)}
+/* ---- docs layer: meta row, figure, TOC, pager, print ---- */
+.section-head-row{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.section-head-row .section-sub{margin-bottom:0}
+.print-btn{flex:none;background:#fff;border:1.5px solid var(--line);color:var(--ink);font-family:'Poppins';font-weight:700;font-size:.8rem;padding:11px 20px;border-radius:100px;cursor:pointer;transition:.2s}
+.print-btn:hover{border-color:var(--tc);color:var(--tc)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.hero-meta span{display:inline-flex;align-items:center;font-size:.78rem;font-weight:600;color:rgba(27,24,54,.6);background:#fff;border:1px solid var(--line);border-radius:100px;padding:8px 14px}
+.hero-meta b{color:var(--ink);font-weight:800;margin-right:4px}
+.hero-figure{margin:0}
+.hero-figure figcaption{margin-top:14px;font-size:.76rem;color:rgba(27,24,54,.55);text-align:center}
+.doc-layout{display:grid;grid-template-columns:216px minmax(0,1fr);gap:36px;align-items:start;margin-top:26px}
+.toc{position:sticky;top:96px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 8px;box-shadow:0 10px 30px rgba(27,24,54,.05)}
+.toc-title{font-family:'Poppins';font-weight:800;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(27,24,54,.5);padding:2px 12px 10px}
+.toc ol{list-style:none}
+.toc a{display:flex;gap:10px;align-items:baseline;padding:8px 12px;border-radius:10px;font-size:.82rem;font-weight:600;color:rgba(27,24,54,.65);border-left:2px solid transparent}
+.toc a .n{font-size:.68rem;font-weight:800;color:rgba(27,24,54,.35);flex:none}
+.toc a:hover{background:rgba(14,116,144,.06)}
+.toc a.active{background:rgba(14,116,144,.08);color:var(--ink);border-left-color:var(--tc)}
+.toc a.active .n{color:var(--tc)}
+.guide-block{scroll-margin-top:90px}
+.guide-head-right{display:flex;align-items:center;gap:10px;flex:none}
+.copy-link{border:1px solid var(--line);background:#fff;border-radius:9px;width:32px;height:32px;display:grid;place-items:center;color:rgba(27,24,54,.5);cursor:pointer;transition:.2s;position:relative;flex:none}
+.copy-link:hover{border-color:var(--tc);color:var(--tc)}
+.copy-link.copied{border-color:var(--tc);color:var(--tc)}
+.copy-link.copied::after{content:"Copied";position:absolute;bottom:calc(100% + 6px);right:0;background:var(--ink);color:#fff;font-size:.68rem;font-weight:700;padding:5px 10px;border-radius:8px;white-space:nowrap}
+.doc-pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:34px 0 10px}
+.pager{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;transition:.25s;box-shadow:0 10px 30px rgba(27,24,54,.05);display:flex;flex-direction:column;gap:4px}
+.pager:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(27,24,54,.12)}
+.pager.next{text-align:right;align-items:flex-end}
+.pager-k{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tc)}
+.pager-t{font-family:'Poppins';font-weight:800;font-size:1.02rem}
+@media(max-width:1100px){
+  .doc-layout{grid-template-columns:1fr}
+  .toc{position:static;padding:10px}
+  .toc-title{display:none}
+  .toc ol{display:flex;gap:8px;overflow-x:auto;padding:2px}
+  .toc a{white-space:nowrap;border:1px solid var(--line);border-left-width:1px;flex:none}
+  .toc a.active{border-color:var(--tc)}
+}
+@media(max-width:700px){
+  .doc-pager{grid-template-columns:1fr}
+  .pager.next{text-align:left;align-items:flex-start}
+}
+@media print{
+  #siteNav,#progress,.toc,.doc-pager,.copy-link,.guide-chevron,.video-section,.related-grid,.cta-band,.fact-strip,.hero-char,.print-btn,footer,#rgpt-panel,#rgpt-launcher,.crumb{display:none!important}
+  [data-reveal]{opacity:1!important;transform:none!important}
+  body{background:#fff}
+  .hero{background:none;padding-top:24px}
+  .guide-html{max-height:none!important;overflow:visible}
+  .guide-block{box-shadow:none;break-inside:avoid}
+  .steps li,.guide-stat{break-inside:avoid}
+}
 footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54,.55)}
 [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
 [data-reveal].in{opacity:1;transform:translateY(0)}
 @media (max-width:900px){
   .hero-grid{grid-template-columns:1fr}
-  .hero-char{order:-1}
   .video-grid{grid-template-columns:1fr}
   .related-grid{grid-template-columns:1fr}
   .type-table{font-size:.76rem}
+}
+/* comparison table becomes stacked cards on phones */
+@media (max-width:700px){
+  .type-table thead{display:none}
+  .type-table,.type-table tbody,.type-table tr,.type-table td{display:block;width:100%}
+  .type-table{background:none;border-radius:0}
+  .type-table tr{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}
+  .type-table tr:nth-child(even) td{background:none}
+  .type-table td{border-bottom:1px dashed var(--line);padding:10px 14px 10px 132px;position:relative;line-height:1.5;white-space:normal}
+  .type-table td:last-child{border-bottom:none}
+  .type-table td::before{content:attr(data-th);position:absolute;left:14px;top:11px;width:106px;font-weight:800;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:rgba(27,24,54,.5)}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -206,42 +246,47 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
 </div>
 
 <header class="hero">
-  <div class="aurora a1"></div>
-  <div class="aurora a2"></div>
-  <div class="aurora a3"></div>
-  <div class="fshape shape-ring" data-parallax="1"></div>
-  <div class="fshape shape-tri" data-parallax="-1"></div>
-  <div class="fshape shape-dot" data-parallax="2"></div>
-  <div class="fshape shape-dot2" data-parallax="-2"></div>
-  <div class="fshape shape-sq" data-parallax="1.4"></div>
-  <div class="wrap">
-
-
+  <div class="wrap hero-grid">
+  <div class="hero-copy">
   <div class="eyebrow"><span class="dot"></span>Membership &middot; The Voice</div>
-  <h1 id="heroTitle">The whole club plans together.</h1>
+  <h1>The whole club plans together.</h1>
   <p class="sub">A club assembly is the one meeting where the entire membership decides where the club is going: planning the year, reviewing programs and learning together. No motions, no voting on routine business, just the club talking, agreeing and committing. This tutorial covers how assemblies differ from other meetings, the planning and education assemblies, facilitation that keeps every voice in the room, and the follow-up that turns talk into a plan.</p>
   <p class="note">Based on the <a href="media/guides/Standard-Rotaract-Club-Constitution.docx" style="color:var(--tc);font-weight:700;text-decoration:underline;">Standard Rotaract Club Constitution</a>, the <a href="media/guides/Rotaract-Guidebook.pdf" style="color:var(--tc);font-weight:700;text-decoration:underline;">District 3292 Rotaract Guidebook</a> and Rotary's planning guidance. Your club's own constitution and bylaws always win when they differ.</p>
 
-  <div class="hero-grid">
-    <div></div>
+  <div class="hero-meta" id="heroMeta"></div>
+
+  </div>
+    <figure class="hero-figure">
     <div class="hero-char">
       <div class="char-ring"></div>
-      <img src="media/images/tutorial-assembly.png" alt="Rotaract club assembly illustration" data-parallax="0.6">
+      <img src="media/images/tutorial-assembly.png" alt="Rotaract club assembly illustration">
       <div class="hc-badge hc1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Goals <b>agreed</b></div>
       <div class="hc-badge hc2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Plan <b>shared</b></div>
       <div class="hc-badge hc3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#E11A6E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>All voices <b>heard</b></div>
       <div class="hc-badge hc4"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M8 14L12 18L20 8" stroke="#C2410C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Minutes <b>published</b></div>
     </div>
-  </div>
+    <figcaption>Fig. 1 &mdash; A club assembly at work: the whole membership plans together.</figcaption>
+    </figure>
   </div>
 </header>
 
-<div class="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
+<div class="fact-strip"><div class="wrap fact-strip-inner" id="factStrip"></div></div>
 
 <div class="wrap">
-  <h2 class="section-title" data-reveal>Inside the tutorial</h2>
-  <p class="section-sub" data-reveal>Six sections, from what an assembly is to how to make it stick. Open each one, work the checklists, and keep the templates.</p>
-  <div class="guide-list" id="guideList"></div>
+  <div class="section-head-row" data-reveal>
+    <div>
+      <h2 class="section-title">Inside the tutorial</h2>
+      <p class="section-sub">Six sections, from what an assembly is to how to make it stick. Open each one, follow the action checklists, and keep the templates.</p>
+    </div>
+    <button class="print-btn" id="printGuide" type="button">Print guide</button>
+  </div>
+  <div class="doc-layout">
+    <aside class="toc" aria-label="On this page">
+      <p class="toc-title">On this page</p>
+      <ol id="tocList"></ol>
+    </aside>
+    <div class="doc-main"><div class="guide-list" id="guideList"></div></div>
+  </div>
 
   <div class="video-section" data-reveal>
     <h2 class="section-title">Watch it in action</h2>
@@ -258,13 +303,13 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
       <p>Your zonal bridge to the district, and the visits that keep it alive.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
-    <a class="rel-card" href="/tutorial-drr" data-reveal style="--d:.08s">
+    <a class="rel-card" href="/tutorial-drr" data-reveal>
       <img src="media/images/tutorial-drr.png" alt="DRR visits tutorial">
       <h5>DRR Visits</h5>
       <p>When the District Rotaract Representative visits your club.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
-    <a class="rel-card" href="/tutorial-blood" data-reveal style="--d:.16s">
+    <a class="rel-card" href="/tutorial-blood" data-reveal>
       <img src="media/images/tutorial-blood.png" alt="Blood donation tutorial">
       <h5>Blood Donation Programs</h5>
       <p>Put the club's plan into practice with your biggest service event.</p>
@@ -274,11 +319,19 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
 
   <div class="cta-band">
     <div>
-      <h3>Now connect your club outward.</h3>
-      <p>Planning done well shows when the zone visits. Learn how ZRR visits work and what they bring your club.</p>
+      <h3>Take the planning templates.</h3>
+      <p>Turn this tutorial into your assembly pack: the planning guides referenced above, ready to download and share with your board.</p>
     </div>
-    <a class="btn" href="/tutorial-zrr">Next: ZRR Visits &rarr;</a>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a class="btn" href="media/guides/Strategic-Planning-Guide.docx">Strategic Planning Guide</a>
+      <a class="btn" href="media/guides/Effective-Planning-Guide-to-Clubs.docx">Effective Planning Guide</a>
+    </div>
   </div>
+
+  <nav class="doc-pager" aria-label="Tutorial sequence">
+    <a class="pager prev" href="/tutorial-board"><span class="pager-k">&larr; Previous &middot; Tutorial 02</span><span class="pager-t">Running Board Meetings</span></a>
+    <a class="pager next" href="/tutorial-zrr"><span class="pager-k">Next &middot; Tutorial 04 &rarr;</span><span class="pager-t">ZRR Visits</span></a>
+  </nav>
 </div>
 
 <footer>&copy; 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. &nbsp;·&nbsp; <a href="/tutorials" style="font-weight:700;">All Tutorials</a></footer>
@@ -310,10 +363,10 @@ const SECTIONS = [
       <table class="type-table">
         <thead><tr><th>Meeting</th><th>Who attends</th><th>Typical rhythm</th><th>Main job</th></tr></thead>
         <tbody>
-          <tr><td>General meeting</td><td>All members</td><td>Weekly or bi-weekly</td><td>Club business, reports, motions, fellowship</td></tr>
-          <tr><td>Board meeting</td><td>Officers + directors</td><td>Monthly</td><td>Set direction, review projects and finances, prepare general meetings</td></tr>
-          <tr><td>Club assembly</td><td>All members</td><td>Quarterly or as planned</td><td>Planning, education and two-way discussion, no formal motions</td></tr>
-          <tr><td>Annual meeting</td><td>All members</td><td>Once a year</td><td>Officer elections and year-end reporting</td></tr>
+          <tr><td data-th="Meeting">General meeting</td><td data-th="Who attends">All members</td><td data-th="Typical rhythm">Weekly or bi-weekly</td><td data-th="Main job">Club business, reports, motions, fellowship</td></tr>
+          <tr><td data-th="Meeting">Board meeting</td><td data-th="Who attends">Officers + directors</td><td data-th="Typical rhythm">Monthly</td><td data-th="Main job">Set direction, review projects and finances, prepare general meetings</td></tr>
+          <tr><td data-th="Meeting">Club assembly</td><td data-th="Who attends">All members</td><td data-th="Typical rhythm">Quarterly or as planned</td><td data-th="Main job">Planning, education and two-way discussion, no formal motions</td></tr>
+          <tr><td data-th="Meeting">Annual meeting</td><td data-th="Who attends">All members</td><td data-th="Typical rhythm">Once a year</td><td data-th="Main job">Officer elections and year-end reporting</td></tr>
         </tbody>
       </table>
       <p class="intro">Because the assembly has no motions, members speak freely, which is exactly the point. The board then takes what the assembly agreed and turns it into formal decisions at its next meeting.</p>`,
@@ -452,23 +505,27 @@ const SECTIONS = [
 
 function render(){
   document.getElementById("guideList").innerHTML = SECTIONS.map((s,i) => `
-    <div class="guide-block" id="${s.id}" data-reveal style="--d:${(i*0.05).toFixed(2)}s">
+    <div class="guide-block" id="${s.id}" data-reveal>
       <div class="guide-head">
         <div class="guide-head-left">
+          <span class="guide-num">${String(i+1).padStart(2,"0")}</span>
           <div class="guide-icon" style="background:${COLORS[i]};">${ICONS[s.icon]}</div>
           <div>
             <h3>${s.title}</h3>
             <p class="tagline">${s.tagline}</p>
           </div>
         </div>
-        <div class="guide-chevron">${CHEVRON_SVG}</div>
+        <div class="guide-head-right">
+          <button class="copy-link" type="button" data-target="#${s.id}" aria-label="Copy link to ${s.title}" title="Copy link">${LINK_SVG}</button>
+          <div class="guide-chevron">${CHEVRON_SVG}</div>
+        </div>
       </div>
-      <div class="guide-body">
+      <div class="guide-html">
         <div class="guide-body-inner">
           <div class="phase-img"><img src="${s.img}" alt="${s.alt}" loading="lazy"></div>
           ${s.body}
           <div class="guide-stat"><div class="g-icon">${s.stat.icon}</div><p>${s.stat.text}</p></div>
-          <div class="checklist-label">Quick-Start Checklist <span style="font-weight:500;font-size:.74rem;color:rgba(27,24,54,.45);">(tap to tick)</span></div>
+          <div class="checklist-label">Action checklist</div>
           <ul class="guide-checklist">
             ${s.checklist.map(c => `<li>${c}</li>`).join("")}
           </ul>
@@ -483,15 +540,38 @@ function render(){
     </div>
   `).join("");
 
-  document.getElementById("tickerTrack").innerHTML =
-    TICKER_ITEMS.map(t => `<span>${t}</span>`).join("") +
+  document.getElementById("factStrip").innerHTML =
     TICKER_ITEMS.map(t => `<span>${t}</span>`).join("");
+
+  document.getElementById("tocList").innerHTML =
+    SECTIONS.map((s,i) => `<li><a href="#${s.id}"><span class="n">${String(i+1).padStart(2,"0")}</span>${s.title}</a></li>`).join("");
 
   document.querySelectorAll(".guide-head").forEach(el => {
     el.addEventListener("click", () => el.closest(".guide-block").classList.toggle("open"));
   });
-  document.querySelectorAll(".guide-checklist li").forEach(li => {
-    li.addEventListener("click", () => li.classList.toggle("ticked"));
+  document.querySelectorAll("#tocList a").forEach(a => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute("href"));
+      if(!t) return;
+      t.classList.add("open");
+      setTimeout(() => t.scrollIntoView({behavior:"smooth", block:"start"}), 120);
+    });
+  });
+  document.querySelectorAll(".copy-link").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      const url = location.origin + location.pathname + btn.dataset.target;
+      try { await navigator.clipboard.writeText(url); }
+      catch(err) {
+        const ta = document.createElement("textarea");
+        ta.value = url; document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); } catch(_){}
+        ta.remove();
+      }
+      btn.classList.add("copied");
+      setTimeout(() => btn.classList.remove("copied"), 1400);
+    });
   });
 
   document.getElementById("videoGrid").innerHTML = [
@@ -524,6 +604,7 @@ function render(){
   }
 
   observeReveals();
+  observeSpy();
 }
 render();
 
@@ -536,24 +617,30 @@ function observeReveals(){
   els.forEach(el => io.observe(el));
 }
 
-const heroTitle = document.getElementById("heroTitle");
-if(heroTitle){
-  const words = heroTitle.textContent.trim().split(/\s+/);
-  heroTitle.innerHTML = words.map(w => `<span class="rword"><span>${w}</span></span>`).join(" ");
+function observeSpy(){
+  const links = [...document.querySelectorAll("#tocList a")];
+  if(!links.length || !("IntersectionObserver" in window)) return;
+  const byId = new Map(links.map(a => [a.getAttribute("href").slice(1), a]));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(en.isIntersecting){
+        links.forEach(a => a.classList.remove("active"));
+        const a = byId.get(en.target.id);
+        if(a) a.classList.add("active");
+      }
+    });
+  }, {rootMargin:"-40% 0px -55% 0px"});
+  document.querySelectorAll(".guide-block").forEach(b => io.observe(b));
 }
 
-const hero = document.querySelector(".hero");
-if(hero && window.matchMedia("(pointer:fine)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-  hero.addEventListener("mousemove", (e) => {
-    const r = hero.getBoundingClientRect();
-    const mx = (e.clientX - r.left) / r.width - .5;
-    const my = (e.clientY - r.top) / r.height - .5;
-    document.querySelectorAll("[data-parallax]").forEach(el => {
-      const d = parseFloat(el.dataset.parallax) || 1;
-      el.style.translate = `${(mx * 26 * d).toFixed(1)}px ${(my * 18 * d).toFixed(1)}px`;
-    });
-  });
-}
+document.getElementById("printGuide").addEventListener("click", () => window.print());
+(function(){
+  const words = SECTIONS.reduce((a,s) => a + (s.title + " " + s.tagline + " " + s.body.replace(/<[^>]+>/g," ") + " " + s.checklist.join(" ")).split(/\s+/).length, 0);
+  const mins = Math.max(1, Math.round(words/200));
+  const tpl = SECTIONS.reduce((a,s) => a + s.links.length, 0);
+  const meta = document.getElementById("heroMeta");
+  if(meta) meta.innerHTML = `<span><b>~${mins} min</b> read</span><span><b>${SECTIONS.length} modules</b></span><span><b>${tpl} templates</b> included</span>`;
+})();
 
 const progress = document.getElementById("progress");
 let ticking = false;
