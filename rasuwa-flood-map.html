@@ -37,13 +37,22 @@
   #floodMap{position:absolute;inset:0;width:100%;height:100%;background:#0d0d1f;z-index:1;}
 
   /* floating dashboard panels — dark glass over the cinematic map */
-  .panel{position:absolute;z-index:500;background:rgba(27,24,54,.88);border:1px solid rgba(255,255,255,.14);border-radius:18px;box-shadow:0 18px 48px rgba(0,0,0,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);overflow:hidden;color:#fff;}
- .panel.hero{top:14px;left:14px;max-width:340px;width:min(340px,calc(100vw - 28px));}
- .panel.legend{left:14px;bottom:14px;padding:12px 14px;max-width:310px;}
- .panel.fab{right:14px;top:14px;padding:8px;display:flex;flex-direction:column;gap:8px;background:transparent;border:none;box-shadow:none;backdrop-filter:none;}
+   .panel{position:absolute;z-index:500;background:rgba(27,24,54,.88);border:1px solid rgba(255,255,255,.14);border-radius:18px;box-shadow:0 18px 48px rgba(0,0,0,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);overflow:hidden;color:#fff;}
+  
+  /* LEFT RAIL — hero + legend share one flex column so they can never overlap:
+     hero shrinks and scrolls internally, legend keeps its natural height at the bottom */
+  .rail-left{position:absolute;top:20px;left:20px;bottom:20px;width:360px;display:flex;flex-direction:column;gap:14px;z-index:500;pointer-events:none;}
+  .rail-left>.panel{position:relative;pointer-events:auto;width:auto;max-width:none;}
+  .panel.hero{flex:0 1 auto;min-height:0;display:flex;flex-direction:column;}
+  .panel.hero .panel-body{overflow:auto;min-height:0;}
+  .panel.legend{flex:0 0 auto;margin-top:auto;padding:14px 16px;}
+  
+  /* FAB stack: right side, well clear of all panels */
+  .panel.fab{right:20px;top:20px;padding:10px;display:flex;flex-direction:column;gap:10px;background:transparent;border:none;box-shadow:none;backdrop-filter:none;}
   .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.12);background:linear-gradient(90deg,rgba(225,26,110,.16),rgba(27,24,54,.2));}
   .panel-head b{font-family:'Poppins';font-size:.95rem;color:#fff;}
-  .panel-head button{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);border-radius:999px;width:28px;height:28px;color:#fff;font-size:1rem;cursor:pointer;line-height:1;}
+   .panel-head button{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);border-radius:999px;width:32px;height:32px;color:#fff;font-size:1rem;cursor:pointer;line-height:1;transition:background .16s,transform .16s;}
+   .panel-head button:hover{background:rgba(255,255,255,.16);transform:scale(1.05);}
   .panel-body{padding:12px 14px;display:flex;flex-direction:column;gap:11px;}
   .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(225,26,110,.22);color:#ff8fb5;border:1px solid rgba(225,26,110,.4);padding:6px 11px;border-radius:999px;font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;align-self:flex-start;}
  .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(242,169,0,.18);}
@@ -59,20 +68,21 @@
   .hub{background:rgba(225,26,110,.12);border:1px solid rgba(225,26,110,.3);border-radius:14px;padding:11px 12px;}
   .hub>b{font-family:'Poppins';font-size:.88rem;display:block;margin-bottom:8px;color:#fff;}
   .story-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
-  .story{display:flex;gap:9px;align-items:flex-start;width:100%;text-align:left;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:8px 10px;cursor:pointer;color:#fff;font-family:inherit;transition:background .16s,border-color .16s;}
+   .story{display:flex;gap:9px;align-items:flex-start;width:100%;text-align:left;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:10px 12px;min-height:44px;cursor:pointer;color:#fff;font-family:inherit;transition:background .16s,border-color .16s;}
   .story:hover{background:rgba(225,26,110,.22);border-color:rgba(225,26,110,.5);}
   .story .pin{flex:0 0 10px;width:10px;height:10px;border-radius:50%;background:var(--magenta);margin-top:4px;box-shadow:0 0 0 4px rgba(225,26,110,.25);}
   .story b{display:block;font-size:.76rem;font-weight:800;}
   .story span{display:block;font-size:.7rem;line-height:1.45;color:rgba(255,255,255,.62);margin-top:1px;}
   .hub-loading{font-size:.74rem;color:rgba(255,255,255,.55);}
   .hub-helplines{display:flex;gap:8px;}
-  .hub-helplines a{flex:1;text-align:center;background:rgba(20,120,100,.35);border:1px solid rgba(94,234,212,.4);color:#a7f3ea;font-weight:800;font-size:.74rem;border-radius:999px;padding:8px 6px;text-decoration:none;}
+   .hub-helplines a{flex:1;text-align:center;background:rgba(20,120,100,.35);border:1px solid rgba(94,234,212,.4);color:#a7f3ea;font-weight:800;font-size:.74rem;border-radius:999px;padding:10px 8px;min-height:44px;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .16s;}
   .hub-helplines a:hover{background:rgba(20,120,100,.55);}
   .hub-note{font-size:.7rem;line-height:1.5;color:rgba(255,255,255,.6);margin-top:8px;}
   .hub-note a{color:#ff8fb5;font-weight:800;}
  .actions{display:flex;gap:8px;flex-wrap:wrap;}
- .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:10px 15px;border-radius:999px;border:1.5px solid transparent;font-size:.8rem;font-weight:800;cursor:pointer;transition:transform .16s,box-shadow .16s,background .16s;}
- .btn:active{transform:scale(.97);}
+  /* Buttons: 44px min touch target */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:11px 16px;border-radius:999px;border:1.5px solid transparent;font-size:.8rem;font-weight:800;cursor:pointer;transition:transform .16s,box-shadow .16s,background .16s;}
+  .btn:active{transform:scale(.97);}
  .btn-primary{background:var(--magenta);color:#fff;box-shadow:0 10px 22px rgba(225,26,110,.24);flex:1;}
  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(225,26,110,.3);}
   .btn-ghost{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.25);flex:1;}
@@ -83,13 +93,16 @@
  .swatch.line{height:4px;border-radius:2px;margin-top:6px;}
  .risk-extreme{background:#7a0000;}.risk-high{background:#d7301f;}.risk-moderate{background:#fc8d59;}.risk-low{background:#fee08b;}.risk-region{background:rgba(225,26,110,.28);border:1.5px solid #E11A6E;}.risk-river{background:#0E7490;}
   .source-note{font-size:.64rem;line-height:1.5;color:rgba(255,255,255,.55);margin-top:2px;}
-  .fab-btn{width:46px;height:46px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(27,24,54,.9);color:#fff;font-size:1.15rem;cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;transition:transform .16s;}
-  .fab-btn small{position:absolute;top:100%;margin-top:3px;left:50%;transform:translateX(-50%);font-size:.52rem;font-weight:800;letter-spacing:.04em;color:rgba(255,255,255,.8);background:rgba(27,24,54,.9);padding:1px 5px;border-radius:99px;white-space:nowrap;pointer-events:none;}
-  .panel.fab .fab-btn{position:relative;}
- .fab-btn:hover{transform:scale(1.06);}
- .fab-btn.active{background:var(--magenta);color:#fff;border-color:var(--magenta);}
+    /* FAB buttons: 48×48 touch targets, clear hover */
+    .fab-btn{width:48px;height:48px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(27,24,54,.9);color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;transition:transform .16s,background .16s;}
+    .fab-btn:hover{transform:scale(1.06);background:rgba(27,24,54,.98);}
+  .fab-btn.active{background:var(--magenta);color:#fff;border-color:var(--magenta);}
+  .fab-btn:focus-visible,.btn:focus-visible,.district:focus-visible,.story:focus-visible,.tour-nav button:focus-visible,.base-switch button:focus-visible,.district-reset:focus-visible,.tour-dots button:focus-visible,.load-note button:focus-visible,.panel-head button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
 
-  /* leaflet polish — dark chrome */
+  /* leaflet polish — dark chrome.
+     Controls sit UNDER our panels (z-400) so nothing floats over buttons;
+     each screen corner has exactly one owner. */
+  .leaflet-top,.leaflet-bottom{z-index:400;}
   .leaflet-container{font-family:'Inter',sans-serif;color:#fff;background:#0d0d1f;}
   .leaflet-bar a{background:rgba(27,24,54,.92);color:#fff;border-color:rgba(255,255,255,.16);}
   .leaflet-bar a:hover{background:var(--magenta);color:#fff;border-color:var(--magenta);}
@@ -109,9 +122,10 @@
   .leaflet-control-layers .leaflet-control-layers-toggle{border-radius:12px;}
   .leaflet-control-layers-expanded{background:#1B1836;padding:8px 10px;font-family:'Inter',sans-serif;font-weight:600;font-size:.78rem;color:#fff;}
 
-   /* map credit bar */
-   .map-credit{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;z-index:499;font-size:.66rem;color:rgba(255,255,255,.7);background:rgba(13,13,31,.8);padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.14);white-space:nowrap;}
-   body.touring .map-credit{display:none;}
+    /* map credit bar — only on very wide screens where it cannot reach the legend */
+    .map-credit{position:absolute;left:50%;transform:translateX(-50%);bottom:20px;z-index:499;font-size:.66rem;color:rgba(255,255,255,.7);background:rgba(13,13,31,.8);padding:5px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.14);white-space:nowrap;display:none;}
+    @media(min-width:1401px){.map-credit{display:block;}}
+    body.touring .map-credit{display:none;}
 
   /* loading overlay */
   .map-loader{position:absolute;inset:0;z-index:600;display:flex;align-items:center;justify-content:center;background:rgba(27,24,54,.3);transition:opacity .3s;}
@@ -125,30 +139,33 @@
   .load-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--magenta),var(--gold));border-radius:999px;transition:width .25s;}
 
   /* layer failure toast */
-  .load-note{position:absolute;top:52px;left:50%;transform:translateX(-50%);z-index:590;background:#fff;border:1px solid rgba(220,38,38,.28);font-size:.76rem;font-weight:600;border-radius:999px;padding:8px 10px 8px 16px;display:flex;gap:10px;align-items:center;box-shadow:0 12px 30px rgba(17,10,40,.25);max-width:calc(100vw - 32px);}
+  .load-note{position:absolute;top:64px;left:50%;transform:translateX(-50%);z-index:590;background:#fff;border:1px solid rgba(220,38,38,.28);font-size:.76rem;font-weight:600;border-radius:999px;padding:8px 10px 8px 16px;display:flex;gap:10px;align-items:center;box-shadow:0 12px 30px rgba(17,10,40,.25);max-width:calc(100vw - 32px);}
   .load-note button{border:none;background:rgba(27,24,54,.07);border-radius:999px;width:24px;height:24px;cursor:pointer;font-size:.9rem;line-height:1;flex-shrink:0;}
 
-  /* basemap switcher pill (desktop) */
-  .base-switch{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:500;display:flex;gap:4px;background:rgba(27,24,54,.88);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:4px;backdrop-filter:blur(12px);box-shadow:0 12px 30px rgba(0,0,0,.4);}
-  .base-switch button{border:none;background:transparent;color:rgba(255,255,255,.65);font-family:'Inter',sans-serif;font-weight:800;font-size:.74rem;padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;}
-  .base-switch button.on{background:var(--magenta);color:#fff;}
-  @media(max-width:980px){.base-switch{display:none;}}
+   /* basemap switcher pill (desktop) — top center, clear of all panels */
+   .base-switch{position:absolute;top:20px;left:50%;transform:translateX(-50%);z-index:500;display:flex;gap:6px;background:rgba(27,24,54,.88);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px;backdrop-filter:blur(12px);box-shadow:0 12px 30px rgba(0,0,0,.4);}
+   .base-switch button{border:none;background:transparent;color:rgba(255,255,255,.65);font-family:'Inter',sans-serif;font-weight:800;font-size:.76rem;padding:10px 16px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:background .16s,color .16s;}
+   .base-switch button:hover{background:rgba(255,255,255,.1);}
+   .base-switch button.on{background:var(--magenta);color:#fff;}
+   /* hide pill on tablets/mobile where FAB cycle takes over */
+   @media(max-width:1200px){.base-switch{display:none;}}
 
-  /* district panel */
-  .panel.districts{right:14px;top:252px;width:248px;max-height:calc(100% - 276px);display:none;}
-  .panel.districts.show{display:block;}
+   /* district panel — right rail below FAB */
+   .panel.districts{right:20px;top:270px;width:280px;max-height:calc(100% - 290px);display:none;}
+   .panel.districts.show{display:flex;flex-direction:column;}
+   .panel.districts .panel-body{overflow:auto;min-height:0;}
   .district-list{display:flex;flex-direction:column;gap:6px;overflow:auto;}
-  .district{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:9px 11px;cursor:pointer;color:#fff;font-family:inherit;transition:background .16s,border-color .16s;}
+   .district{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:10px 12px;min-height:44px;cursor:pointer;color:#fff;font-family:inherit;transition:background .16s,border-color .16s;}
   .district:hover{background:rgba(45,212,191,.14);border-color:rgba(45,212,191,.4);}
   .district.on{background:rgba(45,212,191,.18);border-color:#2DD4BF;}
   .district b{font-size:.78rem;font-weight:800;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .district span{font-family:'Poppins';font-weight:800;font-size:.9rem;color:#5EEAD4;}
   .district small{display:block;font-size:.62rem;color:rgba(255,255,255,.55);font-weight:600;}
-  .district-reset{width:100%;margin-top:8px;background:transparent;border:1.5px solid rgba(255,255,255,.25);color:#fff;border-radius:999px;padding:9px;font-weight:800;font-size:.76rem;cursor:pointer;font-family:inherit;}
-  .district-reset:hover{background:#fff;color:var(--ink);border-color:#fff;}
+   .district-reset{width:100%;margin-top:8px;background:transparent;border:1.5px solid rgba(255,255,255,.25);color:#fff;border-radius:999px;padding:10px;min-height:44px;font-weight:800;font-size:.76rem;cursor:pointer;font-family:inherit;transition:background .16s,color .16s;}
+   .district-reset:hover{background:#fff;color:var(--ink);border-color:#fff;}
 
-  /* guided tour card */
-  .tour-card{position:absolute;left:50%;transform:translateX(-50%);bottom:18px;z-index:590;width:min(430px,calc(100vw - 32px));background:rgba(27,24,54,.94);border:1px solid rgba(225,26,110,.45);border-radius:18px;padding:16px 18px;color:#fff;box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 40px rgba(225,26,110,.18);backdrop-filter:blur(12px);}
+   /* guided tour card — bottom center, clear of legend */
+   .tour-card{position:absolute;left:50%;transform:translateX(-50%);bottom:24px;z-index:590;width:min(460px,calc(100vw - 40px));background:rgba(27,24,54,.94);border:1px solid rgba(225,26,110,.45);border-radius:18px;padding:18px 20px;color:#fff;box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 40px rgba(225,26,110,.18);backdrop-filter:blur(12px);}
   .tour-card[hidden]{display:none;}
   .tour-step{font-size:.64rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
   .tour-card h3{font-size:1.1rem;margin-bottom:5px;}
@@ -157,32 +174,50 @@
   .tour-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.25);cursor:pointer;padding:0;}
   .tour-dots button.on{background:var(--magenta);box-shadow:0 0 8px rgba(225,26,110,.8);}
   .tour-nav{display:flex;gap:8px;}
-  .tour-nav button{flex:1;border-radius:999px;padding:10px;font-weight:800;font-size:.78rem;cursor:pointer;font-family:inherit;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:#fff;}
-  .tour-nav button.go{background:var(--magenta);border-color:var(--magenta);}
+   .tour-nav button{flex:1;border-radius:999px;padding:11px;min-height:44px;font-weight:800;font-size:.78rem;cursor:pointer;font-family:inherit;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:#fff;transition:background .16s,border-color .16s;}
+   .tour-nav button.go{background:var(--magenta);border-color:var(--magenta);}
+   .tour-nav button:not([disabled]):hover{background:rgba(255,255,255,.1);}
   .tour-nav button[disabled]{opacity:.35;cursor:default;}
   body.touring .base-switch{display:none;}
+  body.touring .panel.legend,body.touring .panel.districts{display:none;}
 
   #heroPanel .panel-head{cursor:pointer;}
   @media(min-width:981px){.panel.drawer{pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity .18s,transform .18s;}.panel.drawer.show{pointer-events:auto;opacity:1;transform:none;}}
   @media (prefers-reduced-motion: reduce){.spinner{animation:none;}.settlement-marker::after{animation:none;display:none;}}
 
-  @media(max-width:980px){
-   .panel.hero{top:12px;left:12px;right:12px;width:auto;max-width:none;}
-   .panel.legend{left:12px;bottom:12px;right:auto;max-width:none;width:auto;}
-   .map-credit{display:none;}
-   .panel.districts{right:12px;left:12px;top:auto;bottom:calc(12px + env(safe-area-inset-bottom));width:auto;max-height:46vh;}
-   .tour-card{left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));transform:none;width:auto;}
+  /* TABLET (641px–1200px): rail stays left, FAB right, district sheet bottom */
+  @media(max-width:1200px){
+   .rail-left{top:16px;left:16px;bottom:16px;width:340px;}
+   .panel.fab{right:16px;top:16px;}
+   .panel.districts{right:16px;left:16px;top:auto;bottom:16px;width:auto;max-width:none;max-height:42vh;}
+   .tour-card{left:16px;right:16px;bottom:16px;transform:none;width:auto;}
+   /* sheets own the screen while open — collapse the dashboard body so nothing stacks */
+   .app:has(.panel.districts.show) .panel.legend{display:none;}
+   .app:has(.panel.districts.show) .panel.hero .panel-body{display:none;}
+   /* tour focuses on the map — collapse the dashboard body on small screens */
+   body.touring .panel.hero .panel-body{display:none;}
   }
- @media(max-width:640px){
-  .panel.legend{left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));width:auto;display:none;}
-  .panel.legend.show{display:block;}
-  .panel.fab{right:12px;top:12px;}
-  .panel.hero{max-height:52vh;overflow:auto;box-shadow:0 20px 60px rgba(17,10,40,.32);}
-  .panel.hero.collapsed .panel-body{display:none;}
-  .panel-head .collapse{display:block;}
-  .stats{grid-template-columns:repeat(2,minmax(0,1fr));}
- }
- @media(min-width:641px){.panel-head .collapse{display:none;}}
+
+  /* MOBILE (≤640px): rail dissolves, hero collapsible on top, sheets anchored bottom */
+  @media(max-width:640px){
+   .rail-left{position:static;display:contents;}
+   .panel.hero{position:absolute;top:12px;left:12px;right:84px;max-height:52vh;}
+   .panel.hero.collapsed .panel-body{display:none;}
+   .panel-head .collapse{display:block;}
+   
+   .panel.legend{position:absolute;left:12px;right:12px;bottom:12px;display:none;max-height:44vh;overflow:auto;}
+   .panel.legend.show{display:block;}
+   
+   .panel.fab{right:12px;top:12px;padding:8px;gap:8px;}
+   .fab-btn{width:46px;height:46px;font-size:1.1rem;}
+   
+   .panel.districts{left:12px;right:12px;bottom:12px;max-height:44vh;}
+   .map-credit{display:none;}
+   .tour-card{left:12px;right:12px;bottom:12px;width:auto;}
+   .stats{grid-template-columns:repeat(2,minmax(0,1fr));}
+   .leaflet-control-zoom{display:none;}
+  }
+  @media(min-width:641px){.panel-head .collapse{display:none;}}
 </style>
 <script>document.documentElement.classList.add('pt-enter');</script>
 </head>
@@ -205,10 +240,11 @@
    </div>
   </div>
 
+  <div class="rail-left">
   <aside class="panel hero" id="heroPanel" aria-label="Flood dashboard">
    <div class="panel-head">
     <b>Rasuwa Flood · Map Record</b>
-    <button class="collapse" id="toggleHero" aria-label="Collapse dashboard panel">−</button>
+    <button class="collapse" id="toggleHero" aria-label="Collapse dashboard panel" aria-expanded="true">−</button>
    </div>
    <div class="panel-body">
      <span class="eyebrow"><i></i> GIS record · Sept 2026</span>
@@ -235,19 +271,33 @@
     </div>
     <button class="btn btn-ghost" id="tourBtn" style="width:100%;" disabled>▶ Take the tour</button>
    </div>
-  </aside>
+   </aside>
+
+   <aside class="panel legend" id="legendPanel" aria-label="Map legend">
+    <b style="display:block;font-family:'Poppins';font-size:.82rem;margin-bottom:8px;">Map legend</b>
+    <div class="legend-row"><span class="swatch risk-region"></span>Affected local unit (51)</div>
+    <div class="legend-row"><span class="swatch risk-extreme"></span>Extreme risk (0-300 m)</div>
+    <div class="legend-row"><span class="swatch risk-high"></span>High risk (300-800 m)</div>
+    <div class="legend-row"><span class="swatch risk-moderate"></span>Moderate risk (800-2000 m)</div>
+    <div class="legend-row"><span class="swatch risk-low"></span>Low risk (2000-4000 m)</div>
+    <div class="legend-row"><span class="swatch line risk-river"></span>Flood corridor / rivers</div>
+    <div class="legend-row"><span class="swatch risk-river" style="border-radius:50%"></span>Affected settlement (5)</div>
+    <p class="source-note">Data: Nepal_Flash_Flood_2026_Analysis.qgz · Awareness mapping, not an official rescue layer.</p>
+   </aside>
+  </div>
 
   <div class="base-switch" id="baseSwitch" role="group" aria-label="Basemap style">
-   <button data-base="dark" class="on">🌙 Dark</button>
-   <button data-base="street">🗺 Streets</button>
-   <button data-base="satellite">🛰 Satellite</button>
+   <button data-base="street" class="on" aria-pressed="true">🗺 Streets</button>
+   <button data-base="satellite" aria-pressed="false">🛰 Satellite</button>
+   <button data-base="terrain" aria-pressed="false">⛰ Terrain</button>
+   <button data-base="dark" aria-pressed="false">🌙 Dark</button>
   </div>
 
   <div class="panel fab">
-   <button class="fab-btn" id="fitMap" title="Fit affected extent" aria-label="Fit map to affected extent">⛶<small>Fit</small></button>
-   <button class="fab-btn active" id="toggleLegend" aria-label="Toggle legend">🗺<small>Legend</small></button>
-   <button class="fab-btn" id="toggleDistricts" aria-label="Toggle district breakdown">▦<small>Areas</small></button>
-   <button class="fab-btn" id="baseCycle" aria-label="Switch basemap style" title="Switch basemap style">🌙<small id="baseCycleLabel">Dark</small></button>
+   <button class="fab-btn" id="fitMap" title="Fit map to affected extent" aria-label="Fit map to affected extent">⛶</button>
+   <button class="fab-btn active" id="toggleLegend" title="Toggle legend" aria-label="Toggle legend" aria-expanded="true">🗺</button>
+   <button class="fab-btn" id="toggleDistricts" title="Show district breakdown" aria-label="Show district breakdown" aria-expanded="false">▦</button>
+   <button class="fab-btn" id="baseCycle" title="Basemap: Streets — tap to switch" aria-label="Basemap: Streets — tap to switch">🗺</button>
   </div>
 
   <aside class="panel districts" id="districtPanel" aria-label="District breakdown">
@@ -258,7 +308,7 @@
    </div>
   </aside>
 
-  <div class="tour-card" id="tourCard" hidden>
+  <div class="tour-card" id="tourCard" role="dialog" aria-label="Guided map tour" hidden>
    <div class="tour-step" id="tourStep">Stop 1 of 6</div>
    <h3 id="tourTitle"></h3>
    <p id="tourText"></p>
@@ -270,35 +320,25 @@
    </div>
   </div>
 
- <aside class="panel legend" id="legendPanel" aria-label="Map legend">
-  <b style="display:block;font-family:'Poppins';font-size:.82rem;margin-bottom:8px;">Map legend</b>
-  <div class="legend-row"><span class="swatch risk-region"></span>Affected local unit (51)</div>
-  <div class="legend-row"><span class="swatch risk-extreme"></span>Extreme risk (0-300 m)</div>
-  <div class="legend-row"><span class="swatch risk-high"></span>High risk (300-800 m)</div>
-  <div class="legend-row"><span class="swatch risk-moderate"></span>Moderate risk (800-2000 m)</div>
-  <div class="legend-row"><span class="swatch risk-low"></span>Low risk (2000-4000 m)</div>
-  <div class="legend-row"><span class="swatch line risk-river"></span>Flood corridor / rivers</div>
-  <div class="legend-row"><span class="swatch risk-river" style="border-radius:50%"></span>Affected settlement (5)</div>
-  <p class="source-note">Data: Nepal_Flash_Flood_2026_Analysis.qgz · Awareness mapping, not an official rescue layer.</p>
- </aside>
-
  <div class="map-credit">Zone 7 Rotaract GIS · awareness map · not a rescue ops layer</div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 (function(){
-  var map=L.map('floodMap',{scrollWheelZoom:true,zoomControl:true}).setView([27.95,85.15],9);
+  var map=L.map('floodMap',{scrollWheelZoom:true,zoomControl:false}).setView([27.95,85.15],9);
   var REDUCED=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // basemaps — cinematic dark default, streets + satellite one tap away
+  // basemaps — Google Satellite default, terrain + streets + dark one tap away.
+  // (Google/OSM/Esri tiles are all key-free: CARTO now needs an API key.)
   var baseLayers={
-   dark:L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd',attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}),
-   street:L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}),
-   satellite:L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:18,attribution:'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics'})
+   satellite:L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom:20,subdomains:['mt0','mt1','mt2','mt3'],attribution:'Imagery &copy; Google'}),
+   terrain:L.tileLayer('https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{maxZoom:20,subdomains:['mt0','mt1','mt2','mt3'],attribution:'Map data &copy; Google'}),
+   dark:L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,attribution:'Tiles &copy; Esri — Esri, DeLorme, NAVTEQ'}),
+   street:L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'})
   };
-  var currentBase='dark';
-  baseLayers.dark.addTo(map);
+  var currentBase='street';
+  baseLayers.street.addTo(map);
 
  var bounds=L.latLngBounds();
  var layers={};
@@ -310,9 +350,11 @@
  };
    var colorRank={0:'Extreme',1:'High',2:'Moderate',3:'Low'};
    var layerControl=L.control.layers(null,{},{collapsed:true,position:'bottomright'}).addTo(map);
+  // zoom sits bottom-right too — bottom-left is owned by the legend rail
+  L.control.zoom({position:'bottomright'}).addTo(map);
 
   // shared state for districts, stories + tour
-  var REGION_STYLE={color:'#E11A6E',weight:1.6,opacity:.85,fillColor:'#E11A6E',fillOpacity:.16};
+  var REGION_STYLE={color:'#E11A6E',weight:1.6,opacity:.85,fillColor:'#E11A6E',fillOpacity:(currentBase==='satellite'?.24:.16)};
   var regionsLayer=null, districtBounds={}, selectedDistrict=null, distCounts={};
   var settlementMarkers=[], settlementsLoaded=false;
   var counts={units:51,districts:5,settlements:5};
@@ -432,14 +474,21 @@
   }
 
   // basemap switching — overlays stay legible on every style
-  var BASE_META={dark:{icon:'🌙',label:'Dark'},street:{icon:'🗺',label:'Streets'},satellite:{icon:'🛰',label:'Satellite'}};
-  var BASE_ORDER=['dark','street','satellite'];
+  var BASE_META={terrain:{icon:'⛰',label:'Terrain'},dark:{icon:'🌙',label:'Dark'},street:{icon:'🗺',label:'Streets'},satellite:{icon:'🛰',label:'Satellite'}};
+  var BASE_ORDER=['street','satellite','terrain','dark'];
   var baseCycleBtn=document.getElementById('baseCycle');
-  var baseCycleLabel=document.getElementById('baseCycleLabel');
   function paintBaseUI(){
-   document.querySelectorAll('#baseSwitch button').forEach(function(b){ b.classList.toggle('on',b.getAttribute('data-base')===currentBase); });
-   if(baseCycleBtn) baseCycleBtn.firstChild.nodeValue=BASE_META[currentBase].icon;
-   if(baseCycleLabel) baseCycleLabel.textContent=BASE_META[currentBase].label;
+   document.querySelectorAll('#baseSwitch button').forEach(function(b){
+    var on=b.getAttribute('data-base')===currentBase;
+    b.classList.toggle('on',on);
+    b.setAttribute('aria-pressed',on?'true':'false');
+   });
+   if(baseCycleBtn){
+    var label='Basemap: '+BASE_META[currentBase].label+' — tap to switch';
+    if(baseCycleBtn.firstChild) baseCycleBtn.firstChild.nodeValue=BASE_META[currentBase].icon;
+    baseCycleBtn.setAttribute('aria-label',label);
+    baseCycleBtn.setAttribute('title',label);
+   }
   }
   function setBasemap(name){
    if(!baseLayers[name]||name===currentBase) return;
@@ -494,6 +543,7 @@
   }
   document.getElementById('toggleDistricts').addEventListener('click',function(){
    var show=districtPanel.classList.toggle('show');
+   this.setAttribute('aria-expanded',show?'true':'false');
    if(show){ legendPanel.classList.remove('show'); syncLegendBtn(); }
   });
   document.getElementById('closeDistricts').addEventListener('click',function(){ districtPanel.classList.remove('show'); });
@@ -556,6 +606,9 @@
   }
   function startTour(){
    if(!settlementMarkers.length||tour.active) return;
+   // bottom sheets would pile onto the tour card on small screens
+   districtPanel.classList.remove('show');
+   legendPanel.classList.remove('show'); syncLegendBtn();
    tour.steps=buildTourSteps();
    tour.active=true;
    tourCard.hidden=false;
@@ -584,12 +637,15 @@
   legendBtn.addEventListener('click',function(){
    var show=legendPanel.classList.toggle('show');
    this.classList.toggle('active',show);
+   this.setAttribute('aria-expanded',show?'true':'false');
    if(show) districtPanel.classList.remove('show');
   });
   // the button starts "active" but the legend starts hidden on phones — sync to reality
   function syncLegendBtn(){
    var small=window.matchMedia('(max-width:640px)').matches;
-   legendBtn.classList.toggle('active',!small||legendPanel.classList.contains('show'));
+   var vis=!small||legendPanel.classList.contains('show');
+   legendBtn.classList.toggle('active',vis);
+   legendBtn.setAttribute('aria-expanded',vis?'true':'false');
   }
   syncLegendBtn();
   var rsT; window.addEventListener('resize',function(){clearTimeout(rsT);rsT=setTimeout(syncLegendBtn,150);});
@@ -597,6 +653,7 @@
   function toggleHeroPanel(){
    var collapsed=heroPanel.classList.toggle('collapsed');
    document.getElementById('toggleHero').textContent=collapsed?'+':'−';
+   document.getElementById('toggleHero').setAttribute('aria-expanded',collapsed?'false':'true');
   }
   document.getElementById('toggleHero').addEventListener('click',function(e){e.stopPropagation();toggleHeroPanel();});
   // whole header is tappable — the − button alone is a hard touch target
