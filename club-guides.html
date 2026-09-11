@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <link rel="alternate" hreflang="en" href="https://zone7rotaract3292.vercel.app/club-guides">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Playbook — Rules &amp; Laws for Rotaract Clubs | Zone 7 Rotaract 3292</title>
-<meta name="description" content="Role-based rules, bylaws, deadlines and compliance guides for Rotaract club officers — grounded in RI's Standard Constitution.">
+<title>The Playbook — Club Operations Reference | Zone 7 Rotaract 3292</title>
+<meta name="description" content="Technical reference for Rotaract club officers: rules, spec tables, protocols in pseudo-code, and compliance flows — grounded in RI's Standard Constitution and District 3292 practices.">
 <link rel="canonical" href="https://zone7rotaract3292.vercel.app/club-guides">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Playbook | Zone 7 Rotaract 3292">
-<meta property="og:description" content="Role-based rules, bylaws, deadlines and compliance guides for Rotaract club officers.">
+<meta property="og:description" content="Rules, spec tables, protocols and process flows for Rotaract club officers.">
 <meta property="og:url" content="https://zone7rotaract3292.vercel.app/club-guides">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon-192.png" sizes="192x192">
@@ -18,49 +18,76 @@
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <script src="zone7-data.js"></script>
 <style>
-:root {
-  --brand:#E11A6E;--brand-deep:#A80F52;--ink:#1B1836;--ink-light:rgba(27,24,54,.5);
-  --gold:#F2A900;--teal:#0E7490;
-  --cream:#FAFAFA;--paper:#FFFDF9;--line:rgba(27,24,54,.1);--line-muted:rgba(27,24,54,.04);
+:root{
+  --brand:#E11A6E;--brand-deep:#A80F52;--ink:#1B1836;--gold:#F2A900;--teal:#0E7490;
+  --cream:#FAFAFA;--paper:#FFFDF9;--accent:#f5f5f5;--border:#e5e7eb;--border-muted:#f3f4f6;
   --pres:#E11A6E;--sec:#2563EB;--treas:#7C3AED;--vps:#0E7490;--vpp:#D97706;--secr:#059669;--serg:#6B21A8;--comms:#C2410C;--board:#1B1836;
-  --accent:#f5f5f5;--border:#e5e7eb;--border-muted:#f3f4f6;
+  --ink-strong:rgba(27,24,54,.82);--ink-body:rgba(27,24,54,.78);--ink-soft:rgba(27,24,54,.68);
+  --ink-mid:rgba(27,24,54,.55);--ink-dim:rgba(27,24,54,.45);--ink-faint:rgba(27,24,54,.4);
+  --ink-line:rgba(27,24,54,.1);--ink-line2:rgba(27,24,54,.18);--ink-line3:rgba(27,24,54,.2);
+  --ink-line4:rgba(27,24,54,.04);--shadow-card:0 4px 16px rgba(27,24,54,.06);
+  --gold-bg:rgba(242,169,0,.05);--gold-line:rgba(242,169,0,.18);--gold-strong:rgba(242,169,0,.14);
+  --brand-bg:rgba(225,26,110,.05);--brand-line:rgba(225,26,110,.22);
+  --mono:ui-monospace,'Cascadia Code','JetBrains Mono','Fira Code',Consolas,'Courier New',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);scroll-behavior:smooth}
 body{min-height:100vh}
 h1,h2,h3,h4{font-family:'Poppins',sans-serif;color:var(--ink)}
 a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline}
+:root.dark{
+  --ink:#E9E7F7;--ink-strong:rgba(233,231,247,.86);--ink-body:rgba(233,231,247,.8);--ink-soft:rgba(233,231,247,.68);
+  --ink-mid:rgba(233,231,247,.56);--ink-dim:rgba(233,231,247,.42);--ink-faint:rgba(233,231,247,.35);
+  --ink-line:rgba(233,231,247,.12);--ink-line2:rgba(233,231,247,.2);--ink-line3:rgba(233,231,247,.24);
+  --ink-line4:rgba(233,231,247,.05);--shadow-card:0 4px 18px rgba(0,0,0,.4);
+  --cream:#0B0A16;--paper:#151327;--accent:#1C1A33;--border:#282545;--border-muted:#1E1C37;
+  --gold-bg:rgba(242,169,0,.12);--gold-line:rgba(242,169,0,.3);--gold-strong:rgba(242,169,0,.2);
+  --brand-bg:rgba(225,26,110,.14);--brand-line:rgba(225,26,110,.4);
+  --brand-deep:#f0488f;--board:#E9E7F7;
+}
 
 /* ── layout shell ── */
 .app-layout{display:flex;flex:1;min-height:0}
 .main-content{flex:1;min-width:0;display:flex;justify-content:center;padding:0 48px}
-.content-inner{width:100%;max-width:672px;padding:56px 0 100px}
+.content-inner{width:100%;max-width:672px;padding:44px 0 100px}
 @media(max-width:1024px){.content-inner{padding:36px 0 80px}.main-content{padding:0 28px}}
 @media(max-width:800px){.main-content{padding:0 16px}.content-inner{padding:24px 0 60px}}
 
+/* ── page toolbar (breadcrumb + actions) ── */
+.page-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:22px;flex-wrap:wrap}
+.pb-crumb{font-size:12.5px;color:var(--ink-dim);font-family:'Inter';font-weight:500;letter-spacing:.02em;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pb-crumb b{color:var(--ink-soft);font-weight:600}
+.pb-spacer{flex:1}
+.tool-actions{display:flex;align-items:center;gap:8px}
+.tool-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ink-soft);background:var(--paper);border:1px solid var(--ink-line);border-radius:7px;padding:6px 11px;cursor:pointer;font-family:'Inter';transition:border-color .15s,color .15s,background .15s;white-space:nowrap}
+.tool-btn:hover{border-color:var(--brand);color:var(--brand-deep);background:var(--brand-bg)}
+.tool-btn kbd{font-family:var(--mono);font-size:10px;background:var(--accent);border:1px solid var(--ink-line);border-radius:4px;padding:1px 5px;color:var(--ink-mid)}
+
 /* ── sidebar ── */
 .sidebar-wrap{width:300px;flex-shrink:0;position:sticky;top:72px;height:calc(100vh - 72px)}
-.sidebar{width:100%;height:100%;background:var(--paper);border-right:1px solid var(--line);overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(27,24,54,.08) transparent;padding:24px 12px 24px 36px}
+.sidebar{width:100%;height:100%;background:var(--paper);border-right:1px solid var(--ink-line);overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(27,24,54,.08) transparent;padding:24px 12px 24px 36px}
 .sidebar::-webkit-scrollbar{width:4px}
 .sidebar::-webkit-scrollbar-thumb{background:rgba(27,24,54,.1);border-radius:8px}
-.toc-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(27,24,54,.5);margin-bottom:16px;font-family:'Inter'}
+.toc-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-mid);margin-bottom:16px;font-family:'Inter'}
 .toc-links{display:flex;flex-direction:column;gap:4px}
-.toc-link{font-size:13px;color:rgba(27,24,54,.62);text-decoration:none;padding:4px 0 4px 12px;border-left:2px solid transparent;transition:color .15s,border-color .15s;line-height:1.5}
+.toc-link{font-size:13px;color:var(--ink-soft);text-decoration:none;padding:4px 0 4px 12px;border-left:2px solid transparent;transition:color .15s,border-color .15s;line-height:1.5}
 .toc-link:hover{color:var(--ink);border-color:var(--brand);text-decoration:none}
+.toc-link.active{color:var(--brand-deep);border-color:var(--brand)}
 .sb-search{position:relative;margin-bottom:14px}
-.sb-search .icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:rgba(27,24,54,.3);pointer-events:none}
-.sb-search input{width:100%;height:34px;padding:0 10px 0 30px;border:1px solid var(--line);border-radius:8px;font-size:14px;color:var(--ink);background:var(--paper);font-family:'Inter';transition:border-color .15s}
+.sb-search .icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--ink-faint);pointer-events:none}
+.sb-search input{width:100%;height:34px;padding:0 34px 0 30px;border:1px solid var(--ink-line);border-radius:8px;font-size:14px;color:var(--ink);background:var(--paper);font-family:'Inter';transition:border-color .15s}
 .sb-search input:focus{outline:none;border-color:var(--brand)}
+.sb-search .kbd{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:10px;color:var(--ink-faint);font-family:var(--mono);pointer-events:none}
 .sb-group{margin-bottom:4px}
 .sb-group-head{display:flex;align-items:center;gap:8px;height:38px;padding:0 12px;margin:0 -12px;font-size:15px;font-weight:700;color:var(--ink);user-select:none;font-family:'Poppins'}
 .sb-group-head .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .sb-items-list{padding:2px 0 8px 0}
-.sb-item{display:flex;align-items:center;gap:8px;height:38px;padding:0 12px;margin:0 -12px;border-radius:8px;font-size:14px;color:rgba(27,24,54,.65);cursor:pointer;transition:background .15s,color .15s;text-decoration:none;border:1px solid transparent}
-.sb-item:hover{background:rgba(225,26,110,.04);color:var(--ink);text-decoration:none}
-.sb-item.active{background:rgba(225,26,110,.07);color:var(--brand-deep);font-weight:600;border-color:var(--brand)}
+.sb-item{display:flex;align-items:center;gap:8px;height:38px;padding:0 12px;margin:0 -12px;border-radius:8px;font-size:14px;color:var(--ink-soft);cursor:pointer;transition:background .15s,color .15s;text-decoration:none;border:1px solid transparent}
+.sb-item:hover{background:var(--brand-bg);color:var(--ink);text-decoration:none}
+.sb-item.active{background:var(--brand-bg);color:var(--brand-deep);font-weight:600;border-color:var(--brand)}
 .sb-item .dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.sb-footer{margin-top:auto;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-light)}
-.sb-reset{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;color:rgba(27,24,54,.45);background:none;border:1px solid var(--line);border-radius:6px;padding:5px 10px;cursor:pointer;font-family:'Inter';transition:border-color .15s,color .15s}
+.sb-footer{margin-top:auto;padding-top:20px;border-top:1px solid var(--ink-line);font-size:12px;color:var(--ink-mid)}
+.sb-reset{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;color:var(--ink-dim);background:none;border:1px solid var(--ink-line);border-radius:6px;padding:5px 10px;cursor:pointer;font-family:'Inter';transition:border-color .15s,color .15s}
 .sb-reset:hover{border-color:var(--ink);color:var(--ink)}
 
 /* ── right TOC rail ── */
@@ -71,19 +98,19 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 .overview-hero{margin-bottom:36px}
 .overview-hero h1{font-size:clamp(1.6rem,3vw,2rem);line-height:1.1;margin-bottom:12px}
 .overview-hero h1 em{font-style:normal;color:var(--brand)}
-.overview-hero .page-desc{font-size:16px;color:rgba(27,24,54,.8);line-height:1.7;max-width:560px}
-.overview-hero .note{margin-top:16px;font-size:14px;color:rgba(27,24,54,.75);border-left:3px solid var(--gold);padding:12px 16px;background:rgba(242,169,0,.04);border-radius:0 8px 8px 0;line-height:1.6}
+.overview-hero .page-desc{font-size:16px;color:var(--ink-body);line-height:1.7;max-width:560px}
+.overview-hero .note{margin-top:16px;font-size:14px;color:var(--ink-soft);border-left:3px solid var(--gold);padding:12px 16px;background:var(--gold-bg);border-radius:0 8px 8px 0;line-height:1.6}
 .role-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px}
 @media(max-width:640px){.role-cards{grid-template-columns:1fr}}
-.role-card{background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:border-color .15s,box-shadow .15s;text-decoration:none;color:inherit;display:flex;flex-direction:column}
-.role-card:hover{border-color:rgba(27,24,54,.18);box-shadow:0 4px 16px rgba(27,24,54,.06);text-decoration:none}
+.role-card{background:var(--paper);border:1px solid var(--ink-line);border-radius:12px;overflow:hidden;cursor:pointer;transition:border-color .15s,box-shadow .15s;text-decoration:none;color:inherit;display:flex;flex-direction:column}
+.role-card:hover{border-color:var(--ink-line2);box-shadow:var(--shadow-card);text-decoration:none}
 .role-card:hover .rc-body h3{color:var(--brand-deep)}
-.rc-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line-muted)}
+.rc-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--ink-line4)}
 .rc-icon{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;font-size:.95rem;flex-shrink:0}
 .rc-head h3{font-size:15px;font-weight:700}
 .rc-body{padding:12px 16px}
-.rc-body p{font-size:13px;color:rgba(27,24,54,.68);line-height:1.55}
-.rc-count{font-size:11px;color:rgba(27,24,54,.4);margin-top:8px;font-weight:600}
+.rc-body p{font-size:13px;color:var(--ink-soft);line-height:1.55}
+.rc-count{font-size:11px;color:var(--ink-faint);margin-top:8px;font-weight:600}
 .rc-count span{color:var(--brand);font-weight:700}
 
 /* ── guide detail ── */
@@ -92,68 +119,179 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 .gd-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 .gd-role{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#fff;padding:4px 10px;border-radius:100px;white-space:nowrap;font-family:'Inter'}
 .gd-src{font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;text-transform:uppercase;letter-spacing:.04em;font-family:'Inter'}
-.gd-src.zone{color:var(--brand-deep);background:rgba(225,26,110,.06)}
-.gd-src.ri{color:#1c8a4d;background:rgba(28,138,77,.06)}
-.gd-src.both{color:var(--teal);background:rgba(14,116,144,.06)}
+.gd-src.zone{color:var(--brand-deep);background:var(--brand-bg)}
+.gd-src.ri{color:#1c8a4d;background:rgba(28,138,77,.08)}
+.gd-src.both{color:var(--teal);background:rgba(14,116,144,.08)}
 .guide-detail h1{font-size:clamp(1.5rem,3vw,2rem);line-height:1.1;margin:6px 0 10px}
-.gd-deadline{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:rgba(27,24,54,.8);background:var(--accent);border:1px solid var(--line);border-radius:8px;padding:7px 14px;margin-bottom:20px;font-family:'Inter'}
-.gd-intro{font-size:16px;color:rgba(27,24,54,.82);line-height:1.75;margin-bottom:24px}
-.gd-stat{display:flex;align-items:flex-start;gap:10px;background:rgba(242,169,0,.04);border:1px solid rgba(242,169,0,.15);border-radius:10px;padding:14px 16px;margin-bottom:28px}
+.gd-deadline{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--ink-body);background:var(--accent);border:1px solid var(--ink-line);border-radius:8px;padding:7px 14px;margin-bottom:20px;font-family:'Inter'}
+.gd-intro{font-size:16px;color:var(--ink-strong);line-height:1.75;margin-bottom:24px}
+.gd-stat{display:flex;align-items:flex-start;gap:10px;background:var(--gold-bg);border:1px solid var(--gold-line);border-radius:10px;padding:14px 16px;margin-bottom:28px}
 .gd-stat .g-icon{font-size:16px;flex-shrink:0;margin-top:1px}
 .gd-stat p{font-size:15px;font-weight:500;line-height:1.65;margin:0;color:var(--ink)}
 .gd-stat p span{color:var(--brand-deep);font-weight:700}
-.gd-section-label{font-size:13px;font-weight:700;color:rgba(27,24,54,.55);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:6px;font-family:'Inter'}
-.rules-list{list-style:none;margin-bottom:28px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.rules-list li{font-size:16px;font-weight:500;padding:13px 14px 13px 48px;position:relative;line-height:1.7;border-bottom:1px solid var(--line-muted);word-break:break-word;background:var(--paper);transition:background .15s;cursor:pointer}
+
+/* ── callouts ── */
+.callouts{display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+.callout{border:1px solid var(--ink-line);border-left-width:3px;border-radius:10px;padding:13px 16px 13px 15px;background:var(--ink-line4)}
+.callout p{font-size:14.5px;color:var(--ink-body);line-height:1.65;margin:0}
+.co-head{display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.co-head .co-ic{font-size:15px;flex-shrink:0;line-height:1}
+.co-head b{font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;font-family:'Inter'}
+.callout--tip{border-color:var(--gold);background:var(--gold-bg)}
+.callout--tip b{color:#B48600}
+.callout--info{border-color:var(--teal);background:rgba(14,116,144,.05)}
+.callout--info b{color:var(--teal)}
+.callout--warning{border-color:#D97706;background:rgba(217,119,6,.06)}
+.callout--warning b{color:#B45309}
+.callout--danger{border-color:#DC2626;background:rgba(220,38,38,.06)}
+.callout--danger b{color:var(--brand-deep)}
+:root.dark .callout--tip b,#fff{color:#F2C14E}
+:root.dark .callout--info b{color:#4CC1E0}
+:root.dark .callout--warning b{color:#F2A900}
+:root.dark .callout--danger b{color:#F0488F}
+
+/* ── rules list ── */
+.rules-list{list-style:none;margin-bottom:6px;border:1px solid var(--ink-line);border-radius:10px;overflow:hidden}
+.rules-list li{font-size:16px;font-weight:500;padding:13px 14px 13px 48px;position:relative;line-height:1.7;border-bottom:1px solid var(--ink-line4);word-break:break-word;background:var(--paper);transition:background .15s;cursor:pointer}
 .rules-list li:last-child{border-bottom:none}
-.rules-list li:hover{background:rgba(225,26,110,.02)}
-.rules-list li .r-num{position:absolute;left:10px;top:13px;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:10px;font-weight:800;color:var(--ink-light);background:var(--accent);border:1px solid var(--line);font-family:'Poppins'}
+.rules-list li:hover{background:var(--brand-bg)}
+.rules-list li .r-num{position:absolute;left:10px;top:13px;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:10px;font-weight:800;color:var(--ink-dim);background:var(--accent);border:1px solid var(--ink-line);font-family:var(--mono)}
 .rules-list li.done .r-num{background:var(--brand);color:#fff;border-color:var(--brand)}
-.rules-list li .r-law{display:block;font-size:13px;font-weight:500;color:rgba(27,24,54,.55);margin-top:4px;line-height:1.4;font-family:'Inter'}
+.rules-list li .r-law{display:block;font-size:13px;font-weight:500;color:var(--ink-mid);margin-top:4px;line-height:1.4;font-family:'Inter'}
+.rules-list li .r-law code{font-family:var(--mono);font-size:12px;background:var(--accent);border:1px solid var(--ink-line4);border-radius:4px;padding:1px 5px;color:var(--ink-soft)}
+
+/* ── spec (api) tables ── */
+.spec{background:var(--paper);border:1px solid var(--ink-line);border-radius:12px;overflow:hidden;margin-bottom:6px}
+.spec-head{display:flex;align-items:center;gap:8px;padding:11px 14px;background:var(--accent);border-bottom:1px solid var(--ink-line)}
+.spec-head .spec-cap{font-size:13px;font-weight:700;color:var(--ink);font-family:'Poppins'}
+.spec-head .spec-note{font-size:11px;color:var(--ink-dim);font-weight:600;font-family:'Inter'}
+.spec-head .spec-tot{margin-left:auto;font-size:11px;font-weight:700;color:var(--brand-deep);font-family:var(--mono);background:var(--brand-bg);border:1px solid var(--brand-line);border-radius:100px;padding:3px 9px}
+.spec-scroll{overflow-x:auto}
+.spec table{width:100%;border-collapse:collapse;min-width:520px}
+.spec th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mid);text-align:left;padding:10px 14px;border-bottom:1px solid var(--ink-line);background:var(--paper);position:sticky;top:0;font-family:'Inter';white-space:nowrap}
+.spec td{font-size:14px;color:var(--ink-body);padding:10px 14px;border-bottom:1px solid var(--ink-line4);vertical-align:top;line-height:1.55}
+.spec tr:last-child td{border-bottom:none}
+.spec tbody tr:nth-child(even){background:var(--ink-line4)}
+.spec td.mono,.spec th.mono{font-family:var(--mono);font-size:12.5px}
+.spec td.pts,.spec th.pts{text-align:right;white-space:nowrap;color:var(--brand-deep);font-weight:700;font-family:var(--mono)}
+.spec tr:hover td{background:var(--brand-bg)}
+
+/* ── tabs ── */
+.tabs{background:var(--paper);border:1px solid var(--ink-line);border-radius:12px;overflow:hidden;margin-bottom:6px}
+.tab-bar{display:flex;gap:2px;padding:8px 8px 0;border-bottom:1px solid var(--ink-line);overflow-x:auto;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-bar button{flex-shrink:0;font-size:13px;font-weight:700;color:var(--ink-mid);background:none;border:none;border-bottom:2px solid transparent;padding:9px 14px;cursor:pointer;font-family:'Inter';transition:color .15s,border-color .15s;border-radius:8px 8px 0 0}
+.tab-bar button:hover{color:var(--ink)}
+.tab-bar button.active{color:var(--brand-deep);border-color:var(--brand)}
+.tab-bar button:focus-visible{outline:2px solid var(--brand);outline-offset:-2px}
+.tab-panel{padding:16px 18px 18px}
+.tab-pane{display:none}
+.tab-pane.active{display:block;animation:fadeUp .2s ease}
+.tab-pane p{font-size:14.5px;color:var(--ink-body);line-height:1.7;margin-bottom:10px}
+.tab-pane ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.tab-pane li{font-size:14.5px;color:var(--ink-body);line-height:1.6}
+
+/* ── flow stepper ── */
+.flow{background:var(--paper);border:1px solid var(--ink-line);border-radius:12px;overflow:hidden;margin-bottom:6px}
+.flow-head{display:flex;align-items:center;gap:8px;padding:11px 14px;background:var(--accent);border-bottom:1px solid var(--ink-line)}
+.flow-head .f-title{font-size:13px;font-weight:700;color:var(--ink);font-family:'Poppins'}
+.flow-head .f-count{margin-left:auto;font-size:11px;font-weight:700;color:var(--ink-mid);font-family:var(--mono)}
+.flow-track{display:flex;gap:0;padding:20px 18px 8px;overflow-x:auto;scrollbar-width:none}
+.flow-track::-webkit-scrollbar{display:none}
+.f-node{flex:1;min-width:88px;display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:none;cursor:pointer;padding:0 4px;position:relative;font-family:'Inter'}
+.f-node::before{content:"";position:absolute;top:13px;left:calc(-50% + 16px);right:calc(50% + 16px);height:2px;background:var(--ink-line);transition:background .2s}
+.f-node:first-child::before{display:none}
+.f-dot{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:var(--ink-dim);background:var(--accent);border:2px solid var(--ink-line);font-family:var(--mono);transition:all .2s;position:relative;z-index:1}
+.f-node:hover .f-dot{border-color:var(--ink-line2)}
+.f-node .f-lab{font-size:11.5px;font-weight:600;color:var(--ink-mid);text-align:center;line-height:1.3;transition:color .2s}
+.f-node.active .f-dot{background:var(--brand);border-color:var(--brand);color:#fff}
+.f-node.active::before{background:var(--brand)}
+.f-node.active .f-lab{color:var(--brand-deep);font-weight:700}
+.f-node.done .f-dot{background:rgba(28,138,77,.15);border-color:rgb(40,150,103);color:rgb(46,158,108)}
+.f-node.done::before{background:rgb(46,158,108)}
+.flow-body{padding:6px 18px 12px}
+.flow-step{display:none}
+.flow-step.active{display:block;animation:fadeUp .2s ease}
+.flow-step h4{font-size:15px;font-weight:700;margin-bottom:6px;font-family:'Poppins'}
+.flow-step p{font-size:14px;color:var(--ink-body);line-height:1.65}
+.flow-nav{display:flex;align-items:center;gap:8px;padding:10px 18px 16px;border-top:1px solid var(--ink-line4);margin-top:6px}
+.flow-nav .f-prev,.flow-nav .f-next{font-size:12.5px;font-weight:700;color:var(--ink-soft);background:var(--paper);border:1px solid var(--ink-line);border-radius:7px;padding:6px 13px;cursor:pointer;font-family:'Inter';transition:border-color .15s,color .15s,background .15s}
+.flow-nav .f-prev:hover,.flow-nav .f-next:hover{border-color:var(--brand);color:var(--brand-deep);background:var(--brand-bg)}
+.flow-nav .f-prev:disabled,.flow-nav .f-next:disabled{opacity:.35;cursor:not-allowed}
+.flow-progress{display:flex;gap:5px;margin-left:auto}
+.flow-progress .f-dot-s{width:7px;height:7px;border-radius:50%;background:var(--ink-line);transition:background .2s;cursor:pointer;padding:0;border:none}
+.flow-progress .f-dot-s.active{background:var(--brand)}
+@media(max-width:560px){.f-node{min-width:72px}.f-node .f-lab{font-size:10.5px}}
+
+/* ── sources / related ── */
 .gd-sources{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.gd-sources a{display:inline-flex;align-items:center;gap:5px;font-size:14px;font-weight:600;color:var(--brand-deep);padding:6px 12px;border-radius:8px;border:1px solid var(--line);transition:border-color .15s,background .15s;font-family:'Inter'}
-.gd-sources a:hover{border-color:var(--brand);background:rgba(225,26,110,.04);text-decoration:none}
-.gd-related{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
-.gd-related h3{font-size:16px;font-weight:700;margin-bottom:12px}
+.gd-sources a{display:inline-flex;align-items:center;gap:5px;font-size:14px;font-weight:600;color:var(--brand-deep);padding:6px 12px;border-radius:8px;border:1px solid var(--ink-line);transition:border-color .15s,background .15s;font-family:'Inter'}
+.gd-sources a:hover{border-color:var(--brand);background:var(--brand-bg);text-decoration:none}
+.gd-related{margin-top:40px;padding-top:24px;border-top:1px solid var(--ink-line)}
 .related-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 @media(max-width:600px){.related-cards{grid-template-columns:1fr}}
-.rel-card{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--paper);border:1px solid var(--line);border-radius:8px;cursor:pointer;transition:border-color .15s;text-decoration:none;color:inherit}
+.rel-card{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--paper);border:1px solid var(--ink-line);border-radius:8px;cursor:pointer;transition:border-color .15s;text-decoration:none;color:inherit}
 .rel-card:hover{border-color:var(--brand);text-decoration:none}
 .rel-card .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .rel-card h4{font-size:14px;font-weight:600;line-height:1.2}
-.rel-card p{font-size:11px;color:var(--ink-light);margin-top:2px}
-.rel-card .arrow{margin-left:auto;color:rgba(27,24,54,.2);font-size:12px;flex-shrink:0}
+.rel-card p{font-size:11px;color:var(--ink-mid);margin-top:2px}
+.rel-card .arrow{margin-left:auto;color:var(--ink-faint);font-size:12px;flex-shrink:0}
 
-/* ── makeup ── */
-.mu-block{margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
-.mu-block .print-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink);background:var(--accent);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;transition:background .15s,border-color .15s;font-family:'Poppins'}
+/* ── makeup card (printable) ── */
+.mu-block{margin-top:36px;padding-top:24px;border-top:1px solid var(--ink-line)}
+.mu-block .print-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink);background:var(--accent);border:1px solid var(--ink-line);border-radius:8px;padding:8px 14px;cursor:pointer;transition:background .15s,border-color .15s;font-family:'Poppins'}
 .mu-block .print-btn:hover{border-color:var(--ink);background:var(--paper)}
-.mu-card{margin-top:14px;background:var(--paper);border:1.5px dashed rgba(27,24,54,.2);border-radius:14px;padding:22px 24px;max-width:460px}
+.mu-card{margin-top:14px;background:var(--paper);border:1.5px dashed var(--ink-line3);border-radius:14px;padding:22px 24px;max-width:460px}
 .mu-top{display:flex;align-items:center;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:10px}
 .mu-logo{width:36px;height:36px;border-radius:8px;background:var(--ink);color:#fff;font-family:'Poppins';font-weight:900;font-size:1.1rem;display:grid;place-items:center}
-.mu-brand b{display:block;font-size:13px;color:var(--ink);font-family:'Poppins';font-weight:800}.mu-brand span{font-size:10px;color:var(--ink-light);font-weight:500}
+.mu-brand b{display:block;font-size:13px;color:var(--ink);font-family:'Poppins';font-weight:800}.mu-brand span{font-size:10px;color:var(--ink-mid);font-weight:500}
 .mu-stamp{margin-left:auto;font-size:9px;font-weight:800;letter-spacing:.12em;color:#fff;background:var(--brand);padding:4px 8px;border-radius:4px;transform:rotate(6deg);font-family:'Inter'}
 .mu-title{font-size:14px;font-weight:800;letter-spacing:.06em;margin:14px 0 4px;text-align:center;font-family:'Poppins'}
-.mu-sub{text-align:center;font-size:11px;color:var(--ink-light);font-weight:500;margin-bottom:14px}
+.mu-sub{text-align:center;font-size:11px;color:var(--ink-mid);font-weight:500;margin-bottom:14px}
 .mu-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
-.mu-field{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-light);font-family:'Inter'}
-.mu-field .mu-line{display:block;height:22px;border-bottom:1.5px solid var(--line);margin-top:4px}
-.mu-note{font-size:12px;color:var(--ink-light);line-height:1.5;margin:14px 0 4px;text-align:center}
-.mu-sign{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:end;margin-top:16px;padding-top:12px;border-top:1px dashed var(--line)}
-.mu-sign .mu-line{display:block;height:16px;border-bottom:1.5px solid var(--line)}
-.mu-sign .sig-label{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-light);margin-top:4px;text-align:center;font-family:'Inter'}
+.mu-field{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-mid);font-family:'Inter'}
+.mu-field .mu-line{display:block;height:22px;border-bottom:1.5px solid var(--ink-line);margin-top:4px}
+.mu-note{font-size:12px;color:var(--ink-mid);line-height:1.5;margin:14px 0 4px;text-align:center}
+.mu-sign{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:end;margin-top:16px;padding-top:12px;border-top:1px dashed var(--ink-line)}
+.mu-sign .mu-line{display:block;height:16px;border-bottom:1.5px solid var(--ink-line)}
+.mu-sign .sig-label{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-mid);margin-top:4px;text-align:center;font-family:'Inter'}
 .mu-stamp-circle{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--brand);color:var(--brand);font-size:8px;font-weight:700;letter-spacing:.06em;display:grid;place-items:center;text-align:center;transform:rotate(-8deg);opacity:.7;font-family:'Inter'}
 @media(max-width:500px){.mu-fields{grid-template-columns:1fr;gap:10px}.mu-card{padding:16px 14px}}
 
-/* ── mobile sidebar ── */
+/* ── command palette ── */
+.palette-backdrop{position:fixed;inset:0;z-index:400;background:rgba(12,10,24,.5);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .15s}
+.palette-backdrop.open{opacity:1;pointer-events:auto}
+.palette{position:fixed;top:13vh;left:50%;transform:translate(-50%,-8px);z-index:401;width:min(620px,calc(100vw - 24px));background:var(--paper);border:1px solid var(--ink-line);border-radius:14px;box-shadow:0 24px 64px rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;overflow:hidden}
+.palette.open{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+.palette-input{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--ink-line)}
+.palette-input svg{width:17px;height:17px;color:var(--ink-faint);flex-shrink:0}
+.palette-input input{flex:1;border:none;outline:none;font-size:15px;color:var(--ink);background:none;font-family:'Inter'}
+.palette-input .kbd-hint{font-size:10px;color:var(--ink-faint);font-family:var(--mono)}
+.palette-results{max-height:52vh;overflow-y:auto;padding:8px}
+.pal-group{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);padding:10px 12px 4px;font-family:'Inter'}
+.pal-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:none;border-radius:8px;padding:9px 12px;cursor:pointer;font-family:'Inter';transition:background .12s}
+.pal-item:hover{background:var(--ink-line4)}
+.pal-item.sel{background:var(--brand-bg);outline:1px solid var(--brand-line)}
+.pal-item .pi-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.pal-item .pi-main{display:flex;flex-direction:column;gap:1px;min-width:0}
+.pal-item .pi-title{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pal-item .pi-sub{font-size:11.5px;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pal-item .pi-kind{margin-left:auto;font-size:10px;font-weight:700;color:var(--brand-deep);background:var(--brand-bg);border:1px solid var(--brand-line);border-radius:100px;padding:2px 7px;flex-shrink:0;font-family:'Inter'}
+.pal-empty{padding:22px;text-align:center;font-size:13.5px;color:var(--ink-dim)}
+
+/* ── mobile sidebar / print ── */
 @media(max-width:800px){
   .sidebar-wrap{position:fixed;top:0;left:0;z-index:200;width:300px;height:100vh;transform:translateX(-100%);transition:transform .15s ease-out;box-shadow:none}
   .sidebar-wrap.open{transform:none}
   .sidebar-backdrop{position:fixed;inset:0;z-index:190;background:rgba(27,24,54,.25);opacity:0;pointer-events:none;transition:opacity .15s}
   .sidebar-backdrop.open{opacity:1;pointer-events:auto}
 }
-@media print{.sidebar-wrap,.right-rail{display:none}.main-content{padding:0}.content-inner{max-width:100%;padding:0}}
+@media print{.sidebar-wrap,.right-rail,.page-toolbar,.palette,.palette-backdrop{display:none}.main-content{padding:0}.content-inner{max-width:100%;padding:0}}
 </style>
+<script>
+/* set theme before paint to avoid flash */
+(function(){try{var t=localStorage.getItem("z7guides-theme");var dark=t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.toggle("dark",dark);}catch(e){}})();
+</script>
 </head>
 <body>
 
@@ -165,7 +303,8 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
     <nav class="sidebar" id="sidebarInner">
       <div class="sb-search">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="sbSearch" placeholder="Filter guides..." aria-label="Filter sidebar">
+        <input type="text" id="sbSearch" placeholder="Filter guides…" aria-label="Filter sidebar">
+        <span class="kbd">⌘K</span>
       </div>
       <div id="sbNav"></div>
       <div class="sb-footer">
@@ -176,7 +315,9 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
   </aside>
 
   <main class="main-content">
-    <article class="content-inner" id="contentArea"></article>
+    <div class="content-inner">
+      <article id="contentArea"></article>
+    </div>
   </main>
 
   <aside class="right-rail" id="rightRail"></aside>
@@ -191,6 +332,16 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
     <p class="mu-note">This card confirms the member above attended a Rotaract / Rotary club meeting on the date shown.</p>
     <div class="mu-sign"><div><span class="mu-line"></span><span class="sig-label">Host club secretary</span></div><div class="mu-stamp-circle">CLUB<br>STAMP</div><div><span class="mu-line"></span><span class="sig-label">Home club secretary</span></div></div>
   </div>
+</div>
+
+<div class="palette-backdrop" id="paletteBackdrop"></div>
+<div class="palette" id="palette" role="dialog" aria-label="Search guides">
+  <div class="palette-input">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="paletteInput" placeholder="Search guides, rules, protocols…" autocomplete="off" aria-label="Search guides, rules and protocols">
+    <span class="kbd-hint">esc</span>
+  </div>
+  <div class="palette-results" id="paletteResults"></div>
 </div>
 
 <script src="zone7-data.js"></script>
@@ -208,40 +359,402 @@ const GROUPS=[
 ];
 
 const GUIDES=[
-  {id:"leadership",role:"president",source:"both",title:"Leadership & Officer Transition",deadline:"Before 1 July each year",intro:"The first two weeks of July decide the entire year. A disciplined handoff — documents transferred, logins shared, honest briefings given — is what separates clubs that launch from clubs that stall.",rules:[{text:"Hold a formal handoff meeting between outgoing and incoming officers before the new Rotary year starts.",law:"Standard Constitution §3.3; RI Club Constitution Art. IV"},{text:"Pass on login credentials, shared drives, financial records and ongoing project files as a package.",law:"Zone 7 best practice"},{text:"Write a one-page 'state of the club' brief: what's working, what's stuck, key contacts.",law:"Zone 7 best practice"},{text:"New officers must attend DLTS and COTS before or soon after taking office.",law:"District 3292 guidebook"},{text:"President and VP work as a team through the transition.",law:"Standard Constitution §3.2"}],stat:{icon:"⏱️",text:"Clubs that do a <span>formal handoff meeting</span> before installation hit the ground running by August."},links:[{label:"Rotary Learning Center",url:"https://my.rotary.org/en/learning-reference"},{label:"RSAMDIO Library",url:"https://library.rsamdio.org/"}]},
-  {id:"projects",role:"vps",source:"ri",title:"Service Project Execution",deadline:"Plan 8–12 weeks before event",intro:"Ideas are cheap; executed projects change communities. RI's project framework turns good intentions into measurable, fundable, repeatable impact.",rules:[{text:"Start with a real needs assessment — talk to the community first.",law:"RI Project Lifecycle Kit"},{text:"Use RI's Six Steps to Sustainability.",law:"Rotary.org — Get Involved"},{text:"Partner early with a Rotary club, another Rotaract club, or local organisation.",law:"Standard Constitution §5.2"},{text:"Define 2–3 measurable outcomes before the event.",law:"RI reporting requirements"},{text:"Document as you go — photos, numbers, quotes.",law:"RI PR & media guidelines"}],stat:{icon:"🎯",text:"Projects with <span>2–3 pre-set measurable outcomes</span> are far easier to report and fund again."},links:[{label:"RI Project Lifecycle Kit",url:"https://www.rotary.org/en/get-involved/rotaract-clubs/details"}]},
-  {id:"finance",role:"treasurer",source:"zone",title:"Finance & Fundraising",deadline:"Budget set by second board meeting",intro:"Nothing kills momentum faster than murky money. A clean budget, dual control on spending, and monthly transparency keep every rupee accountable — and every sponsor confident.",rules:[{text:"Set an annual budget split by category.",law:"Standard Constitution §4.1"},{text:"Require two signatories for spending above a set threshold.",law:"Zone 7 best practice; §4.2"},{text:"Share an income/expense summary at every board meeting.",law:"District directory expectations"},{text:"Separate earmarked fundraising from general dues.",law:"Zone 7 best practice"},{text:"Build a one-page sponsorship pitch template.",law:"Zone 7 best practice"}],stat:{icon:"💸",text:"Clubs that share an <span>income/expense summary every board meeting</span> catch problems in weeks."},links:[]},
-  {id:"publicimage",role:"comms",source:"ri",title:"Public Image & Communications",deadline:"Consistent; at least weekly posts",intro:"If nobody sees it, it didn't happen. Consistent, on-brand storytelling turns one-off events into a reputation that recruits members and attracts partners.",rules:[{text:"Photograph every event: before, during, and the people impacted.",law:"RI Rotaract Guidebook"},{text:"Post consistently, not only after big events.",law:"RI public image guidelines"},{text:"Use RI's official brand assets.",law:"Rotary Brand Centre"},{text:"Turn each project into: problem → action → outcome.",law:"RI storytelling framework"},{text:"Tag your sponsoring Rotary club and district.",law:"Zone 7 best practice"}],stat:{icon:"📸",text:"Clubs that <span>post consistently</span> feel far more alive to prospective members."},links:[{label:"Rotaract overview",url:"https://www.rotary.org/en/get-involved/rotaract-clubs"}]},
-  {id:"profdev",role:"vpp",source:"ri",title:"Professional Development",deadline:"At least one workshop per quarter",intro:"Members join for service but stay for growth. A serious professional-development track turns your club into the most valuable hour of a member's week.",rules:[{text:"Run at least one skills workshop per quarter.",law:"RI Avenue of Service framework"},{text:"Pair newer members with a Rotarian mentor.",law:"Standard Constitution §6"},{text:"Use Rotary Learning Center courses (600+ free).",law:"rotary.org/learn"},{text:"Rotate who leads each session.",law:"Zone 7 best practice"},{text:"Track attendance at development sessions.",law:"District reporting expectations"}],stat:{icon:"🎓",text:"Rotary's Learning Center has <span>600+ free courses</span>."},links:[{label:"Rotary Learning Center",url:"https://my.rotary.org/en/learning-reference"}]},
-  {id:"international",role:"board",source:"ri",title:"International & Twin Clubs",deadline:"One joint project per twin-club per year",intro:"A twin-club agreement on paper means nothing. One joint project a year turns a signature into a living partnership — and opens doors no single club can open alone.",rules:[{text:"Assign one board member to own each twin-club relationship.",law:"Standard Constitution §5.2"},{text:"Execute at least one joint project per year.",law:"District twinship chapter"},{text:"Connect with your MDIO for regional networking.",law:"RSAMDIO"},{text:"Consider dual Rotary-Rotaract membership pathways.",law:"RI membership framework"},{text:"Use inter-club visits as a low-cost relationship builder.",law:"District 3292 guidelines"}],stat:{icon:"🌏",text:"One <span>joint project per year</span> keeps a twin-club partnership alive."},links:[{label:"RSAMDIO Library",url:"https://library.rsamdio.org/"}]},
-  {id:"recognition",role:"president",source:"ri",title:"Recognition & Events",deadline:"World Rotaract Week (March); year-end by June",intro:"People repeat what gets celebrated. Marking milestones — from World Rotaract Week to a simple thank-you — is the cheapest retention strategy a club has.",rules:[{text:"Mark World Rotaract Week each March.",law:"RI recognition calendar"},{text:"Use RI's official Certificate of Recognition.",law:"Rotary.org — Awards"},{text:"Run a President's Night or year-end celebration.",law:"Zone 7 best practice"},{text:"Recognise small wins: attendance streaks, first-time leads.",law:"Zone 7 best practice"},{text:"Nominate standout projects for district or RI awards.",law:"District 3292 awards calendar"}],stat:{icon:"🏆",text:"Clubs that run a <span>proper year-end celebration</span> report higher return rates."},links:[{label:"Rotary Awards",url:"https://www.rotary.org/en/get-involved/rotaract-clubs/details"}]},
-  {id:"sponsor",role:"board",source:"zone",title:"Sponsor Relationship",deadline:"At least one formal check-in per quarter",intro:"Your sponsoring Rotary club is your biggest untapped asset: mentors, venues, credibility, funding. Treat the relationship as a partnership, not a formality.",rules:[{text:"Invite your Rotary advisor to attend meetings regularly.",law:"Standard Constitution §6"},{text:"Set mutual expectations early.",law:"Zone 7 best practice"},{text:"Loop your sponsor in on major decisions before they're finalised.",law:"Zone 7 best practice"},{text:"Encourage informal mentoring between Rotarians and Rotaractors.",law:"Zone 7 best practice"},{text:"Say thank-you publicly after joint projects.",law:"Zone 7 best practice"}],stat:{icon:"🤝",text:"A quick <span>public thank-you</span> is often the biggest reason a sponsor stays engaged."},links:[]},
-  {id:"digital",role:"board",source:"zone",title:"Digital Tools & Tech",deadline:"Set up before the first board meeting",intro:"Club memory should never live in one person's phone. A single shared drive, clear naming, and backed-up records mean no knowledge is ever lost at handoff.",rules:[{text:"One shared drive as the single source of truth.",law:"Zone 7 best practice"},{text:"Separate official business from casual chat channels.",law:"Zone 7 best practice"},{text:"Use a shared calendar for all meetings and deadlines.",law:"Zone 7 best practice"},{text:"Standardise file naming (date + project name).",law:"Zone 7 best practice"},{text:"Back up records outside any one person's device.",law:"Zone 7 best practice"}],stat:{icon:"💾",text:"One <span>shared drive</span> saves more headaches at handoff than any other habit."},links:[]},
-  {id:"wellbeing",role:"board",source:"zone",title:"Wellbeing & Culture",deadline:"Continuous; review every board meeting",intro:"Burnout silently empties clubs. Protecting energy — balanced calendars, shared load, real fellowship — keeps good people in the room year after year.",rules:[{text:"Balance the calendar; leave room for pure fellowship.",law:"Zone 7 best practice"},{text:"Spread ownership so the same 3 people aren't running everything.",law:"Zone 7 best practice"},{text:"Address conflict directly and early.",law:"Zone 7 best practice"},{text:"Respect that members are students or early-career professionals.",law:"Zone 7 best practice"},{text:"Celebrate small wins regularly; morale compounds.",law:"Zone 7 best practice"}],stat:{icon:"💛",text:"Clubs that keep the same <span>3 people running everything</span> lose them to burnout fastest."},links:[]},
-  {id:"makeup",role:"secretary",source:"zone",title:"Attendance & Make-Up",deadline:"Within one meeting cycle of the absence",intro:"Missing a meeting doesn't have to mean falling behind. A signed make-up card keeps your attendance record clean — and connects you with another club in the process.",rules:[{text:"Ask your club secretary how make-ups are recorded.",law:"District directory expectations"},{text:"Attend another Rotaract or Rotary club's meeting as a guest.",law:"Standard Constitution §2.6"},{text:"Ask the host secretary to fill in, sign and stamp the card.",law:"Zone 7 make-up protocol"},{text:"Hand the completed card to your club secretary for logging.",law:"District attendance records"},{text:"Never backdate a make-up card.",law:"District compliance"}],stat:{icon:"🎟️",text:"One <span>signed make-up card</span> turns a missed meeting into a logged visit."},links:[{label:"Goodwill visits",url:"/handbook-twinship"},{label:"How meetings work",url:"/tutorials"}],printable:true}
+  {id:"leadership",role:"president",source:"both",title:"Leadership & Officer Transition",deadline:"Before 1 July each year",
+   intro:"The first two weeks of July decide the entire year. A disciplined handoff — documents transferred, logins shared, honest briefings given — is what separates clubs that launch from clubs that stall.",
+   callouts:[
+     {type:"warning",icon:"⚠️",title:"Handoff is a handover, not a handshake",body:"Anything not transferred before 1 July is effectively lost — logins die with the old board. Treat the handoff meeting as a hard deadline, not a formality."},
+     {type:"tip",icon:"💡",title:"Book seats early",body:"DLTS and COTS slots fill fast. Capture seats before installation so every newly-appointed officer is trained in their role before month one."}
+   ],
+   rules:[
+     {text:"Hold a formal handoff meeting between outgoing and incoming officers before the new Rotary year starts.",law:"Standard Constitution §3.3; RI Club Constitution Art. IV"},
+     {text:"Pass on login credentials, shared drives, financial records and ongoing project files as a package.",law:"Zone 7 best practice"},
+     {text:"Write a one-page 'state of the club' brief: what's working, what's stuck, key contacts.",law:"Zone 7 best practice"},
+     {text:"New officers must attend DLTS and COTS before or soon after taking office.",law:"District 3292 guidebook"},
+     {text:"President and VP work as a team through the transition.",law:"Standard Constitution §3.2"}
+   ],
+   spec:{caption:"Handoff spec",note:"what · when · source",headers:["Task","When","Source"],rows:[
+     ["Official handoff meeting","Before 1 July","Constitution §3.3"],
+     ["Transfer credentials + drive + records","Before 1 July","Zone 7 practice"],
+     ["'State of the club' brief (1 page)","With handoff","Zone 7 practice"],
+     ["DLTS + COTS attendance","Before / soon after office","District guidebook"],
+     ["President–VP tandem plan","At transition","Constitution §3.2"]
+   ]},
+   flow:{title:"Officer handoff pipeline",count:"handoff",steps:[
+     {title:"Schedule the handoff meeting",body:"Block 60–90 minutes before 1 July with the outgoing board, incoming board, and sponsor. Agendas set at least a week ahead."},
+     {title:"Assemble the handoff package",body:"One shared folder containing logins, minutes, finances, project files and venue contacts. Nothing lives only in an inbox or a phone."},
+     {title:"Write the state-of-the-club brief",body:"One page: what's working, what's stuck, and the five contacts that matter. This is the document the new board reads first."},
+     {title:"Book DLTS + COTS seats",body:"Register new officers for district training before installation. Confirm seats, then add them to the club calendar."},
+     {title:"Co-lead the first month",body:"President and VP work as a tandem: VP mirrors the president's workflow and can step in from day one."}
+   ]},
+   stat:{icon:"⏱️",text:"Clubs that do a <span>formal handoff meeting</span> before installation hit the ground running by August."},
+   links:[{label:"Rotary Learning Center",url:"https://my.rotary.org/en/learning-reference"},{label:"RSAMDIO Library",url:"https://library.rsamdio.org/"}]},
+
+  {id:"projects",role:"vps",source:"ri",title:"Service Project Execution",deadline:"Plan 8–12 weeks before event",
+   intro:"Ideas are cheap; executed projects change communities. RI's project framework turns good intentions into measurable, fundable, repeatable impact.",
+   callouts:[
+     {type:"tip",icon:"🎯",title:"Assess before you design",body:"RI's needs-assessment template is five questions. Talking to the community first stops you from building the project nobody asked for."},
+     {type:"warning",icon:"💸",title:"A project without a budget is a donation in disguise",body:"Publish the cost line before you commit the club. Partners (and the district) trust clubs that can say exactly what something costs."}
+   ],
+   tabs:{label:"Context variants",panels:[
+     {label:"Community club",body:"Weekend and evening projects around a home town. Sponsor-backed budgets, municipality/NGO partnerships, lower travel overhead, year-round cadence with holiday peaks."},
+     {label:"University club",body:"Projects must bend around the academic calendar — strong bursts between exams, campus-based venues, student-safe budgets. Capitalise on fresher intake in early semester."}
+   ]},
+   rules:[
+     {text:"Start with a real needs assessment — talk to the community first.",law:"RI Project Lifecycle Kit"},
+     {text:"Use RI's Six Steps to Sustainability.",law:"Rotary.org — Get Involved"},
+     {text:"Partner early with a Rotary club, another Rotaract club, or local organisation.",law:"Standard Constitution §5.2"},
+     {text:"Define 2–3 measurable outcomes before the event.",law:"RI reporting requirements"},
+     {text:"Document as you go — photos, numbers, quotes.",law:"RI PR & media guidelines"}
+   ],
+   spec:{caption:"Low-cost projects by Area of Focus",note:"NPR budgets · from District 3292 directory",headers:["Area of Focus","Sample project","Budget","Timeline"],rows:[
+     ["Peacebuilding & conflict prevention","Peace Talks at Tea Time","10,000","3 months"],
+     ["Disease prevention & treatment","Checkup in Your Pocket","8,000","1 day"],
+     ["Water, sanitation & hygiene","Soap & Smile (handwashing)","15,000","2 weeks"],
+     ["Maternal & child health","Mother's Circle","12,000","1 month"],
+     ["Basic education & literacy","Reading Corner","5,000","ongoing"],
+     ["Community economic development","Skill in a Day","15,000","1 day"],
+     ["Protecting the environment","One Member, One Tree","5,000","1 week"]
+   ]},
+   flow:{title:"Project lifecycle",count:"lifecycle",steps:[
+     {title:"Needs assessment",body:"Talk to the community first. Document findings with RI's assessment template so your rationale survives officer turnover."},
+     {title:"Partner early",body:"A sponsoring Rotary club, another RAC, or an NGO. Joint projects score recognition points and multiply resources."},
+     {title:"Define 2–3 measurable outcomes",body:"What does success look like in numbers? Measurable outcomes are what make later reporting and re-funding possible."},
+     {title:"Budget + secure funding",body:"Itemise every line. Then fund it — dues, fundraiser, sponsor, or district grant — before you commit to dates."},
+     {title:"Execute, documenting as you go",body:"Photos before, during, and of the people impacted. Records live in the shared drive the same week."},
+     {title:"Report + recognise partners",body:"File project reports on the 3292 portal, credit partners publicly, and nominate standout work for awards."}
+   ]},
+   stat:{icon:"🎯",text:"Projects with <span>2–3 pre-set measurable outcomes</span> are far easier to report and fund again."},
+   links:[{label:"RI Project Lifecycle Kit",url:"https://www.rotary.org/en/get-involved/rotaract-clubs/details"}]},
+
+  {id:"finance",role:"treasurer",source:"zone",title:"Finance & Fundraising",deadline:"Budget set by second board meeting",
+   intro:"Nothing kills momentum faster than murky money. A clean budget, dual control on spending, and monthly transparency keep every rupee accountable — and every sponsor confident.",
+   callouts:[
+     {type:"warning",icon:"🔐",title:"Two signatories, always",body:"One-person authorisation is how club money quietly becomes 'someone else's problem'. Set a threshold; two hands move money beyond it."},
+     {type:"tip",icon:"🧾",title:"Separate the buckets",body:"Grants, fundraisers and member dues should be tracked independently. Clean separation makes reporting — and earning trust — dramatically easier."}
+   ],
+   rules:[
+     {text:"Set an annual budget split by category.",law:"Standard Constitution §4.1"},
+     {text:"Require two signatories for spending above a set threshold.",law:"Zone 7 best practice; §4.2"},
+     {text:"Share an income/expense summary at every board meeting.",law:"District directory expectations"},
+     {text:"Separate earmarked fundraising from general dues.",law:"Zone 7 best practice"},
+     {text:"Build a one-page sponsorship pitch template.",law:"Zone 7 best practice"}
+   ],
+   spec:{caption:"Finance controls",note:"rule · why it matters",headers:["Control","Rule","Why it matters"],rows:[
+     ["Annual budget","Set at the 2nd board meeting","Spending without a budget becomes a fight later"],
+     ["Dual sign-off","Two signatories ≥ NPR 5,000","Kills single-point fraud"],
+     ["Monthly reporting","Income/expense at each board meeting","Problems surface in weeks, not years"],
+     ["Earmarked funds","Grants ≠ dues ≠ fundraiser proceeds","Clean reporting to sponsors & district"],
+     ["Sponsor pitch template","One-pager, repeatable","Credible club, faster yes"]
+   ]},
+   flow:{title:"District grant pipeline",count:"grant",steps:[
+     {title:"Confirm eligibility",body:"Club renewals must be current and your sponsoring Rotary club's CDO registration up to date. Check before investing time in an application."},
+     {title:"Funding agreement",body:"Sponsor Rotary club emails the district committing its share; the partner Rotaract club commits its portion too."},
+     {title:"Prepare the application",body:"Access the official online form, draft offline, and gather all required documentation before submitting."},
+     {title:"Submit",body:"Transfer the draft into the online form; the Club President clicks 'Submit'. All parties receive confirmation."},
+     {title:"Respect the deadline",body:"Applications must land by the District Governor's deadline. Only one application per club per cycle."}
+   ]},
+   stat:{icon:"💸",text:"Clubs that share an <span>income/expense summary every board meeting</span> catch problems in weeks."},
+   links:[]},
+
+  {id:"publicimage",role:"comms",source:"ri",title:"Public Image & Communications",deadline:"Consistent; at least weekly posts",
+   intro:"If nobody sees it, it didn't happen. Consistent, on-brand storytelling turns one-off events into a reputation that recruits members and attracts partners.",
+   callouts:[
+     {type:"danger",icon:"🚫",title:"RI brand rules are not optional",body:"One wrong logo on a banner undermines every partnership you've built. Use official files from the Rotary Brand Centre only."},
+     {type:"tip",icon:"📸",title:"Shoot the 'after', not just the event",body:"Photos of the people impacted are the post that recruits. Before, during, and impact — every time."}
+   ],
+   tabs:{label:"Channel playbook",panels:[
+     {label:"Instagram / Reels",body:"9:16 vertical clips; a story highlight per project; tag the sponsor Rotary club and district. Reels outperform static posts for recruitment."},
+     {label:"Facebook",body:"Event pages + photo albums for every activity. Great for reaching family, municipality and local media audiences."},
+     {label:"Website / LinkedIn",body:"Long-form case studies and sponsor features. Slower but the source sponsors and the district actually check."}
+   ]},
+   rules:[
+     {text:"Photograph every event: before, during, and the people impacted.",law:"RI Rotaract Guidebook"},
+     {text:"Post consistently, not only after big events.",law:"RI public image guidelines"},
+     {text:"Use RI's official brand assets.",law:"Rotary Brand Centre"},
+     {text:"Turn each project into: problem → action → outcome.",law:"RI storytelling framework"},
+     {text:"Tag your sponsoring Rotary club and district.",law:"Zone 7 best practice"}
+   ],
+   spec:{caption:"Communications baseline",note:"requirement · source",headers:["Requirement","Floor","Source"],rows:[
+     ["Post cadence","≥ 1 non-event post per week","RI public image guide"],
+     ["Event photography","Before / during / impact","RI Rotaract Guidebook"],
+     ["Brand assets","Official files only","Rotary Brand Centre"],
+     ["Story structure","Problem → action → outcome","RI storytelling framework"],
+     ["Tagging","Sponsor + district3292","Zone 7 practice"]
+   ]},
+   flow:{title:"Storytelling framework",count:"story",steps:[
+     {title:"Frame the problem",body:"One sentence on the community need. Specific beats general — name the place, the number, the gap."},
+     {title:"Show the action",body:"Volunteers working, honest process. Candid shots and short clips feel real, not staged."},
+     {title:"Capture the outcome",body:"The people impacted, the facility delivered, the behaviour changed. This is the proof, and the post."},
+     {title:"Credit partners + tags",body:"Name your sponsor Rotary club, partners, and the district. It compounds goodwill and reach."},
+     {title:"Reshape for every channel",body:"Same truth, four formats: reel, carousel, album, case study. Consistency multiplies the story's reach."}
+   ]},
+   stat:{icon:"📸",text:"Clubs that <span>post consistently</span> feel far more alive to prospective members."},
+   links:[{label:"Rotaract overview",url:"https://www.rotary.org/en/get-involved/rotaract-clubs"}]},
+
+  {id:"profdev",role:"vpp",source:"ri",title:"Professional Development",deadline:"At least one workshop per quarter",
+   intro:"Members join for service but stay for growth. A serious professional-development track turns your club into the most valuable hour of a member's week.",
+   callouts:[
+     {type:"tip",icon:"🎓",title:"600+ courses, free, right now",body:"Rotary's Learning Center courses can be finished between meetings. Make 'one course before your next birthday' a club challenge."},
+     {type:"info",icon:"🧭",title:"Mentorship counts",body:"Pairing every new member with a Rotarian sponsor is a formal development activity — it serves retention and the PDF attitude in one move."}
+   ],
+   tabs:{label:"Learning paths by role",panels:[
+     {label:"Officers",body:"DLTS, COTS, and the leadership track on the Learning Center. Officer readiness is the single highest-leverage training in a club."},
+     {label:"New members",body:"Orientation series + Rotaract basics + 'how the district works'. A structured first 30 days dramatically lifts retention."},
+     {label:"Service leads",body:"Project management, needs assessment, and grant seminars. The grant course is literally a recognition criterion."},
+     {label:"Everyone",body:"Public speaking, the 4-Way Test, ethics and professional etiquette — high-value, low-cost sessions anyone can lead."}
+   ]},
+   rules:[
+     {text:"Run at least one skills workshop per quarter.",law:"RI Avenue of Service framework"},
+     {text:"Pair newer members with a Rotarian mentor.",law:"Standard Constitution §6"},
+     {text:"Use Rotary Learning Center courses (600+ free).",law:"rotary.org/learn"},
+     {text:"Rotate who leads each session.",law:"Zone 7 best practice"},
+     {text:"Track attendance at development sessions.",law:"District reporting expectations"}
+   ],
+   spec:{caption:"Development track",note:"minimum · source",headers:["Component","Floor","Source"],rows:[
+     ["Skills workshops","1 per quarter","Avenue of Service framework"],
+     ["Mentorship pairs","Every new member","Constitution §6"],
+     ["Learning Center","Continuous, self-paced","rotary.org/learn"],
+     ["Rotating leads","Each session, new host","Zone 7 practice"],
+     ["Attendance logging","Reported to district","District expectations"]
+   ]},
+   stat:{icon:"🎓",text:"Rotary's Learning Center has <span>600+ free courses</span>."},
+   links:[{label:"Rotary Learning Center",url:"https://my.rotary.org/en/learning-reference"}]},
+
+  {id:"international",role:"board",source:"ri",title:"International & Twin Clubs",deadline:"One joint project per twin-club per year",
+   intro:"A twin-club agreement on paper means nothing. One joint project a year turns a signature into a living partnership — and opens doors no single club can open alone.",
+   callouts:[
+     {type:"info",icon:"📄",title:"Formalise before you act",body:"Twinship is voluntary but should always be written down. Sign the MOU before the first joint project so roles and length are unambiguous."},
+     {type:"tip",icon:"🤝",title:"Start intra-district",body:"Inter-district twinships unlock travel, exchanges and global grants — but intra-district twinships are the cheapest way to build the muscle first."}
+   ],
+   tabs:{label:"Twinship types",panels:[
+     {label:"Intra-district",body:"Two+ clubs inside District 3292. Low cost, high frequency, shared zone resources. Best proving ground for the MOU habit."},
+     {label:"Inter-district",body:"Clubs from different districts or countries. Requires sponsors on both sides, an MOU, and typically a joint grant or exchange component."}
+   ]},
+   rules:[
+     {text:"Assign one board member to own each twin-club relationship.",law:"Standard Constitution §5.2"},
+     {text:"Execute at least one joint project per year.",law:"District twinship chapter"},
+     {text:"Connect with your MDIO for regional networking.",law:"RSAMDIO"},
+     {text:"Consider dual Rotary-Rotaract membership pathways.",law:"RI membership framework"},
+     {text:"Use inter-club visits as a low-cost relationship builder.",law:"District 3292 guidelines"}
+   ],
+   spec:{caption:"Twinship obligations",note:"step · requirement (District directory)",headers:["Step","Requirement","Source"],rows:[
+     ["Find a partner","Sponsor club, DRR/ZRR, or MDIO list","Directory: Finding a partner"],
+     ["Sign the MOU","Roles + length, before any project","Sample MOU"],
+     ["Joint activity","≥1 joint meeting + 1 joint project / year","Sample MOU"],
+     ["Exchange ideas","Projects, programs, and publications","Sample MOU"],
+     ["Credit both emblems","Every shared publication lists both clubs","Sample MOU"],
+     ["Renew","Valid 1 July → 30 June; renew yearly","Sample MOU"]
+   ]},
+   flow:{title:"Twinship pipeline",count:"twin",steps:[
+     {title:"Define the type",body:"Intra-district (fast, cheap) or inter-district (travel, grants, exchanges). The choice shapes everything downstream."},
+     {title:"Find a partner",body:"Ask your sponsoring Rotary club (they may already twin), your DRR/ZRR, or contact your MDIO for candidate clubs."},
+     {title:"Sign the MOU",body:"One page: goals, length (1 July → 30 June), joint minimums. Two copies, signed by both presidents, observed by district."},
+     {title:"Run one joint project per year",body:"The MOU on paper plus at least one joint service project and one joint meeting keeps the partnership alive."},
+     {title:"Exchange ideas + credit emblems",body:"Swap project ideas, programs, visits and publications — always carrying both clubs' names and emblems."}
+   ]},
+   stat:{icon:"🌏",text:"One <span>joint project per year</span> keeps a twin-club partnership alive."},
+   links:[{label:"RSAMDIO Library",url:"https://library.rsamdio.org/"}]},
+
+  {id:"recognition",role:"president",source:"ri",title:"Recognition & Events",deadline:"World Rotaract Week (March); year-end by June",
+   intro:"People repeat what gets celebrated. Marking milestones — from World Rotaract Week to a simple thank-you — is the cheapest retention strategy a club has.",
+   callouts:[
+     {type:"info",icon:"🏅",title:"Start with RI's Club Excellence Award",body:"The global benchmark: set at least half the goals in Rotary Club Central and mark them 'achieved' by 30 June. Local recognition stacks on top of it."},
+     {type:"warning",icon:"⏰",title:"Points don't self-report",body:"Update the Rotaract 3292 portal and My Rotary in the same week you finish each project. A project you didn't report is a project you didn't do, for scoring purposes."}
+   ],
+   rules:[
+     {text:"Mark World Rotaract Week each March.",law:"RI recognition calendar"},
+     {text:"Use RI's official Certificate of Recognition.",law:"Rotary.org — Awards"},
+     {text:"Run a President's Night or year-end celebration.",law:"Zone 7 best practice"},
+     {text:"Recognise small wins: attendance streaks, first-time leads.",law:"Zone 7 best practice"},
+     {text:"Nominate standout projects for district or RI awards.",law:"District 3292 awards calendar"}
+   ],
+   spec:{caption:"Club Excellence Recognition · Administration (A)",note:"District 3292 · RY 2025–26",headers:["#","Criteria","Pts"],tot:"50 pts",rows:[
+     ["1","Self-assessment & planning document on time","10"],["2","Goals / mission updated in Rotary Club Central","2"],
+     ["3","President-Elect finalised on time for RY 2026-27","2"],["4","At least two club assemblies","2"],
+     ["5","Club installation within August","2"],["6","24 general + 12 BOD meetings","4"],
+     ["7","Club COTS + zonal COTS","2"],["8","Quarterly reporting to district","4"],
+     ["9","ZRR visit","3"],["10","DRR visit","7"],
+     ["11","My Rotary access 100%","2"],["12","Membership +10% community / +20% university","2"],
+     ["13","Retention ≥75% community / ≥50% university","2"],["14","RI dues + district dues on time","2"],
+     ["15","Members assigned to committees","1"],["16","External experts at ≥2 meetings","1"],
+     ["17","Goodwill visits to 2 clubs","2"],["18","Twin club formation (intra/inter)","2"]
+   ]},
+   specB:{caption:"Club Excellence Recognition · Projects & Events (B)",note:"District 3292 · RY 2025–26",headers:["#","Criteria","Pts"],tot:"50 pts",rows:[
+     ["19","World Rotaract Week — 7 projects in 7 days","7"],["20","District events (4 major + President Night)","10"],
+     ["21","Grant Management Seminar participation","2"],["22","Rota Quiz participation","2"],
+     ["23","Club signature project","2"],["24","Joint project with another Rotaract club","2"],
+     ["25","Joint meeting/project with sponsoring Rotary club","1"],["26","Joint project with another organisation","2"],
+     ["27","Nationwide blood donation hosting","1"],["28","Nationwide cleaning campaign hosting","1"],
+     ["29","Women empowerment project","1"],["30","WASH & plantation project","1"],
+     ["31","Maternal / child health & menstrual hygiene project","1"],["32","Membership fellowship events","1"],
+     ["33","International avenue project","2"],["34","Professional development (member growth)","4"],
+     ["35","Basic education & TEACH project","2"],["36","Public image project","2"],
+     ["37","Road safety project","2"],["38","Thematic area project","2"]
+   ]},
+   flow:{title:"Excellence walkthrough",count:"award",steps:[
+     {title:"Confirm good standing",body:"$0 invoice balance in My Rotary — check Finance → Club Invoice. Ineligible clubs can't win, no matter how many points."},
+     {title:"Set goals in Rotary Club Central",body:"Select at least half of the available Club Excellence goals. Flexibility: pick the ones most relevant to your club."},
+     {title:"Execute + report as you go",body:"Log progress and mark 'achieved' on both Rotary Club Central and the Rotaract 3292 portal in the same week."},
+     {title:"Hit the 100-point district criteria",body:"Track the A (admin) and B (projects) columns on this page. DRR visit alone is worth 7 points — schedule early."},
+     {title:"Celebrate & repeat the framework",body:"The award is a planning loop, not a once-a-year scramble. Use it to set next year's club plan at your second assembly."}
+   ]},
+   stat:{icon:"🏆",text:"Clubs that run a <span>proper year-end celebration</span> report higher return rates."},
+   links:[{label:"Rotary Awards",url:"https://www.rotary.org/en/get-involved/rotaract-clubs/details"}]},
+
+  {id:"sponsor",role:"board",source:"zone",title:"Sponsor Relationship",deadline:"At least one formal check-in per quarter",
+   intro:"Your sponsoring Rotary club is your biggest untapped asset: mentors, venues, credibility, funding. Treat the relationship as a partnership, not a formality.",
+   callouts:[
+     {type:"tip",icon:"🎙️",title:"One door in",body:"The sponsor's Youth Service Chair is your single best contact. Route venues, mentorship and grant asks through them for speed."},
+     {type:"warning",icon:"📵",title:"Silence is a sponsor-killer",body:"A sponsor that only hears from you on signature day won't stay a sponsor. A public thank-you after every joint project compounds goodwill."}
+   ],
+   rules:[
+     {text:"Invite your Rotary advisor to attend meetings regularly.",law:"Standard Constitution §6"},
+     {text:"Set mutual expectations early.",law:"Zone 7 best practice"},
+     {text:"Loop your sponsor in on major decisions before they're finalised.",law:"Zone 7 best practice"},
+     {text:"Encourage informal mentoring between Rotarians and Rotaractors.",law:"Zone 7 best practice"},
+     {text:"Say thank-you publicly after joint projects.",law:"Zone 7 best practice"}
+   ],
+   spec:{caption:"Sponsor engagement",note:"cadence · why it matters",headers:["Action","When","Why it matters"],rows:[
+     ["Invite Rotary advisor to meetings","Every meeting","Visible mentorship (Constitution §6)"],
+     ["Formal check-in","Quarterly","Surface issues while they're small"],
+     ["Loop in major decisions","Before finalising","Shared ownership, no surprises"],
+     ["Mentoring pairs","Continuous","Retention + development"],
+     ["Public thank-you","After each joint project","Goodwill compounds"]
+   ]},
+   flow:{title:"Sponsor relationship rhythm",count:"sponsor",steps:[
+     {title:"Invite the advisor to every meeting",body:"Make it a calendar recurrence, not an event. Presence is the cheapest form of mentorship."},
+     {title:"Quarterly formal check-in",body:"A 30-minute structured meeting: pipeline, project pipeline, funding needs. Write down what you agreed."},
+     {title:"Consult before major decisions",body:"Signature projects, big budgets, new committees — bring the sponsor in while it's still a choice."},
+     {title:"Run mentoring pairs",body:"Pair Rotarians with Rotaractors informally. It serves every avenue at once."},
+     {title:"Say thank-you publicly",body:"Tag them in posts, name them in reports, invite them to the stage. Recognition is what keeps partners coming back."}
+   ]},
+   stat:{icon:"🤝",text:"A quick <span>public thank-you</span> is often the biggest reason a sponsor stays engaged."},
+   links:[]},
+
+  {id:"digital",role:"board",source:"zone",title:"Digital Tools & Tech",deadline:"Set up before the first board meeting",
+   intro:"Club memory should never live in one person's phone. A single shared drive, clear naming, and backed-up records mean no knowledge is ever lost at handoff.",
+   callouts:[
+     {type:"tip",icon:"📁",title:"Date-first file names",body:"2026-03-14_project_report_v1.docx sorts itself. Adopt the convention once and every board inherits the discipline."},
+     {type:"danger",icon:"🩸",title:"One phone is not a backup",body:"Every club record should exist in at least two places. Cloud drive + cold archive, minimum."}
+   ],
+   rules:[
+     {text:"One shared drive as the single source of truth.",law:"Zone 7 best practice"},
+     {text:"Separate official business from casual chat channels.",law:"Zone 7 best practice"},
+     {text:"Use a shared calendar for all meetings and deadlines.",law:"Zone 7 best practice"},
+     {text:"Standardise file naming (date + project name).",law:"Zone 7 best practice"},
+     {text:"Back up records outside any one person's device.",law:"Zone 7 best practice"}
+   ],
+   spec:{caption:"Digital baseline",note:"requirement · source",headers:["Requirement","Floor","Source"],rows:[
+     ["Shared drive","Single source of truth","Zone 7 practice"],
+     ["Official channels","Business ≠ casual chat","Zone 7 practice"],
+     ["Shared calendar","All meetings + deadlines","Zone 7 practice"],
+     ["File naming","Date-first convention","Zone 7 practice"],
+     ["Backups","2+ locations","Zone 7 practice"]
+   ]},
+   flow:{title:"Digital setup",count:"setup",steps:[
+     {title:"Create the shared drive",body:"One source of truth owned by the club, not by a single officer. Give every board member write access."},
+     {title:"Define the folder structure",body:"Five top-level folders: 01-admin, 02-finance, 03-projects, 04-members, 05-district. Consistency beats cleverness."},
+     {title:"Adopt the naming convention",body:"Date-first, project-infix, version-suffix. Enforce it from day one; it only hurts if you adopt it late."},
+     {title:"Shared calendar + reminders",body:"All meetings, deadlines and training in one calendar every member can see. Add reminders two weeks out."},
+     {title:"Backup + handoff test",body:"Quarterly export to cold storage. Every handoff, verify the new board can actually access and read everything."}
+   ]},
+   stat:{icon:"💾",text:"One <span>shared drive</span> saves more headaches at handoff than any other habit."},
+   links:[]},
+
+  {id:"wellbeing",role:"board",source:"zone",title:"Wellbeing & Culture",deadline:"Continuous; review every board meeting",
+   intro:"Burnout silently empties clubs. Protecting energy — balanced calendars, shared load, real fellowship — keeps good people in the room year after year.",
+   callouts:[
+     {type:"warning",icon:"🔥",title:"The same-3-people signal",body:"If the same few names lead every project, they're already planning their exit. Redistribute before they leave — not after."},
+     {type:"tip",icon:"🎉",title:"Fellowship is a retention feature",body:"Pure-fun events with no agenda aren't a luxury — they're the reason members keep showing up. Schedule them on purpose."}
+   ],
+   rules:[
+     {text:"Balance the calendar; leave room for pure fellowship.",law:"Zone 7 best practice"},
+     {text:"Spread ownership so the same 3 people aren't running everything.",law:"Zone 7 best practice"},
+     {text:"Address conflict directly and early.",law:"Zone 7 best practice"},
+     {text:"Respect that members are students or early-career professionals.",law:"Zone 7 best practice"},
+     {text:"Celebrate small wins regularly; morale compounds.",law:"Zone 7 best practice"}
+   ],
+   spec:{caption:"Health signals",note:"signal — response",headers:["Signal","Watch for","Response"],rows:[
+     ["Concentration of load","Same names on 2+ consecutive projects","Redistribute ownership"],
+     ["Quiet members","Missed meetings trending up","1:1 check-in"],
+     ["Calendar overload",">1 event/week sustained","Drop a non-essential item"],
+     ["Avoided conflict","Unresolved in minutes","Address directly & early"],
+     ["Low meeting energy","Declining attendance","Add pure-fellowship event"]
+   ]},
+   flow:{title:"Club health loop",count:"health",steps:[
+     {title:"Run the 75-item checkup",body:"A 1–2 hour self-assessment across five sections: experience, service, members, public image, operations. Every 'yes' scores a point."},
+     {title:"Score + discuss in board",body:"Present section scores and percentages. Ask 'what do you like most?' and 'what should we improve?' honestly."},
+     {title:"Pick 2–3 priority fixes",body:"Target the weakest sections with SMART goals — specific, measurable, achievable, relevant, time-bound."},
+     {title:"Assign owners + deadlines",body:"Each fix gets a responsible chair and a deadline (3 or 6 months). Accountability lives in the board meeting."},
+     {title:"Review monthly, repeat every 6 months",body:"Monitor progress in monthly board meetings, log gains on the portals, and rerun the health check twice a year."}
+   ]},
+   stat:{icon:"💛",text:"Clubs that keep the same <span>3 people running everything</span> lose them to burnout fastest."},
+   links:[]},
+
+  {id:"makeup",role:"secretary",source:"zone",title:"Attendance & Make-Up",deadline:"Within one meeting cycle of the absence",
+   intro:"Missing a meeting doesn't have to mean falling behind. A signed make-up card keeps your attendance record clean — and connects you with another club in the process.",
+   callouts:[
+     {type:"danger",icon:"🚫",title:"Never backdate",body:"Backdating a make-up card is misconduct, not paperwork. One corrupted record corrodes the club's whole compliance posture."},
+     {type:"info",icon:"👥",title:"Goodwill = a delegation",body:"A goodwill visit is a minimum of five members — a lone visitor usually isn't a recognised goodwill visit. Plan make-ups together."}
+   ],
+   rules:[
+     {text:"Ask your club secretary how make-ups are recorded.",law:"District directory expectations"},
+     {text:"Attend another Rotaract or Rotary club's meeting as a guest.",law:"Standard Constitution §2.6"},
+     {text:"Ask the host secretary to fill in, sign and stamp the card.",law:"Zone 7 make-up protocol"},
+     {text:"Hand the completed card to your club secretary for logging.",law:"District attendance records"},
+     {text:"Never backdate a make-up card.",law:"District compliance"}
+   ],
+   spec:{caption:"Make-up spec",note:"rule · source",headers:["Field","Rule","Source"],rows:[
+     ["Recording method","Ask your secretary first","District expectations"],
+     ["Attendance","Attend another club as guest","Constitution §2.6"],
+     ["Evidence","Host secretary signs + stamps card","Zone 7 protocol"],
+     ["Logging","Submit to your home secretary","District records"],
+     ["Integrity","Backdating strictly forbidden","District compliance"]
+   ]},
+   flow:{title:"Make-up pipeline",count:"makeup",steps:[
+     {title:"Ask your secretary",body:"Confirm how make-ups are recorded in your club before you plan one. Don't assume."},
+     {title:"Attend another club's meeting",body:"As a guest of any Rotaract or Rotary club. For a recognised goodwill visit, bring the 5+ member delegation."},
+     {title:"Host secretary signs + stamps",body:"The host secretary fills the card, signs it, and stamps it. A card without a stamp carries no weight."},
+     {title:"Submit to your secretary",body:"Hand the completed card to your club secretary for logging within one meeting cycle of the absence."},
+     {title:"Never backdate",body:"Fill the truth, when it happened. Backdating is a compliance violation for the club and the member."}
+   ]},
+   stat:{icon:"🎟️",text:"One <span>signed make-up card</span> turns a missed meeting into a logged visit."},
+   links:[{label:"Goodwill visits",url:"/handbook-twinship"},{label:"How meetings work",url:"/tutorials"}],printable:true}
 ];
 
 const doneKey=id=>"z7dl-"+id;
-
 let currentView="overview";let currentGuide=null;
 
-function renderSidebar(){
-  const byId={};GUIDES.forEach(g=>byId[g.id]=g);
-  document.getElementById("sbNav").innerHTML=GROUPS.map(gr=>{
-    return`<div class="sb-group" data-group="${gr.id}"><div class="sb-group-head"><span class="dot" style="background:${gr.color}"></span>${gr.label}</div><div class="sb-items-list">${gr.guides.map(id=>{const g=byId[id];return`<a class="sb-item${currentGuide===g.id?" active":""}" data-guide="${g.id}" href="#${g.id}"><span class="dot" style="background:${ROLES[g.role].bg}"></span>${g.title}</a>`}).join("")}</div></div>`;
-  }).join("");
-  document.querySelectorAll(".sb-item").forEach(item=>item.addEventListener("click",e=>{
-    e.preventDefault();currentGuide=item.dataset.guide;currentView="guide";renderAll();closeSidebar();
-  }));
-}
+/* ── helpers ── */
+function esc(s){return String(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
+function th(i,g){const x=GUIDES.find(v=>v.id===i);const gr=GROUPS.find(v=>v.guides.includes(i));return {g:x,gr}}
+function groupOf(id){return GROUPS.find(x=>x.guides.includes(id))}
 
-function renderRightRail(){
-  const rail=document.getElementById("rightRail");
-  if(currentView!=="guide"||!currentGuide){rail.innerHTML="";return}
-  const g=GUIDES.find(x=>x.id===currentGuide);if(!g){rail.innerHTML="";return}
-  rail.innerHTML=`<div class="toc-label">On this page</div><div class="toc-links">${g.rules.map((r,i)=>`<a class="toc-link" href="#rule-${i}">${i+1}. ${r.text.split(".")[0]}</a>`).join("")}</div>`;
-}
+/* ── syntax highlighter ── */
 
+/* ── block renderers ── */
+const blockAnchor=(gid,kind,idx)=>`sec-${gid}-${kind}-${idx}`;
+const COI={info:"ℹ️",tip:"💡",warning:"⚠️",danger:"🚫"};
+const COT={info:"Note",tip:"Tip",warning:"Watch out",danger:"Hard rule"};
+
+function renderCallouts(g){if(!g.callouts)return "";return `<div class="callouts" id="${blockAnchor(g.id,'notes',0)}" data-spy="notes">${g.callouts.map((c,i)=>`<div class="callout callout--${c.type}" data-spy-node="${i}"><div class="co-head"><span class="co-ic">${c.icon||COI[c.type]}</span><b>${c.title||COT[c.type]}</b></div><p>${c.body}</p></div>`).join("")}</div>`}
+function renderSpec(g,s,key,idx){return `<div class="spec" id="${blockAnchor(g.id,key,idx)}" data-spy="${key}"><div class="spec-head"><span class="spec-cap">${s.caption}</span><span class="spec-note">${s.note||""}</span>${s.tot?`<span class="spec-tot">${s.tot}</span>`:""}</div><div class="spec-scroll"><table><thead><tr>${s.headers.map(h=>`<th class="${h==="Pts"?"pts":h==="Rule"?"mono":""}">${h}</th>`).join("")}</tr></thead><tbody>${s.rows.map(r=>`<tr>${r.map((cell,j)=>`<td class="${s.headers[j]==="Pts"?"pts":""}">${cell}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>`}
+function renderTabs(g){if(!g.tabs)return "";return `<div class="tabs" id="${blockAnchor(g.id,'tabs',0)}" data-spy="tabs"><div class="tab-bar" role="tablist" aria-label="${esc(g.tabs.label||"Variants")}">${g.tabs.panels.map((p,i)=>`<button role="tab" id="tabb-${g.id}-${i}" aria-controls="tabp-${g.id}-${i}" aria-selected="${i===0}" data-tab-i="${i}" class="tab${i===0?" active":""}">${esc(p.label)}</button>`).join("")}</div><div class="tab-panel">${g.tabs.panels.map((p,i)=>`<div class="tab-pane${i===0?" active":""}" id="tabp-${g.id}-${i}" role="tabpanel" data-tab-i="${i}">${p.body}</div>`).join("")}</div></div>`}
+function renderFlow(g){if(!g.flow)return "";const st=g.flow.steps;return `<div class="flow" id="${blockAnchor(g.id,'flow',0)}" data-spy="flow"><div class="flow-head"><span class="f-title">Process · ${g.flow.title}</span><span class="f-count" data-flow-count>step 1 / ${st.length}</span></div><div class="flow-track" role="tablist" aria-label="${esc(g.flow.title)}">${st.map((s,i)=>`<button class="f-node${i===0?" active":""}" role="tab" data-flow-node="${i}" aria-selected="${i===0}"><span class="f-dot">${i+1}</span><span class="f-lab">${esc(s.title)}</span></button>`).join("")}</div><div class="flow-body">${st.map((s,i)=>`<div class="flow-step${i===0?" active":""}" data-flow-step="${i}"><h4>${s.title}</h4><p>${s.body}</p></div>`).join("")}</div><div class="flow-nav"><button class="f-prev" data-flow-prev type="button" disabled>‹ Prev</button><button class="f-next" data-flow-next type="button">Next ›</button><span class="flow-progress">${st.map((s,i)=>`<button class="f-dot-s${i===0?" active":""}" data-flow-prog="${i}" aria-label="Step ${i+1}" type="button"></button>`).join("")}</span></div></div>`}
+
+/* ── wire up rendered interactions ── */
+function wireTabs(root,g){const bar=root.querySelector(".tab-bar");if(!bar)return;const btns=[...bar.querySelectorAll("[role=tab]")];
+  btns.forEach(b=>b.addEventListener("click",()=>{btns.forEach(x=>{const on=x.dataset.tabI==b.dataset.tabI;x.classList.toggle("active",on);x.setAttribute("aria-selected",on);const p=root.querySelector('.tab-pane[data-tab-i="'+x.dataset.tabI+'"]');p.classList.toggle("active",on)})}));
+  bar.addEventListener("keydown",e=>{const cur=btns.indexOf(document.activeElement);if(cur===-1)return;let n=null;if(e.key==="ArrowRight")n=(cur+1)%btns.length;else if(e.key==="ArrowLeft")n=(cur-1+btns.length)%btns.length;else if(e.key==="Home")n=0;else if(e.key==="End")n=btns.length-1;if(n!==null){e.preventDefault();btns[n].focus();btns[n].click()}});
+}
+function wireFlow(root){const flow=root.querySelector(".flow");if(!flow)return;const nodes=[...flow.querySelectorAll("[data-flow-node]")];const steps=[...flow.querySelectorAll("[data-flow-step]")];const dots=[...flow.querySelectorAll("[data-flow-prog]")];const prev=flow.querySelector("[data-flow-prev]");const next=flow.querySelector("[data-flow-next]");const count=flow.querySelector("[data-flow-count]");let cur=0;
+  function go(i){cur=Math.max(0,Math.min(nodes.length-1,i));nodes.forEach((n,j)=>{n.classList.toggle("active",j===cur);n.classList.toggle("done",j<cur);n.setAttribute("aria-selected",j===cur)});steps.forEach((s,j)=>s.classList.toggle("active",j===cur));dots.forEach((d,j)=>d.classList.toggle("active",j===cur));prev.disabled=cur===0;next.disabled=cur===nodes.length-1;if(count)count.textContent="step "+(cur+1)+" / "+nodes.length;}
+  nodes.forEach((n,j)=>n.addEventListener("click",()=>go(j)));dots.forEach((d,j)=>d.addEventListener("click",()=>go(j)));prev.addEventListener("click",()=>go(cur-1));next.addEventListener("click",()=>go(cur+1));
+  flow.querySelector(".flow-track").addEventListener("keydown",e=>{const idx=nodes.indexOf(document.activeElement);if(idx===-1)return;let n=null;if(e.key==="ArrowRight")n=idx+1;else if(e.key==="ArrowLeft")n=idx-1;if(n!==null&&n>=0&&n<nodes.length){e.preventDefault();go(n);nodes[n].focus()}});
+}
+function wireRules(root,g,doneArr){const lis=root.querySelectorAll(".rules-list li");lis.forEach(li=>li.addEventListener("click",function(){this.classList.toggle("done");const idx=+this.dataset.i;const arr=JSON.parse(localStorage.getItem(doneKey(g.id))||"[]");const pos=arr.indexOf(idx);if(this.classList.contains("done")&&pos===-1)arr.push(idx);if(!this.classList.contains("done")&&pos!==-1)arr.splice(pos,1);localStorage.setItem(doneKey(g.id),JSON.stringify(arr));renderSidebar()}))}
+
+/* ── content rendering ── */
 function renderContent(){
   const area=document.getElementById("contentArea");
   if(currentView==="guide"&&currentGuide){
@@ -249,48 +762,171 @@ function renderContent(){
     const doneArr=JSON.parse(localStorage.getItem(doneKey(g.id))||"[]");
     const srcLabel=g.source==="zone"?"Zone 7 Original":g.source==="ri"?"Official RI":"RI + Zone 7";
     const srcClass=g.source==="zone"?"zone":g.source==="ri"?"ri":"both";
-    const gr=GROUPS.find(x=>x.guides.includes(g.id));
+    const gr=groupOf(g.id);
     const sameGroup=gr?gr.guides.filter(id=>id!==g.id):[];
     const fillIds=GUIDES.map(x=>x.id).filter(id=>id!==g.id&&!sameGroup.includes(id));
     const related=[...sameGroup,...fillIds].slice(0,4).map(id=>GUIDES.find(x=>x.id===id));
-    area.innerHTML=`<div class="guide-detail"><div class="gd-head"><span class="gd-role" style="background:${ROLES[g.role].bg}">${ROLES[g.role].label}</span><span class="gd-src ${srcClass}">${srcLabel}</span></div><h1>${g.title}</h1><div class="gd-deadline">⏰ ${g.deadline}</div><p class="gd-intro">${g.intro}</p><div class="gd-stat"><div class="g-icon">${g.stat.icon}</div><p>${g.stat.text}</p></div><div class="gd-section-label">Rules &amp; Obligations (${g.rules.length})</div><ol class="rules-list">${g.rules.map((r,i)=>`<li id="rule-${i}" data-i="${i}"><span class="r-num">${i+1}</span>${r.text}<span class="r-law">${r.law}</span></li>`).join("")}</ol>${g.links.length?`<div class="gd-section-label">Official Sources</div><div class="gd-sources">${g.links.map(l=>`<a href="${l.url}" target="_blank" rel="noopener">↗ ${l.label}</a>`).join("")}</div>`:""}${g.printable?`<div class="mu-block"><button class="print-btn" type="button" onclick="window.print()">🖨 Print the make-up card</button></div>`:""}<div class="gd-related"><h3>Related guides</h3><div class="related-cards">${related.map(r=>`<a class="rel-card" href="#${r.id}" data-guide="${r.id}"><span class="dot" style="background:${ROLES[r.role].bg}"></span><div><h4>${r.title}</h4><p>${r.deadline}</p></div><span class="arrow">→</span></a>`).join("")}</div></div></div>`;
-    area.querySelectorAll(".rules-list li").forEach(li=>{
-      li.addEventListener("click",function(){
-        this.classList.toggle("done");
-        const idx=+this.dataset.i;const arr=JSON.parse(localStorage.getItem(doneKey(g.id))||"[]");
-        const pos=arr.indexOf(idx);
-        if(this.classList.contains("done")&&pos===-1) arr.push(idx);
-        if(!this.classList.contains("done")&&pos!==-1) arr.splice(pos,1);
-        localStorage.setItem(doneKey(g.id),JSON.stringify(arr));
-        renderSidebar();renderContent();renderRightRail();
-      });
-      if(doneArr.includes(+li.dataset.i)) li.classList.add("done");
-    });
-    area.querySelectorAll(".rel-card").forEach(c=>c.addEventListener("click",e=>{
-      e.preventDefault();currentGuide=c.dataset.guide;currentView="guide";renderAll();
-    }));
-    area.scrollTo({top:0,behavior:"smooth"});
+    const crumb=`<span>Playbook</span> <span>/</span> <b>${gr?gr.label:"Guides"}</b> <span>/</span> <b>${g.title}</b>`;
+    const toolbar=toolbarHTML(crumb,true);
+
+    const statBlock=g.stat?`<div class="gd-stat"><div class="g-icon">${g.stat.icon}</div><p>${g.stat.text}</p></div>`:"";
+    const rulesBlock=`<ol class="rules-list" id="${blockAnchor(g.id,'rules',0)}" data-spy="rules">${g.rules.map((r,i)=>`<li id="rule-${i}" data-i="${i}"${doneArr.includes(i)?' class="done"':""}><span class="r-num">${i+1}</span>${r.text}<span class="r-law">${r.law}</span></li>`).join("")}</ol>`;
+    const specBlock=renderSpec(g,g.spec,"spec",0);
+    const specB=g.specB?renderSpec(g,g.specB,"specB",1):"";
+    const tabBlock=renderTabs(g);
+    const flowSection=(g.flow?`${renderFlow(g)}`:"");
+    const tabSection=(g.tabs?`${tabBlock}`:"");
+    const calloutSection=renderCallouts(g)||"";
+    const specSection=`${specBlock+specB}`;
+
+    area.innerHTML=`<div class="guide-detail">${toolbar}<div class="gd-head" id="${blockAnchor(g.id,'head',0)}"><span class="gd-role" style="background:${ROLES[g.role].bg}">${ROLES[g.role].label}</span><span class="gd-src ${srcClass}">${srcLabel}</span></div><h1 id="${g.id}">${g.title}</h1><div class="gd-deadline">⏰ ${g.deadline}</div><p class="gd-intro">${g.intro}</p>${statBlock}${calloutSection}${rulesBlock}${specSection}${tabSection}${flowSection}${g.links.length?`<div class="gd-sources" id="sec-links">${g.links.map(l=>`<a href="${l.url}" target="_blank" rel="noopener">↗ ${l.label}</a>`).join("")}</div>`:""}${g.printable?`<div class="mu-block"><button class="print-btn" type="button" onclick="window.print()">🖨 Print the make-up card</button></div>`:""}<div class="gd-related"><div class="related-cards">${related.map(r=>`<a class="rel-card" href="#${r.id}" data-guide="${r.id}"><span class="dot" style="background:${ROLES[r.role].bg}"></span><div><h4>${r.title}</h4><p>${r.deadline}</p></div><span class="arrow">→</span></a>`).join("")}</div></div></div>`;
+
+    wireTabs(area,g);wireFlow(area);wireRules(area,g,doneArr);
+    area.querySelectorAll(".rel-card").forEach(c=>c.addEventListener("click",e=>{e.preventDefault();currentGuide=c.dataset.guide;currentView="guide";history.replaceState(null,"","#"+c.dataset.guide);renderAll();closeSidebar()}));
+    setTimeout(()=>{const ids=location.hash.slice(1);if(ids&&area.querySelector("[id='"+ids+"']"))area.querySelector("[id='"+ids+"']").scrollIntoView({behavior:"smooth",block:"start"})},30);
   } else { renderOverview(); }
+}
+
+function toolbarHTML(crumb,isGuide){
+  const darkNow=document.documentElement.classList.contains("dark");
+  return `<div class="page-toolbar" id="pageToolbar"><div class="pb-crumb">${crumb}</div><div class="pb-spacer"></div><div class="tool-actions">${isGuide?`<button class="tool-btn" type="button" data-copylink title="Copy link to this guide">🔗</button>`:""}<button class="tool-btn" type="button" data-palette>Search <kbd>⌘K</kbd></button><button class="tool-btn" type="button" data-theme title="Toggle dark mode" aria-pressed="${darkNow}">${darkNow?"☀":"☾"}</button></div></div>`;
 }
 
 function renderOverview(){
   const area=document.getElementById("contentArea");
   const byId={};GUIDES.forEach(g=>byId[g.id]=g);
-  area.innerHTML=`<div class="overview-hero"><h1>The <em>Playbook</em>.</h1><p class="page-desc">Role-based rules, bylaws, deadlines and compliance guides for every Rotaract club officer. Grounded in RI's Standard Rotaract Club Constitution and District 3292 practices.</p><p class="note">Every guide states the rule, cites the source, and gives you the deadline. Browse by section in the sidebar, or start below.</p></div><div class="role-cards">${GROUPS.map(gr=>{const gs=gr.guides.map(id=>byId[id]);return`<a class="role-card" data-group="${gr.id}" href="#"><div class="rc-head"><div class="rc-icon" style="background:color-mix(in srgb,${gr.color} 10%,transparent);color:${gr.color}">${gr.icon}</div><h3>${gr.label}</h3></div><div class="rc-body"><p>${gs.map(g=>g.title).join(", ")}</p><div class="rc-count"><span>${gs.length}</span> guides · ${gs.reduce((a,g)=>a+g.rules.length,0)} rules</div></div></a>`}).join("")}</div>`;
+  const crumb=`<span>Home</span> <span>/</span> <b>Playbook</b>`;
+  const toolbar=toolbarHTML(crumb,false);
+  area.innerHTML=`${toolbar}<div class="overview-hero"><h1>The <em>Playbook</em>.</h1><p class="page-desc">The technical reference for Rotaract club officers: rules, spec tables, and process pipelines. Grounded in RI's Standard Rotaract Club Constitution and District 3292 practices.</p><p class="note">Every guide states the rule, cites the source, and gives you the deadline. Browse by section in the sidebar, drop ⌘K to search everything, or start below.</p></div><div class="role-cards">${GROUPS.map(gr=>{const gs=gr.guides.map(id=>byId[id]);return`<a class="role-card" data-group="${gr.id}" href="#"><div class="rc-head"><div class="rc-icon" style="background:color-mix(in srgb,${gr.color} 10%,transparent);color:${gr.color}">${gr.icon}</div><h3>${gr.label}</h3></div><div class="rc-body"><p>${gs.map(g=>g.title).join(", ")}</p><div class="rc-count"><span>${gs.length}</span> guides · ${gs.reduce((a,g)=>a+g.rules.length,0)} rules</div></div></a>`}).join("")}</div>`;
   area.querySelectorAll(".role-card").forEach(c=>c.addEventListener("click",e=>{
     e.preventDefault();const gr=c.dataset.group;
     const firstItem=document.querySelector(`.sb-group[data-group="${gr}"] .sb-item`);
-    if(firstItem){currentGuide=firstItem.dataset.guide;currentView="guide";renderAll();closeSidebar()}
+    if(firstItem){currentGuide=firstItem.dataset.guide;currentView="guide";history.replaceState(null,"","#"+firstItem.dataset.guide);renderAll();closeSidebar()}
   }));
   area.scrollTo({top:0});
   renderRightRail();
 }
 
-function renderAll(){renderSidebar();renderContent();renderRightRail();}
+function renderAll(){renderSidebar();renderContent();renderRightRail();wireToolbar();setupScrollSpy(currentGuide?GUIDES.find(x=>x.id===currentGuide):null);}
 
+function wireToolbar(){const tb=document.querySelector("#contentArea .page-toolbar");if(!tb)return;
+  const th=tb.querySelector("[data-theme]");if(th)th.addEventListener("click",()=>{const dark=document.documentElement.classList.toggle("dark");localStorage.setItem("z7guides-theme",dark?"dark":"light");th.textContent=dark?"☀":"☾";th.setAttribute("aria-pressed",dark)});
+  const pl=tb.querySelector("[data-palette]");if(pl)pl.addEventListener("click",openPalette);
+  const cl=tb.querySelector("[data-copylink]");if(cl)cl.addEventListener("click",()=>{navigator.clipboard.writeText("https://zone7rotaract3292.vercel.app/club-guides#"+currentGuide).then(()=>{cl.textContent="✓ copied";setTimeout(()=>cl.textContent="🔗",1400)})});
+}
+
+/* ── sidebar ── */
+function renderSidebar(){
+  const byId={};GUIDES.forEach(g=>byId[g.id]=g);
+  document.getElementById("sbNav").innerHTML=GROUPS.map(gr=>{
+    return`<div class="sb-group" data-group="${gr.id}"><div class="sb-group-head"><span class="dot" style="background:${gr.color}"></span>${gr.label}</div><div class="sb-items-list">${gr.guides.map(id=>{const g=byId[id];return`<a class="sb-item${currentGuide===g.id?" active":""}" data-guide="${g.id}" href="#${g.id}"><span class="dot" style="background:${ROLES[g.role].bg}"></span>${g.title}</a>`}).join("")}</div></div>`;
+  }).join("");
+  document.querySelectorAll(".sb-item").forEach(item=>item.addEventListener("click",e=>{
+    e.preventDefault();currentGuide=item.dataset.guide;currentView="guide";history.replaceState(null,"","#"+item.dataset.guide);renderAll();closeSidebar();
+  }));
+}
+
+/* ── right rail + scrollspy ── */
+function railSections(g){
+  const s=[];
+  s.push({label:"Intro",id:blockAnchor(g.id,"head",0)});
+  if(g.callouts)s.push({label:"Notes",id:blockAnchor(g.id,"notes",0)});
+  s.push({label:"Rules & obligations",id:blockAnchor(g.id,"rules",0)});
+  if(g.spec)s.push({label:"Spec · "+g.spec.caption,id:blockAnchor(g.id,"spec",0)});
+  if(g.specB)s.push({label:"Spec · "+g.specB.caption,id:blockAnchor(g.id,"specB",1)});
+  if(g.tabs)s.push({label:g.tabs.label||"Variants",id:blockAnchor(g.id,"tabs",0)});
+  if(g.flow)s.push({label:"Process · "+g.flow.title,id:blockAnchor(g.id,"flow",0)});
+  if(g.links.length)s.push({label:"Official sources",id:"sec-links"});
+  return s;
+}
+let spyObserver=null;
+function setupScrollSpy(g){
+  if(spyObserver)spyObserver.disconnect();
+  const rail=document.getElementById("rightRail");
+  const links=[...rail.querySelectorAll(".toc-link")];
+  if(!links.length){return}
+  const targets=links.map(l=>document.getElementById(l.hash.slice(1))).filter(Boolean);
+  spyObserver=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){links.forEach(l=>l.classList.toggle("active",l.hash==="#"+en.target.id))}
+    });
+  },{rootMargin:"-20% 0px -70% 0px",threshold:0});
+  targets.forEach(t=>spyObserver.observe(t));
+}
+function renderRightRail(){
+  const rail=document.getElementById("rightRail");
+  if(currentView!=="guide"||!currentGuide){rail.innerHTML="";if(spyObserver)spyObserver.disconnect();return}
+  const g=GUIDES.find(x=>x.id===currentGuide);if(!g){rail.innerHTML="";return}
+  rail.innerHTML=`<div class="toc-label">On this page</div><div class="toc-links">${railSections(g).map(s=>`<a class="toc-link" href="#${s.id}">${esc(s.label)}</a>`).join("")}</div>`;
+}
+
+/* ── command palette ── */
+const PAL_KIND={guide:"Guide",rule:"Rule",notes:"Note",spec:"Spec",specB:"Spec",tabs:"Tab",flow:"Step"};
+function buildPaletteIndex(){
+  const idx=[];
+  GUIDES.forEach(g=>{
+    idx.push({gid:g.id,kind:"guide",target:null,label:g.title,sub:"Open guide · "+g.rules.length+" rules"});
+    g.rules.forEach((r,i)=>idx.push({gid:g.id,kind:"rule",target:blockAnchor(g.id,"rules",0),label:r.text.split(".")[0]+".",sub:g.title+" · rule "+(i+1)}));
+    (g.callouts||[]).forEach(c=>idx.push({gid:g.id,kind:"notes",target:blockAnchor(g.id,"notes",0),label:c.title,sub:g.title+" · "+COT[c.type]}));
+    if(g.spec)idx.push({gid:g.id,kind:"spec",target:blockAnchor(g.id,"spec",0),label:g.spec.caption,sub:g.title+" · "+g.spec.rows.length+" rows"});
+    if(g.specB)idx.push({gid:g.id,kind:"spec",target:blockAnchor(g.id,"specB",1),label:g.specB.caption,sub:g.title+" · "+g.specB.rows.length+" rows"});
+    (g.tabs?g.tabs.panels:[]).forEach(p=>idx.push({gid:g.id,kind:"tabs",target:blockAnchor(g.id,"tabs",0),label:p.label,sub:g.title+" · variant"}));
+    (g.flow?g.flow.steps:[]).forEach(s=>idx.push({gid:g.id,kind:"flow",target:blockAnchor(g.id,"flow",0),label:s.title,sub:g.title+" · process · "+g.flow.title}));
+  });
+  return idx;
+}
+const idna = buildPaletteIndex();
+let palSel=0,palResults=[];
+function openPalette(){const p=document.getElementById("palette"),b=document.getElementById("paletteBackdrop");p.classList.add("open");b.classList.add("open");const inp=document.getElementById("paletteInput");inp.value="";renderPalette(inp.value);inp.focus()}
+function closePalette(){document.getElementById("palette").classList.remove("open");document.getElementById("paletteBackdrop").classList.remove("open")}
+function renderPalette(q){
+  const host=document.getElementById("paletteResults");
+  q=(q||"").toLowerCase();
+  palResults=[];
+  const flat=idna.filter(it=>!q||(it.label+" "+it.sub).toLowerCase().includes(q));
+  const byG={};
+  flat.forEach(it=>{(byG[it.gid]=byG[it.gid]||[]).push(it)});
+  const keys=Object.keys(byG);
+  keys.sort((a,b)=>{const ga=GUIDES.find(x=>x.id===a),gb=GUIDES.find(x=>x.id===b);const sa=ga.title.toLowerCase().indexOf(q),sb=gb.title.toLowerCase().indexOf(q);return (sa===-1?1:0)-(sb===-1?1:0)});
+  if(!flat.length){host.innerHTML=`<div class="pal-empty">No matches for "${esc(q||"")}"</div>`;return}
+  let total=0;
+  host.innerHTML=keys.map(k=>{
+    const g=GUIDES.find(x=>x.id===k);
+    const items=byG[k].slice(0,8);
+    const out=`<div class="pal-group">${g.title}</div>`+items.map(it=>{
+      const j=total++;
+      palResults.push({gid:it.gid,target:it.target});
+      return`<button class="pal-item${j===0?" sel":""}" data-pal="${j}" type="button"><span class="pi-dot" style="background:${ROLES[g.role].bg}"></span><span class="pi-main"><span class="pi-title">${esc(it.label)}</span><span class="pi-sub">${esc(it.sub)}</span></span><span class="pi-kind">${PAL_KIND[it.kind]}</span></button>`
+    }).join("");
+    return out;
+  }).join("");
+  palSel=0;
+  host.querySelectorAll("[data-pal]").forEach(b=>b.addEventListener("click",()=>goPalette(+b.dataset.pal)));
+  requestAnimationFrame(()=>{const sel=host.querySelector(".pal-item.sel");if(sel)sel.scrollIntoView({block:"nearest"})});
+}
+function goPalette(i){
+  if(!palResults[i])return;
+  const r=palResults[i];closePalette();
+  const g=GUIDES.find(x=>x.id===r.gid);
+  if(currentGuide!==r.gid){currentGuide=r.gid;currentView="guide";history.replaceState(null,"","#"+r.gid);renderAll();closeSidebar()}
+  setTimeout(()=>{const el=r.target?document.getElementById(r.target):null;if(el)el.scrollIntoView({behavior:"smooth",block:"start"});else document.querySelector(".content-inner").scrollTo({top:0})},60);
+}
+document.getElementById("paletteInput").addEventListener("input",e=>renderPalette(e.target.value));
+document.getElementById("paletteInput").addEventListener("keydown",e=>{
+  if(e.key==="ArrowDown"){e.preventDefault();const items=document.querySelectorAll(".pal-item");if(items.length){palSel=(palSel+1)%items.length;updatePalSel(items)}}
+  else if(e.key==="ArrowUp"){e.preventDefault();const items=document.querySelectorAll(".pal-item");if(items.length){palSel=(palSel-1+items.length)%items.length;updatePalSel(items)}}
+  else if(e.key==="Enter"){e.preventDefault();goPalette(palSel)}
+  else if(e.key==="Escape"){closePalette()}
+});
+function updatePalSel(items){document.querySelectorAll(".pal-item").forEach(x=>x.classList.remove("sel"));items[palSel].classList.add("sel");items[palSel].scrollIntoView({block:"nearest"})}
+document.getElementById("paletteBackdrop").addEventListener("click",closePalette);
+
+/* ── global keyboard + misc ── */
+document.addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openPalette()}
+});
 function closeSidebar(){document.getElementById("sidebar").classList.remove("open");document.getElementById("sidebarBackdrop").classList.remove("open");document.body.style.overflow=""}
 function openSidebar(){document.getElementById("sidebar").classList.add("open");document.getElementById("sidebarBackdrop").classList.add("open");document.body.style.overflow="hidden"}
-
 document.getElementById("sidebarBackdrop").addEventListener("click",closeSidebar);
 document.getElementById("sbSearch").addEventListener("input",function(){
   const q=this.value.toLowerCase();
@@ -298,6 +934,10 @@ document.getElementById("sbSearch").addEventListener("input",function(){
     const g=GUIDES.find(x=>x.id===item.dataset.guide);
     item.style.display=(!q||(g.title+" "+g.intro+" "+g.rules.map(r=>r.text).join(" ")).toLowerCase().includes(q))?"":"none";
   });
+});
+document.getElementById("sbSearch").addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openPalette()}
+  else if(e.key==="/"){e.preventDefault();openPalette()}
 });
 document.getElementById("sbReset").addEventListener("click",()=>{
   if(!confirm("Reset all progress?"))return;GUIDES.forEach(g=>localStorage.removeItem(doneKey(g.id)));renderAll();
@@ -325,6 +965,11 @@ function injectMobileToggle(){
   showHide();window.addEventListener("resize",showHide);
 }
 if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",()=>setTimeout(injectMobileToggle,200))}else{setTimeout(injectMobileToggle,200)}
+
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{
+  const saved=localStorage.getItem("z7guides-theme");
+  if(!saved)document.documentElement.classList.toggle("dark",e.matches);
+});
 
 renderAll();
 if(location.hash){const id=location.hash.slice(1);if(GUIDES.some(g=>g.id===id)){currentGuide=id;currentView="guide";renderAll()}}
