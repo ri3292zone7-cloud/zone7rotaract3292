@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Full-screen interactive GIS dashboard for the Rasuwa flood: 51 affected local units across 5 districts from the current Zone 7 QGIS project.">
-<title>Rasuwa Flood GIS Dashboard | Zone 7 Rotaract</title>
+<meta name="description" content="Interactive GIS record of the Sept 2026 Rasuwa flood: 51 affected local units across 5 districts from the Zone 7 QGIS analysis.">
+<title>Rasuwa Flood Map · Sept 2026 Record | Zone 7 Rotaract</title>
 <link rel="canonical" href="https://zone7rotaract3292.vercel.app/rasuwa-flood-map">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon-192.png" sizes="192x192">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Zone 7 Rotaract">
 <meta property="og:title" content="Rasuwa Flood GIS Dashboard | Zone 7">
-<meta property="og:description" content="Full-screen interactive GIS map: affected regions, risk zones, flood corridor and live stats from the Zone 7 QGIS project.">
+<meta property="og:description" content="Interactive GIS map record: affected regions, risk zones, flood corridor and stats from the Zone 7 QGIS analysis of the Sept 2026 flood.">
 <meta property="og:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
 <meta property="og:url" content="https://zone7rotaract3292.vercel.app/rasuwa-flood-map">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,69 +34,145 @@
  .top-alert a{color:var(--magenta-deep);font-weight:800;text-decoration:underline;text-underline-offset:2px;}
 
  /* full-screen map */
- #floodMap{position:absolute;inset:0;width:100%;height:100%;background:#DCE9EA;z-index:1;}
+  #floodMap{position:absolute;inset:0;width:100%;height:100%;background:#0d0d1f;z-index:1;}
 
- /* floating dashboard panels */
- .panel{position:absolute;z-index:500;background:rgba(255,253,249,.94);border:1px solid rgba(27,24,54,.12);border-radius:18px;box-shadow:0 18px 48px rgba(17,10,40,.22);backdrop-filter:blur(10px);overflow:hidden;}
+  /* floating dashboard panels — dark glass over the cinematic map */
+  .panel{position:absolute;z-index:500;background:rgba(27,24,54,.88);border:1px solid rgba(255,255,255,.14);border-radius:18px;box-shadow:0 18px 48px rgba(0,0,0,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);overflow:hidden;color:#fff;}
  .panel.hero{top:14px;left:14px;max-width:340px;width:min(340px,calc(100vw - 28px));}
  .panel.legend{left:14px;bottom:14px;padding:12px 14px;max-width:310px;}
  .panel.fab{right:14px;top:14px;padding:8px;display:flex;flex-direction:column;gap:8px;background:transparent;border:none;box-shadow:none;backdrop-filter:none;}
- .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(27,24,54,.08);background:linear-gradient(90deg,#FFFDF9,#FFF8EF);}
- .panel-head b{font-family:'Poppins';font-size:.95rem;}
- .panel-head button{border:none;background:rgba(27,24,54,.06);border-radius:999px;width:28px;height:28px;color:var(--ink);font-size:1rem;cursor:pointer;line-height:1;}
- .panel-body{padding:12px 14px;display:flex;flex-direction:column;gap:11px;}
- .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(225,26,110,.09);color:var(--magenta-deep);border:1px solid rgba(225,26,110,.13);padding:6px 11px;border-radius:999px;font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;align-self:flex-start;}
+  .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.12);background:linear-gradient(90deg,rgba(225,26,110,.16),rgba(27,24,54,.2));}
+  .panel-head b{font-family:'Poppins';font-size:.95rem;color:#fff;}
+  .panel-head button{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);border-radius:999px;width:28px;height:28px;color:#fff;font-size:1rem;cursor:pointer;line-height:1;}
+  .panel-body{padding:12px 14px;display:flex;flex-direction:column;gap:11px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(225,26,110,.22);color:#ff8fb5;border:1px solid rgba(225,26,110,.4);padding:6px 11px;border-radius:999px;font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;align-self:flex-start;}
  .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(242,169,0,.18);}
- .panel h1{font-size:1.5rem;line-height:1.04;}
- .panel h1 span{background:linear-gradient(100deg,var(--magenta),var(--magenta-deep));-webkit-background-clip:text;background-clip:text;color:transparent;}
- .panel p.lead{font-size:.82rem;line-height:1.6;color:rgba(27,24,54,.66);}
- .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
- .stat{background:#fff;border:1px solid rgba(27,24,54,.09);border-radius:14px;padding:11px;}
- .stat strong{display:block;font-family:'Poppins';font-size:1.5rem;line-height:1;color:var(--magenta-deep);}
- .stat small{display:block;margin-top:6px;font-size:.7rem;line-height:1.3;color:rgba(27,24,54,.6);font-weight:700;}
- .stat.live strong{color:var(--gold);}
- .stat.dist strong{color:#0E7490;}
- .people-box{background:rgba(225,26,110,.06);border:1px solid rgba(225,26,110,.14);border-radius:14px;padding:11px 12px;}
- .people-box b{font-family:'Poppins';font-size:.88rem;display:block;margin-bottom:3px;}
- .people-box p{font-size:.74rem;line-height:1.5;color:rgba(27,24,54,.66);}
- .people-box a{color:var(--magenta-deep);font-weight:800;text-decoration:underline;}
+  .panel h1{font-size:1.5rem;line-height:1.04;color:#fff;}
+  .panel h1 span{background:linear-gradient(100deg,#ff5fa0,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .panel p.lead{font-size:.82rem;line-height:1.6;color:rgba(255,255,255,.72);}
+  .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
+  .stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:11px;}
+  .stat strong{display:block;font-family:'Poppins';font-size:1.5rem;line-height:1;color:#fff;}
+   .stat small{display:block;margin-top:6px;font-size:.7rem;line-height:1.3;color:rgba(255,255,255,.62);font-weight:700;}
+   .stat.dist strong{color:#5EEAD4;}
+  /* stories + help hub */
+  .hub{background:rgba(225,26,110,.12);border:1px solid rgba(225,26,110,.3);border-radius:14px;padding:11px 12px;}
+  .hub>b{font-family:'Poppins';font-size:.88rem;display:block;margin-bottom:8px;color:#fff;}
+  .story-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+  .story{display:flex;gap:9px;align-items:flex-start;width:100%;text-align:left;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:8px 10px;cursor:pointer;color:#fff;font-family:inherit;transition:background .16s,border-color .16s;}
+  .story:hover{background:rgba(225,26,110,.22);border-color:rgba(225,26,110,.5);}
+  .story .pin{flex:0 0 10px;width:10px;height:10px;border-radius:50%;background:var(--magenta);margin-top:4px;box-shadow:0 0 0 4px rgba(225,26,110,.25);}
+  .story b{display:block;font-size:.76rem;font-weight:800;}
+  .story span{display:block;font-size:.7rem;line-height:1.45;color:rgba(255,255,255,.62);margin-top:1px;}
+  .hub-loading{font-size:.74rem;color:rgba(255,255,255,.55);}
+  .hub-helplines{display:flex;gap:8px;}
+  .hub-helplines a{flex:1;text-align:center;background:rgba(20,120,100,.35);border:1px solid rgba(94,234,212,.4);color:#a7f3ea;font-weight:800;font-size:.74rem;border-radius:999px;padding:8px 6px;text-decoration:none;}
+  .hub-helplines a:hover{background:rgba(20,120,100,.55);}
+  .hub-note{font-size:.7rem;line-height:1.5;color:rgba(255,255,255,.6);margin-top:8px;}
+  .hub-note a{color:#ff8fb5;font-weight:800;}
  .actions{display:flex;gap:8px;flex-wrap:wrap;}
  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:10px 15px;border-radius:999px;border:1.5px solid transparent;font-size:.8rem;font-weight:800;cursor:pointer;transition:transform .16s,box-shadow .16s,background .16s;}
  .btn:active{transform:scale(.97);}
  .btn-primary{background:var(--magenta);color:#fff;box-shadow:0 10px 22px rgba(225,26,110,.24);flex:1;}
  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(225,26,110,.3);}
- .btn-ghost{background:#fff;color:var(--ink);border-color:var(--line);flex:1;}
- .btn-ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
- .legend-row{display:flex;align-items:center;gap:9px;font-size:.72rem;font-weight:700;color:rgba(27,24,54,.68);line-height:1.35;margin-bottom:6px;}
+  .btn-ghost{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.25);flex:1;}
+  .btn-ghost:hover{background:#fff;color:var(--ink);border-color:#fff;}
+  .btn[disabled]{opacity:.45;cursor:default;transform:none;}
+  .legend-row{display:flex;align-items:center;gap:9px;font-size:.72rem;font-weight:700;color:rgba(255,255,255,.8);line-height:1.35;margin-bottom:6px;}
  .swatch{width:16px;height:16px;border-radius:5px;border:1px solid rgba(27,24,54,.16);flex:0 0 16px;}
  .swatch.line{height:4px;border-radius:2px;margin-top:6px;}
  .risk-extreme{background:#7a0000;}.risk-high{background:#d7301f;}.risk-moderate{background:#fc8d59;}.risk-low{background:#fee08b;}.risk-region{background:rgba(225,26,110,.28);border:1.5px solid #E11A6E;}.risk-river{background:#0E7490;}
- .source-note{font-size:.64rem;line-height:1.5;color:rgba(27,24,54,.52);margin-top:2px;}
- .fab-btn{width:46px;height:46px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:1.15rem;cursor:pointer;box-shadow:0 10px 24px rgba(17,10,40,.2);display:flex;align-items:center;justify-content:center;transition:transform .16s;}
+  .source-note{font-size:.64rem;line-height:1.5;color:rgba(255,255,255,.55);margin-top:2px;}
+  .fab-btn{width:46px;height:46px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(27,24,54,.9);color:#fff;font-size:1.15rem;cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;transition:transform .16s;}
+  .fab-btn small{position:absolute;top:100%;margin-top:3px;left:50%;transform:translateX(-50%);font-size:.52rem;font-weight:800;letter-spacing:.04em;color:rgba(255,255,255,.8);background:rgba(27,24,54,.9);padding:1px 5px;border-radius:99px;white-space:nowrap;pointer-events:none;}
+  .panel.fab .fab-btn{position:relative;}
  .fab-btn:hover{transform:scale(1.06);}
  .fab-btn.active{background:var(--magenta);color:#fff;border-color:var(--magenta);}
 
- /* leaflet polish */
- .leaflet-container{font-family:'Inter',sans-serif;color:var(--ink);background:#DCE9EA;}
- .leaflet-popup-content-wrapper{border-radius:16px;box-shadow:0 12px 32px rgba(27,24,54,.2);}
- .leaflet-popup-content{margin:13px 15px;line-height:1.5;}
- .popup-title{font-family:'Poppins';font-size:1rem;font-weight:800;color:var(--ink);margin-bottom:3px;}
- .popup-meta{font-size:.76rem;color:var(--magenta-deep);font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;}
- .popup-impact{font-size:.82rem;color:rgba(27,24,54,.7);}
- .settlement-marker{width:22px;height:22px;border-radius:50%;background:var(--magenta);border:3px solid #fff;box-shadow:0 6px 16px rgba(225,26,110,.4),0 0 0 6px rgba(225,26,110,.16);}
- .leaflet-control-layers{box-shadow:0 8px 22px rgba(17,10,40,.16);border-radius:12px;border:1px solid var(--line);overflow:hidden;}
- .leaflet-control-layers .leaflet-control-layers-toggle{border-radius:12px;}
- .leaflet-control-layers-expanded{background:#FFFDF9;padding:8px 10px;font-family:'Inter',sans-serif;font-weight:600;font-size:.78rem;color:var(--ink);}
+  /* leaflet polish — dark chrome */
+  .leaflet-container{font-family:'Inter',sans-serif;color:#fff;background:#0d0d1f;}
+  .leaflet-bar a{background:rgba(27,24,54,.92);color:#fff;border-color:rgba(255,255,255,.16);}
+  .leaflet-bar a:hover{background:var(--magenta);color:#fff;border-color:var(--magenta);}
+  .leaflet-control-attribution{background:rgba(13,13,31,.75)!important;color:rgba(255,255,255,.6)!important;font-size:.6rem;}
+  .leaflet-control-attribution a{color:rgba(255,255,255,.75)!important;}
+  .leaflet-popup-content-wrapper{background:#1B1836;color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,.5);}
+  .leaflet-popup-tip{background:#1B1836;border:1px solid rgba(255,255,255,.14);}
+  .leaflet-popup-content{margin:13px 15px;line-height:1.5;}
+  .popup-title{font-family:'Poppins';font-size:1rem;font-weight:800;color:#fff;margin-bottom:3px;}
+  .popup-meta{font-size:.76rem;color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;}
+   .popup-impact{font-size:.82rem;color:rgba(255,255,255,.75);}
+   .popup-link{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:800;color:#ff8fb5;text-decoration:underline;text-underline-offset:2px;}
+  .settlement-marker{position:relative;width:22px;height:22px;border-radius:50%;background:var(--magenta);border:3px solid #fff;box-shadow:0 6px 16px rgba(225,26,110,.5),0 0 18px rgba(225,26,110,.65);}
+  .settlement-marker::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid rgba(225,26,110,.7);animation:ping 2.2s ease-out infinite;}
+  @keyframes ping{0%{transform:scale(.6);opacity:1;}80%,100%{transform:scale(1.9);opacity:0;}}
+  .leaflet-control-layers{box-shadow:0 8px 22px rgba(0,0,0,.5);border-radius:12px;border:1px solid rgba(255,255,255,.16);overflow:hidden;}
+  .leaflet-control-layers .leaflet-control-layers-toggle{border-radius:12px;}
+  .leaflet-control-layers-expanded{background:#1B1836;padding:8px 10px;font-family:'Inter',sans-serif;font-weight:600;font-size:.78rem;color:#fff;}
 
- /* map credit bar */
- .map-credit{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;z-index:499;font-size:.66rem;color:rgba(17,10,40,.62);background:rgba(255,253,249,.85);padding:4px 10px;border-radius:999px;border:1px solid rgba(27,24,54,.1);white-space:nowrap;}
- @media(min-width:981px){.panel.drawer{pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity .18s,transform .18s;}.panel.drawer.show{pointer-events:auto;opacity:1;transform:none;}}
+   /* map credit bar */
+   .map-credit{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;z-index:499;font-size:.66rem;color:rgba(255,255,255,.7);background:rgba(13,13,31,.8);padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.14);white-space:nowrap;}
+   body.touring .map-credit{display:none;}
 
- @media(max-width:980px){
-  .panel.hero{top:12px;left:12px;right:12px;width:auto;max-width:none;}
-  .panel.legend{left:12px;bottom:12px;right:auto;max-width:none;width:auto;}
-  .map-credit{display:none;}
- }
+  /* loading overlay */
+  .map-loader{position:absolute;inset:0;z-index:600;display:flex;align-items:center;justify-content:center;background:rgba(27,24,54,.3);transition:opacity .3s;}
+  .map-loader.hide{opacity:0;pointer-events:none;}
+  .loader-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px 24px;width:min(320px,calc(100vw - 48px));text-align:center;box-shadow:0 24px 60px rgba(17,10,40,.35);}
+  .loader-card b{display:block;font-family:'Poppins';font-size:1rem;margin:12px 0 4px;}
+  .loader-card p{font-size:.78rem;color:rgba(27,24,54,.6);}
+  .spinner{width:38px;height:38px;margin:0 auto;border-radius:50%;border:4px solid rgba(225,26,110,.18);border-top-color:var(--magenta);animation:spin .9s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .load-bar{height:6px;border-radius:999px;background:rgba(27,24,54,.1);margin-top:14px;overflow:hidden;}
+  .load-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--magenta),var(--gold));border-radius:999px;transition:width .25s;}
+
+  /* layer failure toast */
+  .load-note{position:absolute;top:52px;left:50%;transform:translateX(-50%);z-index:590;background:#fff;border:1px solid rgba(220,38,38,.28);font-size:.76rem;font-weight:600;border-radius:999px;padding:8px 10px 8px 16px;display:flex;gap:10px;align-items:center;box-shadow:0 12px 30px rgba(17,10,40,.25);max-width:calc(100vw - 32px);}
+  .load-note button{border:none;background:rgba(27,24,54,.07);border-radius:999px;width:24px;height:24px;cursor:pointer;font-size:.9rem;line-height:1;flex-shrink:0;}
+
+  /* basemap switcher pill (desktop) */
+  .base-switch{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:500;display:flex;gap:4px;background:rgba(27,24,54,.88);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:4px;backdrop-filter:blur(12px);box-shadow:0 12px 30px rgba(0,0,0,.4);}
+  .base-switch button{border:none;background:transparent;color:rgba(255,255,255,.65);font-family:'Inter',sans-serif;font-weight:800;font-size:.74rem;padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;}
+  .base-switch button.on{background:var(--magenta);color:#fff;}
+  @media(max-width:980px){.base-switch{display:none;}}
+
+  /* district panel */
+  .panel.districts{right:14px;top:252px;width:248px;max-height:calc(100% - 276px);display:none;}
+  .panel.districts.show{display:block;}
+  .district-list{display:flex;flex-direction:column;gap:6px;overflow:auto;}
+  .district{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:9px 11px;cursor:pointer;color:#fff;font-family:inherit;transition:background .16s,border-color .16s;}
+  .district:hover{background:rgba(45,212,191,.14);border-color:rgba(45,212,191,.4);}
+  .district.on{background:rgba(45,212,191,.18);border-color:#2DD4BF;}
+  .district b{font-size:.78rem;font-weight:800;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .district span{font-family:'Poppins';font-weight:800;font-size:.9rem;color:#5EEAD4;}
+  .district small{display:block;font-size:.62rem;color:rgba(255,255,255,.55);font-weight:600;}
+  .district-reset{width:100%;margin-top:8px;background:transparent;border:1.5px solid rgba(255,255,255,.25);color:#fff;border-radius:999px;padding:9px;font-weight:800;font-size:.76rem;cursor:pointer;font-family:inherit;}
+  .district-reset:hover{background:#fff;color:var(--ink);border-color:#fff;}
+
+  /* guided tour card */
+  .tour-card{position:absolute;left:50%;transform:translateX(-50%);bottom:18px;z-index:590;width:min(430px,calc(100vw - 32px));background:rgba(27,24,54,.94);border:1px solid rgba(225,26,110,.45);border-radius:18px;padding:16px 18px;color:#fff;box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 40px rgba(225,26,110,.18);backdrop-filter:blur(12px);}
+  .tour-card[hidden]{display:none;}
+  .tour-step{font-size:.64rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+  .tour-card h3{font-size:1.1rem;margin-bottom:5px;}
+  .tour-card p{font-size:.82rem;line-height:1.6;color:rgba(255,255,255,.75);}
+  .tour-dots{display:flex;gap:6px;margin:12px 0;}
+  .tour-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.25);cursor:pointer;padding:0;}
+  .tour-dots button.on{background:var(--magenta);box-shadow:0 0 8px rgba(225,26,110,.8);}
+  .tour-nav{display:flex;gap:8px;}
+  .tour-nav button{flex:1;border-radius:999px;padding:10px;font-weight:800;font-size:.78rem;cursor:pointer;font-family:inherit;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:#fff;}
+  .tour-nav button.go{background:var(--magenta);border-color:var(--magenta);}
+  .tour-nav button[disabled]{opacity:.35;cursor:default;}
+  body.touring .base-switch{display:none;}
+
+  #heroPanel .panel-head{cursor:pointer;}
+  @media(min-width:981px){.panel.drawer{pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity .18s,transform .18s;}.panel.drawer.show{pointer-events:auto;opacity:1;transform:none;}}
+  @media (prefers-reduced-motion: reduce){.spinner{animation:none;}.settlement-marker::after{animation:none;display:none;}}
+
+  @media(max-width:980px){
+   .panel.hero{top:12px;left:12px;right:12px;width:auto;max-width:none;}
+   .panel.legend{left:12px;bottom:12px;right:auto;max-width:none;width:auto;}
+   .map-credit{display:none;}
+   .panel.districts{right:12px;left:12px;top:auto;bottom:calc(12px + env(safe-area-inset-bottom));width:auto;max-height:46vh;}
+   .tour-card{left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));transform:none;width:auto;}
+  }
  @media(max-width:640px){
   .panel.legend{left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));width:auto;display:none;}
   .panel.legend.show{display:block;}
@@ -116,40 +192,83 @@
 <script src="site-transition.js" defer></script>
 
 <div class="app">
- <div class="top-alert"><b>GIS Live</b><span>Affected regions from current QGIS project · For rescue call <a href="tel:1149">1149</a> / <a href="tel:100">100</a></span></div>
+  <div class="top-alert"><b>Response record</b><span>Affected regions from the Sept 2026 QGIS analysis · For any current emergency call <a href="tel:1149">1149</a> / <a href="tel:100">100</a></span></div>
 
- <div id="floodMap" role="application" aria-label="Full-screen interactive GIS flood map"></div>
+  <div id="floodMap" role="application" aria-label="Full-screen interactive GIS flood map"></div>
 
- <aside class="panel hero" id="heroPanel" aria-label="Flood dashboard">
-  <div class="panel-head">
-   <b>Rasuwa Flood Dashboard</b>
-   <button class="collapse" id="toggleHero" aria-label="Collapse dashboard panel">−</button>
-  </div>
-  <div class="panel-body">
-   <span class="eyebrow"><i></i> GIS Spatial Plan · 2026</span>
-   <h1>Interactive <span>affected areas</span> map</h1>
-   <p class="lead">Derived live from the current Zone 7 QGIS project. Tap any region, risk band or settlement on the map for detail.</p>
-   <div class="stats">
-    <div class="stat"><strong id="statRegions">51</strong><small>Affected local units</small></div>
-    <div class="stat dist"><strong id="statDistricts">5</strong><small>Districts in flood corridor</small></div>
-    <div class="stat"><strong id="statSettlements">5</strong><small>Key affected settlements</small></div>
-    <div class="stat live"><strong>1149</strong><small>Rescue helpline</small></div>
-   </div>
-   <div class="people-box">
-    <b>People affected</b>
-    <p id="peopleText">Casualty and affected-population figures are under verification. <a href="/flood-help">Live missing reports →</a></p>
-   </div>
-   <div class="actions">
-    <a class="btn btn-primary" href="/flood-help">Flood Help</a>
-    <a class="btn btn-ghost" href="/volunteers">Volunteer</a>
+  <div class="map-loader" id="mapLoader" role="status">
+   <div class="loader-card">
+    <div class="spinner" aria-hidden="true"></div>
+    <b>Loading map data…</b>
+    <p id="loadStatus">Preparing 4 layers</p>
+    <div class="load-bar" aria-hidden="true"><span id="loadFill"></span></div>
    </div>
   </div>
- </aside>
 
- <div class="panel fab">
-  <button class="fab-btn" id="fitMap" title="Fit affected extent" aria-label="Fit map to affected extent">⛶</button>
-  <button class="fab-btn active" id="toggleLegend" aria-label="Toggle legend">🗺</button>
- </div>
+  <aside class="panel hero" id="heroPanel" aria-label="Flood dashboard">
+   <div class="panel-head">
+    <b>Rasuwa Flood · Map Record</b>
+    <button class="collapse" id="toggleHero" aria-label="Collapse dashboard panel">−</button>
+   </div>
+   <div class="panel-body">
+     <span class="eyebrow"><i></i> GIS record · Sept 2026</span>
+    <h1>The flood, <span>mapped.</span></h1>
+    <p class="lead">51 local units, 5 districts, 5 settlements — from the Zone 7 QGIS analysis. Tap the map for detail, or take the tour.</p>
+    <div class="stats">
+     <div class="stat"><strong id="statRegions">51</strong><small>Affected local units</small></div>
+     <div class="stat dist"><strong id="statDistricts">5</strong><small>Districts in flood corridor</small></div>
+     <div class="stat"><strong id="statSettlements">5</strong><small>Key affected settlements</small></div>
+      <div class="stat"><strong>1149</strong><small>Rescue helpline</small></div>
+    </div>
+    <div class="hub">
+     <b>Affected places · how to help</b>
+     <div class="story-list" id="storyList"><p class="hub-loading">Loading places…</p></div>
+     <div class="hub-helplines">
+      <a href="tel:1149">📞 1149 Rescue</a>
+      <a href="tel:100">📞 100 Police</a>
+     </div>
+     <p class="hub-note">Casualty figures under verification. <a href="/flood-help">Missing-person record →</a></p>
+    </div>
+    <div class="actions">
+     <a class="btn btn-primary" href="/flood-help">Flood Help</a>
+     <a class="btn btn-ghost" href="/volunteers">Volunteer</a>
+    </div>
+    <button class="btn btn-ghost" id="tourBtn" style="width:100%;" disabled>▶ Take the tour</button>
+   </div>
+  </aside>
+
+  <div class="base-switch" id="baseSwitch" role="group" aria-label="Basemap style">
+   <button data-base="dark" class="on">🌙 Dark</button>
+   <button data-base="street">🗺 Streets</button>
+   <button data-base="satellite">🛰 Satellite</button>
+  </div>
+
+  <div class="panel fab">
+   <button class="fab-btn" id="fitMap" title="Fit affected extent" aria-label="Fit map to affected extent">⛶<small>Fit</small></button>
+   <button class="fab-btn active" id="toggleLegend" aria-label="Toggle legend">🗺<small>Legend</small></button>
+   <button class="fab-btn" id="toggleDistricts" aria-label="Toggle district breakdown">▦<small>Areas</small></button>
+   <button class="fab-btn" id="baseCycle" aria-label="Switch basemap style" title="Switch basemap style">🌙<small id="baseCycleLabel">Dark</small></button>
+  </div>
+
+  <aside class="panel districts" id="districtPanel" aria-label="District breakdown">
+   <div class="panel-head"><b>Affected districts</b><button id="closeDistricts" aria-label="Close district panel">×</button></div>
+   <div class="panel-body">
+    <div class="district-list" id="districtList"><p class="hub-loading">Loading districts…</p></div>
+    <button class="district-reset" id="resetDistrict">Show all areas</button>
+   </div>
+  </aside>
+
+  <div class="tour-card" id="tourCard" hidden>
+   <div class="tour-step" id="tourStep">Stop 1 of 6</div>
+   <h3 id="tourTitle"></h3>
+   <p id="tourText"></p>
+   <div class="tour-dots" id="tourDots"></div>
+   <div class="tour-nav">
+    <button id="tourPrev">← Back</button>
+    <button id="tourNext" class="go">Next →</button>
+    <button id="tourSkip">Skip ✕</button>
+   </div>
+  </div>
 
  <aside class="panel legend" id="legendPanel" aria-label="Map legend">
   <b style="display:block;font-family:'Poppins';font-size:.82rem;margin-bottom:8px;">Map legend</b>
@@ -169,8 +288,17 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 (function(){
- var map=L.map('floodMap',{scrollWheelZoom:false,zoomControl:true}).setView([27.95,85.15],9);
- L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+  var map=L.map('floodMap',{scrollWheelZoom:true,zoomControl:true}).setView([27.95,85.15],9);
+  var REDUCED=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // basemaps — cinematic dark default, streets + satellite one tap away
+  var baseLayers={
+   dark:L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd',attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}),
+   street:L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}),
+   satellite:L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:18,attribution:'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics'})
+  };
+  var currentBase='dark';
+  baseLayers.dark.addTo(map);
 
  var bounds=L.latLngBounds();
  var layers={};
@@ -180,70 +308,299 @@
   'Moderate Risk (800-2000m)':'#fc8d59',
   'Low Risk (2000-4000m)':'#fee08b'
  };
- var colorRank={0:'Extreme',1:'High',2:'Moderate',3:'Low'};
+   var colorRank={0:'Extreme',1:'High',2:'Moderate',3:'Low'};
+   var layerControl=L.control.layers(null,{},{collapsed:true,position:'bottomright'}).addTo(map);
+
+  // shared state for districts, stories + tour
+  var REGION_STYLE={color:'#E11A6E',weight:1.6,opacity:.85,fillColor:'#E11A6E',fillOpacity:.16};
+  var regionsLayer=null, districtBounds={}, selectedDistrict=null, distCounts={};
+  var settlementMarkers=[], settlementsLoaded=false;
+  var counts={units:51,districts:5,settlements:5};
 
  function escapeHtml(v){return String(v==null?'':v).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
  function addBounds(layer){try{if(layer.getBounds){bounds.extend(layer.getBounds());}else if(layer.getLatLng){bounds.extend(layer.getLatLng());}}catch(e){}}
  function updateFit(){if(bounds.isValid()){map.fitBounds(bounds.pad(.06));}}
  function fetchJson(url){return fetch(url).then(function(res){if(!res.ok){throw new Error(url+' '+res.status);}return res.json();});}
 
- Promise.all([
-  fetchJson('/data/rasuwa-flood/affected-regions.geojson'),
-  fetchJson('/data/rasuwa-flood/risk-zones.geojson'),
-  fetchJson('/data/rasuwa-flood/flood-corridor.geojson'),
-  fetchJson('/data/rasuwa-flood/affected-settlements.geojson')
- ]).then(function(data){
-  var regions=data[0], risk=data[1], corridor=data[2], settlements=data[3];
+  // Progressive layer loading with progress + per-layer failure isolation:
+  // one slow/broken file no longer wipes the whole map.
+  var loadStatus=document.getElementById('loadStatus');
+  var loadFill=document.getElementById('loadFill');
+  var mapLoader=document.getElementById('mapLoader');
+  var jobs=[
+   {key:'regions',url:'/data/rasuwa-flood/affected-regions.geojson',label:'Affected areas'},
+   {key:'risk',url:'/data/rasuwa-flood/risk-zones.geojson',label:'Risk zones'},
+   {key:'corridor',url:'/data/rasuwa-flood/flood-corridor.geojson',label:'Flood corridor'},
+   {key:'settlements',url:'/data/rasuwa-flood/affected-settlements.geojson',label:'Settlements'}
+  ];
+  var settled=0, failures=[];
 
-  layers['Affected Areas (current GIS)']=L.geoJSON(regions,{style:{color:'#E11A6E',weight:1.6,opacity:.85,fillColor:'#E11A6E',fillOpacity:.16},onEachFeature:function(feature,layer){
-   var p=feature.properties||{};
-   var name=p.PALIKA||'Affected local unit';
-   var dist=p.DISTRICT||'';
-   var type=p.TYPE||'';
-   var html='<div class="popup-title">'+escapeHtml(name)+'</div>';
-   if(dist) html+='<div class="popup-meta">'+escapeHtml(dist)+' · '+escapeHtml(type||'Local unit')+'</div>';
-   html+='<div class="popup-impact">Mapped as an affected local unit in the current GIS flood analysis.</div>';
-   layer.bindPopup(html);
-   addBounds(layer);
-  }}).addTo(map);
+  function setProgress(){
+   loadStatus.textContent='Loaded '+settled+' of '+jobs.length+' layers…';
+   loadFill.style.width=(settled/jobs.length*100)+'%';
+  }
+  function showLoadNote(msg){
+   var n=document.createElement('div');
+   n.className='load-note';
+   var s=document.createElement('span'); s.textContent=msg; n.appendChild(s);
+   var x=document.createElement('button'); x.setAttribute('aria-label','Dismiss'); x.textContent='×';
+   x.addEventListener('click',function(){ n.remove(); });
+   n.appendChild(x);
+   document.querySelector('.app').appendChild(n);
+   setTimeout(function(){ if(n.parentNode) n.remove(); },9000);
+  }
+  function riskNote(zone){
+   zone=String(zone||'');
+   if(zone.indexOf('Extreme')>-1) return 'Land closest to the channel — highest exposure.';
+   if(zone.indexOf('High')>-1) return 'Near-channel band — stay alert during heavy rain.';
+   if(zone.indexOf('Moderate')>-1) return 'Mid-distance band — awareness level.';
+   if(zone.indexOf('Low')>-1) return 'Outer band — lowest mapped exposure.';
+   return 'Risk band for awareness mapping.';
+  }
 
-  layers['GLOF Flood Risk Zones']=L.geoJSON(risk,{style:function(feature){var zone=feature.properties&&feature.properties.zone;return{color:colors[zone]||feature.properties.color||'#d7301f',weight:1.1,opacity:.7,fillColor:colors[zone]||feature.properties.color||'#d7301f',fillOpacity:zone&&zone.indexOf('Extreme')>-1?.32:.2};},onEachFeature:function(feature,layer){var zone=feature.properties&&feature.properties.zone||'Flood risk zone';layer.bindPopup('<div class="popup-title">'+escapeHtml(zone)+'</div><div class="popup-impact">Risk band for awareness mapping.</div>');addBounds(layer);}}).addTo(map);
+  function addLayer(key,data){
+   if(key==='regions'){
+    var regions=data;
+    (regions.features||[]).forEach(function(f){var d=(f.properties||{}).DISTRICT||'Unknown';distCounts[d]=(distCounts[d]||0)+1;});
+    layers['Affected Areas (Sept 2026)']=L.geoJSON(regions,{style:REGION_STYLE,onEachFeature:function(feature,layer){
+     var p=feature.properties||{};
+     var name=p.PALIKA||'Affected local unit';
+     var dist=p.DISTRICT||'';
+     var type=p.TYPE||'';
+     var meta=[dist,type].filter(Boolean).join(' · ');
+     var html='<div class="popup-title">'+escapeHtml(name)+'</div>';
+     if(meta) html+='<div class="popup-meta">'+escapeHtml(meta)+'</div>';
+     var nInDist=dist&&distCounts[dist]?distCounts[dist]:0;
+     html+='<div class="popup-impact">Affected local unit in the Sept 2026 GIS flood analysis'+(nInDist>1?' — one of '+nInDist+' mapped in '+escapeHtml(dist):'')+'.</div>';
+     layer.bindPopup(html);
+     addBounds(layer);
+     if(dist){ try{ var b=layer.getBounds(); if(districtBounds[dist]) districtBounds[dist].extend(b); else districtBounds[dist]=b; }catch(e){} }
+    }}).addTo(map);
+    regionsLayer=layers['Affected Areas (Sept 2026)'];
+    layerControl.addOverlay(layers['Affected Areas (Sept 2026)'],'Affected Areas (Sept 2026)');
+    counts.units=(regions.features||[]).length;
+    counts.districts=Object.keys(distCounts).length;
+    countUp(document.getElementById('statRegions'),counts.units);
+    countUp(document.getElementById('statDistricts'),counts.districts);
+    renderDistrictList();
+   } else if(key==='risk'){
+    var risk=data;
+    layers['GLOF Flood Risk Zones']=L.geoJSON(risk,{style:function(feature){var zone=feature.properties&&feature.properties.zone;return{color:colors[zone]||feature.properties.color||'#d7301f',weight:1.1,opacity:.7,fillColor:colors[zone]||feature.properties.color||'#d7301f',fillOpacity:zone&&zone.indexOf('Extreme')>-1?.32:.2};},onEachFeature:function(feature,layer){var zone=feature.properties&&feature.properties.zone||'Flood risk zone';layer.bindPopup('<div class="popup-title">'+escapeHtml(zone)+'</div><div class="popup-impact">'+escapeHtml(riskNote(zone))+'</div>');addBounds(layer);}}).addTo(map);
+    layerControl.addOverlay(layers['GLOF Flood Risk Zones'],'GLOF Flood Risk Zones');
+   } else if(key==='corridor'){
+    var corridor=data;
+    layers['Flood Corridor']=L.geoJSON(corridor,{style:{color:'#0E7490',weight:3,opacity:.85,lineCap:'round'},onEachFeature:function(feature,layer){layer.bindPopup('<div class="popup-title">Flood corridor</div><div class="popup-impact">Mapped corridor or river feature from the GIS dataset.</div>');addBounds(layer);}}).addTo(map);
+    layerControl.addOverlay(layers['Flood Corridor'],'Flood Corridor');
+   } else if(key==='settlements'){
+    var settlements=data;
+    layers['Affected Settlements']=L.geoJSON(settlements,{pointToLayer:function(feature,latlng){return L.marker(latlng,{icon:L.divIcon({className:'',html:'<div class="settlement-marker"></div>',iconSize:[22,22],iconAnchor:[11,11],popupAnchor:[0,-12]})});},onEachFeature:function(feature,layer){var p=feature.properties||{};layer.bindPopup('<div class="popup-title">'+escapeHtml(p.name||'Affected settlement')+'</div><div class="popup-impact">'+escapeHtml(p.impact||'Affected area noted in the GIS layer.')+'</div><a class="popup-link" href="/flood-help">Missing-person record →</a>');addBounds(layer);var ll=null;try{ll=layer.getLatLng?layer.getLatLng():null;}catch(e){} settlementMarkers.push({name:p.name||'Affected settlement',impact:p.impact||'',ll:ll,marker:layer});}}).addTo(map);
+    layerControl.addOverlay(layers['Affected Settlements'],'Affected Settlements');
+    counts.settlements=(settlements.features||[]).length;
+    countUp(document.getElementById('statSettlements'),counts.settlements);
+    settlementsLoaded=true;
+    renderStories();
+    var tb=document.getElementById('tourBtn'); if(tb){ tb.disabled=false; }
+   }
+  }
 
-  layers['Flood Corridor']=L.geoJSON(corridor,{style:{color:'#0E7490',weight:3,opacity:.85,lineCap:'round'},onEachFeature:function(feature,layer){layer.bindPopup('<div class="popup-title">Flood corridor</div><div class="popup-impact">Mapped corridor or river feature from the GIS dataset.</div>');addBounds(layer);}}).addTo(map);
+  setProgress();
+  var pending=jobs.map(function(job){
+   return fetchJson(job.url).then(function(data){
+    addLayer(job.key,data);
+   },function(){
+    failures.push(job.label);
+   }).then(function(){
+    settled++;
+    if(settled<jobs.length) setProgress();
+   });
+  });
+  Promise.all(pending).then(function(){
+   loadStatus.textContent='Rendering…'; loadFill.style.width='100%';
+   mapLoader.classList.add('hide');
+   if(failures.length) showLoadNote('Could not load: '+failures.join(', ')+'. Showing the rest.');
+   updateFit();
+  });
 
-  layers['Affected Settlements']=L.geoJSON(settlements,{pointToLayer:function(feature,latlng){return L.marker(latlng,{icon:L.divIcon({className:'',html:'<div class="settlement-marker"></div>',iconSize:[22,22],iconAnchor:[11,11],popupAnchor:[0,-12]})});},onEachFeature:function(feature,layer){var p=feature.properties||{};layer.bindPopup('<div class="popup-title">'+escapeHtml(p.name||'Affected settlement')+'</div><div class="popup-impact">'+escapeHtml(p.impact||'Affected area noted in the GIS layer.')+'</div>');addBounds(layer);}}).addTo(map);
+  // animated stat counters (instant when reduced motion is preferred)
+  function countUp(elm,target){
+   target=Number(target)||0;
+   if(!elm) return;
+   if(REDUCED||!window.requestAnimationFrame){ elm.textContent=target; return; }
+   var t0=null,dur=900;
+   function frame(t){ if(!t0)t0=t; var p=Math.min(1,(t-t0)/dur); elm.textContent=Math.round(target*(1-Math.pow(1-p,3))); if(p<1) window.requestAnimationFrame(frame); }
+   window.requestAnimationFrame(frame);
+  }
 
-  L.control.layers(null,layers,{collapsed:true,position:'topright'}).addTo(map);
+  // basemap switching — overlays stay legible on every style
+  var BASE_META={dark:{icon:'🌙',label:'Dark'},street:{icon:'🗺',label:'Streets'},satellite:{icon:'🛰',label:'Satellite'}};
+  var BASE_ORDER=['dark','street','satellite'];
+  var baseCycleBtn=document.getElementById('baseCycle');
+  var baseCycleLabel=document.getElementById('baseCycleLabel');
+  function paintBaseUI(){
+   document.querySelectorAll('#baseSwitch button').forEach(function(b){ b.classList.toggle('on',b.getAttribute('data-base')===currentBase); });
+   if(baseCycleBtn) baseCycleBtn.firstChild.nodeValue=BASE_META[currentBase].icon;
+   if(baseCycleLabel) baseCycleLabel.textContent=BASE_META[currentBase].label;
+  }
+  function setBasemap(name){
+   if(!baseLayers[name]||name===currentBase) return;
+   map.removeLayer(baseLayers[currentBase]);
+   baseLayers[name].addTo(map);
+   currentBase=name;
+   var fill=name==='satellite'?.24:.16;
+   if(!selectedDistrict&&layers['Affected Areas (Sept 2026)']) layers['Affected Areas (Sept 2026)'].setStyle({fillOpacity:fill});
+   paintBaseUI();
+  }
+  document.querySelectorAll('#baseSwitch button').forEach(function(b){
+   b.addEventListener('click',function(){ setBasemap(b.getAttribute('data-base')); });
+  });
+  if(baseCycleBtn) baseCycleBtn.addEventListener('click',function(){
+   setBasemap(BASE_ORDER[(BASE_ORDER.indexOf(currentBase)+1)%BASE_ORDER.length]);
+  });
 
-  var distCount={};
-  (regions.features||[]).forEach(function(f){var d=(f.properties||{}).DISTRICT||'Unknown';distCount[d]=(distCount[d]||0)+1;});
-  document.getElementById('statRegions').textContent=(regions.features||[]).length;
-  document.getElementById('statDistricts').textContent=Object.keys(distCount).length;
-  document.getElementById('statSettlements').textContent=(settlements.features||[]).length;
+  // district breakdown — counts + zoom, computed from the loaded regions
+  var districtPanel=document.getElementById('districtPanel');
+  var districtList=document.getElementById('districtList');
+  function renderDistrictList(){
+   if(!districtList) return;
+   districtList.innerHTML='';
+   var names=Object.keys(distCounts).sort(function(a,b){return distCounts[b]-distCounts[a];});
+   if(!names.length){ districtList.innerHTML='<p class="hub-loading">District data unavailable.</p>'; return; }
+   names.forEach(function(d){
+    var btn=document.createElement('button');
+    btn.className='district'+(selectedDistrict===d?' on':'');
+    var b=document.createElement('b'); b.textContent=d; btn.appendChild(b);
+    var sub=document.createElement('small'); sub.textContent=distCounts[d]+' unit'+(distCounts[d]===1?'':'s')+' · tap to zoom'; b.appendChild(sub);
+    var n=document.createElement('span'); n.textContent=distCounts[d]; btn.appendChild(n);
+    btn.addEventListener('click',function(){ selectDistrict(d); });
+    districtList.appendChild(btn);
+   });
+  }
+  function selectDistrict(d){
+   if(!regionsLayer) return;
+   selectedDistrict=d;
+   var b=districtBounds[d];
+   if(b&&b.isValid&&b.isValid()){ try{ map.fitBounds(b.pad(.12)); }catch(e){} }
+   regionsLayer.eachLayer(function(l){
+    var match=((l.feature||{}).properties||{}).DISTRICT===d;
+    try{ l.setStyle(match?{weight:3,opacity:1,fillOpacity:.42}:{weight:1,opacity:.35,fillOpacity:.06}); }catch(e){}
+   });
+   renderDistrictList();
+  }
+  function resetDistrict(){
+   selectedDistrict=null;
+   if(regionsLayer){ try{ regionsLayer.eachLayer(function(l){ l.setStyle(REGION_STYLE); }); }catch(e){} }
+   updateFit();
+   renderDistrictList();
+  }
+  document.getElementById('toggleDistricts').addEventListener('click',function(){
+   var show=districtPanel.classList.toggle('show');
+   if(show){ legendPanel.classList.remove('show'); syncLegendBtn(); }
+  });
+  document.getElementById('closeDistricts').addEventListener('click',function(){ districtPanel.classList.remove('show'); });
+  document.getElementById('resetDistrict').addEventListener('click',function(){ resetDistrict(); });
 
-  fetch('/flood-help').then(function(r){return r.text();}).then(function(html){
-   var m=html.match(/<div class="missing-card/g);
-   var n=m?m.length:0;
-   if(n>0){document.getElementById('peopleText').innerHTML='Live missing-person reports on this site: <b>'+n+'</b>. Official affected-population figures are under verification. <a href="/flood-help">Full list →</a>';}
-  }).catch(function(){});
+  // settlement stories in the help hub — tap to fly there
+  function flyToLatLng(ll,zoom){
+   if(!ll) return;
+   if(REDUCED) map.setView(ll,zoom||12);
+   else map.flyTo(ll,zoom||12,{duration:1.6});
+  }
+  function renderStories(){
+   var list=document.getElementById('storyList');
+   if(!list) return;
+   list.innerHTML='';
+   if(!settlementMarkers.length){ list.innerHTML='<p class="hub-loading">Place stories unavailable.</p>'; return; }
+   settlementMarkers.forEach(function(sm){
+    var btn=document.createElement('button');
+    btn.className='story';
+    var pin=document.createElement('span'); pin.className='pin'; btn.appendChild(pin);
+    var txt=document.createElement('span');
+    var b=document.createElement('b'); b.textContent=sm.name; txt.appendChild(b);
+    var s=document.createElement('span'); s.textContent=sm.impact||'Affected settlement noted in the GIS layer.'; txt.appendChild(s);
+    btn.appendChild(txt);
+    btn.addEventListener('click',function(){ flyToLatLng(sm.ll,12); try{ sm.marker.openPopup(); }catch(e){} });
+    list.appendChild(btn);
+   });
+  }
 
-  updateFit();
- }).catch(function(error){
-  var el=document.getElementById('floodMap');
-  el.innerHTML='<div style="padding:24px;font-family:Inter,sans-serif;color:#1B1836;line-height:1.6"><b>Map data could not load.</b><br>'+escapeHtml(error.message)+'</div>';
- });
+  // guided fly-through tour — any manual map input hands control back instantly
+  var tour={active:false,i:0,steps:[]};
+  var tourCard=document.getElementById('tourCard');
+  function buildTourSteps(){
+   var steps=[{title:'The Sept 2026 flood corridor',text:counts.units+' local units across '+counts.districts+' districts, mapped from the Zone 7 QGIS analysis. This tour flies through the hardest-hit settlements.',fit:true}];
+   settlementMarkers.forEach(function(sm){
+    steps.push({title:sm.name,text:sm.impact||'Affected settlement noted in the GIS layer.',ll:sm.ll,marker:sm.marker});
+   });
+   return steps;
+  }
+  function showStep(i){
+   tour.i=i;
+   var s=tour.steps[i];
+   document.getElementById('tourStep').textContent='Stop '+(i+1)+' of '+tour.steps.length;
+   document.getElementById('tourTitle').textContent=s.title;
+   document.getElementById('tourText').textContent=s.text;
+   var dots=document.getElementById('tourDots');
+   dots.innerHTML='';
+   tour.steps.forEach(function(st,j){
+    var d=document.createElement('button');
+    d.setAttribute('aria-label','Go to stop '+(j+1));
+    if(j===i) d.className='on';
+    d.addEventListener('click',function(){ showStep(j); });
+    dots.appendChild(d);
+   });
+   document.getElementById('tourPrev').disabled=(i===0);
+   document.getElementById('tourNext').textContent=(i===tour.steps.length-1)?'Finish ✓':'Next →';
+   if(s.fit) updateFit();
+   else if(s.ll){ if(REDUCED) map.setView(s.ll,12); else map.flyTo(s.ll,12,{duration:2}); }
+   if(s.marker){ try{ s.marker.openPopup(); }catch(e){} }
+  }
+  function startTour(){
+   if(!settlementMarkers.length||tour.active) return;
+   tour.steps=buildTourSteps();
+   tour.active=true;
+   tourCard.hidden=false;
+   document.body.classList.add('touring');
+   showStep(0);
+  }
+  function endTour(){
+   tour.active=false;
+   tourCard.hidden=true;
+   document.body.classList.remove('touring');
+  }
+  document.getElementById('tourBtn').addEventListener('click',function(){ startTour(); });
+  document.getElementById('tourNext').addEventListener('click',function(){
+   if(tour.i>=tour.steps.length-1) endTour(); else showStep(tour.i+1);
+  });
+  document.getElementById('tourPrev').addEventListener('click',function(){ if(tour.i>0) showStep(tour.i-1); });
+  document.getElementById('tourSkip').addEventListener('click',function(){ endTour(); });
+  map.on('dragstart',function(){ if(tour.active) endTour(); });
+  var floodMapEl=document.getElementById('floodMap');
+  floodMapEl.addEventListener('wheel',function(){ if(tour.active) endTour(); },{passive:true});
+  floodMapEl.addEventListener('touchstart',function(){ if(tour.active) endTour(); },{passive:true});
 
- document.getElementById('fitMap').addEventListener('click',function(){updateFit();});
- var legendPanel=document.getElementById('legendPanel');
- document.getElementById('toggleLegend').addEventListener('click',function(){
-  var show=legendPanel.classList.toggle('show');
-  this.classList.toggle('active',show);
- });
- var heroPanel=document.getElementById('heroPanel');
- document.getElementById('toggleHero').addEventListener('click',function(){
-  var collapsed=heroPanel.classList.toggle('collapsed');
-  this.textContent=collapsed?'+':'−';
- });
+  document.getElementById('fitMap').addEventListener('click',function(){updateFit();});
+  var legendPanel=document.getElementById('legendPanel');
+  var legendBtn=document.getElementById('toggleLegend');
+  legendBtn.addEventListener('click',function(){
+   var show=legendPanel.classList.toggle('show');
+   this.classList.toggle('active',show);
+   if(show) districtPanel.classList.remove('show');
+  });
+  // the button starts "active" but the legend starts hidden on phones — sync to reality
+  function syncLegendBtn(){
+   var small=window.matchMedia('(max-width:640px)').matches;
+   legendBtn.classList.toggle('active',!small||legendPanel.classList.contains('show'));
+  }
+  syncLegendBtn();
+  var rsT; window.addEventListener('resize',function(){clearTimeout(rsT);rsT=setTimeout(syncLegendBtn,150);});
+  var heroPanel=document.getElementById('heroPanel');
+  function toggleHeroPanel(){
+   var collapsed=heroPanel.classList.toggle('collapsed');
+   document.getElementById('toggleHero').textContent=collapsed?'+':'−';
+  }
+  document.getElementById('toggleHero').addEventListener('click',function(e){e.stopPropagation();toggleHeroPanel();});
+  // whole header is tappable — the − button alone is a hard touch target
+  document.querySelector('#heroPanel .panel-head').addEventListener('click',function(){toggleHeroPanel();});
  setTimeout(function(){map.invalidateSize();updateFit();},300);
 })();
 </script>

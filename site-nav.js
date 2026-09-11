@@ -54,51 +54,85 @@
   var current = host.getAttribute("data-current") || "";
   var ctaMode = host.getAttribute("data-cta") || "join";
 
-  // inject global flood banner once per page (visible everywhere, not just index)
+  // === Crisis Mode ===
+  // When a district/zone emergency is active, set active:true and redeploy.
+  // This restores the top alert banner, mobile bottom quick-action bar,
+  // desktop nav pills, and mobile-menu crisis cards on every page
+  // (except the flood/volunteer pages themselves to avoid self-linking).
+  // Peace time: active:false → nothing renders anywhere.
+  var ZONE7_CRISIS = {
+    active: false,
+    endsOn: null, // optional "YYYY-MM-DD" safety net — the banner auto-expires past this date
+    badge: "🚨 Rasuwa • Volunteers Needed",
+    message: 'District 3292 call — register as rescue volunteer. For immediate rescue call <a href="tel:1149" style="color:#A80F52; font-weight:700; text-decoration:underline; text-underline-offset:2px;">1149</a>. <span style="display:none;" class="flood-banner-long">Mobilised only via authorities.</span>',
+    volunteerUrl: "/volunteers",
+    volunteerLabel: "Register as Volunteer →",
+    helpUrl: "/flood-help",
+    helpLabel: "Flood Help",
+    helpCount: "13", // small count badge; "" hides it
+    bottomHelpLabel: "🛟 Flood Help",
+    bottomVolLabel: "🚨 Volunteer",
+    mobileHelpTitle: "🛟 Flood Help — Rescue & Missing",
+    mobileVolTitle: "🚨 Volunteer for Flood Relief"
+  };
+
+  function crisisActive(){
+    if(!ZONE7_CRISIS.active) return false;
+    if(ZONE7_CRISIS.endsOn){
+      try{ if(new Date() > new Date(ZONE7_CRISIS.endsOn + "T23:59:59+05:45")) return false; }catch(e){}
+    }
+    return true;
+  }
+
+  function crisisExcluded(){
+    var p = location.pathname.replace(/\/+$/, "");
+    return p === "/flood-help" || p === "/volunteers" || p === "/volunteer" ||
+      p === "/rasuwa-volunteers" || p === "/rasuwa" || p === "/rasuwa-flood-map" || p === "/flood-map";
+  }
+
+  // inject global crisis banner once per page (visible everywhere, not just index)
   (function injectFloodBanner(){
+    if(!crisisActive() || crisisExcluded()) return;
     if(document.getElementById("zone7FloodBanner")) return;
-    // hide on both flood pages to avoid self-link
-    var p=location.pathname.replace(/\/+$/,"");
-    if(p==="/flood-help" || p==="/volunteers" || p==="/volunteer" || p==="/rasuwa-volunteers" || p==="/rasuwa" || p==="/rasuwa-flood-map" || p==="/flood-map") return;
-    var b=document.createElement("div");
-    b.id="zone7FloodBanner";
-    b.setAttribute("role","alert");
-    b.style.cssText="background:linear-gradient(90deg, #FFF3E6 0%, #FFF8EF 100%); border-bottom:1px solid rgba(255,140,26,0.22); padding:10px 0; font-family:'Inter',sans-serif; font-size:0.82rem; line-height:1.5; position:relative; z-index:101;";
-    b.innerHTML='<div class="wrap" style="max-width:1080px; margin:0 auto; padding:0 28px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">'
-      +'<b style="background:#E11A6E; color:#fff; padding:5px 12px; border-radius:100px; font-size:0.70rem; letter-spacing:0.06em; text-transform:uppercase; flex-shrink:0;">🚨 Rasuwa • Volunteers Needed</b>'
-      +'<span style="color:#1B1836;">District 3292 call — register as rescue volunteer. For immediate rescue call <a href="tel:1149" style="color:#A80F52; font-weight:700; text-decoration:underline; text-underline-offset:2px;">1149</a>. <span style="display:none;" class="flood-banner-long">Mobilised only via authorities.</span></span>'
-      +'<span style="margin-left:auto; display:flex; gap:8px; align-items:center; flex-wrap:wrap; flex-shrink:0;">'
-      +'<a href="/volunteers" style="background:#E11A6E; color:#fff; padding:8px 16px; border-radius:100px; font-weight:700; font-size:0.82rem; white-space:nowrap; text-decoration:none;">Register as Volunteer →</a>'
-      +'<a href="/flood-help" style="background:#fff; color:var(--ink, #1B1836); border:1px solid rgba(27,24,54,.12); padding:8px 14px; border-radius:100px; font-weight:700; font-size:0.78rem; white-space:nowrap; text-decoration:none;">Flood Help</a>'
-      +'</span>'
-      +'<button aria-label="Dismiss" onclick="this.parentElement.parentElement.remove()" style="background:none; border:none; cursor:pointer; font-size:1.1rem; line-height:1; color:rgba(27,24,54,0.45); padding:4px 6px; flex-shrink:0;">×</button>'
-      +'</div>';
+    var b = document.createElement("div");
+    b.id = "zone7FloodBanner";
+    b.setAttribute("role", "alert");
+    b.style.cssText = "background:linear-gradient(90deg, #FFF3E6 0%, #FFF8EF 100%); border-bottom:1px solid rgba(255,140,26,0.22); padding:10px 0; font-family:'Inter',sans-serif; font-size:0.82rem; line-height:1.5; position:relative; z-index:101;";
+    b.innerHTML = '<div class="wrap" style="max-width:1080px; margin:0 auto; padding:0 28px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">'
+      + '<b style="background:#E11A6E; color:#fff; padding:5px 12px; border-radius:100px; font-size:0.70rem; letter-spacing:0.06em; text-transform:uppercase; flex-shrink:0;">' + ZONE7_CRISIS.badge + '</b>'
+      + '<span style="color:#1B1836;">' + ZONE7_CRISIS.message + '</span>'
+      + '<span style="margin-left:auto; display:flex; gap:8px; align-items:center; flex-wrap:wrap; flex-shrink:0;">'
+      + '<a href="' + ZONE7_CRISIS.volunteerUrl + '" style="background:#E11A6E; color:#fff; padding:8px 16px; border-radius:100px; font-weight:700; font-size:0.82rem; white-space:nowrap; text-decoration:none;">' + ZONE7_CRISIS.volunteerLabel + '</a>'
+      + '<a href="' + ZONE7_CRISIS.helpUrl + '" style="background:#fff; color:var(--ink, #1B1836); border:1px solid rgba(27,24,54,.12); padding:8px 14px; border-radius:100px; font-weight:700; font-size:0.78rem; white-space:nowrap; text-decoration:none;">' + ZONE7_CRISIS.helpLabel + '</a>'
+      + '</span>'
+      + '<button aria-label="Dismiss" onclick="this.parentElement.parentElement.remove()" style="background:none; border:none; cursor:pointer; font-size:1.1rem; line-height:1; color:rgba(27,24,54,0.45); padding:4px 6px; flex-shrink:0;">×</button>'
+      + '</div>';
     // insert before siteNav so sticky nav stays below it
-    var host=document.getElementById("siteNav");
+    var host = document.getElementById("siteNav");
     if(host && host.parentNode) host.parentNode.insertBefore(b, host);
     else document.body.insertBefore(b, document.body.firstChild);
     // reveal long text on wider screens
-    if(window.innerWidth>640){
-      var el=b.querySelector(".flood-banner-long");
-      if(el) el.style.display="inline";
+    if(window.innerWidth > 640){
+      var el = b.querySelector(".flood-banner-long");
+      if(el) el.style.display = "inline";
     }
   })();
   (function injectBottomBar(){
+    if(!crisisActive() || crisisExcluded()) return;
     if(document.getElementById("zone7BottomBar")) return;
-    var p=location.pathname.replace(/\/+$/,"");
-    if(p==="/flood-help" || p==="/volunteers" || p==="/volunteer" || p==="/rasuwa-volunteers" || p==="/rasuwa" || p==="/rasuwa-flood-map" || p==="/flood-map") return;
-    var bar=document.createElement("div");
-    bar.id="zone7BottomBar";
-    bar.setAttribute("role","navigation");
-    bar.setAttribute("aria-label","Quick flood actions");
-    bar.innerHTML='<a href="/flood-help" style="background:#E11A6E; color:#fff; flex:1; padding:12px 14px; border-radius:100px; font-weight:700; font-size:0.84rem; display:flex; gap:6px; align-items:center; justify-content:center; text-decoration:none; white-space:nowrap;">🛟 Flood Help • 13</a>'
-      +'<a href="/volunteers" style="background:#fff; color:#E11A6E; border:1.5px solid #E11A6E; flex:1; padding:12px 14px; border-radius:100px; font-weight:700; font-size:0.84rem; display:flex; gap:6px; align-items:center; justify-content:center; text-decoration:none; white-space:nowrap;">🚨 Volunteer</a>';
+    var helpTxt = ZONE7_CRISIS.bottomHelpLabel + (ZONE7_CRISIS.helpCount ? " • " + ZONE7_CRISIS.helpCount : "");
+    var bar = document.createElement("div");
+    bar.id = "zone7BottomBar";
+    bar.setAttribute("role", "navigation");
+    bar.setAttribute("aria-label", "Quick emergency actions");
+    bar.innerHTML = '<a href="' + ZONE7_CRISIS.helpUrl + '" style="background:#E11A6E; color:#fff; flex:1; padding:12px 14px; border-radius:100px; font-weight:700; font-size:0.84rem; display:flex; gap:6px; align-items:center; justify-content:center; text-decoration:none; white-space:nowrap;">' + helpTxt + '</a>'
+      + '<a href="' + ZONE7_CRISIS.volunteerUrl + '" style="background:#fff; color:#E11A6E; border:1.5px solid #E11A6E; flex:1; padding:12px 14px; border-radius:100px; font-weight:700; font-size:0.84rem; display:flex; gap:6px; align-items:center; justify-content:center; text-decoration:none; white-space:nowrap;">' + ZONE7_CRISIS.bottomVolLabel + '</a>';
     document.body.appendChild(bar);
     function setPad(){
-      if(window.innerWidth<=920){
-        document.body.style.paddingBottom="72px";
+      if(window.innerWidth <= 920){
+        document.body.style.paddingBottom = "72px";
       } else {
-        document.body.style.paddingBottom="";
+        document.body.style.paddingBottom = "";
       }
     }
     setPad();
@@ -156,9 +190,6 @@
     "#siteNav .mobile-menu a.mm-cta{background:#1B1836;color:#fff;border-radius:100px;text-align:center;padding:13px;border:none;margin-top:14px}",
     "@media (max-width:920px){#siteNav .navlinks,#siteNav .nav-admin,#siteNav .nav-cta,#siteNav .back,#siteNav .nav-emergency{display:none}#siteNav .burger{display:block} #siteNav .wrap{gap:10px; padding:0 14px} #siteNav .brand{font-size:.95rem} #siteNav .brand .z{width:30px;height:30px;font-size:.95rem}}",
     "@media (max-width:380px){#siteNav .nav-emergency{gap:5px} #siteNav .nav-emergency a{padding:5px 8px;font-size:.68rem} #siteNav .nav-emergency a .hide-sm{display:none}}",
-    "@media (max-width:1160px) and (min-width:921px){#siteNav .navlinks{gap:16px}#siteNav .wrap{gap:14px}}",
-    ".skip-link{position:fixed;top:-70px;left:16px;z-index:300;background:#A80F52;color:#fff;padding:11px 20px;border-radius:0 0 12px 12px;font-weight:700;font-size:.85rem;box-shadow:0 12px 28px rgba(27,24,54,.25);transition:top .2s}",
-    ".skip-link:focus{top:0}",
     "#backTop{position:fixed;left:22px;bottom:26px;z-index:94;width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;background:#1B1836;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s,background .2s;box-shadow:0 12px 28px rgba(27,24,54,.3)}",
     "#backTop.show{opacity:1;pointer-events:auto;transform:translateY(0)}",
     "#backTop:hover{background:#A80F52}",
@@ -193,6 +224,25 @@
     learnItem("/club-guides", "📚", "Guides for Clubs", "The playbook for running a great club all year", "guides") +
     learnItem("/rkt-quiz", "🧠", "RKT Practice Quiz", "Test your Rotaract knowledge in 2 minutes", "quiz");
 
+  // Crisis-mode UI: rendered only while ZONE7_CRISIS.active is true
+  // (and not on the crisis pages themselves).
+  var inCrisis = crisisActive() && !crisisExcluded();
+  var crisisPills = "";
+  var crisisCards = "";
+  if (inCrisis) {
+    var helpPillCount = ZONE7_CRISIS.helpCount
+      ? '<span style="background:#FF8C1A; color:#fff; padding:2px 6px; border-radius:100px; font-size:.62rem; margin-left:2px;">' + ZONE7_CRISIS.helpCount + "</span>"
+      : "";
+    crisisPills =
+      '<div class="nav-emergency">'
+      + '<a href="' + ZONE7_CRISIS.volunteerUrl + '" style="background:linear-gradient(120deg,#DC2626,#E11A6E); color:#fff; box-shadow:0 6px 14px rgba(220,38,38,.18);"><span>🚨</span><span class="hide-sm"> Volunteers</span><span style="background:rgba(255,255,255,.22); color:#fff; padding:2px 6px; border-radius:100px; font-size:.62rem; margin-left:2px;">NEW</span></a>'
+      + '<a href="' + ZONE7_CRISIS.helpUrl + '" style="background:#FFF8EF; color:#9a4a00; border:1.5px solid rgba(255,140,26,.22);"><span>🛟</span><span class="hide-sm"> Flood</span>' + helpPillCount + "</a>"
+      + "</div>";
+    crisisCards =
+      '<a href="' + ZONE7_CRISIS.helpUrl + '" style="background:linear-gradient(135deg,#FF8C1A,#E11A6E); color:#fff; border:none; border-radius:14px; padding:14px 16px; font-weight:800; font-size:1.0rem; display:flex; justify-content:space-between; align-items:center; box-shadow:0 8px 20px rgba(225,26,110,0.18); margin-bottom:10px;"><span>' + ZONE7_CRISIS.mobileHelpTitle + "</span>" + (ZONE7_CRISIS.helpCount ? '<span style="background:#fff; color:#E11A6E; padding:4px 10px; border-radius:100px; font-size:0.74rem; font-weight:900;">' + ZONE7_CRISIS.helpCount + "</span>" : "") + "</a>"
+      + '<a href="' + ZONE7_CRISIS.volunteerUrl + '" style="background:#E11A6E; color:#fff; border:none; border-radius:14px; padding:12px 16px; font-weight:700; font-size:0.95rem; display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;"><span>' + ZONE7_CRISIS.mobileVolTitle + '</span><span style="background:#fff; color:#E11A6E; padding:3px 8px; border-radius:100px; font-size:0.70rem; font-weight:700;">Join</span></a>';
+  }
+
   var ctaHtml = "";
   if (ctaMode === "home") {
     ctaHtml = '<a href="/" class="btn nav-cta">← Back Home</a>';
@@ -220,10 +270,7 @@
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
     "</div>" +
-    '<div class="nav-emergency">' +
-    '<a href="/volunteers" style="background:linear-gradient(120deg,#DC2626,#E11A6E); color:#fff; box-shadow:0 6px 14px rgba(220,38,38,.18);"><span>🚨</span><span class="hide-sm"> Volunteers</span><span style="background:rgba(255,255,255,.22); color:#fff; padding:2px 6px; border-radius:100px; font-size:.62rem; margin-left:2px;">NEW</span></a>' +
-    '<a href="/flood-help" style="background:#FFF8EF; color:#9a4a00; border:1.5px solid rgba(255,140,26,.22);"><span>🛟</span><span class="hide-sm"> Flood</span><span style="background:#FF8C1A; color:#fff; padding:2px 6px; border-radius:100px; font-size:.62rem; margin-left:2px;">13</span></a>' +
-    "</div>" +
+    crisisPills +
     '<div style="display:flex;align-items:center;gap:16px;">' +
     '<a href="/admin" class="nav-admin">Club Admin</a>' +
     ctaHtml +
@@ -231,8 +278,7 @@
     "</div>" +
     "</div>" +
     '<div class="mobile-menu" id="mobileMenu">' +
-    '<a href="/flood-help" style="background:linear-gradient(135deg,#FF8C1A,#E11A6E); color:#fff; border:none; border-radius:14px; padding:14px 16px; font-weight:800; font-size:1.0rem; display:flex; justify-content:space-between; align-items:center; box-shadow:0 8px 20px rgba(225,26,110,0.18); margin-bottom:10px;"><span>🛟 Flood Help — Rescue & Missing</span><span style="background:#fff; color:#E11A6E; padding:4px 10px; border-radius:100px; font-size:0.74rem; font-weight:900;">13</span></a>' +
-    '<a href="/volunteers" style="background:#E11A6E; color:#fff; border:none; border-radius:14px; padding:12px 16px; font-weight:700; font-size:0.95rem; display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;"><span>🚨 Volunteer for Flood Relief</span><span style="background:#fff; color:#E11A6E; padding:3px 8px; border-radius:100px; font-size:0.70rem; font-weight:700;">Join</span></a>' +
+    crisisCards +
     item("/about", "About", "about") +
     '<div class="mm-group">Clubs</div>' +
     '<a href="/#clubs">All 9 Clubs in Zone 7</a>' +
@@ -319,17 +365,6 @@
       if (burger) burger.setAttribute("aria-expanded", "false");
     }
   });
-
-  var skip = document.createElement("a");
-  skip.href = "#siteMain";
-  skip.className = "skip-link";
-  skip.textContent = "Skip to content";
-  document.body.insertBefore(skip, document.body.firstChild);
-  var mainTarget = document.querySelector("main, #content, .hero, .game-wrap");
-  if (mainTarget) {
-    if (!mainTarget.id) mainTarget.id = "siteMain";
-    mainTarget.setAttribute("tabindex", "-1");
-  }
 
   var backTop = document.createElement("button");
   backTop.type = "button";

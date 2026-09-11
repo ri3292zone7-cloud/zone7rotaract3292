@@ -252,7 +252,8 @@
 <div class="flood-alert">
  <div class="wrap">
  <b>Flood Help</b>
- <span>Information only, no rescue team. For rescue call <a href="tel:1149">1149</a> / <a href="tel:100">100</a>. Last checked <span id="lastChecked">,</span>.</span>
+ <b style="background:#1B1836;">Response concluded · historical record</b>
+ <span>Record of the Sept 2026 Rasuwa flood response. For any current emergency call <a href="tel:1149">1149</a> / <a href="tel:100">100</a>.</span>
   <a href="/rasuwa-flood-map" style="margin-left:auto; font-weight:700; color:var(--magenta-deep); text-decoration:underline;">GIS map →</a>
   <a href="#missing" style="font-weight:700; color:var(--magenta-deep); text-decoration:underline;">13 missing →</a>
  </div>
@@ -288,7 +289,7 @@
  </div>
 
  <div class="card">
-  <div class="card-head"><b id="missingCount">13 reports • live</b><span>Public • tap a contact to call • <a href="https://flood.sodhera.com" target="_blank" rel="noopener" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">flood.sodhera.com →</a></span></div>
+  <div class="card-head"><b id="missingCount">13 reports • in record</b><span>Public • tap a contact to call • <a href="https://flood.sodhera.com" target="_blank" rel="noopener" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">flood.sodhera.com →</a></span></div>
  <div style="overflow:auto;">
  <div class="missing-grid" id="missingBody">
  <!-- Hemanta Joshi, human card -->
@@ -547,7 +548,7 @@
  <h1>Flood Help, <span class="hl">find help, find people.</span></h1>
  <p class="lead">Zone 7 has no field team. We route you to <strong>official rescue</strong> in one tap and keep a <strong>club-verified</strong> register of 13 missing (anyone can report, published only after verification). Systematic checks replace full-time moderators.</p>
  <div class="chips">
- <span class="chip live"><i></i> As of <span id="asOf">28 Aug 2026</span></span>
+ <span class="chip">Record of the Sept 2026 response</span>
  <span class="chip">Source: NDRRMA / BIPAD / Nepal Police • <a href="https://bipad.gov.np" target="_blank" rel="noopener" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">bipad.gov.np ↗</a> • <a href="https://flood.sodhera.com" target="_blank" rel="noopener" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">flood.sodhera.com ↗</a></span>
  <span class="chip" id="kathmanduTime">Kathmandu:,</span>
  </div>
@@ -602,8 +603,7 @@
  var now=new Date();
  var ktm=now.toLocaleString('en-NP',{timeZone:'Asia/Kathmandu', dateStyle:'medium', timeStyle:'short'});
  var el=document.getElementById('kathmanduTime'); if(el) el.textContent='Kathmandu: '+ktm+' NPT';
- var lc=document.getElementById('lastChecked'); if(lc) lc.textContent=now.toLocaleDateString('en-NP',{timeZone:'Asia/Kathmandu', dateStyle:'medium'});
- var asof=document.getElementById('asOf'); if(asof) asof.textContent=now.toLocaleDateString('en-NP',{timeZone:'Asia/Kathmandu', dateStyle:'medium'})+' '+now.toLocaleTimeString('en-NP',{timeZone:'Asia/Kathmandu', hour:'2-digit', minute:'2-digit'})+' NPT';
+  var lc=document.getElementById('lastChecked'); if(lc) lc.textContent=now.toLocaleDateString('en-NP',{timeZone:'Asia/Kathmandu', dateStyle:'medium'});
  }catch(e){}
   (function(){
   var q=document.getElementById('qSearch'), fs=document.getElementById('fStatus'), fa=document.getElementById('fArea'), clr=document.getElementById('btnClear'), body=document.getElementById('missingBody');
@@ -819,7 +819,7 @@
   // Update count
   var vis=[].slice.call(document.querySelectorAll('#missingBody .missing-card')).filter(function(c){ return c.style.display!=='none'; }).length;
   var countEl=document.getElementById('missingCount');
-  if(countEl) countEl.textContent=vis+' reports • live';
+  if(countEl) countEl.textContent=vis+' reports • in record';
   e.target.reset();
   setTimeout(function(){ closeReport(); }, 900);
   }
@@ -859,7 +859,7 @@
       });
       var vis=rows.length;
       var countEl=document.getElementById('missingCount');
-      if(countEl) countEl.textContent=vis+' reports • live';
+      if(countEl) countEl.textContent=vis+' reports • in record';
       document.title='Flood Help, Zone 7 | Helplines and '+vis+' Missing';
       var og=document.querySelector('meta[property="og:title"]');
       if(og) og.setAttribute('content','Flood Help, Helplines and '+vis+' Missing | Zone 7');
