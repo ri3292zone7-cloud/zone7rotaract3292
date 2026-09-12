@@ -48,7 +48,7 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 
 /* ── layout shell ── */
 .app-layout{display:flex;flex:1;min-height:0}
-.main-content{flex:1;min-width:0;display:flex;justify-content:center;padding:0 48px}
+.main-content{flex:1;min-width:0;display:flex;justify-content:flex-start;padding:0 48px}
 .content-inner{width:100%;max-width:672px;padding:44px 0 100px}
 @media(max-width:1024px){.content-inner{padding:36px 0 80px}.main-content{padding:0 28px}}
 @media(max-width:800px){.main-content{padding:0 16px}.content-inner{padding:24px 0 60px}}
@@ -91,6 +91,9 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 /* ── right TOC rail ── */
 .right-rail{display:none;width:280px;flex-shrink:0}
 @media(min-width:1536px){.right-rail{display:block;position:sticky;top:72px;height:calc(100vh - 72px);padding:40px 32px 40px 0;overflow-y:auto}}
+@media(min-width:801px){html.has-subnav .sidebar-wrap{top:120px;height:calc(100vh - 120px)}}
+@media(min-width:1536px){html.has-subnav .right-rail{top:120px;height:calc(100vh - 120px)}}
+@media(min-width:801px){html.has-subnav [data-spy]{scroll-margin-top:132px}}
 
 /* ── overview ── */
 .overview-hero{margin-bottom:36px}
@@ -323,6 +326,8 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 </div>
 
 <script src="site-nav.js"></script>
+<script src="rota-gpt-data.js" defer></script>
+<script src="rota-gpt.js" defer></script>
 <script>
 const ROLES={
   grants:{label:"Grants",bg:"var(--treas)",icon:"💰"},

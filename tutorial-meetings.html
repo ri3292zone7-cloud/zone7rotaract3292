@@ -247,6 +247,7 @@ html.dark .tool-btn kbd{background:rgba(255,255,255,.08);color:var(--faint)}
 /* content column + rail */
 .doc-wrap>.section-title,.doc-wrap>.section-sub,.doc-wrap>#guideList,.doc-wrap>.video-section{max-width:700px}
 .guide-block,.video-section,.score-strip{scroll-margin-top:90px}
+html.has-subnav .guide-block,html.has-subnav .video-section,html.has-subnav .score-strip{scroll-margin-top:138px}
 
 /* open sections, no subtitles */
 .guide-html{max-height:none!important;overflow:visible}
@@ -343,6 +344,7 @@ html.dark .promise-item p{color:var(--faint)}
 .right-rail{display:none}
 @media(min-width:1340px){
   .right-rail{display:block;position:fixed;top:104px;left:calc(50% - 560px + 740px);width:196px;max-height:calc(100vh - 140px);overflow-y:auto;scrollbar-width:thin;z-index:5}
+html.has-subnav .right-rail{top:152px}
   .toc-label{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(27,24,54,.45);margin-bottom:10px;font-family:'Inter'}
   .toc-links{display:flex;flex-direction:column;gap:2px;border-left:2px solid var(--line);padding-left:0}
   .toc-link{font-size:12.5px;font-weight:600;color:rgba(27,24,54,.6);padding:5px 0 5px 14px;border-left:2px solid transparent;margin-left:-2px;line-height:1.45;font-family:'Inter'}

@@ -142,13 +142,22 @@
   var NAV_CSS = [
     "html,body{overflow-x:hidden;overflow-x:clip}html{overscroll-behavior-x:none}body{position:relative}",
     "#siteNav{position:sticky;top:0;z-index:100;background:rgba(255,253,249,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,24,54,.1)}",
-    "#siteNav .wrap{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:72px;gap:22px;overflow:visible}",
+    "#siteNav a,#siteNav a:hover{text-decoration:none}",
+    "#siteNav .wrap{padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:72px;gap:22px;overflow:visible}",
     "#siteNav .brand{display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-weight:800;font-size:1.05rem;color:#1B1836;white-space:nowrap}",
     "#siteNav .brand .z{background:#E11A6E;color:#fff;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Poppins',sans-serif}",
     "#siteNav .navlinks{display:flex;gap:26px;font-weight:600;font-size:.92rem;align-items:center}",
     "#siteNav .navlinks>a{position:relative;padding:4px 0;color:#1B1836;opacity:.75;transition:opacity .2s}",
     "#siteNav .navlinks>a:hover,#siteNav .navlinks>a.current{opacity:1}",
     "#siteNav .navlinks>a.current{color:#A80F52}",
+    "#siteNav .learn-subnav{display:none;border-top:1px solid rgba(27,24,54,.06);background:rgba(255,253,249,.92)}",
+    "#siteNav .learn-subnav.show{display:block}",
+    "#siteNav .learn-subnav-inner{padding:0 28px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}",
+    "#siteNav .learn-subnav-inner::-webkit-scrollbar{display:none}",
+    "#siteNav .learn-subnav a{flex-shrink:0;font-size:.82rem;font-weight:500;color:rgba(27,24,54,.52);padding:11px 13px;margin:3px 0;white-space:nowrap;transition:color .15s}",
+    "#siteNav .learn-subnav a:hover{color:#1B1836}",
+    "#siteNav .learn-subnav a.current{color:#1B1836;font-weight:700}",
+    "html.has-subnav #siteNav .mobile-menu{top:120px;max-height:calc(100vh - 120px)}",
     "#siteNav .nav-drop{position:relative}",
     "#siteNav .nav-drop-trigger{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:.92rem;color:#1B1836;opacity:.75;padding:4px 0;transition:opacity .2s}",
     "#siteNav .nav-drop-trigger svg{transition:transform .2s}",
@@ -226,7 +235,22 @@
     learnItem("/handbook", "📘", "Handbook", "District rules made simple: grants, twins, projects, health", "handbook") +
     learnItem("/guides", "📄", "Resources", "Official documents, constitutions and downloadable forms", "resources") +
     learnItem("/club-guides", "📚", "Guides for Clubs", "The playbook for running a great club all year", "guides") +
-    learnItem("/rkt-quiz", "🧠", "RKT Practice Quiz", "Test your Rotaract knowledge in 2 minutes", "quiz");
+    learnItem("/rkt-quiz", "🧠", "RotaQuiz", "Test your Rotaract knowledge in 2 minutes", "quiz");
+
+  var learnKeys = ["tutorials", "handbook", "resources", "guides", "quiz"];
+  var isLearn = learnKeys.indexOf(current) !== -1;
+  var subnavHtml = "";
+  if (isLearn) {
+    document.documentElement.classList.add("has-subnav");
+    subnavHtml =
+      '<div class="learn-subnav show"><div class="learn-subnav-inner">' +
+      item("/tutorials", "Tutorials", "tutorials") +
+      item("/handbook", "Handbook", "handbook") +
+      item("/guides", "Resources", "resources") +
+      item("/club-guides", "Guides for Clubs", "guides") +
+      item("/rkt-quiz", "RotaQuiz", "quiz") +
+      "</div></div>";
+  }
 
   // Crisis-mode UI: rendered only while ZONE7_CRISIS.active is true
   // (and not on the crisis pages themselves).
@@ -282,6 +306,7 @@
     '<button class="burger" id="burgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>' +
     "</div>" +
     "</div>" +
+    subnavHtml +
     '<div class="mobile-menu" id="mobileMenu">' +
     crisisCards +
     item("/about", "About", "about") +
@@ -292,7 +317,7 @@
     '<a href="/handbook">Handbook</a>' +
     '<a href="/guides">Resources &amp; Documents</a>' +
     '<a href="/club-guides">Guides for Clubs</a>' +
-    '<a href="/rkt-quiz">RKT Practice Quiz</a>' +
+    '<a href="/rkt-quiz">RotaQuiz</a>' +
     '<div class="mm-group">Community</div>' +
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
