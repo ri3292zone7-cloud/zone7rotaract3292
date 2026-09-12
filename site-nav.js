@@ -178,6 +178,9 @@
     "#siteNav .nav-admin:hover{opacity:1}",
     "#siteNav .nav-cta{background:#1B1836;color:#fff !important;padding:10px 20px;border-radius:100px;font-weight:700;font-size:.85rem;white-space:nowrap}",
     "#siteNav .nav-cta:hover{background:#A80F52}",
+    "#siteNav .nav-rgpt{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(27,24,54,.16);background:#FFFDF9;color:#1B1836;cursor:pointer;transition:border-color .2s,color .2s,background .2s,transform .2s;flex-shrink:0}",
+    "#siteNav .nav-rgpt:hover{border-color:#E11A6E;color:#E11A6E;background:rgba(225,26,110,.06)}",
+    "#siteNav .nav-rgpt:active{transform:scale(.94)}",
     "#siteNav .burger{display:none;background:none;border:none;cursor:pointer;padding:6px}",
     "#siteNav .burger span{display:block;width:22px;height:2px;background:#1B1836;margin:5px 0;border-radius:2px}",
     "#siteNav .nav-emergency{display:flex;gap:8px;align-items:center;flex-shrink:0}",
@@ -204,6 +207,7 @@
   ].join("\n");
 
   var CHEV = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var STAR = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5c.6 4.6 2.4 7.4 10.5 10.5C14.4 15.1 12.6 17.9 12 22.5c-.6-4.6-2.4-7.4-10.5-10.5C9.6 8.9 11.4 6.1 12 1.5z"/></svg>';
 
   function item(path, label, key, extra) {
     return '<a href="' + path + '"' + (current === key ? ' class="current"' : "") + extra + ">" + label + "</a>";
@@ -274,6 +278,7 @@
     '<div style="display:flex;align-items:center;gap:16px;">' +
     '<a href="/admin" class="nav-admin">Club Admin</a>' +
     ctaHtml +
+    '<button type="button" id="navRotaGpt" class="nav-rgpt" aria-label="Open RotaGPT chat" title="RotaGPT chat">' + STAR + "</button>" +
     '<button class="burger" id="burgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>' +
     "</div>" +
     "</div>" +
@@ -382,4 +387,17 @@
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+
+  var rgptBtn = nav.querySelector("#navRotaGpt");
+  if (rgptBtn) {
+    rgptBtn.addEventListener("click", function () {
+      if (window.RotaGPT) window.RotaGPT.open();
+    });
+    function syncRgpt() {
+      var show = !!window.RotaGPT;
+      rgptBtn.style.display = show ? "" : "none";
+    }
+    syncRgpt();
+    window.addEventListener("load", syncRgpt);
+  }
 })();

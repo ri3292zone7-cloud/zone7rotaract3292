@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="alternate" hreflang="en" href="https://zone7rotaract3292.vercel.app/tutorial-assembly">
-<link rel="alternate" hreflang="x-default" href="https://zone7rotaract3292.vercel.app/tutorial-assembly">
+<link rel="alternate" hreflang="en" href="https://zone7rotaract3292.vercel.app/handbook-health">
+<link rel="alternate" hreflang="x-default" href="https://zone7rotaract3292.vercel.app/handbook-health">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Club Assemblies | Zone 7 Rotaract Tutorial</title>
-<meta name="description" content="How to run a Rotaract club assembly: how assemblies differ from general and board meetings, the planning assembly, the educational assembly, facilitation and follow-up. Step-by-step Zone 7 tutorial with videos and documents.">
-<link rel="canonical" href="https://zone7rotaract3292.vercel.app/tutorial-assembly">
-<meta property="og:type" content="article">
+<title>Run the Club Assembly | Zone 7 Tutorial</title>
+<meta name="description" content="The 75-point Rotaract club health checkup: 5 sections, a review process, scoring rules and a six-month rhythm. Zone 7 handbook chapter.">
+<link rel="canonical" href="https://zone7rotaract3292.vercel.app/handbook-health">
+<meta property="og:type" content="website">
 <meta property="og:site_name" content="Zone 7 Rotaract">
-<meta property="og:title" content="Club Assemblies | Zone 7 Rotaract Tutorial">
-<meta property="og:description" content="How to run a Rotaract club assembly: how assemblies differ from general and board meetings, the planning assembly, the educational assembly, facilitation and follow-up. Step-by-step Zone 7 tutorial with videos and documents.">
+<meta property="og:title" content="Club Health Checkup | Zone 7 Handbook">
+<meta property="og:description" content="The 75-point Rotaract club health checkup: 5 sections, a review process, scoring rules and a six-month rhythm. Zone 7 handbook chapter.">
 <meta property="og:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
-<meta property="og:url" content="https://zone7rotaract3292.vercel.app/tutorial-assembly">
+<meta property="og:url" content="https://zone7rotaract3292.vercel.app/handbook-health">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Club Assemblies | Zone 7 Rotaract Tutorial">
-<meta name="twitter:description" content="How to run a Rotaract club assembly: how assemblies differ from general and board meetings, the planning assembly, the educational assembly, facilitation and follow-up. Step-by-step Zone 7 tutorial with videos and documents.">
+<meta name="twitter:title" content="Club Health Checkup | Zone 7 Handbook">
+<meta name="twitter:description" content="The 75-point Rotaract club health checkup: 5 sections, a review process, scoring rules and a six-month rhythm. Zone 7 handbook chapter.">
 <meta name="twitter:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon-192.png" sizes="192x192">
@@ -28,7 +28,7 @@
 :root{
   --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
   --teal:#0E7490; --orange:#C2410C; --paper:#F7F5F1; --line:rgba(27,24,54,.1);
-  --tc:#0E7490;
+  --tc:#E11A6E;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -39,33 +39,63 @@ a{color:inherit;text-decoration:none}
 .wrap{max-width:1120px;margin:0 auto;padding:0 22px;overflow-x:hidden;overflow-x:clip;} @media (max-width: 600px){ .wrap{padding:0 16px;} }
 #progress{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--magenta),var(--gold));transform-origin:0 50%;transform:scaleX(0);z-index:999}
 
-.hero{position:relative;overflow-x:clip;padding-top:64px;padding-bottom:44px;background:linear-gradient(180deg,#fff 0%,rgba(14,116,144,.05) 100%)}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tc);background:#fff;border:1px solid var(--line);padding:7px 14px;border-radius:100px;margin-bottom:18px}
-.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--tc)}
-.hero h1{font-size:clamp(2rem,4.4vw,2.9rem);font-weight:800;line-height:1.15;max-width:640px;margin-bottom:18px}
-.hero .sub{font-size:1.02rem;line-height:1.7;color:rgba(27,24,54,.72);max-width:640px;margin-bottom:14px}
-.hero .note{font-size:.8rem;color:rgba(27,24,54,.5);max-width:640px;line-height:1.55}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero{position:relative;overflow-x:clip;padding-top:64px;padding-bottom:40px}
+.aurora{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none}
+.a1{width:420px;height:420px;background:#F9C6DC;top:-140px;left:-120px;animation:drift 16s ease-in-out infinite alternate}
+.a2{width:380px;height:380px;background:#C9E7F0;top:-80px;right:-100px;animation:drift 20s ease-in-out infinite alternate-reverse}
+.a3{width:300px;height:300px;background:#FBE9B9;bottom:-120px;left:40%;animation:drift 24s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(50px,-40px) scale(1.15)}}
+.fshape{position:absolute;pointer-events:none;will-change:translate}
+.shape-ring{width:46px;height:46px;border:5px solid var(--gold);border-radius:50%;top:30%;left:6%;opacity:.5}
+.shape-tri{width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-bottom:30px solid rgba(225,26,110,.35);top:18%;right:9%}
+.shape-dot{width:14px;height:14px;background:var(--magenta);border-radius:50%;bottom:24%;left:12%;opacity:.5}
+.shape-dot2{width:10px;height:10px;background:var(--teal);border-radius:50%;top:40%;right:16%;opacity:.5}
+.shape-sq{width:26px;height:26px;background:rgba(14,116,144,.3);border-radius:7px;bottom:12%;right:30%}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--magenta-deep);background:#fff;border:1px solid var(--line);padding:7px 14px;border-radius:100px;margin-bottom:18px}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--magenta)}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.12;max-width:780px;margin-bottom:18px}
+.rword{display:inline-block;overflow:hidden;vertical-align:bottom}
+.rword>span{display:inline-block;transform:translateY(110%);animation:wordIn .7s cubic-bezier(.22,1,.36,1) forwards}
+.rword:nth-child(2)>span{animation-delay:.08s}.rword:nth-child(3)>span{animation-delay:.16s}.rword:nth-child(4)>span{animation-delay:.24s}.rword:nth-child(5)>span{animation-delay:.32s}.rword:nth-child(6)>span{animation-delay:.4s}.rword:nth-child(7)>span{animation-delay:.48s}.rword:nth-child(8)>span{animation-delay:.56s}.rword:nth-child(9)>span{animation-delay:.64s}.rword:nth-child(10)>span{animation-delay:.72s}
+@keyframes wordIn{to{transform:translateY(0)}}
+.hero .sub{font-size:1.02rem;line-height:1.7;color:rgba(27,24,54,.72);max-width:680px;margin-bottom:14px}
+.hero .note{font-size:.8rem;color:rgba(27,24,54,.5);max-width:680px;line-height:1.55}
+.hero .note a{color:var(--magenta-deep);font-weight:700;text-decoration:underline}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;margin-top:32px}
 .hero-char{position:relative;display:grid;place-items:center}
-.hero-char img{width:min(300px,80%);filter:drop-shadow(0 24px 34px rgba(27,24,54,.22))}
-.hc-badge{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:.74rem;font-weight:700;box-shadow:0 12px 28px rgba(27,24,54,.14);display:flex;align-items:center;gap:7px}
-.hc-badge b{color:var(--tc)}
-.hc1{top:4%;left:0%}.hc2{top:20%;right:-2%}.hc3{bottom:6%;left:6%}.hc4{bottom:18%;right:2%}
-.char-ring{position:absolute;width:min(340px,92%);aspect-ratio:1;border-radius:50%;border:2px dashed rgba(14,116,144,.35);pointer-events:none}
+.hero-char img{width:min(320px,80%);animation:bob 4.5s ease-in-out infinite;filter:drop-shadow(0 24px 34px rgba(27,24,54,.22))}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-16px) rotate(1.5deg)}}
+.hc-badge{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:.74rem;font-weight:700;box-shadow:0 12px 28px rgba(27,24,54,.14);display:flex;align-items:center;gap:7px;animation:bob 4s ease-in-out infinite}
+.hc-badge b{color:var(--magenta-deep)}
+.hc1{top:4%;left:0%}.hc2{top:20%;right:-2%;animation-delay:.7s}.hc3{bottom:6%;left:6%;animation-delay:1.2s}.hc4{bottom:18%;right:2%;animation-delay:1.8s}
+.char-ring{position:absolute;width:min(360px,92%);aspect-ratio:1;border-radius:50%;border:2px dashed rgba(225,26,110,.35);animation:spin 30s linear infinite;pointer-events:none}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-.fact-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;padding:14px 0;margin:10px 0 40px}
-.fact-strip-inner{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 0;max-width:1120px}
-.fact-strip-inner span{font-family:'Poppins';font-weight:700;font-size:.8rem;letter-spacing:.08em;color:rgba(27,24,54,.6);padding:0 18px;position:relative;white-space:nowrap}
-.fact-strip-inner span:not(:last-child)::after{content:"";position:absolute;right:-3px;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.ticker{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;padding:13px 0;margin:10px 0 40px}
+.ticker-track{display:flex;gap:44px;white-space:nowrap;animation:marquee 26s linear infinite;width:max-content}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.ticker-track span{font-family:'Poppins';font-weight:700;font-size:.82rem;letter-spacing:.08em;color:rgba(27,24,54,.55)}
 
 .section-title{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;margin:10px 0 8px}
 .section-sub{color:rgba(27,24,54,.65);max-width:640px;line-height:1.65;margin-bottom:26px}
 
+.score-strip{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px 22px;margin-bottom:26px;box-shadow:0 10px 30px rgba(27,24,54,.05)}
+.score-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.score-head h3{font-size:1.02rem;font-weight:800}
+.score-head .score-total{font-family:'Poppins';font-weight:900;font-size:1.15rem;color:var(--magenta-deep)}
+.score-head .score-total span{color:rgba(27,24,54,.45);font-weight:700;font-size:.8rem}
+.score-cells{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.score-cell{background:rgba(27,24,54,.03);border-radius:12px;padding:10px 12px}
+.score-cell .s-label{font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(27,24,54,.55);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.score-cell .s-bar{height:7px;border-radius:5px;background:rgba(27,24,54,.1);overflow:hidden;margin-bottom:6px}
+.score-cell .s-fill{height:100%;width:0;border-radius:5px;transition:width .5s cubic-bezier(.22,1,.36,1)}
+.score-cell .s-num{font-size:.72rem;font-weight:800;color:rgba(27,24,54,.6)}
+@media (max-width:900px){.score-cells{grid-template-columns:1fr 1fr}}
+
 .guide-block{background:#fff;border:1px solid var(--line);border-radius:22px;margin-bottom:16px;overflow:hidden;box-shadow:0 10px 30px rgba(27,24,54,.05)}
 .guide-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;cursor:pointer;user-select:none;transition:.2s}
-.guide-head:hover{background:rgba(14,116,144,.04)}
+.guide-head:hover{background:rgba(225,26,110,.035)}
 .guide-head-left{display:flex;align-items:center;gap:16px}
-.guide-num{font-family:'Poppins';font-weight:800;font-size:.78rem;color:var(--tc);background:rgba(14,116,144,.08);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:9px 11px;flex:none;letter-spacing:.04em}
 .guide-icon{width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;color:#fff}
 .guide-head h3{font-size:1.12rem;font-weight:800}
 .guide-head .tagline{font-size:.8rem;color:rgba(27,24,54,.55);margin-top:2px}
@@ -94,34 +124,39 @@ a{color:inherit;text-decoration:none}
 @keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
 .steps h5{font-size:.98rem;font-weight:800;margin-bottom:3px}
 .steps p{font-size:.88rem;color:rgba(27,24,54,.68);line-height:1.6}
-.type-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.86rem;background:#fff;border-radius:14px;overflow:hidden}
+.type-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.86rem;background:#fff;border-radius:14px;overflow:hidden}@media (max-width:700px){.type-table{display:block;overflow-x:auto}.type-table th,.type-table td{white-space:nowrap}}
 .type-table th{background:var(--ink);color:#fff;text-align:left;padding:12px 14px;font-weight:700;font-size:.78rem;letter-spacing:.04em}
 .type-table td{padding:12px 14px;border-bottom:1px solid var(--line);line-height:1.5;color:rgba(27,24,54,.75)}
 .type-table tr:last-child td{border-bottom:none}
-.type-table tr:nth-child(even) td{background:rgba(14,116,144,.04)}
-.guide-stat{display:flex;gap:13px;align-items:flex-start;background:linear-gradient(120deg,rgba(14,116,144,.08),rgba(242,169,0,.09));border:1px solid rgba(14,116,144,.18);border-radius:14px;padding:16px;margin:16px 0}
-.guide-stat .g-icon{width:36px;height:36px;flex:none;border-radius:10px;background:#fff;color:var(--tc);display:grid;place-items:center;box-shadow:0 6px 14px rgba(27,24,54,.1)}
+.type-table tr:nth-child(even) td{background:rgba(225,26,110,.03)}
+.guide-stat{display:flex;gap:13px;align-items:flex-start;background:linear-gradient(120deg,rgba(225,26,110,.07),rgba(242,169,0,.09));border:1px solid rgba(225,26,110,.16);border-radius:14px;padding:16px;margin:16px 0}
+.guide-stat .g-icon{width:36px;height:36px;flex:none;border-radius:10px;background:#fff;color:var(--magenta-deep);display:grid;place-items:center;box-shadow:0 6px 14px rgba(27,24,54,.1)}
 .guide-stat p{font-size:.86rem;line-height:1.6;color:rgba(27,24,54,.78)}
 .guide-stat span{font-weight:800;color:var(--ink)}
 .checklist-label{font-family:'Poppins';font-weight:800;font-size:.92rem;margin:18px 0 8px;display:flex;align-items:center;gap:8px}
 .checklist-label::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--magenta);display:inline-block}
 .guide-checklist{list-style:none}
-.guide-checklist li{position:relative;padding:9px 0 9px 28px;font-size:.88rem;line-height:1.55;color:rgba(27,24,54,.78);border-bottom:1px dashed rgba(27,24,54,.08)}
+.guide-checklist li{position:relative;padding:9px 0 9px 34px;font-size:.88rem;line-height:1.55;color:rgba(27,24,54,.78);cursor:pointer;transition:.2s;border-bottom:1px dashed rgba(27,24,54,.08)}
 .guide-checklist li:last-child{border-bottom:none}
-.guide-checklist li::before{content:"";position:absolute;left:2px;top:16px;width:8px;height:8px;border-radius:2px;background:var(--magenta)}
+.guide-checklist li::before{content:"";position:absolute;left:0;top:9px;width:20px;height:20px;border:2px solid rgba(27,24,54,.25);border-radius:6px;transition:.2s}
+.guide-checklist li::after{content:"";position:absolute;left:6px;top:13px;width:9px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg) scale(0);transition:.2s}
+.guide-checklist li:hover::before{border-color:var(--magenta)}
+.guide-checklist li.ticked{color:rgba(27,24,54,.45);text-decoration:line-through}
+.guide-checklist li.ticked::before{background:var(--magenta);border-color:var(--magenta)}
+.guide-checklist li.ticked::after{transform:rotate(-45deg) scale(1)}
 .guide-links{margin:18px 0 0}
 .guide-links-label{font-family:'Poppins';font-weight:800;font-size:.92rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.guide-links-label::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--tc);display:inline-block}
-.guide-link{display:inline-flex;align-items:center;gap:8px;background:rgba(14,116,144,.06);color:var(--tc);font-weight:700;font-size:.84rem;padding:10px 16px;border-radius:100px;margin:0 8px 8px 0;border:1px solid rgba(14,116,144,.22);transition:.2s}
-.guide-link:hover{background:var(--tc);color:#fff}
+.guide-links-label::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--gold);display:inline-block}
+.guide-link{display:inline-flex;align-items:center;gap:8px;background:rgba(225,26,110,.06);color:var(--magenta-deep);font-weight:700;font-size:.84rem;padding:10px 16px;border-radius:100px;margin:0 8px 8px 0;border:1px solid rgba(225,26,110,.2);transition:.2s}
+.guide-link:hover{background:var(--magenta-deep);color:#fff}
 
 .video-section{margin:26px 0}
-.video-grid{display:grid;grid-template-columns:minmax(0,660px);justify-content:center;gap:18px}
+.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .video-card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(27,24,54,.05)}
 .video-card .v-thumb{position:relative;cursor:pointer;aspect-ratio:16/9;background:var(--ink)}
 .video-card .v-thumb img{width:100%;height:100%;object-fit:cover;opacity:.85}
 .video-card .v-play{position:absolute;inset:0;display:grid;place-items:center}
-.video-card .v-play::after{content:"";width:62px;height:62px;border-radius:50%;background:var(--tc);box-shadow:0 10px 30px rgba(27,24,54,.35);transition:.25s}
+.video-card .v-play::after{content:"";width:62px;height:62px;border-radius:50%;background:rgba(225,26,110,.95);box-shadow:0 10px 30px rgba(225,26,110,.5);transition:.25s}
 .video-card .v-play::before{content:"";position:absolute;width:0;height:0;border-left:20px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px;z-index:1}
 .video-card:hover .v-play::after{transform:scale(1.12)}
 .video-card .v-info{padding:14px 16px}
@@ -131,10 +166,10 @@ a{color:inherit;text-decoration:none}
 .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:10px}
 .rel-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;transition:.25s;box-shadow:0 10px 30px rgba(27,24,54,.05)}
 .rel-card:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(27,24,54,.12)}
-.rel-card img{height:64px;object-fit:contain;margin-bottom:10px}
+.rel-card img{height:64px;object-fit:contain;margin-bottom:10px;animation:bob 5s ease-in-out infinite}
 .rel-card h5{font-size:.9rem;font-weight:800;margin-bottom:4px}
 .rel-card p{font-size:.76rem;color:rgba(27,24,54,.58);line-height:1.5}
-.rel-card .go{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:800;color:var(--tc)}
+.rel-card .go{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:800;color:var(--magenta-deep)}
 
 .cta-band{background:var(--ink);border-radius:24px;color:#fff;padding:38px;margin:48px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;position:relative;overflow:hidden}
 .cta-band h3{font-size:1.4rem;font-weight:800;margin-bottom:8px}
@@ -142,78 +177,16 @@ a{color:inherit;text-decoration:none}
 .cta-band .btn{background:var(--gold);color:var(--ink);font-weight:800;font-size:.85rem;padding:13px 26px;border-radius:100px;transition:.25s}
 .cta-band .btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(242,169,0,.35)}
 .crumb{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;font-weight:700;color:rgba(27,24,54,.5);margin:34px 0 0}
-.crumb a{color:var(--tc)}
-/* ---- docs layer: meta row, figure, TOC, pager, print ---- */
-.section-head-row{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.section-head-row .section-sub{margin-bottom:0}
-.print-btn{flex:none;background:#fff;border:1.5px solid var(--line);color:var(--ink);font-family:'Poppins';font-weight:700;font-size:.8rem;padding:11px 20px;border-radius:100px;cursor:pointer;transition:.2s}
-.print-btn:hover{border-color:var(--tc);color:var(--tc)}
-.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-.hero-meta span{display:inline-flex;align-items:center;font-size:.78rem;font-weight:600;color:rgba(27,24,54,.6);background:#fff;border:1px solid var(--line);border-radius:100px;padding:8px 14px}
-.hero-meta b{color:var(--ink);font-weight:800;margin-right:4px}
-.hero-figure{margin:0}
-.hero-figure figcaption{margin-top:14px;font-size:.76rem;color:rgba(27,24,54,.55);text-align:center}
-.doc-layout{display:grid;grid-template-columns:216px minmax(0,1fr);gap:36px;align-items:start;margin-top:26px}
-.toc{position:sticky;top:96px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 8px;box-shadow:0 10px 30px rgba(27,24,54,.05)}
-.toc-title{font-family:'Poppins';font-weight:800;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(27,24,54,.5);padding:2px 12px 10px}
-.toc ol{list-style:none}
-.toc a{display:flex;gap:10px;align-items:baseline;padding:8px 12px;border-radius:10px;font-size:.82rem;font-weight:600;color:rgba(27,24,54,.65);border-left:2px solid transparent}
-.toc a .n{font-size:.68rem;font-weight:800;color:rgba(27,24,54,.35);flex:none}
-.toc a:hover{background:rgba(14,116,144,.06)}
-.toc a.active{background:rgba(14,116,144,.08);color:var(--ink);border-left-color:var(--tc)}
-.toc a.active .n{color:var(--tc)}
-.guide-block{scroll-margin-top:90px}
-.guide-head-right{display:flex;align-items:center;gap:10px;flex:none}
-.copy-link{border:1px solid var(--line);background:#fff;border-radius:9px;width:32px;height:32px;display:grid;place-items:center;color:rgba(27,24,54,.5);cursor:pointer;transition:.2s;position:relative;flex:none}
-.copy-link:hover{border-color:var(--tc);color:var(--tc)}
-.copy-link.copied{border-color:var(--tc);color:var(--tc)}
-.copy-link.copied::after{content:"Copied";position:absolute;bottom:calc(100% + 6px);right:0;background:var(--ink);color:#fff;font-size:.68rem;font-weight:700;padding:5px 10px;border-radius:8px;white-space:nowrap}
-.doc-pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:34px 0 10px}
-.pager{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;transition:.25s;box-shadow:0 10px 30px rgba(27,24,54,.05);display:flex;flex-direction:column;gap:4px}
-.pager:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(27,24,54,.12)}
-.pager.next{text-align:right;align-items:flex-end}
-.pager-k{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tc)}
-.pager-t{font-family:'Poppins';font-weight:800;font-size:1.02rem}
-@media(max-width:1100px){
-  .doc-layout{grid-template-columns:1fr}
-  .toc{position:static;padding:10px}
-  .toc-title{display:none}
-  .toc ol{display:flex;gap:8px;overflow-x:auto;padding:2px}
-  .toc a{white-space:nowrap;border:1px solid var(--line);border-left-width:1px;flex:none}
-  .toc a.active{border-color:var(--tc)}
-}
-@media(max-width:700px){
-  .doc-pager{grid-template-columns:1fr}
-  .pager.next{text-align:left;align-items:flex-start}
-}
-@media print{
-  #siteNav,#progress,.toc,.doc-pager,.copy-link,.guide-chevron,.video-section,.related-grid,.cta-band,.fact-strip,.hero-char,.print-btn,footer,#rgpt-panel,#rgpt-launcher,.crumb{display:none!important}
-  [data-reveal]{opacity:1!important;transform:none!important}
-  body{background:#fff}
-  .hero{background:none;padding-top:24px}
-  .guide-html{max-height:none!important;overflow:visible}
-  .guide-block{box-shadow:none;break-inside:avoid}
-  .steps li,.guide-stat{break-inside:avoid}
-}
+.crumb a{color:var(--magenta-deep)}
 footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54,.55)}
 [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
 [data-reveal].in{opacity:1;transform:translateY(0)}
 @media (max-width:900px){
   .hero-grid{grid-template-columns:1fr}
+  .hero-char{order:-1}
   .video-grid{grid-template-columns:1fr}
   .related-grid{grid-template-columns:1fr}
   .type-table{font-size:.76rem}
-}
-/* comparison table becomes stacked cards on phones */
-@media (max-width:700px){
-  .type-table thead{display:none}
-  .type-table,.type-table tbody,.type-table tr,.type-table td{display:block;width:100%}
-  .type-table{background:none;border-radius:0}
-  .type-table tr{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}
-  .type-table tr:nth-child(even) td{background:none}
-  .type-table td{border-bottom:1px dashed var(--line);padding:10px 14px 10px 132px;position:relative;line-height:1.5;white-space:normal}
-  .type-table td:last-child{border-bottom:none}
-  .type-table td::before{content:attr(data-th);position:absolute;left:14px;top:11px;width:106px;font-weight:800;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:rgba(27,24,54,.5)}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -230,8 +203,210 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
     .score-cells{grid-template-columns:repeat(2,1fr);}
     .org-cols-3{grid-template-columns:1fr;}
   }
+
+/* ── handbook docs layer (shared across chapters) ── */
+:root.dark{
+  --paper:#100E1D; --ink:#F1EDFB;
+  --line:rgba(255,255,255,.13);
+  --card:#1A1730; --card2:#232040; --muted:rgba(241,237,251,.66);
+  --faint:rgba(241,237,251,.45); --zebra:rgba(225,26,110,.08);
+}
+html.dark{background:var(--paper);color:var(--ink)}
+html.dark h1,html.dark h2,html.dark h3,html.dark h4,html.dark h5{color:var(--ink)}
+html.dark .hero .sub,html.dark .section-sub{color:var(--muted)}
+html.dark .hero .note{color:var(--faint)}
+html.dark .hero .note a{color:#F0569A}
+html.dark .eyebrow{background:var(--card);color:#F0569A}
+html.dark .crumb{color:var(--faint)}
+html.dark .crumb a{color:#F0569A}
+html.dark footer{color:var(--faint)}
+
+/* docs header (replaces aurora hero) */
+.doc-head{padding:26px 0 6px}
+.doc-badge{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--magenta-deep);background:#fff;border:1px solid var(--line);padding:7px 14px;border-radius:100px;margin-bottom:16px}
+.doc-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--magenta)}
+.doc-head h1{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:900;line-height:1.15;margin-bottom:14px}
+.doc-sub{font-size:1rem;line-height:1.7;color:rgba(27,24,54,.72);max-width:700px;margin-bottom:12px}
+.doc-note{font-size:.8rem;color:rgba(27,24,54,.5);max-width:700px;line-height:1.55}
+.doc-note a{color:var(--magenta-deep);font-weight:700;text-decoration:underline}
+html.dark .doc-badge{background:var(--card);color:#F0569A}
+html.dark .doc-sub{color:var(--muted)}
+html.dark .doc-note{color:var(--faint)}
+html.dark .doc-note a{color:#F0569A}
+
+/* toolbar */
+.page-toolbar{display:flex;align-items:center;gap:10px;margin:26px 0 4px;flex-wrap:wrap}
+.tool-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
+.tool-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:rgba(27,24,54,.75);background:#fff;border:1px solid var(--line);border-radius:7px;padding:6px 11px;cursor:pointer;font-family:'Inter';transition:border-color .15s,color .15s}
+.tool-btn:hover{border-color:var(--magenta);color:var(--magenta-deep)}
+.tool-btn kbd{font-family:ui-monospace,Consolas,monospace;font-size:10px;background:rgba(27,24,54,.06);border:1px solid var(--line);border-radius:4px;padding:1px 5px;color:rgba(27,24,54,.55)}
+html.dark .tool-btn{background:var(--card);color:var(--ink);border-color:var(--line)}
+html.dark .tool-btn:hover{border-color:var(--magenta);color:#F0569A}
+html.dark .tool-btn kbd{background:rgba(255,255,255,.08);color:var(--faint)}
+
+/* content column + rail */
+.doc-wrap>.section-title,.doc-wrap>.section-sub,.doc-wrap>#guideList,.doc-wrap>.video-section{max-width:700px}
+.guide-block,.video-section,.score-strip{scroll-margin-top:90px}
+
+/* open sections, no subtitles */
+.guide-html{max-height:none!important;overflow:visible}
+.guide-head{cursor:default}
+.guide-head:hover{background:none}
+.guide-chevron{display:none}
+.checklist-label,.guide-links-label{display:none}
+.phase-img{display:none}
+.ticker{display:none}
+#progress{display:none}
+.guide-head h3{font-size:1.25rem}
+html.dark .guide-block{background:var(--card);border-color:var(--line)}
+html.dark .guide-head .tagline{color:var(--faint)}
+html.dark .guide-body-inner{border-color:var(--line)}
+html.dark .guide-body-inner .intro{color:var(--muted)}
+
+/* stat boxes */
+html.dark .guide-stat{background:linear-gradient(120deg,rgba(225,26,110,.14),rgba(242,169,0,.12));border-color:rgba(225,26,110,.35)}
+html.dark .guide-stat p{color:var(--muted)}
+html.dark .guide-stat span{color:#fff}
+html.dark .guide-stat .g-icon{background:var(--card2);color:#F0569A}
+
+/* spec tables */
+.spec-scroll{overflow-x:auto;margin:16px 0;border-radius:14px;border:1px solid var(--line)}
+table.spec{width:100%;border-collapse:collapse;margin:0;font-size:.86rem;background:#fff;min-width:520px}
+table.spec th{background:var(--ink);color:#fff;text-align:left;padding:12px 14px;font-weight:700;font-size:.78rem;letter-spacing:.04em;white-space:nowrap;position:sticky;top:0}
+table.spec td{padding:12px 14px;border-bottom:1px solid var(--line);line-height:1.5;color:rgba(27,24,54,.75)}
+table.spec tr:last-child td{border-bottom:none}
+table.spec tr:nth-child(even) td{background:rgba(225,26,110,.03)}
+html.dark table.spec{background:var(--card)}
+html.dark table.spec th{background:#2A2450}
+html.dark table.spec td{color:var(--muted);border-color:var(--line)}
+html.dark table.spec tr:nth-child(even) td{background:var(--zebra)}
+
+/* checklists */
+html.dark .guide-checklist li{color:var(--muted);border-color:var(--line)}
+html.dark .guide-checklist li.ticked{color:var(--faint)}
+html.dark .guide-checklist li::before{border-color:rgba(255,255,255,.3)}
+html.dark .guide-link{background:rgba(225,26,110,.12);border-color:rgba(225,26,110,.35);color:#F0569A}
+
+/* stepper (built from ol.steps at runtime) */
+.hstep{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:16px 0}
+.hstep-track{display:flex;gap:0;padding:16px 14px 6px;overflow-x:auto;scrollbar-width:none}
+.hstep-track::-webkit-scrollbar{display:none}
+.hstep-node{flex:1 0 auto;min-width:96px;max-width:170px;background:none;border:none;border-top:2px solid rgba(27,24,54,.14);padding:8px 8px 10px;margin-right:10px;cursor:pointer;text-align:left;font-family:'Inter';transition:border-color .15s}
+.hstep-node .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:8px;background:rgba(27,24,54,.07);font-size:.72rem;font-weight:800;color:rgba(27,24,54,.6);margin-bottom:5px}
+.hstep-node .t{display:block;font-size:.74rem;font-weight:700;line-height:1.4;color:rgba(27,24,54,.6)}
+.hstep-node.active{border-color:var(--magenta)}
+.hstep-node.active .n{background:var(--magenta);color:#fff}
+.hstep-node.active .t{color:var(--ink)}
+.hstep-node.done{border-color:rgba(225,26,110,.45)}
+.hstep-node.done .n{background:rgba(225,26,110,.16);color:var(--magenta-deep)}
+.hstep-body{padding:6px 20px 4px}
+.hstep-pane{display:none}
+.hstep-pane.active{display:block;animation:fadeUp .2s ease}
+.hstep-pane h5{font-size:.98rem;font-weight:800;margin-bottom:4px}
+.hstep-pane p{font-size:.88rem;color:rgba(27,24,54,.68);line-height:1.65;margin-bottom:6px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hstep-nav{display:flex;align-items:center;gap:10px;padding:10px 20px 16px}
+.hstep-nav button{font-size:.78rem;font-weight:800;padding:8px 16px;border-radius:100px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;font-family:'Inter'}
+.hstep-nav button:hover:not(:disabled){border-color:var(--magenta);color:var(--magenta-deep)}
+.hstep-nav button:disabled{opacity:.4;cursor:default}
+.hstep-count{margin-left:auto;font-size:.74rem;font-weight:700;color:rgba(27,24,54,.45)}
+html.dark .hstep{background:var(--card);border-color:var(--line)}
+html.dark .hstep-node{border-color:rgba(255,255,255,.16)}
+html.dark .hstep-node .n{background:rgba(255,255,255,.1);color:var(--faint)}
+html.dark .hstep-node .t{color:var(--faint)}
+html.dark .hstep-node.active{border-color:var(--magenta)}
+html.dark .hstep-node.active .n{background:var(--magenta);color:#fff}
+html.dark .hstep-node.active .t{color:#fff}
+html.dark .hstep-pane h5{color:var(--ink)}
+html.dark .hstep-pane p{color:var(--muted)}
+html.dark .hstep-nav button{background:var(--card);color:var(--ink);border-color:var(--line)}
+html.dark .hstep-count{color:var(--faint)}
+
+/* videos / related / cta / score in dark */
+html.dark .video-card{background:var(--card);border-color:var(--line)}
+html.dark .video-card .v-info p{color:var(--faint)}
+html.dark .rel-card{background:var(--card);border-color:var(--line)}
+html.dark .rel-card p{color:var(--faint)}
+html.dark .rel-card .go{color:#F0569A}
+html.dark .cta-band{background:#151327;border:1px solid var(--line)}
+html.dark .cta-band p{color:var(--muted)}
+html.dark .score-strip{background:var(--card);border-color:var(--line)}
+html.dark .score-head h3{color:var(--ink)}
+html.dark .score-head .score-total{color:#F0569A}
+html.dark .score-cell{background:rgba(255,255,255,.05)}
+html.dark .score-cell .s-label,html.dark .score-cell .s-num{color:var(--faint)}
+html.dark .score-cell .s-bar{background:rgba(255,255,255,.12)}
+html.dark .promise-strip{background:var(--card);border-color:var(--line)}
+html.dark .promise-item p{color:var(--faint)}
+
+/* right rail */
+.right-rail{display:none}
+@media(min-width:1340px){
+  .right-rail{display:block;position:fixed;top:104px;left:calc(50% - 560px + 740px);width:196px;max-height:calc(100vh - 140px);overflow-y:auto;scrollbar-width:thin;z-index:5}
+  .toc-label{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(27,24,54,.45);margin-bottom:10px;font-family:'Inter'}
+  .toc-links{display:flex;flex-direction:column;gap:2px;border-left:2px solid var(--line);padding-left:0}
+  .toc-link{font-size:12.5px;font-weight:600;color:rgba(27,24,54,.6);padding:5px 0 5px 14px;border-left:2px solid transparent;margin-left:-2px;line-height:1.45;font-family:'Inter'}
+  .toc-link:hover{color:var(--magenta-deep)}
+  .toc-link.active{color:var(--magenta-deep);border-left-color:var(--magenta)}
+  html.dark .toc-label{color:var(--faint)}
+  html.dark .toc-link{color:var(--faint)}
+  html.dark .toc-link:hover,html.dark .toc-link.active{color:#F0569A}
+  html.dark .toc-link.active{border-left-color:var(--magenta)}
+}
+
+/* command palette */
+.palette-backdrop{position:fixed;inset:0;background:rgba(15,12,30,.5);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .18s;z-index:200}
+.palette-backdrop.open{opacity:1;pointer-events:auto}
+.palette{position:fixed;inset:0;display:grid;justify-items:center;align-items:start;padding:12vh 16px 16px;pointer-events:none;z-index:201;opacity:0;transition:opacity .18s}
+.palette.open{opacity:1;pointer-events:auto}
+.pal-box{width:min(560px,100%);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 30px 80px rgba(10,8,25,.35);overflow:hidden;transform:translateY(-8px);transition:transform .18s}
+.palette.open .pal-box{transform:none}
+#paletteInput{width:100%;border:none;outline:none;padding:15px 18px;font-size:15px;font-family:'Inter';background:transparent;color:var(--ink);border-bottom:1px solid var(--line)}
+#paletteResults{max-height:46vh;overflow-y:auto;padding:8px}
+.pal-group{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(27,24,54,.45);padding:10px 12px 4px;font-family:'Inter'}
+.pal-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:none;border-radius:9px;padding:9px 12px;cursor:pointer;font-family:'Inter'}
+.pal-item.sel,.pal-item:hover{background:rgba(225,26,110,.08)}
+.pi-dot{width:8px;height:8px;border-radius:50%;flex:none}
+.pi-main{display:flex;flex-direction:column;min-width:0}
+.pi-title{font-size:13.5px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pi-sub{font-size:11.5px;color:rgba(27,24,54,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pi-kind{margin-left:auto;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--magenta-deep);flex:none}
+.pal-empty{padding:22px;text-align:center;font-size:13.5px;color:rgba(27,24,54,.55)}
+.pal-foot{padding:9px 18px;border-top:1px solid var(--line);font-size:11px;color:rgba(27,24,54,.45)}
+html.dark .pal-box{background:#1A1730;border-color:var(--line)}
+html.dark #paletteInput{color:var(--ink)}
+html.dark .pi-title{color:var(--ink)}
+html.dark .pi-sub{color:var(--faint)}
+html.dark .pal-group{color:var(--faint)}
+html.dark .pal-item.sel,html.dark .pal-item:hover{background:rgba(225,26,110,.16)}
+html.dark .pi-kind{color:#F0569A}
+html.dark .pal-empty,html.dark .pal-foot{color:var(--faint)}
+
+/* responsive */
+@media(max-width:900px){
+  .doc-wrap>#guideList,.doc-wrap>.section-title,.doc-wrap>.section-sub,.doc-wrap>.video-section{max-width:100%}
+  .hstep-node{min-width:84px}
+}
+@media print{
+  #siteNav,.page-toolbar,.right-rail,.palette,.palette-backdrop,#progress,.ticker,.cta-band,footer,.hc-badge,.char-ring{ display:none!important}
+  .wrap,.doc-wrap>#guideList{max-width:100%}
+  .guide-block,.video-card,.rel-card{break-inside:avoid}
+  [data-reveal]{opacity:1!important;transform:none!important}
+}
+
+/* key points (reading list, non-interactive) */
+.key-points{list-style:none;margin:6px 0 0}
+.key-points-label{font-family:'Poppins';font-weight:800;font-size:.92rem;margin:18px 0 8px;display:flex;align-items:center;gap:8px;color:var(--ink)}
+.key-points-label::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--gold);display:inline-block}
+.key-points li{position:relative;padding:8px 0 8px 26px;font-size:.88rem;line-height:1.6;color:rgba(27,24,54,.78);border-bottom:1px dashed rgba(27,24,54,.08)}
+.key-points li:last-child{border-bottom:none}
+.key-points li::before{content:"✓";position:absolute;left:0;top:7px;color:var(--magenta);font-weight:800;font-size:.82rem}
+html.dark .key-points li{color:var(--muted);border-color:var(--line)}
+html.dark .key-points li::before{color:#F0569A}
+
 </style>
 <script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+<script>try{if(localStorage.getItem("hb-theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}</script>
   </head>
 <body>
 
@@ -242,96 +417,59 @@ footer{padding:34px 0 44px;text-align:center;font-size:.8rem;color:rgba(27,24,54
     <script src="site-transition.js" defer></script>
 
 <div class="wrap">
-  <div class="crumb"><a href="/tutorials">&larr; All Tutorials</a> &middot; Tutorial 03</div>
+  <div class="crumb"><a href="/tutorials">&larr; The Tutorials</a> &middot; Tutorial 03</div>
 </div>
 
-<header class="hero">
-  <div class="wrap hero-grid">
-  <div class="hero-copy">
-  <div class="eyebrow"><span class="dot"></span>Membership &middot; The Voice</div>
-  <h1>The whole club plans together.</h1>
-  <p class="sub">A club assembly is the one meeting where the entire membership decides where the club is going: planning the year, reviewing programs and learning together. No motions, no voting on routine business, just the club talking, agreeing and committing. This tutorial covers how assemblies differ from other meetings, the planning and education assemblies, facilitation that keeps every voice in the room, and the follow-up that turns talk into a plan.</p>
-  <p class="note">Based on the <a href="media/guides/Standard-Rotaract-Club-Constitution.docx" style="color:var(--tc);font-weight:700;text-decoration:underline;">Standard Rotaract Club Constitution</a>, the <a href="media/guides/Rotaract-Guidebook.pdf" style="color:var(--tc);font-weight:700;text-decoration:underline;">District 3292 Rotaract Guidebook</a> and Rotary's planning guidance. Your club's own constitution and bylaws always win when they differ.</p>
+<header class="doc-head"><div class="wrap">
+  <div class="doc-badge"><span class="dot"></span>Tutorial &middot; 03</div>
+  <h1>Give the club its loudest say.</h1>
+  <p class="doc-sub">The full membership meets as a body to plan the year, elect officers and approve the big calls. Plan it, run it, record it.</p>
+  <p class="doc-note">The statutory June or July and January assembly sessions, the governing agenda and the quorum rules come from the <a href="media/guides/Standard-Rotaract-Club-Constitution.docx">Standard Rotaract Club Constitution</a>; the agenda and minutes format follow what Zone 7 clubs and the District 3292 Directory's minute samples use. Source documents are listed under each section below.</p>
+</div></header>
 
-  <div class="hero-meta" id="heroMeta"></div>
+<div class="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
 
-  </div>
-    <figure class="hero-figure">
-    <div class="hero-char">
-      <div class="char-ring"></div>
-      <img src="media/images/tutorial-assembly.png" alt="Rotaract club assembly illustration">
-      <div class="hc-badge hc1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E7490" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Goals <b>agreed</b></div>
-      <div class="hc-badge hc2"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#F2A900" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Plan <b>shared</b></div>
-      <div class="hc-badge hc3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#E11A6E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>All voices <b>heard</b></div>
-      <div class="hc-badge hc4"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M8 14L12 18L20 8" stroke="#C2410C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Minutes <b>published</b></div>
-    </div>
-    <figcaption>Fig. 1 &mdash; A club assembly at work: the whole membership plans together.</figcaption>
-    </figure>
-  </div>
-</header>
-
-<div class="fact-strip"><div class="wrap fact-strip-inner" id="factStrip"></div></div>
-
-<div class="wrap">
-  <div class="section-head-row" data-reveal>
-    <div>
-      <h2 class="section-title">Inside the tutorial</h2>
-      <p class="section-sub">Six sections, from what an assembly is to how to make it stick. Open each one, follow the action checklists, and keep the templates.</p>
-    </div>
-    <button class="print-btn" id="printGuide" type="button">Print guide</button>
-  </div>
-  <div class="doc-layout">
-    <aside class="toc" aria-label="On this page">
-      <p class="toc-title">On this page</p>
-      <ol id="tocList"></ol>
-    </aside>
-    <div class="doc-main"><div class="guide-list" id="guideList"></div></div>
-  </div>
+<div class="wrap doc-wrap">
+  <h2 class="section-title" data-reveal>Inside this tutorial</h2>
+  <p class="section-sub" data-reveal>What the assembly is, then the agenda, quorum, facilitation and the record. Each section ends with key points and its source documents.</p>
+  <div class="guide-list" id="guideList"></div>
 
   <div class="video-section" data-reveal>
     <h2 class="section-title">Watch it in action</h2>
-    <p class="section-sub">Rotaract training from across the Rotary world. Press play inside the card.</p>
+    <p class="section-sub">A Rotaract zone meeting in action, showing the kind of practical education assembly content members can use immediately.</p>
     <div class="video-grid" id="videoGrid"></div>
   </div>
 
   <h2 class="section-title" data-reveal>Keep going</h2>
-  <p class="section-sub" data-reveal>Assemblies align the club internally. Next, see how the club connects to the zone and the district through ZRR and DRR visits, and how planning feeds your biggest service events.</p>
+  <p class="section-sub" data-reveal>The assembly decides; the ZRR keeps the district's ear and ties your club into the zone. Then the DRR's visit checks the essentials in person.</p>
   <div class="related-grid">
-    <a class="rel-card" href="/tutorial-zrr" data-reveal>
-      <img src="media/images/tutorial-zrr.png" alt="ZRR visits tutorial">
-      <h5>ZRR Visits</h5>
-      <p>Your zonal bridge to the district, and the visits that keep it alive.</p>
+    <a class="rel-card" href="/tutorial-board" data-reveal>
+      <img src="media/images/tutorial-board.png" alt="Board tutorial">
+      <h5>Run a Strong Board</h5>
+      <p>The assembly is where the board's proposals face the room. Make sure the board brought its best case.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
-    <a class="rel-card" href="/tutorial-drr" data-reveal>
-      <img src="media/images/tutorial-drr.png" alt="DRR visits tutorial">
-      <h5>DRR Visits</h5>
-      <p>When the District Rotaract Representative visits your club.</p>
+    <a class="rel-card" href="/tutorial-zrr" data-reveal style="--d:.08s">
+      <img src="media/images/tutorial-zrr.png" alt="ZRR tutorial">
+      <h5>Zonal Representative</h5>
+      <p>Your ZRR carries the zone's voice between assemblies and districts. Work with them.</p>
       <span class="go">Open tutorial &rarr;</span>
     </a>
-    <a class="rel-card" href="/tutorial-blood" data-reveal>
-      <img src="media/images/tutorial-blood.png" alt="Blood donation tutorial">
-      <h5>Blood Donation Programs</h5>
-      <p>Put the club's plan into practice with your biggest service event.</p>
-      <span class="go">Open tutorial &rarr;</span>
+    <a class="rel-card" href="/tutorials" data-reveal style="--d:.16s">
+      <img src="media/images/tutorial-meeting.png" alt="Tutorials hub">
+      <h5>The Tutorials</h5>
+      <p>Back to all six tutorials: meetings, board, assembly, ZRR, DRR and blood.</p>
+      <span class="go">Open hub &rarr;</span>
     </a>
   </div>
 
   <div class="cta-band">
     <div>
-      <h3>Take the planning templates.</h3>
-      <p>Turn this tutorial into your assembly pack: the planning guides referenced above, ready to download and share with your board.</p>
+      <h3>Assembly done. Zone connected.</h3>
+      <p>Next: the ZRR tutorial, on how your club touches the zone and the district between assemblies.</p>
     </div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <a class="btn" href="media/guides/Strategic-Planning-Guide.docx">Strategic Planning Guide</a>
-      <a class="btn" href="media/guides/Effective-Planning-Guide-to-Clubs.docx">Effective Planning Guide</a>
-    </div>
+    <a class="btn" href="/tutorial-zrr">Next: ZRR Tutorial &rarr;</a>
   </div>
-
-  <nav class="doc-pager" aria-label="Tutorial sequence">
-    <a class="pager prev" href="/tutorial-board"><span class="pager-k">&larr; Previous &middot; Tutorial 02</span><span class="pager-t">Running Board Meetings</span></a>
-    <a class="pager next" href="/tutorial-zrr"><span class="pager-k">Next &middot; Tutorial 04 &rarr;</span><span class="pager-t">ZRR Visits</span></a>
-  </nav>
 </div>
 
 <footer>&copy; 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. &nbsp;·&nbsp; <a href="/tutorials" style="font-weight:700;">All Tutorials</a></footer>
@@ -341,197 +479,168 @@ const LINK_SVG = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><p
 const SPARK_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
 
 const ICONS = {
-  bell: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3a6 6 0 00-6 6v4.5L4 17h16l-2-3.5V9a6 6 0 00-6-6z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 20a2 2 0 004 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  calendar: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" stroke="#fff" stroke-width="1.6"/><path d="M3.5 9.5h17M8 3v4M16 3v4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M9 14.5l2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   agenda: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="3.5" width="16" height="17" rx="2" stroke="#fff" stroke-width="1.6"/><path d="M8 8.5h8M8 12.5h8M8 16.5h5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
-  clip: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 21h8a2 2 0 002-2V7l-4-4H8a2 2 0 00-2 2v14a2 2 0 002 2z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v4h4M8 12h8M8 16h8" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  vote: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 14L12 18L20 8" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="3.5" y="3.5" width="17" height="17" rx="3" stroke="#fff" stroke-width="1.6"/></svg>`,
   people: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.4" stroke="#fff" stroke-width="1.6"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 5.5a3.4 3.4 0 010 6.4M17.5 14.2c2.3.6 4 2.7 4 5.8" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
-  pen: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 013 3L8 19l-4 1z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M14.5 6.5l3 3" stroke="#fff" stroke-width="1.6"/></svg>`,
-  vote: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 14L12 18L20 8" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="3.5" y="3.5" width="17" height="17" rx="3" stroke="#fff" stroke-width="1.6"/></svg>`
+  bell: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3a6 6 0 00-6 6v4.5L4 17h16l-2-3.5V9a6 6 0 00-6-6z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 20a2 2 0 004 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  clip: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 21h8a2 2 0 002-2V7l-4-4H8a2 2 0 00-2 2v14a2 2 0 002 2z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v4h4M8 12h8M8 16h8" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+  pen: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 013 3L8 19l-4 1z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M14.5 6.5l3 3" stroke="#fff" stroke-width="1.6"/></svg>`
 };
-const COLORS = ["#0E7490","#F2A900","#E11A6E","#1B1836","#C2410C","#A80F52"];
+const COLORS = ["#E11A6E","#A80F52","#F2A900","#1B1836","#C2410C","#0E7490"];
 
-const TICKER_ITEMS = ["All members","Planning","Education","Quarterly","No motions","Goals & programs","Two-way","Follow-up"];
+const TICKER_ITEMS = ["Regular assembly","Statutory assembly","June and July","January session","Agenda first","Quorum counted","Minutes filed","Elections ratified"];
 
 const SECTIONS = [
   {
-    id:"vs-others", icon:"bell",
-    title:"Assembly vs. General vs. Board",
-    tagline:"Three meetings, three jobs, do not blur them",
-    img:"media/images/meeting-call-to-order.jpg",
-    alt:"Minimal flat illustration of a club assembly opening",
-    body:`<p class="intro">The assembly is often the most misunderstood meeting in Rotaract. It is not a general meeting with extra snacks; it is the club's planning and education forum, open to all members, where direction gets set rather than business processed.</p>
+    id:"whatis", icon:"calendar",
+    title:"What an Assembly Actually Is",
+    tagline:"The full membership, sitting as a body",
+    body:`<p class="intro">The club assembly is the meeting of the whole membership, and in most Rotaract structures it is the club's governing voice: it elects officers, sets the budget and the annual plan, and approves the big decisions the board proposes. In many constitutions it is also where the year's programme is presented to the members for approval.</p>
       <table class="type-table">
-        <thead><tr><th>Meeting</th><th>Who attends</th><th>Typical rhythm</th><th>Main job</th></tr></thead>
+        <thead><tr><th>Type</th><th>When</th><th>What it does</th></tr></thead>
         <tbody>
-          <tr><td data-th="Meeting">General meeting</td><td data-th="Who attends">All members</td><td data-th="Typical rhythm">Weekly or bi-weekly</td><td data-th="Main job">Club business, reports, motions, fellowship</td></tr>
-          <tr><td data-th="Meeting">Board meeting</td><td data-th="Who attends">Officers + directors</td><td data-th="Typical rhythm">Monthly</td><td data-th="Main job">Set direction, review projects and finances, prepare general meetings</td></tr>
-          <tr><td data-th="Meeting">Club assembly</td><td data-th="Who attends">All members</td><td data-th="Typical rhythm">Quarterly or as planned</td><td data-th="Main job">Planning, education and two-way discussion, no formal motions</td></tr>
-          <tr><td data-th="Meeting">Annual meeting</td><td data-th="Who attends">All members</td><td data-th="Typical rhythm">Once a year</td><td data-th="Main job">Officer elections and year-end reporting</td></tr>
+          <tr><td>Regular assembly</td><td>Set by the club calendar, commonly twice a year</td><td>Serves as the governing meeting: programme planning, elections, budget, major proposals</td></tr>
+          <tr><td>Statutory assembly</td><td>June or July, then again around January</td><td>The two required governance meetings of the year; elections and the annual plan usually happen here</td></tr>
+          <tr><td>Special assembly</td><td>As constitution rule or officer call</td><td>Called by the president or a petition of members for a specific item</td></tr>
         </tbody>
       </table>
-      <p class="intro">Because the assembly has no motions, members speak freely, which is exactly the point. The board then takes what the assembly agreed and turns it into formal decisions at its next meeting.</p>`,
-    stat:{icon:SPARK_SVG, text:`Clubs that hold <span>at least one assembly per quarter</span> report better-informed members and calmer general meetings.`},
+      <p class="intro">The assembly is not the general meeting; the general meeting is the club's regular weekly or monthly rhythm, while the assembly gathers members for governance. The general meeting is where the club runs; the assembly is where it decides.</p>`,
+    stat:{icon:SPARK_SVG, text:`Members who <span>see their vote in the record</span> at the next assembly keep coming; members who never see the outcome stop coming.`},
     checklist:[
-      "Put assembly dates on the year calendar so members can plan around them",
-      "State clearly at the start that the assembly discusses and agrees; formal decisions happen at the board meeting",
-      "Invite everyone, including members who rarely attend general meetings; assemblies are often the meeting that brings them back",
-      "Hold assemblies at a different time or place from the routine meeting; the change of frame changes the conversation"
+      "Check your constitution for how many assemblies are required each year and hold at least that many",
+      "Publish the assembly date at least two weeks ahead with the agenda attached",
+      "Invite the sponsor Rotary club and the ZRR or DRR when the program allows; they attend by invitation",
+      "Hold elections at the assembly your constitution designates, usually the June and July session"
+    ],
+    links:[
+      { label:"Standard Rotaract Club Constitution: assemblies", url:"media/guides/Standard-Rotaract-Club-Constitution.docx" },
+      { label:"Recommended Club Bylaws", url:"media/guides/662_rotaract_club_recommended_bylaws_en.docx" }
+    ]
+  },
+  {
+    id:"agenda", icon:"agenda",
+    title:"Building the Agenda",
+    tagline:"The order of business that makes or breaks the room",
+    body:`<p class="intro">A statutory assembly fails when it wanders; it succeeds when the agenda is a tight, published order. The standard sequence, used across clubs and mirrored in the Directory's assembly minutes, is deliberately short.</p>
+      <ol class="steps">
+        <li><span class="num">1</span><h5>Call to order and quorum</h5><p>The chair confirms members in good standing present; the count is recorded before business begins.</p></li>
+        <li><span class="num">2</span><h5>Adoption of the agenda</h5><p>Members approve the agenda itself, or amend it, before it binds the meeting.</p></li>
+        <li><span class="num">3</span><h5>Approval of previous minutes</h5><p>Minutes of the last assembly are read, corrected and approved.</p></li>
+        <li><span class="num">4</span><h5>Reports</h5><p>President, treasurer, committees: progress, money, membership, service.</p></li>
+        <li><span class="num">5</span><h5>Programme and plan</h5><p>Next year's goals, activities and the budget are presented to members for approval.</p></li>
+        <li><span class="num">6</span><h5>Elections (when due)</h5><p>Officers are elected per the constitution, recorded with vote counts.</p></li>
+        <li><span class="num">7</span><h5>Ratify the calendar</h5><p>The year's assembly, board and general meeting dates get the members' blessing.</p></li>
+        <li><span class="num">8</span><h5>Announcements</h5><p>District events, dues deadlines, visit schedules, service opportunities.</p></li>
+        <li><span class="num">9</span><h5>Adjournment</h5><p>A firm close, with the next meeting date stated.</p></li>
+      </ol>`,
+    stat:{icon:SPARK_SVG, text:`Assemblies that <span>print the agenda</span> and read it verbatim take 30 minutes; assemblies that improvise take a day.`},
+    checklist:[
+      "Send the agenda with the notice, two weeks out, so members arrive already decided",
+      "Put reports in writing before the meeting; the room decides on what they have read, not on what they hear",
+      "Keep elections on a fixed agenda line with a stated order: nominations, speeches, ballot, result",
+      "State the next assembly date in the final agenda line and record it in the minutes"
+    ],
+    links:[
+      { label:"Sample Agenda Paper (guides folder)", url:"media/guides/Sample-Agenda-Paper.doc" }
+    ]
+  },
+  {
+    id:"quorum", icon:"vote",
+    title:"Quorum & Genuine Attendance",
+    tagline:"A real assembly needs more than a full room",
+    body:`<p class="intro">Quorum for an assembly is commonly a majority of all members in good standing, not merely of those who show up. When it is not reached, the assembly cannot pass binding items; many clubs then treat the meeting as a consultation and reschedule the governance items.</p>
+      <ol class="steps">
+        <li><span class="num">1</span><h5>Define good standing early</h5><p>Members in good standing are those whose dues are paid and who maintain attendance per club policy; the secretary holds this list.</p></li>
+        <li><span class="num">2</span><h5>Count at the door</h5><p>Sign-in with attendance recorded against the good-standing list; the count opens the minutes.</p></li>
+        <li><span class="num">3</span><h5>Plan for the low season</h5><p>January and the University exam window thin attendance; schedule the statutory assembly outside exam weeks.</p></li>
+        <li><span class="num">4</span><h5>Make online joining official</h5><p>If your club allows members to join remotely, decide in advance how online attendance counts toward quorum.</p></li>
+      </ol>`,
+    stat:{icon:SPARK_SVG, text:`Clubs whose <span>statutory assembly stalls for quorum more than once</span> should check whether their meeting day fights the local exam calendar.`},
+    checklist:[
+      "Confirm the quorum number from the constitution before the notice goes out",
+      "Record the quorum count and the vote counts in the minutes, whatever the outcome",
+      "If quorum fails, minute a new date on the spot and have the chair sign the notice",
+      "List members in good standing alongside the 100% attendance honours; one page, both messages"
+    ],
+    links:[
+      { label:"Standard Rotaract Club Constitution: quorum", url:"media/guides/Standard-Rotaract-Club-Constitution.docx" }
+    ]
+  },
+  {
+    id:"facilitation", icon:"bell",
+    title:"Running the Room",
+    tagline:"Structure keeps members generous with their time",
+    body:`<p class="intro">A hundred members and no structure becomes a hundred different meetings. The chair's discipline, not the size of the room, decides whether an assembly feels empowering or exhausting.</p>
+      <ol class="steps">
+        <li><span class="num">1</span><h5>Nominate a neutral chair</h5><p>For elections, many clubs hand the gavel to a past president or the sponsor club's representative, never a candidate.</p></li>
+        <li><span class="num">2</span><h5>One speaker at a time</h5><p>Recognised speakers only; the chair repeats, paraphrases and moves on.</p></li>
+        <li><span class="num">3</span><h5>Put it to a motion</h5><p>Any item that needs a decision is worded as a motion by a member; the room votes on the motion you read back.</p></li>
+        <li><span class="num">4</span><h5>Timebox every report</h5><p>Five minutes per report, signalled visibly; members who prepared shorter reports win the room.</p></li>
+        <li><span class="num">5</span><h5>Read decisions back</h5><p>After voting, the chair reads the decision out loud before moving on.</p></li>
+        <li><span class="num">6</span><h5>Welcome visitors properly</h5><p>Guests are introduced and acknowledged; the assembly has no silent strangers.</p></li>
+      </ol>`,
+    stat:{icon:SPARK_SVG, text:`Minutes where <span>every decision appears as a stated sentence</span> let an absent member catch up in three minutes instead of an hour.`},
+    checklist:[
+      "Every member who speaks is recognised first; the chair holds the list",
+      "Amendments are voted before the main motion; no one votes on a moving target",
+      "Non-members get the floor only by invite and only for their agenda item",
+      "The chair's summary at each agenda line ends with a decision or a clear non-decision"
     ],
     links:[]
   },
   {
-    id:"planning", icon:"agenda",
-    title:"The Planning Assembly",
-    tagline:"Set the year before the year sets you",
-    img:"media/images/tutorial-assembly.png",
-    alt:"Illustration of members planning together at a club assembly",
-    body:`<p class="intro">The planning assembly is where the club agrees what it will achieve, usually at the start of the Rotaract year, and again mid-year to correct course. It feeds the board, which turns the club's choices into the formal plan and budget.</p>
+    id:"followups", icon:"clip",
+    title:"Recording & Follow-up",
+    tagline:"The assembly ends; its record begins",
+    body:`<p class="intro">The minutes of an assembly are a governance document, not a diary. They are signed, kept with the club's official records, shared with members, and they turn votes into action items that have owners and deadlines.</p>
       <ol class="steps">
-        <li><span class="num">1</span><h5>Review the past year</h5><p>Present results: projects done, members gained and lost, money spent. Be honest; the review shapes everything that follows.</p></li>
-        <li><span class="num">2</span><h5>Agree the goals</h5><p>Members propose and pick the year's 3&ndash;5 goals: service impact, membership, public image, fellowship, district engagement.</p></li>
-        <li><span class="num">3</span><h5>Choose the programs</h5><p>For each goal, list concrete programs: what, when, who benefits, rough cost, which committee runs it.</p></li>
-        <li><span class="num">4</span><h5>Sketch the budget</h5><p>Members hear what programs cost against expected income, and adjust priorities in the room.</p></li>
-        <li><span class="num">5</span><h5>Assign owners</h5><p>Every program gets a chair and a deadline, right there, in the assembly, not later by email.</p></li>
+        <li><span class="num">1</span><h5>Capture decisions, not speeches</h5><p>Every motion, the mover, the count and the outcome, in order. One page for a two-hour meeting is normal.</p></li>
+        <li><span class="num">2</span><h5>Name owners and dates</h5><p>Each decision gets an owner and a deadline before the room closes; the minutes list them in a follow-up table.</p></li>
+        <li><span class="num">3</span><h5>Approve and sign</h5><p>The next assembly opens by approving the record, corrected and signed by the chair and secretary.</p></li>
+        <li><span class="num">4</span><h5>Share within 48 hours</h5><p>Members who could not attend read the outcome while it still matters.</p></li>
+        <li><span class="num">5</span><h5>File with the official records</h5><p>The signed copy joins the club's minutes book and the shared drive; elected boards change, the record does not.</p></li>
       </ol>`,
-    stat:{icon:SPARK_SVG, text:`A <span>3&ndash;5 goal plan agreed at the assembly</span> gives the board a mandate for the whole year, and members something to hold them to.`},
+    stat:{icon:SPARK_SVG, text:`The assembly record is <span>the club's own constitution in practice</span>; auditors and incoming boards read it before they read anything else.`},
     checklist:[
-      "Prepare the past-year review as a one-page handout, printed or shared before the assembly",
-      "Limit goals to 3&ndash;5; every club over-plans and under-delivers at assembly time",
-      "For every goal, name one measurable sign of success (donors, members, units, hours)",
-      "Close the planning assembly by reading the agreed plan aloud so everyone leaves with the same words"
+      "Minutes carry the date, quorum count, agenda and signatures",
+      "Each action line has an owner and a deadline; each vote has a count",
+      "Minutes are approved, signed and filed before the next notice goes out",
+      "Past assembly minutes live in the official records folder and on the shared drive"
     ],
     links:[
-      { label:"Strategic Planning Guide", url:"media/guides/Strategic-Planning-Guide.docx" },
-      { label:"Effective Planning Guide to Clubs", url:"media/guides/Effective-Planning-Guide-to-Clubs.docx" }
+      { label:"Sample GM attendance sheet (record keeping)", url:"media/guides/Sample-GM-attendance-sheet.docx" }
     ]
-  },
-  {
-    id:"education", icon:"clip",
-    title:"The Educational Assembly",
-    tagline:"A meeting that leaves members smarter",
-    img:"media/images/tutorial-mascot.png",
-    alt:"Zone 7 tutorial mascot with a book, symbolising education",
-    body:`<p class="intro">Rotaract is a leadership development program, and the assembly is the natural classroom. One assembly per quarter can be given wholly to education, on leadership, service skills, district systems or public speaking, and members leave more capable than they arrived.</p>
-      <ol class="steps">
-        <li><span class="num">1</span><h5>Pick a topic that hurts</h5><p>Ask members what they struggle with (budgeting, public speaking, project planning) and build the session around that.</p></li>
-        <li><span class="num">2</span><h5>Use inside experts first</h5><p>Alumni, past presidents, Rotarians and experienced members are free, available and credible.</p></li>
-        <li><span class="num">3</span><h5>Invite district trainers</h5><p>DRR, ZRR and their teams run workshops on My Rotary, reporting and leadership; ask them to deliver a session.</p></li>
-        <li><span class="num">4</span><h5>Make it interactive</h5><p>Workshops beat lectures: role-play a meeting, practice a speech, draft a project plan in small groups.</p></li>
-        <li><span class="num">5</span><h5>Close with take-aways</h5><p>End with one skill each member commits to practising before the next meeting.</p></li>
-      </ol>`,
-    stat:{icon:SPARK_SVG, text:`Members who <span>learn one practical skill per quarter</span> describe Rotaract as training, not just volunteering; that is why they stay.`},
-    checklist:[
-      "Survey members for topics before planning the education assembly; relevance is everything",
-      "Book the trainer at least a month ahead and confirm the equipment and room",
-      "Always pair theory with a hands-on exercise; no member should leave passive",
-      "Collect one-line feedback at the end and use it for the next session"
-    ],
-    links:[
-      { label:"Rotaract Guidebook: education & training", url:"media/guides/Rotaract-Guidebook.pdf" }
-    ]
-  },
-  {
-    id:"running", icon:"people",
-    title:"Running the Assembly",
-    tagline:"Facilitate, do not lecture, and never rush a voice",
-    img:"media/images/meeting-agenda.jpg",
-    alt:"Minimal flat illustration of an assembly agenda",
-    body:`<p class="intro">An assembly succeeds or dies on facilitation. The chair's job is to make it easy for every member to contribute, not to deliver a presentation at a room of people. The flow below works for both planning and education assemblies.</p>
-      <ol class="steps">
-        <li><span class="num">1</span><h5>Open with the frame</h5><p>State what the assembly will achieve, how long it runs, and how decisions flow to the board. Two minutes, not ten.</p></li>
-        <li><span class="num">2</span><h5>Present in ten-minute blocks</h5><p>Any presentation gets ten minutes max: facts, options, then the room talks.</p></li>
-        <li><span class="num">3</span><h5>Use small groups</h5><p>Split into groups of 4&ndash;5 with one question each; groups report back. Everyone speaks in a small group.</p></li>
-        <li><span class="num">4</span><h5>Capture on the wall</h5><p>A flipchart or shared doc collects every idea, visibly; members trust a process that writes things down.</p></li>
-        <li><span class="num">5</span><h5>Vote with stickers</h5><p>When choices are needed, let members vote by placing marks next to options: fast, anonymous, fun.</p></li>
-        <li><span class="num">6</span><h5>Close with commitments</h5><p>Summarise agreements, name owners and deadlines, set the next assembly date, thank the room.</p></li>
-      </ol>`,
-    stat:{icon:SPARK_SVG, text:`The best assemblies Zone 7 has seen had <span>the chair talking less than a third of the time</span>; structure, not charisma, does the work.`},
-    checklist:[
-      "Write the assembly's questions before the agenda; good questions make good assemblies",
-      "Enforce the 10-minute presentation rule kindly but firmly",
-      "Never let one or two voices dominate; rotate facilitation each assembly",
-      "Assign a scribe whose only job is to capture decisions, owners and deadlines"
-    ],
-    links:[]
-  },
-  {
-    id:"followup", icon:"pen",
-    title:"Outcomes & Follow-Up",
-    tagline:"An assembly without minutes evaporates in a week",
-    img:"media/images/meeting-minutes-report.jpg",
-    alt:"Minimal flat illustration of a secretary writing assembly minutes",
-    body:`<p class="intro">The value of an assembly is measured in what changes afterwards. If the agreements are not written down, shared and tracked, the next assembly starts from zero again.</p>
-      <ol class="steps">
-        <li><span class="num">1</span><h5>Publish the outcome minutes</h5><p>Within 48 hours: agreements, goals, programs, owners and deadlines, shared with all members, not just the board.</p></li>
-        <li><span class="num">2</span><h5>Feed the board</h5><p>The board reviews the assembly outcome at its next meeting and formalises the decisions in official minutes.</p></li>
-        <li><span class="num">3</span><h5>Track the plan</h5><p>At each general meeting, the chair of the year reads one line per program: on track, behind, needs help.</p></li>
-        <li><span class="num">4</span><h5>Report to the district</h5><p>Goals and programs flow into the club's district reporting; the assembly plan is the club's public promise.</p></li>
-      </ol>`,
-    stat:{icon:SPARK_SVG, text:`Assemblies followed by <span>a written plan within a week</span> end the year having done most of it; assemblies followed by nothing end the year having done some of it.`},
-    checklist:[
-      "Publish outcome minutes within 48 hours, while energy is high",
-      "Add assembly items to the next board meeting agenda automatically",
-      "Review the plan's one-liners at every general meeting, not once a quarter",
-      "Archive assembly outcomes with the year's records for the next board"
-    ],
-    links:[
-      { label:"Guides for Clubs: minutes & records", url:"/club-guides" }
-    ]
-  },
-  {
-    id:"everyone", icon:"vote",
-    title:"Making Every Member Count",
-    tagline:"The member who never speaks is the one you lose",
-    img:"media/images/meeting-attendance.jpg",
-    alt:"Minimal flat illustration of members signing in to an assembly",
-    body:`<p class="intro">New members, shy members and quiet members decide whether they belong based on whether their voice was wanted. A few simple techniques make participation the default rather than the brave exception.</p>
-      <ol class="steps">
-        <li><span class="num">1</span><h5>Rotate facilitation</h5><p>Let a different member chair each assembly; it spreads skill and ownership across the club.</p></li>
-        <li><span class="num">2</span><h5>Guarantee the first minute</h5><p>Open with a round where every member says one thing: their name, their current project, one hope. Nobody hides.</p></li>
-        <li><span class="num">3</span><h5>Write before you speak</h5><p>Give everyone two minutes to jot ideas before opening discussion; written voices beat first voices.</p></li>
-        <li><span class="num">4</span><h5>Pair new with old</h5><p>Small groups mix new members with veterans so experience is shared, not monopolised.</p></li>
-        <li><span class="num">5</span><h5>Follow up privately</h5><p>If a member stays silent, a quick personal message after ('what did you think?') often opens the door.</p></li>
-      </ol>`,
-    stat:{icon:SPARK_SVG, text:`Assemblies where <span>every member speaks at least once</span> convert the quiet middle of the club into active members; the zone's best retention stories start there.`},
-    checklist:[
-      "Set a personal goal: every member contributes at least once per assembly",
-      "Use write-first rounds for anything the club is genuinely deciding",
-      "Mix new and old members in every small group",
-      "Follow up individually with silent members; belonging is built one message at a time"
-    ],
-    links:[]
   }
 ];
 
+
+
 function render(){
   document.getElementById("guideList").innerHTML = SECTIONS.map((s,i) => `
-    <div class="guide-block" id="${s.id}" data-reveal>
+    <div class="guide-block" id="${s.id}" data-reveal style="--d:${(i*0.05).toFixed(2)}s">
       <div class="guide-head">
         <div class="guide-head-left">
-          <span class="guide-num">${String(i+1).padStart(2,"0")}</span>
           <div class="guide-icon" style="background:${COLORS[i]};">${ICONS[s.icon]}</div>
           <div>
             <h3>${s.title}</h3>
             <p class="tagline">${s.tagline}</p>
           </div>
         </div>
-        <div class="guide-head-right">
-          <button class="copy-link" type="button" data-target="#${s.id}" aria-label="Copy link to ${s.title}" title="Copy link">${LINK_SVG}</button>
-          <div class="guide-chevron">${CHEVRON_SVG}</div>
-        </div>
+        <div class="guide-chevron">${CHEVRON_SVG}</div>
       </div>
-      <div class="guide-html">
+      <div class="guide-body">
         <div class="guide-body-inner">
-          <div class="phase-img"><img src="${s.img}" alt="${s.alt}" loading="lazy"></div>
+          ${s.img ? `<div class="phase-img"><img src="${s.img}" alt="${s.alt}" loading="lazy"></div>` : ""}
           ${s.body}
           <div class="guide-stat"><div class="g-icon">${s.stat.icon}</div><p>${s.stat.text}</p></div>
-          <div class="checklist-label">Action checklist</div>
-          <ul class="guide-checklist">
+          <div class="key-points-label">Key Points</div>
+          <ul class="key-points">
             ${s.checklist.map(c => `<li>${c}</li>`).join("")}
           </ul>
           ${s.links.length ? `
             <div class="guide-links">
-              <div class="guide-links-label">Useful Link</div>
+              <div class="guide-links-label">Source documents</div>
               ${s.links.map(l => `<a class="guide-link" href="${l.url}">${LINK_SVG} ${l.label}</a>`).join("")}
             </div>
           ` : ""}
@@ -540,43 +649,17 @@ function render(){
     </div>
   `).join("");
 
-  document.getElementById("factStrip").innerHTML =
+  document.getElementById("tickerTrack").innerHTML =
+    TICKER_ITEMS.map(t => `<span>${t}</span>`).join("") +
     TICKER_ITEMS.map(t => `<span>${t}</span>`).join("");
-
-  document.getElementById("tocList").innerHTML =
-    SECTIONS.map((s,i) => `<li><a href="#${s.id}"><span class="n">${String(i+1).padStart(2,"0")}</span>${s.title}</a></li>`).join("");
 
   document.querySelectorAll(".guide-head").forEach(el => {
     el.addEventListener("click", () => el.closest(".guide-block").classList.toggle("open"));
   });
-  document.querySelectorAll("#tocList a").forEach(a => {
-    a.addEventListener("click", (e) => {
-      e.preventDefault();
-      const t = document.querySelector(a.getAttribute("href"));
-      if(!t) return;
-      t.classList.add("open");
-      setTimeout(() => t.scrollIntoView({behavior:"smooth", block:"start"}), 120);
-    });
-  });
-  document.querySelectorAll(".copy-link").forEach(btn => {
-    btn.addEventListener("click", async (e) => {
-      e.stopPropagation();
-      const url = location.origin + location.pathname + btn.dataset.target;
-      try { await navigator.clipboard.writeText(url); }
-      catch(err) {
-        const ta = document.createElement("textarea");
-        ta.value = url; document.body.appendChild(ta); ta.select();
-        try { document.execCommand("copy"); } catch(_){}
-        ta.remove();
-      }
-      btn.classList.add("copied");
-      setTimeout(() => btn.classList.remove("copied"), 1400);
-    });
-  });
 
   document.getElementById("videoGrid").innerHTML = [
     { id:"H3KO3rn2P0o", title:"Rotaract Zone 34 Monthly Meeting: Club Information", desc:"Rotaract Zone 34's monthly meeting session on updating Rotaract club information on My Rotary, exactly the kind of practical education assembly content members can use immediately." }
-  ].map(v => `
+].map(v => `
     <div class="video-card">
       <div class="v-thumb" data-vid="${v.id}">
         <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${v.title}" loading="lazy">
@@ -604,8 +687,8 @@ function render(){
   }
 
   observeReveals();
-  observeSpy();
 }
+
 render();
 
 function observeReveals(){
@@ -617,30 +700,24 @@ function observeReveals(){
   els.forEach(el => io.observe(el));
 }
 
-function observeSpy(){
-  const links = [...document.querySelectorAll("#tocList a")];
-  if(!links.length || !("IntersectionObserver" in window)) return;
-  const byId = new Map(links.map(a => [a.getAttribute("href").slice(1), a]));
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(en => {
-      if(en.isIntersecting){
-        links.forEach(a => a.classList.remove("active"));
-        const a = byId.get(en.target.id);
-        if(a) a.classList.add("active");
-      }
-    });
-  }, {rootMargin:"-40% 0px -55% 0px"});
-  document.querySelectorAll(".guide-block").forEach(b => io.observe(b));
+const heroTitle = document.getElementById("heroTitle");
+if(heroTitle){
+  const words = heroTitle.textContent.trim().split(/\s+/);
+  heroTitle.innerHTML = words.map(w => `<span class="rword"><span>${w}</span></span>`).join(" ");
 }
 
-document.getElementById("printGuide").addEventListener("click", () => window.print());
-(function(){
-  const words = SECTIONS.reduce((a,s) => a + (s.title + " " + s.tagline + " " + s.body.replace(/<[^>]+>/g," ") + " " + s.checklist.join(" ")).split(/\s+/).length, 0);
-  const mins = Math.max(1, Math.round(words/200));
-  const tpl = SECTIONS.reduce((a,s) => a + s.links.length, 0);
-  const meta = document.getElementById("heroMeta");
-  if(meta) meta.innerHTML = `<span><b>~${mins} min</b> read</span><span><b>${SECTIONS.length} modules</b></span><span><b>${tpl} templates</b> included</span>`;
-})();
+const hero = document.querySelector(".hero");
+if(hero && window.matchMedia("(pointer:fine)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+  hero.addEventListener("mousemove", (e) => {
+    const r = hero.getBoundingClientRect();
+    const mx = (e.clientX - r.left) / r.width - .5;
+    const my = (e.clientY - r.top) / r.height - .5;
+    document.querySelectorAll("[data-parallax]").forEach(el => {
+      const d = parseFloat(el.dataset.parallax) || 1;
+      el.style.translate = `${(mx * 26 * d).toFixed(1)}px ${(my * 18 * d).toFixed(1)}px`;
+    });
+  });
+}
 
 const progress = document.getElementById("progress");
 let ticking = false;
@@ -654,6 +731,165 @@ window.addEventListener("scroll", () => {
     ticking = false;
   });
 }, {passive:true});
+</script>
+<script>
+/* ── handbook docs layer (shared across chapters) ── */
+(function(){
+"use strict";
+var PAGE=(location.pathname.split("/").pop()||"handbook.html").replace(/\.html$/,"")||"handbook";
+var root=document.documentElement;
+function stored(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+/* toolbar */
+var wrap=document.querySelector(".doc-wrap")||document.querySelector(".wrap");
+var tb=document.createElement("div");
+tb.className="page-toolbar";tb.id="pageToolbar";
+tb.innerHTML='<div class="tool-actions"><button class="tool-btn" type="button" data-palette>Search <kbd>&#8984;K</kbd></button><button class="tool-btn" type="button" data-theme title="Toggle dark mode">&#9789;</button><button class="tool-btn" type="button" data-copylink title="Copy link to this chapter">&#128279;</button></div>';
+if(wrap)wrap.insertBefore(tb,wrap.firstChild);
+function paintThemeBtn(){var b=tb.querySelector("[data-theme]");if(!b)return;var d=root.classList.contains("dark");b.innerHTML=d?"&#9728;":"&#9789;";b.setAttribute("aria-pressed",d?"true":"false")}
+paintThemeBtn();
+var thBtn=tb.querySelector("[data-theme]");
+if(thBtn)thBtn.addEventListener("click",function(){var d=root.classList.toggle("dark");store("hb-theme",d?"dark":"light");paintThemeBtn()});
+var palBtn=tb.querySelector("[data-palette]");
+if(palBtn)palBtn.addEventListener("click",openPalette);
+var cpBtn=tb.querySelector("[data-copylink]");
+if(cpBtn)cpBtn.addEventListener("click",function(){
+  var done=function(){cpBtn.innerHTML="&#10003; copied";setTimeout(function(){cpBtn.innerHTML="&#128279;"},1400)};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(location.href).then(done,done)}
+  else{done()}
+});
+
+/* steps -> stepper */
+function buildStepper(ol){
+  var lis=Array.prototype.slice.call(ol.querySelectorAll(":scope > li"));
+  if(lis.length<2)return;
+  var items=lis.map(function(li){
+    var h=li.querySelector("h5"),p=li.querySelector("p");
+    return{t:h?h.innerHTML:"",b:p?p.innerHTML:""};
+  });
+  var box=document.createElement("div");box.className="hstep";
+  var id="hs"+Math.random().toString(36).slice(2,8);
+  box.innerHTML='<div class="hstep-track" role="tablist">'+items.map(function(it,i){
+    return'<button class="hstep-node'+(i===0?" active":"")+'" role="tab" aria-selected="'+(i===0)+'" data-n="'+i+'"><span class="n">'+(i+1)+'</span><span class="t">'+it.t.replace(/<[^>]*>/g,"")+'</span></button>';
+  }).join("")+'</div><div class="hstep-body">'+items.map(function(it,i){
+    return'<div class="hstep-pane'+(i===0?" active":"")+'" data-p="'+i+'"><h5>'+it.t+'</h5><p>'+it.b+'</p></div>';
+  }).join("")+'</div><div class="hstep-nav"><button type="button" data-prev disabled>&#8249; Prev</button><button type="button" data-next>Next &#8250;</button><span class="hstep-count" data-count>step 1 / '+items.length+'</span></div>';
+  ol.parentNode.replaceChild(box,ol);
+  var nodes=Array.prototype.slice.call(box.querySelectorAll("[data-n]"));
+  var panes=Array.prototype.slice.call(box.querySelectorAll("[data-p]"));
+  var prev=box.querySelector("[data-prev]"),next=box.querySelector("[data-next]"),count=box.querySelector("[data-count]");
+  var cur=0;
+  function go(i){
+    cur=Math.max(0,Math.min(nodes.length-1,i));
+    nodes.forEach(function(n,j){n.classList.toggle("active",j===cur);n.classList.toggle("done",j<cur);n.setAttribute("aria-selected",j===cur)});
+    panes.forEach(function(p,j){p.classList.toggle("active",j===cur)});
+    prev.disabled=cur===0;next.disabled=cur===nodes.length-1;
+    count.textContent="step "+(cur+1)+" / "+nodes.length;
+  }
+  nodes.forEach(function(n,j){n.addEventListener("click",function(){go(j)})});
+  prev.addEventListener("click",function(){go(cur-1)});
+  next.addEventListener("click",function(){go(cur+1)});
+  box.querySelector(".hstep-track").addEventListener("keydown",function(e){
+    var idx=nodes.indexOf(document.activeElement);if(idx===-1)return;var n=null;
+    if(e.key==="ArrowRight")n=idx+1;else if(e.key==="ArrowLeft")n=idx-1;
+    if(n!==null&&n>=0&&n<nodes.length){e.preventDefault();go(n);nodes[n].focus()}
+  });
+}
+document.querySelectorAll("ol.steps").forEach(buildStepper);
+
+/* tables -> scroll wrappers */
+document.querySelectorAll("table.type-table").forEach(function(t){
+  if(t.parentNode&&t.parentNode.classList.contains("spec-scroll"))return;
+  t.classList.add("spec");
+  var w=document.createElement("div");w.className="spec-scroll";
+  t.parentNode.insertBefore(w,t);w.appendChild(t);
+}); /* tables -> scroll wrappers */
+
+/* right rail + scrollspy */
+var rail=document.createElement("aside");rail.className="right-rail";rail.id="rightRail";
+var railLinks=[];
+(function(){
+  var secs=Array.prototype.slice.call(document.querySelectorAll(".guide-block[id]"));
+  var html='<div class="toc-label">On this page</div><div class="toc-links">';
+  secs.forEach(function(s){
+    var h=s.querySelector(".guide-head h3");if(!h||!s.id)return;
+    railLinks.push({id:s.id,label:h.textContent.trim()});
+    html+='<a class="toc-link" href="#'+s.id+'">'+h.textContent.trim().replace(/</g,"&lt;")+'</a>';
+  });
+  var vg=document.getElementById("videoGrid");
+  if(vg&&vg.children.length){var vs=vg.closest(".video-section");if(vs){if(!vs.id)vs.id="videos";railLinks.push({id:"videos",label:"Videos"});html+='<a class="toc-link" href="#videos">Videos</a>'}}
+  html+='</div>';rail.innerHTML=html;
+  if(wrap)wrap.appendChild(rail);
+})();
+var spy=null;
+(function(){
+  var links=Array.prototype.slice.call(rail.querySelectorAll(".toc-link"));
+  if(!links.length||!("IntersectionObserver"in window))return;
+  var targets=links.map(function(l){return document.getElementById(l.getAttribute("href").slice(1))}).filter(Boolean);
+  spy=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting)links.forEach(function(l){l.classList.toggle("active","#"+en.target.id===l.getAttribute("href"))});
+    });
+  },{rootMargin:"-20% 0px -70% 0px",threshold:0});
+  targets.forEach(function(t){spy.observe(t)});
+})();
+
+/* command palette (chapter-local index) */
+var KIND={section:"Section",step:"Step",video:"Video"};
+var IDX=[];
+(function(){
+  document.querySelectorAll(".guide-block[id]").forEach(function(s){
+    var h=s.querySelector(".guide-head h3"),tag=s.querySelector(".guide-head .tagline");
+    var title=h?h.textContent.trim():"Section";
+    IDX.push({kind:"section",label:title,sub:tag?tag.textContent.trim():"Open section",el:s});
+    s.querySelectorAll(".hstep-pane h5").forEach(function(h5){
+      IDX.push({kind:"step",label:h5.textContent.trim(),sub:title+" · step",el:h5.closest(".hstep")||s});
+    });
+  });
+  document.querySelectorAll("#videoGrid .v-info h5").forEach(function(h5){
+    var card=h5.closest(".video-card");
+    IDX.push({kind:"video",label:h5.textContent.trim(),sub:"Watch",el:card||h5});
+  });
+})();
+var palBd=document.createElement("div");palBd.className="palette-backdrop";palBd.id="paletteBackdrop";
+var pal=document.createElement("div");pal.className="palette";pal.id="palette";pal.setAttribute("role","dialog");pal.setAttribute("aria-label","Search this chapter");
+pal.innerHTML='<div class="pal-box"><input id="paletteInput" placeholder="Search this chapter…" autocomplete="off" aria-label="Search this chapter"><div id="paletteResults"></div><div class="pal-foot">&uarr;&darr; navigate · Enter open · Esc close</div></div>';
+document.body.appendChild(palBd);document.body.appendChild(pal);
+var palInput=document.getElementById("paletteInput"),palHost=document.getElementById("paletteResults");
+var palSel=0,palRes=[];
+function openPalette(){pal.classList.add("open");palBd.classList.add("open");palInput.value="";renderPalette("");palInput.focus()}
+function closePalette(){pal.classList.remove("open");palBd.classList.remove("open")}
+function renderPalette(q){
+  q=(q||"").toLowerCase();palRes=[];
+  var flat=IDX.filter(function(it){return !q||(it.label+" "+it.sub).toLowerCase().indexOf(q)>-1});
+  if(!flat.length){palHost.innerHTML='<div class="pal-empty">No matches for "'+q.replace(/</g,"&lt;")+'"</div>';return}
+  palHost.innerHTML=flat.slice(0,24).map(function(it,j){
+    palRes.push(it);
+    return'<button class="pal-item'+(j===0?" sel":"")+'" data-pal="'+j+'" type="button"><span class="pi-main"><span class="pi-title">'+it.label.replace(/</g,"&lt;")+'</span><span class="pi-sub">'+it.sub.replace(/</g,"&lt;")+'</span></span><span class="pi-kind">'+KIND[it.kind]+'</span></button>';
+  }).join("");
+  palSel=0;
+  palHost.querySelectorAll("[data-pal]").forEach(function(b){b.addEventListener("click",function(){goPalette(+b.dataset.pal)})});
+}
+function goPalette(i){
+  var r=palRes[i];if(!r)return;closePalette();
+  if(r.el&&r.el.scrollIntoView)r.el.scrollIntoView({behavior:"smooth",block:"start"});
+}
+palInput.addEventListener("input",function(e){renderPalette(e.target.value)});
+palInput.addEventListener("keydown",function(e){
+  var items=palHost.querySelectorAll(".pal-item");
+  if(e.key==="ArrowDown"){e.preventDefault();if(items.length){palSel=(palSel+1)%items.length;selPal(items)}}
+  else if(e.key==="ArrowUp"){e.preventDefault();if(items.length){palSel=(palSel-1+items.length)%items.length;selPal(items)}}
+  else if(e.key==="Enter"){e.preventDefault();goPalette(palSel)}
+  else if(e.key==="Escape"){closePalette()}
+});
+function selPal(items){palHost.querySelectorAll(".pal-item").forEach(function(x){x.classList.remove("sel")});if(items[palSel]){items[palSel].classList.add("sel");items[palSel].scrollIntoView({block:"nearest"})}}
+palBd.addEventListener("click",closePalette);
+document.addEventListener("keydown",function(e){
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openPalette()}
+});
+})();
+
 </script>
 <script src="rota-gpt-data.js" defer></script>
 <script src="rota-gpt.js" defer></script>

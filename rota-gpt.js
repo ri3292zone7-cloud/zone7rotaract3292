@@ -11,14 +11,11 @@
   var KB = (window.ROTA_KB || []).slice();
 
   var CSS = [
-    "#rgpt-launcher{position:fixed;right:22px;bottom:22px;z-index:9990;display:flex;align-items:center;gap:10px;background:#1B1836;color:#fff;border:none;border-radius:100px;padding:13px 20px 13px 14px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:700;font-size:.9rem;box-shadow:0 14px 34px rgba(27,24,54,.35);transition:transform .2s,background .2s}",
-    "#rgpt-launcher:hover{transform:translateY(-3px);background:#A80F52}",
-    "@media (max-width:920px){#rgpt-launcher{bottom:84px}}",
-    "#rgpt-launcher .rgpt-gear{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;flex-shrink:0}",
-    "#rgpt-launcher .rgpt-gear svg{width:18px;height:18px;animation:rgptSpin 10s linear infinite}",
+    "#rgpt-veil{position:fixed;inset:0;z-index:9989;background:rgba(27,24,54,.38);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}",
+    "#rgpt-veil.open{opacity:1;visibility:visible}",
+    "#rgpt-panel{position:fixed;top:0;right:0;bottom:0;z-index:9990;width:min(420px,100vw);height:100dvh;height:100vh;background:#FFFDF9;box-shadow:-24px 0 60px rgba(27,24,54,.28);display:flex;flex-direction:column;overflow:hidden;font-family:'Inter',sans-serif;transform:translateX(102%);visibility:hidden;transition:transform .28s cubic-bezier(.32,.72,.24,1),visibility .28s}",
+    "#rgpt-panel.open{transform:translateX(0);visibility:visible}",
     "@keyframes rgptSpin{to{transform:rotate(360deg)}}",
-    "#rgpt-panel{position:fixed;right:22px;bottom:22px;z-index:9991;width:min(400px,calc(100vw - 32px));height:min(580px,calc(100vh - 100px));background:#FFFDF9;border:1px solid rgba(27,24,54,.12);border-radius:22px;box-shadow:0 30px 70px rgba(27,24,54,.28);display:none;flex-direction:column;overflow:hidden;font-family:'Inter',sans-serif}",
-    "#rgpt-panel.open{display:flex}",
     "#rgpt-head{background:linear-gradient(120deg,#1B1836,#A80F52);color:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px}",
     "#rgpt-head .rgpt-avatar{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}",
     "#rgpt-head .rgpt-avatar svg{width:22px;height:22px;animation:rgptSpin 8s linear infinite}",
@@ -49,7 +46,7 @@
     "#rgpt-input:focus{border-color:#E11A6E}",
     "#rgpt-send{width:44px;height:44px;border-radius:50%;border:none;background:#E11A6E;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .15s,background .15s}",
     "#rgpt-send:hover{transform:scale(1.06);background:#A80F52}",
-    "@media (max-width:520px){#rgpt-launcher{right:14px;bottom:14px;padding:12px 16px 12px 12px;font-size:.8rem}#rgpt-panel{right:10px;bottom:10px;width:calc(100vw - 20px);height:calc(100vh - 90px)}}"
+    "@media (max-width:520px){#rgpt-panel{width:100vw;border-right:none}}"
   ].join("\n");
 
   function esc(s) {
@@ -76,9 +73,8 @@
   var GEAR = '<svg viewBox="0 0 24 24" fill="none"><path d="M12 8.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7z" stroke="#fff" stroke-width="1.6"/><path d="M12 2.8v2.2M12 19v2.2M2.8 12H5M19 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg>';
 
   document.body.insertAdjacentHTML("beforeend",
-    '<button id="rgpt-launcher" aria-label="Open RotaGPT chat">' +
-    '<span class="rgpt-gear">' + GEAR + "</span><span>RotaGPT</span></button>" +
-    '<div id="rgpt-panel" role="dialog" aria-label="RotaGPT chat">' +
+    '<div id="rgpt-veil" aria-hidden="true"></div>' +
+    '<div id="rgpt-panel" role="dialog" aria-modal="true" aria-label="RotaGPT chat">' +
     '<div id="rgpt-head"><div class="rgpt-avatar">' + GEAR + "</div>" +
     "<div><h3>RotaGPT</h3><p><span class='rgpt-dot'></span>Zone 7 guide · answers from the district directory</p></div>" +
     '<button id="rgpt-close" aria-label="Close chat">✕</button></div>' +
@@ -92,7 +88,7 @@
   var msgs = document.getElementById("rgpt-msgs");
   var input = document.getElementById("rgpt-input");
   var sugg = document.getElementById("rgpt-sugg");
-  var launcher = document.getElementById("rgpt-launcher");
+  var veil = document.getElementById("rgpt-veil");
   var sendBtn = document.getElementById("rgpt-send");
   var closeBtn = document.getElementById("rgpt-close");
 
@@ -100,12 +96,20 @@
   function setOpen(v) {
     open = v;
     panel.classList.toggle("open", v);
+    veil.classList.toggle("open", v);
     if (v) { input.focus(); if (!msgs.children.length) welcome(); }
-    launcher.style.display = v ? "none" : "flex";
   }
-  window.__rotaGptOpen = function () { setOpen(true); };
-  launcher.addEventListener("click", function () { setOpen(true); });
+  window.RotaGPT = {
+    open: function () { setOpen(true); },
+    close: function () { setOpen(false); },
+    toggle: function () { setOpen(!open); }
+  };
+  window.__rotaGptOpen = window.RotaGPT.open;
   closeBtn.addEventListener("click", function () { setOpen(false); });
+  veil.addEventListener("click", function () { setOpen(false); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && open) setOpen(false);
+  });
 
   function scrollBottom() {
     msgs.scrollTo({ top: msgs.scrollHeight, behavior: "smooth" });
