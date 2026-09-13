@@ -23,184 +23,199 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<script>document.documentElement.classList.add('pt-enter');if(localStorage.getItem("hb-theme")==="dark")document.documentElement.classList.add("dark")</script>
 <script src="zone7-data.js"></script>
 <style>
-  :root{
-    --ink:#1B1836; --magenta:#E11A6E; --magenta-deep:#A80F52; --gold:#F2A900;
-    --teal:#0E7490; --orange:#C2410C; --paper:#F7F5F1; --line: rgba(27,24,54,0.1);
-  }
-  *{box-sizing:border-box; margin:0; padding:0;} img{max-width:100%; display:block;}
-  html{scroll-behavior:smooth;}
-  html{overflow-x:hidden;overflow-x:clip;font-family:'Inter',sans-serif; background:var(--paper); color:var(--ink);}
-  h1,h2,h3,h4{font-family:'Poppins',sans-serif; font-weight:800; letter-spacing:-0.02em;}
-  a{color:inherit; text-decoration:none;}
-  .wrap{max-width:1060px; margin:0 auto; padding:0 28px; overflow-x:hidden;overflow-x:clip;} @media (max-width: 600px){ .wrap{padding:0 20px;} }
-  #progress{position:fixed; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--magenta), var(--gold)); transform-origin:0 50%; transform:scaleX(0); z-index:999;}
+:root{
+  --brand:#E11A6E;--brand-deep:#A80F52;--ink:#1B1836;--gold:#F2A900;--teal:#0E7490;
+  --cream:#FAFAFA;--paper:#FFFDF9;--accent:#f5f5f5;--border:#e5e7eb;--border-muted:#f3f4f6;
+  --ink-strong:rgba(27,24,54,.82);--ink-body:rgba(27,24,54,.78);--ink-soft:rgba(27,24,54,.68);
+  --ink-mid:rgba(27,24,54,.55);--ink-dim:rgba(27,24,54,.45);--ink-faint:rgba(27,24,54,.4);
+  --ink-line:rgba(27,24,54,.1);--ink-line2:rgba(27,24,54,.18);--ink-line3:rgba(27,24,54,.2);
+  --ink-line4:rgba(27,24,54,.04);--shadow-card:0 4px 16px rgba(27,24,54,.06);
+  --gold-bg:rgba(242,169,0,.05);--gold-line:rgba(242,169,0,.18);--gold-strong:rgba(242,169,0,.14);
+  --brand-bg:rgba(225,26,110,.05);--brand-line:rgba(225,26,110,.22);
+  --mono:ui-monospace,'Cascadia Code','JetBrains Mono','Fira Code',Consolas,'Courier New',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);scroll-behavior:smooth}
+body{min-height:100vh}
+h1,h2,h3,h4{font-family:'Poppins',sans-serif;color:var(--ink)}
+a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline}
+:root.dark{
+  --ink:#E9E7F7;--ink-strong:rgba(233,231,247,.86);--ink-body:rgba(233,231,247,.8);--ink-soft:rgba(233,231,247,.68);
+  --ink-mid:rgba(233,231,247,.56);--ink-dim:rgba(233,231,247,.42);--ink-faint:rgba(233,231,247,.35);
+  --ink-line:rgba(233,231,247,.12);--ink-line2:rgba(233,231,247,.2);--ink-line3:rgba(233,231,247,.24);
+  --ink-line4:rgba(233,231,247,.05);--shadow-card:0 4px 18px rgba(0,0,0,.4);
+  --cream:#0B0A16;--paper:#151327;--accent:#1C1A33;--border:#282545;--border-muted:#1E1C37;
+  --gold-bg:rgba(242,169,0,.12);--gold-line:rgba(242,169,0,.3);--gold-strong:rgba(242,169,0,.2);
+  --brand-bg:rgba(225,26,110,.14);--brand-line:rgba(225,26,110,.4);
+  --brand-deep:#f0488f;
+}
 
-  .hero{position:relative;overflow-x:clip; padding-top:70px; padding-bottom:46px;}
-  .aurora{position:absolute; border-radius:50%; filter:blur(90px); opacity:.5; pointer-events:none;}
-  .a1{width:420px; height:420px; background:#F9C6DC; top:-140px; left:-120px; animation:drift 16s ease-in-out infinite alternate;}
-  .a2{width:380px; height:380px; background:#FBE9B9; top:-80px; right:-100px; animation:drift 20s ease-in-out infinite alternate-reverse;}
-  .a3{width:300px; height:300px; background:#C9E7F0; bottom:-120px; left:40%; animation:drift 24s ease-in-out infinite alternate;}
-  @keyframes drift{from{transform:translate(0,0) scale(1)} to{transform:translate(50px,-40px) scale(1.15)}}
-  .fshape{position:absolute; pointer-events:none;}
-  .shape-ring{width:46px; height:46px; border:5px solid var(--gold); border-radius:50%; top:30%; left:6%; opacity:.5;}
-  .shape-tri{width:0; height:0; border-left:18px solid transparent; border-right:18px solid transparent; border-bottom:30px solid rgba(225,26,110,.35); top:18%; right:9%;}
-  .shape-dot{width:14px; height:14px; background:var(--magenta); border-radius:50%; bottom:24%; left:12%; opacity:.5;}
-  .shape-dot2{width:10px; height:10px; background:var(--teal); border-radius:50%; top:40%; right:16%; opacity:.5;}
-  .shape-sq{width:26px; height:26px; background:rgba(14,116,144,.3); border-radius:7px; bottom:12%; right:30%;}
-  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:0.76rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--magenta-deep); background:#fff; border:1px solid var(--line); padding:7px 14px; border-radius:100px; margin-bottom:18px;}
-  .eyebrow .dot{width:7px; height:7px; border-radius:50%; background:var(--magenta);}
-  .hero h1{font-size:clamp(2rem,5vw,3.4rem); font-weight:900; line-height:1.12; max-width:780px; margin-bottom:18px; color:var(--ink);}
-  .rword{display:inline-block; overflow:hidden; vertical-align:bottom;}
-  .rword>span{display:inline-block; transform:translateY(110%); animation:wordIn .7s cubic-bezier(.22,1,.36,1) forwards;}
-  .rword:nth-child(2)>span{animation-delay:.08s;}
-  .rword:nth-child(3)>span{animation-delay:.16s;}
-  .rword:nth-child(4)>span{animation-delay:.24s;}
-  .rword:nth-child(5)>span{animation-delay:.32s;}
-  @keyframes wordIn{to{transform:translateY(0)}}
-  .hero .sub{color:rgba(27,24,54,.72); font-size:1.04rem; max-width:660px; margin-top:16px; line-height:1.7;}
-  .hero .note{margin-top:16px; font-size:0.8rem; color:rgba(27,24,54,.5); border-left:3px solid var(--gold); padding-left:14px; max-width:640px; line-height:1.6;}
-  .hero .note a{color:var(--magenta-deep); font-weight:700; text-decoration:underline;}
-  .stat-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:36px 0 8px;}
-  .stat-card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px; box-shadow:0 10px 30px rgba(27,24,54,.06);}
-  .stat-card .num{font-family:'Poppins'; font-weight:900; font-size:1.7rem; background:linear-gradient(120deg, var(--magenta), var(--orange)); -webkit-background-clip:text; background-clip:text; color:transparent;}
-  .stat-card .lab{font-size:.78rem; color:rgba(27,24,54,.6); line-height:1.45; margin-top:4px;}
+/* ── layout shell ── */
+.wrap{max-width:1020px;margin:0 auto;padding:0 32px}
+@media(max-width:800px){.wrap{padding:0 20px}}
 
-  .search-wrap{margin:34px 0 4px; position:relative;}
-  #searchBox{
-    width:100%; padding:15px 20px 15px 48px; border-radius:16px; border:1.5px solid var(--line);
-    background:#fff; font-family:'Inter'; font-size:0.95rem; color:var(--ink); box-shadow:0 10px 30px rgba(27,24,54,.06);
-  }
-  #searchBox:focus{outline:none; border-color:var(--magenta); box-shadow:0 0 0 4px rgba(225,26,110,.12);}
-  .search-wrap::before{content:"🔎"; position:absolute; left:17px; top:50%; transform:translateY(-50%); font-size:1rem; opacity:.6;}
-  .search-meta{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:12px; flex-wrap:wrap;}
-  .result-count{font-size:.82rem; font-weight:600; color:rgba(27,24,54,.62);}
-  .chip-row{display:flex; gap:8px; flex-wrap:wrap;}
-  .chip{
-    font-size:0.8rem; font-weight:600; padding:7px 15px; border-radius:100px; border:1.5px solid rgba(27,24,54,.14);
-    background:#fff; cursor:pointer; color:rgba(27,24,54,0.62); transition:all .15s;
-  }
-  .chip:hover{border-color:var(--magenta); color:var(--magenta-deep);}
-  .chip.active{background:var(--magenta-deep); border-color:var(--magenta-deep); color:#fff;}
+/* ── page toolbar (breadcrumb + actions) ── */
+.page-toolbar{display:flex;align-items:center;gap:10px;padding-top:30px;margin-bottom:26px;flex-wrap:wrap}
+.pb-crumb{font-size:12.5px;color:var(--ink-dim);font-family:'Inter';font-weight:500;letter-spacing:.02em;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pb-crumb b{color:var(--ink-soft);font-weight:600}
+.pb-spacer{flex:1}
+.tool-actions{display:flex;align-items:center;gap:8px}
+.tool-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ink-soft);background:var(--paper);border:1px solid var(--ink-line);border-radius:7px;padding:6px 11px;cursor:pointer;font-family:'Inter';transition:border-color .15s,color .15s,background .15s;white-space:nowrap}
+.tool-btn:hover{border-color:var(--brand);color:var(--brand-deep);background:var(--brand-bg)}
+.doc-count{font-size:12px;font-weight:700;color:var(--brand-deep);background:var(--brand-bg);border:1px solid var(--brand-line);border-radius:100px;padding:5px 12px}
 
-  .section-label{margin:34px 0 14px; font-size:.74rem; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:rgba(27,24,54,.46);}
-  .guides-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:0 0 60px;}
-  @media (max-width:760px){ .guides-grid{grid-template-columns:1fr;} }
-  .guide-card{
-    position:relative; background:#fff; border:1px solid var(--line); border-radius:22px; padding:24px;
-    display:flex; flex-direction:column; gap:12px; overflow:hidden; transition:.3s; box-shadow:0 10px 30px rgba(27,24,54,.05);
-  }
-  .guide-card::before{content:""; position:absolute; inset:0; background:linear-gradient(140deg, var(--cat), transparent 55%); opacity:.05; transition:.3s; pointer-events:none;}
-  .guide-card:hover{transform:translateY(-6px); box-shadow:0 24px 50px rgba(27,24,54,.14);}
-  .guide-card:hover::before{opacity:.12;}
-  .guide-top{display:flex; align-items:center; gap:12px; position:relative;}
-  .guide-ico{
-    width:46px; height:46px; border-radius:14px; display:flex; align-items:center; justify-content:center;
-    font-size:1.35rem; background:var(--cat-bg); flex-shrink:0; transition:transform .3s;
-  }
-  .guide-card:hover .guide-ico{transform:scale(1.08) rotate(-3deg);}
-  .guide-card{--cat:#A80F52; --cat-deep:#8A0C43; --cat-bg:rgba(225,26,110,.08);}
-  .guide-card[data-cat="Governance"]{--cat:#C2185B; --cat-deep:#A80F52; --cat-bg:rgba(194,24,91,.07);}
-  .guide-card[data-cat="Planning"]{--cat:#B26A00; --cat-deep:#8A5200; --cat-bg:rgba(178,106,0,.13);}
-  .guide-card[data-cat="Templates"]{--cat:#6D4FA3; --cat-deep:#553A82; --cat-bg:rgba(109,79,163,.08);}
-  .guide-card[data-cat="Handbook"]{--cat:#15707E; --cat-deep:#0E5560; --cat-bg:rgba(21,112,126,.09);}
-  .guide-card[data-cat="Funding"]{--cat:#2E7D46; --cat-deep:#226135; --cat-bg:rgba(46,125,70,.10);}
-  .guide-card[data-cat="Quiz"]{--cat:#2F6DB5; --cat-deep:#24588F; --cat-bg:rgba(47,109,181,.09);}
-  .guide-tag{font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:0.07em; color:var(--cat); background:var(--cat-bg); padding:4px 11px; border-radius:100px;}
-  .guide-card h4{font-size:1.05rem; line-height:1.3; position:relative;}
-  .guide-card p.desc{font-size:0.86rem; color:rgba(27,24,54,0.62); line-height:1.55; position:relative;}
-  .guide-inside{list-style:none; display:flex; flex-direction:column; gap:6px; position:relative;}
-  .guide-inside li{font-size:0.8rem; color:rgba(27,24,54,0.75); display:flex; gap:8px; line-height:1.4;}
-  .guide-inside li::before{content:"✓"; color:var(--cat); font-weight:800; flex-shrink:0;}
-  .guide-foot{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:auto; flex-wrap:wrap; padding-top:6px; position:relative;}
-  .guide-meta{display:flex; gap:6px; flex-wrap:wrap;}
-  .meta-chip{font-size:0.68rem; font-weight:700; padding:4px 10px; border-radius:100px; background:rgba(27,24,54,0.07); color:rgba(27,24,54,.68);}
-  .dl-btn{
-    background:var(--cat); color:#fff; padding:11px 20px; border-radius:100px; font-weight:700; font-size:0.85rem;
-    display:inline-flex; align-items:center; gap:6px; white-space:nowrap; transition:.25s;
-  }
-  .dl-btn:hover{transform:translateY(-2px); background:var(--cat-deep); box-shadow:0 10px 24px rgba(27,24,54,.18);}
-  .empty{padding:40px 0; color:rgba(27,24,54,0.5); text-align:center;}
+/* ── hero ── */
+.overview-hero{margin-bottom:30px}
+.overview-hero h1{font-family:'Poppins';font-weight:800;font-size:clamp(1.7rem,3.4vw,2.4rem);letter-spacing:-0.02em;line-height:1.1;margin-bottom:14px}
+.overview-hero h1 em{font-style:normal;color:var(--brand)}
+.overview-hero .page-desc{font-size:16px;color:var(--ink-body);line-height:1.7;max-width:620px}
+.overview-hero .note{margin-top:16px;font-size:14px;color:var(--ink-soft);border-left:3px solid var(--gold);padding:12px 16px;background:var(--gold-bg);border-radius:0 8px 8px 0;line-height:1.6}
+.overview-hero .note a{color:var(--brand-deep);font-weight:700;text-decoration:underline}
 
-  .cta-band{background:var(--ink); border-radius:24px; color:#fff; padding:38px; margin:56px 0 10px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; position:relative; overflow:hidden;}
-  .cta-band .aurora{opacity:.18;}
-  .cta-band h3{font-size:1.5rem; font-weight:800; margin-bottom:8px; position:relative; z-index:1;}
-  .cta-band p{color:rgba(255,255,255,.72); font-size:.9rem; line-height:1.6; max-width:460px; position:relative; z-index:1;}
-  .cta-band .btn{background:var(--gold); color:var(--ink); font-weight:800; font-size:.85rem; padding:13px 26px; border-radius:100px; transition:.25s; position:relative; z-index:1;}
-  .cta-band .btn:hover{transform:translateY(-3px); box-shadow:0 14px 30px rgba(242,169,0,.35);}
+/* ── search ── */
+.search-wrap{margin:6px 0 16px;position:relative}
+.search-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--ink-faint);pointer-events:none}
+#searchBox{
+  width:100%;padding:13px 16px 13px 42px;border-radius:12px;border:1.5px solid var(--ink-line);
+  background:var(--paper);font-family:'Inter';font-size:0.95rem;color:var(--ink);box-shadow:var(--shadow-card);
+}
+#searchBox::placeholder{color:var(--ink-faint)}
+#searchBox:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-bg)}
 
-  footer{padding:34px 0 44px; text-align:center; font-size:.8rem; color:rgba(27,24,54,.55);}
+/* ── chip rows ── */
+.filter-stack{display:flex;flex-direction:column;gap:10px;margin-bottom:8px}
+.filter-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.filter-label{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-dim);min-width:64px}
+.chip{
+  font-size:0.8rem;font-weight:600;padding:6px 14px;border-radius:100px;border:1.5px solid var(--ink-line);
+  background:var(--paper);cursor:pointer;color:var(--ink-soft);transition:all .15s;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;opacity:0;transition:opacity .15s}
+.chip.active::before{content:"✓";width:auto;height:auto;border-radius:0;background:none;opacity:1;font-size:.72rem;font-weight:800}
+.chip:hover{border-color:var(--brand);color:var(--brand-deep)}
+.chip.active{background:var(--brand-deep);border-color:var(--brand-deep);color:#fff;box-shadow:0 8px 18px rgba(168,15,82,.25);transform:translateY(-1px)}
+.chip:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.search-meta{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+.result-count{font-size:.84rem;font-weight:600;color:var(--ink-mid)}
 
-  [data-reveal]{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1); transition-delay:var(--d,0s);}
-  [data-reveal].in{opacity:1; transform:translateY(0);}
-  @media (max-width:900px){ .stat-strip{grid-template-columns:repeat(2,1fr);} }
-  @media (prefers-reduced-motion:reduce){
-    *{animation:none!important; transition:none!important;}
-    [data-reveal]{opacity:1; transform:none;}
-  }
-  @media (max-width: 600px){
-    .do-grid{grid-template-columns:1fr;}
-    .journey-track{grid-template-columns:1fr;}
-    .clubs-grid{grid-template-columns:1fr;}
-    .hero-stats{grid-template-columns:1fr;}
-    .stat-strip{grid-template-columns:repeat(2,1fr);}
-    .related-grid{grid-template-columns:1fr;}
-    .promise-strip{grid-template-columns:1fr;}
-    .score-cells{grid-template-columns:repeat(2,1fr);}
-    .org-cols-3{grid-template-columns:1fr;}
-  }
+/* ── cards grid ── */
+.section-label{margin:34px 0 14px;font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-dim)}
+.guides-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:0 0 56px}
+@media(max-width:760px){.guides-grid{grid-template-columns:1fr}}
+.guide-card{
+  position:relative;background:var(--paper);border:1px solid var(--ink-line);border-radius:16px;padding:22px;
+  display:flex;flex-direction:column;gap:12px;overflow:hidden;transition:.25s;box-shadow:var(--shadow-card);
+}
+.guide-card::before{content:"";position:absolute;inset:0;background:linear-gradient(140deg, color-mix(in srgb,var(--cat) 14%,transparent), transparent 55%);opacity:.5;transition:.25s;pointer-events:none}
+.guide-card:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(27,24,54,.12);border-color:var(--ink-line2)}
+.guide-card:hover::before{opacity:.9}
+.guide-card{--cat:#E11A6E;--cat-deep:#A80F52}
+.guide-card[data-cat="Governance"]{--cat:#E11A6E;--cat-deep:#A80F52}
+.guide-card[data-cat="Planning"]{--cat:#B26A00;--cat-deep:#8A5200}
+.guide-card[data-cat="Templates"]{--cat:#6D4FA3;--cat-deep:#553A82}
+.guide-card[data-cat="Handbook"]{--cat:#0E7490;--cat-deep:#0C5D74}
+.guide-card[data-cat="Funding"]{--cat:#2E7D46;--cat-deep:#226135}
+.guide-card[data-cat="Quiz"]{--cat:#2F6DB5;--cat-deep:#24588F}
+.guide-top{display:flex;align-items:center;gap:12px;position:relative}
+.guide-ico{
+  width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;background:color-mix(in srgb,var(--cat) 11%,transparent);flex-shrink:0;transition:transform .25s;
+}
+.guide-card:hover .guide-ico{transform:scale(1.07) rotate(-3deg)}
+.guide-tag{font-size:0.66rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:var(--cat);background:color-mix(in srgb,var(--cat) 16%,transparent);border:1px solid color-mix(in srgb,var(--cat) 30%,transparent);padding:4px 12px 4px 14px;border-radius:100px;display:inline-flex;align-items:center;gap:7px}
+.guide-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cat);box-shadow:0 0 0 3px color-mix(in srgb,var(--cat) 22%,transparent)}
+.guide-card h4{font-size:1.05rem;line-height:1.3;position:relative}
+.guide-card p.desc{font-size:0.86rem;color:var(--ink-soft);line-height:1.55;position:relative}
+.guide-inside{list-style:none;display:flex;flex-direction:column;gap:6px;position:relative}
+.guide-inside li{font-size:0.8rem;color:var(--ink-body);display:flex;gap:8px;line-height:1.4}
+.guide-inside li::before{content:"✓";color:var(--cat);font-weight:800;flex-shrink:0}
+.guide-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto;flex-wrap:wrap;padding-top:6px;position:relative}
+.guide-meta{display:flex;gap:6px;flex-wrap:wrap}
+.meta-chip{font-size:0.68rem;font-weight:700;padding:4px 10px;border-radius:100px;background:var(--accent);color:var(--ink-mid)}
+.role-chip{font-size:0.68rem;font-weight:700;padding:4px 11px;border-radius:100px;background:color-mix(in srgb,var(--cat) 12%,transparent);border:1px solid color-mix(in srgb,var(--cat) 24%,transparent);color:var(--cat)}
+.dl-btn{
+  background:var(--cat);color:#fff;padding:10px 18px;border-radius:100px;font-weight:700;font-size:0.84rem;
+  display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:.22s;
+}
+.dl-btn:hover{transform:translateY(-2px);background:var(--cat-deep);box-shadow:0 10px 22px rgba(27,24,54,.16);text-decoration:none}
+.empty{padding:40px 0;color:var(--ink-dim);text-align:center;grid-column:1/-1}
+
+/* ── cta band ── */
+.cta-band{background:#16132B;border-radius:20px;color:#fff;padding:34px 36px;margin:0 0 54px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;position:relative;overflow:hidden}
+.cta-band::before{content:"";position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(225,26,110,.35),transparent 65%);top:-120px;right:-80px;pointer-events:none}
+.cta-band h3{font-size:1.35rem;font-weight:800;margin-bottom:8px;position:relative;z-index:1}
+.cta-band p{color:rgba(255,255,255,.72);font-size:.9rem;line-height:1.6;max-width:460px;position:relative;z-index:1}
+.cta-band .btn{background:var(--gold);color:var(--ink);font-weight:800;font-size:.85rem;padding:12px 24px;border-radius:100px;transition:.22s;position:relative;z-index:1}
+.cta-band .btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(242,169,0,.3);text-decoration:none}
+
+footer{padding:10px 0 44px;text-align:center;font-size:.8rem;color:var(--ink-mid)}
+footer a{color:var(--brand-deep);font-weight:700}
+
+[data-reveal]{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s cubic-bezier(.22,1,.36,1);transition-delay:var(--d,0s)}
+[data-reveal].in{opacity:1;transform:translateY(0)}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  [data-reveal]{opacity:1;transform:none}
+}
 </style>
-<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
-  </head>
+</head>
 <body>
-
-<div id="progress"></div>
 
 <div id="siteNav" data-current="resources" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
-    <script src="site-transition.js" defer></script>
+<script src="learn-index.js" defer></script>
+<script src="learn-deep.js" defer></script>
+<script src="learn-search.js" defer></script>
+<script src="site-transition.js" defer></script>
 
-<header class="hero">
-  <div class="aurora a1"></div>
-  <div class="aurora a2"></div>
-  <div class="aurora a3"></div>
-  <div class="fshape shape-ring" data-parallax="1"></div>
-  <div class="fshape shape-tri" data-parallax="-1"></div>
-  <div class="fshape shape-dot" data-parallax="2"></div>
-  <div class="fshape shape-dot2" data-parallax="-2"></div>
-  <div class="fshape shape-sq" data-parallax="1.4"></div>
-  <div class="wrap">
+<div class="wrap">
+  <div class="page-toolbar">
+    <div class="pb-crumb"><span>Home</span> <span>/</span> <span>Learn</span> <span>/</span> <b>Resources</b></div>
+    <div class="pb-spacer"></div>
+    <div class="tool-actions">
+      <span class="doc-count" id="statDocs">13 documents</span>
+      <button class="tool-btn" type="button" data-theme title="Toggle dark mode" aria-pressed="false">☾</button>
+    </div>
+  </div>
 
-
-  <div class="eyebrow"><span class="dot"></span>District 3292 · Resource Library</div>
-  <h1 id="heroTitle">Rotaract Resources.</h1>
-  <p class="sub">Official templates, constitutions and planning guides from District 3292. Everything a Zone 7 club needs to run smoothly, in one place instead of scattered across old emails. Every file below is free to download.</p>
-  <p class="note">Looking for the how-to side instead? The <a href="/tutorials" style="color:var(--magenta-deep);font-weight:700;text-decoration:underline;">Learn hub</a> holds the step-by-step tutorials, the district rules as chapters and the officer playbook in one place.</p>
-
-  <div class="stat-strip">
-    <div class="stat-card" data-reveal><div class="num" id="statDocs">13</div><div class="lab">Documents, all free to download</div></div>
-    <div class="stat-card" data-reveal style="--d:.08s"><div class="num" id="statCats">6</div><div class="lab">Categories from governance to quiz prep</div></div>
-    <div class="stat-card" data-reveal style="--d:.16s"><div class="num" id="statClubs">9</div><div class="lab">Clubs across the Kathmandu Valley using these</div></div>
-    <div class="stat-card" data-reveal style="--d:.24s"><div class="num">100%</div><div class="lab">Free &amp; sourced from District 3292</div></div>
+  <div class="overview-hero">
+    <h1>Rotaract <em>resources</em>.</h1>
+    <p class="page-desc">Official templates, constitutions and planning guides from District 3292. Everything a new member needs to onboard and a president needs to run the year, free to download instead of scattered across old emails.</p>
+    <p class="note">Looking for the how-to side instead? The <a href="/tutorials">Learn hub</a> holds the step-by-step tutorials, the district rules as chapters and the officer playbook in one place.</p>
   </div>
 
   <div class="search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
     <input type="text" id="searchBox" placeholder="Search documents, e.g. constitution, membership, planning..." aria-label="Search documents">
   </div>
+
+  <div class="filter-stack">
+    <div class="filter-row" role="group" aria-label="Who it is for">
+      <span class="filter-label">For</span>
+      <span class="chip active" data-r="All">All roles</span>
+      <span class="chip" data-r="New member">New member</span>
+      <span class="chip" data-r="President">President</span>
+      <span class="chip" data-r="Officer">Officer</span>
+    </div>
+    <div class="filter-row" role="group" aria-label="Document type">
+      <span class="filter-label">Type</span>
+      <span class="chip active" data-c="All">All</span>
+    </div>
+  </div>
+
   <div class="search-meta">
     <span class="result-count" id="resultCount"></span>
     <div class="chip-row" id="chipRow"></div>
   </div>
-  </div>
-</header>
 
-<div class="wrap">
   <div class="section-label" id="gridLabel">All documents</div>
   <div class="guides-grid" id="guidesGrid"></div>
 
   <div class="cta-band">
-    <div class="aurora a2" style="top:-60px;right:-60px;width:300px;height:300px;background:#E11A6E;"></div>
     <div>
       <h3>Read first, download later?</h3>
       <p>The Learn hub explains how grants, twinship, projects and the health check actually work, with the exact rules from the 2025-26 district directory.</p>
@@ -209,68 +224,76 @@
   </div>
 </div>
 
-<footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. Documents sourced from the District 3292 website. &nbsp;·&nbsp; <a href="/" style="font-weight:700;">Back to Home</a></footer>
+<footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. Documents sourced from the District 3292 website. &nbsp;·&nbsp; <a href="/">Back to Home</a></footer>
 
 <script src="rota-gpt-data.js" defer></script>
 <script src="rota-gpt.js" defer></script>
 
 <script>
 const STATIC_GUIDES = [
-  { id:"s1", file:"media/guides/Standard-Rotaract-Club-Constitution.docx", tag:"Governance", icon:"📜", size:"DOCX · 76 KB",
+  { id:"s1", file:"media/guides/Standard-Rotaract-Club-Constitution.docx", tag:"Governance", icon:"📜", size:"DOCX · 76 KB", roles:["President","Officer"],
     title:"Standard Rotaract Club Constitution", desc:"The base constitution every Rotaract club operates under. It covers name, purpose, membership, meetings and officer roles.",
     inside:["Name, purpose and membership rules","Meeting structure and officer roles","Council powers and amendments"] },
-  { id:"s2", file:"media/guides/662_rotaract_club_recommended_bylaws_en.docx", tag:"Governance", icon:"📝", size:"DOCX · 99 KB",
+  { id:"s2", file:"media/guides/662_rotaract_club_recommended_bylaws_en.docx", tag:"Governance", icon:"📝", size:"DOCX · 99 KB", roles:["President","Officer"],
     title:"Recommended Club Bylaws", desc:"RI's model bylaws that supplement the constitution. Customize these to set your own club's practices around dues, attendance and elections.",
     inside:["Customizing dues and attendance","Election and officer rules","Committees and standing practices"] },
-  { id:"s3", file:"media/guides/statement-of-policy.docx", tag:"Governance", icon:"🏛️", size:"DOCX · 128 KB",
+  { id:"s3", file:"media/guides/statement-of-policy.docx", tag:"Governance", icon:"🏛️", size:"DOCX · 128 KB", roles:["Officer","President"],
     title:"Statement of Policy", desc:"Rotary International's official policy on Rotaract, covering sponsorship, authority, and the standards every club is expected to follow.",
     inside:["Sponsorship and authority","RI standards for Rotaract clubs","Conduct and expectations"] },
-  { id:"s4", file:"media/guides/MOU-Document.doc", tag:"Governance", icon:"🤝", size:"DOC · 106 KB",
+  { id:"s4", file:"media/guides/MOU-Document.doc", tag:"Governance", icon:"🤝", size:"DOC · 106 KB", roles:["President","Officer"],
     title:"MOU Document", desc:"Memorandum of Understanding template outlining the relationship and responsibilities between a Rotaract club and its sponsoring Rotary club, or between twin clubs.",
     inside:["Twin club commitments","Joint meeting and project terms","Signature and renewal format"] },
-  { id:"s5", file:"media/guides/Strategic-Planning-Guide.docx", tag:"Planning", icon:"🎯", size:"DOCX · 102 KB",
+  { id:"s5", file:"media/guides/Strategic-Planning-Guide.docx", tag:"Planning", icon:"🎯", size:"DOCX · 102 KB", roles:["President"],
     title:"Strategic Planning Guide", desc:"A real district club's strategic plan, used as a template for setting a multi-year vision and goals for your own club.",
     inside:["Multi-year vision and goals","Goal-setting worksheets","Annual review calendar"] },
-  { id:"s6", file:"media/guides/Effective-Planning-Guide-to-Clubs.docx", tag:"Planning", icon:"📅", size:"DOCX · 95 KB",
+  { id:"s6", file:"media/guides/Effective-Planning-Guide-to-Clubs.docx", tag:"Planning", icon:"📅", size:"DOCX · 95 KB", roles:["President","Officer"],
     title:"Effective Planning Guide for Clubs", desc:"A goal-setting worksheet to help clubs track membership trends and plan a strong Rotary year.",
     inside:["Membership trend tracking","Yearly goal planning","Rotary year alignment"] },
-  { id:"s7", file:"media/guides/Rotaract_-Membership_Form.docx", tag:"Templates", icon:"📋", size:"DOCX · 28 KB",
+  { id:"s7", file:"media/guides/Rotaract_-Membership_Form.docx", tag:"Templates", icon:"📋", size:"DOCX · 28 KB", roles:["New member","President"],
     title:"Membership Application Form", desc:"Standard form for onboarding new members, covering personal details, ID number and sponsoring club info.",
     inside:["Personal details fields","Rotaract ID number section","Sponsor confirmation area"] },
-  { id:"s8", file:"media/guides/Sample-GM-attendance-sheet.docx", tag:"Templates", icon:"✅", size:"DOCX · 88 KB",
+  { id:"s8", file:"media/guides/Sample-GM-attendance-sheet.docx", tag:"Templates", icon:"✅", size:"DOCX · 88 KB", roles:["New member","President","Officer"],
     title:"Sample GM Attendance Sheet", desc:"Ready-to-use attendance sheet for General Meetings, including guests, visiting Rotaractors and past presidents.",
     inside:["Members, guests and visitors","Visiting Rotaractor column","General-meeting-ready layout"] },
-  { id:"s9", file:"media/guides/Sample-Agenda-Paper.doc", tag:"Templates", icon:"🗒️", size:"DOC · 94 KB",
+  { id:"s9", file:"media/guides/Sample-Agenda-Paper.doc", tag:"Templates", icon:"🗒️", size:"DOC · 94 KB", roles:["President","Officer"],
     title:"Sample Agenda Paper", desc:"A template agenda format clubs can adapt for board meetings or general meetings.",
     inside:["Board meeting structure","Action item tracking","Easily adaptable template"] },
-  { id:"s10", file:"media/guides/Rotaract-Guidebook.pdf", tag:"Handbook", icon:"📘", size:"PDF · 1.5 MB",
+  { id:"s10", file:"media/guides/Rotaract-Guidebook.pdf", tag:"Handbook", icon:"📘", size:"PDF · 1.5 MB", roles:["New member"],
     title:"Rotaract Guidebook (District 3292)", desc:"The district's full guidebook: starting a club, board roles, running meetings, elections, finances and working with the district, all in one reference.",
     inside:["Starting a club","Board roles and meetings","Elections, finance, district links"] },
-  { id:"s11", file:"media/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf", tag:"Funding", icon:"💵", size:"PDF · 434 KB",
+  { id:"s11", file:"media/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf", tag:"Funding", icon:"💵", size:"PDF · 434 KB", roles:["President"],
     title:"District Fund (RDG) Grant Criterion", desc:"How to apply for the Rotaract District Grant, including eligibility, evaluation criteria, funding installments and the application form and timeline.",
     inside:["Eligibility and evaluation criteria","Funding installments","Application form and timeline"] },
-  { id:"s12", file:"media/guides/Rotary-Rotaract-Reading-Materials-Rota-Quiz-2025-26.pdf", tag:"Quiz", icon:"🏆", size:"PDF · 929 KB",
+  { id:"s12", file:"media/guides/Rotary-Rotaract-Reading-Materials-Rota-Quiz-2025-26.pdf", tag:"Quiz", icon:"🏆", size:"PDF · 929 KB", roles:[],
     title:"Rotary-Rotaract Reading Materials (Rota Quiz 2025-26)", desc:"The big Rota Quiz question bank: Rotary history, mottoes, the Four-Way Test, club structure and service above self, plus the acronym list every team should memorize.",
     inside:["300+ practice questions","Rotary and Rotaract history","Acronym cheat-sheet list"] },
-  { id:"s13", file:"media/guides/Reading%20materials%20for%20Rota%20Quiz%2025-26.pdf", tag:"Quiz", icon:"🧠", size:"PDF · 641 KB",
+  { id:"s13", file:"media/guides/Reading%20materials%20for%20Rota%20Quiz%2025-26.pdf", tag:"Quiz", icon:"🧠", size:"PDF · 641 KB", roles:[],
     title:"Reading Materials for Rota Quiz 25-26", desc:"A second question set for quiz prep: founder and foundation facts, the Object of Rotary, and general knowledge questions used in district quiz rounds.",
     inside:["Founder and foundation facts","Object of Rotary breakdown","General knowledge questions"] }
 ];
 
 let allGuides = [...STATIC_GUIDES];
+const ROLE_CHIPS = ["All","New member","President","Officer"];
+let activeRole = "All";
 let activeChip = "All";
 
 function render(){
   const q = document.getElementById("searchBox").value.toLowerCase();
   let list = allGuides.filter(g => (g.title + g.desc + g.tag + (g.inside||[]).join(" ")).toLowerCase().includes(q));
+  if(activeRole !== "All") list = list.filter(g => g.roles && g.roles.includes(activeRole));
   if(activeChip !== "All") list = list.filter(g => g.tag === activeChip);
 
-  document.getElementById("resultCount").textContent = list.length + (list.length === 1 ? " document" : " documents");
-  document.getElementById("gridLabel").textContent = q ? "Search results" : (activeChip === "All" ? "All documents" : activeChip + " documents");
+  const rc = document.getElementById("resultCount");
+  rc.textContent = list.length + (list.length === 1 ? " document" : " documents") + (activeRole !== "All" ? " for " + activeRole.toLowerCase() : "");
 
-  document.getElementById("statDocs").textContent = allGuides.length;
-  document.getElementById("statCats").textContent = new Set(STATIC_GUIDES.concat(allGuides.filter(g => g.dynamic)).map(g => g.tag)).size;
-  document.getElementById("statClubs").textContent = (typeof CLUB_DIRECTORY !== "undefined" && CLUB_DIRECTORY) ? Object.keys(CLUB_DIRECTORY).length : 9;
+  const label = document.getElementById("gridLabel");
+  if(q) label.textContent = "Search results";
+  else if(activeRole !== "All" && activeChip !== "All") label.textContent = activeRole + " · " + activeChip + " documents";
+  else if(activeRole !== "All") label.textContent = activeRole + " documents";
+  else if(activeChip !== "All") label.textContent = activeChip + " documents";
+  else label.textContent = "All documents";
+
+  document.getElementById("statDocs").textContent = allGuides.length + (allGuides.length === 1 ? " document" : " documents");
 
   document.getElementById("guidesGrid").innerHTML = list.map((g, i) => `
     <div class="guide-card" data-cat="${zone7Esc(g.tag)}" data-reveal style="--d:${(i % 4) * 0.06}s">
@@ -283,56 +306,40 @@ function render(){
       ${g.inside && g.inside.length ? `<ul class="guide-inside">${g.inside.map(i => `<li>${zone7Esc(i)}</li>`).join("")}</ul>` : ""}
       <div class="guide-foot">
         <div class="guide-meta">
+          ${(g.roles && g.roles.length) ? g.roles.map(r => `<span class="role-chip">${zone7Esc(r)}</span>`).join("") : ""}
           <span class="meta-chip">${zone7Esc(g.size || (g.file.split(".").pop().toUpperCase()))}</span>
         </div>
         <a class="dl-btn" href="${g.file}" download="${zone7Esc(g.fileName || '')}">Download ↓</a>
       </div>
     </div>
-  `).join("") || `<p class="empty">No documents match your search. Try another keyword.</p>`;
+  `).join("") || `<p class="empty">No documents match these filters. Try another keyword or clear a chip.</p>`;
 
   const chips = ["All", ...new Set(STATIC_GUIDES.concat(allGuides.filter(g => g.dynamic)).map(g => g.tag))];
   document.getElementById("chipRow").innerHTML = chips.map(c =>
     `<span class="chip${c === activeChip ? ' active' : ''}" data-c="${zone7Esc(c)}">${zone7Esc(c)}</span>`
   ).join("");
-  document.querySelectorAll(".chip").forEach(el => el.addEventListener("click", () => {
+
+  document.querySelectorAll("#chipRow .chip").forEach(el => el.addEventListener("click", () => {
     activeChip = el.dataset.c; render();
+  }));
+  document.querySelectorAll(".filter-row[aria-label='Who it is for'] .chip").forEach(el => el.addEventListener("click", () => {
+    activeRole = el.dataset.r; render();
   }));
   observeReveals();
 }
 
 document.getElementById("searchBox").addEventListener("input", render);
 
-const heroTitle = document.getElementById("heroTitle");
-if(heroTitle){
-  const words = heroTitle.textContent.trim().split(/\s+/);
-  heroTitle.innerHTML = words.map(w => `<span class="rword"><span>${w}</span></span>`).join(" ");
-}
-
-const hero = document.querySelector(".hero");
-if(hero && window.matchMedia("(pointer:fine)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-  hero.addEventListener("mousemove", (e) => {
-    const r = hero.getBoundingClientRect();
-    const mx = (e.clientX - r.left) / r.width - .5;
-    const my = (e.clientY - r.top) / r.height - .5;
-    document.querySelectorAll("[data-parallax]").forEach(el => {
-      const d = parseFloat(el.dataset.parallax) || 1;
-      el.style.translate = `${(mx * 26 * d).toFixed(1)}px ${(my * 18 * d).toFixed(1)}px`;
-    });
+const themeBtn = document.querySelector("[data-theme]");
+if(themeBtn){
+  if(document.documentElement.classList.contains("dark")){ themeBtn.textContent = "☀"; themeBtn.setAttribute("aria-pressed", "true"); }
+  themeBtn.addEventListener("click", () => {
+    const dark = document.documentElement.classList.toggle("dark");
+    try{ localStorage.setItem("hb-theme", dark ? "dark" : "light"); }catch(e){}
+    themeBtn.textContent = dark ? "☀" : "☾";
+    themeBtn.setAttribute("aria-pressed", dark);
   });
 }
-
-const progress = document.getElementById("progress");
-let ticking = false;
-window.addEventListener("scroll", () => {
-  if(ticking) return;
-  ticking = true;
-  requestAnimationFrame(() => {
-    const doc = document.documentElement;
-    const max = doc.scrollHeight - doc.clientHeight;
-    progress.style.transform = `scaleX(${max > 0 ? (window.scrollY / max) : 0})`;
-    ticking = false;
-  });
-}, {passive:true});
 
 function observeReveals(){
   const els = document.querySelectorAll("[data-reveal]:not(.in)");
@@ -350,18 +357,14 @@ async function loadDynamicGuides(){
     const dynamic = rows.filter(r => r.file_url).map(r => ({
       id: r.id, file: r.file_url || r.file_data, fileName: r.file_name,
       tag: r.category || "Other", icon: "📎", size: (r.file_name || "").split(".").pop().toUpperCase(),
-      title: r.title, desc: r.description || "", dynamic: true, inside: []
+      title: r.title, desc: r.description || "", dynamic: true, inside: [], roles: []
     }));
     allGuides = [...STATIC_GUIDES, ...dynamic];
   }catch(e){ /* offline or locked: static library is enough */ }
   render();
 }
+render();
 loadDynamicGuides();
 </script>
 </body>
 </html>
-
-
-
-
-

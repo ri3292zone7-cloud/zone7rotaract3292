@@ -298,27 +298,6 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 .sb-reset{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;color:var(--ink-dim);background:none;border:1px solid var(--ink-line);border-radius:6px;padding:5px 10px;cursor:pointer;font-family:'Inter';transition:border-color .15s,color .15s}
 .sb-reset:hover{border-color:var(--ink);color:var(--ink)}
 
-/* ── command palette ── */
-.palette-backdrop{position:fixed;inset:0;z-index:400;background:rgba(12,10,24,.5);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .15s}
-.palette-backdrop.open{opacity:1;pointer-events:auto}
-.palette{position:fixed;top:13vh;left:50%;transform:translate(-50%,-8px);z-index:401;width:min(620px,calc(100vw - 24px));background:var(--paper);border:1px solid var(--ink-line);border-radius:14px;box-shadow:0 24px 64px rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;overflow:hidden}
-.palette.open{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
-.palette-input{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--ink-line)}
-.palette-input svg{width:17px;height:17px;color:var(--ink-faint);flex-shrink:0}
-.palette-input input{flex:1;border:none;outline:none;font-size:15px;color:var(--ink);background:none;font-family:'Inter'}
-.palette-input .kbd-hint{font-size:10px;color:var(--ink-faint);font-family:var(--mono)}
-.palette-results{max-height:52vh;overflow-y:auto;padding:8px}
-.pal-group{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);padding:10px 12px 4px;font-family:'Inter'}
-.pal-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:none;border-radius:8px;padding:9px 12px;cursor:pointer;font-family:'Inter';transition:background .12s}
-.pal-item:hover{background:var(--ink-line4)}
-.pal-item.sel{background:var(--brand-bg);outline:1px solid var(--brand-line)}
-.pal-item .pi-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.pal-item .pi-main{display:flex;flex-direction:column;gap:1px;min-width:0}
-.pal-item .pi-title{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pal-item .pi-sub{font-size:11.5px;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pal-item .pi-kind{margin-left:auto;font-size:10px;font-weight:700;color:var(--brand-deep);background:var(--brand-bg);border:1px solid var(--brand-line);border-radius:100px;padding:2px 7px;flex-shrink:0;font-family:'Inter'}
-.pal-empty{padding:22px;text-align:center;font-size:13.5px;color:var(--ink-dim)}
-
 .doc-src-label{font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-mid);margin:14px 0 6px;font-family:'Inter'}
 
 /* ── wider reading column (tutorials carry tables + step lists) ── */
@@ -350,11 +329,11 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
   .sidebar-backdrop{position:fixed;inset:0;z-index:190;background:rgba(27,24,54,.25);opacity:0;pointer-events:none;transition:opacity .15s}
   .sidebar-backdrop.open{opacity:1;pointer-events:auto}
 }
-@media print{.sidebar-wrap,.right-rail,.page-toolbar,.palette,.palette-backdrop{display:none}.main-content{padding:0}.content-inner{max-width:100%;padding:0}#makeupCard.show{display:block!important}}
+@media print{.sidebar-wrap,.right-rail,.page-toolbar{display:none}.main-content{padding:0}.content-inner{max-width:100%;padding:0}#makeupCard.show{display:block!important}}
 </style>
 <script>
 /* set theme before paint: default light; only stored dark flips it */
-(function(){try{var t=localStorage.getItem("hb-theme");if(t==="dark")document.documentElement.classList.add("dark");}catch(e){}})();
+(function(){try{var t=localStorage.getItem("hb-theme");if(t==="dark")document.documentElement.classList.add("dark");}catch(e){}document.documentElement.classList.add("pt-enter");})();
 </script>
 <script type="application/ld+json">
 {
@@ -433,17 +412,11 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
   </div>
 </div>
 
-<div class="palette-backdrop" id="paletteBackdrop"></div>
-<div class="palette" id="palette" role="dialog" aria-label="Search the learn hub">
-  <div class="palette-input">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input type="text" id="paletteInput" placeholder="Search guides, chapters, rules, videos…" autocomplete="off" aria-label="Search the learn hub">
-    <span class="kbd-hint">esc</span>
-  </div>
-  <div class="palette-results" id="paletteResults"></div>
-</div>
-
 <script src="site-nav.js"></script>
+<script src="learn-index.js"></script>
+<script src="learn-deep.js"></script>
+<script src="learn-search.js"></script>
+<script src="site-transition.js" defer></script>
 <script src="rota-gpt-data.js" defer></script>
 <script src="rota-gpt.js" defer></script>
 <script>
@@ -1437,7 +1410,7 @@ function renderContent(){
 
 function toolbarHTML(crumb,isGuide){
   const darkNow=document.documentElement.classList.contains("dark");
-  return `<div class="page-toolbar" id="pageToolbar"><div class="pb-crumb">${crumb}</div><div class="pb-spacer"></div><div class="tool-actions">${isGuide?`<button class="tool-btn" type="button" data-copylink title="Copy link to this chapter">🔗</button>`:""}<button class="tool-btn" type="button" data-palette>Search <kbd>⌘K</kbd></button><button class="tool-btn" type="button" data-theme title="Toggle dark mode" aria-pressed="${darkNow}">${darkNow?"☀":"☾"}</button></div></div>`;
+  return `<div class="page-toolbar" id="pageToolbar"><div class="pb-crumb">${crumb}</div><div class="pb-spacer"></div><div class="tool-actions">${isGuide?`<button class="tool-btn" type="button" data-copylink title="Copy link to this chapter">🔗</button>`:""}<button class="tool-btn" type="button" data-spot>Search <kbd>⌘K</kbd></button><button class="tool-btn" type="button" data-theme title="Toggle dark mode" aria-pressed="${darkNow}">${darkNow?"☀":"☾"}</button></div></div>`;
 }
 
 function renderOverview(){
@@ -1458,8 +1431,8 @@ function renderAll(){renderSidebar();renderContent();renderRightRail();wireToolb
 
 function wireToolbar(){const tb=document.querySelector("#contentArea .page-toolbar");if(!tb)return;
   const th=tb.querySelector("[data-theme]");if(th)th.addEventListener("click",()=>{const dark=document.documentElement.classList.toggle("dark");try{localStorage.setItem("hb-theme",dark?"dark":"light")}catch(e){}th.textContent=dark?"☀":"☾";th.setAttribute("aria-pressed",dark)});
-  const pl=tb.querySelector("[data-palette]");if(pl)pl.addEventListener("click",openPalette);
-  const cl=tb.querySelector("[data-copylink]");if(cl)cl.addEventListener("click",()=>{navigator.clipboard.writeText("https://zone7rotaract3292.vercel.app/tutorials#"+currentGuide).then(()=>{cl.textContent="✓ copied";setTimeout(()=>cl.textContent="🔗",1400)})});
+  const pl=tb.querySelector("[data-spot]");if(pl)pl.addEventListener("click",openSpot);
+  const cl=tb.querySelector("[data-copylink]");if(cl)cl.addEventListener("click",()=>{try{navigator.clipboard.writeText("https://zone7rotaract3292.vercel.app/tutorials#"+currentGuide).then(()=>{cl.textContent="✓ copied";setTimeout(()=>cl.textContent="🔗",1400)},()=>{cl.textContent="copy failed";setTimeout(()=>cl.textContent="🔗",1400)})}catch(err){cl.textContent="copy failed";setTimeout(()=>cl.textContent="🔗",1400)}});
 }
 
 /* ── sidebar ── */
@@ -1509,8 +1482,6 @@ function renderRightRail(){
   rail.innerHTML=`<div class="toc-label">On this page</div><div class="toc-links">${railSections(g).map(s=>`<a class="toc-link" href="#${s.id}">${esc(s.label)}</a>`).join("")}</div>`;
 }
 
-/* ── command palette ── */
-const PAL_KIND={guide:"Guide",rule:"Rule",doc:"How to",notes:"Note",spec:"Spec",specB:"Spec",tabs:"Variant",flow:"Step",video:"Video"};
 function buildPaletteIndex(){
   const idx=[];
   GUIDES.forEach(g=>{
@@ -1527,54 +1498,13 @@ function buildPaletteIndex(){
   return idx;
 }
 const idna = buildPaletteIndex();
-let palSel=0,palResults=[];
-function openPalette(){const p=document.getElementById("palette"),b=document.getElementById("paletteBackdrop");p.classList.add("open");b.classList.add("open");const inp=document.getElementById("paletteInput");inp.value="";renderPalette(inp.value);inp.focus()}
-function closePalette(){document.getElementById("palette").classList.remove("open");document.getElementById("paletteBackdrop").classList.remove("open")}
-function renderPalette(q){
-  const host=document.getElementById("paletteResults");
-  q=(q||"").toLowerCase();
-  palResults=[];
-  const flat=idna.filter(it=>!q||(it.label+" "+it.sub).toLowerCase().includes(q));
-  const byG={};
-  flat.forEach(it=>{(byG[it.gid]=byG[it.gid]||[]).push(it)});
-  const keys=Object.keys(byG);
-  keys.sort((a,b)=>{const ga=GUIDES.find(x=>x.id===a),gb=GUIDES.find(x=>x.id===b);const sa=ga.title.toLowerCase().indexOf(q),sb=gb.title.toLowerCase().indexOf(q);return (sa===-1?1:0)-(sb===-1?1:0)});
-  if(!flat.length){host.innerHTML=`<div class="pal-empty">No matches for "${esc(q||"")}"</div>`;return}
-  let total=0;
-  host.innerHTML=keys.map(k=>{
-    const g=GUIDES.find(x=>x.id===k);
-    const items=byG[k].slice(0,9);
-    const out=`<div class="pal-group">${g.title}</div>`+items.map(it=>{
-      const j=total++;
-      palResults.push({gid:it.gid,target:it.target});
-      return`<button class="pal-item${j===0?" sel":""}" data-pal="${j}" type="button"><span class="pi-dot" style="background:${ROLES[g.role].bg}"></span><span class="pi-main"><span class="pi-title">${esc(it.label)}</span><span class="pi-sub">${esc(it.sub)}</span></span><span class="pi-kind">${PAL_KIND[it.kind]}</span></button>`
-    }).join("");
-    return out;
-  }).join("");
-  palSel=0;
-  host.querySelectorAll("[data-pal]").forEach(b=>b.addEventListener("click",()=>goPalette(+b.dataset.pal)));
-  requestAnimationFrame(()=>{const sel=host.querySelector(".pal-item.sel");if(sel)sel.scrollIntoView({block:"nearest"})});
-}
-function goPalette(i){
-  if(!palResults[i])return;
-  const r=palResults[i];closePalette();
-  const g=GUIDES.find(x=>x.id===r.gid);
-  if(currentGuide!==r.gid){currentGuide=r.gid;currentView="guide";history.replaceState(null,"","#"+r.gid);renderAll();closeSidebar()}
-  setTimeout(()=>{const el=r.target?document.getElementById(r.target):null;if(el)el.scrollIntoView({behavior:"smooth",block:"start"});else document.querySelector(".content-inner").scrollTo({top:0})},60);
-}
-document.getElementById("paletteInput").addEventListener("input",e=>renderPalette(e.target.value));
-document.getElementById("paletteInput").addEventListener("keydown",e=>{
-  if(e.key==="ArrowDown"){e.preventDefault();const items=document.querySelectorAll(".pal-item");if(items.length){palSel=(palSel+1)%items.length;updatePalSel(items)}}
-  else if(e.key==="ArrowUp"){e.preventDefault();const items=document.querySelectorAll(".pal-item");if(items.length){palSel=(palSel-1+items.length)%items.length;updatePalSel(items)}}
-  else if(e.key==="Enter"){e.preventDefault();goPalette(palSel)}
-  else if(e.key==="Escape"){closePalette()}
-});
-function updatePalSel(items){document.querySelectorAll(".pal-item").forEach(x=>x.classList.remove("sel"));items[palSel].classList.add("sel");items[palSel].scrollIntoView({block:"nearest"})}
-document.getElementById("paletteBackdrop").addEventListener("click",closePalette);
+const DEEP_ICON={guide:"📖",rule:"📐",notes:"💡",doc:"📄",spec:"📊",tabs:"🗂",flow:"🔀",video:"▶️"};
+window.LEARN_DEEP={page:"/tutorials",items:idna.map(it=>{const g=GUIDES.find(x=>x.id===it.gid);return{t:it.label,d:it.sub,s:g?g.title:"Learn hub",icon:DEEP_ICON[it.kind]||"📄",a:it.gid,scroll:it.target}})};
+function openSpot(){if(window.LearnSpot)window.LearnSpot.open()}
 
 /* ── global keyboard + misc ── */
 document.addEventListener("keydown",e=>{
-  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openPalette()}
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openSpot()}
 });
 function closeSidebar(){document.getElementById("sidebar").classList.remove("open");document.getElementById("sidebarBackdrop").classList.remove("open");document.body.style.overflow=""}
 function openSidebar(){document.getElementById("sidebar").classList.add("open");document.getElementById("sidebarBackdrop").classList.add("open");document.body.style.overflow="hidden"}
@@ -1588,8 +1518,8 @@ document.getElementById("sbSearch").addEventListener("input",function(){
   });
 });
 document.getElementById("sbSearch").addEventListener("keydown",e=>{
-  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openPalette()}
-  else if(e.key==="/"){e.preventDefault();openPalette()}
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openSpot()}
+  else if(e.key==="/"){e.preventDefault();openSpot()}
 });
 
 document.getElementById("sbReset").addEventListener("click",()=>{
@@ -1600,24 +1530,7 @@ window.addEventListener("hashchange",()=>{
   if(GUIDES.some(g=>g.id===id)){currentGuide=id;currentView="guide";renderAll()}
 });
 
-/* mobile sidebar toggle: uses site-nav burger if available, else fallback */
-function injectMobileToggle(){
-  if(document.querySelector(".sidebar-mobile-btn"))return;
-  var bar=document.querySelector("#siteNav .wrap");
-  if(!bar)return;
-  var btn=document.createElement("button");
-  btn.className="sidebar-mobile-btn";
-  btn.setAttribute("aria-label","Open learn hub sidebar");
-  btn.style.cssText="display:none;background:none;border:none;cursor:pointer;padding:6px;font-size:1.2rem;color:var(--ink);flex-shrink:0;border-radius:6px;transition:background .15s;";
-  btn.innerHTML="☰";
-  btn.addEventListener("click",openSidebar);
-  btn.addEventListener("mouseenter",()=>btn.style.background="rgba(27,24,54,.05)");
-  btn.addEventListener("mouseleave",()=>btn.style.background="none");
-  bar.insertBefore(btn,bar.firstChild);
-  function showHide(){btn.style.display=window.innerWidth<=800?"block":"none"}
-  showHide();window.addEventListener("resize",showHide);
-}
-if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",()=>setTimeout(injectMobileToggle,200))}else{setTimeout(injectMobileToggle,200)}
+/* mobile sidebar toggle: site-nav.js renders a Chapters pill next to the subnav, so no extra button is injected here */
 
 renderAll();
 if(location.hash){const id=location.hash.slice(1);if(GUIDES.some(g=>g.id===id)){currentGuide=id;currentView="guide";renderAll()}}

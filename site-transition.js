@@ -18,6 +18,10 @@
 (function () {
   "use strict";
   if (window.__zone7PageTransition) return;
+  window.addEventListener("unhandledrejection", function (e) {
+    var r = e.reason;
+    if (r && r.name === "AbortError" && /Transition was skipped/i.test(String(r.message || ""))) e.preventDefault();
+  });
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   window.__zone7PageTransition = true;
 
@@ -25,6 +29,11 @@
   var ENTER_MS = 480;
   var leaving = false;
   var html = document.documentElement;
+  // Progressive enhancement: Chromium browsers with the cross-document View
+  // Transitions API handle the whole switch natively (nav included), so the
+  // JS fade-out is skipped there. Everything else keeps the classic fade.
+  var vtNative = (typeof document.startViewTransition === "function") &&
+    /Chrome\/|Edg\/|Chromium\//.test(navigator.userAgent);
 
   var style = document.createElement("style");
   style.textContent =
@@ -69,7 +78,11 @@
       var c = getComputedStyle(document.body).backgroundColor;
       if (c && c !== "rgba(0, 0, 0, 0)" && c !== "transparent") return c;
     } catch (e) {}
-    return "#FFF8EF";
+    try {
+      var h = getComputedStyle(document.documentElement).backgroundColor;
+      if (h && h !== "rgba(0, 0, 0, 0)" && h !== "transparent") return h;
+    } catch (e) {}
+    return "#FAFAFA";
   }
 
   function leave(url) {
@@ -89,6 +102,7 @@
   }
 
   document.addEventListener("click", function (e) {
+    if (vtNative) return;
     if (e.defaultPrevented || e.button !== 0) return;
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
