@@ -107,7 +107,7 @@
     .stat-strip{grid-template-columns:repeat(2,1fr);}
   }
 </style>
-<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+<script>document.documentElement.classList.add("pt-enter");try{var t=localStorage.getItem("z7-theme");if(!t){var h=localStorage.getItem("hb-theme");if(h==="dark"||h==="light"){localStorage.setItem("z7-theme",h);t=h}}if(!t&&matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)t="dark";if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}document.documentElement.style.background=document.documentElement.classList.contains("dark")?"#0E0C1A":"#FFF8EF";</script>
   </head>
 <body>
 <nav id="districtNav"><div class="wrap">
@@ -339,6 +339,12 @@ document.getElementById("rrcList").innerHTML = `<div class="zoneperson-list">${R
   </div>`).join("")}</div>`;
 </script>
 <script src="site-transition.js" defer></script>
+<style>/* Zone 7 night-mode pass */
+html.dark{color-scheme:dark;--ink:#CBC9DE;--cream:#0E0C1A;--paper:#151327;--line:rgba(233,231,247,.14);--magenta:#E06093;--magenta-deep:#E11A6E;--gold:#D9A648}
+html.dark body{background:var(--paper);color:var(--ink)}
+html.dark .eyebrow{background:rgba(224,96,147,.18);color:#FF8FB5}
+html.dark .hero p,html.dark .org-node.flank,html.dark .org-subgroup-label,html.dark .org-subcol-label,html.dark .org-arrow-down,html.dark .org-note,html.dark .zoneperson .zp-role{color:var(--ink)}
+html.dark .org-node.drr{background:linear-gradient(140deg,#141128,#28215C);color:#fff}</style>
 </body>
 </html>
 

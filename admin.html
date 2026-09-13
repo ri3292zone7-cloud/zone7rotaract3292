@@ -429,7 +429,7 @@
 </style>
 
   
-<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+<script>document.documentElement.classList.add("pt-enter");try{var t=localStorage.getItem("z7-theme");if(!t){var h=localStorage.getItem("hb-theme");if(h==="dark"||h==="light"){localStorage.setItem("z7-theme",h);t=h}}if(!t&&matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)t="dark";if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}document.documentElement.style.background=document.documentElement.classList.contains("dark")?"#0E0C1A":"#FFF8EF";</script>
 </head>
 <body>
 
@@ -3204,6 +3204,18 @@ document.getElementById("txPdfBtn").addEventListener("click", async () => {
 });
 </script>
 <script src="site-transition.js" defer></script>
+<style>/* Zone 7 night-mode pass */
+html.dark{color-scheme:dark;--ink:#CBC9DE;--cream:#0E0C1A;--paper:#151327;--line:rgba(233,231,247,.14);--magenta:#E06093;--magenta-deep:#E11A6E;--gold:#D9A648}
+html.dark body{background:var(--paper);color:var(--ink)}
+html.dark input,html.dark select,html.dark textarea{background:#1C1A33;color:var(--ink);border:1px solid var(--line)}
+html.dark ::placeholder{color:rgba(233,231,247,.45)}
+html.dark .login-card,html.dark .proj-item,html.dark .img-upload,html.dark .a-stat,html.dark .a-bar-row,html.dark .a-chart-card,html.dark .baro-list,html.dark .baro-proj-select,html.dark .baro-acc-toggle,html.dark .baro-minutes-upload,html.dark .baro-doc-upload,html.dark .de-step,html.dark .de-event{background:#1A1730;border-color:var(--line)}
+html.dark .login-card p.sub,html.dark .demo-note,html.dark .dash-header p,html.dark .no-projects,html.dark .a-empty,html.dark .a-subhead,html.dark .baro-toolbar .note,html.dark .baro-mode-note,html.dark .baro-verifier,html.dark .baro-multi-count,html.dark .baro-thresholds span{color:rgba(233,231,247,.64)}
+html.dark .proj-item .info span,html.dark .img-upload span,html.dark .a-stat span,html.dark .a-bar-rank,html.dark .a-table th,html.dark .baro-text .num,html.dark .bmt,html.dark .de-lead,html.dark .de-step span,html.dark .de-fact span,html.dark .de-sec p,html.dark .de-seg .seg span,html.dark .de-check,html.dark .de-table th,html.dark .de-table .de-host,html.dark .de-submit li{color:var(--ink)}
+html.dark .baro-item:hover{background:rgba(233,231,247,.07)}
+html.dark .a-table tr.me{background:rgba(224,96,147,.14)}
+html.dark .baro-badge-card span{color:#fff}
+html.dark .btn-primary,html.dark .btn-danger{color:#fff}</style>
 </body>
 </html>
 
