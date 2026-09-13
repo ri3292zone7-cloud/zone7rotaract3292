@@ -58,7 +58,7 @@ th{font-size:.68rem;text-transform:uppercase;color:rgba(27,24,54,.45);}
 .saved-item{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-size:.83rem;cursor:pointer;}
 .saved-item:hover{border-color:var(--magenta);}
 </style>
-<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
+<script>document.documentElement.classList.add("pt-enter");try{var t=localStorage.getItem("z7-theme");if(!t){var h=localStorage.getItem("hb-theme");if(h==="dark"||h==="light"){localStorage.setItem("z7-theme",h);t=h}}if(!t&&matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)t="dark";if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}document.documentElement.style.background=document.documentElement.classList.contains("dark")?"#0E0C1A":"#FFF8EF";</script>
   </head>
 <body>
 
@@ -485,6 +485,17 @@ function loadAll(){
 }
 </script>
 <script src="site-transition.js" defer></script>
+<style>/* Zone 7 night-mode pass */
+html.dark{color-scheme:dark;--ink:#CBC9DE;--cream:#0E0C1A;--paper:#151327;--line:rgba(233,231,247,.14);--magenta:#E06093;--magenta-deep:#E11A6E;--gold:#D9A648}
+html.dark body{background:var(--paper);color:var(--ink)}
+html.dark input,html.dark select,html.dark textarea{background:#1C1A33;color:var(--ink);border:1px solid var(--line)}
+html.dark ::placeholder{color:rgba(233,231,247,.45)}
+html.dark .saved-item,html.dark .stat{background:#1A1730;border-color:var(--line)}
+html.dark .logout-bar span,html.dark .sub,html.dark label,html.dark th,html.dark .stat span{color:var(--ink)}
+html.dark .tab{color:rgba(233,231,247,.72);border-color:var(--line)}
+html.dark .tab.active{background:var(--magenta);color:#fff;border-color:var(--magenta)}
+html.dark .btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+html.dark .btn-primary{color:#fff}</style>
 </body>
 </html>
 
