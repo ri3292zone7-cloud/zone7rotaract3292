@@ -291,11 +291,7 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 }
 @media print{.sidebar-wrap,.right-rail,.page-toolbar,.palette,.palette-backdrop{display:none}.main-content{padding:0}.content-inner{max-width:100%;padding:0}}
 </style>
-<script>
-/* set theme before paint to avoid flash */
-(function(){try{var t=localStorage.getItem("z7guides-theme");var dark=t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.toggle("dark",dark);}catch(e){}})();
-</script>
-</head>
+<script>document.documentElement.classList.add("pt-enter","z7-famB");try{var t=localStorage.getItem("z7-theme");if(!t){var h=localStorage.getItem("hb-theme");if(h==="dark"||h==="light"){localStorage.setItem("z7-theme",h);t=h}}if(!t&&matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)t="dark";if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}document.documentElement.style.background=document.documentElement.classList.contains("dark")?"#0E0C1A":"#FFF8EF";</script></head>
 <body>
 
 <div id="siteNav" data-current="guides"></div>
@@ -348,6 +344,10 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 </div>
 
 <script src="site-nav.js"></script>
+<script defer src="site-index.js"></script>
+<script src="learn-index.js"></script>
+<script src="learn-deep.js"></script>
+<script src="learn-search.js"></script>
 <script src="rota-gpt-data.js" defer></script>
 <script src="rota-gpt.js" defer></script>
 <script>
@@ -812,7 +812,7 @@ function renderOverview(){
 function renderAll(){renderSidebar();renderContent();renderRightRail();wireToolbar();setupScrollSpy(currentGuide?GUIDES.find(x=>x.id===currentGuide):null);}
 
 function wireToolbar(){const tb=document.querySelector("#contentArea .page-toolbar");if(!tb)return;
-  const th=tb.querySelector("[data-theme]");if(th)th.addEventListener("click",()=>{const dark=document.documentElement.classList.toggle("dark");localStorage.setItem("z7guides-theme",dark?"dark":"light");th.textContent=dark?"☀":"☾";th.setAttribute("aria-pressed",dark)});
+  const th=tb.querySelector("[data-theme]");if(th)th.addEventListener("click",()=>{const dark=document.documentElement.classList.toggle("dark");window.Z7Theme&&Z7Theme.persist(dark);th.textContent=dark?"☀":"☾";th.setAttribute("aria-pressed",dark)});
   const pl=tb.querySelector("[data-palette]");if(pl)pl.addEventListener("click",openPalette);
   const cl=tb.querySelector("[data-copylink]");if(cl)cl.addEventListener("click",()=>{navigator.clipboard.writeText("https://zone7rotaract3292.vercel.app/club-guides#"+currentGuide).then(()=>{cl.textContent="✓ copied";setTimeout(()=>cl.textContent="🔗",1400)})});
 }

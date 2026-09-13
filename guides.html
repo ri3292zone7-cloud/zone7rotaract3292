@@ -23,7 +23,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
-<script>document.documentElement.classList.add('pt-enter');if(localStorage.getItem("hb-theme")==="dark")document.documentElement.classList.add("dark")</script>
+<script>document.documentElement.classList.add("pt-enter","z7-famB");try{var t=localStorage.getItem("z7-theme");if(!t){var h=localStorage.getItem("hb-theme");if(h==="dark"||h==="light"){localStorage.setItem("z7-theme",h);t=h}}if(!t&&matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)t="dark";if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}document.documentElement.style.background=document.documentElement.classList.contains("dark")?"#0E0C1A":"#FFF8EF";</script>
 <script src="zone7-data.js"></script>
 <style>
 :root{
@@ -161,12 +161,12 @@ footer a{color:var(--brand-deep);font-weight:700}
   *{animation:none!important;transition:none!important}
   [data-reveal]{opacity:1;transform:none}
 }
-</style>
-</head>
+</style></head>
 <body>
 
 <div id="siteNav" data-current="resources" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
+<script defer src="site-index.js"></script>
 <script src="learn-index.js" defer></script>
 <script src="learn-deep.js" defer></script>
 <script src="learn-search.js" defer></script>
@@ -335,7 +335,7 @@ if(themeBtn){
   if(document.documentElement.classList.contains("dark")){ themeBtn.textContent = "☀"; themeBtn.setAttribute("aria-pressed", "true"); }
   themeBtn.addEventListener("click", () => {
     const dark = document.documentElement.classList.toggle("dark");
-    try{ localStorage.setItem("hb-theme", dark ? "dark" : "light"); }catch(e){}
+    try{ window.Z7Theme&&Z7Theme.persist(dark); }catch(e){}
     themeBtn.textContent = dark ? "☀" : "☾";
     themeBtn.setAttribute("aria-pressed", dark);
   });

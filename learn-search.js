@@ -1,9 +1,9 @@
 /* Spotlight search for the Learn section - one engine for every entry point (subnav bar, toolbar button, Cmd/Ctrl-K).
    Broad index in learn-index.js; pages may add a deep index via window.LEARN_DEEP={page:"/x",items:[{t,d,icon,s,a,scroll}]} */
 (function () {
+  if (!window.LEARN_INDEX && !window.SITE_INDEX) return;
   var root = document.getElementById("learnSearch");
-  if (!root || !window.LEARN_INDEX) return;
-  var trigger = root.querySelector(".lb-open");
+  var trigger = root ? root.querySelector(".lb-open") : null;
   var overlay = document.createElement("div");
   overlay.id = "lspotlight";
   var spot = document.createElement("div");
@@ -11,9 +11,9 @@
   spot.className = "hide";
   spot.innerHTML =
     '<div class="lb-field"><span class="lb-ico">🔍</span>' +
-    '<input type="text" id="learnSearchInput" placeholder="Search the Learn section…" autocomplete="off" spellcheck="false" aria-label="Search the Learn section">' +
+    '<input type="text" id="learnSearchInput" placeholder="Search the whole site…" autocomplete="off" spellcheck="false" aria-label="Search the whole site">' +
     '<button type="button" class="lb-close" aria-label="Close search">✕</button></div>' +
-    '<div id="learnSearchPanel" role="listbox" aria-label="Learn section results"></div>';
+    '<div id="learnSearchPanel" role="listbox" aria-label="Site search results"></div>';
   document.body.appendChild(overlay);
   document.body.appendChild(spot);
   var input = spot.querySelector("#learnSearchInput");
@@ -75,8 +75,16 @@
     overlay.classList.add("on");
     spot.classList.remove("hide");
     document.body.classList.add("lspot");
-    trigger.setAttribute("aria-expanded", "true");
+    if (trigger) trigger.setAttribute("aria-expanded", "true");
     if (typeof prefill === "string" && prefill) { input.value = prefill; render(prefill.trim()); }
+    if (window.SITE_INDEX) {
+      window.SITE_INDEX.ensure(function () {
+        if (overlay.classList.contains("on")) {
+          var v = input.value.trim();
+          if (v) render(v);
+        }
+      });
+    }
     requestAnimationFrame(function () {
       input.focus();
       input.select();
@@ -87,12 +95,16 @@
     overlay.classList.remove("on");
     spot.classList.add("hide");
     document.body.classList.remove("lspot");
-    trigger.setAttribute("aria-expanded", "false");
+    if (trigger) trigger.setAttribute("aria-expanded", "false");
     panel.classList.remove("open");
     panel.innerHTML = "";
     nodes = [];
     sel = -1;
     input.value = "";
+    if (document.activeElement === input) {
+      if (trigger) trigger.focus();
+      else input.blur();
+    }
   }
 
   function render(query) {
@@ -103,11 +115,16 @@
     var groups = {};
     var order = [];
     function add(it) {
-      if (it.t.toLowerCase().indexOf(q) === -1 && (it.d || "").toLowerCase().indexOf(q) === -1) return;
+      if (!it) return;
+      var hay = String(it.t || "").toLowerCase();
+      if (it.d) hay += " " + String(it.d).toLowerCase();
+      if (it.k && it.k.length) hay += " " + it.k.join(" ").toLowerCase();
+      if (hay.indexOf(q) === -1) return;
       if (!groups[it.s]) { groups[it.s] = []; order.push(it.s); }
       groups[it.s].push(it);
     }
     statics().forEach(add);
+    if (window.SITE_INDEX) window.SITE_INDEX.items().forEach(add);
     var deep = [];
     deeps().forEach(function (it) {
       if (it.t.toLowerCase().indexOf(q) === -1 && (it.d || "").toLowerCase().indexOf(q) === -1) return;
@@ -132,11 +149,12 @@
     order.forEach(function (sec) {
       html += '<div class="lb-group-title">' + sec + "</div>";
       groups[sec].forEach(function (it) {
-        html += '<a class="lb-result" href="' + it.p + (it.a ? "#" + it.a : "") + '"' +
+        var href = it.h || (it.p + (it.a ? "#" + it.a : ""));
+        html += '<a class="lb-result" href="' + href + '"' +
           (it.scroll ? ' data-scroll="' + it.scroll + '"' : "") + ">" +
-          '<span class="lb-ico-box">' + it.icon + "</span>" +
+          '<span class="lb-ico-box">' + (it.icon || "📄") + "</span>" +
           "<span><h6>" + it.t + "</h6><p>" + (it.d || it.s) + "</p></span>" +
-          '<span class="lb-tag">' + pageLabel(it.p) + "</span></a>";
+          '<span class="lb-tag">' + (it.tag || pageLabel(it.p)) + "</span></a>";
       });
     });
     panel.innerHTML = html;
@@ -204,7 +222,7 @@
     else target.click();
   }
 
-  trigger.addEventListener("click", function () { open(); });
+  if (trigger) trigger.addEventListener("click", function () { open(); });
   closeBtn.addEventListener("click", collapse);
   overlay.addEventListener("click", collapse);
   input.addEventListener("input", function () { render(input.value.trim()); });

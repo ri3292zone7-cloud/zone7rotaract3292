@@ -331,10 +331,7 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 }
 @media print{.sidebar-wrap,.right-rail,.page-toolbar{display:none}.main-content{padding:0}.content-inner{max-width:100%;padding:0}#makeupCard.show{display:block!important}}
 </style>
-<script>
-/* set theme before paint: default light; only stored dark flips it */
-(function(){try{var t=localStorage.getItem("hb-theme");if(t==="dark")document.documentElement.classList.add("dark");}catch(e){}document.documentElement.classList.add("pt-enter");})();
-</script>
+<script>document.documentElement.classList.add("pt-enter","z7-famB");try{var t=localStorage.getItem("z7-theme");if(!t){var h=localStorage.getItem("hb-theme");if(h==="dark"||h==="light"){localStorage.setItem("z7-theme",h);t=h}}if(!t&&matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)t="dark";if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}document.documentElement.style.background=document.documentElement.classList.contains("dark")?"#0E0C1A":"#FFF8EF";</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -368,8 +365,7 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
   ],
   "publisher": "https://zone7rotaract3292.vercel.app/"
 }
-</script>
-</head>
+</script></head>
 <body>
 
 <div id="siteNav" data-current="tutorials"></div>
@@ -413,6 +409,7 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 </div>
 
 <script src="site-nav.js"></script>
+<script defer src="site-index.js"></script>
 <script src="learn-index.js"></script>
 <script src="learn-deep.js"></script>
 <script src="learn-search.js"></script>
@@ -1430,7 +1427,7 @@ function renderOverview(){
 function renderAll(){renderSidebar();renderContent();renderRightRail();wireToolbar();setupScrollSpy(currentGuide?GUIDES.find(x=>x.id===currentGuide):null);}
 
 function wireToolbar(){const tb=document.querySelector("#contentArea .page-toolbar");if(!tb)return;
-  const th=tb.querySelector("[data-theme]");if(th)th.addEventListener("click",()=>{const dark=document.documentElement.classList.toggle("dark");try{localStorage.setItem("hb-theme",dark?"dark":"light")}catch(e){}th.textContent=dark?"☀":"☾";th.setAttribute("aria-pressed",dark)});
+  const th=tb.querySelector("[data-theme]");if(th)th.addEventListener("click",()=>{const dark=document.documentElement.classList.toggle("dark");try{window.Z7Theme&&Z7Theme.persist(dark)}catch(e){}th.textContent=dark?"☀":"☾";th.setAttribute("aria-pressed",dark)});
   const pl=tb.querySelector("[data-spot]");if(pl)pl.addEventListener("click",openSpot);
   const cl=tb.querySelector("[data-copylink]");if(cl)cl.addEventListener("click",()=>{try{navigator.clipboard.writeText("https://zone7rotaract3292.vercel.app/tutorials#"+currentGuide).then(()=>{cl.textContent="✓ copied";setTimeout(()=>cl.textContent="🔗",1400)},()=>{cl.textContent="copy failed";setTimeout(()=>cl.textContent="🔗",1400)})}catch(err){cl.textContent="copy failed";setTimeout(()=>cl.textContent="🔗",1400)}});
 }

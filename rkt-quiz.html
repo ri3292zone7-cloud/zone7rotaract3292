@@ -290,10 +290,7 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 }
 @media print{.sidebar-wrap,.right-rail,.page-toolbar{display:none}.main-content{padding:0}.content-inner{max-width:100%;padding:0}}
 </style>
-<script>
-(function(){try{var t=localStorage.getItem("hb-theme");if(t==="dark")document.documentElement.classList.add("dark");}catch(e){}document.documentElement.classList.add("pt-enter");})();
-</script>
-</head>
+<script>document.documentElement.classList.add("pt-enter","z7-famB");try{var t=localStorage.getItem("z7-theme");if(!t){var h=localStorage.getItem("hb-theme");if(h==="dark"||h==="light"){localStorage.setItem("z7-theme",h);t=h}}if(!t&&matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)t="dark";if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}document.documentElement.style.background=document.documentElement.classList.contains("dark")?"#0E0C1A":"#FFF8EF";</script></head>
 <body>
 
 <div id="siteNav" data-current="quiz"></div>
@@ -322,6 +319,7 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 </div>
 
 <script src="site-nav.js"></script>
+<script defer src="site-index.js"></script>
 <script src="learn-index.js"></script>
 <script src="learn-deep.js"></script>
 <script src="learn-search.js"></script>
@@ -399,7 +397,7 @@ function renderContent(){
   } else { renderOverview(); }
 }
 function wireToolbarEvents(){var tb=document.querySelector("#contentArea .page-toolbar");if(!tb)return;
-  var th=tb.querySelector("[data-theme]");if(th)th.addEventListener("click",function(){var dark=document.documentElement.classList.toggle("dark");try{localStorage.setItem("hb-theme",dark?"dark":"light")}catch(e){}th.textContent=dark?"☀":"☾";th.setAttribute("aria-pressed",dark)});
+  var th=tb.querySelector("[data-theme]");if(th)th.addEventListener("click",function(){var dark=document.documentElement.classList.toggle("dark");try{window.Z7Theme&&Z7Theme.persist(dark)}catch(e){}th.textContent=dark?"☀":"☾";th.setAttribute("aria-pressed",dark)});
   var pl=tb.querySelector("[data-spot]");if(pl)pl.addEventListener("click",openSpot);
   var cl=tb.querySelector("[data-copylink]");if(cl)cl.addEventListener("click",function(){navigator.clipboard.writeText("https://zone7rotaract3292.vercel.app/rkt-quiz#"+currentGuide).then(function(){cl.textContent="✓ copied";setTimeout(function(){cl.textContent="🔗"},1400)},function(){cl.textContent="copy failed";setTimeout(function(){cl.textContent="🔗"},1400)})});
 }

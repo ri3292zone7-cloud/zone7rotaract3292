@@ -15,6 +15,65 @@
     }
   } catch (e) {}
 
+  // --- Universal night mode. All pages run an early-paint head snippet that
+  // applies the class before CSS renders, so there is no light flash. Storage
+  // is a single "z7-theme" key; legacy "hb-theme"/"z7guides-theme" keys are
+  // migrated once and retired. This engine also keeps every toggle in sync:
+  // the nav button, page toolbar buttons, the <meta name="theme-color"> and
+  // the html paint veil underneath overscroll.
+  function z7IsDark() { return document.documentElement.classList.contains("dark"); }
+  function z7Apply(dark, persist) {
+    document.documentElement.classList.toggle("dark", !!dark);
+    if (persist !== false) {
+      try {
+        localStorage.setItem("z7-theme", dark ? "dark" : "light");
+        if (localStorage.getItem("hb-theme")) localStorage.removeItem("hb-theme");
+      } catch (e) {}
+    }
+    try {
+      var mc = document.querySelector('meta[name="theme-color"]');
+      if (mc) mc.content = dark ? "#0E0C1A" : "#FFF8EF";
+      var bg = getComputedStyle(document.body).backgroundColor;
+      document.documentElement.style.background =
+        (bg && bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent") ? bg : (dark ? "#0E0C1A" : "#FFF8EF");
+    } catch (e) {}
+    var btns = document.querySelectorAll("[data-z7-theme]");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].setAttribute("aria-pressed", dark ? "true" : "false");
+      btns[i].classList.toggle("on", !!dark);
+      var lbl = btns[i].querySelector("[data-z7-label]");
+      if (lbl) lbl.textContent = dark ? "On" : "Off";
+    }
+    window.dispatchEvent(new CustomEvent("z7theme", { detail: { dark: !!dark } }));
+  }
+  if (!window.Z7Theme) {
+    window.Z7Theme = {
+      isDark: z7IsDark,
+      get: function () { return z7IsDark() ? "dark" : "light"; },
+      toggle: function () { z7Apply(!z7IsDark(), true); return z7IsDark(); },
+      persist: function (dark) { z7Apply(!!dark, true); },
+      ui: function (dark) { z7Apply(!!dark, true); }
+    };
+    var z7mo = new MutationObserver(function () {
+      try {
+        var mc = document.querySelector('meta[name="theme-color"]');
+        if (mc) mc.content = z7IsDark() ? "#0E0C1A" : "#FFF8EF";
+        var btns = document.querySelectorAll("[data-z7-theme]");
+        for (var i = 0; i < btns.length; i++) {
+          btns[i].setAttribute("aria-pressed", z7IsDark() ? "true" : "false");
+          btns[i].classList.toggle("on", z7IsDark());
+          var lbl = btns[i].querySelector("[data-z7-label]");
+          if (lbl) lbl.textContent = z7IsDark() ? "On" : "Off";
+        }
+      } catch (e) {}
+    });
+    z7mo.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+  }
+  try {
+    var mc0 = document.querySelector('meta[name="theme-color"]');
+    if (mc0) mc0.content = z7IsDark() ? "#0E0C1A" : "#FFF8EF";
+  } catch (e) {}
+
   // --- Fix: mobile browsers paint the plain white <html> background during
   // rubber-band/elastic overscroll (pulling past the top/bottom of the page),
   // which shows as a block of blank white space beyond the real content.
@@ -46,7 +105,7 @@
   document.head.appendChild(manifestLink);
   var themeColor = document.createElement("meta");
   themeColor.name = "theme-color";
-  themeColor.content = "#FFF8EF";
+  themeColor.content = z7IsDark() ? "#0E0C1A" : "#FFF8EF";
   document.head.appendChild(themeColor);
 
   var host = document.getElementById("siteNav");
@@ -142,6 +201,57 @@
   var NAV_CSS = [
     ":root{--nav-bg:rgba(255,253,249,.92);--nav-surface:#FFFDF9;--nav-border:rgba(27,24,54,.1);--nav-border-soft:rgba(27,24,54,.06);--nav-ink:#1B1836;--nav-ink-soft:rgba(27,24,54,.52);--nav-ink-dim:rgba(27,24,54,.45);--nav-brand:#A80F52;--nav-brand-strong:#E11A6E;--nav-tint:rgba(225,26,110,.07);--nav-tint2:rgba(225,26,110,.09);--nav-shadow:0 24px 48px rgba(27,24,54,.14)}",
     ":root.dark{--nav-bg:rgba(21,19,39,.92);--nav-surface:#151327;--nav-border:rgba(233,231,247,.12);--nav-border-soft:rgba(233,231,247,.08);--nav-ink:#E9E7F7;--nav-ink-soft:rgba(233,231,247,.62);--nav-ink-dim:rgba(233,231,247,.45);--nav-brand:#f0488f;--nav-brand-strong:#f0488f;--nav-tint:rgba(225,26,110,.16);--nav-tint2:rgba(225,26,110,.2);--nav-shadow:0 24px 48px rgba(0,0,0,.5)}",
+    "html.dark{color-scheme:dark;--ink:#E9E7F7;--cream:#0E0C1A;--paper:#151327;--line:rgba(233,231,247,.14)}",
+    "html:not(.z7-famB).dark{--magenta:#f0488f;--gold:#D9A648}",
+    "html.dark body{color:#E9E7F7}",
+    "html.dark.z7-famA{background:#0E0C1A!important}",
+    "html.dark.z7-famA .btn-primary,html.dark.z7-famA .btn-solid{background:#f0488f;border-color:#f0488f;color:#fff}",
+    "html.dark.z7-famA .btn-ghost,html.dark.z7-famA .btn-outline{background:transparent;border-color:var(--line);color:#E9E7F7}",
+    "html.dark.z7-famA .hlink{color:#f0488f}",
+    "html.dark.z7-famA .chip,html.dark.z7-famA .tab{background:rgba(233,231,247,.07);color:#E9E7F7;border-color:var(--line)}",
+    "html.dark.z7-famA .chip.active,html.dark.z7-famA .tab.active{background:#f0488f;color:#fff;border-color:#f0488f}",
+    "html.dark.z7-famA code,html.dark.z7-famA .code{background:#1C1A33;color:#F1EDFB}",
+    "html.dark.z7-famA footer{background:#100E1D;border-color:rgba(233,231,247,.12)}",
+    "html.dark.z7-famA .lb-btn{background:rgba(225,26,110,.16);border-color:rgba(225,26,110,.35);color:#fff}",
+    "html.dark.z7-famA input,html.dark.z7-famA textarea,html.dark.z7-famA select{background:#1C1A33;color:#F1EDFB;border-color:var(--line)}",
+    "html.dark.z7-famA .hero-team-card{background:linear-gradient(150deg,#1A1730,#2b2555)}",
+    "html.dark.z7-famA .hero-team-row,html.dark.z7-famA .hero-team-avatar{background:rgba(233,231,247,.08);border-color:rgba(233,231,247,.16)}",
+    "html.dark.z7-famA .form-card{background:#16142A;border-color:var(--line)}",
+    "html.dark.z7-famA details.letter,html.dark.z7-famA .card,html.dark.z7-famA .missing-card{background:#1A1730;border-color:var(--line)}",
+    "html.dark.z7-famA .missing-card.found{background:rgba(22,163,74,.16)}",
+    "html.dark.z7-famA .card-head{background:rgba(233,231,247,.05);border-color:var(--line);color:rgba(233,231,247,.7)}",
+    "html.dark.z7-famA .card-head b{color:#E9E7F7}",
+    "html.dark.z7-famA .lead,html.dark.z7-famA .sub,html.dark.z7-famA .form-sub,html.dark.z7-famA .social-proof,html.dark.z7-famA .link-hint,html.dark.z7-famA .hint,html.dark.z7-famA .g-count,html.dark.z7-famA .s-meta,html.dark.z7-famA .why-card p,html.dark.z7-famA .success-panel p,html.dark.z7-famA .game-hint,html.dark.z7-famA .empty-state p{color:rgba(233,231,247,.76)}",
+    "html.dark.z7-famA .hero-stats .stat span{color:rgba(233,231,247,.64)}",
+    "html.dark.z7-famA .missing-meta,html.dark.z7-famA .mini{color:rgba(233,231,247,.64)}",
+    "html.dark.z7-famA .sep{color:rgba(233,231,247,.4)}",
+    "html.dark.z7-famA label{color:rgba(233,231,247,.72)}",
+    "html.dark.z7-famA .next-strip li{color:rgba(233,231,247,.8)}",
+    "html.dark.z7-famA blockquote{color:rgba(233,231,247,.78)}",
+    "html.dark.z7-famA footer{color:rgba(233,231,247,.62)}",
+    "html.dark.z7-famA #redirecting{color:rgba(233,231,247,.6)}",
+    "html.dark.z7-famA header.hero.wrap > p{color:rgba(233,231,247,.76)}",
+    "html.dark.z7-famA .top-alert,html.dark.z7-famA .flood-alert{background:rgba(255,140,26,.16);border-bottom-color:rgba(255,140,26,.3);color:rgba(233,231,247,.85)}",
+    "html.dark.z7-famA div[style*='background:#fff']{background:#1A1730!important;border-color:rgba(233,231,247,.14)!important}",
+    "html.dark.z7-famA div[style*='color:rgba(27,24,54,0.58)']{color:rgba(233,231,247,.7)!important}",
+    "html.dark.z7-famA .form-card .eyebrow{color:#FF8FB5}",
+    "html.dark.z7-famA .card a{color:#FF8FB5}",
+    "html.dark.z7-famA .pill.missing{color:#FF8FB5}",
+    "html.dark.z7-famA a[style*='color:var(--magenta-deep)']{color:#FF8FB5!important}",
+    "html.dark.z7-famA body{background:#0E0C1A}",
+    "html.dark.z7-famA #loadStatus{color:rgba(233,231,247,.7)}",
+    "#siteNav .nav-actions{display:flex;align-items:center;gap:14px}",
+    "#siteNav .nav-btn{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--nav-border);background:var(--nav-surface);color:var(--nav-ink);border-radius:100px;padding:0 12px;height:38px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:border-color .2s,color .2s,background .2s,transform .2s;flex-shrink:0;white-space:nowrap}",
+    "#siteNav .nav-btn kbd{height:auto;background:var(--nav-tint2);color:var(--nav-brand-strong);margin:0;padding:1px 7px;font:inherit;font-family:'Inter',sans-serif;font-size:.68rem;font-weight:700;border-radius:6px;line-height:1.6}",
+    "#siteNav .nav-btn:hover,#siteNav .nav-btn.on{border-color:var(--nav-brand-strong);color:var(--nav-brand-strong);background:var(--nav-tint)}",
+    "#siteNav .nav-btn:active{transform:scale(.96)}",
+    "#siteNav .nav-theme{width:42px;justify-content:center;padding:0}",
+    ".mobile-menu .mm-link{display:flex;align-items:center;justify-content:space-between;width:100%;background:none;border:none;text-align:left;cursor:pointer;padding:10px 0;border-bottom:1px solid var(--nav-border-soft);font:inherit;font-size:1rem;font-weight:600;color:var(--nav-ink)}",
+    ".mobile-menu .mm-link kbd{height:auto;background:var(--nav-tint2);color:var(--nav-brand-strong);padding:1px 7px;font-size:.7rem;font-weight:700;border-radius:6px}",
+    ".mobile-menu .mm-link span{color:var(--nav-ink-dim);font-weight:700;font-size:.8rem}",
+    "@media (max-width:1100px){#siteNav .nav-search .ns-label{display:none}}",
+    "@media (max-width:920px){#siteNav .nav-actions{gap:6px}#siteNav .nav-btn,#siteNav .nav-rgpt{width:36px;height:36px;padding:0;justify-content:center}#siteNav .nav-theme{width:36px}}",
+    "@media (max-width:920px){#siteNav .nav-actions{display:none}}",
     "@view-transition{navigation:auto}",
     "::view-transition-old(root),::view-transition-new(root){mix-blend-mode:normal}",
     "::view-transition-old(root){animation:z7vo .22s cubic-bezier(.4,0,.6,1) both}",
@@ -170,7 +280,7 @@
     "#siteNav .learn-tabs::-webkit-scrollbar{display:none}",
     "#siteNav .learn-subnav a{flex-shrink:0;font-size:.82rem;font-weight:500;color:var(--nav-ink-soft);padding:11px 13px;margin:3px 0;white-space:nowrap;border-radius:100px;transition:color .15s,background .15s}",
     "#siteNav .learn-subnav a:hover{color:var(--nav-ink);background:rgba(127,127,127,.1)}",
-    "#siteNav .learn-subnav a.current{color:var(--nav-ink);font-weight:700;background:var(--nav-tint2)}",
+    "#siteNav .learn-subnav a.current{color:var(--nav-brand);font-weight:700}",
     "#siteNav .learn-chapters{display:none;align-items:center;justify-content:center;background:none;border:none;color:var(--nav-ink-soft);cursor:pointer;font-size:1.05rem;padding:6px 9px;border-radius:8px;margin:6px 0;flex-shrink:0;justify-self:end;transition:color .15s,background .15s}",
     "html.learn-hub #siteNav .learn-chapters,html.learn-quiz #siteNav .learn-chapters{display:inline-flex}",
     "#siteNav .learn-chapters:hover{color:var(--nav-ink);background:rgba(127,127,127,.1)}",
@@ -264,6 +374,8 @@
 
   var CHEV = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var STAR = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5c.6 4.6 2.4 7.4 10.5 10.5C14.4 15.1 12.6 17.9 12 22.5c-.6-4.6-2.4-7.4-10.5-10.5C9.6 8.9 11.4 6.1 12 1.5z"/></svg>';
+  var S_ICO = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  var M_ICO = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.8 6.8 0 0 0 9.8 9.8z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>';
 
   function item(path, label, key, extra) {
     return '<a href="' + path + '"' + (current === key ? ' class="current"' : "") + extra + ">" + label + "</a>";
@@ -352,9 +464,11 @@
     item("/store", "Store", "merch") +
     "</div>" +
     crisisPills +
-    '<div style="display:flex;align-items:center;gap:16px;">' +
+    '<div class="nav-actions">' +
     '<a href="/admin" class="nav-admin">Club Admin</a>' +
     ctaHtml +
+    '<button type="button" id="navSearchBtn" class="nav-btn nav-search" aria-label="Search the whole site" title="Search the whole site">' + S_ICO + '<span class="ns-label">Search</span><kbd>/</kbd></button>' +
+    '<button type="button" id="navThemeBtn" class="nav-btn nav-theme" aria-label="Toggle night mode" title="Toggle night mode" data-z7-theme aria-pressed="false">' + M_ICO + "</button>" +
     '<button type="button" id="navRotaGpt" class="nav-rgpt" aria-label="Open RotaGPT chat" title="RotaGPT chat">' + STAR + "</button>" +
     '<button class="burger" id="burgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>' +
     "</div>" +
@@ -374,6 +488,9 @@
     item("/store", "Store", "merch") +
     '<a href="/join">Join Us</a>' +
     '<a href="/admin">Club Admin</a>' +
+    '<div class="mm-group">Settings</div>' +
+    '<button type="button" class="mm-link" id="mmSearch">Search the whole site<kbd>/</kbd></button>' +
+    '<button type="button" class="mm-link" id="mmTheme" data-z7-theme aria-pressed="false">Night mode<span data-z7-label>Off</span></button>' +
     '<a class="mm-cta" href="/join">Fill the Form, Become a Rotaractor →</a>' +
     "</div>" +
     "</nav>";
@@ -484,4 +601,32 @@
     syncRgpt();
     window.addEventListener("load", syncRgpt);
   }
+
+  function openSiteSearch() {
+    if (window.LearnSpot && LearnSpot.open) LearnSpot.open();
+    else location.assign("/search");
+  }
+  var navSearch = nav.querySelector("#navSearchBtn");
+  if (navSearch) navSearch.addEventListener("click", openSiteSearch);
+  var mmSearch = nav.querySelector("#mmSearch");
+  if (mmSearch) {
+    mmSearch.addEventListener("click", function () {
+      if (menu) menu.classList.remove("open");
+      if (burger) burger.setAttribute("aria-expanded", "false");
+      openSiteSearch();
+    });
+  }
+  var navTheme = nav.querySelector("#navThemeBtn");
+  var mmTheme = nav.querySelector("#mmTheme");
+  function bindThemeBtn(btn) {
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      if (window.Z7Theme) window.Z7Theme.toggle();
+      else document.documentElement.classList.toggle("dark");
+    });
+    btn.setAttribute("aria-pressed", z7IsDark() ? "true" : "false");
+    btn.classList.toggle("on", z7IsDark());
+  }
+  bindThemeBtn(navTheme);
+  bindThemeBtn(mmTheme);
 })();

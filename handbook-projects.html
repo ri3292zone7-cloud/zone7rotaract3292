@@ -369,8 +369,7 @@ html.dark .key-points li{color:var(--muted);border-color:var(--line)}
 html.dark .key-points li::before{color:#F0569A}
 
 </style>
-<script>document.documentElement.classList.add('pt-enter');document.documentElement.style.background='#FFF8EF';</script>
-<script>try{if(localStorage.getItem("hb-theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}</script>
+<script>document.documentElement.classList.add("pt-enter","z7-famB");try{var t=localStorage.getItem("z7-theme");if(!t){var h=localStorage.getItem("hb-theme");if(h==="dark"||h==="light"){localStorage.setItem("z7-theme",h);t=h}}if(!t&&matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)t="dark";if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}document.documentElement.style.background=document.documentElement.classList.contains("dark")?"#0E0C1A":"#FFF8EF";</script>
   </head>
 <body>
 
@@ -378,6 +377,10 @@ html.dark .key-points li::before{color:#F0569A}
 
 <div id="siteNav" data-current="handbook" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
+<script defer src="site-index.js"></script>
+<script src="learn-index.js" defer></script>
+<script src="learn-deep.js" defer></script>
+<script src="learn-search.js" defer></script>
     <script src="site-transition.js" defer></script>
 
 <div class="wrap">
@@ -723,7 +726,7 @@ if(wrap)wrap.insertBefore(tb,wrap.firstChild);
 function paintThemeBtn(){var b=tb.querySelector("[data-theme]");if(!b)return;var d=root.classList.contains("dark");b.innerHTML=d?"&#9728;":"&#9789;";b.setAttribute("aria-pressed",d?"true":"false")}
 paintThemeBtn();
 var thBtn=tb.querySelector("[data-theme]");
-if(thBtn)thBtn.addEventListener("click",function(){var d=root.classList.toggle("dark");store("hb-theme",d?"dark":"light");paintThemeBtn()});
+if(thBtn)thBtn.addEventListener("click",function(){var d=root.classList.toggle("dark");window.Z7Theme&&Z7Theme.persist(d);paintThemeBtn()});
 var palBtn=tb.querySelector("[data-palette]");
 if(palBtn)palBtn.addEventListener("click",openPalette);
 var cpBtn=tb.querySelector("[data-copylink]");

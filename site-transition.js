@@ -82,7 +82,7 @@
       var h = getComputedStyle(document.documentElement).backgroundColor;
       if (h && h !== "rgba(0, 0, 0, 0)" && h !== "transparent") return h;
     } catch (e) {}
-    return "#FAFAFA";
+    return document.documentElement.classList.contains("dark") ? "#0E0C1A" : "#FAFAFA";
   }
 
   function leave(url) {
