@@ -173,6 +173,25 @@
   .form-card h2{font-size:1.6rem; margin-bottom:10px;}
   .form-card p.intro{color:rgba(27,24,54,0.65); font-size:0.98rem; margin-bottom:30px; line-height:1.6;}
 
+  .intent-toggle{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:30px;}
+  @media (max-width:520px){ .intent-toggle{grid-template-columns:1fr;} }
+  .intent-opt{cursor:pointer;}
+  .intent-opt input{position:absolute; opacity:0; pointer-events:none;}
+  .intent-card{
+    display:flex; flex-direction:column; gap:4px; height:100%;
+    background:var(--cream); border:2px solid var(--line); border-radius:16px; padding:16px 18px;
+    transition:border-color .2s, background .2s, box-shadow .2s;
+  }
+  .intent-card b{font-size:0.95rem;}
+  .intent-card small{font-size:0.78rem; color:rgba(27,24,54,0.55); font-weight:500; line-height:1.5;}
+  .intent-opt input:checked + .intent-card{border-color:var(--magenta); background:#FFF5F9; box-shadow:0 8px 20px rgba(225,26,110,0.12);}
+  .intent-opt input:focus-visible + .intent-card{outline:2px solid var(--magenta); outline-offset:2px;}
+  .path-note{color:rgba(27,24,54,0.65); font-size:0.88rem; margin-bottom:26px; line-height:1.6;}
+  .path-note .req{color:var(--magenta-deep); font-weight:700;}
+  #visitPath .guest-perks{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px;}
+  #visitPath .guest-perks span{font-size:0.72rem; font-weight:700; color:var(--magenta-deep); background:rgba(225,26,110,0.08); padding:5px 11px; border-radius:100px;}
+  #visitPath .form-status{margin-top:12px; font-size:0.85rem; font-weight:600;}
+  #visitPath .form-status.error{color:#C0392B;}
   .step-progress{margin-bottom:34px;}
   .step-progress-bar{height:6px; background:rgba(27,24,54,0.08); border-radius:100px; overflow:hidden; margin-bottom:14px;}
   .step-progress-bar > i{display:block; height:100%; width:33.33%; background:linear-gradient(90deg, var(--magenta), var(--magenta-deep)); border-radius:100px; transition:width .35s ease;}
@@ -384,13 +403,27 @@
 
       <div id="form-wrap">
         <h2>Zone 7 Rotaract Membership Form</h2>
-        <p class="intro">Rotaract membership is open to young adults aged 18&ndash;30. Fields marked <span class="req">*</span> are required. Your information is only used by Zone 7 and its clubs to process your membership, and it is never sold or shared externally.</p>
+        <p class="intro">Rotaract membership is open to young adults aged 18&ndash;30. Want to join straight away, or just visit a meeting first? Pick one &mdash; either way it takes less than a minute.</p>
 
         <form id="joinForm" novalidate>
           <p style="position:absolute; left:-9999px;">
             <label>Don't fill this out if you're human: <input name="_honey" /></label>
             <input name="bot-field" tabindex="-1" autocomplete="off" />
           </p>
+
+          <div class="intent-toggle" role="radiogroup" aria-label="How do you want to start?">
+            <label class="intent-opt">
+              <input type="radio" name="intent" value="join" checked>
+              <span class="intent-card"><b>I want to join</b><small>Become a member of a Zone 7 club</small></span>
+            </label>
+            <label class="intent-opt">
+              <input type="radio" name="intent" value="visit">
+              <span class="intent-card"><b>I just want to visit</b><small>Attend one meeting first, no commitment</small></span>
+            </label>
+          </div>
+
+          <div id="joinPath">
+          <p class="path-note">Fields marked <span class="req">*</span> are required. Your information is only used by Zone 7 and its clubs to process your membership, and it is never sold or shared externally.</p>
 
           <div class="step-progress" aria-label="Form progress">
             <div class="step-progress-bar"><i id="formProgressBar"></i></div>
@@ -431,8 +464,8 @@
               <input type="date" id="dob" name="dob" required>
             </div>
             <div class="form-group">
-              <label for="bloodgroup">Blood Group <span class="req">*</span><span class="hint">Used for club blood-donation drives &amp; emergencies</span></label>
-              <select id="bloodgroup" name="bloodgroup" required>
+              <label for="bloodgroup">Blood Group<span class="hint">Optional &mdash; used for club blood-donation drives &amp; emergencies, you can share this later</span></label>
+              <select id="bloodgroup" name="bloodgroup">
                 <option value="" disabled selected>Select your blood group</option>
                 <option>A+</option>
                 <option>A-</option>
@@ -448,8 +481,8 @@
           </div>
 
           <div class="form-group">
-            <label for="occupation">Current Occupation <span class="req">*</span></label>
-            <input type="text" id="occupation" name="occupation" required placeholder="Student, working professional, etc.">
+              <label for="occupation">Current Occupation<span class="hint">Optional</span></label>
+              <input type="text" id="occupation" name="occupation" placeholder="Student, working professional, etc.">
           </div>
 
           <div class="form-group">
@@ -534,14 +567,57 @@
             <button type="button" class="btn-back" id="stepBack" aria-label="Go back">&#8592; Back</button>
             <button type="button" class="btn-next" id="stepNext">Submit &amp; Become a Rotaractor</button>
           </div>
+          </div>
+
+          <div id="visitPath" hidden>
+            <p class="path-note">Tell us where to reach you and we&rsquo;ll match you with a meeting you can drop into. No fees, no commitment.</p>
+            <div class="form-group">
+              <label for="vfullname">Full name <span class="req">*</span></label>
+              <input type="text" id="vfullname" name="vfullname" placeholder="Your name">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="vemail">Email <span class="req">*</span></label>
+                <input type="email" id="vemail" name="vemail" placeholder="you@example.com">
+              </div>
+              <div class="form-group">
+                <label for="vphone">Phone <span class="hint">optional</span></label>
+                <input type="tel" id="vphone" name="vphone" placeholder="98XXXXXXXX">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="vclub">Preferred club</label>
+              <select id="vclub" name="vclub">
+                <option value="" selected>Any club is fine</option>
+                <option>Rotaract Club of Balkumari</option>
+                <option>Rotaract Club of Baneshwor</option>
+                <option>Rotaract Club of Kathmandu Height</option>
+                <option>Rotaract Club of Kathmandu West</option>
+                <option>Rotaract Club of Liberty College</option>
+                <option>Rotaract Club of New Road City Kathmandu</option>
+                <option>Rotaract Club of Sankhu</option>
+                <option>Rotaract Club of Sukedhara</option>
+                <option>Rotaract Club of Tripureswor</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="vmsg">Anything you&rsquo;d like to know? <span class="hint">optional</span></label>
+              <textarea id="vmsg" name="vmsg" rows="3" placeholder="e.g. Is there a meeting this week?"></textarea>
+            </div>
+            <div class="guest-perks">
+              <span>No fees</span><span>No commitment</span><span>Meet members first</span>
+            </div>
+            <button type="submit" class="btn-submit" id="visitBtn">Request a Guest Visit</button>
+            <p class="form-status" id="visitStatus" aria-live="polite"></p>
+          </div>
         </form>
       </div>
 
       <div class="success-panel" id="successPanel">
         <div class="mark">✓</div>
         <img src="zone7_join_hero_b.webp" alt="Illustration of young Rotaractors celebrating" width="900" height="615" loading="lazy" decoding="async" class="success-art">
-        <h2>Welcome, Rotaractor!</h2>
-        <p>Thank you for filling out the form, you've officially taken the first step to becoming a Rotaractor. A Zone 7 club will be in touch with you shortly to complete your onboarding.</p>
+        <h2 id="successTitle">Welcome, Rotaractor!</h2>
+        <p id="successText">Thank you for filling out the form, you've officially taken the first step to becoming a Rotaractor. A Zone 7 club will be in touch with you shortly to complete your onboarding.</p>
       </div>
     </div>
   </div>
@@ -554,27 +630,27 @@
     <p class="sub" style="color:rgba(27,24,54,0.65); font-size:1rem; max-width:640px; line-height:1.7; margin:14px 0 36px;">New members join one of five committees, each with its own goals and projects for the year. Pick based on what you actually enjoy.</p>
     <div class="comm-grid">
 <a class="comm-card" href="/tutorials#leadership" style="--ac:#E11A6E;">
-        <span class="comm-ico">??</span>
+        <span class="comm-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M16 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4zM8 11a4 4 0 1 0-.4-7.96A5.99 5.99 0 0 1 9 11v1H7a3 3 0 0 0-3 3v3h9v-3a3 3 0 0 0-1-2.22V11zM15 13a3 3 0 0 1 3 3v3h3v-3a3 3 0 0 0-3-3z" fill="currentColor"/></svg></span>
         <h4>Club Service</h4>
         <p>Keeps the club alive: meetings, orientation, fellowship events, installations and membership growth.</p>
       </a>
 <a class="comm-card" href="/tutorials#execution" style="--ac:#059669;">
-        <span class="comm-ico">??</span>
+        <span class="comm-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.6-9.3-9C1.2 8.3 3 5 6.2 5c2 0 3.3 1.1 4 2.4h3.6C14.5 6.1 15.8 5 17.8 5 21 5 22.8 8.3 21.3 11c-2.3 4.4-9.3 9-9.3 9z" fill="currentColor"/></svg></span>
         <h4>Community Service</h4>
         <p>The projects people see: blood drives, health camps, school support, environment and awareness campaigns.</p>
       </a>
 <a class="comm-card" href="/tutorials#international" style="--ac:#2563EB;">
-        <span class="comm-ico">??</span>
+        <span class="comm-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 12h17M12 3.5c2.5 2.3 3.8 5.2 3.8 8.5s-1.3 6.2-3.8 8.5c-2.5-2.3-3.8-5.2-3.8-8.5s1.3-6.2 3.8-8.5z" stroke="currentColor" stroke-width="1.8"/></svg></span>
         <h4>International Service</h4>
         <p>Twinship, letterhead exchanges, youth exchanges and joint events with clubs abroad.</p>
       </a>
 <a class="comm-card" href="/tutorials#profdev" style="--ac:#F2A900;">
-        <span class="comm-ico">??</span>
+        <span class="comm-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3L1 8l11 5 8-3.6V15h2V8L12 3zM5 12.5V16c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.5l-7 3.2-7-3.2z" fill="currentColor"/></svg></span>
         <h4>Professional Development</h4>
         <p>Skills that outlast Rotaract: public speaking, resume clinics, first-aid training, video editing, podcasting.</p>
       </a>
 <a class="comm-card" href="/tutorials#finance" style="--ac:#1B1836;">
-        <span class="comm-ico">??</span>
+        <span class="comm-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20 6H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1zm-9 9H7v-2h4v2zm8 0h-5v-2h5v2zM23 4H6a1 1 0 0 0 0 2h16v10a1 1 0 0 0 2 0V5a1 1 0 0 0-1-1z" fill="currentColor"/></svg></span>
         <h4>Finance</h4>
         <p>Budgets, dues, fundraising and transparent money management, the club's trust backbone.</p>
       </a>
@@ -600,8 +676,11 @@
   .comm-card:hover{transform:translateY(-5px); box-shadow:0 18px 40px rgba(27,24,54,0.1); border-color:var(--ac);}
   .comm-ico{
     width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;
-    font-size:1.4rem; background:color-mix(in srgb, var(--ac) 12%, transparent); flex-shrink:0;
+    font-size:1.4rem; color:var(--ac); flex-shrink:0;
+    background:rgba(27,24,54,0.07);
+    background:color-mix(in srgb, var(--ac) 12%, transparent);
   }
+  .comm-ico svg{display:block;}
   .comm-card h4{font-size:1.05rem;}
   .comm-card p{font-size:0.86rem; color:rgba(27,24,54,0.62); line-height:1.6; flex-grow:1;}
   .comm-quiz{background:linear-gradient(160deg, var(--ink), #3E3A6E); color:#fff; border-color:var(--ink);}
@@ -632,51 +711,13 @@
             <p class="try-lead">Not sure which club fits? Tell the zone and we'll match you with the right meeting to attend.</p>
           </div>
         </div>
-        <form id="guestForm" novalidate>
-          <p style="position:absolute; left:-9999px;">
-            <label>Don't fill this out if you're human: <input name="_honey" /></label>
-          </p>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="gfullname">Full name <span class="req">*</span></label>
-              <input type="text" id="gfullname" name="fullname" required placeholder="Your name">
-            </div>
-            <div class="form-group">
-              <label for="gemail">Email <span class="req">*</span></label>
-              <input type="email" id="gemail" name="email" required placeholder="you@example.com">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="gclub">Preferred club</label>
-              <select id="gclub" name="preferred_club">
-                <option value="" selected>Any club is fine</option>
-                <option>Rotaract Club of Balkumari</option>
-                <option>Rotaract Club of Baneshwor</option>
-                <option>Rotaract Club of Kathmandu Height</option>
-                <option>Rotaract Club of Kathmandu West</option>
-                <option>Rotaract Club of Liberty College</option>
-                <option>Rotaract Club of New Road City Kathmandu</option>
-                <option>Rotaract Club of Sankhu</option>
-                <option>Rotaract Club of Sukedhara</option>
-                <option>Rotaract Club of Tripureswor</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="gphone">Phone <span class="hint">optional</span></label>
-              <input type="tel" id="gphone" name="phone" placeholder="98XXXXXXXX">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="gmsg">Anything you'd like to know?</label>
-            <textarea id="gmsg" name="message" rows="3" placeholder="e.g. Is there a meeting this week? Do I need to be a member first?"></textarea>
-          </div>
+        <div class="guest-cta">
           <div class="guest-perks">
             <span>No fees</span><span>No commitment</span><span>Meet members first</span>
           </div>
-          <button type="submit" class="guest-btn" id="guestBtn">Request a Guest Visit <span aria-hidden="true">&#8594;</span></button>
-          <p class="form-status" id="guestStatus" aria-live="polite"></p>
-        </form>
+          <button type="button" class="guest-btn" id="guestCta">Request a Guest Visit <span aria-hidden="true">&#8594;</span></button>
+          <p class="guest-note">One short form above &mdash; just your name, email and preferred club. Takes 30 seconds.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -700,12 +741,12 @@
   .try-foot{font-size:0.8rem; color:rgba(255,255,255,0.5); line-height:1.6;}
   .try-guest{position:relative; overflow:hidden;}
   .try-guest::before{content:""; position:absolute; top:0; left:0; right:0; height:6px; background:linear-gradient(90deg, var(--gold), var(--magenta));}
-  .try-guest form{display:flex; flex-direction:column; gap:16px;}
+  .try-guest .guest-cta{display:flex; flex-direction:column; gap:16px; margin-top:18px;}
+  .guest-note{font-size:0.8rem; color:rgba(27,24,54,0.55); line-height:1.6; text-align:center;}
   .guest-head{display:flex; gap:14px; align-items:flex-start; margin-bottom:4px;}
   .guest-ico{width:48px; height:48px; border-radius:14px; background:var(--cream); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:1.35rem; flex-shrink:0;}
   .guest-head h3{margin-bottom:6px;}
   .guest-head .try-lead{margin-bottom:0;}
-  .try-guest .form-group{margin-bottom:0;}
   .guest-perks{display:flex; flex-wrap:wrap; gap:8px;}
   .guest-perks span{font-size:0.72rem; font-weight:700; color:var(--magenta-deep); background:rgba(225,26,110,0.08); padding:5px 11px; border-radius:100px;}
   .guest-btn{
@@ -716,8 +757,6 @@
   }
   .guest-btn:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(27,24,54,0.22);}
   .guest-btn:disabled{opacity:0.6; cursor:not-allowed; transform:none; box-shadow:none;}
-  .try-guest .form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
-  @media (max-width:520px){ .try-guest .form-row{grid-template-columns:1fr;} }
   .form-status{margin-top:12px; font-size:0.85rem; font-weight:600;}
   .form-status.error{color:#C0392B;}
   .form-status.ok{color:#1c8a4d;}
@@ -741,6 +780,29 @@
   const nextBtn = document.getElementById('stepNext');
   const submitBtn = nextBtn;
   let stepIndex = 0;
+  const joinPath = document.getElementById('joinPath');
+  const visitPath = document.getElementById('visitPath');
+
+  function getIntent() {
+    const r = form.querySelector('input[name="intent"]:checked');
+    return r ? r.value : 'join';
+  }
+  function applyIntent() {
+    const visit = getIntent() === 'visit';
+    joinPath.hidden = visit;
+    visitPath.hidden = !visit;
+  }
+  form.querySelectorAll('input[name="intent"]').forEach((r) => r.addEventListener('change', applyIntent));
+  applyIntent();
+
+  function showSuccess(title, text) {
+    document.getElementById('form-wrap').style.display = 'none';
+    document.getElementById('successTitle').textContent = title;
+    document.getElementById('successText').textContent = text;
+    const panel = document.getElementById('successPanel');
+    panel.style.display = 'block';
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 
   function setErr(input, msg) {
     clearErr(input);
@@ -772,9 +834,7 @@
         ['fullname', 'Please enter your full name.'],
         ['email', 'Please enter your email address.'],
         ['phone', 'Please enter your phone / WhatsApp number.'],
-        ['dob', 'Please enter your date of birth.'],
-        ['bloodgroup', 'Please select your blood group.'],
-        ['occupation', 'Please enter your current occupation.']
+        ['dob', 'Please enter your date of birth.']
       ];
       checks.forEach(([id, msg]) => {
         const el = document.getElementById(id);
@@ -851,6 +911,7 @@
   });
 
   form.addEventListener('keydown', function (e) {
+    if (getIntent() !== 'join') return;
     if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && stepIndex < steps.length - 1) {
       e.preventDefault();
       if (validateStep(stepIndex)) goToStep(stepIndex + 1);
@@ -863,9 +924,10 @@
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
+    if (form.querySelector('[name="_honey"]').value || form.querySelector('[name="bot-field"]').value) return;
+    if (getIntent() === 'visit') { submitVisit(); return; }
     statusEl.className = 'form-status';
     statusEl.textContent = '';
-    if (form.querySelector('[name="_honey"]').value || form.querySelector('[name="bot-field"]').value) return;
     if (!validateStep(stepIndex)) return;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting...';
@@ -885,7 +947,7 @@
       })(),
       dob: (data.get('dob') || '').trim() || null,
       bloodgroup: (data.get('bloodgroup') || '').trim() || null,
-      occupation: (data.get('occupation') || '').trim(),
+      occupation: (data.get('occupation') || '').trim() || null,
       institution: (data.get('institution') || '').trim() || null,
       preferred_club: (data.get('preferred_club') || '').trim() || null,
       interests: data.getAll('interests[]').join(', ') || null,
@@ -902,8 +964,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: 'application', data: payload })
       }).catch(() => {});
-      document.getElementById('form-wrap').style.display = 'none';
-      document.getElementById('successPanel').style.display = 'block';
+      showSuccess('Welcome, Rotaractor!', "Thank you for filling out the form, you've officially taken the first step to becoming a Rotaractor. A Zone 7 club will be in touch with you shortly to complete your onboarding.");
     } catch (err) {
       console.error('Membership application failed', err);
       const queue = JSON.parse(localStorage.getItem('zone7_pending_applications') || '[]');
@@ -925,33 +986,29 @@
     }
   });
 
-  const guestForm = document.getElementById('guestForm');
-  const guestBtn = document.getElementById('guestBtn');
-  const guestStatus = document.getElementById('guestStatus');
+  const visitBtn = document.getElementById('visitBtn');
+  const visitStatus = document.getElementById('visitStatus');
 
-  guestForm.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    guestStatus.className = 'form-status';
-    guestStatus.textContent = '';
-    if (guestForm.querySelector('[name="_honey"]').value) return;
-    guestBtn.disabled = true;
-    guestBtn.textContent = 'Sending...';
-
-    const gdata = new FormData(guestForm);
+  async function submitVisit() {
+    visitStatus.className = 'form-status';
+    visitStatus.textContent = '';
+    ['vfullname', 'vemail', 'vphone'].forEach((id) => clearErr(document.getElementById(id)));
     const payload = {
-      fullname: (gdata.get('fullname') || '').trim(),
-      email: (gdata.get('email') || '').trim(),
-      preferred_club: (gdata.get('preferred_club') || '').trim() || null,
-      phone: (gdata.get('phone') || '').trim() || null,
-      message: (gdata.get('message') || '').trim() || null
+      fullname: document.getElementById('vfullname').value.trim(),
+      email: document.getElementById('vemail').value.trim(),
+      preferred_club: document.getElementById('vclub').value.trim() || null,
+      phone: document.getElementById('vphone').value.trim() || null,
+      message: document.getElementById('vmsg').value.trim() || null
     };
-    if (!payload.fullname || !payload.email) {
-      guestBtn.disabled = false;
-      guestBtn.textContent = 'Request a Guest Visit →';
-      guestStatus.className = 'form-status error';
-      guestStatus.textContent = 'Please add your name and email.';
-      return;
+    let ok = true;
+    if (!payload.fullname) { setErr(document.getElementById('vfullname'), 'Please add your name.'); ok = false; }
+    if (!payload.email) { setErr(document.getElementById('vemail'), 'Please add your email.'); ok = false; }
+    else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(payload.email)) {
+      setErr(document.getElementById('vemail'), 'Please enter a valid email address.'); ok = false;
     }
+    if (!ok) return;
+    visitBtn.disabled = true;
+    visitBtn.textContent = 'Sending...';
 
     try {
       await ZONE7_DB.submitGuestRequest(payload);
@@ -960,17 +1017,22 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: 'guest', data: payload })
       }).catch(() => {});
-      guestForm.reset();
-      guestStatus.className = 'form-status ok';
-      guestStatus.textContent = 'Request sent! A Zone 7 coordinator will match you with a club meeting soon.';
+      showSuccess('Request received!', "Thanks for your interest — a Zone 7 coordinator will match you with a club meeting soon. No fees, no commitment; just come and see what we're like.");
     } catch (err) {
       console.error('Guest request failed', err);
-      guestStatus.className = 'form-status error';
-      guestStatus.textContent = "Couldn't send right now, please try again, or email ri3292zone7@gmail.com directly.";
+      visitStatus.className = 'form-status error';
+      visitStatus.textContent = "Couldn't send right now, please try again, or email ri3292zone7@gmail.com directly.";
     } finally {
-      guestBtn.disabled = false;
-      guestBtn.textContent = 'Request a Guest Visit →';
+      visitBtn.disabled = false;
+      visitBtn.textContent = 'Request a Guest Visit';
     }
+  }
+
+  document.getElementById('guestCta').addEventListener('click', function () {
+    form.querySelector('input[name="intent"][value="visit"]').checked = true;
+    applyIntent();
+    document.getElementById('form-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(function () { document.getElementById('vfullname').focus({ preventScroll: true }); }, 600);
   });
 </script>
 
