@@ -27,6 +27,7 @@
 <meta name="twitter:title" content="Zone 7 Rotaract | District 3292 Nepal-Bhutan">
 <meta name="twitter:description" content="Zone 7 unites 9 Rotaract clubs across the Kathmandu Valley under District 3292 Nepal-Bhutan. Service, fellowship and leadership for young adults aged 18–30.">
 <meta name="twitter:image" content="https://zone7rotaract3292.vercel.app/zone7_og_image.png">
+<link rel="preload" as="image" href="zone7_cover.webp" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://pdlolyghlgztjrpxwytl.supabase.co" crossorigin>
@@ -66,7 +67,7 @@
     background:
       linear-gradient(180deg, rgba(15,12,28,0.72) 0%, rgba(15,12,28,0.55) 38%, rgba(27,24,54,0.88) 82%, var(--ink) 100%),
       radial-gradient(1200px 500px at 85% -10%, rgba(225,26,110,0.22), transparent 60%),
-      url('zone7_cover.jpg');
+      url('zone7_cover.webp');
     background-size:cover;
     background-position:center 30%;
     background-repeat:no-repeat;
@@ -649,6 +650,14 @@
     .zrr-grid{grid-template-columns:1fr;}
     .project-grid{grid-template-columns:1fr;}
   }
+
+  /* Perf: skip layout/paint for the static below-fold sections until they
+     scroll into view. Carousel/timeline sections are intentionally excluded —
+     their scripts measure layout at load time. */
+  .events, .social, .logostrip, .join-cta, footer{
+    content-visibility:auto;
+    contain-intrinsic-size:auto 700px;
+  }
 </style>
 <script type="application/ld+json">
 {
@@ -702,30 +711,44 @@
 </div>
 <script>
 (function(){
-  const already = sessionStorage.getItem("zone7_splash_seen");
   const el = document.getElementById("rotaryPreloader");
 
-  if(already){
+  // Skip the splash for users who asked for less motion, are on a metered/
+  // slow connection, or are in a background tab — show content immediately.
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let skip = reduce;
+  try {
+    const nav = navigator.connection;
+    if (nav) {
+      if (nav.saveData) skip = true;
+      if (nav.effectiveType === "slow-2g" || nav.effectiveType === "2g") skip = true;
+    }
+  } catch (e) {}
+  const already = sessionStorage.getItem("zone7_splash_seen");
+
+  if (skip || already || document.hidden){
     el.remove();
     return;
   }
 
-  const HOLD_MS = 450;
+  const HOLD_MS = 250;
   document.getElementById("rpBarFill").style.transitionDuration = HOLD_MS + "ms";
 
   function dismiss(){
     if(el.classList.contains("hide")) return;
     el.classList.add("hide");
     sessionStorage.setItem("zone7_splash_seen", "1");
-    setTimeout(() => el.remove(), 700);
+    setTimeout(() => el.remove(), 450);
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    requestAnimationFrame(() => {
-      document.getElementById("rpBarFill").style.width = "100%";
-    });
-    setTimeout(dismiss, HOLD_MS);
+  // Start the progress bar as soon as the element exists — no need to wait
+  // for full DOM readiness to animate a 250ms hold.
+  requestAnimationFrame(() => {
+    document.getElementById("rpBarFill").style.width = "100%";
   });
+  window.addEventListener("DOMContentLoaded", () => setTimeout(dismiss, HOLD_MS));
+  window.addEventListener("load", dismiss);
+  setTimeout(dismiss, HOLD_MS + 900);
   el.addEventListener("click", dismiss);
   document.addEventListener("keydown", function (e) {
     if (e.key === "Enter" || e.key === " ") dismiss();
@@ -735,10 +758,10 @@
 
 <div id="siteNav" data-current="" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
-<script defer src="site-index.js"></script>
-<script src="learn-index.js" defer></script>
-<script src="learn-deep.js" defer></script>
-<script src="learn-search.js" defer></script>
+
+
+
+
     <script src="site-transition.js" defer></script>
 <header class="hero">
   <canvas id="heroDots" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
@@ -1691,8 +1714,9 @@ function goDCal(delta){
   </div>
 </footer>
 
-<script src="rota-gpt-data.js" defer></script>
-<script src="rota-gpt.js" defer></script>
+
+
+<script defer src="z7-lazy.js"></script>
 </body>
 </html>
 

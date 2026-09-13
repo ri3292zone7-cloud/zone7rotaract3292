@@ -296,10 +296,10 @@
 <body>
 <div id="siteNav" data-current="flood-help" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
-<script defer src="site-index.js"></script>
-<script src="learn-index.js" defer></script>
-<script src="learn-deep.js" defer></script>
-<script src="learn-search.js" defer></script>
+
+
+
+
 <script src="site-transition.js" defer></script>
 
 <div class="top-alert"><b>Response record</b><span>Affected regions from the Sept 2026 QGIS analysis · For any current emergency call <a href="tel:1149">1149</a> / <a href="tel:100">100</a></span></div>
@@ -399,8 +399,8 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="rota-gpt-data.js" defer></script>
-<script src="rota-gpt.js" defer></script>
+
+
 <script>
 (function(){
   var map=L.map('floodMap',{scrollWheelZoom:true,zoomControl:false}).setView([27.95,85.15],9);
@@ -783,5 +783,7 @@
  setTimeout(function(){map.invalidateSize();updateFit();},300);
 })();
 </script>
+
+<script defer src="z7-lazy.js"></script>
 </body>
 </html>

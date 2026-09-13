@@ -322,12 +322,12 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 </div>
 
 <script src="site-nav.js"></script>
-<script defer src="site-index.js"></script>
-<script src="learn-index.js"></script>
-<script src="learn-deep.js"></script>
-<script src="learn-search.js"></script>
-<script src="rota-gpt-data.js" defer></script>
-<script src="rota-gpt.js" defer></script>
+
+
+
+
+
+
 <script>
 const ROLES={
   grants:{label:"Grants",bg:"var(--treas)",icon:"💰"},
@@ -789,5 +789,7 @@ if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded"
 renderAll();
 if(location.hash){const id=location.hash.slice(1);if(GUIDES.some(g=>g.id===id)){currentGuide=id;currentView="guide";renderAll()}}
 </script>
+
+<script defer src="z7-lazy.js"></script>
 </body>
 </html>

@@ -289,16 +289,16 @@
   "parentOrganization": "https://zone7rotaract3292.vercel.app/"
 }
 </script>
-<link rel="preload" as="image" href="zone7_cover.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="zone7_cover.webp" fetchpriority="high">
 <script>document.documentElement.classList.add("pt-enter","z7-famA");try{var t=localStorage.getItem("z7-theme");if(!t){var h=localStorage.getItem("hb-theme");if(h==="dark"||h==="light"){localStorage.setItem("z7-theme",h);t=h}}if(!t&&matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)t="dark";if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}document.documentElement.style.background=document.documentElement.classList.contains("dark")?"#0E0C1A":"#FFF8EF";</script>  </head>
 <body>
 
 <div id="siteNav" data-current="about" data-cta="join"></div>
 <script src="site-nav.js" defer></script>
-<script defer src="site-index.js"></script>
-<script src="learn-index.js" defer></script>
-<script src="learn-deep.js" defer></script>
-<script src="learn-search.js" defer></script>
+
+
+
+
     <script src="site-transition.js" defer></script>
 
 <header class="hero">
@@ -333,7 +333,7 @@
 
 <div class="hero-photo">
   <div class="frame">
-    <img src="zone7_cover.jpg" alt="जोन ७ का क्लबहरूका रोटरेक्टहरू" width="1180" height="560" fetchpriority="high">
+    <picture><source srcset="zone7_cover.webp" type="image/webp"><img src="zone7_cover.jpg" alt="जोन ७ का क्लबहरूका रोटरेक्टहरू" width="1180" height="560" fetchpriority="high"></picture>
     <span class="hp-chip hp1">🩸 रक्तदान अभियान</span>
     <span class="hp-chip hp2">🌳 रूख लगाउने काम</span>
     <span class="hp-chip hp3">🤝 सामेलजुस्ती</span>
@@ -548,8 +548,10 @@ var bioText = {
   `).join("");
 })();
 </script>
-<script src="rota-gpt-data.js" defer></script>
-<script src="rota-gpt.js" defer></script>
+
+
+
+<script defer src="z7-lazy.js"></script>
 </body>
 </html>
 

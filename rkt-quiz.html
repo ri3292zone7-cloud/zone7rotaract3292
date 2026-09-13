@@ -319,13 +319,13 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 </div>
 
 <script src="site-nav.js"></script>
-<script defer src="site-index.js"></script>
-<script src="learn-index.js"></script>
-<script src="learn-deep.js"></script>
-<script src="learn-search.js"></script>
+
+
+
+
 <script src="site-transition.js" defer></script>
-<script src="rota-gpt-data.js" defer></script>
-<script src="rota-gpt.js" defer></script>
+
+
 <script>
 const ROLES={
   study:{label:"Study",bg:"var(--sec)",icon:"📚"},
@@ -863,5 +863,7 @@ window.addEventListener("hashchange",function(){
 renderAll();
 if(location.hash){var id=location.hash.slice(1);if(GUIDES.some(function(g){return g.id===id})){currentGuide=id;currentView="guide";renderAll()}}
 </script>
+
+<script defer src="z7-lazy.js"></script>
 </body>
 </html>

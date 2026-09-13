@@ -344,12 +344,12 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 </div>
 
 <script src="site-nav.js"></script>
-<script defer src="site-index.js"></script>
-<script src="learn-index.js"></script>
-<script src="learn-deep.js"></script>
-<script src="learn-search.js"></script>
-<script src="rota-gpt-data.js" defer></script>
-<script src="rota-gpt.js" defer></script>
+
+
+
+
+
+
 <script>
 const ROLES={president:{label:"President",bg:"var(--pres)",icon:"👑"},secretary:{label:"Secretary",bg:"var(--sec)",icon:"📋"},treasurer:{label:"Treasurer",bg:"var(--treas)",icon:"💰"},vps:{label:"VP Service",bg:"var(--vps)",icon:"🤝"},vpp:{label:"VP Prof Dev",bg:"var(--vpp)",icon:"🎓"},serg:{label:"Sgt-at-Arms",bg:"var(--serg)",icon:"📍"},comms:{label:"Comms / PR",bg:"var(--comms)",icon:"📢"},board:{label:"All Officers",bg:"var(--board)",icon:"⚖️"}};
 
@@ -976,5 +976,7 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{
 renderAll();
 if(location.hash){const id=location.hash.slice(1);if(GUIDES.some(g=>g.id===id)){currentGuide=id;currentView="guide";renderAll()}}
 </script>
+
+<script defer src="z7-lazy.js"></script>
 </body>
 </html>

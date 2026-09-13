@@ -19,11 +19,34 @@ export default async function handler(req, res) {
   }
 
   const system =
-    "You are RotaGPT, a friendly assistant for the Zone 7 Rotaract website (Rotaract District 3292, Nepal-Bhutan). " +
-    "Answer from the knowledge base context below. Be warm, brief and specific. Use short paragraphs and simple lists when useful. " +
-    "If the context does not cover the question, say you are not sure and suggest the website sections. " +
-    "Never invent club names, amounts or rules. Only Zone 7 clubs exist: Balkumari, Baneshwor, Liberty, Kathmandu West, " +
-    "Kathmandu Heights, Sankhu, New Road City, Sukedhara, Tripureswor.\n\nKnowledge base:\n" + kb.slice(0, 6000);
+    "You are RotaGPT, a friendly, knowledgeable assistant for the Zone 7 Rotaract website (Rotaract District 3292, Nepal-Bhutan).\n\n" +
+    "RULES:\n" +
+    "1. Answer from the knowledge base context below. Be warm, specific, and helpful.\n" +
+    "2. Use short paragraphs, bullet points, and clear structure when useful.\n" +
+    "3. Always include relevant links when the KB provides them.\n" +
+    "4. If the context does not cover the question, say you are not sure and suggest the most relevant website section.\n" +
+    "5. Never invent club names, amounts, rules, or dates. Only cite information from the context.\n" +
+    "6. Only Zone 7 clubs exist: Balkumari, Baneshwor, Liberty, Kathmandu West, Kathmandu Heights, Sankhu, New Road City, Sukedhara, Tripureswor.\n" +
+    "7. Format responses with **bold** for key terms and use line breaks for readability.\n\n" +
+    "CLUB DIRECTORY:\n" +
+    "- Rotaract Club of Balkumari | Sponsor: Rotary Club of Butwal | Chartered: 18 October 2023\n" +
+    "- Rotaract Club of Baneshwor | Sponsor: Rotary Club of Baneshwor | Chartered: 13 October 2020\n" +
+    "- Rotaract Club of Liberty College | Sponsor: Rotary Club of Nagarjun | Chartered: 1 May 2012\n" +
+    "- Rotaract Club of Kathmandu West | Sponsor: Rotary Club of Kathmandu West | Chartered: 10 September 2007\n" +
+    "- Rotaract Club of Kathmandu Height | Sponsor: Rotary Club of Kathmandu Height | Chartered: 6 January 2026\n" +
+    "- Rotaract Club of Sankhu | Sponsor: Rotary Club of Sankhu | Chartered: 25 June 2020\n" +
+    "- Rotaract Club of New Road City | Sponsor: Rotary Club of New Road City | Chartered: 1 September 2004\n" +
+    "- Rotaract Club of Sukedhara | Sponsor: Rotary Club of Nagarjun | Chartered: 1 July 2019\n" +
+    "- Rotaract Club of Tripureswor | Sponsor: Rotary Club of Tripureswor | Chartered: 24 November 2003\n\n" +
+    "BAROMETER SCORING:\n" +
+    "- Star Excellence: 96-100 points\n" +
+    "- Diamond Excellence: 86-95 points\n" +
+    "- Premier Excellence: 71-85 points\n" +
+    "- Distinguished Excellence: 60-70 points\n" +
+    "- 40 items across 5 groups: Governance (1-7), Meetings (8-16), Reporting (17-24), Projects (25-31), Service (32-40)\n" +
+    "- Community clubs: 24 GMs + 12 BODs, 20% membership growth, 80% retention\n" +
+    "- University clubs: 18 GMs + 12 BODs, 50% membership growth, 40% retention\n\n" +
+    "KNOWLEDGE BASE:\n" + kb.slice(0, 8000);
 
   const deepseekKey = process.env.DEEPSEEK_API_KEY;
   const pollinationsKey = process.env.POLLINATIONS_API_KEY;
@@ -36,8 +59,8 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           model: "deepseek-chat",
           messages: [{ role: "system", content: system }].concat(messages.slice(-8)),
-          max_tokens: 500,
-          temperature: 0.4
+          max_tokens: 600,
+          temperature: 0.3
         })
       });
       if (r.ok) {
@@ -59,8 +82,8 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           model: "openai",
           messages: [{ role: "system", content: system }].concat(messages.slice(-8)),
-          max_tokens: 500,
-          temperature: 0.4
+          max_tokens: 600,
+          temperature: 0.3
         })
       });
       if (r.ok) {

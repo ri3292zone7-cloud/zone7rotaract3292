@@ -200,16 +200,16 @@
 
   var NAV_CSS = [
     ":root{--nav-bg:rgba(255,253,249,.92);--nav-surface:#FFFDF9;--nav-border:rgba(27,24,54,.1);--nav-border-soft:rgba(27,24,54,.06);--nav-ink:#1B1836;--nav-ink-soft:rgba(27,24,54,.52);--nav-ink-dim:rgba(27,24,54,.45);--nav-brand:#A80F52;--nav-brand-strong:#E11A6E;--nav-tint:rgba(225,26,110,.07);--nav-tint2:rgba(225,26,110,.09);--nav-shadow:0 24px 48px rgba(27,24,54,.14)}",
-    ":root.dark{--nav-bg:rgba(21,19,39,.92);--nav-surface:#151327;--nav-border:rgba(233,231,247,.12);--nav-border-soft:rgba(233,231,247,.08);--nav-ink:#E9E7F7;--nav-ink-soft:rgba(233,231,247,.62);--nav-ink-dim:rgba(233,231,247,.45);--nav-brand:#f0488f;--nav-brand-strong:#f0488f;--nav-tint:rgba(225,26,110,.16);--nav-tint2:rgba(225,26,110,.2);--nav-shadow:0 24px 48px rgba(0,0,0,.5)}",
-    "html.dark{color-scheme:dark;--ink:#E9E7F7;--cream:#0E0C1A;--paper:#151327;--line:rgba(233,231,247,.14)}",
-    "html:not(.z7-famB).dark{--magenta:#f0488f;--gold:#D9A648}",
-    "html.dark body{color:#E9E7F7}",
+    ":root.dark{--nav-bg:rgba(21,19,39,.92);--nav-surface:#151327;--nav-border:rgba(233,231,247,.12);--nav-border-soft:rgba(233,231,247,.08);--nav-ink:#CBC9DE;--nav-ink-soft:rgba(233,231,247,.62);--nav-ink-dim:rgba(233,231,247,.45);--nav-brand:#E06093;--nav-brand-strong:#E06093;--nav-tint:rgba(225,26,110,.16);--nav-tint2:rgba(225,26,110,.2);--nav-shadow:0 24px 48px rgba(0,0,0,.5)}",
+    "html.dark{color-scheme:dark;--ink:#CBC9DE;--cream:#0E0C1A;--paper:#151327;--line:rgba(233,231,247,.14)}",
+    "html:not(.z7-famB).dark{--magenta:#E06093;--gold:#D9A648}",
+    "html.dark body{color:#CBC9DE}",
     "html.dark.z7-famA{background:#0E0C1A!important}",
-    "html.dark.z7-famA .btn-primary,html.dark.z7-famA .btn-solid{background:#f0488f;border-color:#f0488f;color:#fff}",
-    "html.dark.z7-famA .btn-ghost,html.dark.z7-famA .btn-outline{background:transparent;border-color:var(--line);color:#E9E7F7}",
-    "html.dark.z7-famA .hlink{color:#f0488f}",
-    "html.dark.z7-famA .chip,html.dark.z7-famA .tab{background:rgba(233,231,247,.07);color:#E9E7F7;border-color:var(--line)}",
-    "html.dark.z7-famA .chip.active,html.dark.z7-famA .tab.active{background:#f0488f;color:#fff;border-color:#f0488f}",
+    "html.dark.z7-famA .btn-primary,html.dark.z7-famA .btn-solid{background:#E06093;border-color:#E06093;color:#fff}",
+    "html.dark.z7-famA .btn-ghost,html.dark.z7-famA .btn-outline{background:transparent;border-color:var(--line);color:#CBC9DE}",
+    "html.dark.z7-famA .hlink{color:#E06093}",
+    "html.dark.z7-famA .chip,html.dark.z7-famA .tab{background:rgba(233,231,247,.07);color:#CBC9DE;border-color:var(--line)}",
+    "html.dark.z7-famA .chip.active,html.dark.z7-famA .tab.active{background:#E06093;color:#fff;border-color:#E06093}",
     "html.dark.z7-famA code,html.dark.z7-famA .code{background:#1C1A33;color:#F1EDFB}",
     "html.dark.z7-famA footer{background:#100E1D;border-color:rgba(233,231,247,.12)}",
     "html.dark.z7-famA .lb-btn{background:rgba(225,26,110,.16);border-color:rgba(225,26,110,.35);color:#fff}",
@@ -220,7 +220,24 @@
     "html.dark.z7-famA details.letter,html.dark.z7-famA .card,html.dark.z7-famA .missing-card{background:#1A1730;border-color:var(--line)}",
     "html.dark.z7-famA .missing-card.found{background:rgba(22,163,74,.16)}",
     "html.dark.z7-famA .card-head{background:rgba(233,231,247,.05);border-color:var(--line);color:rgba(233,231,247,.7)}",
-    "html.dark.z7-famA .card-head b{color:#E9E7F7}",
+    "html.dark.z7-famA .card-head b{color:#CBC9DE}",
+    "html.dark.z7-famA .hero .btn-primary{background:linear-gradient(100deg,var(--magenta),var(--magenta-deep));color:#fff}",
+    "html.dark.z7-famA .join-card .btn-primary{background:#fff;border-color:#fff;color:#A80F52}",
+    "html.dark.z7-famA .chero{background:linear-gradient(140deg,#141128,#28215c);color:#fff}",
+    "html.dark.z7-famA .pcard,html.dark.z7-famA .proj-card{background:#1A1730;border-color:var(--line)}",
+    "html.dark.z7-famA #rotaryPreloader{background:#0E0C1A}",
+    "html.dark.z7-famA .mt.active,html.dark.z7-famA .btn.primary,html.dark.z7-famA .restart,html.dark.z7-famA .btn-call,html.dark.z7-famA .help.primary,html.dark.z7-famA .reveal-btn,html.dark.z7-famA .try-meet,html.dark.z7-famA .rot-chip.c3,html.dark.z7-famA .ig-follow,html.dark.z7-famA .art-badge{background:#E06093;border-color:#E06093;color:#fff}",
+    "html.dark.z7-famA .steps b,html.dark.z7-famA .next-strip .n{background:#E06093;color:#fff}",
+    "html.dark.z7-famA .btn-ghost:hover,html.dark.z7-famA .hlink.ghost:hover{background:#CBC9DE;border-color:#CBC9DE;color:#0E0C1A}",
+    "html.dark.z7-famA .hero .btn-ghost:hover{background:#fff;border-color:#fff;color:#1B1836}",
+    "html.dark.z7-famA .zrr-modal-close{background:#1C1A33;border-color:var(--line);color:#CBC9DE}",
+    "html.dark.z7-famA .zrr-modal-close:hover{background:#E06093;border-color:#E06093;color:#fff}",
+    "html.dark.z7-famA [style*='background:var(--ink)']{background:#E06093!important;border-color:#E06093!important;color:#fff!important}",
+    "html.dark.z7-famA .hero h1 .hl{filter:saturate(.8) brightness(.97)}",
+    "html.dark.z7-famA .icon-btn{background:#1C1A33;border-color:var(--line);color:#CBC9DE}",
+    "html.dark.z7-famA .flood-alert{background:rgba(255,140,26,.12);border-color:rgba(255,140,26,.35);color:#CBC9DE}",
+    "html.dark.z7-famA .flood-alert a{color:#FF8FB5}",
+    "html.dark .btn.gold{color:#1B1836}",
     "html.dark.z7-famA .lead,html.dark.z7-famA .sub,html.dark.z7-famA .form-sub,html.dark.z7-famA .social-proof,html.dark.z7-famA .link-hint,html.dark.z7-famA .hint,html.dark.z7-famA .g-count,html.dark.z7-famA .s-meta,html.dark.z7-famA .why-card p,html.dark.z7-famA .success-panel p,html.dark.z7-famA .game-hint,html.dark.z7-famA .empty-state p{color:rgba(233,231,247,.76)}",
     "html.dark.z7-famA .hero-stats .stat span{color:rgba(233,231,247,.64)}",
     "html.dark.z7-famA .missing-meta,html.dark.z7-famA .mini{color:rgba(233,231,247,.64)}",
@@ -246,6 +263,10 @@
     "#siteNav .nav-btn:hover,#siteNav .nav-btn.on{border-color:var(--nav-brand-strong);color:var(--nav-brand-strong);background:var(--nav-tint)}",
     "#siteNav .nav-btn:active{transform:scale(.96)}",
     "#siteNav .nav-theme{width:42px;justify-content:center;padding:0}",
+    "#siteNav .nav-btn.nav-key{height:28px;min-width:30px;padding:0 9px;font-size:.74rem;font-weight:700;border-width:1px;opacity:.75}",
+    "#siteNav .nav-btn.nav-key:hover{opacity:1}",
+    "#siteNav .nav-btn.nav-key kbd{background:transparent;padding:0;font-size:.74rem;line-height:1}",
+    "#siteNav .nav-btn.nav-key:focus-visible{outline:2px solid var(--nav-brand-strong);outline-offset:2px;opacity:1}",
     ".mobile-menu .mm-link{display:flex;align-items:center;justify-content:space-between;width:100%;background:none;border:none;text-align:left;cursor:pointer;padding:10px 0;border-bottom:1px solid var(--nav-border-soft);font:inherit;font-size:1rem;font-weight:600;color:var(--nav-ink)}",
     ".mobile-menu .mm-link kbd{height:auto;background:var(--nav-tint2);color:var(--nav-brand-strong);padding:1px 7px;font-size:.7rem;font-weight:700;border-radius:6px}",
     ".mobile-menu .mm-link span{color:var(--nav-ink-dim);font-weight:700;font-size:.8rem}",
@@ -467,7 +488,7 @@
     '<div class="nav-actions">' +
     '<a href="/admin" class="nav-admin">Club Admin</a>' +
     ctaHtml +
-    '<button type="button" id="navSearchBtn" class="nav-btn nav-search" aria-label="Search the whole site" title="Search the whole site">' + S_ICO + '<span class="ns-label">Search</span><kbd>/</kbd></button>' +
+    '<button type="button" id="navSearchBtn" class="nav-btn nav-key" aria-label="Search the whole site" title="Search the whole site (press /)"><kbd>/</kbd></button>' +
     '<button type="button" id="navThemeBtn" class="nav-btn nav-theme" aria-label="Toggle night mode" title="Toggle night mode" data-z7-theme aria-pressed="false">' + M_ICO + "</button>" +
     '<button type="button" id="navRotaGpt" class="nav-rgpt" aria-label="Open RotaGPT chat" title="RotaGPT chat">' + STAR + "</button>" +
     '<button class="burger" id="burgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>' +
