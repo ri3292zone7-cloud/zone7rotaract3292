@@ -178,7 +178,7 @@
     if (!best.length) {
       return {
         text: "I couldn't find that in the zone's documents, but I can help with club info, grants, twinship, meetings, tutorials and the district rules. Try one of the suggestions below.",
-        links: [{ label: "Tutorials", url: "/tutorials" }, { label: "Handbook", url: "/handbook" }, { label: "Guides for Clubs", url: "/club-guides" }],
+        links: [{ label: "Learn hub", url: "/tutorials" }, { label: "RotaQuiz", url: "/rkt-quiz" }, { label: "Resources", url: "/guides" }],
         src: "Site knowledge base"
       };
     }

@@ -231,24 +231,20 @@
   }
 
   var learnItems =
-    learnItem("/tutorials", "🎓", "Tutorials", "Monthly steps, board, assembly, ZRR, DRR and blood drive – step by step", "tutorials") +
-    learnItem("/handbook", "📘", "Handbook", "District rules made simple: grants, twins, projects, health", "handbook") +
-    learnItem("/guides", "📄", "Resources", "Official documents, constitutions and downloadable forms", "resources") +
-    learnItem("/club-guides", "📚", "Guides for Clubs", "The playbook for running a great club all year", "guides") +
-    learnItem("/rkt-quiz", "🧠", "RotaQuiz", "Test your Rotaract knowledge in 2 minutes", "quiz");
+    learnItem("/tutorials", "🧭", "Learn hub", "Tutorials, the district handbook and the officer playbook all in one place", "tutorials") +
+    learnItem("/rkt-quiz", "🧠", "RotaQuiz", "Test your Rotaract knowledge in 2 minutes", "quiz") +
+    learnItem("/guides", "📄", "Resources", "Official documents, constitutions and downloadable forms", "resources");
 
-  var learnKeys = ["tutorials", "handbook", "resources", "guides", "quiz"];
+  var learnKeys = ["tutorials", "resources", "quiz"];
   var isLearn = learnKeys.indexOf(current) !== -1;
   var subnavHtml = "";
   if (isLearn) {
     document.documentElement.classList.add("has-subnav");
     subnavHtml =
       '<div class="learn-subnav show"><div class="learn-subnav-inner">' +
-      item("/tutorials", "Tutorials", "tutorials") +
-      item("/handbook", "Handbook", "handbook") +
-      item("/guides", "Resources", "resources") +
-      item("/club-guides", "Guides for Clubs", "guides") +
+      item("/tutorials", "Learn hub", "tutorials") +
       item("/rkt-quiz", "RotaQuiz", "quiz") +
+      item("/guides", "Resources", "resources") +
       "</div></div>";
   }
 
@@ -292,7 +288,7 @@
     '<div class="clubs-drop-foot"><span id="clubCount">9 clubs in Zone 7</span><a href="/#clubs">All clubs on the homepage →</a></div></div>' +
     "</div>" +
     '<div class="nav-drop" id="learnDrop">' +
-    '<button type="button" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false"' + (current === "tutorials" || current === "handbook" || current === "resources" || current === "guides" || current === "quiz" ? ' style="opacity:1;color:#A80F52"' : "") + '>Learn ' + CHEV + "</button>" +
+    '<button type="button" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false"' + (current === "tutorials" || current === "resources" || current === "quiz" ? ' style="opacity:1;color:#A80F52"' : "") + '>Learn ' + CHEV + "</button>" +
     '<div class="nav-drop-panel learn-drop-panel">' + learnItems + "</div>" +
     "</div>" +
     item("/gallery", "Gallery", "gallery") +
@@ -313,11 +309,9 @@
     '<div class="mm-group">Clubs</div>' +
     '<a href="/#clubs">All 9 Clubs in Zone 7</a>' +
     '<div class="mm-group">Learn</div>' +
-'<a href="/tutorials">Tutorials</a>' +
-    '<a href="/handbook">Handbook</a>' +
-    '<a href="/guides">Resources &amp; Documents</a>' +
-    '<a href="/club-guides">Guides for Clubs</a>' +
+'<a href="/tutorials">Learn hub</a>' +
     '<a href="/rkt-quiz">RotaQuiz</a>' +
+    '<a href="/guides">Resources &amp; Documents</a>' +
     '<div class="mm-group">Community</div>' +
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +

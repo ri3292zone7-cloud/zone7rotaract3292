@@ -5,12 +5,12 @@
 <link rel="alternate" hreflang="en" href="https://zone7rotaract3292.vercel.app/tutorials">
 <link rel="alternate" hreflang="x-default" href="https://zone7rotaract3292.vercel.app/tutorials">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tutorials: Step-by-Step Club Playbooks | Zone 7 Rotaract 3292</title>
-<meta name="description" content="Six step-by-step tutorials for Zone 7 clubs: general meetings, the board, club assemblies, ZRR and DRR visits, and blood donation camps. Videos and source documents included.">
+<title>The Learn Hub | Zone 7 Rotaract 3292</title>
+<meta name="description" content="22 chapters in one place: step-by-step tutorials, district rules and officer playbooks for Zone 7 Rotaract clubs, grounded in RI and District 3292 documents.">
 <link rel="canonical" href="https://zone7rotaract3292.vercel.app/tutorials">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Tutorials | Zone 7 Rotaract 3292">
-<meta property="og:description" content="Six step-by-step tutorials for Zone 7 clubs: general meetings, the board, club assemblies, ZRR and DRR visits, and blood donation camps. Videos and source documents included.">
+<meta property="og:title" content="The Learn Hub | Zone 7 Rotaract 3292">
+<meta property="og:description" content="22 chapters in one place: step-by-step tutorials, district rules and officer playbooks for Zone 7 Rotaract clubs, grounded in RI and District 3292 documents.">
 <meta property="og:url" content="https://zone7rotaract3292.vercel.app/tutorials">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon-192.png" sizes="192x192">
@@ -261,6 +261,43 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 .rel-card p{font-size:11px;color:var(--ink-mid);margin-top:2px}
 .rel-card .arrow{margin-left:auto;color:var(--ink-faint);font-size:12px;flex-shrink:0}
 
+
+/* ── rule checklists (officer playbook) ── */
+.rules-list{list-style:none;margin-bottom:6px;border:1px solid var(--ink-line);border-radius:10px;overflow:hidden}
+.rules-list li{font-size:16px;font-weight:500;padding:13px 14px 13px 48px;position:relative;line-height:1.7;border-bottom:1px solid var(--ink-line4);word-break:break-word;background:var(--paper);transition:background .15s;cursor:pointer}
+.rules-list li:last-child{border-bottom:none}
+.rules-list li:hover{background:var(--brand-bg)}
+.rules-list li .r-num{position:absolute;left:10px;top:13px;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:10px;font-weight:800;color:var(--ink-dim);background:var(--accent);border:1px solid var(--ink-line);font-family:var(--mono)}
+.rules-list li.done .r-num{background:var(--brand);color:#fff;border-color:var(--brand)}
+.rules-list li.done{opacity:.75;text-decoration:line-through}
+.rules-list li .r-law{display:block;font-size:13px;font-weight:500;color:var(--ink-mid);margin-top:4px;line-height:1.4;font-family:'Inter'}
+.rules-list li .r-law code{font-family:var(--mono);font-size:12px;background:var(--accent);border:1px solid var(--ink-line4);border-radius:4px;padding:1px 5px;color:var(--ink-soft)}
+
+/* ── make-up card (printable, officer playbook) ── */
+#makeupCard{display:none}
+.mu-block .print-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink);background:var(--accent);border:1px solid var(--ink-line);border-radius:8px;padding:8px 14px;cursor:pointer;transition:background .15s,border-color .15s;font-family:'Poppins'}
+.mu-block .print-btn:hover{border-color:var(--ink);background:var(--paper)}
+.mu-card{margin-top:14px;background:var(--paper);border:1.5px dashed var(--ink-line3);border-radius:14px;padding:22px 24px;max-width:460px}
+.mu-top{display:flex;align-items:center;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:10px}
+.mu-logo{width:36px;height:36px;border-radius:8px;background:var(--ink);color:#fff;font-family:'Poppins';font-weight:900;font-size:1.1rem;display:grid;place-items:center}
+.mu-brand b{display:block;font-size:13px;color:var(--ink);font-family:'Poppins';font-weight:800}.mu-brand span{font-size:10px;color:var(--ink-mid);font-weight:500}
+.mu-stamp{margin-left:auto;font-size:9px;font-weight:800;letter-spacing:.12em;color:#fff;background:var(--brand);padding:4px 8px;border-radius:4px;transform:rotate(6deg);font-family:'Inter'}
+.mu-title{font-size:14px;font-weight:800;letter-spacing:.06em;margin:14px 0 4px;text-align:center;font-family:'Poppins'}
+.mu-sub{text-align:center;font-size:11px;color:var(--ink-mid);font-weight:500;margin-bottom:14px}
+.mu-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+.mu-field{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-mid);font-family:'Inter'}
+.mu-field .mu-line{display:block;height:22px;border-bottom:1.5px solid var(--ink-line);margin-top:4px}
+.mu-note{font-size:12px;color:var(--ink-mid);line-height:1.5;margin:14px 0 4px;text-align:center}
+.mu-sign{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:end;margin-top:16px;padding-top:12px;border-top:1px dashed var(--ink-line)}
+.mu-sign .mu-line{display:block;height:16px;border-bottom:1.5px solid var(--ink-line)}
+.mu-sign .sig-label{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-mid);margin-top:4px;text-align:center;font-family:'Inter'}
+.mu-stamp-circle{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--brand);color:var(--brand);font-size:8px;font-weight:700;letter-spacing:.06em;display:grid;place-items:center;text-align:center;transform:rotate(-8deg);opacity:.7;font-family:'Inter'}
+@media(max-width:500px){.mu-fields{grid-template-columns:1fr;gap:10px}.mu-card{padding:16px 14px}}
+
+/* ── sidebar reset ── */
+.sb-reset{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;color:var(--ink-dim);background:none;border:1px solid var(--ink-line);border-radius:6px;padding:5px 10px;cursor:pointer;font-family:'Inter';transition:border-color .15s,color .15s}
+.sb-reset:hover{border-color:var(--ink);color:var(--ink)}
+
 /* ── command palette ── */
 .palette-backdrop{position:fixed;inset:0;z-index:400;background:rgba(12,10,24,.5);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .15s}
 .palette-backdrop.open{opacity:1;pointer-events:auto}
@@ -313,7 +350,7 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
   .sidebar-backdrop{position:fixed;inset:0;z-index:190;background:rgba(27,24,54,.25);opacity:0;pointer-events:none;transition:opacity .15s}
   .sidebar-backdrop.open{opacity:1;pointer-events:auto}
 }
-@media print{.sidebar-wrap,.right-rail,.page-toolbar,.palette,.palette-backdrop{display:none}.main-content{padding:0}.content-inner{max-width:100%;padding:0}}
+@media print{.sidebar-wrap,.right-rail,.page-toolbar,.palette,.palette-backdrop{display:none}.main-content{padding:0}.content-inner{max-width:100%;padding:0}#makeupCard.show{display:block!important}}
 </style>
 <script>
 /* set theme before paint: default light; only stored dark flips it */
@@ -323,16 +360,32 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "Rotaract Tutorials | Zone 7",
-  "description": "Six step-by-step tutorials for Zone 7 clubs: general meetings, the board, club assemblies, ZRR and DRR visits, and blood donation camps. Videos and source documents included.",
+  "name": "The Learn Hub | Zone 7",
+  "description": "22 chapters in one place: step-by-step tutorials, district rules and officer playbooks for Zone 7 Rotaract clubs, grounded in RI and District 3292 documents.",
   "url": "https://zone7rotaract3292.vercel.app/tutorials",
   "hasPart": [
-    {"@type": "Article", "name": "Running General Meetings", "url": "https://zone7rotaract3292.vercel.app/tutorial-meetings"},
-    {"@type": "Article", "name": "Running Board Meetings", "url": "https://zone7rotaract3292.vercel.app/tutorial-board"},
-    {"@type": "Article", "name": "Club Assemblies", "url": "https://zone7rotaract3292.vercel.app/tutorial-assembly"},
-    {"@type": "Article", "name": "ZRR Visits", "url": "https://zone7rotaract3292.vercel.app/tutorial-zrr"},
-    {"@type": "Article", "name": "DRR Visits", "url": "https://zone7rotaract3292.vercel.app/tutorial-drr"},
-    {"@type": "Article", "name": "Blood Donation Programs", "url": "https://zone7rotaract3292.vercel.app/tutorial-blood"}
+    {"@type": "Article", "name": "Running General Meetings", "url": "https://zone7rotaract3292.vercel.app/tutorials#meetings"},
+    {"@type": "Article", "name": "Running Board Meetings", "url": "https://zone7rotaract3292.vercel.app/tutorials#board"},
+    {"@type": "Article", "name": "Club Assemblies", "url": "https://zone7rotaract3292.vercel.app/tutorials#assembly"},
+    {"@type": "Article", "name": "ZRR Visits", "url": "https://zone7rotaract3292.vercel.app/tutorials#zrr"},
+    {"@type": "Article", "name": "DRR Visits", "url": "https://zone7rotaract3292.vercel.app/tutorials#drr"},
+    {"@type": "Article", "name": "Blood Donation Programs", "url": "https://zone7rotaract3292.vercel.app/tutorials#blood"},
+    {"@type": "Article", "name": "Grants: Funding Service", "url": "https://zone7rotaract3292.vercel.app/tutorials#grants"},
+    {"@type": "Article", "name": "Twinship & the MOU", "url": "https://zone7rotaract3292.vercel.app/tutorials#twinship"},
+    {"@type": "Article", "name": "Starting a New Club", "url": "https://zone7rotaract3292.vercel.app/tutorials#newclub"},
+    {"@type": "Article", "name": "Projects: 7 Areas of Focus", "url": "https://zone7rotaract3292.vercel.app/tutorials#projects"},
+    {"@type": "Article", "name": "The Club Health Checkup", "url": "https://zone7rotaract3292.vercel.app/tutorials#health"},
+    {"@type": "Article", "name": "Leadership & Officer Transition", "url": "https://zone7rotaract3292.vercel.app/tutorials#leadership"},
+    {"@type": "Article", "name": "Service Project Execution", "url": "https://zone7rotaract3292.vercel.app/tutorials#execution"},
+    {"@type": "Article", "name": "Finance & Fundraising", "url": "https://zone7rotaract3292.vercel.app/tutorials#finance"},
+    {"@type": "Article", "name": "Public Image & Communications", "url": "https://zone7rotaract3292.vercel.app/tutorials#publicimage"},
+    {"@type": "Article", "name": "Professional Development", "url": "https://zone7rotaract3292.vercel.app/tutorials#profdev"},
+    {"@type": "Article", "name": "International & Twin Clubs", "url": "https://zone7rotaract3292.vercel.app/tutorials#international"},
+    {"@type": "Article", "name": "Recognition & Events", "url": "https://zone7rotaract3292.vercel.app/tutorials#recognition"},
+    {"@type": "Article", "name": "Sponsor Relationship", "url": "https://zone7rotaract3292.vercel.app/tutorials#sponsor"},
+    {"@type": "Article", "name": "Digital Tools & Tech", "url": "https://zone7rotaract3292.vercel.app/tutorials#digital"},
+    {"@type": "Article", "name": "Wellbeing & Culture", "url": "https://zone7rotaract3292.vercel.app/tutorials#wellbeing"},
+    {"@type": "Article", "name": "Attendance & Make-Up", "url": "https://zone7rotaract3292.vercel.app/tutorials#makeup"}
   ],
   "publisher": "https://zone7rotaract3292.vercel.app/"
 }
@@ -348,12 +401,13 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
     <nav class="sidebar" id="sidebarInner">
       <div class="sb-search">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="sbSearch" placeholder="Filter tutorials…" aria-label="Filter sidebar">
+        <input type="text" id="sbSearch" placeholder="Filter guides…" aria-label="Filter sidebar">
         <span class="kbd">⌘K</span>
       </div>
       <div id="sbNav"></div>
       <div class="sb-footer">
         <p>© 2026 Zone 7 · District 3292</p>
+        <button class="sb-reset" id="sbReset" type="button">Reset progress</button>
       </div>
     </nav>
   </aside>
@@ -367,11 +421,23 @@ a{color:var(--brand-deep);text-decoration:none}a:hover{text-decoration:underline
   <aside class="right-rail" id="rightRail"></aside>
 </div>
 
+
+<div id="makeupCard">
+  <div class="mu-card">
+    <div class="mu-top"><div class="mu-logo">7</div><div class="mu-brand"><b>ZONE 7 ROTARACT</b><span>Rotaract District 3292 · Nepal &amp; Bhutan</span></div><div class="mu-stamp">MAKE-UP</div></div>
+    <div class="mu-title">ATTENDANCE MAKE-UP CARD</div>
+    <div class="mu-sub">For the member who attended another club's meeting</div>
+    <div class="mu-fields"><div class="mu-field">Member name<span class="mu-line"></span></div><div class="mu-field">Home club<span class="mu-line"></span></div><div class="mu-field">Host club attended<span class="mu-line"></span></div><div class="mu-field">Date of meeting<span class="mu-line"></span></div></div>
+    <p class="mu-note">This card confirms the member above attended a Rotaract / Rotary club meeting on the date shown.</p>
+    <div class="mu-sign"><div><span class="mu-line"></span><span class="sig-label">Host club secretary</span></div><div class="mu-stamp-circle">CLUB<br>STAMP</div><div><span class="mu-line"></span><span class="sig-label">Home club secretary</span></div></div>
+  </div>
+</div>
+
 <div class="palette-backdrop" id="paletteBackdrop"></div>
-<div class="palette" id="palette" role="dialog" aria-label="Search the tutorials">
+<div class="palette" id="palette" role="dialog" aria-label="Search the learn hub">
   <div class="palette-input">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input type="text" id="paletteInput" placeholder="Search tutorials, sections, videos…" autocomplete="off" aria-label="Search the tutorials">
+    <input type="text" id="paletteInput" placeholder="Search guides, chapters, rules, videos…" autocomplete="off" aria-label="Search the learn hub">
     <span class="kbd-hint">esc</span>
   </div>
   <div class="palette-results" id="paletteResults"></div>
@@ -387,12 +453,25 @@ const ROLES={
   assembly:{label:"Assembly",bg:"var(--vps)",icon:"🗳️"},
   zrr:{label:"ZRR",bg:"var(--comms)",icon:"🤝"},
   drr:{label:"DRR",bg:"var(--treas)",icon:"📋"},
-  blood:{label:"Blood",bg:"#D32027",icon:"🩸"}
+  blood:{label:"Blood",bg:"#D32027",icon:"🩸"},
+  grants:{label:"Grants",bg:"var(--treas)",icon:"💰"},
+  twinship:{label:"Twinship",bg:"var(--teal)",icon:"🤝"},
+  newclub:{label:"New Clubs",bg:"var(--vps)",icon:"🌱"},
+  projects:{label:"Service",bg:"var(--pres)",icon:"🎯"},
+  health:{label:"Health",bg:"var(--board)",icon:"💛"},
+  president:{label:"President",bg:"var(--pres)",icon:"👑"},
+  secretary:{label:"Secretary",bg:"var(--sec)",icon:"📋"},
+  treasurer:{label:"Treasurer",bg:"var(--treas)",icon:"💰"},
+  vps:{label:"VP Service",bg:"var(--vps)",icon:"🤝"},
+  vpp:{label:"VP Prof Dev",bg:"var(--vpp)",icon:"🎓"},
+  serg:{label:"Sgt at Arms",bg:"var(--serg)",icon:"📍"},
+  comms:{label:"Comms / PR",bg:"var(--comms)",icon:"📢"}
 };
 
 const GROUPS=[
-  {id:"run",label:"Run the Club",icon:"🏛️",color:"var(--pres)",guides:["meetings","board","assembly"]},
-  {id:"connect",label:"Zone, District & Service",icon:"🌐",color:"var(--vps)",guides:["zrr","drr","blood"]}
+  {id:"tutorials",label:"Tutorials",icon:"🧭",color:"var(--gold)",guides:["meetings","board","assembly","zrr","drr","blood"]},
+  {id:"handbook",label:"District Handbook",icon:"📘",color:"var(--teal)",guides:["grants","twinship","newclub","projects","health"]},
+  {id:"officers",label:"Officer Playbook",icon:"🛡️",color:"var(--pres)",guides:["leadership","recognition","wellbeing","finance","makeup","digital","execution","profdev","publicimage","international","sponsor"]}
 ];
 
 const GUIDES=[
@@ -427,7 +506,7 @@ const GUIDES=[
         <li><span class="num">4</span><h5>Amend (optional)</h5><p>The proposal can be adjusted before voting, if a member moves an amendment.</p></li>
         <li><span class="num">5</span><h5>Vote</h5><p>For ordinary business the vote must be decided by a majority of those present; your constitution sets the bar for bigger items like dues or bylaw changes.</p></li>
         <li><span class="num">6</span><h5>Record</h5><p>The secretary notes the exact motion, who moved it, and the outcome.</p></li>
-      </ol><div class="callout callout--tip"><div class="co-head"><span class="co-ic">💡</span><b>Key insight</b></div><p>Clubs that <span>vote on every funded proposal</span> rarely fight about money later; the decision and its reasoning are on the record.</p></div><p><b>Key points</b></p><ul><li>One person, one topic at a time; the chair enforces this gently but consistently</li><li>Restate the motion before the vote so everyone votes on the same words</li><li>Record motions verbatim in the minutes, including the outcome and any amendments</li><li>For close or sensitive votes, count hands rather than deciding by eye</li></ul><p class="doc-src-label">Source documents</p><div class="gd-sources"><a href="media/guides/Standard-Rotaract-Club-Constitution.docx" target="_blank" rel="noopener">↗ Standard Rotaract Club Constitution: voting</a></div>`}, {h:`Attendance That Means Something`,p:`<p><em>The sheet is a record, the follow-up is the point</em></p><p class="intro">Attendance tracking exists for three reasons: quorum (knowing a decision is valid), recognition (knowing who shows up), and care (knowing who stopped showing up). A simple sign-in sheet covers all three, provided someone actually follows up.</p><div class="callout callout--tip"><div class="co-head"><span class="co-ic">💡</span><b>Key insight</b></div><p>A <span>personal follow-up message to absent members</span> within 48 hours brings many of them back; silence loses them quietly.</p></div><p><b>Key points</b></p><ul><li>Pass a printed sign-in sheet at every meeting; members, guests, visiting Rotaractors and alumni all sign it</li><li>Track attendance against the constitution's requirements, and keep the records year-round, not just for elections</li><li>Review attendance trends at board meetings monthly, not at year-end when it is too late</li><li>Reach out personally after two consecutive absences; usually life got busy, and a message is all it takes</li></ul><p class="doc-src-label">Source documents</p><div class="gd-sources"><a href="media/guides/Sample-GM-attendance-sheet.docx" target="_blank" rel="noopener">↗ Sample GM Attendance Sheet (guides folder)</a></div>`}, {h:`Minutes &amp; Meeting Reports`,p:`<p><em>If it is not written down, it did not happen</em></p><p class="intro">Minutes are the club's institutional memory, what the next board (and next year's board) will rely on. The District 3292 Directory prints a general meeting minute sample; good minutes record decisions and owners, not a transcript of every sentence.</p><div class="callout callout--tip"><div class="co-head"><span class="co-ic">💡</span><b>Key insight</b></div><p>Minutes approved at the <span>next meeting within 14 days</span> keep clubs honest; minutes that take two months to appear keep nothing.</p></div><p><b>Key points</b></p><ul><li>Record: type of meeting, date, time, place, presiding officer, members and guests present</li><li>Record every motion exactly as moved, who moved it, and the vote outcome, plus action items with named owners and deadlines</li><li>Keep minutes and financial records on a shared drive, not one person's device</li><li>Approve minutes at the next meeting, then file them, and report club activity to the district as your district requires</li></ul><p class="doc-src-label">Source documents</p><div class="gd-sources"><a href="/admin" target="_blank" rel="noopener">↗ Club Admin: minutes &amp; treasury</a><a href="/club-guides" target="_blank" rel="noopener">↗ Guides for Clubs: minutes &amp; records</a></div>`}, {h:`Hosting Great Guests &amp; Visitors`,p:`<p><em>Visiting Rotaractors, alumni and Rotary guests are the club's PR</em></p><p class="intro">A general meeting is also the front door of your club. When a visiting Rotaractor, a past president or a Rotarian walks in, how you receive them decides whether they come back, and what they tell everyone else about your club.</p>
+      </ol><div class="callout callout--tip"><div class="co-head"><span class="co-ic">💡</span><b>Key insight</b></div><p>Clubs that <span>vote on every funded proposal</span> rarely fight about money later; the decision and its reasoning are on the record.</p></div><p><b>Key points</b></p><ul><li>One person, one topic at a time; the chair enforces this gently but consistently</li><li>Restate the motion before the vote so everyone votes on the same words</li><li>Record motions verbatim in the minutes, including the outcome and any amendments</li><li>For close or sensitive votes, count hands rather than deciding by eye</li></ul><p class="doc-src-label">Source documents</p><div class="gd-sources"><a href="media/guides/Standard-Rotaract-Club-Constitution.docx" target="_blank" rel="noopener">↗ Standard Rotaract Club Constitution: voting</a></div>`}, {h:`Attendance That Means Something`,p:`<p><em>The sheet is a record, the follow-up is the point</em></p><p class="intro">Attendance tracking exists for three reasons: quorum (knowing a decision is valid), recognition (knowing who shows up), and care (knowing who stopped showing up). A simple sign-in sheet covers all three, provided someone actually follows up.</p><div class="callout callout--tip"><div class="co-head"><span class="co-ic">💡</span><b>Key insight</b></div><p>A <span>personal follow-up message to absent members</span> within 48 hours brings many of them back; silence loses them quietly.</p></div><p><b>Key points</b></p><ul><li>Pass a printed sign-in sheet at every meeting; members, guests, visiting Rotaractors and alumni all sign it</li><li>Track attendance against the constitution's requirements, and keep the records year-round, not just for elections</li><li>Review attendance trends at board meetings monthly, not at year-end when it is too late</li><li>Reach out personally after two consecutive absences; usually life got busy, and a message is all it takes</li></ul><p class="doc-src-label">Source documents</p><div class="gd-sources"><a href="media/guides/Sample-GM-attendance-sheet.docx" target="_blank" rel="noopener">↗ Sample GM Attendance Sheet (guides folder)</a></div>`}, {h:`Minutes &amp; Meeting Reports`,p:`<p><em>If it is not written down, it did not happen</em></p><p class="intro">Minutes are the club's institutional memory, what the next board (and next year's board) will rely on. The District 3292 Directory prints a general meeting minute sample; good minutes record decisions and owners, not a transcript of every sentence.</p><div class="callout callout--tip"><div class="co-head"><span class="co-ic">💡</span><b>Key insight</b></div><p>Minutes approved at the <span>next meeting within 14 days</span> keep clubs honest; minutes that take two months to appear keep nothing.</p></div><p><b>Key points</b></p><ul><li>Record: type of meeting, date, time, place, presiding officer, members and guests present</li><li>Record every motion exactly as moved, who moved it, and the vote outcome, plus action items with named owners and deadlines</li><li>Keep minutes and financial records on a shared drive, not one person's device</li><li>Approve minutes at the next meeting, then file them, and report club activity to the district as your district requires</li></ul><p class="doc-src-label">Source documents</p><div class="gd-sources"><a href="/admin" target="_blank" rel="noopener">↗ Club Admin: minutes &amp; treasury</a><a href="/tutorials#leadership" target="_blank" rel="noopener">↗ Minutes &amp; records playbook</a></div>`}, {h:`Hosting Great Guests &amp; Visitors`,p:`<p><em>Visiting Rotaractors, alumni and Rotary guests are the club's PR</em></p><p class="intro">A general meeting is also the front door of your club. When a visiting Rotaractor, a past president or a Rotarian walks in, how you receive them decides whether they come back, and what they tell everyone else about your club.</p>
       <ol class="steps">
         <li><span class="num">1</span><h5>Greet at the door</h5><p>Assign a welcome officer before every meeting, someone who knows names and seats people comfortably.</p></li>
         <li><span class="num">2</span><h5>Introduce them early</h5><p>Guest introductions go on the agenda right after the call to order, so visitors feel seen from minute one.</p></li>
@@ -436,7 +515,7 @@ const GUIDES=[
         <li><span class="num">5</span><h5>Follow up after</h5><p>A thank-you message within 48 hours turns a one-time visitor into a friend of the club.</p></li>
       </ol><div class="callout callout--tip"><div class="co-head"><span class="co-ic">💡</span><b>Key insight</b></div><p>Clubs that <span>always have a guest on the agenda</span> grow by invitation; every visitor is a future member, speaker or partner.</p></div><p><b>Key points</b></p><ul><li>Fix a welcome officer roster before the year starts</li><li>Always include a guest introductions line on the agenda</li><li>Keep a guest book alongside the attendance sheet</li><li>Send a personal thank-you to every guest within 48 hours</li></ul><p class="doc-src-label">Source documents</p><div class="gd-sources"></div>`}],
    videos:[{id:"tMVYs9azy3M",title:`How to Run a Rotary Club Meeting Effectively`,desc:`A practical walkthrough of making any club meeting interesting and engaging; the structure transfers directly to Rotaract.`}, {id:"ZJm-itrb3u8",title:`Rotaract Training Videos: Episode 12`,desc:`Rotary International's official Rotaract training series covering officer roles, meetings and club operations.`}],
-   links:[{label:`Standard Rotaract Club Constitution`,url:`media/guides/Standard-Rotaract-Club-Constitution.docx`}, {label:`Recommended Club Bylaws`,url:`media/guides/662_rotaract_club_recommended_bylaws_en.docx`}, {label:`Sample Agenda Paper (guides folder)`,url:`media/guides/Sample-Agenda-Paper.doc`}, {label:`Sample GM Attendance Sheet (guides folder)`,url:`media/guides/Sample-GM-attendance-sheet.docx`}, {label:`Club Admin: minutes &amp; treasury`,url:`/admin`}, {label:`Guides for Clubs: minutes &amp; records`,url:`/club-guides`}]},
+   links:[{label:`Standard Rotaract Club Constitution`,url:`media/guides/Standard-Rotaract-Club-Constitution.docx`}, {label:`Recommended Club Bylaws`,url:`media/guides/662_rotaract_club_recommended_bylaws_en.docx`}, {label:`Sample Agenda Paper (guides folder)`,url:`media/guides/Sample-Agenda-Paper.doc`}, {label:`Sample GM Attendance Sheet (guides folder)`,url:`media/guides/Sample-GM-attendance-sheet.docx`}, {label:`Club Admin: minutes &amp; treasury`,url:`/admin`}, {label:`Minutes &amp; records playbook`,url:`/tutorials#leadership`}]},
 
   {id:"board",role:"board",source:"both",title:`Running Board Meetings`,
    deadline:`Monthly board, clear decisions, written minutes`,
@@ -718,9 +797,571 @@ const GUIDES=[
         <li><span class="num">5</span><h5>Review for next time</h5><p>Short debrief: what ran well, what to change, and note the next camp date while the team is still warm.</p></li>
       </ol><div class="callout callout--tip"><div class="co-head"><span class="co-ic">💡</span><b>Key insight</b></div><p>Camps that <span>file their numbers and thank their donors</span> double their turnout by the second edition; reputation compounds.</p></div><p><b>Key points</b></p><ul><li>Get the official unit count and deferral figures from the blood bank in writing</li><li>Send thanks to all partners within a week</li><li>Publish the impact story with real numbers</li><li>Book the debrief meeting and note the next camp date</li></ul><p class="doc-src-label">Source documents</p><div class="gd-sources"><a href="media/guides/statement-of-policy.docx" target="_blank" rel="noopener">↗ Statement of Policy: reporting</a><a href="media/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf" target="_blank" rel="noopener">↗ District Fund Grant Criterion Document</a></div>`}],
    videos:[{id:"JPfHels0cXU",title:`RVU Blood Donation Drive`,desc:`A university blood donation drive organised end to end, from registration and screening to collection in one smooth flow, exactly the stations this tutorial walks through.`}, {id:"iAz-hpP83vM",title:`RVCE Blood Donation Camp`,desc:`A student-run blood donation camp in action, showing the day-of flow, donor care and the energy that makes these events work.`}, {id:"b-HmpNcdMbc",title:`Rotaract &amp; Interact Joint Blood Drive`,desc:`A joint Rotaract and Interact blood donation drive, showing how inter-club collaboration scales a camp and spreads its impact.`}],
-   links:[{label:`MOU Document (partnership template)`,url:`media/guides/MOU-Document.doc`}, {label:`WHO Blood Donor Selection Guidelines`,url:`https://www.who.int/publications/i/item/9789241548519`}, {label:`Nepal Red Cross Blood Transfusion Service`,url:`https://nepalredcross.org.np/`}, {label:`District Fund Grant Criterion Document`,url:`media/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf`}, {label:`Effective Planning Guide to Clubs`,url:`media/guides/Effective-Planning-Guide-to-Clubs.docx`}, {label:`Statement of Policy: reporting`,url:`media/guides/statement-of-policy.docx`}]}
-];
+   links:[{label:`MOU Document (partnership template)`,url:`media/guides/MOU-Document.doc`}, {label:`WHO Blood Donor Selection Guidelines`,url:`https://www.who.int/publications/i/item/9789241548519`}, {label:`Nepal Red Cross Blood Transfusion Service`,url:`https://nepalredcross.org.np/`}, {label:`District Fund Grant Criterion Document`,url:`media/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf`}, {label:`Effective Planning Guide to Clubs`,url:`media/guides/Effective-Planning-Guide-to-Clubs.docx`}, {label:`Statement of Policy: reporting`,url:`media/guides/statement-of-policy.docx`}]},
 
+  {id:"grants",role:"grants",source:"both",title:"Grants: Funding Service",
+   deadline:"Apply in the DG's window · one application per club",
+   intro:"Rotary funding comes in two speeds. District Grants are small, local and fast: short-term projects that answer an urgent, specific community need. Global Grants are large, international and rigorous: sustainable projects aligned with the 7 Areas of Focus. Both run on the same currency: preparation, partnerships and honest money.",
+   callouts:[
+     {type:"info",icon:"🗂️",title:"One application per club",body:"Only one district-grant application per club per cycle, submitted by the Club President on the official online form before the District Governor's deadline."},
+     {type:"tip",icon:"🤝",title:"The sponsor walks with you",body:"Rotaract clubs apply as implementation partners of their sponsoring Rotary club: the sponsor emails the district to confirm its share, and funds reach the sponsoring Rotary club once renewals and CDO registration are current."}
+   ],
+   docs:[
+     {h:"District Grants: the fast track",p:"<p>District Grants support small-scale, short-term projects that answer urgent, specific community needs. Every year the District Governor decides the total pool, splits it between Rotary and Rotaract clubs, sets the amount per approved project, and fixes the matching share each sponsoring Rotary club and partner Rotaract club pays. Nothing about amounts, percentages or deadlines is permanent: confirm the current year's figures in the directory before drafting anything.</p><p>Eligibility is two-part and non-negotiable: both clubs current with renewals, and the sponsoring Rotary club's CDO registration and renewals up to date. Funds move to the sponsoring Rotary club, the Rotaract club implements.</p>"},
+     {h:"Global Grants: the big leagues",p:"<p>A Global Grant is a commitment to design and deliver a project that creates lasting, measurable change. It must fit at least one of Rotary's 7 Areas of Focus, budget a minimum of USD 30,000, and pair a Host Sponsor in the project country with an International Sponsor from another country. The club must attend a Grant Management Seminar, sign the club MOU and meet the district's additional requirements.</p><p>Begin with a community assessment that engages men, women, youth, elders, leaders and marginalised members, recorded on the Global Grants Community Assessment Results Form. District Grants may fund the assessment; Global Grants may not.</p><p>The financial plan is strict: a separate, club-controlled bank account, at least three competitive quotes for every major expense, and at least 15% of total funding from outside the project country. Never collect money from beneficiaries to cover grant costs.</p>"},
+     {h:"Money rules that protect everyone",p:"<ul><li>Use a separate, club-controlled bank account for the grant, never mixed with club funds</li><li>Keep three competitive quotes for major expenses on file, with receipts</li><li>At least 15% of Global Grant funding comes from outside the project country</li><li>Never collect money from project beneficiaries to cover grant costs</li><li>Never spend before approval; changes to the approved plan require Rotary approval</li></ul>"},
+     {h:"Reporting & records",p:"<p>A grant finishes when every report is filed and every record is retained, not when the money arrives. First report within 12 months of the first payment, follow-up reports every 12 months until the project ends, and a final report within 2 months of completion. Keep financial and project documents at least 5 years, and maintain an inventory of purchased equipment with its post-project owner named.</p>"}
+   ],
+   spec:{caption:"Grant facts at a glance",note:"value · source (District directory)",headers:["Fact","Value","Source"],rows:[
+     ["Minimum Global Grant budget","USD 30,000","Global Grant guide"],
+     ["Outside-country funding","At least 15% of total","Global Grant guide"],
+     ["First report","Within 12 months of first payment","Global Grant guide"],
+     ["Final report","Within 2 months of completion","Global Grant guide"],
+     ["Records retained","At least 5 years","Global Grant guide"],
+     ["District Grant applications","One per club per cycle","RDG apply process"],
+     ["Pool, match + amounts","District Governor's annual decision","RDG apply process"]
+   ]},
+   flow:{title:"District Grant application",count:"rdg",steps:[
+     {title:"Confirm eligibility",body:"Rotary and Rotaract clubs current with renewals; sponsoring Rotary club's CDO registration up to date. Check before investing time."},
+     {title:"Funding agreement",body:"Sponsoring Rotary club emails the district confirming its committed share; the partner Rotaract club commits its portion per the DG's figures."},
+     {title:"Prepare the application",body:"Access the official online form, print it, draft the answers and gather every supporting document offline first."},
+     {title:"Submit online",body:"Transfer the draft into the online form; the Club President clicks Submit; every party receives confirmation."},
+     {title:"Respect the deadline",body:"Submit before the District Governor's deadline, one application per club."}
+   ]},
+   stat:{icon:"🏁",text:"District Grants can fund the <span>community assessment</span> a future Global Grant needs, the first step toward bigger funding."},
+   videos:[
+     {id:"3d4n0Pj-xTU",title:"Rotary District Grants: Starting, Editing, Submitting",desc:"Rotary's own walkthrough of preparing a District Grant application in the Grant Center."},
+     {id:"LCAsYqWjVJA",title:"Rotary Global Grants: How to Apply",desc:"A practical guide to Global Grants: sponsor roles, the approval flow and the Grant Center."}
+   ],
+   links:[{label:"District Fund & Grant Criterion Document",url:"media/guides/Rotaract-District-Fund_Grant-Criterion-Document.pdf"},{label:"My Rotary: Grant Center",url:"https://my.rotary.org/en/grants"}]},
+
+  {id:"twinship",role:"twinship",source:"zone",title:"Twinship & the MOU",
+   deadline:"MOU runs to 30 June · renew yearly",
+   intro:"Twinship is Rotaract's oldest relationship: two clubs that choose each other, across the district or across the world, and commit to joint projects, exchanged ideas and mutual celebration. One meeting and one project a year is the paper promise; everything beyond it is where the friendship grows.",
+   callouts:[
+     {type:"info",icon:"📄",title:"Write it before you act",body:"The directory's advice is to formalize with a simple letter of agreement that outlines the goals and length of the partnership, signed before the first joint project."},
+     {type:"tip",icon:"🤝",title:"Start intra-district",body:"Inter-district twinships unlock travel, exchanges and global grants, but intra-district twinships are the cheapest way to build the MOU habit first."}
+   ],
+   docs:[
+     {h:"Two kinds of twinship",p:"<p>Twinship is a special, voluntary relationship formed between two Rotaract clubs, typically from different countries or regions, that promotes international understanding, fosters friendship and encourages collaboration. Both kinds build stronger relationships, shared knowledge and better service.</p><table><thead><tr><th>Type</th><th>Who</th><th>What it does</th></tr></thead><tbody><tr><td>Intra-district</td><td>Two or more clubs in District 3292</td><td>Collaboration, idea exchange and shared resources among clubs serving the same communities</td></tr><tr><td>Inter-district</td><td>Clubs from different districts</td><td>Cultural exchange, best-practice sharing and joint projects on common challenges across borders</td></tr></tbody></table>"},
+     {h:"Finding the right partner",p:"<p>Start with your sponsoring Rotary club, it may already have a twin-club relationship and a ready-made bridge to its partner's Rotaract club. Otherwise contact your district Rotaract chair or representative for candidates. Careful planning and clear communication are essential: ensure each club clearly understands its roles and responsibilities, then formalize the match with a letter of agreement outlining goals and length.</p>"},
+     {h:"The MOU, clause by clause",p:"<p>The directory's sample Memorandum of Understanding is short, fair and adaptable, clubs may define their own terms, but the sample is what most Zone 7 twinships sign. Its commitments, in order: mutual agreement to twin and to abide by Rotary International rules in good faith; joint projects and all necessary effort to maintain the relationship; at least one joint meeting and one community service project per Rota Year; two-way exchange of project and program ideas; both clubs' names and emblems on all shared publications; validity from the effective date to 30 June; and yearly renewal by mutual consent, signed in two copies in the presence of a District Committee Member.</p>"},
+     {h:"Keeping it alive",p:"<p>A twinship is a relationship, not a certificate. Build momentum with a pen-pal or e-mail network, a joint service project each year, friendship exchanges and visits, and a mutual observation day or weekend. A goodwill visit typically brings at least five members of one club to another club's meeting, enough people to genuinely engage, contribute and carry ideas home.</p>"}
+   ],
+   spec:{caption:"The sample MOU, summarized",note:"step · requirement (District directory)",headers:["Step","Requirement","Source"],rows:[
+     ["Find a partner","Sponsor club network, district chair/DRR, or MDIO","Directory: Finding a partner"],
+     ["Joint minimums","At least 1 joint meeting + 1 service project / year","Sample MOU"],
+     ["Idea exchange","Projects, programs and publications flow both ways","Sample MOU"],
+     ["Brand credit","Both names + emblems on all shared publications","Sample MOU"],
+     ["Goodwill visit","Minimum 5 members attend the host meeting","Directory: Goodwill"]
+   ]},
+   flow:{title:"Twinship pipeline",count:"twin",steps:[
+     {title:"Define the type",body:"Intra-district (fast, cheap, local) or inter-district (travel, grants, exchanges). The choice shapes everything downstream."},
+     {title:"Find a partner",body:"Ask your sponsoring Rotary club, then your district chair/DRR or your MDIO for candidate clubs."},
+     {title:"Sign the MOU",body:"Goals, length (effective date to 30 June) and joint minimums; two copies signed by both presidents, with a District Committee Member observing."},
+     {title:"Run the joint minimums",body:"At least one joint meeting and one joint service project per Rota Year."},
+     {title:"Exchange + renew",body:"Share ideas, visits and publications carrying both emblems, then renew by mutual consent."}
+   ]},
+   stat:{icon:"🌏",text:"One <span>joint meeting + one joint project a year</span> is the paper minimum; everything beyond it is where the friendship grows."},
+   videos:[
+     {id:"TKkCu-FLwcQ",title:"Our Twin Story: RAC Beograd & RAC Roma Est",desc:"An international twinship example: two clubs building a lasting relationship, one exchange at a time."}
+   ],
+   links:[{label:"MOU template (guides folder)",url:"media/guides/MOU-Document.doc"},{label:"District Rotaract Guidebook",url:"media/guides/Rotaract-Guidebook.pdf"}]},
+
+  {id:"newclub",role:"newclub",source:"both",title:"Starting a New Club",
+   deadline:"Certify early · install within August",
+   intro:"A new Rotaract club is a new group of young leaders in your community, and a fresh wave of energy for the sponsoring Rotary club. The directory lays out nine steps from first idea to certified club, bookended by the charter presentation ceremony when the club is born and the installation meeting every year after.",
+   callouts:[
+     {type:"info",icon:"🎓",title:"University or community? Decide first",body:"The model changes your audience, your calendar and your dues: RI dues are USD 5 per member per year for university-based clubs and USD 8 for community-based clubs (from 1 July 2025)."},
+     {type:"tip",icon:"🛠️",title:"The first months make the club",body:"Adopt the Standard Rotaract Club Constitution and Recommended Bylaws, elect officers, fix a meeting location and run an initial service project early, that is how a new club learns to be a club."}
+   ],
+   docs:[
+     {h:"Before the first member",p:"<p>Three moves come before any promotion. First, familiarise yourself with Rotaract: start with the Rotaract Handbook, then dive into the Policy Related to Rotaract. Second, gather a team of Rotarians and community members committed to supporting the new club. Third, know who you are building for: assess the community's makeup and decide between a university-based or community-based club, using Rotary's Engaging Younger Professionals Toolkit.</p>"},
+     {h:"Build the buzz",p:"<p>Then the idea goes public. Strategize to attract your audience: identify the target members, the locations and a kickoff event they will actually enjoy: a happy hour, a service project, an info session, or your own invention. Create and share promotional materials from Rotary's Brand Center and Rotaract videos on social media. At the kickoff, collect contact information and learn what attendees want to change or grow. Follow up with a personal invitation to the first orientation meeting.</p>"},
+     {h:"Launch & certify",p:"<p>Support the first few months: set up club administration, advise on adopting the Standard Constitution and Recommended Bylaws, organise officer elections, select meeting locations and arrange an initial service project. Then submit the Rotaract certification form so Rotary International officially recognises the sponsorship. Budget for RI dues from 1 July 2025: USD 5 per member per year (university) or USD 8 (community).</p>"},
+     {h:"The charter presentation ceremony",p:"<p>The club is born in a 22-step ceremony from the directory: registration and fellowship; dignitaries to the dais; call to order and National Anthem; the Rotaract Membership Oath; the Presidential Oath while the Rotary Club President collars the Charter President and hands over the Charter Certificate and the gong and gavel; acceptance speech; member oaths; the board announcement and oath; lapel pins; handover of the constitution, bylaws and statement of policy; then a group photo, addresses, optional cake and tokens, toasts, vote of thanks, the Sergeant-at-Arms report, and adjournment with refreshments. For self-sponsored or Rotaract-sponsored clubs, district officials (DG, AG, DRR, ADRR) take the roles normally performed by the parent Rotary Club President.</p>"},
+     {h:"The annual installation meeting",p:"<p>Once chartered, the club repeats an installation rhythm every Rota Year: the outgoing president's yearly report and board recognition; the incoming president's oath administered by the Rotary President; the symbolic handover of the Charter Certificate, Collar, Gong and Gavel as the leaders exchange places; the new board's oaths; and the induction of new members by the DRR or ZRR, then remarks, toasts and refreshments. District recognition expects installation to happen within August.</p>"}
+   ],
+   spec:{caption:"New club at a glance",note:"item · value",headers:["Item","Detail","Source"],rows:[
+     ["Start process","9 steps, RI sequence","Directory pp. 33–34"],
+     ["RI dues · university","USD 5 / member / year (from 1 Jul 2025)","Directory p. 34"],
+     ["RI dues · community","USD 8 / member / year (from 1 Jul 2025)","Directory p. 34"],
+     ["Certification","Rotaract certification form","RI process"],
+     ["Charter ceremony","22-step presentation procedure","Directory p. 34"],
+     ["Installation","Annual; within August for recognition","Directory pp. 35, 58"]
+   ]},
+   flow:{title:"Start a club",count:"start",steps:[
+     {title:"Familiarize + gather a team",body:"Read the Rotaract Handbook and the Policy Related to Rotaract; assemble Rotarian and community champions around the idea."},
+     {title:"Know your audience",body:"Assess the community and choose university-based or community-based: it shapes every decision from here on."},
+     {title:"Build the buzz",body:"Target audience, locations and promotion materials from the Brand Center; share Rotaract videos on social media."},
+     {title:"Host the kickoff event",body:"A happy hour, service project, info session or your own invention; collect contact info and learn what attendees want to change."},
+     {title:"Support the first months",body:"Constitution and bylaws, officer elections, a meeting location and an initial service project."},
+     {title:"Certify the club",body:"Submit the Rotaract certification form; Rotary International officially recognises the sponsorship."}
+   ]},
+   stat:{icon:"🌱",text:"The kickoff event's job is not membership, it is <span>contact information</span>. Every follow-up starts with a name."},
+   videos:[
+     {id:"vzuVOuoQzR8",title:"Starting a club: how to do it",desc:"A practical, step-by-step conversation on starting clubs, from the Grow Rotary team."},
+     {id:"UIImYGTkDAI",title:"Rotaract Training Videos: Episode 1",desc:"The first episode of the official Rotaract training series: club basics for new members and leaders."}
+   ],
+   links:[{label:"Standard Rotaract Club Constitution",url:"media/guides/Standard-Rotaract-Club-Constitution.docx"},{label:"Recommended Club Bylaws",url:"media/guides/662_rotaract_club_recommended_bylaws_en.docx"},{label:"Rotaract membership form",url:"media/guides/Rotaract_-Membership_Form.docx"}]},
+
+  {id:"projects",role:"projects",source:"both",title:"Projects: 7 Areas of Focus",
+   deadline:"Plan 8–12 weeks before each project",
+   intro:"Rotary concentrates its service on seven Areas of Focus, the causes every grant and most club projects align with. This chapter carries the directory's low-cost project designs: one featured project per area with a real budget and timeline, plus ideas that cost almost nothing but change a lot.",
+   callouts:[
+     {type:"tip",icon:"🎯",title:"Assess before you design",body:"Talk to the community first and match every project to a documented need. District Goal 3 also asks clubs to bring design thinking and the UN SDGs into project planning."},
+     {type:"info",icon:"🗃️",title:"Visible = funded",body:"Publish the cost line before you commit, then fund it. Two or three measurable outcomes make later reporting and re-funding possible."}
+   ],
+   docs:[
+     {h:"The seven areas, the directory's way",p:"<p>District 3292 names the Areas of Focus exactly as they guide project design: Peacebuilding and Conflict Prevention; Disease Prevention and Treatment; Water, Sanitation, and Hygiene (WASH); Maternal and Child Health; Basic Education and Literacy; Community Economic Development; and Protecting the Environment. Each featured project below comes from the district directory with its real budget and timeline.</p>"},
+     {h:"Peacebuilding & Conflict Prevention",p:"<p>Promote dialogue, understanding and cooperation to prevent conflict and foster peace, through peace education, mediation training and community reconciliation.</p><p><b>Featured: Peace Talks at Tea Time.</b> Three monthly tea-and-talk gatherings where local leaders share peaceful conflict-resolution stories and youth volunteers facilitate. Budget NPR 10,000 · Timeline 3 months.</p><ul><li>School Peace Clubs</li><li>Cultural Exchange Night</li><li>Peer Mediation Training</li><li>Peace Mural Painting</li><li>Community Dialogue Forum</li></ul>"},
+     {h:"Disease Prevention & Treatment",p:"<p>Reduce the spread of disease and strengthen health systems, through vaccination, medical camps and health awareness campaigns.</p><p><b>Featured: Checkup in Your Pocket.</b> Partner with a local health post for BP, sugar and BMI screening, run a health talk on diet and exercise, and distribute tip leaflets, reaching 200 people. Budget NPR 8,000 · Timeline 1 day.</p><ul><li>Dental Hygiene Camp</li><li>Blood Donation Drive</li><li>First Aid Training</li><li>Healthy Cooking Demo</li><li>Anti-Tobacco Campaign</li></ul>"},
+     {h:"Water, Sanitation & Hygiene (WASH)",p:"<p>Provide clean water, safe sanitation and hygiene education to improve health and living conditions.</p><p><b>Featured: Soap &amp; Smile.</b> Handwashing demonstrations in 3 schools, soap bars and posters for classrooms, and a hygiene quiz competition, reaching 300 schoolchildren. Budget NPR 15,000 · Timeline 2 weeks.</p><ul><li>Water Bottle Refill Station</li><li>School Toilet Renovation</li><li>Hygiene Bookmark Campaign</li><li>Zero Plastic Day</li><li>Rainwater Harvesting Demo</li></ul>"},
+     {h:"Maternal & Child Health",p:"<p>Reduce maternal and child mortality by improving medical care and nutrition, through prenatal care, nutrition support and child immunizations.</p><p><b>Featured: Mother's Circle.</b> A local nurse delivers a free maternal health talk, printed checklists guide safe pregnancy and newborn care, and basic hygiene kits (soap, sanitary pads) are distributed, educating 30 pregnant women and mothers. Budget NPR 12,000 · Timeline 1 month.</p><ul><li>Baby Weighing Day</li><li>Breastfeeding Awareness Session</li><li>School Health Day</li><li>Immunization Promotion Drive</li><li>Cloth Diaper Sewing Workshop</li></ul>"},
+     {h:"Basic Education & Literacy",p:"<p>Support quality education and reduce illiteracy, through teacher training, school materials and adult literacy programs.</p><p><b>Featured: Reading Corner.</b> Collect used books from community donors, set up a small reading space in a school, and run weekly volunteer reading sessions. Budget NPR 5,000 · Timeline ongoing.</p><ul><li>Storytelling Hour</li><li>School Supplies Drive</li><li>Teacher Support Workshop</li><li>Adult Literacy Class</li><li>Exam Preparation Camp</li></ul>"},
+     {h:"Community Economic Development",p:"<p>Create sustainable livelihoods and reduce poverty, through entrepreneurship, vocational training and microfinance.</p><p><b>Featured: Skill in a Day.</b> Partner with a local tailor or trainer for a one-day sewing or handicraft workshop, teach simple marketable products, and link participants to local markets, training 20 women or youth. Budget NPR 15,000 · Timeline 1 day.</p><ul><li>Digital Skills Basics</li><li>Market Day for Local Women</li><li>Microfinance Awareness Session</li><li>Resume Writing Workshop</li><li>Second-Hand Business Drive</li></ul>"},
+     {h:"Protecting the Environment",p:"<p>Conserve natural resources and address climate change, through tree planting, waste management and renewable energy projects.</p><p><b>Featured: One Member, One Tree.</b> Every club member plants one tree in a community location, the municipality provides saplings, and a short awareness talk covers waste segregation. Budget NPR 5,000 · Timeline 1 week.</p><ul><li>Plastic-Free School Campaign</li><li>Recycling Art Competition</li><li>Community Clean-Up Day</li><li>Compost Making Workshop</li><li>Eco-Brick Project</li></ul>"}
+   ],
+   spec:{caption:"Low-cost projects by Area of Focus",note:"NPR budgets · from District 3292 directory",headers:["Area of Focus","Featured project","Budget","Timeline"],rows:[
+     ["Peacebuilding & conflict prevention","Peace Talks at Tea Time","10,000","3 months"],
+     ["Disease prevention & treatment","Checkup in Your Pocket","8,000","1 day"],
+     ["Water, sanitation & hygiene","Soap & Smile (handwashing)","15,000","2 weeks"],
+     ["Maternal & child health","Mother's Circle","12,000","1 month"],
+     ["Basic education & literacy","Reading Corner","5,000","ongoing"],
+     ["Community economic development","Skill in a Day","15,000","1 day"],
+     ["Protecting the environment","One Member, One Tree","5,000","1 week"]
+   ]},
+   tabs:{label:"Project cadence",panels:[
+     {label:"Community club",body:"Weekend and evening projects around a home town. Sponsor-backed budgets, municipality or NGO partnerships, lower travel overhead, and a year-round cadence with holiday peaks."},
+     {label:"University club",body:"Projects bend around the academic calendar, strong bursts between exams, campus-based venues and student-safe budgets. Capitalise on fresher intake in early semester."}
+   ]},
+   flow:{title:"Project lifecycle",count:"lifecycle",steps:[
+     {title:"Needs assessment",body:"Talk to the community first and document the need so the rationale survives officer turnover."},
+     {title:"Partner early",body:"A sponsoring Rotary club, another Rotaract club or an organisation. Joint projects multiply resources and recognition points."},
+     {title:"Define 2–3 measurable outcomes",body:"What does success look like in numbers? Measurable outcomes make reporting and re-funding possible."},
+     {title:"Budget + secure funding",body:"Itemise every line, then fund it, with dues, a fundraiser, a sponsor or a district grant, before committing to dates."},
+     {title:"Execute, documenting as you go",body:"Photos before, during and of the people impacted; records filed to the shared drive the same week."},
+     {title:"Report + recognise partners",body:"File project reports on the 3292 portal, credit partners publicly and nominate standout work for awards."}
+   ]},
+   stat:{icon:"💡",text:"Budgets start at <span>NPR 5,000</span>; the cheapest featured project is Reading Corner, the most expensive are Soap & Smile and Skill in a Day at NPR 15,000."},
+   videos:[
+     {id:"npGRgr-mNYo",title:"Seven: the story of Rotary's areas of focus",desc:"Rotary International's short film on the seven areas, why these causes and what they fund."},
+     {id:"cLiX2X9zV2Y",title:"The Rotary Foundation: 7 Areas of Focus",desc:"A clear introduction to each area and the projects they support around the world."}
+   ],
+   links:[{label:"Effective Planning Guide for Clubs",url:"media/guides/Effective-Planning-Guide-to-Clubs.docx"},{label:"Strategic Planning Guide",url:"media/guides/Strategic-Planning-Guide.docx"},{label:"Rotary Showcase",url:"https://map.rotary.org/en/stories"}]},
+
+  {id:"health",role:"health",source:"zone",title:"The Club Health Checkup",
+   deadline:"Run every 6 months · recognition due 30 June",
+   intro:"Every six months the district's health checkup asks your club 75 honest yes-or-no questions across five sections: Club Experience, Service & Socials, Members, Public Image, and Business & Operations. One point per yes, a score you compute in a single meeting, and a two-or-three-item action plan that makes the next checkup better.",
+   callouts:[
+     {type:"info",icon:"🚦",title:"The tripwire",body:"If more than 5 \"no\" answers appear in any section, that section needs an improvement plan. It is the directory's own signal."},
+     {type:"tip",icon:"🗓️",title:"Twice a year, on purpose",body:"Book the second checkup when you finish the first. Six months later, your action plan is the agenda."}
+   ],
+   docs:[
+     {h:"How the checkup works",p:"<p>A review team (President, Secretary, the Membership, Public Image and Service Project Chairs, Treasurer, and at least two general members) gathers membership, attendance, project, goal, financial and PR data, then spends 1–2 hours in a club or board meeting honestly answering 75 yes-or-no items across the five sections. Each yes is one point; in a single meeting you get a score per section and an overall number out of 75.</p><ul><li>More than 5 \"no\" answers in a section means improvement is needed there</li><li>Discuss the scores: what do you like most, what should improve</li><li>Pick 2–3 weakest areas, write SMART goals, assign owners, fix deadlines</li><li>Monitor monthly in board meetings and log gains on both portals</li><li>Repeat every 6 months, celebrate successes and recognise contributors</li></ul>"},
+     {h:"The five sections",p:"<p>The official 75 items are distributed across five sections.</p><table><thead><tr><th>Section</th><th>Items</th><th>What it measures</th></tr></thead><tbody><tr><td>Club Experience</td><td>15</td><td>Meetings, engagement, inclusiveness, recognition, fellowship</td></tr><tr><td>Service &amp; Socials</td><td>14</td><td>Service projects, community involvement, social events, leadership opportunities</td></tr><tr><td>Members</td><td>16</td><td>Growth, diversity, retention, induction, mentoring, alumni</td></tr><tr><td>Public Image</td><td>15</td><td>Website, social media, media coverage, branding, visibility</td></tr><tr><td>Business &amp; Operations</td><td>15</td><td>Strategic plan, goals, continuity, financial management, reporting</td></tr><tr><td>Overall health</td><td>75</td><td>The full checkup: one point per yes</td></tr></tbody></table>"},
+     {h:"Minimum standards: the bedrock",p:"<p>Separate from the checkup, the district's Minimum Standards for an effective Rotaract club form the floor: timely payment of Rotaract dues; realistic goals pursued with continuous effort; regular, diverse meetings across club, board and committee levels; service projects that address community needs; adherence to Rotaract governing documents and district guidelines; and timely updates of membership and officer data on rotary.org and rotaract3292.org.</p>"},
+     {h:"Recognition: the 100-point scheme",p:"<p>Beyond health, the district's Club Excellence Recognition guides clubs toward being vibrant, effective and well-rounded. It is a structured, point-based assessment: 100 points across 38 criteria: administration (items 1–18, 52 points) and projects, events and activities (items 19–38, 48 points). Most items are ordinary good club practice; a DRR visit alone is worth 7 points, district event participation 10, and World Rotaract Week 7.</p>"}
+   ],
+   spec:{caption:"Club Excellence Recognition · Administration (A)",note:"District 3292 · RY 2025–26 · items 1–18",headers:["#","Criteria","Pts"],tot:"52 pts",rows:[
+     ["1","Submission of Club Self-Assessment and Planning Document on time","10"],["2","Update Goal / Mission in Rotary Club Central","2"],
+     ["3","President-Elect finalised on time for RY 2026–27","2"],["4","At least two Club Assemblies","2"],
+     ["5","Club installation within August","2"],["6","24 general meetings + 12 BOD meetings","4"],
+     ["7","Club COTS + zonal COTS","2"],["8","Quarterly reporting to the district","4"],
+     ["9","ZRR visit","3"],["10","DRR visit","7"],
+     ["11","My Rotary access 100%","2"],["12","Membership +10% (community) / +20% (university)","2"],
+     ["13","Retention ≥75% (community) / ≥50% (university)","2"],["14","RI dues + district dues paid on time","2"],
+     ["15","Members assigned to committees","1"],["16","External experts at ≥2 meetings","1"],
+     ["17","Goodwill visits to 2 clubs","2"],["18","Twin club formation (inter / intra-district)","2"]
+   ]},
+   specB:{caption:"Club Excellence Recognition · Projects & Events (B)",note:"District 3292 · RY 2025–26 · items 19–38",headers:["#","Criteria","Pts"],tot:"48 pts",rows:[
+     ["19","World Rotaract Week: 7 projects in 7 days","7"],["20","District events (4 major + signature, President Night)","10"],
+     ["21","Grant Management Seminar participation","2"],["22","Rota Quiz participation","2"],
+     ["23","Club signature project","2"],["24","Joint project with another Rotaract club","2"],
+     ["25","Joint meeting / project with sponsoring Rotary club","1"],["26","Joint project with another organisation","2"],
+     ["27","Nationwide blood donation (solo or joint)","1"],["28","Nationwide cleaning campaign (solo or joint)","1"],
+     ["29","Women empowerment project","1"],["30","WASH & plantation project","1"],
+     ["31","Maternal / child health & menstrual hygiene project","1"],["32","Membership fellowship events","1"],
+     ["33","International avenue project","2"],["34","Professional development project","4"],
+     ["35","Basic education & TEACH project","2"],["36","Public image project","2"],
+     ["37","Road safety project","2"],["38","Thematic area project","2"]
+   ]},
+   flow:{title:"The health checkup loop",count:"health",steps:[
+     {title:"Form the review team",body:"President, secretary, four chairs, treasurer and at least two general members; gather membership, attendance, project, goal, financial and PR data."},
+     {title:"Self-assess",body:"75 honest yes-or-no answers across the five sections, one point per yes over the last 12 months."},
+     {title:"Score & discuss",body:"Total each section. More than 5 \"no\" answers in any section means improvement is needed there. Discuss what the club likes most and wants improved."},
+     {title:"Write the action plan",body:"Pick 2–3 weakest areas, write SMART goals, assign responsible people and fix deadlines (3 or 6 months)."},
+     {title:"Implement & monitor",body:"Run the plan through committees, monitor at monthly board meetings, and record gains on both portals."},
+     {title:"Review & repeat",body:"Celebrate successes, recognise contributors, and run the checkup again in six months."}
+   ]},
+   stat:{icon:"💛",text:"A club that <span>scores and acts on its checkup</span> every six months compounds health while others drift."},
+   videos:[
+     {id:"wzFC3Deg5H0",title:"Rotary Membership Series: Club Health Check",desc:"Rotary's own introduction to the club health check, what it measures and why it matters."}
+   ],
+   links:[{label:"Rotary's club health check",url:"https://on.rotary.org/club-health-check"},{label:"District Directory (PDF)",url:"media/guides/RC. Dis. Dinesh Gaire BW 2082 Final District directory.pdf"}]},
+
+  {id:"leadership",role:"president",source:"both",title:"Leadership & Officer Transition",deadline:"Before 1 July each year",
+   intro:"The first two weeks of July decide the entire year. A disciplined handoff, with documents transferred, logins shared and honest briefings given, is what separates clubs that launch from clubs that stall.",
+   callouts:[
+     {type:"warning",icon:"⚠️",title:"Handoff is a handover, not a handshake",body:"Anything not transferred before 1 July is effectively lost, logins die with the old board. Treat the handoff meeting as a hard deadline, not a formality."},
+     {type:"tip",icon:"💡",title:"Book seats early",body:"DLTS and COTS slots fill fast. Capture seats before installation so every newly-appointed officer is trained in their role before month one."}
+   ],
+   rules:[
+     {text:"Hold a formal handoff meeting between outgoing and incoming officers before the new Rotary year starts.",law:"Standard Constitution §3.3; RI Club Constitution Art. IV"},
+     {text:"Pass on login credentials, shared drives, financial records and ongoing project files as a package.",law:"Zone 7 best practice"},
+     {text:"Write a one-page 'state of the club' brief: what's working, what's stuck, key contacts.",law:"Zone 7 best practice"},
+     {text:"New officers must attend DLTS and COTS before or soon after taking office.",law:"District 3292 guidebook"},
+     {text:"President and VP work as a team through the transition.",law:"Standard Constitution §3.2"}
+   ],
+   spec:{caption:"Handoff spec",note:"what · when · source",headers:["Task","When","Source"],rows:[
+     ["Official handoff meeting","Before 1 July","Constitution §3.3"],
+     ["Transfer credentials + drive + records","Before 1 July","Zone 7 practice"],
+     ["'State of the club' brief (1 page)","With handoff","Zone 7 practice"],
+     ["DLTS + COTS attendance","Before / soon after office","District guidebook"],
+     ["President–VP tandem plan","At transition","Constitution §3.2"]
+   ]},
+   flow:{title:"Officer handoff pipeline",count:"handoff",steps:[
+     {title:"Schedule the handoff meeting",body:"Block 60–90 minutes before 1 July with the outgoing board, incoming board, and sponsor. Agendas set at least a week ahead."},
+     {title:"Assemble the handoff package",body:"One shared folder containing logins, minutes, finances, project files and venue contacts. Nothing lives only in an inbox or a phone."},
+     {title:"Write the state-of-the-club brief",body:"One page: what's working, what's stuck, and the five contacts that matter. This is the document the new board reads first."},
+     {title:"Book DLTS + COTS seats",body:"Register new officers for district training before installation. Confirm seats, then add them to the club calendar."},
+     {title:"Co-lead the first month",body:"President and VP work as a tandem: VP mirrors the president's workflow and can step in from day one."}
+   ]},
+   stat:{icon:"⏱️",text:"Clubs that do a <span>formal handoff meeting</span> before installation hit the ground running by August."},
+   links:[{label:"Rotary Learning Center",url:"https://my.rotary.org/en/learning-reference"},{label:"RSAMDIO Library",url:"https://library.rsamdio.org/"}]},
+
+  {id:"execution",role:"vps",source:"ri",title:"Service Project Execution",deadline:"Plan 8–12 weeks before event",
+   intro:"Ideas are cheap; executed projects change communities. RI's project framework turns good intentions into measurable, fundable, repeatable impact.",
+   callouts:[
+     {type:"tip",icon:"🎯",title:"Assess before you design",body:"RI's needs-assessment template is five questions. Talking to the community first stops you from building the project nobody asked for."},
+     {type:"warning",icon:"💸",title:"A project without a budget is a donation in disguise",body:"Publish the cost line before you commit the club. Partners (and the district) trust clubs that can say exactly what something costs."}
+   ],
+   tabs:{label:"Context variants",panels:[
+     {label:"Community club",body:"Weekend and evening projects around a home town. Sponsor-backed budgets, municipality/NGO partnerships, lower travel overhead, year-round cadence with holiday peaks."},
+     {label:"University club",body:"Projects must bend around the academic calendar, strong bursts between exams, campus-based venues, student-safe budgets. Capitalise on fresher intake in early semester."}
+   ]},
+   rules:[
+     {text:"Start with a real needs assessment, and talk to the community first.",law:"RI Project Lifecycle Kit"},
+     {text:"Use RI's Six Steps to Sustainability.",law:"Rotary.org: Get Involved"},
+     {text:"Partner early with a Rotary club, another Rotaract club, or local organisation.",law:"Standard Constitution §5.2"},
+     {text:"Define 2–3 measurable outcomes before the event.",law:"RI reporting requirements"},
+     {text:"Document as you go: photos, numbers, quotes.",law:"RI PR & media guidelines"}
+   ],
+   spec:{caption:"Low-cost projects by Area of Focus",note:"NPR budgets · from District 3292 directory",headers:["Area of Focus","Sample project","Budget","Timeline"],rows:[
+     ["Peacebuilding & conflict prevention","Peace Talks at Tea Time","10,000","3 months"],
+     ["Disease prevention & treatment","Checkup in Your Pocket","8,000","1 day"],
+     ["Water, sanitation & hygiene","Soap & Smile (handwashing)","15,000","2 weeks"],
+     ["Maternal & child health","Mother's Circle","12,000","1 month"],
+     ["Basic education & literacy","Reading Corner","5,000","ongoing"],
+     ["Community economic development","Skill in a Day","15,000","1 day"],
+     ["Protecting the environment","One Member, One Tree","5,000","1 week"]
+   ]},
+   flow:{title:"Project lifecycle",count:"lifecycle",steps:[
+     {title:"Needs assessment",body:"Talk to the community first. Document findings with RI's assessment template so your rationale survives officer turnover."},
+     {title:"Partner early",body:"A sponsoring Rotary club, another RAC, or an NGO. Joint projects score recognition points and multiply resources."},
+     {title:"Define 2–3 measurable outcomes",body:"What does success look like in numbers? Measurable outcomes are what make later reporting and re-funding possible."},
+     {title:"Budget + secure funding",body:"Itemise every line. Then fund it, with dues, a fundraiser, a sponsor or a district grant, before you commit to dates."},
+     {title:"Execute, documenting as you go",body:"Photos before, during, and of the people impacted. Records live in the shared drive the same week."},
+     {title:"Report + recognise partners",body:"File project reports on the 3292 portal, credit partners publicly, and nominate standout work for awards."}
+   ]},
+   stat:{icon:"🎯",text:"Projects with <span>2–3 pre-set measurable outcomes</span> are far easier to report and fund again."},
+   links:[{label:"RI Project Lifecycle Kit",url:"https://www.rotary.org/en/get-involved/rotaract-clubs/details"}]},
+
+  {id:"finance",role:"treasurer",source:"zone",title:"Finance & Fundraising",deadline:"Budget set by second board meeting",
+   intro:"Nothing kills momentum faster than murky money. A clean budget, dual control on spending, and monthly transparency keep every rupee accountable, and every sponsor confident.",
+   callouts:[
+     {type:"warning",icon:"🔐",title:"Two signatories, always",body:"One-person authorisation is how club money quietly becomes 'someone else's problem'. Set a threshold; two hands move money beyond it."},
+     {type:"tip",icon:"🧾",title:"Separate the buckets",body:"Grants, fundraisers and member dues should be tracked independently. Clean separation makes reporting and earning trust dramatically easier."}
+   ],
+   rules:[
+     {text:"Set an annual budget split by category.",law:"Standard Constitution §4.1"},
+     {text:"Require two signatories for spending above a set threshold.",law:"Zone 7 best practice; §4.2"},
+     {text:"Share an income/expense summary at every board meeting.",law:"District directory expectations"},
+     {text:"Separate earmarked fundraising from general dues.",law:"Zone 7 best practice"},
+     {text:"Build a one-page sponsorship pitch template.",law:"Zone 7 best practice"}
+   ],
+   spec:{caption:"Finance controls",note:"rule · why it matters",headers:["Control","Rule","Why it matters"],rows:[
+     ["Annual budget","Set at the 2nd board meeting","Spending without a budget becomes a fight later"],
+     ["Dual sign-off","Two signatories ≥ NPR 5,000","Kills single-point fraud"],
+     ["Monthly reporting","Income/expense at each board meeting","Problems surface in weeks, not years"],
+     ["Earmarked funds","Grants ≠ dues ≠ fundraiser proceeds","Clean reporting to sponsors & district"],
+     ["Sponsor pitch template","One-pager, repeatable","Credible club, faster yes"]
+   ]},
+   flow:{title:"District grant pipeline",count:"grant",steps:[
+     {title:"Confirm eligibility",body:"Club renewals must be current and your sponsoring Rotary club's CDO registration up to date. Check before investing time in an application."},
+     {title:"Funding agreement",body:"Sponsor Rotary club emails the district committing its share; the partner Rotaract club commits its portion too."},
+     {title:"Prepare the application",body:"Access the official online form, draft offline, and gather all required documentation before submitting."},
+     {title:"Submit",body:"Transfer the draft into the online form; the Club President clicks 'Submit'. All parties receive confirmation."},
+     {title:"Respect the deadline",body:"Applications must land by the District Governor's deadline. Only one application per club per cycle."}
+   ]},
+   stat:{icon:"💸",text:"Clubs that share an <span>income/expense summary every board meeting</span> catch problems in weeks."},
+   links:[]},
+
+  {id:"publicimage",role:"comms",source:"ri",title:"Public Image & Communications",deadline:"Consistent; at least weekly posts",
+   intro:"If nobody sees it, it didn't happen. Consistent, on-brand storytelling turns one-off events into a reputation that recruits members and attracts partners.",
+   callouts:[
+     {type:"danger",icon:"🚫",title:"RI brand rules are not optional",body:"One wrong logo on a banner undermines every partnership you've built. Use official files from the Rotary Brand Centre only."},
+     {type:"tip",icon:"📸",title:"Shoot the 'after', not just the event",body:"Photos of the people impacted are the post that recruits. Before, during, and after impact, every time."}
+   ],
+   tabs:{label:"Channel playbook",panels:[
+     {label:"Instagram / Reels",body:"9:16 vertical clips; a story highlight per project; tag the sponsor Rotary club and district. Reels outperform static posts for recruitment."},
+     {label:"Facebook",body:"Event pages + photo albums for every activity. Great for reaching family, municipality and local media audiences."},
+     {label:"Website / LinkedIn",body:"Long-form case studies and sponsor features. Slower but the source sponsors and the district actually check."}
+   ]},
+   rules:[
+     {text:"Photograph every event: before, during, and the people impacted.",law:"RI Rotaract Guidebook"},
+     {text:"Post consistently, not only after big events.",law:"RI public image guidelines"},
+     {text:"Use RI's official brand assets.",law:"Rotary Brand Centre"},
+     {text:"Turn each project into: problem → action → outcome.",law:"RI storytelling framework"},
+     {text:"Tag your sponsoring Rotary club and district.",law:"Zone 7 best practice"}
+   ],
+   spec:{caption:"Communications baseline",note:"requirement · source",headers:["Requirement","Floor","Source"],rows:[
+     ["Post cadence","≥ 1 non-event post per week","RI public image guide"],
+     ["Event photography","Before / during / impact","RI Rotaract Guidebook"],
+     ["Brand assets","Official files only","Rotary Brand Centre"],
+     ["Story structure","Problem → action → outcome","RI storytelling framework"],
+     ["Tagging","Sponsor + district3292","Zone 7 practice"]
+   ]},
+   flow:{title:"Storytelling framework",count:"story",steps:[
+     {title:"Frame the problem",body:"One sentence on the community need. Specific beats general: name the place, the number, the gap."},
+     {title:"Show the action",body:"Volunteers working, honest process. Candid shots and short clips feel real, not staged."},
+     {title:"Capture the outcome",body:"The people impacted, the facility delivered, the behaviour changed. This is the proof, and the post."},
+     {title:"Credit partners + tags",body:"Name your sponsor Rotary club, partners, and the district. It compounds goodwill and reach."},
+     {title:"Reshape for every channel",body:"Same truth, four formats: reel, carousel, album, case study. Consistency multiplies the story's reach."}
+   ]},
+   stat:{icon:"📸",text:"Clubs that <span>post consistently</span> feel far more alive to prospective members."},
+   links:[{label:"Rotaract overview",url:"https://www.rotary.org/en/get-involved/rotaract-clubs"}]},
+
+  {id:"profdev",role:"vpp",source:"ri",title:"Professional Development",deadline:"At least one workshop per quarter",
+   intro:"Members join for service but stay for growth. A serious professional-development track turns your club into the most valuable hour of a member's week.",
+   callouts:[
+     {type:"tip",icon:"🎓",title:"600+ courses, free, right now",body:"Rotary's Learning Center courses can be finished between meetings. Make 'one course before your next birthday' a club challenge."},
+     {type:"info",icon:"🧭",title:"Mentorship counts",body:"Pairing every new member with a Rotarian sponsor is a formal development activity, it serves retention and the PDF attitude in one move."}
+   ],
+   tabs:{label:"Learning paths by role",panels:[
+     {label:"Officers",body:"DLTS, COTS, and the leadership track on the Learning Center. Officer readiness is the single highest-leverage training in a club."},
+     {label:"New members",body:"Orientation series + Rotaract basics + 'how the district works'. A structured first 30 days dramatically lifts retention."},
+     {label:"Service leads",body:"Project management, needs assessment, and grant seminars. The grant course is literally a recognition criterion."},
+     {label:"Everyone",body:"Public speaking, the 4-Way Test, ethics and professional etiquette: high-value, low-cost sessions anyone can lead."}
+   ]},
+   rules:[
+     {text:"Run at least one skills workshop per quarter.",law:"RI Avenue of Service framework"},
+     {text:"Pair newer members with a Rotarian mentor.",law:"Standard Constitution §6"},
+     {text:"Use Rotary Learning Center courses (600+ free).",law:"rotary.org/learn"},
+     {text:"Rotate who leads each session.",law:"Zone 7 best practice"},
+     {text:"Track attendance at development sessions.",law:"District reporting expectations"}
+   ],
+   spec:{caption:"Development track",note:"minimum · source",headers:["Component","Floor","Source"],rows:[
+     ["Skills workshops","1 per quarter","Avenue of Service framework"],
+     ["Mentorship pairs","Every new member","Constitution §6"],
+     ["Learning Center","Continuous, self-paced","rotary.org/learn"],
+     ["Rotating leads","Each session, new host","Zone 7 practice"],
+     ["Attendance logging","Reported to district","District expectations"]
+   ]},
+   stat:{icon:"🎓",text:"Rotary's Learning Center has <span>600+ free courses</span>."},
+   links:[{label:"Rotary Learning Center",url:"https://my.rotary.org/en/learning-reference"}]},
+
+  {id:"international",role:"board",source:"ri",title:"International & Twin Clubs",deadline:"One joint project per twin-club per year",
+   intro:"A twin-club agreement on paper means nothing. One joint project a year turns a signature into a living partnership, and opens doors no single club can open alone.",
+   callouts:[
+     {type:"info",icon:"📄",title:"Formalise before you act",body:"Twinship is voluntary but should always be written down. Sign the MOU before the first joint project so roles and length are unambiguous."},
+     {type:"tip",icon:"🤝",title:"Start intra-district",body:"Inter-district twinships unlock travel, exchanges and global grants, but intra-district twinships are the cheapest way to build the muscle first."}
+   ],
+   tabs:{label:"Twinship types",panels:[
+     {label:"Intra-district",body:"Two+ clubs inside District 3292. Low cost, high frequency, shared zone resources. Best proving ground for the MOU habit."},
+     {label:"Inter-district",body:"Clubs from different districts or countries. Requires sponsors on both sides, an MOU, and typically a joint grant or exchange component."}
+   ]},
+   rules:[
+     {text:"Assign one board member to own each twin-club relationship.",law:"Standard Constitution §5.2"},
+     {text:"Execute at least one joint project per year.",law:"District twinship chapter"},
+     {text:"Connect with your MDIO for regional networking.",law:"RSAMDIO"},
+     {text:"Consider dual Rotary-Rotaract membership pathways.",law:"RI membership framework"},
+     {text:"Use inter-club visits as a low-cost relationship builder.",law:"District 3292 guidelines"}
+   ],
+   spec:{caption:"Twinship obligations",note:"step · requirement (District directory)",headers:["Step","Requirement","Source"],rows:[
+     ["Find a partner","Sponsor club, DRR/ZRR, or MDIO list","Directory: Finding a partner"],
+     ["Sign the MOU","Roles + length, before any project","Sample MOU"],
+     ["Joint activity","≥1 joint meeting + 1 joint project / year","Sample MOU"],
+     ["Exchange ideas","Projects, programs, and publications","Sample MOU"],
+     ["Credit both emblems","Every shared publication lists both clubs","Sample MOU"],
+     ["Renew","Valid 1 July → 30 June; renew yearly","Sample MOU"]
+   ]},
+   flow:{title:"Twinship pipeline",count:"twin",steps:[
+     {title:"Define the type",body:"Intra-district (fast, cheap) or inter-district (travel, grants, exchanges). The choice shapes everything downstream."},
+     {title:"Find a partner",body:"Ask your sponsoring Rotary club (they may already twin), your DRR/ZRR, or contact your MDIO for candidate clubs."},
+     {title:"Sign the MOU",body:"One page: goals, length (1 July → 30 June), joint minimums. Two copies, signed by both presidents, observed by district."},
+     {title:"Run one joint project per year",body:"The MOU on paper plus at least one joint service project and one joint meeting keeps the partnership alive."},
+     {title:"Exchange ideas + credit emblems",body:"Swap project ideas, programs, visits and publications, always carrying both clubs' names and emblems."}
+   ]},
+   stat:{icon:"🌏",text:"One <span>joint project per year</span> keeps a twin-club partnership alive."},
+   links:[{label:"RSAMDIO Library",url:"https://library.rsamdio.org/"}]},
+
+  {id:"recognition",role:"president",source:"ri",title:"Recognition & Events",deadline:"World Rotaract Week (March); year-end by June",
+   intro:"People repeat what gets celebrated. Marking milestones, from World Rotaract Week to a simple thank-you, is the cheapest retention strategy a club has.",
+   callouts:[
+     {type:"info",icon:"🏅",title:"Start with RI's Club Excellence Award",body:"The global benchmark: set at least half the goals in Rotary Club Central and mark them 'achieved' by 30 June. Local recognition stacks on top of it."},
+     {type:"warning",icon:"⏰",title:"Points don't self-report",body:"Update the Rotaract 3292 portal and My Rotary in the same week you finish each project. A project you didn't report is a project you didn't do, for scoring purposes."}
+   ],
+   rules:[
+     {text:"Mark World Rotaract Week each March.",law:"RI recognition calendar"},
+     {text:"Use RI's official Certificate of Recognition.",law:"Rotary.org: Awards"},
+     {text:"Run a President's Night or year-end celebration.",law:"Zone 7 best practice"},
+     {text:"Recognise small wins: attendance streaks, first-time leads.",law:"Zone 7 best practice"},
+     {text:"Nominate standout projects for district or RI awards.",law:"District 3292 awards calendar"}
+   ],
+   spec:{caption:"Club Excellence Recognition · Administration (A)",note:"District 3292 · RY 2025–26",headers:["#","Criteria","Pts"],tot:"50 pts",rows:[
+     ["1","Self-assessment & planning document on time","10"],["2","Goals / mission updated in Rotary Club Central","2"],
+     ["3","President-Elect finalised on time for RY 2026-27","2"],["4","At least two club assemblies","2"],
+     ["5","Club installation within August","2"],["6","24 general + 12 BOD meetings","4"],
+     ["7","Club COTS + zonal COTS","2"],["8","Quarterly reporting to district","4"],
+     ["9","ZRR visit","3"],["10","DRR visit","7"],
+     ["11","My Rotary access 100%","2"],["12","Membership +10% community / +20% university","2"],
+     ["13","Retention ≥75% community / ≥50% university","2"],["14","RI dues + district dues on time","2"],
+     ["15","Members assigned to committees","1"],["16","External experts at ≥2 meetings","1"],
+     ["17","Goodwill visits to 2 clubs","2"],["18","Twin club formation (intra/inter)","2"]
+   ]},
+   specB:{caption:"Club Excellence Recognition · Projects & Events (B)",note:"District 3292 · RY 2025–26",headers:["#","Criteria","Pts"],tot:"50 pts",rows:[
+     ["19","World Rotaract Week: 7 projects in 7 days","7"],["20","District events (4 major + President Night)","10"],
+     ["21","Grant Management Seminar participation","2"],["22","Rota Quiz participation","2"],
+     ["23","Club signature project","2"],["24","Joint project with another Rotaract club","2"],
+     ["25","Joint meeting/project with sponsoring Rotary club","1"],["26","Joint project with another organisation","2"],
+     ["27","Nationwide blood donation hosting","1"],["28","Nationwide cleaning campaign hosting","1"],
+     ["29","Women empowerment project","1"],["30","WASH & plantation project","1"],
+     ["31","Maternal / child health & menstrual hygiene project","1"],["32","Membership fellowship events","1"],
+     ["33","International avenue project","2"],["34","Professional development (member growth)","4"],
+     ["35","Basic education & TEACH project","2"],["36","Public image project","2"],
+     ["37","Road safety project","2"],["38","Thematic area project","2"]
+   ]},
+   flow:{title:"Excellence walkthrough",count:"award",steps:[
+     {title:"Confirm good standing",body:"$0 invoice balance in My Rotary, then check Finance → Club Invoice. Ineligible clubs can't win, no matter how many points."},
+     {title:"Set goals in Rotary Club Central",body:"Select at least half of the available Club Excellence goals. Flexibility: pick the ones most relevant to your club."},
+     {title:"Execute + report as you go",body:"Log progress and mark 'achieved' on both Rotary Club Central and the Rotaract 3292 portal in the same week."},
+     {title:"Hit the 100-point district criteria",body:"Track the A (admin) and B (projects) columns on this page. DRR visit alone is worth 7 points, schedule early."},
+     {title:"Celebrate & repeat the framework",body:"The award is a planning loop, not a once-a-year scramble. Use it to set next year's club plan at your second assembly."}
+   ]},
+   stat:{icon:"🏆",text:"Clubs that run a <span>proper year-end celebration</span> report higher return rates."},
+   links:[{label:"Rotary Awards",url:"https://www.rotary.org/en/get-involved/rotaract-clubs/details"}]},
+
+  {id:"sponsor",role:"board",source:"zone",title:"Sponsor Relationship",deadline:"At least one formal check-in per quarter",
+   intro:"Your sponsoring Rotary club is your biggest untapped asset: mentors, venues, credibility, funding. Treat the relationship as a partnership, not a formality.",
+   callouts:[
+     {type:"tip",icon:"🎙️",title:"One door in",body:"The sponsor's Youth Service Chair is your single best contact. Route venues, mentorship and grant asks through them for speed."},
+     {type:"warning",icon:"📵",title:"Silence is a sponsor-killer",body:"A sponsor that only hears from you on signature day won't stay a sponsor. A public thank-you after every joint project compounds goodwill."}
+   ],
+   rules:[
+     {text:"Invite your Rotary advisor to attend meetings regularly.",law:"Standard Constitution §6"},
+     {text:"Set mutual expectations early.",law:"Zone 7 best practice"},
+     {text:"Loop your sponsor in on major decisions before they're finalised.",law:"Zone 7 best practice"},
+     {text:"Encourage informal mentoring between Rotarians and Rotaractors.",law:"Zone 7 best practice"},
+     {text:"Say thank-you publicly after joint projects.",law:"Zone 7 best practice"}
+   ],
+   spec:{caption:"Sponsor engagement",note:"cadence · why it matters",headers:["Action","When","Why it matters"],rows:[
+     ["Invite Rotary advisor to meetings","Every meeting","Visible mentorship (Constitution §6)"],
+     ["Formal check-in","Quarterly","Surface issues while they're small"],
+     ["Loop in major decisions","Before finalising","Shared ownership, no surprises"],
+     ["Mentoring pairs","Continuous","Retention + development"],
+     ["Public thank-you","After each joint project","Goodwill compounds"]
+   ]},
+   flow:{title:"Sponsor relationship rhythm",count:"sponsor",steps:[
+     {title:"Invite the advisor to every meeting",body:"Make it a calendar recurrence, not an event. Presence is the cheapest form of mentorship."},
+     {title:"Quarterly formal check-in",body:"A 30-minute structured meeting: pipeline, project pipeline, funding needs. Write down what you agreed."},
+     {title:"Consult before major decisions",body:"Signature projects, big budgets, new committees, bring the sponsor in while it's still a choice."},
+     {title:"Run mentoring pairs",body:"Pair Rotarians with Rotaractors informally. It serves every avenue at once."},
+     {title:"Say thank-you publicly",body:"Tag them in posts, name them in reports, invite them to the stage. Recognition is what keeps partners coming back."}
+   ]},
+   stat:{icon:"🤝",text:"A quick <span>public thank-you</span> is often the biggest reason a sponsor stays engaged."},
+   links:[]},
+
+  {id:"digital",role:"board",source:"zone",title:"Digital Tools & Tech",deadline:"Set up before the first board meeting",
+   intro:"Club memory should never live in one person's phone. A single shared drive, clear naming, and backed-up records mean no knowledge is ever lost at handoff.",
+   callouts:[
+     {type:"tip",icon:"📁",title:"Date-first file names",body:"2026-03-14_project_report_v1.docx sorts itself. Adopt the convention once and every board inherits the discipline."},
+     {type:"danger",icon:"🩸",title:"One phone is not a backup",body:"Every club record should exist in at least two places. Cloud drive + cold archive, minimum."}
+   ],
+   rules:[
+     {text:"One shared drive as the single source of truth.",law:"Zone 7 best practice"},
+     {text:"Separate official business from casual chat channels.",law:"Zone 7 best practice"},
+     {text:"Use a shared calendar for all meetings and deadlines.",law:"Zone 7 best practice"},
+     {text:"Standardise file naming (date + project name).",law:"Zone 7 best practice"},
+     {text:"Back up records outside any one person's device.",law:"Zone 7 best practice"}
+   ],
+   spec:{caption:"Digital baseline",note:"requirement · source",headers:["Requirement","Floor","Source"],rows:[
+     ["Shared drive","Single source of truth","Zone 7 practice"],
+     ["Official channels","Business ≠ casual chat","Zone 7 practice"],
+     ["Shared calendar","All meetings + deadlines","Zone 7 practice"],
+     ["File naming","Date-first convention","Zone 7 practice"],
+     ["Backups","2+ locations","Zone 7 practice"]
+   ]},
+   flow:{title:"Digital setup",count:"setup",steps:[
+     {title:"Create the shared drive",body:"One source of truth owned by the club, not by a single officer. Give every board member write access."},
+     {title:"Define the folder structure",body:"Five top-level folders: 01-admin, 02-finance, 03-projects, 04-members, 05-district. Consistency beats cleverness."},
+     {title:"Adopt the naming convention",body:"Date-first, project-infix, version-suffix. Enforce it from day one; it only hurts if you adopt it late."},
+     {title:"Shared calendar + reminders",body:"All meetings, deadlines and training in one calendar every member can see. Add reminders two weeks out."},
+     {title:"Backup + handoff test",body:"Quarterly export to cold storage. Every handoff, verify the new board can actually access and read everything."}
+   ]},
+   stat:{icon:"💾",text:"One <span>shared drive</span> saves more headaches at handoff than any other habit."},
+   links:[]},
+
+  {id:"wellbeing",role:"board",source:"zone",title:"Wellbeing & Culture",deadline:"Continuous; review every board meeting",
+   intro:"Burnout silently empties clubs. Protecting energy (balanced calendars, shared load, real fellowship) keeps good people in the room year after year.",
+   callouts:[
+     {type:"warning",icon:"🔥",title:"The same-3-people signal",body:"If the same few names lead every project, they're already planning their exit. Redistribute before they leave, not after."},
+     {type:"tip",icon:"🎉",title:"Fellowship is a retention feature",body:"Pure-fun events with no agenda aren't a luxury, they're the reason members keep showing up. Schedule them on purpose."}
+   ],
+   rules:[
+     {text:"Balance the calendar; leave room for pure fellowship.",law:"Zone 7 best practice"},
+     {text:"Spread ownership so the same 3 people aren't running everything.",law:"Zone 7 best practice"},
+     {text:"Address conflict directly and early.",law:"Zone 7 best practice"},
+     {text:"Respect that members are students or early-career professionals.",law:"Zone 7 best practice"},
+     {text:"Celebrate small wins regularly; morale compounds.",law:"Zone 7 best practice"}
+   ],
+   spec:{caption:"Health signals",note:"signal: response",headers:["Signal","Watch for","Response"],rows:[
+     ["Concentration of load","Same names on 2+ consecutive projects","Redistribute ownership"],
+     ["Quiet members","Missed meetings trending up","1:1 check-in"],
+     ["Calendar overload",">1 event/week sustained","Drop a non-essential item"],
+     ["Avoided conflict","Unresolved in minutes","Address directly & early"],
+     ["Low meeting energy","Declining attendance","Add pure-fellowship event"]
+   ]},
+   flow:{title:"Club health loop",count:"health",steps:[
+     {title:"Run the 75-item checkup",body:"A 1–2 hour self-assessment across five sections: experience, service, members, public image, operations. Every 'yes' scores a point."},
+     {title:"Score + discuss in board",body:"Present section scores and percentages. Ask 'what do you like most?' and 'what should we improve?' honestly."},
+     {title:"Pick 2–3 priority fixes",body:"Target the weakest sections with SMART goals: specific, measurable, achievable, relevant, time-bound."},
+     {title:"Assign owners + deadlines",body:"Each fix gets a responsible chair and a deadline (3 or 6 months). Accountability lives in the board meeting."},
+     {title:"Review monthly, repeat every 6 months",body:"Monitor progress in monthly board meetings, log gains on the portals, and rerun the health check twice a year."}
+   ]},
+   stat:{icon:"💛",text:"Clubs that keep the same <span>3 people running everything</span> lose them to burnout fastest."},
+   links:[]},
+
+  {id:"makeup",role:"secretary",source:"zone",title:"Attendance & Make-Up",deadline:"Within one meeting cycle of the absence",
+   intro:"Missing a meeting doesn't have to mean falling behind. A signed make-up card keeps your attendance record clean, and connects you with another club in the process.",
+   callouts:[
+     {type:"danger",icon:"🚫",title:"Never backdate",body:"Backdating a make-up card is misconduct, not paperwork. One corrupted record corrodes the club's whole compliance posture."},
+     {type:"info",icon:"👥",title:"Goodwill = a delegation",body:"A goodwill visit is a minimum of five members, a lone visitor usually isn't a recognised goodwill visit. Plan make-ups together."}
+   ],
+   rules:[
+     {text:"Ask your club secretary how make-ups are recorded.",law:"District directory expectations"},
+     {text:"Attend another Rotaract or Rotary club's meeting as a guest.",law:"Standard Constitution §2.6"},
+     {text:"Ask the host secretary to fill in, sign and stamp the card.",law:"Zone 7 make-up protocol"},
+     {text:"Hand the completed card to your club secretary for logging.",law:"District attendance records"},
+     {text:"Never backdate a make-up card.",law:"District compliance"}
+   ],
+   spec:{caption:"Make-up spec",note:"rule · source",headers:["Field","Rule","Source"],rows:[
+     ["Recording method","Ask your secretary first","District expectations"],
+     ["Attendance","Attend another club as guest","Constitution §2.6"],
+     ["Evidence","Host secretary signs + stamps card","Zone 7 protocol"],
+     ["Logging","Submit to your home secretary","District records"],
+     ["Integrity","Backdating strictly forbidden","District compliance"]
+   ]},
+   flow:{title:"Make-up pipeline",count:"makeup",steps:[
+     {title:"Ask your secretary",body:"Confirm how make-ups are recorded in your club before you plan one. Don't assume."},
+     {title:"Attend another club's meeting",body:"As a guest of any Rotaract or Rotary club. For a recognised goodwill visit, bring the 5+ member delegation."},
+     {title:"Host secretary signs + stamps",body:"The host secretary fills the card, signs it, and stamps it. A card without a stamp carries no weight."},
+     {title:"Submit to your secretary",body:"Hand the completed card to your club secretary for logging within one meeting cycle of the absence."},
+     {title:"Never backdate",body:"Fill the truth, when it happened. Backdating is a compliance violation for the club and the member."}
+   ]},
+   stat:{icon:"🎟️",text:"One <span>signed make-up card</span> turns a missed meeting into a logged visit."},
+   links:[{label:"Goodwill visits",url:"/tutorials#twinship"},{label:"How meetings work",url:"/tutorials"}],printable:true}
+];
 let currentView="overview";let currentGuide=null;
 
 /* ── helpers ── */
@@ -754,6 +1395,13 @@ function wireFlow(root){const flow=root.querySelector(".flow");if(!flow)return;c
   flow.querySelector(".flow-track").addEventListener("keydown",e=>{const idx=nodes.indexOf(document.activeElement);if(idx===-1)return;let n=null;if(e.key==="ArrowRight")n=idx+1;else if(e.key==="ArrowLeft")n=idx-1;if(n!==null&&n>=0&&n<nodes.length){e.preventDefault();go(n);nodes[n].focus()}});
 }
 
+
+/* ── rule checklists (officer playbook) ── */
+function doneKey(id){return "z7dl-"+id}
+function renderRules(g){if(!g.rules||!g.rules.length)return "";const arr=JSON.parse(localStorage.getItem(doneKey(g.id))||"[]");return `<ol class="rules-list" id="${blockAnchor(g.id,'rules',0)}" data-spy="rules">${g.rules.map((r,i)=>`<li id="rule-${i}" data-i="${i}"${arr.includes(i)?' class="done"':""}><span class="r-num">${i+1}</span>${r.text}<span class="r-law">${r.law}</span></li>`).join("")}</ol>`}
+function wireRules(root,g){root.querySelectorAll(".rules-list li").forEach(li=>li.addEventListener("click",function(){this.classList.toggle("done");const idx=+this.dataset.i;const arr=JSON.parse(localStorage.getItem(doneKey(g.id))||"[]");const pos=arr.indexOf(idx);if(this.classList.contains("done")&&pos===-1)arr.push(idx);else if(!this.classList.contains("done")&&pos!==-1)arr.splice(pos,1);localStorage.setItem(doneKey(g.id),JSON.stringify(arr))}))}
+
+
 /* ── content rendering ── */
 function renderContent(){
   const area=document.getElementById("contentArea");
@@ -765,11 +1413,12 @@ function renderContent(){
     const sameGroup=gr?gr.guides.filter(id=>id!==g.id):[];
     const fillIds=GUIDES.map(x=>x.id).filter(id=>id!==g.id&&!sameGroup.includes(id));
     const related=[...sameGroup,...fillIds].slice(0,4).map(id=>GUIDES.find(x=>x.id===id));
-    const crumb=`<span>Tutorials</span> <span>/</span> <b>${g.title}</b>`;
+    const crumb=`<span>Learn hub</span> <span>/</span> <span>${gr?gr.label:""}</span> <span>/</span> <b>${g.title}</b>`;
     const toolbar=toolbarHTML(crumb,true);
 
     const statBlock=g.stat?`<div class="gd-stat"><div class="g-icon">${g.stat.icon}</div><p>${g.stat.text}</p></div>`:"";
     const calloutSection=renderCallouts(g)||"";
+    const rulesBlock=(g.rules&&g.rules.length)?renderRules(g):"";
     const docsBlock=renderDocs(g);
     const specBlock=renderSpec(g,g.spec,"spec",0);
     const specB=g.specB?renderSpec(g,g.specB,"specB",1):"";
@@ -777,9 +1426,10 @@ function renderContent(){
     const flowSection=(g.flow?renderFlow(g):"");
     const videoBlock=(g.videos&&g.videos.length)?renderVideosMulti(g):"";
 
-    area.innerHTML=`<div class="guide-detail">${toolbar}<div class="gd-head" id="${blockAnchor(g.id,'head',0)}"><span class="gd-role" style="background:${ROLES[g.role].bg}">${ROLES[g.role].label}</span><span class="gd-src ${srcClass}">${srcLabel}</span></div><h1 id="${g.id}">${g.title}</h1><div class="gd-deadline">⏰ ${g.deadline}</div><p class="gd-intro">${g.intro}</p>${statBlock}${calloutSection}${docsBlock}${specBlock+specB}${tabSection}${flowSection}${g.links.length?`<div class="gd-sources" id="sec-links">${g.links.map(l=>`<a href="${l.url}" target="_blank" rel="noopener">↗ ${l.label}</a>`).join("")}</div>`:""}${videoBlock}<div class="gd-related"><div class="related-cards">${related.map(r=>`<a class="rel-card" href="#${r.id}" data-guide="${r.id}"><span class="dot" style="background:${ROLES[r.role].bg}"></span><div><h4>${r.title}</h4><p>${r.deadline}</p></div><span class="arrow">→</span></a>`).join("")}</div></div></div>`;
+    area.innerHTML=`<div class="guide-detail">${toolbar}<div class="gd-head" id="${blockAnchor(g.id,'head',0)}"><span class="gd-role" style="background:${ROLES[g.role].bg}">${ROLES[g.role].label}</span><span class="gd-src ${srcClass}">${srcLabel}</span></div><h1 id="${g.id}">${g.title}</h1><div class="gd-deadline">⏰ ${g.deadline}</div><p class="gd-intro">${g.intro}</p>${statBlock}${calloutSection}${rulesBlock}${docsBlock}${specBlock+specB}${tabSection}${flowSection}${g.links.length?`<div class="gd-sources" id="sec-links">${g.links.map(l=>`<a href="${l.url}" target="_blank" rel="noopener">↗ ${l.label}</a>`).join("")}</div>`:""}${g.printable?`<div class="mu-block"><button class="print-btn" type="button" onclick="window.print()">🖨 Print the make-up card</button></div>`:""}${videoBlock}<div class="gd-related"><div class="related-cards">${related.map(r=>`<a class="rel-card" href="#${r.id}" data-guide="${r.id}"><span class="dot" style="background:${ROLES[r.role].bg}"></span><div><h4>${r.title}</h4><p>${r.deadline}</p></div><span class="arrow">→</span></a>`).join("")}</div></div></div>`;
 
-    wireTabs(area,g);wireFlow(area);
+    wireTabs(area,g);wireFlow(area);wireRules(area,g);
+    const mc=document.getElementById("makeupCard");if(mc)mc.classList.toggle("show",!!g.printable);
     area.querySelectorAll(".rel-card").forEach(c=>c.addEventListener("click",e=>{e.preventDefault();currentGuide=c.dataset.guide;currentView="guide";history.replaceState(null,"","#"+c.dataset.guide);renderAll();closeSidebar()}));
     setTimeout(()=>{const ids=location.hash.slice(1);if(ids&&area.querySelector("[id='"+ids+"']"))area.querySelector("[id='"+ids+"']").scrollIntoView({behavior:"smooth",block:"start"})},30);
   } else { renderOverview(); }
@@ -792,12 +1442,14 @@ function toolbarHTML(crumb,isGuide){
 
 function renderOverview(){
   const area=document.getElementById("contentArea");
-  const crumb=`<span>Home</span> <span>/</span> <b>Tutorials</b>`;
+  const byId={};GUIDES.forEach(g=>byId[g.id]=g);
+  const crumb=`<span>Home</span> <span>/</span> <b>Learn hub</b>`;
   const toolbar=toolbarHTML(crumb,false);
-  area.innerHTML=`${toolbar}<div class="overview-hero"><h1>The <em>Tutorials</em>.</h1><p class="page-desc">Six step-by-step tutorials for Zone 7 clubs: general meetings, the board, club assemblies, ZRR and DRR visits, and blood donation camps. Videos and source documents included.</p><p class="note">Pick a tutorial from the sidebar, or drop ⌘K to search every section at once. Each tutorial states the rule, cites the source document, and keeps the videos beside the steps.</p></div><div class="role-cards">${GUIDES.map(g=>{const r=ROLES[g.role];return`<a class="role-card" data-guide="${g.id}" href="#${g.id}"><div class="rc-head"><div class="rc-icon" style="background:color-mix(in srgb,${r.bg} 10%,transparent);color:${r.bg}">${r.icon}</div><h3>${g.title}</h3></div><div class="rc-body"><p>${g.deadline}</p><div class="rc-count"><span>${(g.docs||[]).length}</span> how-to sections · ${(g.videos||[]).length} video${(g.videos||[]).length>1?"s":""}</div></div></a>`}).join("")}</div>`;
+  area.innerHTML=`${toolbar}<div class="overview-hero"><h1>The <em>Learn hub</em>.</h1><p class="page-desc">Twenty-two chapters on three shelves: step-by-step tutorials for running clubs, the district handbook for what RI and District 3292 allow and fund, and the officer playbook for who does what each term.</p><p class="note">Pick any chapter from the sidebar, or drop ⌘K to search every section, rule and video at once. Tutorials show you how to run things, the handbook sets out what the district allows and funds, and the playbook tells officers what is on their plate.</p></div><div class="role-cards">${GROUPS.map(gr=>{const gs=gr.guides.map(id=>byId[id]);return`<a class="role-card" data-group="${gr.id}" href="#"><div class="rc-head"><div class="rc-icon" style="background:color-mix(in srgb,${gr.color} 10%,transparent);color:${gr.color}">${gr.icon}</div><h3>${gr.label}</h3></div><div class="rc-body"><p>${gs.map(g=>g.title).join(", ")}</p><div class="rc-count"><span>${gs.length}</span> guides · ${gs.reduce((a,g)=>a+(g.docs||[]).length+(g.rules||[]).length,GUIDES.length)} sections</div></div></a>`}).join("")}</div>`;
   area.querySelectorAll(".role-card").forEach(c=>c.addEventListener("click",e=>{
-    e.preventDefault();const id=c.dataset.guide;currentGuide=id;currentView="guide";history.replaceState(null,"","#"+id);renderAll();closeSidebar();
+    e.preventDefault();const gr=c.dataset.group;const first=document.querySelector(`.sb-group[data-group="${gr}"] .sb-item`);if(first){currentGuide=first.dataset.guide;currentView="guide";history.replaceState(null,"","#"+first.dataset.guide);renderAll();closeSidebar()}
   }));
+  const mc0=document.getElementById("makeupCard");if(mc0)mc0.classList.remove("show");
   area.scrollTo({top:0});
   renderRightRail();
 }
@@ -826,6 +1478,7 @@ function railSections(g){
   const s=[];
   s.push({label:"Intro",id:blockAnchor(g.id,"head",0)});
   if(g.callouts)s.push({label:"Notes",id:blockAnchor(g.id,"notes",0)});
+  if(g.rules&&g.rules.length)s.push({label:"Rules & obligations",id:blockAnchor(g.id,"rules",0)});
   if(g.docs)s.push({label:"How to",id:blockAnchor(g.id,"docs",0)});
   if(g.spec)s.push({label:"Spec · "+g.spec.caption,id:blockAnchor(g.id,"spec",0)});
   if(g.specB)s.push({label:"Spec · "+g.specB.caption,id:blockAnchor(g.id,"specB",1)});
@@ -857,11 +1510,12 @@ function renderRightRail(){
 }
 
 /* ── command palette ── */
-const PAL_KIND={guide:"Tutorial",doc:"How to",notes:"Note",spec:"Spec",specB:"Spec",tabs:"Tab",flow:"Step",video:"Video"};
+const PAL_KIND={guide:"Guide",rule:"Rule",doc:"How to",notes:"Note",spec:"Spec",specB:"Spec",tabs:"Variant",flow:"Step",video:"Video"};
 function buildPaletteIndex(){
   const idx=[];
   GUIDES.forEach(g=>{
-    idx.push({gid:g.id,kind:"guide",target:null,label:g.title,sub:"Open tutorial · "+(g.docs||[]).length+" how-to sections"});
+    idx.push({gid:g.id,kind:"guide",target:null,label:g.title,sub:"Open · "+((g.docs||[]).length+(g.rules||[]).length)+" sections"});
+    (g.rules||[]).forEach((r,i)=>idx.push({gid:g.id,kind:"rule",target:blockAnchor(g.id,"rules",0),label:(r.text.split(".")[0]||r.text).slice(0,60),sub:g.title+" · rule "+(i+1)}));
     (g.callouts||[]).forEach(c=>idx.push({gid:g.id,kind:"notes",target:blockAnchor(g.id,"notes",0),label:c.title,sub:g.title+" · "+COT[c.type]}));
     (g.docs||[]).forEach(d=>idx.push({gid:g.id,kind:"doc",target:blockAnchor(g.id,"docs",0),label:d.h,sub:g.title+" · how to"}));
     if(g.spec)idx.push({gid:g.id,kind:"spec",target:blockAnchor(g.id,"spec",0),label:g.spec.caption,sub:g.title+" · "+g.spec.rows.length+" rows"});
@@ -929,13 +1583,17 @@ document.getElementById("sbSearch").addEventListener("input",function(){
   const q=this.value.toLowerCase();
   document.querySelectorAll(".sb-item").forEach(item=>{
     const g=GUIDES.find(x=>x.id===item.dataset.guide);
-    const hay=(g.title+" "+g.intro+" "+(g.docs||[]).map(d=>d.h).join(" ")+" "+(g.spec?g.spec.caption:"")).toLowerCase();
+    const hay=(g.title+" "+g.intro+" "+(g.docs||[]).map(d=>d.h).join(" ")+" "+(g.rules||[]).map(r=>r.text).join(" ")+" "+(g.spec?g.spec.caption:"")).toLowerCase();
     item.style.display=(!q||hay.includes(q))?"":"none";
   });
 });
 document.getElementById("sbSearch").addEventListener("keydown",e=>{
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openPalette()}
   else if(e.key==="/"){e.preventDefault();openPalette()}
+});
+
+document.getElementById("sbReset").addEventListener("click",()=>{
+  if(!confirm("Reset progress? This clears all rule checklists."))return;GUIDES.forEach(g=>localStorage.removeItem(doneKey(g.id)));renderAll();
 });
 window.addEventListener("hashchange",()=>{
   const id=location.hash.slice(1);
@@ -949,7 +1607,7 @@ function injectMobileToggle(){
   if(!bar)return;
   var btn=document.createElement("button");
   btn.className="sidebar-mobile-btn";
-  btn.setAttribute("aria-label","Open tutorials sidebar");
+  btn.setAttribute("aria-label","Open learn hub sidebar");
   btn.style.cssText="display:none;background:none;border:none;cursor:pointer;padding:6px;font-size:1.2rem;color:var(--ink);flex-shrink:0;border-radius:6px;transition:background .15s;";
   btn.innerHTML="☰";
   btn.addEventListener("click",openSidebar);
