@@ -186,12 +186,9 @@ function Book({ textures, pointerRef, ctl }) {
     spin.current.scale = lerp(spin.current.scale, t.scale, damp);
 
     const narrow = typeof window !== 'undefined' && window.innerWidth < 900;
-    const nx = narrow ? 0.5 : 1;
-    const ny = narrow ? 0.8 : 1;
-    const ns = narrow ? 0.62 : 1;
-    const posX = spin.current.x * nx;
-    const posY = spin.current.y * ny;
-    const scale = spin.current.scale * t.intro.scale * ns;
+    const posX = narrow ? 0.12 : spin.current.x;
+    const posY = narrow ? -0.28 : spin.current.y;
+    const scale = spin.current.scale * t.intro.scale * (narrow ? 0.52 : 1);
 
     // ── interaction: drag rotates within a front-only range ──
     const dt = Math.min(delta, 0.05);
