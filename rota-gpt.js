@@ -94,12 +94,15 @@
     return expanded;
   }
 
-  function tokenize(s) {
-    return String(s).toLowerCase()
+  var STOP = {what:1,is:1,are:1,the:1,a:1,an:1,how:1,do:1,does:1,did:1,can:1,could:1,would:1,should:1,i:1,you:1,we:1,to:1,for:1,of:1,in:1,on:1,about:1,tell:1,me:1,please:1,give:1,show:1,explain:1,why:1,when:1,where:1,who:1,which:1,that:1,this:1,it:1,be:1,am:1,was:1,were:1,has:1,have:1,had:1,with:1,by:1,at:1,from:1,as:1,or:1,and:1,if:1,so:1,my:1,your:1,our:1,us:1,are:1};
+  function tokenize(s, keepStop) {
+    var arr = String(s).toLowerCase()
       .replace(/[^a-z0-9\s]/g, " ")
       .split(/\s+/)
       .filter(function (w) { return w.length > 1; })
       .map(stemWord);
+    if (keepStop) return arr;
+    return arr.filter(function (w) { return !STOP[w]; });
   }
 
   /* ===================== FUZZY / TYPO MATCHING ===================== */
@@ -165,11 +168,11 @@
   /* ===================== SCORING ENGINE ===================== */
   function scoreEntry(e, qWords, qText, qRaw, pageBoost) {
     var hay = e.k.join(" ").toLowerCase();
-    var hayWords = tokenize(hay);
+    var hayWords = tokenize(hay, true);
     var score = 0;
 
     /* Exact phrase match in keywords */
-    if (hay.indexOf(qText) !== -1) score += 80;
+    if (qText && hay.indexOf(qText) !== -1) score += 80;
 
     /* Exact phrase match in answer */
     var ansLower = (e.a || "").toLowerCase();
@@ -499,7 +502,7 @@
     var qWords = tokenize(q);
     qWords = expandSynonyms(qWords);
     qWords = fuzzyExpand(qWords);
-    var qText = q.toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+    var qText = tokenize(q).join(" ");
     return KB.slice()
       .map(function (e) { return { e: e, s: scoreEntry(e, qWords, qText, q, pageBoost) }; })
       .sort(function (a, b) { return b.s - a.s; })
@@ -510,9 +513,9 @@
 
   /* ===================== CONFIDENCE DISPLAY ===================== */
   function getConfidence(score, bestScore) {
-    if (bestScore >= 60) return { level: "high", label: "High confidence", color: "#22C55E" };
-    if (bestScore >= 30) return { level: "medium", label: "Good match", color: "#F2A900" };
-    if (bestScore >= 10) return { level: "low", label: "Partial match", color: "#FB923C" };
+    if (bestScore >= 45) return { level: "high", label: "High confidence", color: "#22C55E" };
+    if (bestScore >= 20) return { level: "medium", label: "Good match", color: "#F2A900" };
+    if (bestScore >= 8) return { level: "low", label: "Partial match", color: "#FB923C" };
     return { level: "none", label: "No direct match", color: "#9CA3AF" };
   }
 
@@ -806,7 +809,7 @@
       var qWords = tokenize(q);
       qWords = expandSynonyms(qWords);
       qWords = fuzzyExpand(qWords);
-      var qText = q.toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+      var qText = tokenize(q).join(" ");
 
       var scored = KB.map(function (e) {
         return { e: e, s: scoreEntry(e, qWords, qText, q, pageBoost) };
@@ -839,7 +842,7 @@
   }
 
   function localAnswer(q, scored, confidence) {
-    if (!scored || !scored.length) {
+    if (!scored || !scored.length || scored[0].s < 8) {
       return {
         text: "I couldn't find that in the zone's documents, but I can help with club info, grants, twinship, meetings, projects, the barometer, and tutorials.",
         links: [{ label: "Learn hub", url: "/tutorials" }, { label: "RotaQuiz", url: "/rkt-quiz" }, { label: "Resources", url: "/guides" }],
