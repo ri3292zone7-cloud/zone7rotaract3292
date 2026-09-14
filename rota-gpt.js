@@ -267,6 +267,45 @@
     return "Previous questions covered: " + recent.join(", ") + ". ";
   }
 
+  /* ===================== NORMAL CONVERSATION (small talk) ===================== */
+  function smallTalkReply(raw) {
+    var t = String(raw || "").toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+    if (!t) return null;
+    var isShort = t.split(/\s+/).length <= 4 && raw.length <= 30;
+    // greeting + real question: let KB handle ("hi, how do I join?" / "sup which clubs...")
+    var m = t.match(/^(hi|hey|hello|yo|sup|wassup|whats up|namaste|good morning|good afternoon|good evening)[, ]+(.+)$/);
+    if (m && m[2] && m[2].length > 8) return null;
+    // sup / yo / wassup — only for short standalone slang
+    if ((/^(sup|wass?up|whats up|yo|yoo+|ayo|hey yo)\b/.test(t) || t === "sup") && isShort) {
+      var a = ["yo — sup! \uD83D\uDE0A I'm good, just hanging around Zone 7. What you wanna know?",
+               "heyy! All good here — ready to help with clubs, projects, or how to join. What's up with you?",
+               "sup sup! \uD83D\uDE4F I'm chill. Ask me anything about Zone 7."];
+      return a[Math.floor(Math.random()*a.length)];
+    }
+    if (/^(hi|hey|hello|hola|namaste|good (morning|afternoon|evening))\b/.test(t) && isShort) {
+      return "hey there! \uD83D\uDC4B I'm RotaGPT — your Zone 7 guide. How can I help today?";
+    }
+    if ((/\bhow (are|r) (you|u)\b/.test(t) || /\bhow ru\b/.test(t) || t === "hru" || t === "wbu") && isShort) {
+      return "I'm great, thanks for asking! \uD83D\uDC99 Here to help you navigate Zone 7 — clubs, events, grants, whatever you need. What you thinking?";
+    }
+    if ((/^(thanks|thank you|thankyou|ty|thx|tysm|dhanyabad)\b/.test(t) || /\bthanks\b/.test(t)) && isShort) {
+      return "anytime! \uD83D\uDE4C Hit me up whenever you need Zone 7 stuff.";
+    }
+    if (/^(bye|goodbye|see you|cya|good night|goodnite)\b/.test(t) && isShort) {
+      return "see ya! \uD83D\uDC4B Come back anytime you need Zone 7 info.";
+    }
+    if (/\b(who are you|what are you|whats your name|who r u)\b/.test(t)) {
+      return "I'm <b>RotaGPT</b> — the Zone 7 guide for Rotaract District 3292 (Nepal-Bhutan). I answer straight from the site + district directory — clubs, projects, meetings, grants, barometer, all of it.";
+    }
+    if (/\b(what can you do|help me|what do you do)\b/.test(t) && t.split(/\s+/).length <= 6) {
+      return "I can help with Zone 7 clubs, projects, meetings, twinship, grants, health check, barometer, RKT quiz, and how to join. Just ask — e.g. <i>which clubs are in Zone 7?</i> or <i>how do I start a new club?</i>";
+    }
+    if (/^(lol|haha|hehe|lmao|nice|cool|great|awesome|ok|okay|alright|bet)\b/.test(t) && isShort) {
+      return "haha \uD83D\uDE04 — cool cool. Want to explore something Zone 7 while you're here?";
+    }
+    return null;
+  }
+
   /* ===================== "DID YOU MEAN?" SUGGESTIONS ===================== */
   var TOPIC_LINKS = {
     "grant": { label: "Grants chapter", url: "/tutorials#grants" },
@@ -744,6 +783,17 @@
 
     /* Update conversation memory */
     var followUpTopic = updateConversationMemory(q);
+
+    /* Normal conversation handler — short chat replies for greetings/small talk */
+    var small = smallTalkReply(q);
+    if (small) {
+      var bubble = addMsg("", "bot");
+      bubble.innerHTML = small + '<div class="rgpt-src">RotaGPT · chat</div>';
+      history.push({ role: "assistant", content: small });
+      scrollBottom();
+      input.focus();
+      return;
+    }
 
     /* Ensure live data + page content are loaded before answering */
     Promise.all([injectLiveData(), loadPageContent()]).then(function () {
