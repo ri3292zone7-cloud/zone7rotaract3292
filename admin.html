@@ -422,9 +422,16 @@
   .view{display:none;}
   .view.active{display:block;}
   @media (max-width:900px){
-    .admin-sidebar{position:static; width:auto; height:auto; border-right:none; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:6px; padding:14px 20px;}
+    .admin-sidebar{position:sticky; top:76px; width:auto; height:auto; border-right:none; border-bottom:1px solid var(--line); display:flex; flex-wrap:nowrap; gap:8px; padding:10px 14px; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scrollbar-width:none; z-index:40;}
+    .admin-sidebar::-webkit-scrollbar{display:none;}
     .admin-sidebar .sb-label{display:none;}
+    .admin-sidebar .sb-item{flex-shrink:0; white-space:nowrap; padding:10px 14px; font-size:0.84rem;}
     body.has-sidebar #dashboard > .wrap{margin-left:0; padding-right:0;}
+    .dash-header{padding:24px 0 20px;}
+  }
+  @media (max-width:600px){
+    .admin-sidebar{padding:10px 12px; gap:6px;}
+    .admin-sidebar .sb-item{padding:9px 12px; font-size:0.80rem;}
   }
 </style>
 

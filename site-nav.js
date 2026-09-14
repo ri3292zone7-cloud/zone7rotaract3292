@@ -272,7 +272,7 @@
     ".mobile-menu .mm-link kbd{height:auto;background:var(--nav-tint2);color:var(--nav-brand-strong);padding:1px 7px;font-size:.7rem;font-weight:700;border-radius:6px}",
     ".mobile-menu .mm-link span{color:var(--nav-ink-dim);font-weight:700;font-size:.8rem}",
     "@media (max-width:1100px){#siteNav .nav-search-pill .ns-label{display:none} #siteNav .nav-search-pill{padding:0 11px;gap:6px}}",
-    "@media (max-width:920px){#siteNav .nav-actions{gap:8px}}",
+    "@media (max-width:920px){#siteNav .nav-actions{gap:8px} #siteNav .nav-rgpt{display:none !important} #siteNav .nav-theme,#siteNav .burger{width:44px !important;height:44px !important} #siteNav .mobile-menu{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}}",
     "@view-transition{navigation:auto}",
     "::view-transition-old(root),::view-transition-new(root){mix-blend-mode:normal}",
     "::view-transition-old(root){animation:z7vo .22s cubic-bezier(.4,0,.6,1) both}",
@@ -418,7 +418,8 @@
     learnItem("/guides", "📄", "Resources", "Official documents, constitutions and downloadable forms", "resources");
 
   var learnKeys = ["tutorials", "resources", "quiz"];
-  var isLearn = learnKeys.indexOf(current) !== -1;
+  var isSearchPage = location.pathname.replace(/\/+$/, "") === "/search";
+  var isLearn = !isSearchPage && learnKeys.indexOf(current) !== -1;
   var subnavHtml = "";
   if (isLearn) {
     document.documentElement.classList.add("has-subnav");
