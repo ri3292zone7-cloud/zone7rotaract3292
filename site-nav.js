@@ -107,6 +107,18 @@
   themeColor.name = "theme-color";
   themeColor.content = z7IsDark() ? "#0E0C1A" : "#FFF8EF";
   document.head.appendChild(themeColor);
+  // GA4 — replace with your Measurement ID (G-XXXXXXX) to activate site-wide analytics
+  var GA_ID = "";
+  if (GA_ID) {
+    var ga = document.createElement("script");
+    ga.async = true;
+    ga.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+    document.head.appendChild(ga);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", GA_ID);
+  }
 
   var host = document.getElementById("siteNav");
   if (!host) return;

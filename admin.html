@@ -424,8 +424,21 @@
   @media (max-width:900px){
     .admin-sidebar{display:none;}
     body.has-sidebar #dashboard > .wrap{margin-left:0; padding-right:0; padding-bottom:86px;}
-    .dash-header{padding:24px 0 20px;}
     .view.active{animation:mobViewIn .20s ease-out; animation-fill-mode:both;}
+    /* slim app-style header: one compact row, icon-only actions */
+    .dash-header{padding:12px 0; gap:10px; align-items:center;}
+    .dash-header > div:first-child{flex:1 1 auto; min-width:0; gap:10px !important;}
+    .dash-header > div:first-child > div{flex:1 1 auto; min-width:0;}
+    .dash-header h2{font-size:1.02rem; margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .dash-header p{display:none;}
+    #dashClubLogo{width:34px !important; height:34px !important; padding:4px !important; border-radius:10px !important;}
+    .dash-header > div:last-child{flex-shrink:0; gap:8px !important;}
+    .dash-header #viewClubBtn, .dash-header #logoutBtn{
+      width:38px; height:38px; min-width:38px; padding:0; border-radius:50%;
+      font-size:0; line-height:1; display:inline-flex; align-items:center; justify-content:center;
+    }
+    .dash-header #viewClubBtn::after{content:"↗"; font-size:1.05rem;}
+    .dash-header #logoutBtn::after{content:"↩"; font-size:1.05rem;}
   }
   @keyframes mobViewIn{from{opacity:.45; transform:translateX(12px);} to{opacity:1; transform:none;}}
   @media (max-width:600px){
