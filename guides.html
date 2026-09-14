@@ -214,6 +214,26 @@ footer a{color:var(--brand-deep);font-weight:700}
 
   <div class="section-label" id="gridLabel">All documents</div>
   <div class="guides-grid" id="guidesGrid"></div>
+  <noscript>
+    <div style="padding:20px 0;">
+      <p style="color:var(--ink-mid);margin-bottom:12px;">Documents index (no-JS):</p>
+      <ul style="display:grid;gap:6px;list-style:none;padding:0;">
+        <li><a href="/guides/s1">Standard Rotaract Club Constitution</a> — Governance</li>
+        <li><a href="/guides/s2">Recommended Club Bylaws</a> — Governance</li>
+        <li><a href="/guides/s3">Statement of Policy</a> — Governance</li>
+        <li><a href="/guides/s4">MOU Document</a> — Governance</li>
+        <li><a href="/guides/s5">Strategic Planning Guide</a> — Planning</li>
+        <li><a href="/guides/s6">Effective Planning Guide for Clubs</a> — Planning</li>
+        <li><a href="/guides/s7">Membership Application Form</a> — Templates</li>
+        <li><a href="/guides/s8">Sample GM Attendance Sheet</a> — Templates</li>
+        <li><a href="/guides/s9">Sample Agenda Paper</a> — Templates</li>
+        <li><a href="/guides/s10">Rotaract Guidebook (District 3292)</a> — Handbook</li>
+        <li><a href="/guides/s11">District Fund (RDG) Grant Criterion</a> — Funding</li>
+        <li><a href="/guides/s12">Rotary-Rotaract Reading Materials (Rota Quiz)</a> — Quiz</li>
+        <li><a href="/guides/s13">Reading Materials for Rota Quiz 25-26</a> — Quiz</li>
+      </ul>
+    </div>
+  </noscript>
 
   <div class="cta-band">
     <div>
@@ -363,6 +383,35 @@ async function loadDynamicGuides(){
 }
 render();
 loadDynamicGuides();
+</script>
+<script>
+(function(){
+  var params=new URLSearchParams(location.search);
+  var id=params.get('id');
+  if(!id) return;
+  function apply(){
+    var g=(allGuides||[]).find(function(x){return x.id===id});
+    if(!g) return;
+    document.title=g.title+" | Zone 7 Guides";
+    var d=document.querySelector('meta[name="description"]');
+    if(d) d.content=g.desc.slice(0,155);
+    var c=document.querySelector('link[rel="canonical"]');
+    if(c) c.href="https://zone7rotaract3292.vercel.app/guides/"+encodeURIComponent(id);
+    var og=document.querySelector('meta[property="og:title"]');
+    if(og) og.content=g.title+" | Zone 7";
+    var ogd=document.querySelector('meta[property="og:description"]');
+    if(ogd) ogd.content=g.desc.slice(0,155);
+    if(!document.getElementById('guide-jsonld')){
+      var ld=document.createElement('script');
+      ld.id='guide-jsonld'; ld.type='application/ld+json';
+      ld.textContent=JSON.stringify({"@context":"https://schema.org","@type":"LearningResource","name":g.title,"description":g.desc,"url":"https://zone7rotaract3292.vercel.app/guides/"+encodeURIComponent(id),"isPartOf":{"@type":"CollectionPage","name":"Rotaract Resources","url":"https://zone7rotaract3292.vercel.app/guides"}});
+      document.head.appendChild(ld);
+    }
+  }
+  setTimeout(apply,400);
+  var iv=setInterval(function(){var g=(allGuides||[]).find(function(x){return x.id===id}); if(g){apply(); clearInterval(iv);}},500);
+  setTimeout(function(){clearInterval(iv)},5000);
+})();
 </script>
 
 <script defer src="z7-lazy.js"></script>

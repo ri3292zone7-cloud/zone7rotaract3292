@@ -20,6 +20,34 @@ const CLUB_SLUGS = [
   "sankhu", "newroadcity", "sukedhara", "tripureswor",
 ];
 
+const LEARN_LEAVES = [
+  // Tutorials (6)
+  { path: "/tutorial-meetings", priority: 0.9, changefreq: "monthly" },
+  { path: "/tutorial-board", priority: 0.9, changefreq: "monthly" },
+  { path: "/tutorial-assembly", priority: 0.85, changefreq: "monthly" },
+  { path: "/tutorial-zrr", priority: 0.85, changefreq: "monthly" },
+  { path: "/tutorial-drr", priority: 0.85, changefreq: "monthly" },
+  { path: "/tutorial-blood", priority: 0.9, changefreq: "monthly" },
+  // Handbook (5)
+  { path: "/handbook-grants", priority: 0.85, changefreq: "monthly" },
+  { path: "/handbook-twinship", priority: 0.85, changefreq: "monthly" },
+  { path: "/handbook-newclub", priority: 0.85, changefreq: "monthly" },
+  { path: "/handbook-projects", priority: 0.9, changefreq: "monthly" },
+  { path: "/handbook-health", priority: 0.85, changefreq: "monthly" },
+  // Officer Playbook (11)
+  { path: "/tutorials/leadership", priority: 0.7, changefreq: "monthly" },
+  { path: "/tutorials/recognition", priority: 0.7, changefreq: "monthly" },
+  { path: "/tutorials/wellbeing", priority: 0.7, changefreq: "monthly" },
+  { path: "/tutorials/finance", priority: 0.7, changefreq: "monthly" },
+  { path: "/tutorials/makeup", priority: 0.6, changefreq: "monthly" },
+  { path: "/tutorials/digital", priority: 0.7, changefreq: "monthly" },
+  { path: "/tutorials/execution", priority: 0.7, changefreq: "monthly" },
+  { path: "/tutorials/profdev", priority: 0.7, changefreq: "monthly" },
+  { path: "/tutorials/publicimage", priority: 0.7, changefreq: "monthly" },
+  { path: "/tutorials/international", priority: 0.7, changefreq: "monthly" },
+  { path: "/tutorials/sponsor", priority: 0.7, changefreq: "monthly" },
+];
+
 const STATIC_PAGES = [
   { path: "/", priority: 1.0, changefreq: "weekly" },
   { path: "/about", priority: 0.8, changefreq: "monthly" },
@@ -29,6 +57,7 @@ const STATIC_PAGES = [
   { path: "/guides", priority: 0.8, changefreq: "monthly" },
   { path: "/rkt-quiz", priority: 0.8, changefreq: "weekly" },
   { path: "/tutorials", priority: 0.9, changefreq: "monthly" },
+  ...LEARN_LEAVES,
   { path: "/club", priority: 0.7, changefreq: "weekly" },
   { path: "/project", priority: 0.7, changefreq: "weekly" },
   { path: "/meetings", priority: 0.5, changefreq: "monthly" },
@@ -111,7 +140,7 @@ export default async function handler(req, res) {
   for (const g of guides) {
     const lastmod = g.updated ? new Date(g.updated).toISOString().slice(0, 10) : now;
     guideEntries.push(
-      urlEntry(`${SITE}/guides#${encodeURIComponent(g.id)}`, lastmod, 0.6, "monthly")
+      urlEntry(`${SITE}/guides/${encodeURIComponent(g.id)}`, lastmod, 0.6, "monthly")
     );
   }
 
