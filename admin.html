@@ -422,17 +422,60 @@
   .view{display:none;}
   .view.active{display:block;}
   @media (max-width:900px){
-    .admin-sidebar{position:sticky; top:76px; width:auto; height:auto; border-right:none; border-bottom:1px solid var(--line); display:flex; flex-wrap:nowrap; gap:8px; padding:10px 14px; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scrollbar-width:none; z-index:40;}
-    .admin-sidebar::-webkit-scrollbar{display:none;}
-    .admin-sidebar .sb-label{display:none;}
-    .admin-sidebar .sb-item{flex-shrink:0; white-space:nowrap; padding:10px 14px; font-size:0.84rem;}
-    body.has-sidebar #dashboard > .wrap{margin-left:0; padding-right:0;}
+    .admin-sidebar{display:none;}
+    body.has-sidebar #dashboard > .wrap{margin-left:0; padding-right:0; padding-bottom:86px;}
     .dash-header{padding:24px 0 20px;}
+    .view.active{animation:mobViewIn .20s ease-out; animation-fill-mode:both;}
   }
+  @keyframes mobViewIn{from{opacity:.45; transform:translateX(12px);} to{opacity:1; transform:none;}}
   @media (max-width:600px){
-    .admin-sidebar{padding:10px 12px; gap:6px;}
-    .admin-sidebar .sb-item{padding:9px 12px; font-size:0.80rem;}
+    .mob-tabbar{padding:5px 6px calc(5px + env(safe-area-inset-bottom)); gap:2px;}
+    .mob-tab{width:auto; flex:1 1 0; max-width:none;}
   }
+  /* ── Mobile app shell: bottom tab bar + bottom sheet (replaces the sidebar on phones) ── */
+  .mob-tabbar{
+    display:none; position:fixed; left:0; right:0; bottom:0; z-index:60;
+    background:rgba(255,253,249,.96); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-top:1px solid rgba(27,24,54,.1); box-shadow:0 -10px 30px rgba(27,24,54,.10);
+    padding:6px 8px calc(6px + env(safe-area-inset-bottom)); justify-content:space-around; align-items:center;
+  }
+  body.has-sidebar .mob-tabbar{display:flex;}
+  .mob-tab{
+    position:relative; flex:0 0 auto; width:72px; max-width:20%; display:flex; flex-direction:column; align-items:center;
+    gap:3px; padding:6px 2px; background:none; border:none; border-radius:14px; cursor:pointer;
+    color:rgba(27,24,54,.5); font-family:'Inter',sans-serif; transition:color .15s,transform .1s;
+  }
+  .mob-tab:active{transform:scale(.94);}
+  .mob-tab .ic{font-size:1.15rem; line-height:1;}
+  .mob-tab .tl{font-size:.60rem; font-weight:700; letter-spacing:.01em; white-space:nowrap;}
+  .mob-tab.active{color:var(--magenta-deep,#A80F52);}
+  .mob-tab.active::after{content:''; position:absolute; top:-6px; left:50%; transform:translateX(-50%); width:20px; height:3px; border-radius:100px; background:var(--magenta-deep,#A80F52);}
+  .mob-sheet-backdrop{
+    position:fixed; inset:0; z-index:70; background:rgba(27,24,54,.32); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);
+    opacity:0; visibility:hidden; transition:opacity .2s,visibility .2s;
+  }
+  .mob-sheet-backdrop.open{opacity:1; visibility:visible;}
+  .mob-sheet{
+    position:fixed; left:0; right:0; bottom:0; z-index:71; background:var(--paper,#FFFDF9);
+    border-radius:22px 22px 0 0; box-shadow:0 -20px 60px rgba(27,24,54,.22);
+    transform:translateY(105%); transition:transform .28s cubic-bezier(.32,.72,.24,1);
+    max-height:72vh; display:flex; flex-direction:column; overflow:hidden;
+  }
+  .mob-sheet.open{transform:translateY(0);}
+  .mob-sheet .grab{width:40px; height:4px; border-radius:100px; background:rgba(27,24,54,.18); margin:10px auto 2px; flex-shrink:0;}
+  .mob-sheet .sheet-head{display:flex; align-items:center; justify-content:space-between; padding:8px 18px 12px; flex-shrink:0;}
+  .mob-sheet .sheet-head h4{font-family:'Poppins',sans-serif; font-size:.95rem; font-weight:800; color:var(--ink,#1B1836); margin:0;}
+  .mob-sheet .sheet-head button{background:rgba(27,24,54,.06); border:none; width:30px; height:30px; border-radius:50%; cursor:pointer; color:var(--ink,#1B1836); font-size:.95rem; line-height:1;}
+  .mob-sheet .sheet-body{overflow-y:auto; padding:0 14px calc(18px + env(safe-area-inset-bottom));}
+  .mob-sheet .sh-group{font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.09em; color:rgba(27,24,54,.4); margin:12px 10px 4px;}
+  .mob-sheet .sh-item{
+    display:flex; align-items:center; gap:12px; width:100%; padding:12px 12px; border-radius:14px;
+    background:none; border:none; cursor:pointer; font-family:'Inter',sans-serif; font-weight:700;
+    font-size:.9rem; color:var(--ink,#1B1836); text-align:left; transition:background .12s;
+  }
+  .mob-sheet .sh-item:active{background:rgba(225,26,110,.08);}
+  .mob-sheet .sh-item .ic{font-size:1.05rem; flex-shrink:0; width:22px; text-align:center;}
+  .mob-sheet .sh-item.active{color:var(--magenta-deep,#A80F52); background:rgba(225,26,110,.07);}
 </style>
 
   
@@ -1360,10 +1403,101 @@ function switchView(name){
   }
   document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === "view-" + name));
   document.querySelectorAll(".sb-item[data-view]").forEach(el => el.classList.toggle("active", el.dataset.view === name));
+  mobSyncActive(name);
+  if(window.innerWidth <= 900){ window.scrollTo(0, 0); }
 }
 document.querySelectorAll(".sb-item[data-view]").forEach(el => {
   el.addEventListener("click", () => switchView(el.dataset.view));
 });
+
+/* ── Mobile app shell: bottom tab bar + "More" bottom sheet ── */
+var MOB_PRIMARY = ["projects","events","clubpage","dues","guides","zrr","leadership","barometer","analytics","minutes","finance","guests","district","distevents"];
+var MOB_SHORT = {
+  projects:"Projects", events:"Events", clubpage:"Club Page", dues:"Dues",
+  guides:"Guides", zrr:"ZRR", leadership:"Zonal Team", barometer:"Barometer",
+  analytics:"Analytics", minutes:"Minutes", finance:"Treasury",
+  guests:"Requests", district:"District", distevents:"Dist. Events"
+};
+function mobVisible(){
+  return Array.prototype.slice.call(document.querySelectorAll(".sb-item[data-view]"))
+    .filter(el => getComputedStyle(el).display !== "none");
+}
+function mobBuild(){
+  if(!document.getElementById("mobTabbar")){
+    document.body.insertAdjacentHTML("beforeend",
+      '<nav class="mob-tabbar" id="mobTabbar" aria-label="Dashboard sections"></nav>' +
+      '<div class="mob-sheet-backdrop" id="mobSheetBackdrop"></div>' +
+      '<div class="mob-sheet" id="mobSheet" role="dialog" aria-modal="true" aria-label="All sections">' +
+      '<div class="grab"></div>' +
+      '<div class="sheet-head"><h4>All sections</h4><button type="button" id="mobSheetClose" aria-label="Close sections">✕</button></div>' +
+      '<div class="sheet-body" id="mobSheetBody"></div></div>');
+    document.getElementById("mobSheetBackdrop").addEventListener("click", mobClose);
+    document.getElementById("mobSheetClose").addEventListener("click", mobClose);
+    document.addEventListener("keydown", function(e){
+      if(e.key === "Escape" && mobClose()) {}
+    });
+  }
+  var visible = mobVisible();
+  var primary = [], rest = [];
+  MOB_PRIMARY.forEach(function(v){
+    if(visible.some(function(el){ return el.dataset.view === v; })) primary.push(v);
+  });
+  visible.forEach(function(el){
+    if(primary.indexOf(el.dataset.view) === -1) rest.push(el.dataset.view);
+  });
+  if(primary.length > 4) primary = primary.slice(0, 4);
+  var tabbar = document.getElementById("mobTabbar");
+  tabbar.innerHTML = primary.map(function(v){
+    var el = visible.find(function(x){ return x.dataset.view === v; });
+    var ic = el ? (el.querySelector(".ic") ? el.querySelector(".ic").textContent : "•") : "•";
+    return '<button type="button" class="mob-tab" data-view="' + v + '"><span class="ic">' + ic + '</span><span class="tl">' + (MOB_SHORT[v]||v) + '</span></button>';
+  }).join("");
+  if(rest.length){
+    tabbar.insertAdjacentHTML("beforeend", '<button type="button" class="mob-tab" id="mobMore" data-more="1"><span class="ic">⋯</span><span class="tl">More</span></button>');
+  }
+  mobBuildSheet(visible, rest);
+  mobSyncActive((document.querySelector(".view.active") || {id:"view-projects"}).id.replace("view-",""));
+  var tabs = tabbar.querySelectorAll(".mob-tab[data-view]");
+  Array.prototype.forEach.call(tabs, function(t){
+    t.addEventListener("click", function(){ switchView(t.getAttribute("data-view")); });
+  });
+  var more = document.getElementById("mobMore");
+  if(more) more.addEventListener("click", mobOpen);
+}
+function mobBuildSheet(visible, rest){
+  var body = document.getElementById("mobSheetBody");
+  if(!body) return;
+  var groups = [], cur = null;
+  document.querySelectorAll(".admin-sidebar > *").forEach(function(el){
+    if(el.classList.contains("sb-label")){ cur = { label: el.textContent.trim(), items: [] }; groups.push(cur); }
+    else if(el.classList.contains("sb-item") && rest.indexOf(el.dataset.view) !== -1){
+      if(!cur) cur = { label: "", items: [] }, groups.push(cur);
+      cur.items.push(el.dataset.view);
+    }
+  });
+  body.innerHTML = groups.map(function(g){
+    if(!g.items.length) return "";
+    return '<div class="sh-group">' + g.label + "</div>" + g.items.map(function(v){
+      var el = visible.find(function(x){ return x.dataset.view === v; });
+      var ic = el && el.querySelector(".ic") ? el.querySelector(".ic").textContent : "•";
+      return '<button type="button" class="sh-item" data-view="' + v + '"><span class="ic">' + ic + '</span>' + (v === "clubpage" ? "Club Page (BOD &amp; About)" : (v === "distevents" ? "District Events &amp; Bidding" : (MOB_SHORT[v]||v))) + '</button>';
+    }).join("");
+  }).join("");
+  Array.prototype.forEach.call(body.querySelectorAll(".sh-item"), function(b){
+    b.addEventListener("click", function(){ switchView(b.getAttribute("data-view")); mobClose(); });
+  });
+}
+function mobOpen(){ document.getElementById("mobSheet").classList.add("open"); document.getElementById("mobSheetBackdrop").classList.add("open"); }
+function mobClose(){
+  var sh = document.getElementById("mobSheet");
+  if(!sh || !sh.classList.contains("open")) return false;
+  sh.classList.remove("open"); document.getElementById("mobSheetBackdrop").classList.remove("open");
+  return true;
+}
+function mobSyncActive(v){
+  document.querySelectorAll(".mob-tab").forEach(function(t){ t.classList.toggle("active", t.getAttribute("data-view") === v); });
+}
+function syncMobNav(){ if(window.innerWidth <= 900){ mobBuild(); } }
 
 async function enterDashboard(slug){
   currentClub = slug;
@@ -1372,6 +1506,7 @@ async function enterDashboard(slug){
   document.body.classList.add("has-sidebar");
   document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership"].includes(el.dataset.view) ? "none" : "flex"));
   switchView("projects");
+  syncMobNav();
   document.getElementById("dashClubName").textContent = CLUB_DIRECTORY[slug].name + ", Dashboard";
   const logoEl = document.getElementById("dashClubLogo");
   if(CLUB_DIRECTORY[slug].logo){ logoEl.src = CLUB_DIRECTORY[slug].logo; logoEl.style.display = "block"; }
@@ -2429,6 +2564,7 @@ document.getElementById("zonalLoginBtn").addEventListener("click", () => {
     document.body.classList.add("has-sidebar");
     document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership","guests","district","distevents"].includes(el.dataset.view) ? "flex" : "none"));
     switchView("guides");
+    syncMobNav();
     renderGuideList();
     renderZRRList();
     renderLeaderList();
@@ -2770,6 +2906,7 @@ if(ZONE7_DB.isZonal()){
   document.body.classList.add("has-sidebar");
   document.querySelectorAll(".sb-item[data-view]").forEach(el => el.style.display = (["guides","zrr","leadership","guests","district","distevents"].includes(el.dataset.view) ? "flex" : "none"));
   switchView("guides");
+  syncMobNav();
   renderGuideList();
   renderZRRList();
   renderLeaderList();
