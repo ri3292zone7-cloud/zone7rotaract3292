@@ -4,6 +4,16 @@
    in the Zone 7 knowledge base. Without a key it answers 501, and the widget
    falls back to the built-in knowledge engine — so the bot works either way. */
 export default async function handler(req, res) {
+  if (req.query && req.query.debug !== undefined) {
+    res.json({
+      hasGemini: !!process.env.GEMINI_API_KEY,
+      hasOpenrouter: !!process.env.OPENROUTER_API_KEY,
+      hasDeepseek: !!process.env.DEEPSEEK_API_KEY,
+      hasPollinations: !!process.env.POLLINATIONS_API_KEY,
+      env: process.env.VERCEL_ENV || null
+    });
+    return;
+  }
   if (req.method !== "POST") {
     res.status(405).json({ engine: "local" });
     return;
