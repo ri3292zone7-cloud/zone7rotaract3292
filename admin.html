@@ -439,7 +439,10 @@
     border-top:1px solid rgba(27,24,54,.1); box-shadow:0 -10px 30px rgba(27,24,54,.10);
     padding:6px 8px calc(6px + env(safe-area-inset-bottom)); justify-content:space-around; align-items:center;
   }
-  body.has-sidebar .mob-tabbar{display:flex;}
+  body.has-sidebar .mob-tabbar{display:none;}
+  @media (max-width:900px){
+    body.has-sidebar .mob-tabbar{display:flex;}
+  }
   .mob-tab{
     position:relative; flex:0 0 auto; width:72px; max-width:20%; display:flex; flex-direction:column; align-items:center;
     gap:3px; padding:6px 2px; background:none; border:none; border-radius:14px; cursor:pointer;
@@ -1440,12 +1443,11 @@ function mobBuild(){
   var visible = mobVisible();
   var primary = [], rest = [];
   MOB_PRIMARY.forEach(function(v){
-    if(visible.some(function(el){ return el.dataset.view === v; })) primary.push(v);
+    if(primary.length < 4 && visible.some(function(el){ return el.dataset.view === v; })) primary.push(v);
   });
   visible.forEach(function(el){
     if(primary.indexOf(el.dataset.view) === -1) rest.push(el.dataset.view);
   });
-  if(primary.length > 4) primary = primary.slice(0, 4);
   var tabbar = document.getElementById("mobTabbar");
   tabbar.innerHTML = primary.map(function(v){
     var el = visible.find(function(x){ return x.dataset.view === v; });

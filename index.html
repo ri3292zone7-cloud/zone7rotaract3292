@@ -985,7 +985,7 @@
     Health:"HLTH", International:"INTL", Fellowship:"FLWS", Education:"EDU", Leadership:"LEAD",
     Community:"CMTY", Environment:"ENVR", WASH:"WASH", "Prof. Dev.":"PDEV", "Public Image":"PIMG", Fundraising:"FUND",
     Uncategorized:"UNCT", Balkumari:"BALK", Baneshwor:"BANE", Sankhu:"SANK", "Liberty College":"LIBC", Sukedhara:"SUKD",
-    Tripureswor:"TRIP", "Kathmandu West":"KTMW", "Kathmandu Height":"KTMH", "New Road City":"NRC"
+    Tripureswor:"TRIP", "Kathmandu West":"KTMW", "Kathmandu Height":"KTMH", "New Road City Kathmandu":"NRC"
   };
   const codeFor=(label,mode)=> mode==="az" ? label : (CODES[label] || label.replace(/[^A-Za-z]/g,"").slice(0,4).toUpperCase());
 
@@ -1032,9 +1032,9 @@
     {t:"Literacy Workshop",c:"Education",club:"kathmanduheight",cn:"Kathmandu Height",id:"mock-22"},
     {t:"Installation Ceremony",c:"Fellowship",club:"kathmanduheight",cn:"Kathmandu Height",id:"mock-23"},
     {t:"Sapling Distribution",c:"Environment",club:"kathmanduheight",cn:"Kathmandu Height",id:"mock-24"},
-    {t:"Fundraiser Gala",c:"Fundraising",club:"newroadcity",cn:"New Road City",id:"mock-25"},
-    {t:"Youth Leadership Session",c:"Leadership",club:"newroadcity",cn:"New Road City",id:"mock-26"},
-    {t:"Public Image Campaign",c:"Public Image",club:"newroadcity",cn:"New Road City",id:"mock-27"}
+    {t:"Fundraiser Gala",c:"Fundraising",club:"newroadcity",cn:"New Road City Kathmandu",id:"mock-25"},
+    {t:"Youth Leadership Session",c:"Leadership",club:"newroadcity",cn:"New Road City Kathmandu",id:"mock-26"},
+    {t:"Public Image Campaign",c:"Public Image",club:"newroadcity",cn:"New Road City Kathmandu",id:"mock-27"}
   ];
 
   // Pull every real project every club has uploaded via the Club Admin panel (Supabase-backed,
@@ -1336,7 +1336,7 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
         <a class="club-ig" href="https://www.instagram.com/rotaractcluboflibertycollege/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rotaractcluboflibertycollege</a>
       </div>
       <div class="club-card" onclick="location.href='/newroadcity'">
-        <div class="club-mark"><img src="media/logos/newroadcity.jpg" alt="NR logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of New Road City</h4><p>Makkhan Tol, Kathmandu · Zone 7</p>
+        <div class="club-mark"><img src="media/logos/newroadcity.jpg" alt="NR logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of New Road City Kathmandu</h4><p>Makkhan Tol, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/racnewroadcity1/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racnewroadcity1</a>
       </div>
       <div class="club-card" onclick="location.href='/sankhu'">

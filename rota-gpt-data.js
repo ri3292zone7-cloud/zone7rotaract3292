@@ -22,7 +22,7 @@ window.ROTA_KB = [
   /* ===== ZONE 7 GENERAL ===== */
   {
     k: ["what is zone 7", "zone 7", "which clubs are in zone 7", "clubs list", "all clubs", "how many clubs", "zone seven"],
-    a: "Zone 7 is one of the zones of Rotaract District 3292 (Nepal-Bhutan), bringing together clubs in the Kathmandu Valley. Nine clubs are in Zone 7: Balkumari, Baneshwor, Liberty, Kathmandu West, Kathmandu Heights, Sankhu, New Road City, Sukedhara, and Tripureswor. The current Zonal Rotaract Representative (ZRR) for RY 2026-27 is Rajay Bajracharya from Rotaract Club of Sukedhara.",
+    a: "Zone 7 is one of the zones of Rotaract District 3292 (Nepal-Bhutan), bringing together clubs in the Kathmandu Valley. Nine clubs are in Zone 7: Balkumari, Baneshwor, Liberty, Kathmandu West, Kathmandu Heights, Sankhu, New Road City Kathmandu, Sukedhara, and Tripureswor. The current Zonal Rotaract Representative (ZRR) for RY 2026-27 is Rajay Bajracharya from Rotaract Club of Sukedhara.",
     links: [{ label: "All clubs on the homepage", url: "/#clubs" }, { label: "About Zone 7", url: "/about" }]
   },
   {
@@ -78,9 +78,9 @@ window.ROTA_KB = [
     links: [{ label: "Sankhu club page", url: "/sankhu" }]
   },
   {
-    k: ["new road city", "newroadcity", "rc new road", "nrc"],
+    k: ["new road city", "new road city kathmandu", "newroadcity", "rc new road", "nrc"],
     a: "Rotaract Club of New Road City Kathmandu — sponsored by Rotary Club of New Road City, chartered 1 September 2004. One of the oldest clubs in Zone 7. Instagram: @racnewroadcity1. Visit its club page for its board, projects and details.",
-    links: [{ label: "New Road City club page", url: "/newroadcity" }]
+    links: [{ label: "New Road City Kathmandu club page", url: "/newroadcity" }]
   },
   {
     k: ["sukedhara", "rc sukedhara", "rotaract club of sukedhara"],
