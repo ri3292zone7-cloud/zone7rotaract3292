@@ -332,7 +332,7 @@
   .sh-h1 { font-size: clamp(2.1rem, 9vw, 3rem); }
   .sh-sub { font-size: 0.95rem; }
   .sh-bottom { bottom: 24px; gap: 10px; }
-  .sh-hint { top: 104px; }
+  .sh-hint { display: none; }
   .sh-panels { min-height: 260px; }
 }
 @media (max-width: 560px) {
