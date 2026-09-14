@@ -338,6 +338,13 @@
 @media (max-width: 560px) {
   .sh-frame { width: 100%; height: 62vh; min-height: 400px; }
 }
+/* static product video shown when the device has no WebGL */
+.sh-fallback-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* mouse scroll hint: pin to hero bottom-left on desktop, hide on touch */
+.sh-hero > .hero-scroll-hint { position: absolute; left: 28px; bottom: 26px; z-index: 6; }
+@media (max-width: 920px) {
+  .sh-hero > .hero-scroll-hint { display: none; }
+}
 
 /* scroll perf — paint only what's visible */
 .st-section { content-visibility: auto; contain-intrinsic-size: auto 900px; }

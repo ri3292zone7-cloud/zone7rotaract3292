@@ -7,6 +7,10 @@ import Badge from './models/Badge';
 import Cap from './models/Cap';
 import Bottle from './models/Bottle';
 import StudioEnv from './models/StudioEnv';
+import tshirtVideo from './models/tshirt-video.mp4';
+import pinVideo from './models/pin-video.mp4';
+import capVideo from './models/cap-video.mp4';
+import bottleVideo from './models/bottle-video.mp4';
 import { money } from '../../data/merch-catalog';
 
 /*
@@ -65,6 +69,25 @@ const SCENES = [
 ];
 
 const mod = (n, m) => ((n % m) + m) % m;
+
+// Real product videos per scene — shown instead of the 3D canvas on
+// devices without WebGL (old phones, power saving, blocked GPU), so the
+// frame never renders empty and fiber never throws.
+const SCENE_VIDEO = {
+  tee: tshirtVideo,
+  badge: pinVideo,
+  cap: capVideo,
+  bottle: bottleVideo
+};
+
+function webglAvailable() {
+  try {
+    const c = document.createElement('canvas');
+    return !!(c.getContext('webgl2') || c.getContext('webgl'));
+  } catch (_) {
+    return false;
+  }
+}
 
 function Pedestal() {
   return (
@@ -219,7 +242,13 @@ export default function StoreHero() {
   const hintRef = useRef(null);
   const [index, setIndex] = useState(0);
   const [live, setLive] = useState(false);
+  const [glOK, setGlOK] = useState(true);
   const rot = useRef({ y: 0, vel: 0, dragging: false });
+
+  // probe GPU support once — no WebGL, no canvas (and no async Three.js throw)
+  useEffect(() => {
+    if (!webglAvailable()) setGlOK(false);
+  }, []);
 
   const scene = SCENES[index];
 
@@ -312,14 +341,27 @@ export default function StoreHero() {
         <div className="sh-stage">
           <div className="sh-frame">
             {live ? (
-              <Canvas
-                camera={{ position: [0, 0.5, 5.0], fov: 34 }}
-                dpr={[1, 1.5]}
-                gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-                style={{ width: '100%', height: '100%' }}
-              >
-                <Showcase index={index} rot={rot} onSwipe={go} onInteract={interact} />
-              </Canvas>
+              glOK ? (
+                <Canvas
+                  camera={{ position: [0, 0.5, 5.0], fov: 34 }}
+                  dpr={[1, 1.5]}
+                  gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+                  style={{ width: '100%', height: '100%' }}
+                >
+                  <Showcase index={index} rot={rot} onSwipe={go} onInteract={interact} />
+                </Canvas>
+              ) : (
+                <video
+                  className="sh-fallback-video"
+                  key={scene.id}
+                  src={SCENE_VIDEO[scene.id]}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  aria-label={`${scene.kicker} — product video`}
+                />
+              )
             ) : (
               <div className="sh-boot" aria-hidden="true">
                 <span>Z7</span>

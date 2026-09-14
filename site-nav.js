@@ -429,7 +429,12 @@
     "#z7MoreSheet .sh-item{display:flex;align-items:center;gap:12px;width:100%;padding:12px;border-radius:14px;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:700;font-size:.9rem;color:var(--nav-ink);text-align:left;text-decoration:none;transition:background .12s}",
     "#z7MoreSheet .sh-item:active{background:var(--nav-tint)}",
     "#z7MoreSheet .sh-item .ic{font-size:1.05rem;flex-shrink:0;width:22px;text-align:center}",
-    "@media (prefers-reduced-motion:reduce){#z7MoreSheet{transition:none}}"
+    "#z7MoreSheet .sh-foot{margin:12px 10px 0;padding:14px 0 2px;border-top:1px solid var(--nav-border)}",
+    "@media (prefers-reduced-motion:reduce){#z7MoreSheet{transition:none}}",
+    "#z7TabBar .z7tab.join-tab{color:var(--nav-brand-strong)}",
+    "#z7TabBar .z7tab.join-tab .join-orb{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#E11A6E,#A80F52);display:flex;align-items:center;justify-content:center;margin-top:-26px;border:3px solid var(--nav-surface);box-shadow:0 10px 24px rgba(225,26,110,.42);flex-shrink:0;transition:transform .15s}",
+    "#z7TabBar .z7tab.join-tab:active .join-orb{transform:scale(.94)}",
+    "#z7TabBar .z7tab.join-tab.active::after{display:none}"
   ].join("\n");
 
   var CHEV = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -540,21 +545,9 @@
     '<div class="mobile-menu" id="mobileMenu">' +
     crisisCards +
     item("/about", "About", "about") +
-    '<div class="mm-group">Clubs</div>' +
-    '<a href="/#clubs">All 9 Clubs in Zone 7</a>' +
-    '<div class="mm-group">Learn</div>' +
-'<a href="/tutorials">Learn hub</a>' +
-    '<a href="/rkt-quiz">RotaQuiz</a>' +
-    '<a href="/guides">Resources &amp; Documents</a>' +
-    '<div class="mm-group">Community</div>' +
     item("/gallery", "Gallery", "gallery") +
-    item("/store", "Store", "merch") +
-    '<a href="/join">Join Us</a>' +
-    '<a href="/admin">Club Admin</a>' +
     '<div class="mm-group">Settings</div>' +
-    '<button type="button" class="mm-link" id="mmSearch">Search the whole site<kbd>/</kbd></button>' +
-    '<button type="button" class="mm-link" id="mmTheme" data-z7-theme aria-pressed="false">Night mode<span data-z7-label>Off</span></button>' +
-    '<a class="mm-cta" href="/join">Fill the Form, Become a Rotaractor →</a>' +
+    '<a href="/admin">Club Admin</a>' +
     "</div>" +
     "</nav>";
 
@@ -720,12 +713,16 @@
     var Z7_HOME = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.5V20h5v-5.5h2V20h5V9.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     var Z7_CLUBS = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.9"/><path d="M3.2 19c.6-3.2 2.9-5 5.8-5s5.2 1.8 5.8 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="16.8" cy="9" r="2.6" stroke="currentColor" stroke-width="1.9"/><path d="M16.6 14.2c2.2.3 3.8 1.9 4.2 4.3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
     var Z7_STORE = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5.5 8h13l-1.1 12.5H6.6z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+    var Z7_LEARN = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.9"/><path d="M15.5 8.5l-2.3 4.7-4.7 2.3 2.3-4.7z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>';
     var Z7_MORE = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg>';
+    var Z7_JOIN = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="8" r="3.4" stroke="#fff" stroke-width="2"/><path d="M4 19.5c.7-3.6 3-5.5 6-5.5s5.3 1.9 6 5.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M18.5 7.5v6M15.5 10.5h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
     var z7Active = "";
-    if (current === "clubs") z7Active = "clubs";
+    if (current === "clubs") z7Active = "more";
     else if (current === "merch") z7Active = "store";
-    else if (["tutorials", "resources", "quiz", "guides", "handbook", "gallery", "about", "join", "flood-help"].indexOf(current) !== -1) z7Active = "more";
+    else if (["tutorials", "resources", "quiz", "guides", "handbook"].indexOf(current) !== -1) z7Active = "learn";
+    else if (["gallery", "about", "flood-help"].indexOf(current) !== -1) z7Active = "more";
     else if (current === "" && (z7Path === "" || z7Path === "/" || z7Path === "/index" || z7Path === "/index.html")) z7Active = "home";
+    if (z7Path === "/join") z7Active = "join";
     function z7Tab(href, view, label, icon) {
       return '<a class="z7tab' + (z7Active === view ? " active" : "") + '" href="' + href + '">' + icon + "<span>" + label + "</span></a>";
     }
@@ -734,7 +731,8 @@
     z7Bar.setAttribute("aria-label", "Primary");
     z7Bar.innerHTML =
       z7Tab("/", "home", "Home", Z7_HOME) +
-      z7Tab("/#clubs", "clubs", "Clubs", Z7_CLUBS) +
+      z7Tab("/tutorials", "learn", "Learn", Z7_LEARN) +
+      '<a class="z7tab join-tab' + (z7Active === "join" ? " active" : "") + '" href="/join" aria-label="Join a Rotaract club"><span class="join-orb">' + Z7_JOIN + "</span><span>Join</span></a>" +
       z7Tab("/store", "store", "Store", Z7_STORE) +
       '<button type="button" class="z7tab' + (z7Active === "more" ? " active" : "") + '" id="z7MoreBtn" aria-haspopup="dialog" aria-label="More sections">' + Z7_MORE + "<span>More</span></button>";
     document.body.appendChild(z7Bar);
@@ -749,22 +747,35 @@
     z7Sheet.setAttribute("role", "dialog");
     z7Sheet.setAttribute("aria-modal", "true");
     z7Sheet.setAttribute("aria-label", "More sections");
+    // More-sheet club directory — direct links to every club page,
+    // built from the same CLUB_DIRECTORY as the desktop Clubs dropdown.
+    var z7ClubsHtml = "";
+    try {
+      var z7ClubDir = (typeof CLUB_DIRECTORY !== "undefined" && CLUB_DIRECTORY) ? Object.entries(CLUB_DIRECTORY) : [];
+      z7ClubsHtml = '<div class="sh-group">Clubs</div>' + (z7ClubDir.length ? z7ClubDir.map(function (e) {
+        var slug = e[0], c = e[1];
+        var cname = c && c.name ? c.name.replace("Rotaract Club of ", "") : slug;
+        var clogo = c && c.logo ? c.logo : "";
+        var cicon = clogo
+          ? '<span style="position:relative;display:inline-flex;width:22px;height:22px;align-items:center;justify-content:center;">👥<img src="' + clogo + '" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:6px;background:#fff;" onerror="this.remove()"></span>'
+          : "👥";
+        return z7SheetItem("/" + encodeURIComponent(slug), cicon, cname);
+      }).join("") : z7SheetItem("/#clubs", "👥", "All 9 Clubs"));
+    } catch (err) { z7ClubsHtml = '<div class="sh-group">Clubs</div>' + z7SheetItem("/#clubs", "👥", "All 9 Clubs"); }
     z7Sheet.innerHTML =
       '<div class="grab"></div>' +
       '<div class="sheet-head"><h4>Explore Zone 7</h4><button type="button" id="z7SheetClose" aria-label="Close sections">✕</button></div>' +
       '<div class="sheet-body">' +
-      '<div class="sh-group">Learn</div>' +
-      z7SheetItem("/tutorials", "🧭", "Learn hub") +
-      z7SheetItem("/rkt-quiz", "🧠", "RotaQuiz") +
-      z7SheetItem("/guides", "📄", "Resources &amp; Documents") +
+      z7SheetItem("/about", "ⓘ", "About Us") +
+      z7ClubsHtml +
       '<div class="sh-group">Community</div>' +
       z7SheetItem("/gallery", "🖼️", "Gallery") +
-      z7SheetItem("/join", "🤝", "Join Us") +
-      z7SheetItem("/admin", "🛠️", "Club Admin") +
       '<div class="sh-group">Help</div>' +
       z7SheetItem("/flood-help", "🛟", "Flood Help") +
       z7SheetItem("/volunteers", "🚨", "Volunteer") +
-      "</div>";
+      '<div class="sh-foot">' +
+      z7SheetItem("/admin", "🛠️", "Club Admin") +
+      "</div></div>";
     document.body.appendChild(z7Sheet);
     function z7SheetOpen(o) {
       z7Sheet.classList.toggle("open", o);

@@ -2251,6 +2251,11 @@ let projPage = 0, projPageSize = 25, projSearchTerm = "", projTotal = 0;
 async function renderProjectList(){
   const list = document.getElementById("projList");
   list.innerHTML = `<div aria-hidden="true"><div class="z7skel"></div><div class="z7skel"></div><div class="z7skel"></div></div>`;
+  if(typeof navigator !== "undefined" && navigator.onLine === false){
+    list.innerHTML = `<div class="no-projects">You're offline, reconnect and <a href="#" id="projRetry" style="color:var(--magenta-deep); font-weight:700;">try again</a>.</div>`;
+    document.getElementById("projRetry").addEventListener("click", (e) => { e.preventDefault(); renderProjectList(); });
+    return;
+  }
   const q = projSearchTerm.trim().toLowerCase();
   let projects;
   try {
