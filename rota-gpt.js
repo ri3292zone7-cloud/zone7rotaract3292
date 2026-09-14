@@ -819,48 +819,65 @@
       var bestScore = scored.length ? scored[0].s : 0;
       var confidence = getConfidence(0, bestScore);
 
-      var local = localAnswer(q, scored, confidence);
-      local._query = q;
-      var bubble = addMsg("", "bot");
-      renderAnswer(bubble, local, confidence);
-      input.focus();
+      var typing = addTyping();
+      var delay = 380 + Math.min(q.length * 9, 650) + Math.random()*220;
+      setTimeout(function(){
+        if (turnSeq !== seq) { try{typing.remove();}catch(e){} return; }
+        typing.remove();
+        var local = localAnswer(q, scored, confidence);
+        local._query = q;
+        var bubble = addMsg("", "bot");
+        renderAnswer(bubble, local, confidence);
+        input.focus();
 
-      function upgrade(text) {
-        if (!text) return;
-        if (turnSeq !== seq) return;
-        if (!document.body.contains(bubble)) return;
-        renderAnswer(bubble, { text: text, links: [], src: "RotaGPT AI" }, { level: "high", label: "AI enhanced", color: "#22C55E" });
-      }
+        function upgrade(text) {
+          if (!text) return;
+          if (turnSeq !== seq) return;
+          if (!document.body.contains(bubble)) return;
+          renderAnswer(bubble, { text: text, links: [], src: "RotaGPT AI" }, { level: "high", label: "AI enhanced", color: "#22C55E" });
+        }
 
-      var ctx = topContext(q, pageBoost);
-      var sys = buildSystem(ctx);
-      serverlessAnswer(ctx, history).then(function (up) {
-        if (up) { upgrade(up); return; }
-        directAnswer(sys, history).then(upgrade);
-      });
+        var ctx = topContext(q, pageBoost);
+        var sys = buildSystem(ctx);
+        serverlessAnswer(ctx, history).then(function (up) {
+          if (up) { upgrade(up); return; }
+          directAnswer(sys, history).then(upgrade);
+        });
+      }, delay);
     });
   }
 
   function localAnswer(q, scored, confidence) {
     if (!scored || !scored.length || scored[0].s < 8) {
       return {
-        text: "I couldn't find that in the zone's documents, but I can help with club info, grants, twinship, meetings, projects, the barometer, and tutorials.",
-        links: [{ label: "Learn hub", url: "/tutorials" }, { label: "RotaQuiz", url: "/rkt-quiz" }, { label: "Resources", url: "/guides" }],
+        text: "I don't have a direct entry for that, but I can point you right — try one of these:<br>• <b>Clubs</b> — which 9 clubs are in Zone 7?<br>• <b>Twinship</b> — how to find a partner club<br>• <b>Grants</b> — RDG vs Global Grant rules<br>Ask me like <i>tell me about twinship</i> and I'll pull the exact directory text.",
+        links: [{ label: "Learn hub", url: "/tutorials" }, { label: "All clubs", url: "/#clubs" }, { label: "Resources", url: "/guides" }],
         src: "Site knowledge base"
       };
     }
     var top = scored[0].e;
+    var introPool = [
+      "Here's the Zone 7 take on that — ",
+      "Great question! Based on the 2025-26 directory — ",
+      "Found it in the Zone 7 docs — ",
+      "From the district handbook — "
+    ];
+    var intro = introPool[Math.floor(Math.random()*introPool.length)];
     var extras = [];
-    if (scored.length > 1 && scored[1].s >= scored[0].s * 0.4) {
+    if (scored.length > 1 && scored[1].s >= scored[0].s * 0.35) {
       extras.push("<b>" + esc(scored[1].e.k[0]) + "</b> — " + scored[1].e.a);
     }
-    if (scored.length > 2 && scored[2].s >= scored[0].s * 0.3) {
+    if (scored.length > 2 && scored[2].s >= scored[0].s * 0.28) {
       extras.push("<b>" + esc(scored[2].e.k[0]) + "</b> — " + scored[2].e.a);
     }
-    var fullText = top.a;
+    var confNote = "";
+    if (confidence && confidence.level === "low") confNote = "<br><br><i>I'm not 100% sure this is the closest match — tell me more if you want me to narrow it.</i>";
+    var follow = "<br><br><i>Want me to show you the page or break it into steps?</i>";
+    var fullText = intro + top.a;
     if (extras.length) {
-      fullText += "<br><br><b>Also related:</b><br>" + extras.join("<br>");
+      fullText += "<br><br><b>Also related:</b><br>" + extras.join("<br><br>");
     }
+    fullText += confNote + follow;
     return {
       text: fullText,
       links: top.links || [],
