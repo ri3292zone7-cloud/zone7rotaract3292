@@ -490,11 +490,15 @@ async function loadBrandAssets(){
     const q = (document.getElementById('searchBox').value||'').toLowerCase();
     const filtered = list.filter(b => !q || (b.title + ' ' + b.category).toLowerCase().includes(q));
     document.getElementById('brandGrid').innerHTML = filtered.map((b,i)=> `
-      <div class="guide-card" data-cat="${zone7Esc(b.category)}" data-reveal style="--d:${(i%4)*0.06}s">
-        <div class="guide-top"><div class="guide-ico" style="background:#fff;border:1px solid var(--ink-line);padding:6px;"><img src="${zone7Esc(b.file)}" alt="${zone7Esc(b.title)}" style="width:100%;height:100%;object-fit:contain;"/></div><span class="guide-tag">${zone7Esc(b.category)}</span></div>
-        <h4>${zone7Esc(b.title)}</h4>
-        <p class="desc">Official ${zone7Esc(b.category)} logo asset from RSAMDIO Library.</p>
-        <div class="guide-foot"><span class="meta-chip">${zone7Esc(b.fileName.split('.').pop().toUpperCase())}</span><a class="dl-btn" href="${zone7Esc(b.file)}" download>Download ↓</a></div>
+      <div class="guide-card" data-cat="${zone7Esc(b.category)}" data-reveal style="--d:${(i%4)*0.06}s;padding:0;overflow:hidden;display:flex;flex-direction:column;">
+        <div style="height:180px;background:#fff;display:grid;place-items:center;padding:18px;border-bottom:1px solid var(--ink-line);flex:0 0 70%;">
+          <img src="${zone7Esc(b.file)}" alt="${zone7Esc(b.title)}" style="max-width:100%;max-height:100%;object-fit:contain;"/>
+        </div>
+        <div style="padding:14px 16px 16px;flex:1;display:flex;flex-direction:column;gap:8px;">
+          <span class="guide-tag" style="align-self:flex-start;">${zone7Esc(b.category)}</span>
+          <h4 style="font-size:.95rem;line-height:1.3;">${zone7Esc(b.title)}</h4>
+          <div class="guide-foot" style="margin-top:auto;"><span class="meta-chip">${zone7Esc(b.fileName.split('.').pop().toUpperCase())}</span><a class="dl-btn" href="${zone7Esc(b.file)}" download>Download ↓</a></div>
+        </div>
       </div>
     `).join('') || `<p class="empty">No brand assets match.</p>`;
     observeReveals();
