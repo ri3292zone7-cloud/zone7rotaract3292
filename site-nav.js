@@ -291,7 +291,8 @@
     "#siteNav .nav-actions{justify-self:end}",
     "#siteNav .brand{display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-weight:800;font-size:1.05rem;color:var(--nav-ink);white-space:nowrap}",
     "#siteNav .brand .z{background:#E11A6E;color:#fff;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Poppins',sans-serif}",
-    "#siteNav .navlinks{display:flex;gap:26px;font-weight:600;font-size:.92rem;align-items:center;justify-self:center}",
+    "#siteNav .nav-center{display:flex;align-items:center;gap:18px;justify-self:center}",
+    "#siteNav .navlinks{display:flex;gap:26px;font-weight:600;font-size:.92rem;align-items:center}",
     "#siteNav .navlinks>a{position:relative;padding:4px 0;color:var(--nav-ink);opacity:.75;transition:opacity .2s}",
     "#siteNav .navlinks>a:hover,#siteNav .navlinks>a.current{opacity:1}",
     "#siteNav .navlinks>a.current{color:var(--nav-brand)}",
@@ -473,6 +474,7 @@
     '<nav id="siteNav" aria-label="Main navigation">' +
     '<div class="wrap">' +
     '<a href="/" aria-label="Zone 7 Rotaract home"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>' +
+    '<div class="nav-center">' +
     '<div class="navlinks">' +
     item("/about", "About", "about") +
     '<div class="nav-drop" id="clubsDrop">' +
@@ -486,6 +488,7 @@
     "</div>" +
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
+    "</div>" +
     '<button type="button" id="navSearchBtn" class="nav-search-pill" aria-label="Search the whole site" title="Search the whole site (press /)"><span class="ns-ico">' + S_ICO + '</span><span class="ns-label">Search</span><kbd>/</kbd></button>' +
     "</div>" +
     crisisPills +
