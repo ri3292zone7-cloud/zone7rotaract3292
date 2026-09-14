@@ -263,16 +263,16 @@
     "#siteNav .nav-btn:hover,#siteNav .nav-btn.on{border-color:var(--nav-brand-strong);color:var(--nav-brand-strong);background:var(--nav-tint)}",
     "#siteNav .nav-btn:active{transform:scale(.96)}",
     "#siteNav .nav-theme{width:42px;justify-content:center;padding:0}",
-    "#siteNav .nav-btn.nav-key{height:28px;min-width:30px;padding:0 9px;font-size:.74rem;font-weight:700;border-width:1px;opacity:.75}",
-    "#siteNav .nav-btn.nav-key:hover{opacity:1}",
-    "#siteNav .nav-btn.nav-key kbd{background:transparent;padding:0;font-size:.74rem;line-height:1}",
-    "#siteNav .nav-btn.nav-key:focus-visible{outline:2px solid var(--nav-brand-strong);outline-offset:2px;opacity:1}",
+    "#siteNav .nav-search-pill{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px 0 14px;border:1px solid var(--nav-border);background:var(--nav-surface);color:var(--nav-ink-soft);border-radius:100px;font-family:'Inter',sans-serif;font-size:.84rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:border-color .18s,background .18s,color .18s,transform .15s;flex-shrink:0;margin-left:6px}",
+    "#siteNav .nav-search-pill:hover{border-color:var(--nav-brand-strong);color:var(--nav-ink);background:var(--nav-tint)}",
+    "#siteNav .nav-search-pill:active{transform:scale(.97)}",
+    "#siteNav .nav-search-pill .ns-ico{display:inline-flex;color:var(--nav-ink-dim);flex-shrink:0}",
+    "#siteNav .nav-search-pill kbd{margin-left:2px;background:var(--nav-tint2);color:var(--nav-brand-strong);padding:2px 6px;border-radius:6px;font-size:.68rem;font-weight:700;line-height:1.4;border:1px solid var(--nav-border);border-bottom-width:2px}",
     ".mobile-menu .mm-link{display:flex;align-items:center;justify-content:space-between;width:100%;background:none;border:none;text-align:left;cursor:pointer;padding:10px 0;border-bottom:1px solid var(--nav-border-soft);font:inherit;font-size:1rem;font-weight:600;color:var(--nav-ink)}",
     ".mobile-menu .mm-link kbd{height:auto;background:var(--nav-tint2);color:var(--nav-brand-strong);padding:1px 7px;font-size:.7rem;font-weight:700;border-radius:6px}",
     ".mobile-menu .mm-link span{color:var(--nav-ink-dim);font-weight:700;font-size:.8rem}",
-    "@media (max-width:1100px){#siteNav .nav-search .ns-label{display:none}}",
-    "@media (max-width:920px){#siteNav .nav-actions{gap:6px}#siteNav .nav-btn,#siteNav .nav-rgpt{width:36px;height:36px;padding:0;justify-content:center}#siteNav .nav-theme{width:36px}}",
-    "@media (max-width:920px){#siteNav .nav-actions{display:none}}",
+    "@media (max-width:1100px){#siteNav .nav-search-pill .ns-label{display:none} #siteNav .nav-search-pill{padding:0 11px;gap:6px}}",
+    "@media (max-width:920px){#siteNav .nav-actions{gap:8px}}",
     "@view-transition{navigation:auto}",
     "::view-transition-old(root),::view-transition-new(root){mix-blend-mode:normal}",
     "::view-transition-old(root){animation:z7vo .22s cubic-bezier(.4,0,.6,1) both}",
@@ -286,10 +286,12 @@
     "::view-transition-group(z7nav){animation-duration:0ms!important}",
     "::view-transition-old(z7nav),::view-transition-new(z7nav){mix-blend-mode:normal}",
     "#siteNav a,#siteNav a:hover{text-decoration:none}",
-    "#siteNav .wrap{padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:72px;gap:22px;overflow:visible;max-width:none;margin:0;width:auto}",
+    "#siteNav .wrap{padding:0 28px;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;height:72px;gap:22px;overflow:visible;max-width:none;margin:0;width:auto}",
+    "#siteNav .wrap > a{justify-self:start}",
+    "#siteNav .nav-actions{justify-self:end}",
     "#siteNav .brand{display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-weight:800;font-size:1.05rem;color:var(--nav-ink);white-space:nowrap}",
     "#siteNav .brand .z{background:#E11A6E;color:#fff;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Poppins',sans-serif}",
-    "#siteNav .navlinks{display:flex;gap:26px;font-weight:600;font-size:.92rem;align-items:center}",
+    "#siteNav .navlinks{display:flex;gap:26px;font-weight:600;font-size:.92rem;align-items:center;justify-self:center}",
     "#siteNav .navlinks>a{position:relative;padding:4px 0;color:var(--nav-ink);opacity:.75;transition:opacity .2s}",
     "#siteNav .navlinks>a:hover,#siteNav .navlinks>a.current{opacity:1}",
     "#siteNav .navlinks>a.current{color:var(--nav-brand)}",
@@ -483,12 +485,12 @@
     "</div>" +
     item("/gallery", "Gallery", "gallery") +
     item("/store", "Store", "merch") +
+    '<button type="button" id="navSearchBtn" class="nav-search-pill" aria-label="Search the whole site" title="Search the whole site (press /)"><span class="ns-ico">' + S_ICO + '</span><span class="ns-label">Search</span><kbd>/</kbd></button>' +
     "</div>" +
     crisisPills +
     '<div class="nav-actions">' +
     '<a href="/admin" class="nav-admin">Club Admin</a>' +
     ctaHtml +
-    '<button type="button" id="navSearchBtn" class="nav-btn nav-key" aria-label="Search the whole site" title="Search the whole site (press /)"><kbd>/</kbd></button>' +
     '<button type="button" id="navThemeBtn" class="nav-btn nav-theme" aria-label="Toggle night mode" title="Toggle night mode" data-z7-theme aria-pressed="false">' + M_ICO + "</button>" +
     '<button type="button" id="navRotaGpt" class="nav-rgpt" aria-label="Open RotaGPT chat" title="RotaGPT chat">' + STAR + "</button>" +
     '<button class="burger" id="burgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>' +
