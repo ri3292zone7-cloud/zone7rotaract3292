@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useInRouterContext } from 'react-router-dom';
+import MobileTabBar from './MobileTabBar';
 import './island-nav.css';
 
 const SITE_LINKS = [
@@ -18,7 +19,6 @@ const SITE_LINKS = [
  */
 export default function IslandNav({ current, context, children }) {
   const [scrolled, setScrolled] = useState(false);
-  const [menu, setMenu] = useState(false);
   const inRouter = useInRouterContext();
 
   useEffect(() => {
@@ -29,9 +29,9 @@ export default function IslandNav({ current, context, children }) {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = menu ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [menu]);
+    document.body.classList.add('in-hastabs');
+    return () => { document.body.classList.remove('in-hastabs'); };
+  }, []);
 
   /*
    * The Home and Local Vendors links are always plain <a> tags — '/' and
@@ -42,9 +42,8 @@ export default function IslandNav({ current, context, children }) {
    */
   const isRouterExternal = (href) => href === '/' || href === '/vendors';
   const linkProps = (href) => {
-    const onClick = () => setMenu(false);
-    if (isRouterExternal(href)) return { href, onClick };
-    return inRouter ? { to: href, onClick } : { href, onClick };
+    if (isRouterExternal(href)) return { href };
+    return inRouter ? { to: href } : { href };
   };
 
   const NavLink = ({ href, ...rest }) => {
@@ -83,26 +82,11 @@ export default function IslandNav({ current, context, children }) {
 
           <div className="in-actions">
             {children}
-            <button
-              type="button"
-              className={`in-burger ${menu ? 'open' : ''}`}
-              aria-label="Menu"
-              aria-expanded={menu}
-              onClick={() => setMenu((v) => !v)}
-            >
-              <span></span><span></span><span></span>
-            </button>
           </div>
         </div>
       </header>
 
-      <div className={`in-panel ${menu ? 'open' : ''}`}>
-        {SITE_LINKS.map((l) => (
-          <NavLink key={l.key} className={`in-panel-link ${current === l.key ? 'active' : ''}`} {...linkProps(l.href)}>
-            {l.label}
-          </NavLink>
-        ))}
-      </div>
+      <MobileTabBar current={current} />
     </>
   );
 }

@@ -84,26 +84,6 @@ function HeroAmbient() {
   return on ? <AmbientScene /> : null;
 }
 
-/* ── Marquee ticker ────────────────────────────────────────────── */
-const TICKER = [
-  'Support local', 'Paws Nepal', 'Mannka Creations', 'StudioLumos.np', 'Shree Shankharapur Pustak Pasal',
-  'Pet boarding & day care', 'Fresh flowers', 'Custom stickers', 'Books & stationery',
-  'Kathmandu', 'Community first', 'Every purchase gives back'
-];
-
-function Ticker() {
-  const row = [...TICKER, ...TICKER];
-  return (
-    <div className="vl-ticker" aria-hidden="true">
-      <div className="vl-ticker-track">
-        {row.map((t, i) => (
-          <span className="vl-ticker-item" key={i}><span className="vl-dot">✦</span> {t}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 /* ── Small inline icons ────────────────────────────────────────── */
 function IgIcon() {
   return (
@@ -129,17 +109,17 @@ const REASONS = [
   {
     icon: '🏘️',
     title: 'Keep it local',
-    desc: 'Every rupee spent with a Zone 7 business stays in the Kathmandu Valley — in the hands of your neighbours.'
+    desc: 'Money spent here stays in the Kathmandu Valley — with your neighbours.'
   },
   {
     icon: '🤝',
     title: 'Real relationships',
-    desc: 'You are not a ticket number. You are a regular — and the person behind the counter knows your name.'
+    desc: 'You are a regular, and behind the counter they know your name.'
   },
   {
     icon: '💙',
     title: 'Powered by Rotaract',
-    desc: 'These vendors are partners of the district store. Your purchases help carry forward Zone 7 service projects.'
+    desc: 'Your purchases carry forward Zone 7 service projects.'
   }
 ];
 
@@ -198,9 +178,8 @@ export default function VendorsLandingPage() {
           <span className="vl-eyebrow">Zone 7 · Community first</span>
           <h1 className="vl-title">Support local.<br /><span className="vl-em">Grow together.</span></h1>
           <p className="vl-sub">
-            The Zone 7 store is powered by businesses from right inside our district —
-            pet care, fresh flowers and more. Shop with them, and every purchase comes
-            home to the community.
+            Businesses from inside our district — pet care, flowers and more.
+            Every purchase comes home to the community.
           </p>
           <div className="vl-cta-row">
             <a className="vl-btn vl-btn-gold" href="#vendors">Browse the shops ↓</a>
@@ -224,8 +203,6 @@ export default function VendorsLandingPage() {
         <a className="vl-scroll-cue" href="#spotlight">Meet them <span className="vl-cue-arrow">↓</span></a>
       </header>
 
-      <Ticker />
-
       {/* ── SPOTLIGHT ── */}
       {spotlight ? (
         <section className="vl-spot" id="spotlight">
@@ -236,7 +213,7 @@ export default function VendorsLandingPage() {
                 <span className="vl-spot-emoji" aria-hidden="true">{spotlight.emoji}</span>
               </div>
               <div className="vl-spot-body">
-                <span className="vl-spot-kicker">✨ Shop spotlight — shuffled every visit</span>
+                <span className="vl-spot-kicker">✨ Shop spotlight</span>
                 <h2>{spotlight.name}</h2>
                 <span className="vl-chip" style={{ '--acc': ACCENTS[spotlight.id] }}>{spotlight.category}</span>
                 <p className="vl-spot-tag">{spotlight.tagline}</p>
@@ -324,7 +301,7 @@ export default function VendorsLandingPage() {
                   </div>
                   <div className="vl-card-body">
                     <h3>No shops found</h3>
-                    <p className="vl-card-desc">Nothing matches that search. Try a different word, or clear the filters.</p>
+                    <p className="vl-card-desc">No shops found. Try a different word, or clear the filters.</p>
                     <div className="vl-card-meta">
                       <span className="vl-more" onClick={(e) => { e.preventDefault(); setQuery(''); setChip('All'); }}>Clear filters →</span>
                     </div>
@@ -341,7 +318,7 @@ export default function VendorsLandingPage() {
                   </div>
                   <div className="vl-card-body">
                     <h3>Your business here</h3>
-                    <p className="vl-card-desc">Run a shop, studio or service in Zone 7? Partner with the store and get your own page.</p>
+                    <p className="vl-card-desc">Run a shop, studio or service in Zone 7? Partner with the store.</p>
                     <div className="vl-card-meta">
                       <span className="vl-pin">Zone 7 · Kathmandu Valley</span>
                       <span className="vl-more">Coming soon</span>
@@ -360,7 +337,7 @@ export default function VendorsLandingPage() {
           <Reveal className="vl-center-head">
             <span className="vl-kicker">Why it matters</span>
             <h2>Small shops, big neighbourhood.</h2>
-            <p>Buying local is the easiest way to make your money mean something.</p>
+            <p>Buying local makes your money mean something.</p>
           </Reveal>
           <div className="vl-why-grid">
             {REASONS.map((r, i) => (
@@ -381,7 +358,7 @@ export default function VendorsLandingPage() {
         <Reveal className="vl-partner-inner">
           <span className="vl-partner-mark" aria-hidden="true">✦</span>
           <h2>Run a shop, studio or service in Zone 7?</h2>
-          <p>Partner with the store and get your own page — story, photos, video and a direct line to the community.</p>
+          <p>Partner with the store and get your own page.</p>
           <a className="vl-btn vl-btn-gold" href="/store">Say hello via the store →</a>
         </Reveal>
       </section>

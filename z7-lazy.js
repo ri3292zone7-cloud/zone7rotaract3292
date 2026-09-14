@@ -124,3 +124,37 @@
   if ("requestIdleCallback" in window) window.requestIdleCallback(idleLoad, { timeout: 4000 });
   else setTimeout(idleLoad, 4000);
 })();
+
+/* Mobile-only next-page prefetch: warms the cache for the static shell (nav renders
+   in first paint), so the full page load that follows feels instant. Desktop keeps
+   its original full-load behaviour. */
+(function () {
+  "use strict";
+  if (!window.matchMedia || !matchMedia("(max-width:920px)").matches) return;
+  var warmed = {};
+  function warm(href) {
+    var url = href.split("#")[0].split("?")[0];
+    if (!url || url.charAt(0) !== "/" || warmed[url]) return;
+    warmed[url] = 1;
+    try {
+      var check = ["/index", "/index.html"];
+      if (check.indexOf(url) !== -1) url = "/";
+      var l = document.createElement("link");
+      l.rel = "prefetch";
+      l.href = url;
+      document.head.appendChild(l);
+    } catch (e) {}
+  }
+  function onHoverOrTap(e) {
+    var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+    if (!a || a.target === "_blank" || a.download) return;
+    warm(a.getAttribute("href") || "");
+  }
+  document.addEventListener("pointerover", onHoverOrTap, true);
+  document.addEventListener("touchstart", onHoverOrTap, true);
+  document.addEventListener("pointerdown", function (e) {
+    var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+    if (!a || a.target === "_blank" || a.download) return;
+    warm(a.getAttribute("href") || "");
+  }, true);
+})();

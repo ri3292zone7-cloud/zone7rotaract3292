@@ -128,7 +128,7 @@
   // === Crisis Mode ===
   // When a district/zone emergency is active, set active:true and redeploy.
   // This restores the top alert banner, mobile bottom quick-action bar,
-  // desktop nav pills, and mobile-menu crisis cards on every page
+  // desktop nav pills on every page
   // (except the flood/volunteer pages themselves to avoid self-linking).
   // Peace time: active:false → nothing renders anywhere.
   var ZONE7_CRISIS = {
@@ -280,11 +280,8 @@
     "#siteNav .nav-search-pill:active{transform:scale(.97)}",
     "#siteNav .nav-search-pill .ns-ico{display:inline-flex;color:var(--nav-ink-dim);flex-shrink:0}",
     "#siteNav .nav-search-pill kbd{margin-left:2px;background:var(--nav-tint2);color:var(--nav-brand-strong);padding:2px 6px;border-radius:6px;font-size:.68rem;font-weight:700;line-height:1.4;border:1px solid var(--nav-border);border-bottom-width:2px}",
-    ".mobile-menu .mm-link{display:flex;align-items:center;justify-content:space-between;width:100%;background:none;border:none;text-align:left;cursor:pointer;padding:10px 0;border-bottom:1px solid var(--nav-border-soft);font:inherit;font-size:1rem;font-weight:600;color:var(--nav-ink)}",
-    ".mobile-menu .mm-link kbd{height:auto;background:var(--nav-tint2);color:var(--nav-brand-strong);padding:1px 7px;font-size:.7rem;font-weight:700;border-radius:6px}",
-    ".mobile-menu .mm-link span{color:var(--nav-ink-dim);font-weight:700;font-size:.8rem}",
     "@media (max-width:1100px){#siteNav .nav-search-pill .ns-label{display:none} #siteNav .nav-search-pill{padding:0 11px;gap:6px}}",
-    "@media (max-width:920px){#siteNav .nav-actions{gap:8px} #siteNav .nav-rgpt{display:none !important} #siteNav .nav-theme,#siteNav .burger{width:44px !important;height:44px !important} #siteNav .mobile-menu{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}}",
+    "@media (max-width:920px){#siteNav .nav-actions{gap:8px} #siteNav .nav-rgpt{display:none !important} #siteNav .nav-theme{width:44px !important;height:44px !important}}",
     "@view-transition{navigation:auto}",
     "::view-transition-old(root),::view-transition-new(root){mix-blend-mode:normal}",
     "::view-transition-old(root){animation:z7vo .22s cubic-bezier(.4,0,.6,1) both}",
@@ -350,7 +347,6 @@
     "#lbSpot .lb-empty{padding:20px 14px;font-size:.86rem;color:var(--nav-ink-dim);text-align:center}",
     "@media (max-width:600px){#siteNav .lb-search .lb-open{width:40px;padding:0;justify-content:center}#siteNav .lb-search .lb-ph,#siteNav .lb-search .lb-kbd{display:none}}",
     "@media (prefers-reduced-motion:reduce){#lspotlight,#lbSpot,#lbSpot.hide{transition:none}}",
-    "html.has-subnav #siteNav .mobile-menu{top:120px;max-height:calc(100vh - 120px);max-height:calc(100dvh - 120px)}",
     "#siteNav .nav-drop{position:relative}",
     "#siteNav .nav-drop-trigger{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:.92rem;color:var(--nav-ink);opacity:.75;padding:4px 0;transition:opacity .2s}",
     "#siteNav .nav-drop-trigger svg{transition:transform .2s}",
@@ -385,21 +381,18 @@
     "#siteNav .nav-rgpt{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--nav-border);background:var(--nav-surface);color:var(--nav-ink);cursor:pointer;transition:border-color .2s,color .2s,background .2s,transform .2s;flex-shrink:0}",
     "#siteNav .nav-rgpt:hover{border-color:var(--nav-brand-strong);color:var(--nav-brand-strong);background:var(--nav-tint)}",
     "#siteNav .nav-rgpt:active{transform:scale(.94)}",
-    "#siteNav .burger{display:none;background:none;border:none;cursor:pointer;padding:6px}",
-    "#siteNav .burger span{display:block;width:22px;height:2px;background:#1B1836;margin:5px 0;border-radius:2px}",
     "#siteNav .nav-emergency{display:flex;gap:8px;align-items:center;flex-shrink:0}",
     "#siteNav .nav-emergency a{padding:7px 12px;border-radius:100px;font-weight:800;font-size:.78rem;display:inline-flex;gap:6px;align-items:center;white-space:nowrap;text-decoration:none;line-height:1}",
-    "#siteNav .mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:var(--nav-surface);border-bottom:1px solid var(--nav-border);z-index:99;padding:14px 28px 26px;flex-direction:column;max-height:calc(100vh - 72px);max-height:calc(100dvh - 72px);overflow-y:auto}",
-    "#siteNav .mobile-menu.open{display:flex}",
-    "#siteNav .mobile-menu a{font-weight:600;font-size:1rem;color:var(--nav-ink);padding:10px 0;border-bottom:1px solid var(--nav-border-soft)}",
-    "#siteNav .mobile-menu a:last-child{border-bottom:none}",
-    "#siteNav .mobile-menu .mm-group{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--nav-ink-dim);margin:14px 0 2px}",
-    "#siteNav .mobile-menu a.mm-cta{background:#1B1836;color:#fff;border-radius:100px;text-align:center;padding:13px;border:none;margin-top:14px}",
-    "@media (max-width:920px){#siteNav .navlinks,#siteNav .nav-admin,#siteNav .nav-cta,#siteNav .back,#siteNav .nav-emergency{display:none}#siteNav .burger{display:block} #siteNav .wrap{gap:10px; padding:0 14px} #siteNav .brand{font-size:.95rem} #siteNav .brand .z{width:30px;height:30px;font-size:.95rem}}",
+    "@media (max-width:920px){#siteNav .navlinks,#siteNav .nav-admin,#siteNav .nav-cta,#siteNav .back,#siteNav .nav-emergency{display:none} #siteNav .wrap{gap:10px; padding:0 14px} #siteNav .brand{font-size:.95rem} #siteNav .brand .z{width:30px;height:30px;font-size:.95rem}}",
     "@media (max-width:380px){#siteNav .nav-emergency{gap:5px} #siteNav .nav-emergency a{padding:5px 8px;font-size:.68rem} #siteNav .nav-emergency a .hide-sm{display:none}}",
     "#backTop{position:fixed;left:22px;bottom:26px;z-index:94;width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;background:#1B1836;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s,background .2s;box-shadow:0 12px 28px rgba(27,24,54,.3)}",
     "#backTop.show{opacity:1;pointer-events:auto;transform:translateY(0)}",
     "#backTop:hover{background:#A80F52}",
+    "#siteNav .learn-strip{display:none;align-items:center;gap:10px;border-top:1px solid var(--nav-border-soft);background:var(--nav-bg);padding:6px 14px}",
+    "@media (max-width:920px){html.learn-hub #siteNav .learn-strip,html.learn-quiz #siteNav .learn-strip{display:flex}}",
+    "#siteNav .learn-strip-btn{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 14px;border-radius:9px;border:1px solid var(--nav-border);background:var(--nav-surface);color:var(--nav-ink);font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap}",
+    "#siteNav .learn-strip-btn:hover{background:rgba(127,127,127,.08)}",
+    "#siteNav .learn-strip-label{font-size:.74rem;font-weight:600;color:var(--nav-ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}",
     "#zone7BottomBar{position:fixed;bottom:0;left:0;right:0;z-index:102;background:var(--nav-surface);border-top:1px solid var(--nav-border);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;gap:8px;align-items:center;box-shadow:0 -8px 24px rgba(27,24,54,.08)}",
     "#zone7BottomBar a{transition:transform .2s,background .2s,box-shadow .2s}",
     "#zone7BottomBar a:active{transform:scale(0.96)}",
@@ -411,11 +404,18 @@
     "#z7TabBar{position:fixed;left:0;right:0;bottom:0;z-index:101;display:none;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--nav-border);padding:6px 8px calc(6px + env(safe-area-inset-bottom));justify-content:space-around;align-items:stretch;box-shadow:0 -10px 30px rgba(27,24,54,.10)}",
     "@media (max-width:920px){body.z7-hastabs #z7TabBar{display:flex}}",
     "@media (min-width:921px){#z7TabBar,#z7MoreVeil,#z7MoreSheet{display:none !important}}",
-    ".z7tab{position:relative;flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;color:var(--nav-ink-soft);font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;padding:6px 2px;border-radius:14px;text-decoration:none;transition:color .15s,transform .1s}",
+    ".z7tab{position:relative;flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;color:var(--nav-ink-soft);font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;padding:6px 2px;border-radius:14px;text-decoration:none;outline:none;transition:color .25s,transform .15s}",
     ".z7tab:active{transform:scale(.94)}",
-    ".z7tab svg{width:22px;height:22px}",
+    ".z7tab svg{width:22px;height:22px;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}",
     ".z7tab.active{color:var(--nav-brand-strong)}",
-    ".z7tab.active::after{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:20px;height:3px;border-radius:100px;background:var(--nav-brand-strong)}",
+    ".z7tab.active svg{transform:translateY(-1px) scale(1.1)}",
+    ".z7tab:focus-visible{box-shadow:0 0 0 2px var(--nav-bg),0 0 0 4px var(--nav-brand-strong)}",
+    ".z7tab.active::after{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:20px;height:3px;border-radius:100px;background:var(--nav-brand-strong);animation:z7tabPop .32s cubic-bezier(.34,1.56,.64,1)}",
+    "@keyframes z7tabPop{from{transform:translateX(-50%) scaleX(.2);opacity:0}to{transform:translateX(-50%) scaleX(1);opacity:1}}",
+    "#z7TabBar,#z7MoreSheet{-webkit-tap-highlight-color:transparent}",
+    "#z7MoreSheet .sh-item{outline:none}",
+    "#z7MoreSheet .sh-item:focus-visible{box-shadow:inset 0 0 0 2px var(--nav-brand-strong)}",
+    "@media (prefers-reduced-motion:reduce){.z7tab.active::after{animation:none}.z7tab svg{transition:none}}",
     "#z7MoreVeil{position:fixed;inset:0;z-index:104;background:rgba(27,24,54,.32);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}",
     "#z7MoreVeil.open{opacity:1;visibility:visible}",
     "#z7MoreSheet{position:fixed;left:0;right:0;bottom:0;z-index:105;background:var(--nav-surface);border-radius:22px 22px 0 0;box-shadow:0 -20px 60px rgba(27,24,54,.22);transform:translateY(105%);transition:transform .28s cubic-bezier(.32,.72,.24,1);max-height:72vh;max-height:72dvh;display:flex;flex-direction:column;overflow:hidden}",
@@ -434,7 +434,12 @@
     "#z7TabBar .z7tab.join-tab{color:var(--nav-brand-strong)}",
     "#z7TabBar .z7tab.join-tab .join-orb{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#E11A6E,#A80F52);display:flex;align-items:center;justify-content:center;margin-top:-26px;border:3px solid var(--nav-surface);box-shadow:0 10px 24px rgba(225,26,110,.42);flex-shrink:0;transition:transform .15s}",
     "#z7TabBar .z7tab.join-tab:active .join-orb{transform:scale(.94)}",
-    "#z7TabBar .z7tab.join-tab.active::after{display:none}"
+    "#z7TabBar .z7tab.join-tab.active::after{display:none}",
+    "@media (max-width:920px){#siteNav .learn-subnav-inner{grid-template-columns:minmax(0,1fr);padding:8px 14px 10px}#siteNav .learn-tabs{grid-column:1;grid-row:1;min-width:0;-webkit-mask-image:none;mask-image:none}#siteNav .learn-chapters{display:none!important}#siteNav .lb-search{display:none}#siteNav .learn-subnav a{font-size:.8rem;padding:9px 12px;flex-shrink:0}#siteNav .learn-tabs{scroll-snap-type:x proximity}#siteNav .learn-subnav a{scroll-snap-align:start}}",
+    "@media (max-width:380px){#siteNav .learn-subnav-inner{padding:8px 10px}#siteNav .learn-subnav a{font-size:.75rem;padding:8px 10px}}",
+    "@media (max-width:920px){#siteNav .nav-search-pill{height:40px;padding:0 15px 0 16px;gap:8px;font-size:.86rem}#siteNav .nav-search-pill .ns-label{display:inline}#siteNav .nav-search-pill kbd{display:none}}",
+    "@media (max-width:920px){#siteNav .bt-r{display:none}}",
+    "@media (max-width:380px){#siteNav .bt-z7{display:none}#siteNav .brand{gap:0}}"
   ].join("\n");
 
   var CHEV = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -455,9 +460,9 @@
   }
 
   var learnItems =
-    learnItem("/tutorials", "🧭", "Learn hub", "Tutorials, the district handbook and the officer playbook all in one place", "tutorials") +
+    learnItem("/guides", "📄", "Resources", "Official documents, constitutions and downloadable forms", "resources") +
     learnItem("/rkt-quiz", "🧠", "RotaQuiz", "Test your Rotaract knowledge in 2 minutes", "quiz") +
-    learnItem("/guides", "📄", "Resources", "Official documents, constitutions and downloadable forms", "resources");
+    learnItem("/tutorials", "🧭", "Learn hub", "Tutorials, the district handbook and the officer playbook all in one place", "tutorials");
 
   var learnKeys = ["tutorials", "resources", "quiz"];
   var isSearchPage = location.pathname.replace(/\/+$/, "") === "/search";
@@ -471,9 +476,9 @@
     subnavHtml =
       '<div class="learn-subnav show"><div class="learn-subnav-inner">' +
       '<div class="learn-tabs">' +
-      item("/tutorials", "Learn hub", "tutorials") +
-      item("/rkt-quiz", "RotaQuiz", "quiz") +
       item("/guides", "Resources", "resources") +
+      item("/rkt-quiz", "RotaQuiz", "quiz") +
+      item("/tutorials", "Learn hub", "tutorials") +
       "</div>" +
       '<div class="lb-search" id="learnSearch">' +
       '<button type="button" class="lb-open" aria-expanded="false" aria-haspopup="dialog" aria-label="Search the Learn section">' +
@@ -487,7 +492,6 @@
   // (and not on the crisis pages themselves).
   var inCrisis = crisisActive() && !crisisExcluded();
   var crisisPills = "";
-  var crisisCards = "";
   if (inCrisis) {
     var helpPillCount = ZONE7_CRISIS.helpCount
       ? '<span style="background:#FF8C1A; color:#fff; padding:2px 6px; border-radius:100px; font-size:.62rem; margin-left:2px;">' + ZONE7_CRISIS.helpCount + "</span>"
@@ -497,9 +501,6 @@
       + '<a href="' + ZONE7_CRISIS.volunteerUrl + '" style="background:linear-gradient(120deg,#DC2626,#E11A6E); color:#fff; box-shadow:0 6px 14px rgba(220,38,38,.18);"><span>🚨</span><span class="hide-sm"> Volunteers</span><span style="background:rgba(255,255,255,.22); color:#fff; padding:2px 6px; border-radius:100px; font-size:.62rem; margin-left:2px;">NEW</span></a>'
       + '<a href="' + ZONE7_CRISIS.helpUrl + '" style="background:#FFF8EF; color:#9a4a00; border:1.5px solid rgba(255,140,26,.22);"><span>🛟</span><span class="hide-sm"> Flood</span>' + helpPillCount + "</a>"
       + "</div>";
-    crisisCards =
-      '<a href="' + ZONE7_CRISIS.helpUrl + '" style="background:linear-gradient(135deg,#FF8C1A,#E11A6E); color:#fff; border:none; border-radius:14px; padding:14px 16px; font-weight:800; font-size:1.0rem; display:flex; justify-content:space-between; align-items:center; box-shadow:0 8px 20px rgba(225,26,110,0.18); margin-bottom:10px;"><span>' + ZONE7_CRISIS.mobileHelpTitle + "</span>" + (ZONE7_CRISIS.helpCount ? '<span style="background:#fff; color:#E11A6E; padding:4px 10px; border-radius:100px; font-size:0.74rem; font-weight:900;">' + ZONE7_CRISIS.helpCount + "</span>" : "") + "</a>"
-      + '<a href="' + ZONE7_CRISIS.volunteerUrl + '" style="background:#E11A6E; color:#fff; border:none; border-radius:14px; padding:12px 16px; font-weight:700; font-size:0.95rem; display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;"><span>' + ZONE7_CRISIS.mobileVolTitle + '</span><span style="background:#fff; color:#E11A6E; padding:3px 8px; border-radius:100px; font-size:0.70rem; font-weight:700;">Join</span></a>';
   }
 
   var ctaHtml = "";
@@ -514,7 +515,7 @@
   var html =
     '<nav id="siteNav" aria-label="Main navigation">' +
     '<div class="wrap">' +
-    '<a href="/" aria-label="Zone 7 Rotaract home"><div class="brand"><span class="z">7</span> Zone 7 Rotaract</div></a>' +
+    '<a href="/" aria-label="Zone 7 Rotaract home"><div class="brand"><span class="z">7</span> <span class="bt-z7">Zone 7</span> <span class="bt-r">Rotaract</span></div></a>' +
     '<div class="nav-center">' +
     '<div class="navlinks">' +
     item("/about", "About", "about") +
@@ -538,17 +539,9 @@
     ctaHtml +
     '<button type="button" id="navThemeBtn" class="nav-btn nav-theme" aria-label="Toggle night mode" title="Toggle night mode" data-z7-theme aria-pressed="false">' + M_ICO + "</button>" +
     '<button type="button" id="navRotaGpt" class="nav-rgpt" aria-label="Open RotaGPT chat" title="RotaGPT chat">' + STAR + "</button>" +
-    '<button class="burger" id="burgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>' +
     "</div>" +
     "</div>" +
     subnavHtml +
-    '<div class="mobile-menu" id="mobileMenu">' +
-    crisisCards +
-    item("/about", "About", "about") +
-    item("/gallery", "Gallery", "gallery") +
-    '<div class="mm-group">Settings</div>' +
-    '<a href="/admin">Club Admin</a>' +
-    "</div>" +
     "</nav>";
 
   var style = document.createElement("style");
@@ -594,18 +587,6 @@
     }
   });
 
-  var burger = nav.querySelector("#burgerBtn");
-  var menu = nav.querySelector("#mobileMenu");
-  if (burger && menu) {
-    burger.addEventListener("click", function () {
-      var open = menu.classList.toggle("open");
-      burger.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-    menu.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", function () { menu.classList.remove("open"); burger.setAttribute("aria-expanded", "false"); });
-    });
-  }
-
   var chaptersBtn = nav.querySelector("#learnChaptersBtn");
   if (chaptersBtn) {
     chaptersBtn.addEventListener("click", function () {
@@ -621,10 +602,6 @@
       openDrop.classList.remove("open");
       var trig = openDrop.querySelector(".nav-drop-trigger");
       if (trig) { trig.setAttribute("aria-expanded", "false"); trig.focus(); }
-    }
-    if (menu && menu.classList.contains("open")) {
-      menu.classList.remove("open");
-      if (burger) burger.setAttribute("aria-expanded", "false");
     }
   });
 
@@ -664,16 +641,7 @@
   }
   var navSearch = nav.querySelector("#navSearchBtn");
   if (navSearch) navSearch.addEventListener("click", openSiteSearch);
-  var mmSearch = nav.querySelector("#mmSearch");
-  if (mmSearch) {
-    mmSearch.addEventListener("click", function () {
-      if (menu) menu.classList.remove("open");
-      if (burger) burger.setAttribute("aria-expanded", "false");
-      openSiteSearch();
-    });
-  }
   var navTheme = nav.querySelector("#navThemeBtn");
-  var mmTheme = nav.querySelector("#mmTheme");
   function bindThemeBtn(btn) {
     if (!btn) return;
     btn.addEventListener("click", function () {
@@ -684,7 +652,6 @@
     btn.classList.toggle("on", z7IsDark());
   }
   bindThemeBtn(navTheme);
-  bindThemeBtn(mmTheme);
 
   /* ---- Mobile app tab bar + More bottom sheet ----
      Permanent bottom navigation on phones (all pages except the
@@ -714,7 +681,7 @@
     var Z7_CLUBS = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.9"/><path d="M3.2 19c.6-3.2 2.9-5 5.8-5s5.2 1.8 5.8 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="16.8" cy="9" r="2.6" stroke="currentColor" stroke-width="1.9"/><path d="M16.6 14.2c2.2.3 3.8 1.9 4.2 4.3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
     var Z7_STORE = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5.5 8h13l-1.1 12.5H6.6z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
     var Z7_LEARN = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.9"/><path d="M15.5 8.5l-2.3 4.7-4.7 2.3 2.3-4.7z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>';
-    var Z7_MORE = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg>';
+    var Z7_EXPLORE = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.9"/><path d="M15.5 9l-1.9 4.8-4.9 1.9 1.9-4.8z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>';
     var Z7_JOIN = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="8" r="3.4" stroke="#fff" stroke-width="2"/><path d="M4 19.5c.7-3.6 3-5.5 6-5.5s5.3 1.9 6 5.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M18.5 7.5v6M15.5 10.5h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
     var z7Active = "";
     if (current === "clubs") z7Active = "more";
@@ -731,10 +698,10 @@
     z7Bar.setAttribute("aria-label", "Primary");
     z7Bar.innerHTML =
       z7Tab("/", "home", "Home", Z7_HOME) +
-      z7Tab("/tutorials", "learn", "Learn", Z7_LEARN) +
+      z7Tab("/guides", "learn", "Learn", Z7_LEARN) +
       '<a class="z7tab join-tab' + (z7Active === "join" ? " active" : "") + '" href="/join" aria-label="Join a Rotaract club"><span class="join-orb">' + Z7_JOIN + "</span><span>Join</span></a>" +
       z7Tab("/store", "store", "Store", Z7_STORE) +
-      '<button type="button" class="z7tab' + (z7Active === "more" ? " active" : "") + '" id="z7MoreBtn" aria-haspopup="dialog" aria-label="More sections">' + Z7_MORE + "<span>More</span></button>";
+      '<button type="button" class="z7tab' + (z7Active === "more" ? " active" : "") + '" id="z7MoreBtn" aria-haspopup="dialog" aria-label="Explore Zone 7 sections">' + Z7_EXPLORE + "<span>Explore</span></button>";
     document.body.appendChild(z7Bar);
     var z7Veil = document.createElement("div");
     z7Veil.id = "z7MoreVeil";
@@ -746,7 +713,7 @@
     z7Sheet.id = "z7MoreSheet";
     z7Sheet.setAttribute("role", "dialog");
     z7Sheet.setAttribute("aria-modal", "true");
-    z7Sheet.setAttribute("aria-label", "More sections");
+    z7Sheet.setAttribute("aria-label", "Explore Zone 7");
     // More-sheet club directory — direct links to every club page,
     // built from the same CLUB_DIRECTORY as the desktop Clubs dropdown.
     var z7ClubsHtml = "";
@@ -766,13 +733,14 @@
       '<div class="grab"></div>' +
       '<div class="sheet-head"><h4>Explore Zone 7</h4><button type="button" id="z7SheetClose" aria-label="Close sections">✕</button></div>' +
       '<div class="sheet-body">' +
-      z7SheetItem("/about", "ⓘ", "About Us") +
-      z7ClubsHtml +
-      '<div class="sh-group">Community</div>' +
+      '<div class="sh-group">Zone</div>' +
+      z7SheetItem("/about", "ℹ️", "About Us") +
       z7SheetItem("/gallery", "🖼️", "Gallery") +
-      '<div class="sh-group">Help</div>' +
+      z7ClubsHtml +
+      '<div class="sh-group">Service</div>' +
       z7SheetItem("/flood-help", "🛟", "Flood Help") +
       z7SheetItem("/volunteers", "🚨", "Volunteer") +
+      '<div class="sh-group">Account</div>' +
       '<div class="sh-foot">' +
       z7SheetItem("/admin", "🛠️", "Club Admin") +
       "</div></div>";
@@ -786,7 +754,16 @@
     z7Veil.addEventListener("click", function () { z7SheetOpen(false); });
     var z7CloseBtn = document.getElementById("z7SheetClose");
     if (z7CloseBtn) z7CloseBtn.addEventListener("click", function () { z7SheetOpen(false); });
-    document.addEventListener("keydown", function (e) {
+if (document.documentElement.classList.contains("learn-hub") || document.documentElement.classList.contains("learn-quiz")) {
+    var stripLabel = current === "quiz" ? "RotaQuiz · Study menu" : "Learn hub · 22 chapters";
+    var strip = document.createElement("div");
+    strip.className = "learn-strip";
+    strip.innerHTML = '<button type="button" id="learnStripBtn" class="learn-strip-btn" aria-label="' + chaptersLabel + '">&#9776; ' + (current === "quiz" ? "Menu" : "Chapters") + '</button><span class="learn-strip-label">' + stripLabel + "</span>";
+    strip.addEventListener("click", function (e) { if (e.target.closest && e.target.closest("#learnStripBtn")) { var open = window.openSidebar; if (open) open(); } });
+    nav.appendChild(strip);
+  }
+
+  document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") z7SheetOpen(false);
     });
     z7Bar.querySelectorAll(".z7tab").forEach(function (t) {

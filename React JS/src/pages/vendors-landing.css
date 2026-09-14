@@ -179,13 +179,6 @@
 .vl-cue-arrow { display: inline-block; margin-left: 4px; animation: vlBob 1.6s ease-in-out infinite; }
 @keyframes vlBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
 
-/* ── ticker ── */
-.vl-ticker { background: var(--ink-deep); color: #fff; overflow: hidden; padding: 15px 0; border-top: 1px solid rgba(255, 255, 255, 0.06); }
-.vl-ticker-track { display: flex; width: max-content; animation: vlScroll 34s linear infinite; }
-@keyframes vlScroll { to { transform: translateX(-50%); } }
-.vl-ticker-item { display: inline-flex; align-items: center; gap: 10px; font-size: 0.86rem; font-weight: 600; letter-spacing: 0.04em; padding: 0 26px; white-space: nowrap; color: rgba(255, 255, 255, 0.9); }
-.vl-dot { color: var(--gold); }
-
 /* ── shop spotlight ── */
 .vl-spot { padding: 84px 0 0; }
 .vl-spot-card {
@@ -482,8 +475,9 @@
   .vl-toolbar { position: static; }
 }
 @media (max-width: 640px) {
-  .vl-jump-row { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 6px; -webkit-overflow-scrolling: touch; }
-  .vl-jump { flex: 0 0 auto; }
+  /* jump chips: static 2×2 grid, no side-scrolling strip */
+  .vl-jump-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; justify-content: initial; }
+  .vl-jump { flex: initial; justify-content: center; }
   .vl-toolbar-top { flex-direction: column; align-items: stretch; }
   .vl-shuffle { justify-content: center; }
   .vl-count { margin-left: 0; }
