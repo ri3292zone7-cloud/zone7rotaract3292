@@ -261,9 +261,11 @@ footer a{color:var(--brand-deep);font-weight:700}
     </div>
   </noscript>
 
-  <div class="section-label" id="brandLabel" style="margin-top:48px;">Brand Assets</div>
-  <div class="guides-grid" id="brandGrid"></div>
-  <p style="font-size:.72rem;color:var(--ink-faint);margin-top:10px;text-align:center;">Brand assets sourced from Rotaract South Asia MDIO Library — <a href="https://library.rsamdio.org/rotaract-brand-assets/" target="_blank" rel="noopener">library.rsamdio.org</a></p>
+  <div id="brandSection" style="display:none;">
+    <div class="section-label" id="brandLabel" style="margin-top:48px;">Brand Assets</div>
+    <div class="guides-grid" id="brandGrid"></div>
+    <p style="font-size:.72rem;color:var(--ink-faint);margin-top:10px;text-align:center;">Brand assets sourced from Rotaract South Asia MDIO Library — <a href="https://library.rsamdio.org/rotaract-brand-assets/" target="_blank" rel="noopener">library.rsamdio.org</a></p>
+  </div>
 
   <div class="cta-band">
     <div>
@@ -362,7 +364,7 @@ function render(){
     </div>
   `).join("") || `<p class="empty">No documents match these filters. Try another keyword or clear a chip.</p>`;
 
-  const chips = ["All", ...new Set(STATIC_GUIDES.concat(allGuides.filter(g => g.dynamic)).map(g => g.tag))];
+  const chips = ["All", "Brand Assets", ...new Set(STATIC_GUIDES.concat(allGuides.filter(g => g.dynamic)).map(g => g.tag).filter(t=>t!=="Brand Assets"))];
   document.getElementById("chipRow").innerHTML = chips.map(c =>
     `<span class="chip${c === activeChip ? ' active' : ''}" data-c="${zone7Esc(c)}">${zone7Esc(c)}</span>`
   ).join("");
@@ -373,6 +375,22 @@ function render(){
   document.querySelectorAll(".filter-row[aria-label='Who it is for'] .chip").forEach(el => el.addEventListener("click", () => {
     activeRole = el.dataset.r; render();
   }));
+  // Brand Assets toggle — separate section in submenu bar
+  const brandSection = document.getElementById('brandSection');
+  const guidesGridEl = document.getElementById('guidesGrid');
+  const gridLabelEl = document.getElementById('gridLabel');
+  const forRow = document.querySelector(".filter-row[aria-label='Who it is for']");
+  if (activeChip === "Brand Assets") {
+    if (guidesGridEl) guidesGridEl.style.display = 'none';
+    if (gridLabelEl) gridLabelEl.style.display = 'none';
+    if (brandSection) brandSection.style.display = 'block';
+    if (forRow) forRow.style.display = 'none';
+  } else {
+    if (guidesGridEl) guidesGridEl.style.display = 'grid';
+    if (gridLabelEl) gridLabelEl.style.display = 'block';
+    if (brandSection) brandSection.style.display = 'none';
+    if (forRow) forRow.style.display = 'flex';
+  }
   observeReveals();
 }
 
