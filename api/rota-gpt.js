@@ -1,8 +1,8 @@
 /* RotaGPT serverless upgrade — Vercel function.
-   If GEMINI_API_KEY (or DEEPSEEK_API_KEY / POLLINATIONS_API_KEY) is set as
-   an environment variable in Vercel, questions get AI answers grounded in the
-   Zone 7 knowledge base. Without a key it answers 501, and the widget falls
-   back to the built-in knowledge engine — so the bot works either way. */
+   If GEMINI_API_KEY / OPENROUTER_API_KEY (or DEEPSEEK_API_KEY / POLLINATIONS_API_KEY)
+   is set as an environment variable in Vercel, questions get AI answers grounded
+   in the Zone 7 knowledge base. Without a key it answers 501, and the widget
+   falls back to the built-in knowledge engine — so the bot works either way. */
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ engine: "local" });
@@ -49,6 +49,7 @@ export default async function handler(req, res) {
     "KNOWLEDGE BASE:\n" + kb.slice(0, 8000);
 
   const geminiKey = process.env.GEMINI_API_KEY;
+  const openrouterKey = process.env.OPENROUTER_API_KEY;
   const deepseekKey = process.env.DEEPSEEK_API_KEY;
   const pollinationsKey = process.env.POLLINATIONS_API_KEY;
 
@@ -71,6 +72,34 @@ export default async function handler(req, res) {
         const answer = j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts && j.candidates[0].content.parts[0] && j.candidates[0].content.parts[0].text;
         if (answer) {
           res.json({ engine: "llm", provider: "gemini", answer: answer.trim() });
+          return;
+        }
+      }
+    } catch (e) { /* fall through */ }
+  }
+
+  if (openrouterKey) {
+    try {
+      const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + openrouterKey,
+          "Content-Type": "application/json",
+          "HTTP-Referer": "https://zone7rotaract3292.vercel.app",
+          "X-Title": "Zone 7 RotaGPT"
+        },
+        body: JSON.stringify({
+          model: "meta-llama/llama-3.1-8b-instruct:free",
+          messages: [{ role: "system", content: system }].concat(messages.slice(-8)),
+          max_tokens: 600,
+          temperature: 0.3
+        })
+      });
+      if (r.ok) {
+        const j = await r.json();
+        const answer = j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content;
+        if (answer) {
+          res.json({ engine: "llm", provider: "openrouter", answer: answer.trim() });
           return;
         }
       }
