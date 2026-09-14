@@ -1,8 +1,8 @@
 /* RotaGPT serverless upgrade — Vercel function.
-   If DEEPSEEK_API_KEY (or POLLINATIONS_API_KEY) is set as an environment
-   variable in Vercel, questions get AI answers grounded in the Zone 7
-   knowledge base. Without a key it answers 501, and the widget falls back
-   to the built-in knowledge engine — so the bot works either way. */
+   If GEMINI_API_KEY (or DEEPSEEK_API_KEY / POLLINATIONS_API_KEY) is set as
+   an environment variable in Vercel, questions get AI answers grounded in the
+   Zone 7 knowledge base. Without a key it answers 501, and the widget falls
+   back to the built-in knowledge engine — so the bot works either way. */
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ engine: "local" });
@@ -48,8 +48,34 @@ export default async function handler(req, res) {
     "- University clubs: 18 GMs + 12 BODs, 50% membership growth, 40% retention\n\n" +
     "KNOWLEDGE BASE:\n" + kb.slice(0, 8000);
 
+  const geminiKey = process.env.GEMINI_API_KEY;
   const deepseekKey = process.env.DEEPSEEK_API_KEY;
   const pollinationsKey = process.env.POLLINATIONS_API_KEY;
+
+  if (geminiKey) {
+    try {
+      const contents = messages.slice(-8).map(function (m) {
+        return { role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] };
+      });
+      const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + geminiKey, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: system }] },
+          contents: contents,
+          generationConfig: { maxOutputTokens: 600, temperature: 0.3 }
+        })
+      });
+      if (r.ok) {
+        const j = await r.json();
+        const answer = j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts && j.candidates[0].content.parts[0] && j.candidates[0].content.parts[0].text;
+        if (answer) {
+          res.json({ engine: "llm", provider: "gemini", answer: answer.trim() });
+          return;
+        }
+      }
+    } catch (e) { /* fall through */ }
+  }
 
   if (deepseekKey) {
     try {
