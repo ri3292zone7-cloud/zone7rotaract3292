@@ -50,6 +50,7 @@ const LEARN_LEAVES = [
 
 const STATIC_PAGES = [
   { path: "/", priority: 1.0, changefreq: "weekly" },
+  { path: "/district-3292", priority: 0.95, changefreq: "weekly" },
   { path: "/about", priority: 0.8, changefreq: "monthly" },
   { path: "/search", priority: 0.4, changefreq: "monthly" },
   { path: "/join", priority: 0.9, changefreq: "monthly" },

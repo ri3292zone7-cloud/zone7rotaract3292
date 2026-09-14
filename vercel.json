@@ -8,6 +8,8 @@
     { "source": "/guides", "destination": "/guides.html" },
     { "source": "/meetings", "destination": "/meetings.html" },
     { "source": "/tutorials", "destination": "/tutorials.html" },
+    { "source": "/district-3292", "destination": "/district-3292.html" },
+    { "source": "/district3292", "destination": "/district-3292.html" },
     { "source": "/join", "destination": "/join.html" },
     { "source": "/rkt-quiz", "destination": "/rkt-quiz.html" },
     { "source": "/project", "destination": "/project.html" },

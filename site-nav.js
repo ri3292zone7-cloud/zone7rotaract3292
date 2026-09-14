@@ -407,7 +407,29 @@
     "#zone7BottomBar .btn{flex:1; min-height:44px; justify-content:center; font-weight:700; font-size:0.84rem;}",
     "@media (max-width:920px){#zone7BottomBar{display:flex}}",
     "@media (min-width:921px){#zone7BottomBar{display:none !important} body{padding-bottom:0 !important}}",
-    "@media (max-width:920px){#backTop{bottom:84px}}"
+    "@media (max-width:920px){#backTop{bottom:84px}}",
+    "#z7TabBar{position:fixed;left:0;right:0;bottom:0;z-index:101;display:none;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--nav-border);padding:6px 8px calc(6px + env(safe-area-inset-bottom));justify-content:space-around;align-items:stretch;box-shadow:0 -10px 30px rgba(27,24,54,.10)}",
+    "@media (max-width:920px){body.z7-hastabs #z7TabBar{display:flex}}",
+    "@media (min-width:921px){#z7TabBar,#z7MoreVeil,#z7MoreSheet{display:none !important}}",
+    ".z7tab{position:relative;flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;color:var(--nav-ink-soft);font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;padding:6px 2px;border-radius:14px;text-decoration:none;transition:color .15s,transform .1s}",
+    ".z7tab:active{transform:scale(.94)}",
+    ".z7tab svg{width:22px;height:22px}",
+    ".z7tab.active{color:var(--nav-brand-strong)}",
+    ".z7tab.active::after{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:20px;height:3px;border-radius:100px;background:var(--nav-brand-strong)}",
+    "#z7MoreVeil{position:fixed;inset:0;z-index:104;background:rgba(27,24,54,.32);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}",
+    "#z7MoreVeil.open{opacity:1;visibility:visible}",
+    "#z7MoreSheet{position:fixed;left:0;right:0;bottom:0;z-index:105;background:var(--nav-surface);border-radius:22px 22px 0 0;box-shadow:0 -20px 60px rgba(27,24,54,.22);transform:translateY(105%);transition:transform .28s cubic-bezier(.32,.72,.24,1);max-height:72vh;max-height:72dvh;display:flex;flex-direction:column;overflow:hidden}",
+    "#z7MoreSheet.open{transform:translateY(0)}",
+    "#z7MoreSheet .grab{width:40px;height:4px;border-radius:100px;background:var(--nav-ink-dim);opacity:.5;margin:10px auto 2px;flex-shrink:0}",
+    "#z7MoreSheet .sheet-head{display:flex;align-items:center;justify-content:space-between;padding:8px 18px 12px;flex-shrink:0}",
+    "#z7MoreSheet .sheet-head h4{font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:800;color:var(--nav-ink);margin:0}",
+    "#z7MoreSheet .sheet-head button{background:var(--nav-tint2);border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;color:var(--nav-ink);font-size:.95rem;line-height:1}",
+    "#z7MoreSheet .sheet-body{overflow-y:auto;padding:0 14px calc(18px + env(safe-area-inset-bottom));overscroll-behavior:contain}",
+    "#z7MoreSheet .sh-group{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--nav-ink-dim);margin:12px 10px 4px}",
+    "#z7MoreSheet .sh-item{display:flex;align-items:center;gap:12px;width:100%;padding:12px;border-radius:14px;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:700;font-size:.9rem;color:var(--nav-ink);text-align:left;text-decoration:none;transition:background .12s}",
+    "#z7MoreSheet .sh-item:active{background:var(--nav-tint)}",
+    "#z7MoreSheet .sh-item .ic{font-size:1.05rem;flex-shrink:0;width:22px;text-align:center}",
+    "@media (prefers-reduced-motion:reduce){#z7MoreSheet{transition:none}}"
   ].join("\n");
 
   var CHEV = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -670,4 +692,101 @@
   }
   bindThemeBtn(navTheme);
   bindThemeBtn(mmTheme);
+
+  /* ---- Mobile app tab bar + More bottom sheet ----
+     Permanent bottom navigation on phones (all pages except the
+     full-screen flood map, where it would cover map controls).
+     Stacking order on mobile: tab bar at the very bottom, the
+     crisis quick-action bar (when active) directly above it. */
+  var z7Path = location.pathname.replace(/\/+$/, "");
+  var z7IsMap = z7Path === "/rasuwa-flood-map" || z7Path === "/flood-map";
+  function z7Buzz() { try { if (navigator.vibrate) navigator.vibrate(10); } catch (e) {} }
+  function z7LayoutChrome() {
+    var bar = document.getElementById("z7TabBar");
+    var crisis = document.getElementById("zone7BottomBar");
+    if (window.innerWidth > 920) {
+      document.body.style.paddingBottom = "";
+      if (crisis) crisis.style.bottom = "";
+      if (typeof backTop !== "undefined" && backTop) backTop.style.bottom = "";
+      return;
+    }
+    var tabH = (bar && getComputedStyle(bar).display !== "none") ? bar.offsetHeight : 0;
+    var cH = (crisis && getComputedStyle(crisis).display !== "none") ? crisis.offsetHeight : 0;
+    document.body.style.paddingBottom = (tabH + cH) + "px";
+    if (crisis) crisis.style.bottom = tabH + "px";
+    if (typeof backTop !== "undefined" && backTop) backTop.style.bottom = (tabH + cH + 12) + "px";
+  }
+  if (!z7IsMap) {
+    var Z7_HOME = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.5V20h5v-5.5h2V20h5V9.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var Z7_CLUBS = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.9"/><path d="M3.2 19c.6-3.2 2.9-5 5.8-5s5.2 1.8 5.8 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="16.8" cy="9" r="2.6" stroke="currentColor" stroke-width="1.9"/><path d="M16.6 14.2c2.2.3 3.8 1.9 4.2 4.3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+    var Z7_STORE = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5.5 8h13l-1.1 12.5H6.6z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+    var Z7_MORE = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg>';
+    var z7Active = "";
+    if (current === "clubs") z7Active = "clubs";
+    else if (current === "merch") z7Active = "store";
+    else if (["tutorials", "resources", "quiz", "guides", "handbook", "gallery", "about", "join", "flood-help"].indexOf(current) !== -1) z7Active = "more";
+    else if (current === "" && (z7Path === "" || z7Path === "/" || z7Path === "/index" || z7Path === "/index.html")) z7Active = "home";
+    function z7Tab(href, view, label, icon) {
+      return '<a class="z7tab' + (z7Active === view ? " active" : "") + '" href="' + href + '">' + icon + "<span>" + label + "</span></a>";
+    }
+    var z7Bar = document.createElement("nav");
+    z7Bar.id = "z7TabBar";
+    z7Bar.setAttribute("aria-label", "Primary");
+    z7Bar.innerHTML =
+      z7Tab("/", "home", "Home", Z7_HOME) +
+      z7Tab("/#clubs", "clubs", "Clubs", Z7_CLUBS) +
+      z7Tab("/store", "store", "Store", Z7_STORE) +
+      '<button type="button" class="z7tab' + (z7Active === "more" ? " active" : "") + '" id="z7MoreBtn" aria-haspopup="dialog" aria-label="More sections">' + Z7_MORE + "<span>More</span></button>";
+    document.body.appendChild(z7Bar);
+    var z7Veil = document.createElement("div");
+    z7Veil.id = "z7MoreVeil";
+    document.body.appendChild(z7Veil);
+    function z7SheetItem(href, icon, label) {
+      return '<a class="sh-item" href="' + href + '"><span class="ic">' + icon + "</span>" + label + "</a>";
+    }
+    var z7Sheet = document.createElement("div");
+    z7Sheet.id = "z7MoreSheet";
+    z7Sheet.setAttribute("role", "dialog");
+    z7Sheet.setAttribute("aria-modal", "true");
+    z7Sheet.setAttribute("aria-label", "More sections");
+    z7Sheet.innerHTML =
+      '<div class="grab"></div>' +
+      '<div class="sheet-head"><h4>Explore Zone 7</h4><button type="button" id="z7SheetClose" aria-label="Close sections">✕</button></div>' +
+      '<div class="sheet-body">' +
+      '<div class="sh-group">Learn</div>' +
+      z7SheetItem("/tutorials", "🧭", "Learn hub") +
+      z7SheetItem("/rkt-quiz", "🧠", "RotaQuiz") +
+      z7SheetItem("/guides", "📄", "Resources &amp; Documents") +
+      '<div class="sh-group">Community</div>' +
+      z7SheetItem("/gallery", "🖼️", "Gallery") +
+      z7SheetItem("/join", "🤝", "Join Us") +
+      z7SheetItem("/admin", "🛠️", "Club Admin") +
+      '<div class="sh-group">Help</div>' +
+      z7SheetItem("/flood-help", "🛟", "Flood Help") +
+      z7SheetItem("/volunteers", "🚨", "Volunteer") +
+      "</div>";
+    document.body.appendChild(z7Sheet);
+    function z7SheetOpen(o) {
+      z7Sheet.classList.toggle("open", o);
+      z7Veil.classList.toggle("open", o);
+    }
+    var z7MoreBtn = document.getElementById("z7MoreBtn");
+    if (z7MoreBtn) z7MoreBtn.addEventListener("click", function () { z7Buzz(); z7SheetOpen(true); });
+    z7Veil.addEventListener("click", function () { z7SheetOpen(false); });
+    var z7CloseBtn = document.getElementById("z7SheetClose");
+    if (z7CloseBtn) z7CloseBtn.addEventListener("click", function () { z7SheetOpen(false); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") z7SheetOpen(false);
+    });
+    z7Bar.querySelectorAll(".z7tab").forEach(function (t) {
+      t.addEventListener("click", function () { z7Buzz(); });
+    });
+    z7Sheet.querySelectorAll(".sh-item").forEach(function (a) {
+      a.addEventListener("click", function () { z7Buzz(); });
+    });
+    document.body.classList.add("z7-hastabs");
+    z7LayoutChrome();
+    window.addEventListener("resize", z7LayoutChrome);
+    window.addEventListener("load", z7LayoutChrome);
+  }
 })();
