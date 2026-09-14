@@ -214,6 +214,10 @@ footer a{color:var(--brand-deep);font-weight:700}
     <p class="note">Looking for the how-to side instead? The <a href="/tutorials">Learn hub</a> holds the step-by-step tutorials, the district rules as chapters and the officer playbook in one place.</p>
   </div>
 
+  <div style="display:flex;gap:10px;margin:14px 0 6px;flex-wrap:wrap;">
+    <button class="chip active" id="tabDocs" style="font-size:.88rem;padding:8px 16px;">Zone 7 Resources (13)</button>
+    <button class="chip" id="tabBrand" style="font-size:.88rem;padding:8px 16px;">Brand Assets (22)</button>
+  </div>
   <div class="search-wrap">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
     <input type="text" id="searchBox" placeholder="Search documents, e.g. constitution, membership, planning..." aria-label="Search documents">
@@ -390,6 +394,21 @@ function render(){
     if (gridLabelEl) gridLabelEl.style.display = 'block';
     if (brandSection) brandSection.style.display = 'none';
     if (forRow) forRow.style.display = 'flex';
+  }
+  // Top tabs — Zone 7 Resources vs Brand Assets (more prominent than chip)
+  const tabDocs = document.getElementById('tabDocs');
+  const tabBrand = document.getElementById('tabBrand');
+  if (tabDocs && tabBrand && !tabDocs._bound) {
+    tabDocs._bound = tabBrand._bound = true;
+    tabDocs.addEventListener('click', () => {
+      tabDocs.classList.add('active'); tabBrand.classList.remove('active');
+      activeChip = "All"; render();
+    });
+    tabBrand.addEventListener('click', () => {
+      tabBrand.classList.add('active'); tabDocs.classList.remove('active');
+      activeChip = "Brand Assets"; render();
+      setTimeout(()=> document.getElementById('brandSection').scrollIntoView({behavior:'smooth', block:'start'}), 80);
+    });
   }
   observeReveals();
 }
