@@ -214,9 +214,10 @@ footer a{color:var(--brand-deep);font-weight:700}
     <p class="note">Looking for the how-to side instead? The <a href="/tutorials">Learn hub</a> holds the step-by-step tutorials, the district rules as chapters and the officer playbook in one place.</p>
   </div>
 
-  <div style="display:flex;gap:10px;margin:14px 0 6px;flex-wrap:wrap;">
-    <button class="chip active" id="tabDocs" style="font-size:.88rem;padding:8px 16px;">Zone 7 Resources (13)</button>
-    <button class="chip" id="tabBrand" style="font-size:.88rem;padding:8px 16px;">Brand Assets (22)</button>
+  <div style="display:flex;gap:6px;padding:6px;background:var(--accent);border:1px solid var(--ink-line);border-radius:14px;margin:18px 0 14px;">
+    <button id="tabDocs" class="tab active" style="flex:1;padding:12px 16px;border-radius:10px;font-weight:800;font-size:.88rem;border:none;background:var(--ink);color:#fff;cursor:pointer;transition:background .15s,color .15s;">District 3292 <span style="opacity:.7;font-weight:600;">13</span></button>
+    <button id="tabBrand" class="tab" style="flex:1;padding:12px 16px;border-radius:10px;font-weight:700;font-size:.84rem;border:none;background:transparent;color:var(--ink-mid);cursor:pointer;transition:background .15s,color .15s;">Brand Assets <span style="opacity:.6;">22</span></button>
+    <button id="tabRsamdio" class="tab" style="flex:1;padding:12px 16px;border-radius:10px;font-weight:700;font-size:.84rem;border:none;background:transparent;color:var(--ink-mid);cursor:pointer;transition:background .15s,color .15s;">RSAMDIO Library <span style="opacity:.6;">17</span></button>
   </div>
   <div class="search-wrap">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
@@ -269,6 +270,11 @@ footer a{color:var(--brand-deep);font-weight:700}
     <div class="section-label" id="brandLabel" style="margin-top:48px;">Brand Assets</div>
     <div class="guides-grid" id="brandGrid"></div>
     <p style="font-size:.72rem;color:var(--ink-faint);margin-top:10px;text-align:center;">Brand assets sourced from Rotaract South Asia MDIO Library — <a href="https://library.rsamdio.org/rotaract-brand-assets/" target="_blank" rel="noopener">library.rsamdio.org</a></p>
+  </div>
+  <div id="rsamdioSection" style="display:none;">
+    <div class="section-label" style="margin-top:48px;">RSAMDIO Library</div>
+    <div class="guides-grid" id="rsamdioGrid"></div>
+    <p style="font-size:.72rem;color:var(--ink-faint);margin-top:10px;text-align:center;">Documents sourced from Rotaract South Asia MDIO Library — <a href="https://library.rsamdio.org/" target="_blank" rel="noopener">library.rsamdio.org</a></p>
   </div>
 
   <div class="cta-band">
@@ -368,7 +374,7 @@ function render(){
     </div>
   `).join("") || `<p class="empty">No documents match these filters. Try another keyword or clear a chip.</p>`;
 
-  const chips = ["All", "Brand Assets", ...new Set(STATIC_GUIDES.concat(allGuides.filter(g => g.dynamic)).map(g => g.tag).filter(t=>t!=="Brand Assets"))];
+  const chips = ["All", ...new Set(STATIC_GUIDES.concat(allGuides.filter(g => g.dynamic)).map(g => g.tag))];
   document.getElementById("chipRow").innerHTML = chips.map(c =>
     `<span class="chip${c === activeChip ? ' active' : ''}" data-c="${zone7Esc(c)}">${zone7Esc(c)}</span>`
   ).join("");
@@ -395,20 +401,47 @@ function render(){
     if (brandSection) brandSection.style.display = 'none';
     if (forRow) forRow.style.display = 'flex';
   }
-  // Top tabs — Zone 7 Resources vs Brand Assets (more prominent than chip)
+  // Top tabs — District 3292 vs Brand Assets vs RSAMDIO (more prominent)
   const tabDocs = document.getElementById('tabDocs');
   const tabBrand = document.getElementById('tabBrand');
-  if (tabDocs && tabBrand && !tabDocs._bound) {
-    tabDocs._bound = tabBrand._bound = true;
-    tabDocs.addEventListener('click', () => {
-      tabDocs.classList.add('active'); tabBrand.classList.remove('active');
-      activeChip = "All"; render();
-    });
-    tabBrand.addEventListener('click', () => {
-      tabBrand.classList.add('active'); tabDocs.classList.remove('active');
-      activeChip = "Brand Assets"; render();
-      setTimeout(()=> document.getElementById('brandSection').scrollIntoView({behavior:'smooth', block:'start'}), 80);
-    });
+  const tabRsamdio = document.getElementById('tabRsamdio');
+  const rsamdioSection = document.getElementById('rsamdioSection');
+  function setTab(active){
+    [tabDocs, tabBrand, tabRsamdio].forEach(b=> b && b.classList.remove('active'));
+    if(active==='brand' && tabBrand) tabBrand.classList.add('active');
+    else if(active==='rsamdio' && tabRsamdio) tabRsamdio.classList.add('active');
+    else if(tabDocs) tabDocs.classList.add('active');
+    // show/hide sections
+    const isBrand = active==='brand';
+    const isRsamdio = active==='rsamdio';
+    if(guidesGridEl) guidesGridEl.style.display = (isBrand||isRsamdio) ? 'none' : 'grid';
+    if(gridLabelEl) gridLabelEl.style.display = (isBrand||isRsamdio) ? 'none' : 'block';
+    if(brandSection) brandSection.style.display = isBrand ? 'block' : 'none';
+    if(rsamdioSection) rsamdioSection.style.display = isRsamdio ? 'block' : 'none';
+    const forRow2 = document.querySelector(".filter-row[aria-label='Who it is for']");
+    const chipRow = document.getElementById('chipRow');
+    if(isBrand||isRsamdio){
+      if(forRow2) forRow2.style.display='none';
+      if(chipRow) chipRow.parentElement.style.display='none';
+    } else {
+      if(forRow2) forRow2.style.display='flex';
+      if(chipRow) chipRow.parentElement.style.display='flex';
+    }
+    // keep search visible for all tabs, update placeholder
+    const searchWrap = document.querySelector('.search-wrap');
+    const searchBox = document.getElementById('searchBox');
+    if(searchWrap) searchWrap.style.display='block';
+    if(searchBox){
+      if(isBrand) searchBox.placeholder='Search brand assets, e.g. rotaract logo...';
+      else if(isRsamdio) searchBox.placeholder='Search RSAMDIO library, e.g. oath, agenda...';
+      else searchBox.placeholder='Search documents, e.g. constitution, membership, planning...';
+    }
+  }
+  if (tabDocs && tabBrand && tabRsamdio && !tabDocs._bound) {
+    tabDocs._bound = tabBrand._bound = tabRsamdio._bound = true;
+    tabDocs.addEventListener('click', () => { setTab('docs'); });
+    tabBrand.addEventListener('click', () => { setTab('brand'); loadBrandAssets(); setTimeout(()=> brandSection.scrollIntoView({behavior:'smooth', block:'start'}), 80); });
+    tabRsamdio.addEventListener('click', () => { setTab('rsamdio'); loadRsamdio(); setTimeout(()=> rsamdioSection.scrollIntoView({behavior:'smooth', block:'start'}), 80); });
   }
   observeReveals();
 }
@@ -469,6 +502,25 @@ async function loadBrandAssets(){
 }
 loadBrandAssets();
 document.getElementById('searchBox').addEventListener('input', loadBrandAssets);
+async function loadRsamdio(){
+  try{
+    const res = await fetch('data/rsamdio-documents.json');
+    const list = await res.json();
+    const q = (document.getElementById('searchBox').value||'').toLowerCase();
+    const filtered = list.filter(b => !q || (b.title + ' ' + b.category + ' ' + b.desc).toLowerCase().includes(q));
+    document.getElementById('rsamdioGrid').innerHTML = filtered.map((b,i)=> `
+      <div class="guide-card" data-cat="${zone7Esc(b.category)}" data-reveal style="--d:${(i%4)*0.06}s">
+        <div class="guide-top"><div class="guide-ico">📄</div><span class="guide-tag">${zone7Esc(b.category)}</span></div>
+        <h4>${zone7Esc(b.title)}</h4>
+        <p class="desc">${zone7Esc(b.desc)}</p>
+        <div class="guide-foot"><span class="meta-chip">RSAMDIO</span><a class="dl-btn" href="${zone7Esc(b.file)}" target="_blank" rel="noopener">View →</a></div>
+      </div>
+    `).join('') || `<p class="empty">No RSAMDIO documents match.</p>`;
+    observeReveals();
+  }catch(e){ document.getElementById('rsamdioGrid').innerHTML = `<p class="empty">RSAMDIO documents unavailable.</p>`; }
+}
+loadRsamdio();
+document.getElementById('searchBox').addEventListener('input', loadRsamdio);
 </script>
 <script>
 (function(){
