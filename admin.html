@@ -441,6 +441,11 @@
     .dash-header #logoutBtn::after{content:"↩"; font-size:1.05rem;}
   }
   @keyframes mobViewIn{from{opacity:.45; transform:translateX(12px);} to{opacity:1; transform:none;}}
+  /* skeleton shimmer for list loading states */
+  .z7skel{border-radius:12px;background:linear-gradient(100deg,rgba(27,24,54,.07) 40%,rgba(27,24,54,.13) 50%,rgba(27,24,54,.07) 60%);background-size:200% 100%;animation:z7sk 1.1s linear infinite;min-height:64px;margin-bottom:10px;}
+  html.dark .z7skel{background:linear-gradient(100deg,rgba(255,255,255,.05) 40%,rgba(255,255,255,.11) 50%,rgba(255,255,255,.05) 60%);background-size:200% 100%;}
+  @keyframes z7sk{to{background-position:-200% 0;}}
+  @media (prefers-reduced-motion:reduce){.z7skel{animation:none;}}
   @media (max-width:600px){
     .mob-tabbar{padding:5px 6px calc(5px + env(safe-area-inset-bottom)); gap:2px;}
     .mob-tab{width:auto; flex:1 1 0; max-width:none;}
@@ -667,7 +672,7 @@
     <div class="view" id="view-analytics">
     <div class="panel">
       <h3>Zone 7 Analytics <span style="font-weight:500; font-size:0.78rem; color:rgba(27,24,54,0.5);">(zone-wide, live from Supabase)</span></h3>
-      <div class="analytics-stats" id="analyticsStats"><div class="no-projects">Loading analytics…</div></div>
+      <div class="analytics-stats" id="analyticsStats"><div aria-hidden="true"><div class="z7skel"></div><div class="z7skel"></div><div class="z7skel"></div></div></div>
 
       <div class="a-chart-grid">
         <div class="a-chart-card wide">
@@ -1474,10 +1479,10 @@ function mobBuild(){
   mobSyncActive((document.querySelector(".view.active") || {id:"view-projects"}).id.replace("view-",""));
   var tabs = tabbar.querySelectorAll(".mob-tab[data-view]");
   Array.prototype.forEach.call(tabs, function(t){
-    t.addEventListener("click", function(){ switchView(t.getAttribute("data-view")); });
+    t.addEventListener("click", function(){ mobBuzz(); switchView(t.getAttribute("data-view")); });
   });
   var more = document.getElementById("mobMore");
-  if(more) more.addEventListener("click", mobOpen);
+  if(more) more.addEventListener("click", function(){ mobBuzz(); mobOpen(); });
 }
 function mobBuildSheet(visible, rest){
   var body = document.getElementById("mobSheetBody");
@@ -1499,7 +1504,7 @@ function mobBuildSheet(visible, rest){
     }).join("");
   }).join("");
   Array.prototype.forEach.call(body.querySelectorAll(".sh-item"), function(b){
-    b.addEventListener("click", function(){ switchView(b.getAttribute("data-view")); mobClose(); });
+    b.addEventListener("click", function(){ mobBuzz(); switchView(b.getAttribute("data-view")); mobClose(); });
   });
 }
 function mobOpen(){ document.getElementById("mobSheet").classList.add("open"); document.getElementById("mobSheetBackdrop").classList.add("open"); }
@@ -1513,6 +1518,7 @@ function mobSyncActive(v){
   document.querySelectorAll(".mob-tab").forEach(function(t){ t.classList.toggle("active", t.getAttribute("data-view") === v); });
 }
 function syncMobNav(){ if(window.innerWidth <= 900){ mobBuild(); } }
+function mobBuzz(){ try{ if(navigator.vibrate) navigator.vibrate(10); }catch(e){} }
 
 async function enterDashboard(slug){
   currentClub = slug;
@@ -2244,17 +2250,24 @@ let projPage = 0, projPageSize = 25, projSearchTerm = "", projTotal = 0;
 
 async function renderProjectList(){
   const list = document.getElementById("projList");
-  list.innerHTML = `<div class="no-projects">Loading projects…</div>`;
+  list.innerHTML = `<div aria-hidden="true"><div class="z7skel"></div><div class="z7skel"></div><div class="z7skel"></div></div>`;
   const q = projSearchTerm.trim().toLowerCase();
   let projects;
-  if(q){
-    const all = await ZONE7_DB.getProjects(currentClub, { limit: 500 });
-    projects = all.filter(p => `${p.title} ${p.project_code} ${p.category}`.toLowerCase().includes(q));
-    projTotal = projects.length;
-  } else {
-    const page = await ZONE7_DB.getProjectsPage(currentClub, projPage * projPageSize, projPageSize);
-    projects = page.rows;
-    projTotal = page.total;
+  try {
+    if(q){
+      const all = await ZONE7_DB.getProjects(currentClub, { limit: 500 });
+      projects = all.filter(p => `${p.title} ${p.project_code} ${p.category}`.toLowerCase().includes(q));
+      projTotal = projects.length;
+    } else {
+      const page = await ZONE7_DB.getProjectsPage(currentClub, projPage * projPageSize, projPageSize);
+      projects = page.rows;
+      projTotal = page.total;
+    }
+  } catch(err){
+    console.warn("project list failed:", err);
+    list.innerHTML = `<div class="no-projects">Couldn't load projects, check your connection and <a href="#" id="projRetry" style="color:var(--magenta-deep); font-weight:700;">try again</a>.</div>`;
+    document.getElementById("projRetry").addEventListener("click", (e) => { e.preventDefault(); renderProjectList(); });
+    return;
   }
   if(!projects.length){
     list.innerHTML = q
@@ -2477,7 +2490,7 @@ let editingEventId = null;
 
 async function renderEventList(){
   const list = document.getElementById("eventList");
-  list.innerHTML = `<div class="no-projects">Loading events…</div>`;
+  list.innerHTML = `<div aria-hidden="true"><div class="z7skel"></div><div class="z7skel"></div><div class="z7skel"></div></div>`;
   const events = await ZONE7_DB.getEvents();
   if(!events.length){
     list.innerHTML = `<div class="no-projects">No zone events yet, add one below.</div>`;
@@ -2594,7 +2607,7 @@ document.getElementById("zonalLoginBtn").addEventListener("click", () => {
 /* ---- Guides management (zonal) ---- */
 async function renderGuideList(){
   const list = document.getElementById("guideList");
-  list.innerHTML = `<div class="no-projects">Loading guides…</div>`;
+  list.innerHTML = `<div aria-hidden="true"><div class="z7skel"></div><div class="z7skel"></div><div class="z7skel"></div></div>`;
   const guides = await ZONE7_DB.getGuides();
   if(!guides.length){ list.innerHTML = `<div class="no-projects">No uploaded guides yet, add one below.</div>`; return; }
   list.innerHTML = guides.map(g => `
@@ -2654,7 +2667,7 @@ let zrrPhotoValue = "";
 
 async function renderZRRList(){
   const list = document.getElementById("zrrList");
-  list.innerHTML = `<div class="no-projects">Loading ZRR history…</div>`;
+  list.innerHTML = `<div aria-hidden="true"><div class="z7skel"></div><div class="z7skel"></div><div class="z7skel"></div></div>`;
   const zrrs = await ZONE7_DB.getZRRs();
   if(!zrrs.length){
     list.innerHTML = `<div class="no-projects">No ZRRs recorded yet, add the first one below.</div>`;
@@ -2780,7 +2793,7 @@ async function renderGuestList(){
   const scope = ZONE7_DB.isZonal() ? null : currentClub;
   const scopeName = scope ? CLUB_DIRECTORY[scope].name : "all clubs";
   document.getElementById("guestViewScope").textContent = scope ? `(${scopeName})` : "(all clubs)";
-  list.innerHTML = `<div class="no-projects">Loading requests…</div>`;
+  list.innerHTML = `<div aria-hidden="true"><div class="z7skel"></div><div class="z7skel"></div><div class="z7skel"></div></div>`;
   let requests = [];
   try { requests = await ZONE7_DB.getGuestRequests(); } catch(e){ requests = []; }
   if(scope) requests = requests.filter(r => zone7PrefersClub(r.preferred_club, scope));
@@ -2842,7 +2855,7 @@ async function renderApplicationsList(){
   const scope = ZONE7_DB.isZonal() ? null : currentClub;
   const scopeName = scope ? CLUB_DIRECTORY[scope].name : "all clubs";
   document.getElementById("guestViewScope").textContent = scope ? `(${scopeName})` : "(all clubs)";
-  list.innerHTML = `<div class="no-projects">Loading applications…</div>`;
+  list.innerHTML = `<div aria-hidden="true"><div class="z7skel"></div><div class="z7skel"></div><div class="z7skel"></div></div>`;
   let apps = [];
   try { apps = await ZONE7_DB.getMembershipApplications(); } catch(e){ apps = []; }
   if(scope) apps = apps.filter(a => zone7PrefersClub(a.preferred_club, scope));
@@ -2947,7 +2960,7 @@ let leaderPhotoValue = "";
 
 async function renderLeaderList(){
   const list = document.getElementById("leaderList");
-  list.innerHTML = `<div class="no-projects">Loading team…</div>`;
+  list.innerHTML = `<div aria-hidden="true"><div class="z7skel"></div><div class="z7skel"></div><div class="z7skel"></div></div>`;
   const leaders = await ZONE7_DB.getLeadership();
   if(!leaders.length){ list.innerHTML = `<div class="no-projects">No team members yet, add one below.</div>`; return; }
   list.innerHTML = leaders.map(l => `
@@ -3126,7 +3139,7 @@ document.getElementById("mmDate").addEventListener("change", () => {
 document.getElementById("mmDay").addEventListener("input", () => { mmDay.dataset.auto = "0"; });
 async function renderMMSaved(){
   const list = document.getElementById("mmSavedList");
-  list.innerHTML = `<div class="no-projects">Loading…</div>`;
+  list.innerHTML = `<div aria-hidden="true"><div class="z7skel"></div><div class="z7skel"></div><div class="z7skel"></div></div>`;
   const rows = await ZONE7_DB.getMinutes(currentClub);
   list.innerHTML = rows.length ? rows.map(r => `
     <div class="proj-item" data-id="${zone7Esc(r.id)}">

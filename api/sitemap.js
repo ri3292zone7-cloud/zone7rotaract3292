@@ -55,7 +55,7 @@ const STATIC_PAGES = [
   { path: "/search", priority: 0.4, changefreq: "monthly" },
   { path: "/join", priority: 0.9, changefreq: "monthly" },
   { path: "/gallery", priority: 0.7, changefreq: "weekly" },
-  { path: "/guides", priority: 0.8, changefreq: "monthly" },
+  { path: "/guides", priority: 0.95, changefreq: "weekly" },
   { path: "/rkt-quiz", priority: 0.8, changefreq: "weekly" },
   { path: "/tutorials", priority: 0.9, changefreq: "monthly" },
   ...LEARN_LEAVES,
