@@ -209,15 +209,21 @@ footer a{color:var(--brand-deep);font-weight:700}
 
   <div class="overview-hero">
     <h1>Rotaract <em>resources</em>.</h1>
-    <p class="page-desc"><b>Rotaract Resources</b> — official templates, constitutions and planning guides from <b>Rotaract District 3292 Nepal Bhutan</b>. Everything a new member needs to onboard and a president needs to run the year, free to download instead of scattered across old emails. 13 Rotaract resources in one place.</p>
-    <h2 style="font-size:1rem;font-weight:700;color:var(--ink-soft);margin-top:14px;">Free Rotaract Resources for District 3292</h2>
-    <p class="note">Looking for the how-to side instead? The <a href="/tutorials">Learn hub</a> holds the step-by-step tutorials, the district rules as chapters and the officer playbook in one place.</p>
+    <p class="page-desc"><b>Rotaract Resources</b> — official templates, constitutions and planning guides from <b>Rotaract District 3292 Nepal Bhutan</b>. Everything a new member needs to onboard and a president needs to run the year, free to download.</p>
   </div>
 
-  <div style="display:flex;gap:6px;padding:6px;background:var(--accent);border:1px solid var(--ink-line);border-radius:14px;margin:18px 0 14px;">
-    <button id="tabDocs" class="tab active" style="flex:1;padding:12px 16px;border-radius:10px;font-weight:800;font-size:.88rem;border:none;background:var(--ink);color:#fff;cursor:pointer;transition:background .15s,color .15s;">District 3292 <span style="opacity:.7;font-weight:600;">13</span></button>
-    <button id="tabBrand" class="tab" style="flex:1;padding:12px 16px;border-radius:10px;font-weight:700;font-size:.84rem;border:none;background:transparent;color:var(--ink-mid);cursor:pointer;transition:background .15s,color .15s;">Brand Assets <span style="opacity:.6;">22</span></button>
-    <button id="tabRsamdio" class="tab" style="flex:1;padding:12px 16px;border-radius:10px;font-weight:700;font-size:.84rem;border:none;background:transparent;color:var(--ink-mid);cursor:pointer;transition:background .15s,color .15s;">RSAMDIO Library <span style="opacity:.6;">17</span></button>
+  <style>
+    .resource-tabs{display:flex;gap:6px;padding:6px;background:var(--accent);border:1px solid var(--ink-line);border-radius:14px;margin:18px 0 14px;}
+    .resource-tabs .tab{flex:1;padding:12px 16px;border-radius:10px;font-weight:700;font-size:.84rem;border:none;cursor:pointer;transition:background .15s,color .15s,transform .15s;}
+    .resource-tabs .tab.active{font-weight:800;font-size:.88rem;background:var(--ink);color:#fff;}
+    .resource-tabs .tab:not(.active){background:transparent;color:var(--ink-mid);}
+    .resource-tabs .tab:not(.active):hover{background:#2563EB;color:#fff;transform:translateY(-1px);}
+    @media(max-width:600px){.resource-tabs{flex-direction:column;gap:6px;} .resource-tabs .tab{flex:none;}}
+  </style>
+  <div class="resource-tabs">
+    <button id="tabDocs" class="tab active">District 3292 <span style="opacity:.7;font-weight:600;">13</span></button>
+    <button id="tabBrand" class="tab">Brand Assets <span style="opacity:.6;">22</span></button>
+    <button id="tabRsamdio" class="tab">RSAMDIO Library <span style="opacity:.6;">17</span></button>
   </div>
   <div class="search-wrap">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
@@ -277,13 +283,7 @@ footer a{color:var(--brand-deep);font-weight:700}
     <p style="font-size:.72rem;color:var(--ink-faint);margin-top:10px;text-align:center;">Documents sourced from Rotaract South Asia MDIO Library — <a href="https://library.rsamdio.org/" target="_blank" rel="noopener">library.rsamdio.org</a></p>
   </div>
 
-  <div class="cta-band">
-    <div>
-      <h3>Read first, download later?</h3>
-      <p>The Learn hub explains how grants, twinship, projects and the health check actually work, with the exact rules from the 2025-26 district directory.</p>
-    </div>
-    <a class="btn" href="/tutorials">Explore the Learn hub →</a>
-  </div>
+
 </div>
 
 <footer>© 2026 Zone 7, Rotaract District 3292 Nepal-Bhutan. Documents sourced from the District 3292 website. &nbsp;·&nbsp; <a href="/">Back to Home</a></footer>
