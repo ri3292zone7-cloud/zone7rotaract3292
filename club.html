@@ -206,6 +206,31 @@
     .score-cells{grid-template-columns:repeat(2,1fr);}
     .org-cols-3{grid-template-columns:1fr;}
   }
+
+  /* NIGHT MODE - one pass fixes all 9 club profile pages, which render from
+     this file. Mirrors the club-tools.html night pass + handbook :root.dark
+     pattern. Note: --magenta/--magenta-deep/--gold are re-skinned per club
+     via inline vars at render time (inline wins), so dark-mode accent TEXT
+     below reads --magenta (each club's lighter c1) instead of the dark c2. */
+  .loading-note{color:rgba(27,24,54,.5);}
+  html.dark{color-scheme:dark;--ink:#E6E3F5;--cream:#0E0C1A;--paper:#151327;--line:rgba(233,231,247,.14);}
+  html.dark .chero{background:#14122B;}
+  html.dark .about-grid p{color:rgba(230,227,245,.78);}
+  html.dark .quickfacts,html.dark .goals-summary,html.dark .goals-list,html.dark .board-card{background:#1A1730;border-color:var(--line);}
+  html.dark .qf:hover,html.dark .goal-row:hover{background:rgba(233,231,247,.05);}
+  html.dark .qf .k{color:rgba(230,227,245,.55);}
+  html.dark .gs-ring::after{background:#1A1730;}
+  html.dark .gs-text{color:rgba(230,227,245,.65);}
+  html.dark .g-bar-track{background:rgba(233,231,247,.14);}
+  html.dark .goal-row.canceled .g-text{color:rgba(230,227,245,.45);text-decoration-color:rgba(230,227,245,.25);}
+  html.dark .goal-row .g-pct,html.dark .goal-row .g-status{color:rgba(230,227,245,.5);}
+  html.dark .goal-row.canceled .g-ic{background:rgba(233,231,247,.08);color:rgba(230,227,245,.4);}
+  html.dark .goal-row.completed .g-ic,html.dark .goal-row.completed .g-status{color:#4ade80;}
+  html.dark .csec-tag,html.dark .goal-row .g-ic,html.dark .board-info span,html.dark .board-initials,html.dark .link-chip,html.dark .board-empty b{color:var(--magenta);filter:brightness(1.3);}
+  html.dark .board-empty,html.dark .no-goals,html.dark .no-projects-note,html.dark .loading-note{color:rgba(230,227,245,.6);}
+  html.dark .pcard{background:#14122B;}
+  html.dark footer{background:#0B0A16;color:rgba(230,227,245,.55);}
+  html.dark .btn-ghost-dark:hover{background:#fff;color:#14122B;}
 </style>
 <script type="application/ld+json">
 {
@@ -659,7 +684,7 @@ if(club){(async () => {
     <section class="csec wrap" id="projects">
       <span class="csec-tag reveal">In Action</span>
       <h2 class="reveal">Projects run by this club.</h2>
-      <div class="pmasonry" id="pmasonry"><p style="color:rgba(27,24,54,.5);">Loading projects…</p></div>
+      <div class="pmasonry" id="pmasonry"><p class="loading-note">Loading projects…</p></div>
     </section>
 
     <section class="join-cta wrap">
@@ -699,7 +724,7 @@ if(club){(async () => {
   initReveal();
 })();
 } else {
-  document.getElementById("content").innerHTML = `<div class="empty-state"><h2>Club not found</h2><p style="color:rgba(27,24,54,.6);margin-top:10px;">Go back and select a club from the homepage.</p></div>`;
+  document.getElementById("content").innerHTML = `<div class="empty-state"><h2>Club not found</h2><p class="loading-note" style="margin-top:10px;">Go back and select a club from the homepage.</p></div>`;
 }
 </script>
 

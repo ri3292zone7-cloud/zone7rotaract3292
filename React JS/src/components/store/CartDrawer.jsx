@@ -25,7 +25,7 @@ export default function CartDrawer() {
       <div className={`st-drawer-scrim ${open ? 'on' : ''}`} onClick={() => cart.setOpen(false)}></div>
       <aside className={`st-drawer ${open ? 'on' : ''}`} aria-hidden={!open}>
         <div className="st-drawer-head">
-          <h3>Your rack, {cart.count} item{cart.count === 1 ? '' : 's'}</h3>
+          <h3>Your cart, {cart.count} item{cart.count === 1 ? '' : 's'}</h3>
           <button type="button" className="st-drawer-close" aria-label="Close cart" onClick={() => cart.setOpen(false)}>
             ×
           </button>
@@ -34,7 +34,7 @@ export default function CartDrawer() {
         {lines.length === 0 ? (
           <div className="st-drawer-empty">
             <span className="st-drawer-empty-ico">🛍️</span>
-            <p>Nothing on the rack yet.</p>
+            <p>Nothing in your cart yet.</p>
             <p className="sub">Swipe the models up top and grab a drop.</p>
           </div>
         ) : (
@@ -71,7 +71,7 @@ export default function CartDrawer() {
               💬 Order on WhatsApp
             </button>
             <button type="button" className="st-clear" onClick={cart.clear}>
-              Clear rack
+              Clear cart
             </button>
           </div>
         )}

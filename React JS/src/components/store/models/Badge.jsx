@@ -6,9 +6,8 @@ import { useZone7Texture } from './zone7-texture';
  * Zone 7 enamel badge — shallow domed face with a seamlessly projected
  * Zone 7 print (planar UVs, so no wrap seam ever slices the lettering),
  * a clear gloss shell floating over the crisp print, rope-twist gold
- * rim, inner bevel, and a slim round back plate. Clean medallion:
- * no pin post or clutch hardware. Faces +Z. Static: the showcase
- * rig rotates it.
+ * rim, inner bevel, and a slim round back plate with cross-form clutch
+ * bars on a pin post. Faces +Z. Static: the showcase rig rotates it.
  */
 
 const DOME_R = 1.7; // gentle dome sphere radius
@@ -49,15 +48,17 @@ export default function Badge({ color = '#E11A6E', accentDeep = '#A80F52' }) {
         color: '#FFFFFF',
         transparent: true,
         opacity: 0.1,
-        roughness: 0.32,
+        roughness: 0.05,
         metalness: 0,
-        clearcoat: 0.6,
-        clearcoatRoughness: 0.35,
-        envMapIntensity: 0.7,
+        clearcoat: 1,
+        clearcoatRoughness: 0.06,
+        envMapIntensity: 1.6,
         depthWrite: false
       }),
-      backPlate: new THREE.MeshStandardMaterial({ color: '#4A4238', metalness: 0.25, roughness: 0.75 }),
-      cupBack: new THREE.MeshStandardMaterial({ color: '#33291F', metalness: 0.15, roughness: 0.85 })
+      backPlate: new THREE.MeshStandardMaterial({ color: '#4A4238', metalness: 0.75, roughness: 0.4 }),
+      cupBack: new THREE.MeshStandardMaterial({ color: '#33291F', metalness: 0.15, roughness: 0.85 }),
+      clutch: new THREE.MeshStandardMaterial({ color: '#6E675E', metalness: 0.7, roughness: 0.38 }),
+      spring: new THREE.MeshStandardMaterial({ color: '#8A837A', metalness: 0.85, roughness: 0.3 })
     }),
     [accentDeep]
   );
@@ -112,6 +113,24 @@ export default function Badge({ color = '#E11A6E', accentDeep = '#A80F52' }) {
           the gold cup so the two faces never z-fight */}
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, -0.078]} material={mats.backPlate}>
         <cylinderGeometry args={[0.52, 0.52, 0.02, 72]} />
+      </mesh>
+
+      {/* pin post */}
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, -0.115]} material={mats.backPlate}>
+        <cylinderGeometry args={[0.014, 0.014, 0.11, 16]} />
+      </mesh>
+
+      {/* cross-form clutch: barrel + two crossing bars + spring */}
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, -0.165]} material={mats.clutch}>
+        <cylinderGeometry args={[0.03, 0.03, 0.05, 20]} />
+      </mesh>
+      {[Math.PI / 4, -Math.PI / 4].map((rz) => (
+        <mesh key={rz} position={[0, 0, -0.165]} rotation={[0, 0, rz]} material={mats.clutch}>
+          <boxGeometry args={[0.17, 0.028, 0.014]} />
+        </mesh>
+      ))}
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, -0.148]} material={mats.spring}>
+        <torusGeometry args={[0.038, 0.007, 8, 28]} />
       </mesh>
     </group>
   );
