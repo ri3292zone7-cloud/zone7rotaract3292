@@ -4,6 +4,7 @@ serve-vercel.py
 serve-preview.mjs
 database/
 _source-media/
+media/Flood Risk/
 .git/
 
 # Dev/diagnostic sources — must not be publicly readable
@@ -17,6 +18,7 @@ React JS/src/
 React JS/public/
 React JS/scripts/
 React JS/dist-merch/
+React JS/dist/
 React JS/*.html
 React JS/package*.json
 React JS/vite.config.js
