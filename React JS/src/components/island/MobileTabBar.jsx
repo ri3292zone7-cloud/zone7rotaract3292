@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Link, useInRouterContext } from 'react-router-dom';
 
 const HOME_ICON = (
@@ -46,32 +47,38 @@ function buzz() {
  * vendors / vendor detail). Same routing rule as IslandNav: '/' and
  * '/vendors' always leave the island (full page load); Store/Magazine
  * stay client-side when a router is present.
+ * `centerAction` (e.g. the store rack orb) slots into the middle —
+ * mirroring the Join orb on the main site. Pages without one (vendors)
+ * keep the plain four-tab row.
  */
-export default function MobileTabBar({ current }) {
+export default function MobileTabBar({ current, centerAction = null }) {
   const inRouter = useInRouterContext();
   const active = current === 'vendor' ? 'vendors' : current;
 
+  const tabs = TABS.map((t) => {
+    const external = t.href === '/' || t.href === '/vendors';
+    const cls = `in-tab${active === t.key ? ' active' : ''}`;
+    const inner = (
+      <>
+        {t.icon}
+        <span>{t.label}</span>
+      </>
+    );
+    return external || !inRouter ? (
+      <a key={t.key} className={cls} href={t.href} onClick={buzz}>
+        {inner}
+      </a>
+    ) : (
+      <Link key={t.key} className={cls} to={t.href} onClick={buzz}>
+        {inner}
+      </Link>
+    );
+  });
+  if (centerAction) tabs.splice(2, 0, <Fragment key="rack-orb">{centerAction}</Fragment>);
+
   return (
     <nav className="in-tabbar" aria-label="Primary">
-      {TABS.map((t) => {
-        const external = t.href === '/' || t.href === '/vendors';
-        const cls = `in-tab${active === t.key ? ' active' : ''}`;
-        const inner = (
-          <>
-            {t.icon}
-            <span>{t.label}</span>
-          </>
-        );
-        return external || !inRouter ? (
-          <a key={t.key} className={cls} href={t.href} onClick={buzz}>
-            {inner}
-          </a>
-        ) : (
-          <Link key={t.key} className={cls} to={t.href} onClick={buzz}>
-            {inner}
-          </Link>
-        );
-      })}
+      {tabs}
     </nav>
   );
 }

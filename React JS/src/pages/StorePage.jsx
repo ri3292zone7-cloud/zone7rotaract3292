@@ -5,6 +5,8 @@ import ProductSections from '../components/store/ProductSections';
 import VendorsTeaser from '../components/store/VendorsTeaser';
 import OrderBand from '../components/store/OrderBand';
 import CartDrawer from '../components/store/CartDrawer';
+import DemoCheckout from '../components/store/DemoCheckout';
+import DemoOrders from '../components/store/DemoOrders';
 import SiteFooter from '../components/layout/SiteFooter';
 
 export default function StorePage() {
@@ -28,6 +30,8 @@ export default function StorePage() {
       <VendorsTeaser />
       <OrderBand />
       <CartDrawer />
+      <DemoCheckout />
+      <DemoOrders />
       <SiteFooter />
     </div>
   );

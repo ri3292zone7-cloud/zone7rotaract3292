@@ -71,9 +71,8 @@ export const MARQUEE_ITEMS = [
  *   2. Add one entry to PRODUCTS in this file — a shop card + (optionally)
  *      a flip book tab appear automatically. Price > 0 enables the cart +
  *      WhatsApp order.
- *   3. Replace WHATSAPP_NUMBER with the zone's order line.
  */
-export const WHATSAPP_NUMBER = "97798XXXXXXXX";
+export const WHATSAPP_NUMBER = "9779767655882";
 
 export function money(n) {
   return "NPR " + Number(n).toLocaleString("en-IN");

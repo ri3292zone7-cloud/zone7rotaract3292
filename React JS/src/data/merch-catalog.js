@@ -6,7 +6,7 @@
 export const STORE = {
   name: "Zone 7 Store",
   tagline: "Designed by the zone. Printed locally. Worn proudly.",
-  whatsapp: "97798XXXXXXXX", // TODO: replace with the zone's real order line
+  whatsapp: "9779767655882", // zone order line (wa.me international format)
   payChips: ["eSewa", "Khalti", "Cash · events", "Cards · soon"],
   deliveryNote:
     "Orders are confirmed on WhatsApp, then paid and collected at the next Zone 7 event or meetup — or delivered in the valley when agreed."
@@ -77,7 +77,7 @@ export const CATALOG = [
     id: "cap-navy",
     kind: "cap",
     name: "Zone 7 Cap — Navy",
-    tagline: "Structured five-panel, embroidered Z7 front. Adjustable back.",
+    tagline: "Structured six-panel snapback, embroidered Z7 crest. Adjustable back.",
     price: 600,
     color: "#232A4E",
     colorName: "Navy",
@@ -138,7 +138,7 @@ export const CATEGORIES = [
     id: "caps",
     label: "Caps",
     title: "Cap the look.",
-    sub: "Structured five-panel caps with an embroidered Z7 front and an adjustable back that fits everyone.",
+    sub: "Structured six-panel snapbacks with an embroidered Z7 crest and an adjustable back that fits everyone.",
     tag: "Embroidered"
   },
   {

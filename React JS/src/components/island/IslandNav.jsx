@@ -17,7 +17,7 @@ const SITE_LINKS = [
  * the links navigate client-side (no page reload); on the vendor page
  * they are plain links.
  */
-export default function IslandNav({ current, context, children }) {
+export default function IslandNav({ current, context, children, rack = null }) {
   const [scrolled, setScrolled] = useState(false);
   const inRouter = useInRouterContext();
 
@@ -86,7 +86,7 @@ export default function IslandNav({ current, context, children }) {
         </div>
       </header>
 
-      <MobileTabBar current={current} />
+      <MobileTabBar current={current} centerAction={rack} />
     </>
   );
 }

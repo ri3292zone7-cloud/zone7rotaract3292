@@ -4,8 +4,12 @@ import { Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 import Reveal from '../components/ui/Reveal';
 import IslandNav from '../components/island/IslandNav';
+import CartOrb from '../components/island/CartOrb';
+import StoreCartDrawer from '../components/store/CartDrawer';
+import { useStoreCart } from '../context/useStoreCart';
 import { VENDORS, VENDOR_SLOTS } from '../data/vendors';
 import './vendors-landing.css';
+import './store.css';
 
 import pawsLogo from '../vendors/paws-nepal/media/paws-logo.webp';
 import mannkaPhoto from '../vendors/mannka-creation/media/mannka-card.jpg';
@@ -34,6 +38,16 @@ function shuffle(arr) {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
+}
+
+/*
+ * Permanent bottom-bar cart orb for the vendors landing page — same
+ * store cart as /store (restored from localStorage), opening the same
+ * drawer. Vendor shop pages don't render one, keeping their bar clean.
+ */
+function VendorsCartOrb() {
+  const cart = useStoreCart();
+  return <CartOrb count={cart.count} onOpen={() => cart.setOpen(true)} />;
 }
 
 /* ── 3D: soft glow orbs behind the headline ─────────────────────── */
@@ -165,7 +179,7 @@ export default function VendorsLandingPage() {
 
   return (
     <div className="vl-page">
-      <IslandNav current="vendors" context="Local Vendors" />
+      <IslandNav current="vendors" context="Local Vendors" rack={<VendorsCartOrb />} />
 
       {/* ── HERO ── */}
       <header className="vl-hero" id="vendors-hero">
@@ -371,6 +385,7 @@ export default function VendorsLandingPage() {
           <span><a href="/store">Store</a> · <a href="/">Home</a> · Rotaract District 3292</span>
         </div>
       </footer>
+      <StoreCartDrawer />
     </div>
   );
 }

@@ -48,12 +48,12 @@ const SCENES = [
     id: 'cap',
     kicker: 'Drop 03 · Caps',
     title: <>Cap the <span>look.</span></>,
-    sub: 'Structured five-panel with an embroidered Z7 front. One size, everyone welcome.',
-    spec: 'Structured 5-panel · One size',
+    sub: 'Structured six-panel snapback with an embroidered Z7 crest. One size, everyone welcome.',
+    spec: 'Structured 6-panel · One size',
     price: money(600),
     cta: 'Shop caps',
     href: '#shop',
-    accent: '#0E7490'
+    accent: '#E11A6E'
   },
   {
     id: 'bottle',

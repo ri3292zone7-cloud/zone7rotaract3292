@@ -4,7 +4,7 @@ import { useStoreCart } from '../../context/useStoreCart';
 
 const STEPS = [
   { num: '01', icon: '🎨', title: 'Pick your drop', desc: 'Browse tees, badges, pins, caps and bottles. Swatch-colourway to find your shade.' },
-  { num: '02', icon: '💬', title: 'Order & confirm', desc: 'Add to the rack and check out — your order lands straight in our WhatsApp with sizes and total.' },
+  { num: '02', icon: '💬', title: 'Order & confirm', desc: 'Add to the cart and check out — your order lands straight in our WhatsApp with sizes and total.' },
   { num: '03', icon: '🤝', title: 'Pay & collect', desc: 'Settle with eSewa, Khalti or cash at the next Zone 7 event or meetup. Receipt, sticker, done.' }
 ];
 

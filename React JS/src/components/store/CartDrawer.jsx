@@ -1,9 +1,17 @@
+import { useEffect } from 'react';
 import { CATALOG, money, STORE } from '../../data/merch-catalog';
 import { useStoreCart } from '../../context/useStoreCart';
 
 export default function CartDrawer() {
   const cart = useStoreCart();
   const open = cart.open;
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKey = (e) => { if (e.key === 'Escape') cart.setOpen(false); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open, cart]);
 
   const lines = cart.lines
     .map((l) => {
@@ -31,8 +39,8 @@ export default function CartDrawer() {
           </div>
         ) : (
           <div className="st-drawer-lines">
-            {lines.map((l) => (
-              <div className="st-drawer-line" key={l.p.id + (l.size ? '::' + l.size : '')}>
+            {lines.map((l, idx) => (
+              <div className="st-drawer-line" style={{ '--i': idx }} key={l.p.id + (l.size ? '::' + l.size : '')}>
                 <span className="st-drawer-dot" style={{ background: l.p.color }}></span>
                 <div className="st-drawer-info">
                   <strong>{l.p.name}</strong>
@@ -60,14 +68,17 @@ export default function CartDrawer() {
               <b>{money(cart.total)}</b>
             </div>
             <button type="button" className="btn btn-primary st-checkout" onClick={cart.checkout}>
-              💬 Order on WhatsApp
+              Demo checkout — review order · {money(cart.total)}
             </button>
             <button type="button" className="st-clear" onClick={cart.clear}>
               Clear rack
             </button>
-            <p className="st-drawer-note">{STORE.deliveryNote}</p>
           </div>
         )}
+        <button type="button" className="st-clear st-demo-orders-link" onClick={() => { cart.setOpen(false); cart.viewOrders(); }}>
+          View demo orders / status
+        </button>
+        <p className="st-drawer-note">{STORE.deliveryNote}</p>
       </aside>
     </>
   );

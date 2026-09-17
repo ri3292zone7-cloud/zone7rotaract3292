@@ -296,11 +296,13 @@ function ProductCard({ product, stylesCount, onOpen }) {
 function VariantModal({ kindLabel, products, selectedId, onSelect, onClose }) {
   const cart = useStoreCart();
   const product = products.find((p) => p.id === selectedId) || products[0];
-  const [size, setSize] = useState(product.sizes?.[0] || '');
+  const [size, setSize] = useState('');
+  const [sizeError, setSizeError] = useState(false);
   const needsSize = product.kind === 'tee' || product.kind === 'cap';
 
   useEffect(() => {
-    setSize(product.sizes?.[0] || '');
+    setSize('');
+    setSizeError(false);
   }, [product.id, product.sizes]);
 
   useEffect(() => {
@@ -317,8 +319,22 @@ function VariantModal({ kindLabel, products, selectedId, onSelect, onClose }) {
 
   const add = () => {
     if (product.price <= 0) return;
+    if (needsSize && product.sizes.length && !size) {
+      setSizeError(true);
+      return;
+    }
     cart.add(product.id, needsSize && product.sizes.length ? size : undefined);
     cart.setOpen(true);
+    onClose();
+  };
+
+  const buyNow = () => {
+    if (product.price <= 0) return;
+    if (needsSize && product.sizes.length && !size) {
+      setSizeError(true);
+      return;
+    }
+    cart.buyNow(product.id, needsSize && product.sizes.length ? size : undefined);
     onClose();
   };
 
@@ -354,22 +370,27 @@ function VariantModal({ kindLabel, products, selectedId, onSelect, onClose }) {
           </div>
 
           {needsSize && product.sizes.length > 0 && (
-            <div className="st-sizes">
+            <div className="st-sizes" role="group" aria-label="Choose size">
               {product.sizes.map((s) => (
                 <button
                   key={s}
                   type="button"
-                  className={`st-size ${s === size ? 'on' : ''}`}
-                  onClick={() => setSize(s)}
+                  className={`st-size ${s === size ? 'on' : ''}${sizeError && !size ? ' st-size-required' : ''}`}
+                  aria-pressed={s === size}
+                  onClick={() => { setSize(s); setSizeError(false); }}
                 >
                   {s}
                 </button>
               ))}
+              {sizeError && !size && <p className="st-size-hint" role="alert">Choose a size first.</p>}
             </div>
           )}
 
           <button type="button" className="btn btn-primary st-add" onClick={add}>
             Add to cart · {money(product.price)}
+          </button>
+          <button type="button" className="btn btn-glass st-add" onClick={buyNow}>
+            Buy now · {money(product.price)}
           </button>
         </div>
       </div>

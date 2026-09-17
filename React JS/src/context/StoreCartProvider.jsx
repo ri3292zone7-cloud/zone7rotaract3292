@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { CATALOG, STORE, money } from '../data/merch-catalog';
+import { CATALOG } from '../data/merch-catalog';
 import { StoreCartContext } from './store-cart-context';
 
 const KEY = 'z7-store-cart';
@@ -12,12 +12,27 @@ export default function StoreCartProvider({ children }) {
   const [lines, setLines] = useState(() => {
     try {
       const raw = localStorage.getItem(KEY);
-      return raw ? JSON.parse(raw) : [];
+      const saved = raw ? JSON.parse(raw) : [];
+      return Array.isArray(saved) ? saved.filter((line) => line && CATALOG.some((p) => p.id === line.id) && Number.isInteger(line.qty) && line.qty > 0 && line.qty <= 99) : [];
     } catch {
       return [];
     }
   });
   const [open, setOpen] = useState(false);
+  const [demoSession, setDemoSession] = useState(null);
+  const [ordersOpen, setOrdersOpen] = useState(false);
+
+  const buyNow = useCallback((id, size) => {
+    setOpen(false);
+    setOrdersOpen(false);
+    setDemoSession({ id: `DEMO-${crypto.randomUUID()}`, lines: [{ id, size: size || '', qty: 1 }], source: 'single' });
+  }, []);
+
+  const viewOrders = useCallback(() => {
+    setOpen(false);
+    setDemoSession(null);
+    setOrdersOpen(true);
+  }, []);
 
   const persist = (next) => {
     try {
@@ -30,10 +45,10 @@ export default function StoreCartProvider({ children }) {
   const add = useCallback((id, size) => {
     setLines((prev) => {
       const k = makeLineKey(id, size);
-      const next = [...prev];
-      const found = next.find((l) => makeLineKey(l.id, l.size) === k);
-      if (found) found.qty += 1;
-      else next.push({ id, size: size || '', qty: 1 });
+      const found = prev.some((l) => makeLineKey(l.id, l.size) === k);
+      const next = found
+        ? prev.map((l) => makeLineKey(l.id, l.size) === k ? { ...l, qty: Math.min(99, l.qty + 1) } : l)
+        : [...prev, { id, size: size || '', qty: 1 }];
       persist(next);
       return next;
     });
@@ -44,7 +59,7 @@ export default function StoreCartProvider({ children }) {
       let next = prev.map((l) => {
         if (makeLineKey(l.id, l.size) !== k) return l;
         const q = l.qty + delta;
-        return { ...l, qty: Math.max(0, q) };
+        return { ...l, qty: Math.min(99, Math.max(0, q)) };
       });
       next = next.filter((l) => l.qty > 0);
       persist(next);
@@ -80,26 +95,14 @@ export default function StoreCartProvider({ children }) {
 
   const checkout = useCallback(() => {
     if (count === 0) return;
-    const linesMsg = lines
-      .map((l) => {
-        const p = CATALOG.find((x) => x.id === l.id);
-        if (!p) return null;
-        const size = l.size ? ' · size ' + l.size : '';
-        return `• ${p.name}${size} × ${l.qty} — ${money(p.price * l.qty)}`;
-      })
-      .filter(Boolean);
-    const msg =
-      'Namaste Zone 7 Store! 🙏\nI\'d like to order:\n' +
-      linesMsg.join('\n') +
-      '\nTotal: ' +
-      money(total) +
-      '\nPlease confirm availability, size and pickup.';
-    window.open('https://wa.me/' + STORE.whatsapp + '?text=' + encodeURIComponent(msg), '_blank');
-  }, [lines, total, count]);
+    setOpen(false);
+    setOrdersOpen(false);
+    setDemoSession({ id: `DEMO-${crypto.randomUUID()}`, lines: lines.map((line) => ({ ...line })), source: 'cart' });
+  }, [lines, count]);
 
   const value = useMemo(
-    () => ({ lines, add, setQty, remove, clear, total, count, checkout, open, setOpen }),
-    [lines, add, setQty, remove, clear, total, count, checkout, open]
+    () => ({ lines, add, setQty, remove, clear, total, count, checkout, open, setOpen, buyNow, demoSession, setDemoSession, ordersOpen, setOrdersOpen, viewOrders }),
+    [lines, add, setQty, remove, clear, total, count, checkout, open, buyNow, demoSession, ordersOpen, viewOrders]
   );
 
   return <StoreCartContext.Provider value={value}>{children}</StoreCartContext.Provider>;

@@ -274,7 +274,15 @@
     "#siteNav .nav-btn kbd{height:auto;background:var(--nav-tint2);color:var(--nav-brand-strong);margin:0;padding:1px 7px;font:inherit;font-family:'Inter',sans-serif;font-size:.68rem;font-weight:700;border-radius:6px;line-height:1.6}",
     "#siteNav .nav-btn:hover,#siteNav .nav-btn.on{border-color:var(--nav-brand-strong);color:var(--nav-brand-strong);background:var(--nav-tint)}",
     "#siteNav .nav-btn:active{transform:scale(.96)}",
+    "#siteNav .nav-btn:focus-visible{outline:2px solid var(--nav-brand-strong);outline-offset:2px}",
     "#siteNav .nav-theme{width:42px;justify-content:center;padding:0}",
+    "#siteNav .nav-store{display:none}",
+    "@media (max-width:920px){#siteNav .nav-store{display:inline-flex;width:44px;height:44px;padding:0;justify-content:center}#siteNav .nav-store span{display:none}}",
+    "#siteNav .nav-duo{display:none}",
+    "#siteNav .nav-duo-btn{display:inline-flex;align-items:center;gap:7px;background:none;border:none;color:var(--nav-ink);font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s;flex-shrink:0}",
+    "@media (max-width:920px){#siteNav .nav-duo{display:inline-flex;align-items:stretch;height:44px;border:1.5px solid var(--nav-border);border-radius:100px;background:var(--nav-surface);overflow:hidden;flex-shrink:0}#siteNav #navSearchBtn{display:none}#siteNav #navThemeBtn{display:none}#siteNav .nav-duo-search{padding:0 14px}#siteNav .nav-duo-theme{width:44px;justify-content:center;border-left:1px solid var(--nav-border)}#siteNav .nav-duo-btn:hover{background:var(--nav-tint)}#siteNav .nav-duo-btn.on{color:var(--nav-brand-strong);background:var(--nav-tint)}}",
+    "@media (max-width:920px){#siteNav .wrap{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);padding:0 14px}#siteNav .nav-center{justify-self:center}}",
+    "@media (max-width:380px){#siteNav .wrap{padding:0 10px;gap:8px}#siteNav .brand{font-size:.85rem;gap:6px}#siteNav .brand .z{width:26px;height:26px;font-size:.85rem}#siteNav .nav-duo-search span{display:none}#siteNav .nav-duo-search{padding:0 12px}}",
     "#siteNav .nav-search-pill{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px 0 14px;border:1px solid var(--nav-border);background:var(--nav-surface);color:var(--nav-ink-soft);border-radius:100px;font-family:'Inter',sans-serif;font-size:.84rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:border-color .18s,background .18s,color .18s,transform .15s;flex-shrink:0;margin-left:6px}",
     "#siteNav .nav-search-pill:hover{border-color:var(--nav-brand-strong);color:var(--nav-ink);background:var(--nav-tint)}",
     "#siteNav .nav-search-pill:active{transform:scale(.97)}",
@@ -446,6 +454,7 @@
   var STAR = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5c.6 4.6 2.4 7.4 10.5 10.5C14.4 15.1 12.6 17.9 12 22.5c-.6-4.6-2.4-7.4-10.5-10.5C9.6 8.9 11.4 6.1 12 1.5z"/></svg>';
   var S_ICO = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
   var M_ICO = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.8 6.8 0 0 0 9.8 9.8z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>';
+  var S_STORE = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5.5 8h13l-1.1 12.5H6.6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 
   function item(path, label, key, extra) {
     return '<a href="' + path + '"' + (current === key ? ' class="current"' : "") + extra + ">" + label + "</a>";
@@ -532,6 +541,10 @@
     item("/store", "Store", "merch") +
     "</div>" +
     '<button type="button" id="navSearchBtn" class="nav-search-pill" aria-label="Search the whole site" title="Search the whole site (press /)"><span class="ns-ico">' + S_ICO + '</span><span class="ns-label">Search</span><kbd>/</kbd></button>' +
+    '<span class="nav-duo" role="group" aria-label="Search and night mode">' +
+    '<button type="button" class="nav-duo-btn nav-duo-search" aria-label="Search the whole site">' + S_ICO + "<span>Search</span></button>" +
+    '<button type="button" class="nav-duo-btn nav-duo-theme" aria-label="Toggle night mode" title="Toggle night mode" data-z7-theme aria-pressed="false">' + M_ICO + "</button>" +
+    "</span>" +
     "</div>" +
     crisisPills +
     '<div class="nav-actions">' +
@@ -539,6 +552,7 @@
     ctaHtml +
     '<button type="button" id="navThemeBtn" class="nav-btn nav-theme" aria-label="Toggle night mode" title="Toggle night mode" data-z7-theme aria-pressed="false">' + M_ICO + "</button>" +
     '<button type="button" id="navRotaGpt" class="nav-rgpt" aria-label="Open RotaGPT chat" title="RotaGPT chat">' + STAR + "</button>" +
+    '<a href="/store" id="navStoreBtn" class="nav-btn nav-store' + (current === "merch" ? " on" : "") + '" aria-label="Zone 7 Store" title="Store">' + S_STORE + "<span>Store</span></a>" +
     "</div>" +
     "</div>" +
     subnavHtml +
@@ -641,6 +655,8 @@
   }
   var navSearch = nav.querySelector("#navSearchBtn");
   if (navSearch) navSearch.addEventListener("click", openSiteSearch);
+  var navDuoSearch = nav.querySelector(".nav-duo-search");
+  if (navDuoSearch) navDuoSearch.addEventListener("click", openSiteSearch);
   var navTheme = nav.querySelector("#navThemeBtn");
   function bindThemeBtn(btn) {
     if (!btn) return;
@@ -652,6 +668,7 @@
     btn.classList.toggle("on", z7IsDark());
   }
   bindThemeBtn(navTheme);
+  nav.querySelectorAll(".nav-duo-theme").forEach(bindThemeBtn);
 
   /* ---- Mobile app tab bar + More bottom sheet ----
      Permanent bottom navigation on phones (all pages except the
@@ -679,15 +696,15 @@
   if (!z7IsMap) {
     var Z7_HOME = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.5V20h5v-5.5h2V20h5V9.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     var Z7_CLUBS = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.9"/><path d="M3.2 19c.6-3.2 2.9-5 5.8-5s5.2 1.8 5.8 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="16.8" cy="9" r="2.6" stroke="currentColor" stroke-width="1.9"/><path d="M16.6 14.2c2.2.3 3.8 1.9 4.2 4.3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
-    var Z7_STORE = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5.5 8h13l-1.1 12.5H6.6z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+    var Z7_GALLERY = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2.5" stroke="currentColor" stroke-width="1.9"/><circle cx="9" cy="10" r="1.6" stroke="currentColor" stroke-width="1.7"/><path d="M5.5 17.5l4.5-4.5 3 3 2.5-2.5 3 3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     var Z7_LEARN = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 5.5A7.5 7.5 0 0 1 12 7a7.5 7.5 0 0 1 8-1.5V18a7.5 7.5 0 0 0-8 1.5A7.5 7.5 0 0 0 4 18z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M12 7v12.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
     var Z7_EXPLORE = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.9"/><path d="M15.6 8.4l-1.6 5.6-5.6 1.6 1.6-5.6z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M12 12.9l.9-.9" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
     var Z7_JOIN = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="8" r="3.4" stroke="#fff" stroke-width="2"/><path d="M4 19.5c.7-3.6 3-5.5 6-5.5s5.3 1.9 6 5.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M18.5 7.5v6M15.5 10.5h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
     var z7Active = "";
     if (current === "clubs") z7Active = "more";
-    else if (current === "merch") z7Active = "store";
+    else if (current === "gallery") z7Active = "gallery";
     else if (["tutorials", "resources", "quiz", "guides", "handbook"].indexOf(current) !== -1) z7Active = "learn";
-    else if (["gallery", "about", "flood-help"].indexOf(current) !== -1) z7Active = "more";
+    else if (["about", "flood-help"].indexOf(current) !== -1) z7Active = "more";
     else if (current === "" && (z7Path === "" || z7Path === "/" || z7Path === "/index" || z7Path === "/index.html")) z7Active = "home";
     if (z7Path === "/join") z7Active = "join";
     function z7Tab(href, view, label, icon) {
@@ -700,7 +717,7 @@
       z7Tab("/", "home", "Home", Z7_HOME) +
       z7Tab("/guides", "learn", "Learn", Z7_LEARN) +
       '<a class="z7tab join-tab' + (z7Active === "join" ? " active" : "") + '" href="/join" aria-label="Join a Rotaract club"><span class="join-orb">' + Z7_JOIN + "</span><span>Join</span></a>" +
-      z7Tab("/store", "store", "Store", Z7_STORE) +
+      z7Tab("/gallery", "gallery", "Gallery", Z7_GALLERY) +
       '<button type="button" class="z7tab' + (z7Active === "more" ? " active" : "") + '" id="z7MoreBtn" aria-haspopup="dialog" aria-label="Explore Zone 7 sections">' + Z7_EXPLORE + "<span>Explore</span></button>";
     document.body.appendChild(z7Bar);
     var z7Veil = document.createElement("div");

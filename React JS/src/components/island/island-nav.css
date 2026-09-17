@@ -142,6 +142,41 @@ html { scrollbar-gutter: stable; }
 .in-tab.active { color: var(--gold); }
 .in-tab.active svg { transform: translateY(-1px) scale(1.1); }
 .in-tab:focus-visible { box-shadow: 0 0 0 2px rgba(23, 19, 48, 0.9), 0 0 0 4px var(--gold); }
+
+/* ── raised centre orb (rack on store) — mirrors the Join orb ── */
+.in-tab.rack-tab { color: #fff; }
+.in-tab.rack-tab .rack-orb {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E11A6E, #A80F52);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -26px;
+  border: 3px solid #1d1936;
+  box-shadow: 0 10px 24px rgba(225, 26, 110, 0.42);
+  flex-shrink: 0;
+  transition: transform 0.15s;
+}
+.in-tab.rack-tab:active .rack-orb { transform: scale(0.94); }
+.in-tab.rack-tab .rack-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 5px;
+  border-radius: 100px;
+  background: linear-gradient(120deg, var(--magenta), var(--gold));
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 14px rgba(225, 26, 110, 0.5);
+}
 .in-tab.active::after {
   content: '';
   position: absolute;
@@ -161,6 +196,7 @@ html { scrollbar-gutter: stable; }
 @media (prefers-reduced-motion: reduce) {
   .in-tab.active::after { animation: none; }
   .in-tab svg { transition: none; }
+  .in-tab.rack-tab .rack-orb { transition: none; }
 }
 
 /* ── seamless page switch: instant swap, no fade, no flash ──────── */
