@@ -276,6 +276,7 @@
     "#siteNav .nav-btn:active{transform:scale(.96)}",
     "#siteNav .nav-btn:focus-visible{outline:2px solid var(--nav-brand-strong);outline-offset:2px}",
     "#siteNav .nav-theme{width:42px;justify-content:center;padding:0}",
+    "#siteNav button,#siteNav a,#z7TabBar button,#z7TabBar a,#z7MoreSheet button,#z7MoreSheet a{-webkit-tap-highlight-color:transparent;touch-action:manipulation}",
     "#siteNav .nav-store{display:none}",
     "@media (max-width:920px){#siteNav .nav-store{display:inline-flex;width:44px;height:44px;padding:0;justify-content:center}#siteNav .nav-store span{display:none}}",
     "#siteNav .nav-duo{display:none}",

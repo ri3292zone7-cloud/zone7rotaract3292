@@ -227,6 +227,10 @@ button { font-family: inherit; }
 .btn-glass:hover { background: rgba(255, 255, 255, .18); transform: translateY(-3px); }
 .btn:disabled { opacity: .45; pointer-events: none; }
 
+/* snappy mobile taps everywhere in the app: no blue flash, no double-tap zoom delay */
+button, a, summary, [role="button"], input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button, a, summary, [role="button"] { touch-action: manipulation; }
+
 .stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 44px 0 8px; }
 @media (max-width: 900px) { .stat-strip { grid-template-columns: repeat(2, 1fr); } }
 .stat-card { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 18px; box-shadow: 0 10px 30px rgba(27, 24, 54, .06); }

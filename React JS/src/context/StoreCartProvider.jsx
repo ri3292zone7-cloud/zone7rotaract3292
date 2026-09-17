@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { CATALOG } from '../data/merch-catalog';
+import { CATALOG, STORE, money } from '../data/merch-catalog';
 import { StoreCartContext } from './store-cart-context';
 
 const KEY = 'z7-store-cart';
@@ -19,20 +19,6 @@ export default function StoreCartProvider({ children }) {
     }
   });
   const [open, setOpen] = useState(false);
-  const [demoSession, setDemoSession] = useState(null);
-  const [ordersOpen, setOrdersOpen] = useState(false);
-
-  const buyNow = useCallback((id, size) => {
-    setOpen(false);
-    setOrdersOpen(false);
-    setDemoSession({ id: `DEMO-${crypto.randomUUID()}`, lines: [{ id, size: size || '', qty: 1 }], source: 'single' });
-  }, []);
-
-  const viewOrders = useCallback(() => {
-    setOpen(false);
-    setDemoSession(null);
-    setOrdersOpen(true);
-  }, []);
 
   const persist = (next) => {
     try {
@@ -95,14 +81,26 @@ export default function StoreCartProvider({ children }) {
 
   const checkout = useCallback(() => {
     if (count === 0) return;
-    setOpen(false);
-    setOrdersOpen(false);
-    setDemoSession({ id: `DEMO-${crypto.randomUUID()}`, lines: lines.map((line) => ({ ...line })), source: 'cart' });
-  }, [lines, count]);
+    const linesMsg = lines
+      .map((l) => {
+        const p = CATALOG.find((x) => x.id === l.id);
+        if (!p) return null;
+        const size = l.size ? ' · size ' + l.size : '';
+        return `• ${p.name}${size} × ${l.qty} — ${money(p.price * l.qty)}`;
+      })
+      .filter(Boolean);
+    const msg =
+      'Namaste Zone 7 Store! 🙏\nI\'d like to order:\n' +
+      linesMsg.join('\n') +
+      '\nTotal: ' +
+      money(total) +
+      '\nPlease confirm availability, size and pickup.';
+    window.open('https://wa.me/' + STORE.whatsapp + '?text=' + encodeURIComponent(msg), '_blank');
+  }, [lines, total, count]);
 
   const value = useMemo(
-    () => ({ lines, add, setQty, remove, clear, total, count, checkout, open, setOpen, buyNow, demoSession, setDemoSession, ordersOpen, setOrdersOpen, viewOrders }),
-    [lines, add, setQty, remove, clear, total, count, checkout, open, buyNow, demoSession, ordersOpen, viewOrders]
+    () => ({ lines, add, setQty, remove, clear, total, count, checkout, open, setOpen }),
+    [lines, add, setQty, remove, clear, total, count, checkout, open]
   );
 
   return <StoreCartContext.Provider value={value}>{children}</StoreCartContext.Provider>;

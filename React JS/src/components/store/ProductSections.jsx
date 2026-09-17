@@ -328,16 +328,6 @@ function VariantModal({ kindLabel, products, selectedId, onSelect, onClose }) {
     onClose();
   };
 
-  const buyNow = () => {
-    if (product.price <= 0) return;
-    if (needsSize && product.sizes.length && !size) {
-      setSizeError(true);
-      return;
-    }
-    cart.buyNow(product.id, needsSize && product.sizes.length ? size : undefined);
-    onClose();
-  };
-
   return (
     <div className="st-modal" role="dialog" aria-modal="true" aria-label={kindLabel}>
       <div className="st-modal-backdrop" onClick={onClose} aria-hidden="true"></div>
@@ -388,9 +378,6 @@ function VariantModal({ kindLabel, products, selectedId, onSelect, onClose }) {
 
           <button type="button" className="btn btn-primary st-add" onClick={add}>
             Add to cart · {money(product.price)}
-          </button>
-          <button type="button" className="btn btn-glass st-add" onClick={buyNow}>
-            Buy now · {money(product.price)}
           </button>
         </div>
       </div>

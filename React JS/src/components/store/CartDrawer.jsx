@@ -68,16 +68,13 @@ export default function CartDrawer() {
               <b>{money(cart.total)}</b>
             </div>
             <button type="button" className="btn btn-primary st-checkout" onClick={cart.checkout}>
-              Demo checkout — review order · {money(cart.total)}
+              💬 Order on WhatsApp
             </button>
             <button type="button" className="st-clear" onClick={cart.clear}>
               Clear rack
             </button>
           </div>
         )}
-        <button type="button" className="st-clear st-demo-orders-link" onClick={() => { cart.setOpen(false); cart.viewOrders(); }}>
-          View demo orders / status
-        </button>
         <p className="st-drawer-note">{STORE.deliveryNote}</p>
       </aside>
     </>
