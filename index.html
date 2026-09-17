@@ -363,9 +363,10 @@
     .zrr-year{margin-bottom:6px;}
   }
   @media (max-width:600px){
-    .zrr-timeline{padding:30px 0 36px;}
+    .zrr-timeline{padding:24px 0 28px;}
     .zrr-track{row-gap:20px; column-gap:8px; margin-top:28px;}
     .zrr-node{flex:0 0 50%; max-width:50%;}
+    .zrr-avatar{width:116px; height:116px;}
     .zrr-name{font-size:0.8rem; max-width:130px; margin:0 auto;}
     .zrr-tag{margin-top:8px;}
   }
@@ -629,7 +630,11 @@
   }
 
   @media (max-width:600px){
-    .hero{padding:120px 0 56px;}
+    .hero{padding:92px 0 48px;}
+    .eyebrow{margin-bottom:18px;}
+    .hero p.lead{margin-top:18px;}
+    .hero-actions{margin-top:30px;}
+    .stat-row{margin-top:36px; padding-top:28px;}
     .section{padding:56px 0;}
     .hero h1{font-size:clamp(2rem,8vw,2.6rem);}
     .hero p.lead{font-size:1rem;}
@@ -647,7 +652,9 @@
   }
   @media (max-width: 600px){
     .stat-strip{grid-template-columns:repeat(2,1fr);}
-    .leader-grid{grid-template-columns:1fr;}
+    .leader{padding:56px 0 20px;}
+    .leader-card{padding:26px 18px;}
+    .leader-grid{grid-template-columns:1fr; gap:22px;}
     #leadership > .wrap{text-align:center;}
     #leadership .leader-item{text-align:center;}
     #leadership .leader-avatar{margin-left:auto; margin-right:auto;}
@@ -1415,7 +1422,7 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   const cardHTML = m => `
     <a class="bod-card${m.isPresident?' is-president':''}" href="/${m.clubSlug}#board">
       <div class="bod-photo">
-        ${m.photo ? `<img src="${zone7Esc(zone7MediaPath(m.photo))}" alt="${zone7Esc(m.name)}" loading="lazy">` : `<div class="bod-initials">${zone7Esc(initials(m.name))}</div>`}
+        ${m.photo ? `<img src="${zone7Esc(zone7MediaPath(m.photo))}" alt="${zone7Esc(m.name)}" loading="lazy" decoding="async">` : `<div class="bod-initials">${zone7Esc(initials(m.name))}</div>`}
         ${m.isPresident ? `<span class="bod-crown">👑 President</span>` : ""}
       </div>
       <div class="bod-info"><h5>${zone7Esc(m.name)}</h5><span class="bod-role">${zone7Esc(m.role)}</span><span class="bod-club">${zone7Esc(m.clubName)}</span></div>
@@ -1477,7 +1484,7 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   for(let i=projects.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [projects[i],projects[j]]=[projects[j],projects[i]]; }
   const cardHTML = p => `
     <a class="proj-card" href="/project?club=${p.clubSlug}&id=${encodeURIComponent(p.id)}">
-      <img src="${zone7Esc(p.cover || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600')}" alt="${zone7Esc(p.title)}" loading="lazy">
+      <img src="${zone7Esc(p.cover || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600')}" alt="${zone7Esc(p.title)}" loading="lazy" decoding="async">
       <div class="proj-cap"><b>${zone7Esc(p.title)}</b><span>${zone7Esc(p.category)} · ${zone7Esc(p.clubName)}</span></div>
     </a>`;
   const mid = Math.ceil(projects.length / 2);
@@ -1498,6 +1505,7 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
         <div class="dcal-title">
           <h4 id="dcalMonthLabel"></h4>
           <span class="theme" id="dcalTheme"></span>
+          <span class="count" id="dcalCount"></span>
         </div>
         <button class="dcal-nav" id="dcalNext" aria-label="Next month">&rarr;</button>
       </div>
@@ -1513,31 +1521,39 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
 </section>
 
 <style>
-  .dcal-card{background:var(--paper); border:1px solid var(--line); border-radius:20px; overflow:hidden;}
-  .dcal-topbar{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:22px 26px; border-bottom:1px solid var(--line);}
+  .dcal-card{background:var(--paper); border:1px solid var(--line); border-radius:20px; overflow:hidden; position:relative; box-shadow:0 18px 44px rgba(27,24,54,0.08);}
+  .dcal-card::before{content:""; display:block; height:5px; background:linear-gradient(90deg, var(--magenta), var(--magenta-deep) 60%, var(--gold));}
+  .dcal-topbar{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:22px 26px; border-bottom:1px solid var(--line); background:linear-gradient(180deg, rgba(225,26,110,0.06), transparent);}
   .dcal-title{text-align:center;}
-  .dcal-title h4{font-size:1.15rem; font-family:'Poppins'; font-weight:700;}
-  .dcal-title span.theme{font-size:0.82rem; color:var(--magenta-deep); font-weight:600;}
+  .dcal-title h4{font-size:1.15rem; font-family:'Poppins'; font-weight:700; color:var(--ink);}
+  .dcal-title span.theme{font-size:0.82rem; color:var(--magenta-deep); font-weight:700; background:rgba(225,26,110,0.08); padding:3px 12px; border-radius:100px; display:inline-block; margin-top:4px;}
+  .dcal-title span.count{display:block; font-size:0.68rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:rgba(27,24,54,0.45); margin-top:6px;}
   .dcal-nav{
     width:38px; height:38px; border-radius:50%; border:1.5px solid var(--line); background:#fff;
     display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem; color:var(--ink);
     transition:background .2s, color .2s, border-color .2s; flex-shrink:0;
   }
-  .dcal-nav:hover{background:var(--magenta); border-color:var(--magenta); color:#fff;}
+  .dcal-nav:hover:not(:disabled){background:var(--magenta); border-color:var(--magenta); color:#fff;}
   .dcal-swipe{overflow:hidden; touch-action:pan-y;}
   .dcal-inner{padding:26px; display:grid; grid-template-columns:280px 1fr; gap:34px;}
   .dcal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:5px;}
   .dcal-dow{font-size:0.66rem; font-weight:700; text-transform:uppercase; color:rgba(27,24,54,0.4); text-align:center; padding-bottom:4px;}
   .dcal-cell{aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:0.8rem; border-radius:8px; color:rgba(27,24,54,0.55);}
-  .dcal-cell.hl{background:var(--magenta); color:#fff; font-weight:700;}
+  .dcal-cell.hl{background:var(--magenta); color:#fff; font-weight:700; box-shadow:0 4px 10px rgba(225,26,110,0.3);}
+  .dcal-cell.today{box-shadow:inset 0 0 0 2px var(--magenta-deep); font-weight:800; color:var(--magenta-deep);}
+  .dcal-cell.hl.today{box-shadow:inset 0 0 0 2px #fff, inset 0 0 0 4px var(--magenta-deep);}
   .dcal-cell.empty{visibility:hidden;}
   #dcalList{list-style:none; padding:0; margin:0;}
-  #dcalList li{font-size:0.88rem; color:rgba(27,24,54,0.68); line-height:1.7; padding-left:16px; position:relative;}
-  #dcalList li::before{content:"•"; position:absolute; left:0; color:var(--gold);}
+  #dcalList li{font-size:0.86rem; color:rgba(27,24,54,0.75); line-height:1.55; background:#fff; border:1px solid var(--line); border-left:3px solid var(--magenta); border-radius:12px; padding:9px 14px; margin-bottom:8px;}
+  #dcalList li:last-child{margin-bottom:0;}
+  #dcalSwipe.swap .dcal-inner{animation:dcalSwap .3s ease;}
+  @keyframes dcalSwap{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+  @media (prefers-reduced-motion:reduce){ #dcalSwipe.swap .dcal-inner{animation:none;} }
   .dcal-dots{display:flex; justify-content:center; gap:7px; padding:0 0 22px;}
-  .dcal-dots span{width:6px; height:6px; border-radius:50%; background:var(--line); cursor:pointer;}
-  .dcal-dots span.active{background:var(--magenta);}
-  @media (max-width:760px){ .dcal-inner{grid-template-columns:1fr; padding:20px;} .dcal-grid{max-width:320px; margin:0 auto;} }
+  .dcal-dots span{width:6px; height:6px; border-radius:100px; background:var(--line); cursor:pointer; transition:width .25s, background .25s;}
+  .dcal-dots span.active{background:var(--magenta); width:22px;}
+  .dcal-grid{background:#fff; border:1px solid var(--line); border-radius:14px; padding:10px; align-content:start;}
+  @media (max-width:760px){ .dcal-inner{grid-template-columns:1fr; padding:20px;} .dcal-grid{max-width:320px; margin:0 auto;} .dcal-nav{width:42px; height:42px;} .dcal-cell{font-size:0.86rem;} }
 </style>
 
 <section class="events" id="events">
@@ -1563,19 +1579,27 @@ const DISTRICT_CALENDAR = [
 [2027,2,"Water, Sanitation & Hygiene Month",[6,8,9,13,21,22,27],["6 Mar – Maha Shivaratri","8 Mar – International Women's Day","8–14 Mar – Rotaract Week","9 Mar – Gyalpo Lohsar","13 Mar – World Rotaract Day","21–22 Mar – Holi Festival","22 Mar – World Water Day","27 Mar – 2nd PS Meet & PETS-SETS"]],
 [2027,3,"Environmental Month",[6,7,10,14,22,24],["6 Apr – Ghode Jatra","7 Apr – World Health Day","10 Apr – Late Rtr. Santosh Memorial ROTA Quiz (Zonal)","14 Apr – Nepali New Year + Bisket Jatra","22 Apr – World Earth Day","24 Apr – Nationwide Futsal Tournament (Regional)"]],
 [2027,4,"Youth Service Month",[1,8,20,29],["1 May – Labour Day","8 May – Late Rtr. Santosh Memorial ROTA Quiz (Cluster)","20 May – Buddha Jayanti","29 May – Nationwide Futsal Tournament (Final)","29 May – Republic Day"]],
-[2027,5,"Rotary Fellowships Month",[5,19,21,26,27,28,29,30],["5 Jun – World Environment Day","19 Jun – 20th Rotaract District Assembly, DLTS & Recognition","19 Jun – Late Rtr. Santosh Memorial ROTA Quiz (Final)","19 Jun – Nepal Investigative Journalism Award","21 Jun – International Day of Yoga","26–30 Jun – RI Convention 2027, Barcelona"]]
+[2027,5,"Rotary Fellowships Month",[5,19,21,26,27,28,29,30],["5 Jun – World Environment Day","19 Jun – 20th Rotaract District Assembly, DLTS & Recognition","19 Jun – Late Rtr. Santosh Memorial ROTA Quiz (Final)","19 Jun – Nepal Investigative Journalism Award","21 Jun – International Day of Yoga","26–30 Jun – RI Convention 2027, Barcelona"]],
 ];
 const DOW = ["S","M","T","W","T","F","S"];
 const MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-let dcalIndex = 0;
+let dcalIndex = (() => {
+  const now = new Date(), y = now.getFullYear(), m = now.getMonth();
+  let idx = DISTRICT_CALENDAR.findIndex(([cy, cm]) => cy === y && cm === m);
+  if (idx !== -1) return idx;
+  idx = DISTRICT_CALENDAR.findIndex(([cy, cm]) => cy > y || (cy === y && cm >= m));
+  return idx === -1 ? DISTRICT_CALENDAR.length - 1 : idx;
+})();
 
 function buildGrid(year, month, hlDays){
   const firstDow = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month+1, 0).getDate();
+  const t = new Date();
+  const today = (t.getFullYear() === year && t.getMonth() === month) ? t.getDate() : -1;
   let cells = DOW.map(d => `<div class="dcal-dow">${d}</div>`).join("");
   for(let i=0;i<firstDow;i++) cells += `<div class="dcal-cell empty">.</div>`;
   for(let d=1; d<=daysInMonth; d++){
-    cells += `<div class="dcal-cell${hlDays.includes(d)?' hl':''}">${d}</div>`;
+    cells += `<div class="dcal-cell${hlDays.includes(d)?' hl':''}${d === today?' today':''}">${d}</div>`;
   }
   return cells;
 }
@@ -1584,11 +1608,16 @@ function renderDCal(){
   const [year, month, theme, hlDays, items] = DISTRICT_CALENDAR[dcalIndex];
   document.getElementById("dcalMonthLabel").textContent = `${MONTH_NAMES[month]} ${year}`;
   document.getElementById("dcalTheme").textContent = theme;
+  document.getElementById("dcalCount").textContent = `${items.length} event${items.length === 1 ? "" : "s"}`;
   document.getElementById("dcalGrid").innerHTML = buildGrid(year, month, hlDays);
   document.getElementById("dcalList").innerHTML = items.map(x => `<li>${x}</li>`).join("");
   document.querySelectorAll(".dcal-dots span").forEach((d,i) => d.classList.toggle("active", i === dcalIndex));
   document.getElementById("dcalPrev").disabled = dcalIndex === 0;
   document.getElementById("dcalNext").disabled = dcalIndex === DISTRICT_CALENDAR.length - 1;
+  const swipe = document.getElementById("dcalSwipe");
+  swipe.classList.remove("swap");
+  void swipe.offsetWidth;
+  swipe.classList.add("swap");
 }
 
 function goDCal(delta){

@@ -125,12 +125,11 @@
   else setTimeout(idleLoad, 4000);
 })();
 
-/* Mobile-only next-page prefetch: warms the cache for the static shell (nav renders
-   in first paint), so the full page load that follows feels instant. Desktop keeps
-   its original full-load behaviour. */
+/* Instant-navigation prefetch: warms the cache for the static shell (nav renders
+   in first paint) on hover, focus, touch and press, on every viewport — so the
+   full page load that follows a tap feels instant. */
 (function () {
   "use strict";
-  if (!window.matchMedia || !matchMedia("(max-width:920px)").matches) return;
   var warmed = {};
   function warm(href) {
     var url = href.split("#")[0].split("?")[0];

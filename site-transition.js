@@ -25,7 +25,7 @@
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   window.__zone7PageTransition = true;
 
-  var EXIT_MS = 220;
+  var EXIT_MS = 140;
   var ENTER_MS = 480;
   var leaving = false;
   var html = document.documentElement;
