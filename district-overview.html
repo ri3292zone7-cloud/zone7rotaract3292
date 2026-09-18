@@ -106,6 +106,19 @@
     .clubs-grid{grid-template-columns:1fr;}
     .hero-stats{grid-template-columns:1fr;}
     .stat-strip{grid-template-columns:repeat(2,1fr);}
+    /* admin-embed mobile: stack the org chart fully so nothing
+       forces the card wider than the phone viewport */
+    .org-branches{grid-template-columns:1fr;}
+    .org-cols-2,.org-cols-3{grid-template-columns:1fr;}
+    .org-branches > *{min-width:0;}
+    .org-branch-card{min-width:0;}
+    .org-top-row{flex-wrap:wrap;}
+    .org-node.drr{min-width:0; flex:1 1 220px;}
+    .org-node.flank{white-space:normal; text-align:center;}
+    .card{padding:18px;}
+    .quote{padding:28px 20px; margin:28px 0;}
+    .quote p{font-size:1.1rem;}
+    .zoneperson{flex-wrap:wrap;}
   }
 </style>
 <script>document.documentElement.classList.add("pt-enter");try{var t=localStorage.getItem("z7-theme");if(!t){var h=localStorage.getItem("hb-theme");if(h==="dark"||h==="light"){localStorage.setItem("z7-theme",h);t=h}}if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}document.documentElement.style.background=document.documentElement.classList.contains("dark")?"#0E0C1A":"#FFF8EF";</script>
@@ -167,6 +180,20 @@ if(new URLSearchParams(location.search).get("embed") === "1"){
   document.getElementById("districtNav").style.display = "none";
   document.getElementById("districtHero").style.paddingTop = "8px";
   document.body.style.background = "transparent";
+  // Report our height so the parent iframe grows instead of clipping.
+  // Same-origin embed, but postMessage keeps it decoupled and resize-aware.
+  const reportHeight = () => {
+    try{
+      parent.postMessage({ type:"z7-district-height", h:document.body.scrollHeight }, location.origin);
+    }catch(e){}
+  };
+  window.addEventListener("load", () => { reportHeight(); setTimeout(reportHeight, 800); });
+  window.addEventListener("resize", reportHeight);
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(reportHeight); }
+  window.addEventListener("message", (e) => {
+    if(e.data === "z7-district-measure") reportHeight();
+  });
+  setTimeout(reportHeight, 2500);
 }
 
 // ---- Budget data (from District Budget Plan RY 2026-27) ----

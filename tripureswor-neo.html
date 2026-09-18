@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<!--
+  TRIPURESWOR × NEO-BRUTALISM — DESIGN DEMO ONLY.
+  Standalone concept page. NOT linked from anywhere. Do NOT merge until approved.
+  Data: Supabase via zone7-data.js (live) with embedded fallback.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tripureswor — Rotaract Club of Tripureswor | Zone 7 Rotaract (Demo)</title>
+<meta name="description" content="Rotaract Club of Tripureswor — chartered 2003, one of Zone 7's oldest clubs. Projects, goals and meetings at Apex College.">
+<link rel="icon" type="image/jpeg" href="media/logos/tripureswor.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FFFDF5; --ink:#000000; --red:#FF6B6B; --yellow:#FFD93D; --violet:#C4B5FD; --white:#FFFFFF;
+  --night:#141118; --night-card:#211C2B; --night-ink:#F4EFE8; --night-mut:#B7B0C6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth; overflow-x:hidden; overflow-x:clip;}
+body{
+  background-color:var(--cream);
+  background-image:linear-gradient(to right, rgba(0,0,0,.06) 1px, transparent 1px),
+                   linear-gradient(to bottom, rgba(0,0,0,.06) 1px, transparent 1px);
+  background-size:40px 40px;
+  color:var(--ink); font-family:'Space Grotesk',sans-serif; font-weight:700;
+  overflow-x:hidden; overflow-x:clip;
+}
+::selection{background:var(--yellow); color:#000;}
+h1,h2,h3{font-weight:900; text-transform:uppercase; line-height:.9; letter-spacing:-.02em;}
+img{display:block; max-width:100%;}
+a{color:inherit;}
+.wrap{max-width:1152px; margin:0 auto; padding:0 32px;}
+
+/* ---------- marquee ---------- */
+.marquee{background:var(--ink); color:var(--yellow); border-bottom:4px solid #000; overflow:hidden; white-space:nowrap; padding:10px 0;}
+.marquee-track{display:inline-block; font-weight:900; text-transform:uppercase; font-size:17px; letter-spacing:.1em; animation:mq 26s linear infinite;}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ---------- hero ---------- */
+.hero{padding:72px 0 80px;}
+.hero-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:52px; align-items:center;}
+.eyebrow{display:inline-block; background:#000; color:#fff; font-weight:900; text-transform:uppercase; font-size:14px; letter-spacing:.14em; padding:8px 16px; transform:rotate(-1.5deg); margin-bottom:26px;}
+.hero h1{font-size:clamp(54px,8vw,104px); margin-bottom:26px;}
+.hero h1 .hollow{color:transparent; -webkit-text-stroke:2.5px #000;}
+.hero h1 .hl{background:var(--violet); color:#000; padding:0 14px; display:inline-block; transform:rotate(1deg); border:4px solid #000; box-shadow:6px 6px 0 0 #000;}
+.hero .sub{font-size:22px; font-weight:500; max-width:36ch; margin-bottom:34px;}
+.hero .sub b{background:var(--yellow); padding:0 6px; border:2px solid #000;}
+.btnrow{display:flex; gap:18px; flex-wrap:wrap;}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; min-height:56px; padding:12px 28px;
+  font-weight:700; font-size:15px; text-transform:uppercase; letter-spacing:.08em; text-decoration:none; cursor:pointer;
+  border:4px solid #000; box-shadow:6px 6px 0 0 #000; transition:transform .1s, box-shadow .1s; font-family:inherit; background:#fff; color:#000;
+}
+.btn.red{background:var(--red); color:#fff;}
+.btn.yellow{background:var(--yellow);}
+.btn:active{transform:translate(4px,4px); box-shadow:0 0 0 0 #000;}
+.hero-art{position:relative;}
+.logo-panel{background:#fff; border:4px solid #000; box-shadow:12px 12px 0 0 #000; transform:rotate(-2deg); padding:28px;}
+.logo-panel img{width:100%; height:auto;}
+.logo-panel figcaption{margin-top:16px; padding-top:12px; border-top:4px solid #000; font-weight:900; font-size:13px; text-transform:uppercase; letter-spacing:.12em;}
+.sticker{position:absolute; font-weight:900; text-transform:uppercase; border:4px solid #000; box-shadow:6px 6px 0 0 #000; padding:10px 18px; font-size:16px;}
+.st-yr{background:var(--yellow); top:-24px; right:-12px; transform:rotate(5deg);}
+.st-old{background:var(--red); color:#fff; bottom:40px; left:-28px; transform:rotate(-5deg);}
+.star-spin{position:absolute; bottom:-32px; right:16px; width:88px; height:88px; background:var(--violet); border:4px solid #000; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:42px; font-weight:900; box-shadow:6px 6px 0 0 #000; animation:spin-slow 10s linear infinite;}
+@keyframes spin-slow{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+
+/* ---------- stats band ---------- */
+.band-black{background:#000; color:#fff; border-top:4px solid #000; border-bottom:4px solid #000; padding:46px 0;}
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+.stat{border:4px solid #fff; padding:22px 10px; text-align:center; box-shadow:8px 8px 0 0 var(--red);}
+.stat:nth-child(2){box-shadow:8px 8px 0 0 var(--yellow); transform:rotate(1deg);}
+.stat:nth-child(3){box-shadow:8px 8px 0 0 var(--violet); transform:rotate(-1deg);}
+.stat:nth-child(4){box-shadow:8px 8px 0 0 #fff;}
+.stat b{display:block; font-weight:900; font-size:52px; line-height:1;}
+.stat span{display:block; margin-top:8px; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.14em;}
+
+/* ---------- sections ---------- */
+section.block{padding:88px 0 24px;}
+.sec-label{display:inline-block; font-weight:900; font-size:14px; text-transform:uppercase; letter-spacing:.2em; background:#000; color:#fff; padding:8px 16px; margin-bottom:20px; transform:rotate(-1deg);}
+.sec-title{font-size:clamp(42px,6vw,80px); margin-bottom:18px; max-width:15ch;}
+.sec-title .u{background:var(--yellow); padding:0 12px; border:4px solid #000; box-shadow:6px 6px 0 0 #000; display:inline-block; transform:rotate(1deg);}
+.sec-note{font-size:20px; font-weight:500; max-width:64ch; margin-bottom:36px;}
+
+/* ---------- club file ---------- */
+.file-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:28px; margin-bottom:28px;}
+.file-card{background:#fff; border:4px solid #000; box-shadow:8px 8px 0 0 #000; padding:32px;}
+.file-card h3{font-size:26px; margin-bottom:14px; background:var(--violet); display:inline-block; padding:4px 12px; border:3px solid #000;}
+.file-card p{font-weight:500; font-size:18px;}
+.vision-card{background:var(--ink); color:#fff; border:4px solid #000; box-shadow:8px 8px 0 0 var(--red); padding:32px; transform:rotate(.8deg);}
+.vision-card h3{font-size:22px; margin-bottom:14px; color:var(--yellow);}
+.vision-card p{font-weight:900; font-size:23px; line-height:1.3; text-transform:uppercase;}
+.facts{display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin-bottom:28px;}
+.fact{background:#fff; border:4px solid #000; box-shadow:6px 6px 0 0 #000; padding:18px;}
+.fact:nth-child(odd){transform:rotate(-.6deg);} .fact:nth-child(even){transform:rotate(.6deg);}
+.fact b{display:inline-block; font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.18em; margin-bottom:6px; background:#000; color:#fff; padding:3px 10px;}
+.fact span{font-size:19px; font-weight:700; display:block; margin-top:8px;}
+.goals{background:#fff; border:4px solid #000; box-shadow:8px 8px 0 0 #000; padding:32px;}
+.goals h3{font-size:26px; margin-bottom:16px;}
+.goals h3 .n{background:var(--red); color:#fff; padding:2px 12px; border:3px solid #000;}
+.goal{padding:14px 0; border-bottom:3px solid #000;}
+.goal:last-child{border-bottom:none;}
+.goal .gt{display:flex; align-items:center; gap:12px; font-size:18px; font-weight:700; margin-bottom:10px;}
+.gpill{margin-left:auto; flex-shrink:0; font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.1em; padding:6px 14px; border:3px solid #000;}
+.gpill.done{background:var(--red); color:#fff;}
+.gpill.live{background:var(--yellow);}
+.gbar{height:22px; border:3px solid #000; background:#fff; position:relative;}
+.gbar i{display:block; height:100%; background:var(--violet);}
+.gbar.done i{background:var(--red);}
+.gbar b{position:absolute; right:8px; top:50%; transform:translateY(-50%); font-size:12px; font-weight:900;}
+
+/* ---------- filters ---------- */
+.filters{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px;}
+.chip{
+  font-family:inherit; font-weight:900; font-size:13px; text-transform:uppercase; letter-spacing:.08em;
+  min-height:52px; padding:10px 20px; background:#fff; border:4px solid #000; box-shadow:4px 4px 0 0 #000;
+  cursor:pointer; transition:transform .1s, box-shadow .1s;
+}
+.chip:nth-child(odd){transform:rotate(-1deg);} .chip:nth-child(even){transform:rotate(1deg);}
+.chip:hover{transform:translate(2px,2px); box-shadow:2px 2px 0 0 #000;}
+.chip.on{background:#000; color:#fff;}
+
+/* ---------- project cards: typographic (no covers in DB) ---------- */
+.proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:36px;}
+.pcard{background:#fff; border:4px solid #000; box-shadow:8px 8px 0 0 #000; display:flex; flex-direction:column; text-decoration:none; transition:transform .2s, box-shadow .2s;}
+.pcard:nth-child(odd){transform:rotate(-.8deg);} .pcard:nth-child(even){transform:rotate(.8deg);}
+.pcard:hover{transform:translateY(-8px) rotate(0deg); box-shadow:16px 16px 0 0 #000;}
+.pcard .phead{padding:22px 26px; border-bottom:4px solid #000; display:flex; align-items:center; gap:14px;}
+.phead.red{background:var(--red); color:#fff;} .phead.yellow{background:var(--yellow);} .phead.violet{background:var(--violet);}
+.pnum{font-weight:900; font-size:44px; line-height:1;}
+.ptag{margin-left:auto; font-weight:900; font-size:12px; text-transform:uppercase; letter-spacing:.1em; background:#000; color:#fff; padding:6px 12px; transform:rotate(2deg);}
+.phead.yellow .ptag{background:#000; color:var(--yellow);}
+.pcard .pt{padding:26px; display:flex; flex-direction:column; flex:1;}
+.pcard h3{font-size:30px; margin-bottom:12px;}
+.ploc{font-size:16px; font-weight:700; margin-bottom:10px;}
+.ploc b{background:var(--yellow); padding:0 8px; border:2px solid #000;}
+.psum{font-weight:500; font-size:17px; line-height:1.5; margin-bottom:16px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; flex:1;}
+.pmeta{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px;}
+.pmeta span{font-size:13px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; background:#000; color:#fff; padding:6px 12px;}
+.popen{align-self:flex-start; font-weight:900; font-size:14px; text-transform:uppercase; letter-spacing:.1em; background:var(--yellow); border:4px solid #000; box-shadow:4px 4px 0 0 #000; padding:10px 20px;}
+.pcard:hover .popen{background:var(--red); color:#fff;}
+.pcount{margin-top:28px; font-weight:900; font-size:16px; text-transform:uppercase; letter-spacing:.1em;}
+.pcount b{background:#000; color:#fff; padding:2px 12px;}
+
+/* ---------- board ---------- */
+.board-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:32px;}
+.bcard{background:#fff; border:4px solid #000; box-shadow:8px 8px 0 0 #000; padding:16px 16px 22px; text-align:center;}
+.bcard:nth-child(3n+1){transform:rotate(-1.2deg);} .bcard:nth-child(3n+2){transform:rotate(.9deg);} .bcard:nth-child(3n){transform:rotate(-.5deg);}
+.bcard img{width:100%; aspect-ratio:1/1; object-fit:cover; border:4px solid #000; margin-bottom:16px; background:#eee;}
+.binit{width:100%; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; background:var(--yellow); border:4px dashed #000; font-weight:900; font-size:72px; margin-bottom:16px;}
+.bcard h3{font-size:22px; margin-bottom:8px;}
+.bcard p{font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.12em; background:var(--violet); display:inline-block; padding:4px 12px; border:3px solid #000;}
+.board-soon{background:var(--yellow); border:4px solid #000; box-shadow:8px 8px 0 0 #000; padding:44px 36px; transform:rotate(-.6deg);}
+.board-soon h3{font-size:32px; margin-bottom:10px;}
+.board-soon p{font-size:19px; font-weight:500;}
+
+/* ---------- meet ---------- */
+.block-black{background:#000; color:#fff; border-top:4px solid #000; margin-top:88px; padding:88px 0;}
+.block-black .sec-label{background:var(--red);}
+.meet-grid{display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:start;}
+.meet-grid h2{font-size:clamp(40px,5.5vw,72px); color:#fff;}
+.meet-grid h2 .u{background:var(--yellow); color:#000; padding:0 12px; display:inline-block; transform:rotate(-1deg); border:4px solid #fff;}
+.meet-lede{font-size:20px; font-weight:500; max-width:32ch; margin:20px 0 32px;}
+.mrow{padding:16px 0; border-bottom:3px dashed #fff; font-size:20px; font-weight:700;}
+.mrow b{display:block; font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.2em; color:var(--yellow); margin-bottom:4px;}
+.mrow a{color:#fff;}
+.meet-grid .btn.yellow{margin-top:28px;}
+
+/* ---------- footer ---------- */
+footer{background:var(--yellow); border-top:4px solid #000; padding:36px 0;}
+.foot-in{max-width:1152px; margin:0 auto; padding:0 32px; display:flex; gap:18px; flex-wrap:wrap; justify-content:space-between; align-items:center;}
+.foot-brand{font-weight:900; text-transform:uppercase; font-size:20px; border:4px solid #000; background:#fff; padding:6px 14px; box-shadow:4px 4px 0 0 #000; transform:rotate(-1deg);}
+.foot-in nav{display:flex; gap:8px; flex-wrap:wrap;}
+.foot-in nav a{font-weight:900; font-size:13px; text-transform:uppercase; letter-spacing:.1em; text-decoration:none; padding:8px 10px;}
+.foot-in nav a:hover{background:#000; color:#fff;}
+.foot-note{font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.08em;}
+
+/* ---------- night mode (site toggle → html.dark) ---------- */
+html.dark{background:#141118 !important;}
+html.dark body{
+  background-color:#141118; color:#F4EFE8;
+  background-image:linear-gradient(to right, rgba(244,239,232,.05) 1px, transparent 1px),
+                   linear-gradient(to bottom, rgba(244,239,232,.05) 1px, transparent 1px);
+}
+html.dark .eyebrow{background:#F4EFE8; color:#141118;}
+html.dark .hero h1 .hollow{-webkit-text-stroke-color:#F4EFE8;}
+html.dark .hero h1 .hl{border-color:#F4EFE8;}
+html.dark .hero .sub b{border-color:#F4EFE8;}
+html.dark .btn{background:#211C2B; color:#F4EFE8; border-color:#F4EFE8; box-shadow:6px 6px 0 0 #000;}
+html.dark .btn.red{background:var(--red); color:#fff;}
+html.dark .btn.yellow{background:var(--yellow); color:#000;}
+html.dark .logo-panel{background:#211C2B; border-color:#F4EFE8;}
+html.dark .logo-panel figcaption{border-color:#F4EFE8;}
+html.dark .sticker{border-color:#F4EFE8;}
+html.dark .star-spin{border-color:#F4EFE8;}
+html.dark .sec-label{background:#F4EFE8; color:#141118;}
+html.dark .sec-title .u{border-color:#F4EFE8;}
+html.dark .file-card, html.dark .facts .fact, html.dark .goals{background:#211C2B; border-color:#F4EFE8;}
+html.dark .file-card h3{border-color:#F4EFE8;}
+html.dark .fact b{background:#F4EFE8; color:#141118;}
+html.dark .chip{background:#211C2B; color:#F4EFE8; border-color:#F4EFE8;}
+html.dark .chip.on{background:#F4EFE8; color:#141118;}
+html.dark .pcard{background:#211C2B; border-color:#F4EFE8;}
+html.dark .pcard .phead{border-color:#F4EFE8;}
+html.dark .pcard .phead .ptag{background:#F4EFE8; color:#141118;}
+html.dark .ploc b{border-color:#F4EFE8;}
+html.dark .pmeta span{background:#F4EFE8; color:#141118;}
+html.dark .popen{border-color:#F4EFE8;}
+html.dark .gbar{border-color:#F4EFE8; background:#141118;}
+html.dark .gpill{border-color:#F4EFE8;}
+html.dark .bcard{background:#211C2B; border-color:#F4EFE8;}
+html.dark .bcard img{border-color:#F4EFE8;}
+html.dark .bcard p{border-color:#F4EFE8;}
+html.dark .board-soon{border-color:#F4EFE8;}
+html.dark footer{border-color:#F4EFE8;}
+html.dark .foot-brand{border-color:#F4EFE8;}
+html.dark .sec-title .u, html.dark .hero h1 .hl, html.dark .ploc b,
+html.dark .popen, html.dark .gpill.live, html.dark .bcard p{color:#141118;}
+html.dark img{filter:brightness(.93) saturate(.97);}
+html.dark .marquee{border-color:#F4EFE8;}
+
+/* ---------- responsive: roomy mobile padding ---------- */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr; gap:48px;}
+  .hero-art{max-width:540px;}
+  .st-old{left:8px;}
+  .file-grid,.facts,.meet-grid{grid-template-columns:1fr;}
+  .proj-grid{grid-template-columns:1fr; gap:32px;}
+  .board-grid{grid-template-columns:1fr 1fr; gap:28px;}
+  .stats{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:640px){
+  body{font-size:17px; line-height:1.65;}
+  /* generous breathing room: nothing touches the edges */
+  .wrap,.foot-in{padding-left:28px; padding-right:28px;}
+  .hero{padding-top:60px;}
+  .hero h1{font-size:50px;}
+  .sec-title{font-size:38px;}
+  section.block{padding:72px 0 16px;}
+  .board-grid{grid-template-columns:1fr;}
+  .bcard{max-width:400px; margin:0 auto; width:100%;}
+  .btn{width:100%;}
+  .stats{padding-left:0; padding-right:0;}
+  .band-black .stats{padding-left:28px; padding-right:28px;}
+  .file-card,.vision-card,.goals{padding:30px 26px;}
+  .pcard .pt{padding:24px 22px;}
+  .meet-grid h2{font-size:38px;}
+  .block-black{padding:72px 0;}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important; transition:none !important;}
+  html{scroll-behavior:auto;}
+}
+</style>
+</head>
+<body>
+
+<body><div id="siteNav" data-current="clubs" data-cta="join"><style> #siteNav{display:block;position:sticky;top:0;z-index:100;background:#FFF8EF;border-bottom:1px solid rgba(27,24,54,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)} #siteNav .wrap{max-width:1180px;margin:0 auto;padding:0 28px;min-height:60px;display:flex;align-items:center;gap:26px} #siteNav a{text-decoration:none;font-family:'Inter',sans-serif;font-weight:600;font-size:.92rem;color:#1B1836} #siteNav .brand{display:inline-flex;align-items:center;gap:8px;opacity:1} #siteNav .brand .z{width:32px;height:32px;border-radius:10px;background:#A80F52;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem} #siteNav .navlinks{display:flex;align-items:center;gap:26px;margin-left:6px} #siteNav .btn.nav-cta{margin-left:auto;border:1px solid #A80F52;border-radius:999px;padding:10px 22px;background:#A80F52;color:#fff;font-weight:700} @media (max-width:920px){#siteNav .wrap{gap:10px;padding:0 16px;min-height:56px}#siteNav .navlinks{display:none}#siteNav .btn.nav-cta{padding:8px 18px;font-size:.8rem}#siteNav .brand{font-size:.95rem}} </style><nav class="wrap" aria-label="Main navigation"><a href="/" aria-label="Zone 7 Rotaract home"><span class="brand"><span class="z">7</span> Zone 7 Rotaract</span></a><div class="navlinks"><a href="/about">About</a><a href="/tutorials">Learn</a><a href="/gallery">Gallery</a><a href="/store">Store</a></div><a href="/join" class="btn nav-cta">Join Us</a></nav></div>
+
+<script src="site-nav.js" defer></script>
+
+<div class="marquee" aria-hidden="true"><span class="marquee-track" id="mqTrack"></span></div>
+
+<!-- HERO -->
+<header class="hero wrap" id="top">
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow">★ Rotaract Club of Tripureswor · Est. 2003</span>
+      <h1>OLD SOUL.<br><span class="hollow">LOUD</span> <span class="hl">HEART.</span></h1>
+      <p class="sub">Two decades of service from Apex College — <b>316 reports deep</b> and still logging every Saturday.</p>
+      <div class="btnrow">
+        <a class="btn red" href="#projects">SEE THE WORK ↓</a>
+        <a class="btn yellow" href="#meet">SAY HI →</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <figure class="logo-panel">
+        <img src="media/logos/tripureswor.jpg" alt="Rotaract Club of Tripureswor seal">
+        <figcaption>RC TRIPURESWOR — CLUB SEAL · 2003</figcaption>
+      </figure>
+      <span class="sticker st-yr">EST ★ 2003</span>
+      <span class="sticker st-old">SINCE 2003</span>
+      <span class="star-spin" aria-hidden="true">★</span>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="band-black">
+  <div class="wrap stats">
+    <div class="stat"><b>25</b><span>Active members</span></div>
+    <div class="stat"><b>17</b><span>Events logged</span></div>
+    <div class="stat"><b>316</b><span>Reports filed</span></div>
+    <div class="stat"><b>2003</b><span>Chartered Nov 24</span></div>
+  </div>
+</div>
+
+<!-- CLUB FILE -->
+<section class="block wrap" id="file">
+  <span class="sec-label">01 / THE FILE</span>
+  <h2 class="sec-title">RECEIPTS, <span class="u">FIRST.</span></h2>
+  <p class="sec-note">Who we are, where we meet, what we're chasing — straight from the club's own records.</p>
+  <div class="file-grid">
+    <div class="file-card"><h3>★ ABOUT</h3><p id="fileAbout"></p></div>
+    <div class="vision-card"><h3>★ VISION</h3><p id="fileVision"></p></div>
+  </div>
+  <div class="facts" id="fileFacts"></div>
+  <div class="goals"><h3>★ THIS YEAR'S GOALS <span class="n" id="goalCount"></span></h3><div id="goalList"></div></div>
+</section>
+
+<!-- PROJECTS -->
+<section class="block wrap" id="projects">
+  <span class="sec-label">02 / SELECTED WORK</span>
+  <h2 class="sec-title">SEVEN PROJECTS. <span class="u">ZERO FILLER.</span></h2>
+  <p class="sec-note">Real projects, live from the club logbook. Smash a label to filter.</p>
+  <div class="filters" id="filters"></div>
+  <div class="proj-grid" id="projGrid"></div>
+  <p class="pcount" id="projCount"></p>
+</section>
+
+<!-- BOARD -->
+<section class="block wrap" id="board">
+  <span class="sec-label">03 / THE BOARD</span>
+  <h2 class="sec-title">THE <span class="u">CREW.</span></h2>
+  <p class="sec-note">The humans behind the habit.</p>
+  <div class="board-grid" id="boardGrid"></div>
+</section>
+
+<!-- MEET -->
+<div class="block-black" id="meet">
+  <div class="wrap">
+    <span class="sec-label">04 / MEET US</span>
+    <div class="meet-grid">
+      <div>
+        <h2>1ST &amp; 3RD SATURDAY. <span class="u">11 AM.</span></h2>
+        <p class="meet-lede">Twenty-two years in and the kettle's always on. Students, pros, founders — pull up a chair.</p>
+        <a class="btn yellow" href="join.html">JOIN THE CLUB →</a>
+      </div>
+      <div>
+        <div class="mrow"><b>WHEN</b>1ST &amp; 3RD SATURDAY · 11:00 AM</div>
+        <div class="mrow"><b>WHERE</b>APEX COLLEGE, DEVKOTA SADAK</div>
+        <div class="mrow"><b>EMAIL</b><a href="mailto:tripureshwor@rotaract3292.org">TRIPURESHWOR@ROTARACT3292.ORG</a></div>
+        <div class="mrow"><b>INSTAGRAM</b><a href="https://www.instagram.com/ractripureswor" target="_blank" rel="noopener">@RACTRIPURESWOR</a></div>
+        <div class="mrow"><b>SPONSOR</b>ROTARY CLUB OF TRIPURESWOR</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-in">
+    <span class="foot-brand">TRIPURESWOR ★ ZONE 7</span>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#board">Board</a>
+      <a href="#meet">Meet us</a>
+      <a href="index.html">← Zone 7</a>
+    </nav>
+    <span class="foot-note">* CONCEPT DEMO — NOT THE LIVE PAGE</span>
+  </div>
+</footer>
+
+<script src="zone7-data.js"></script>
+<script>
+/* Live data first, embedded seed as fallback (demo must survive offline). */
+const SEED_PROJECTS = [
+  {id:"", title:"Blood Donation 2026", category:"Blood Donation", date:"2026-06-12", location:"Tripureswor, Kathmandu", summary:"A full-day blood donation drive with club volunteers running donor care."},
+  {id:"", title:"Comedy With Chiya 2.0", category:"Public Relation", date:"2025-11-22", location:"Apex College", summary:"The club's signature comedy fundraiser returns for round two."},
+  {id:"", title:"Serving the Sacred - Nandi Feed", category:"DRR Thematic Area", date:"2026-03-08", location:"Tripureswor", summary:"Feeding and care program under the district thematic area."}
+];
+const CLUB_SEED = {
+  about:"Chartered on 24th November 2003, the Rotaract Club of Tripureswor is one of Zone 7's oldest and largest clubs, meeting on the 1st and 3rd Saturday at 11:00 AM at Apex College.",
+  vision:"A dynamic and inclusive Rotaract Club recognized for empowering youth, driving community transformation, and advancing global goodwill.",
+  facts:[
+    ["BASED IN","Apex College, Devkota Sadak · Zone VII"],
+    ["CHARTERED","24 Nov 2003"],
+    ["SPONSORED BY","Rotary Club of Tripureswor"],
+    ["MEMBERS","25 active · 219 alumni"],
+    ["TRACK RECORD","17 events · 316 reports"],
+    ["TWIN CLUBS","Tinau City · Tulsipur · Banepa"],
+    ["INTERACT PARTNER","Interact Club of Tripureswor"],
+    ["MEETS EVERY","1st & 3rd Saturday · 11:00 AM"]
+  ],
+  goals:[
+    {t:"Community Service Goal", s:"inprogress", pct:"50%"},
+    {t:"Professional Development Goal", s:"inprogress", pct:"50%"},
+    {t:"Club Membership Growth & Retention Goal", s:"inprogress", pct:"50%"},
+    {t:"Public Image and Branding Goal", s:"inprogress", pct:"25%"},
+    {t:"International Service and TRF Support Goal", s:"completed", pct:"100%"}
+  ]
+};
+const HEAD_COLORS = ["red", "yellow", "violet"];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const src = u => { const s = String(u || ""); if(!s) return ""; if(/^(https?:|data:|\/)/.test(s)) return s; return "/" + s.replace(/^\/+/, ""); };
+const fmtDate = d => { const t = new Date(d); return isNaN(t) ? "DATE TBA" : t.toLocaleDateString("en-GB", {day:"2-digit", month:"short", year:"numeric"}).toUpperCase(); };
+
+document.getElementById("mqTrack").textContent =
+  Array(6).fill("ROTARACT CLUB OF TRIPURESWOR ★ EST. 2003 ★ ZONE 7 ★ OLD SOUL, LOUD HEART ★ ").join("");
+
+let allProjects = [];
+function renderProjects(filter){
+  const list = !filter ? allProjects : allProjects.filter(p => (p.category || "") === filter);
+  document.getElementById("projGrid").innerHTML = list.map((p, i) => {
+    const href = p.id ? `/project?club=tripureswor&id=${encodeURIComponent(p.id)}` : "#projects";
+    const hc = HEAD_COLORS[i % HEAD_COLORS.length];
+    return `<a class="pcard" href="${href}">
+      <div class="phead ${hc}"><span class="pnum">${String(i + 1).padStart(2, "0")}</span>
+      <span class="ptag">${esc((p.category || "service").toUpperCase())}</span></div>
+      <div class="pt">
+        <h3>${esc((p.title || "UNTITLED").toUpperCase())}</h3>
+        ${p.location ? `<p class="ploc">📍 <b>${esc(p.location.toUpperCase())}</b></p>` : ""}
+        ${p.summary ? `<p class="psum">${esc(p.summary)}</p>` : ""}
+        <div class="pmeta"><span>${esc(fmtDate(p.date))}</span>${p.attendees ? `<span>👥 ${p.attendees}</span>` : ""}${p.volunteer_hours ? `<span>⏱️ ${p.volunteer_hours}H</span>` : ""}</div>
+        <span class="popen">OPEN THE FILE →</span>
+      </div>
+    </a>`;
+  }).join("") || `<p class="sec-note">NOTHING FILED HERE — YET.</p>`;
+  document.getElementById("projCount").innerHTML = `SHOWING <b>${list.length}</b> / ${allProjects.length} PROJECTS`;
+}
+function renderFilters(){
+  const cats = [...new Set(allProjects.map(p => p.category).filter(Boolean))];
+  const box = document.getElementById("filters");
+  box.innerHTML = [`<button class="chip on" data-f="">★ ALL</button>`,
+    ...cats.map(c => `<button class="chip" data-f="${esc(c)}">${esc(c.toUpperCase())}</button>`)].join("");
+  box.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    box.querySelectorAll("button").forEach(x => x.classList.remove("on"));
+    b.classList.add("on");
+    renderProjects(b.dataset.f);
+  }));
+}
+function renderBoard(board){
+  const grid = document.getElementById("boardGrid");
+  if(!board || !board.length){
+    grid.innerHTML = `<div class="board-soon" style="grid-column:1/-1;"><h3>★ BOARD DROPPING SOON</h3><p>The 2026–27 crew hasn't been pinned to the wall yet — check back after the next club assembly.</p></div>`;
+    return;
+  }
+  grid.innerHTML = board.map(m => {
+    const photo = src(m.photo);
+    const face = photo ? `<img src="${esc(photo)}" alt="${esc(m.name)}" loading="lazy" decoding="async">`
+      : `<div class="binit">${esc((m.name || "?").replace(/^Rtr\.\s*/i, "").trim().split(/\s+/).map(w => w[0]).slice(0, 2).join(""))}</div>`;
+    return `<div class="bcard">${face}<h3>${esc((m.name || "—").toUpperCase())}</h3><p>${esc((m.role || "").toUpperCase())}</p></div>`;
+  }).join("");
+}
+function renderFile(profile){
+  const p = profile || {};
+  document.getElementById("fileAbout").textContent = p.about || CLUB_SEED.about;
+  document.getElementById("fileVision").textContent = (p.vision || CLUB_SEED.vision).toUpperCase();
+  const facts = (p.facts && p.facts.length ? p.facts : CLUB_SEED.facts).map(f =>
+    Array.isArray(f) ? f : [f.k || f.label || "", f.v || f.value || ""]
+  );
+  document.getElementById("fileFacts").innerHTML = facts.map(([k, v]) =>
+    `<div class="fact"><b>${esc(String(k).toUpperCase())}</b><span>${esc(v)}</span></div>`).join("");
+  const goals = (p.goals && p.goals.length ? p.goals : CLUB_SEED.goals);
+  const pill = s => s === "completed" ? `<span class="gpill done">★ DONE</span>` : `<span class="gpill live">● LIVE</span>`;
+  document.getElementById("goalList").innerHTML = goals.map(g => {
+    const pct = parseInt(g.pct, 10);
+    const done = g.s === "completed" || pct >= 100;
+    return `<div class="goal"><div class="gt"><span>${esc(String(g.t || g).toUpperCase())}</span>${pill(g.s)}</div>
+      <div class="gbar${done ? " done" : ""}"><i style="width:${isNaN(pct) ? (done ? 100 : 50) : pct}%"></i><b>${g.pct || (done ? "100%" : "")}</b></div></div>`;
+  }).join("");
+  document.getElementById("goalCount").textContent = `(${goals.length})`;
+}
+async function init(){
+  try{
+    const [projects, profile] = await Promise.all([
+      ZONE7_DB.getProjects("tripureswor", { limit: 60, full: true }),
+      ZONE7_DB.getClubProfile("tripureswor")
+    ]);
+    allProjects = (projects && projects.length ? projects : SEED_PROJECTS).slice(0, 12);
+    renderBoard(profile && profile.board);
+    renderFile(profile);
+  }catch(e){
+    allProjects = SEED_PROJECTS;
+    renderBoard(null);
+    renderFile(null);
+  }
+  renderFilters();
+  renderProjects("");
+}
+init();
+</script>
+</body>
+</html>

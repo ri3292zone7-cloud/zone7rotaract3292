@@ -1450,8 +1450,26 @@ function switchView(name){
   document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === "view-" + name));
   document.querySelectorAll(".sb-item[data-view]").forEach(el => el.classList.toggle("active", el.dataset.view === name));
   mobSyncActive(name);
+  if(name === "district") districtAskHeight();
   if(window.innerWidth <= 900){ window.scrollTo(0, 0); }
 }
+/* District Overview iframe: same-origin embed with content far taller than
+   any fixed height on mobile. The child reports its height; we grow the
+   frame instead of clipping it. */
+function districtAskHeight(){
+  try{
+    const fr = document.getElementById("districtFrame");
+    if(fr && fr.contentWindow) fr.contentWindow.postMessage("z7-district-measure", location.origin);
+  }catch(e){}
+}
+window.addEventListener("message", (e) => {
+  if(e.origin !== location.origin) return;
+  const d = e.data || {};
+  if(d.type === "z7-district-height" && Number(d.h) > 400){
+    const fr = document.getElementById("districtFrame");
+    if(fr && e.source === fr.contentWindow) fr.style.height = Math.ceil(Number(d.h)) + "px";
+  }
+});
 document.querySelectorAll(".sb-item[data-view]").forEach(el => {
   el.addEventListener("click", () => switchView(el.dataset.view));
 });
