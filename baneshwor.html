@@ -227,6 +227,28 @@ footer{margin-top:80px; border-top:3px dashed var(--pencil); padding:30px 0 46px
 .foot-in nav a:hover{text-decoration:line-through; text-decoration-color:var(--red); text-decoration-thickness:3px;}
 .foot-note{font-size:16px; opacity:.65;}
 
+/* ---------- night mode (follows the Zone 7 nav toggle via html.dark) ---------- */
+html.dark{
+  --paper:#17141f; --pencil:#F1EAD9; --erased:#3A3547;
+  --red:#FF6B6B; --blue:#7AA5FF;
+}
+html.dark body{
+  background-color:#17141f;
+  background-image:radial-gradient(rgba(241,234,217,.13) 1px, transparent 1px);
+  color:var(--pencil);
+}
+html.dark .btn{background:#232031; color:var(--pencil);}
+html.dark .btn.blue{background:#2C2839;}
+html.dark .chip{background:#232031; color:var(--pencil);}
+html.dark .chip.on{background:var(--pencil); color:#17141f;}
+html.dark .pcard, html.dark .bcard, html.dark .file-card,
+html.dark .mrows, html.dark .stat, html.dark .meet-card{background:#232031;}
+html.dark .goal{background:#1D1A27;}
+html.dark .tape{background:rgba(241,234,217,.16); border-left-color:rgba(241,234,217,.3); border-right-color:rgba(241,234,217,.3);}
+html.dark .hero-photo img, html.dark .pcard .ph img, html.dark .bcard img{filter:brightness(.92) saturate(.96);}
+html.dark .mrow a{color:var(--blue);}
+html.dark .no-projects{color:var(--pencil);}
+
 /* ---------- responsive ---------- */
 @media (max-width:860px){
   .hero-grid{grid-template-columns:1fr; gap:36px;}
@@ -240,7 +262,14 @@ footer{margin-top:80px; border-top:3px dashed var(--pencil); padding:30px 0 46px
   .stats{grid-template-columns:1fr 1fr; gap:20px;}
 }
 @media (max-width:520px){
-  body{font-size:18px;}
+  body{font-size:18px; line-height:1.65;}
+  /* roomy edges: text never kisses the screen */
+  .wrap{padding-left:28px; padding-right:28px;}
+  .hero{padding-top:52px;}
+  .hero p.sub, .sec-note, .file-about, .meet-card p{max-width:100%;}
+  .pcard .pt{padding:26px 24px;}
+  .meet-card{padding:36px 28px;}
+  .file-card{padding:32px 28px;}
   .board-grid{grid-template-columns:1fr;}
   .bcard{max-width:380px; margin:0 auto; width:100%;}
   .stat b{font-size:36px;}
