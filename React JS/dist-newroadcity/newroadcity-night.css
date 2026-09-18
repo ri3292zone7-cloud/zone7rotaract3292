@@ -1,0 +1,26 @@
+/* Night mode for the New Road City demo.
+   Responds to the site-wide html.dark toggle (site-nav.js moon button,
+   persisted in the z7-theme key). Loaded alongside the bundle CSS —
+   no React rebuild needed. */
+html.dark{background:#17151C !important;}
+html.dark body{background:#17151C; color:#F2EFE6;}
+html.dark .bg-canvas{background-color:#17151C;}
+html.dark .bg-paper,
+html.dark .bg-white{background-color:#232030;}
+html.dark .bg-mute{background-color:#2E2B38;}
+html.dark .text-ink{color:#F2EFE6;}
+html.dark .text-mute{color:#B9B4A8;}
+html.dark .border-ink{border-color:#F2EFE6;}
+html.dark .text-red{color:#FF7A7A;}
+html.dark .text-blue{color:#8FB0FF;}
+html.dark img{filter:brightness(.93) saturate(.97);}
+/* opacity variants compile to literals, so they need explicit mappings */
+html.dark .text-ink\/50{color:color-mix(in oklab, #F2EFE6 50%, transparent);}
+html.dark .text-ink\/60{color:color-mix(in oklab, #F2EFE6 60%, transparent);}
+html.dark .text-ink\/70{color:color-mix(in oklab, #F2EFE6 70%, transparent);}
+html.dark .text-ink\/75{color:color-mix(in oklab, #F2EFE6 75%, transparent);}
+html.dark .text-ink\/80{color:color-mix(in oklab, #F2EFE6 80%, transparent);}
+html.dark .text-mute\/70{color:color-mix(in oklab, #B9B4A8 70%, transparent);}
+html.dark .bg-mute\/60{background-color:color-mix(in oklab, #2E2B38 60%, transparent);}
+html.dark .bg-white\/95{background-color:color-mix(in oklab, #232030 95%, transparent);}
+html.dark .border-ink\/30{border-color:color-mix(in oklab, #F2EFE6 30%, transparent);}
