@@ -37,8 +37,8 @@ export const CLUB = {
 };
 
 export const STATS = [
+  { value: 200, suffix: '+', label: 'Projects completed' },
+  { value: 7, suffix: '+', label: 'Years of service' },
   { value: 20, suffix: '', label: 'Active members' },
-  { value: 21, suffix: '', label: 'Events logged' },
-  { value: 309, suffix: '', label: 'Reports filed' },
   { value: 2019, suffix: '', label: 'Chartered', plain: true }
 ];

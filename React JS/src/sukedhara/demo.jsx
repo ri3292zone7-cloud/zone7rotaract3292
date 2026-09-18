@@ -1,11 +1,18 @@
-import { StrictMode, useEffect, useState } from 'react';
+import { StrictMode, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowLeft, AtSign, Mail, MapPin, MousePointerClick, Sparkles } from 'lucide-react';
 import HeroScene from './HeroScene';
 import PhoneHop from './PhoneHop';
+import Reveal from './Reveal';
+import { BoardSection, PresidentsRail } from './Leadership';
 import { AboutSection, GoalsSection, MeetupSection, StatsBand } from './Sections';
 import { CLUB } from './data';
+import { LOGOS } from './photos';
 import './demo.css';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const CONFETTI_COLORS = ['#E0475F', '#FFB86B', '#0FB5B1', '#FFF1DC', '#F2A900'];
 
@@ -56,17 +63,43 @@ function DemoBanner() {
 }
 
 function Hero({ flip, onFlip, calm }) {
+  const rootRef = useRef(null);
+  const copyRef = useRef(null);
+  const birdRef = useRef(null);
+
+  useLayoutEffect(() => {
+    if (calm) return;
+    const ctx = gsap.context(() => {
+      gsap.to(copyRef.current, {
+        yPercent: -14,
+        opacity: 0.15,
+        ease: 'none',
+        scrollTrigger: { trigger: rootRef.current, start: 'top top', end: 'bottom top', scrub: true }
+      });
+      gsap.to(birdRef.current, {
+        yPercent: 12,
+        ease: 'none',
+        scrollTrigger: { trigger: rootRef.current, start: 'top top', end: 'bottom top', scrub: true }
+      });
+    }, rootRef);
+    return () => ctx.revert();
+  }, [calm]);
+
   return (
-    <header className="relative overflow-hidden">
+    <header ref={rootRef} className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 suk-hero-glow" aria-hidden="true" />
       <div className="relative mx-auto grid max-w-6xl items-center gap-2 px-4 pt-6 pb-2 md:grid-cols-2 md:px-8 md:pt-10">
-        <div className="text-center md:text-left">
+        <div ref={copyRef} className="text-center will-change-transform md:text-left">
           <a
             href="/"
             className="inline-flex items-center gap-1.5 rounded-full border border-[#F0D9BE] bg-white/70 px-3 py-1.5 text-xs font-bold text-[#6B5B73] transition-colors hover:border-[#E0475F] hover:text-[#A82F43]"
           >
             <ArrowLeft className="size-3.5" /> Zone 7 home
           </a>
+          <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#241D4D] px-3 py-1.5 text-[11px] font-bold tracking-widest text-white uppercase">
+            <img src={LOGOS.wheel} alt="" className="suk-spin-slow size-4" />
+            Chartered July 1, 2019 · District 3292
+          </p>
           <h1 className="mt-4 text-4xl leading-[1.05] font-black text-[#241D4D] sm:text-5xl lg:text-6xl">
             Meet <span className="text-[#E0475F]">Sukedhara</span>, the club that hops to service.
           </h1>
@@ -96,7 +129,7 @@ function Hero({ flip, onFlip, calm }) {
             <MapPin className="size-3.5" /> {CLUB.venue}
           </p>
         </div>
-        <div className="relative h-[300px] sm:h-[380px] md:h-[480px]">
+        <div ref={birdRef} className="relative h-[300px] will-change-transform sm:h-[380px] md:h-[480px]">
           <HeroScene flipKey={flip} onFlip={onFlip} calm={calm} />
           {!calm && (
             <p className="pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-[#241D4D]/70 px-3 py-1 text-[11px] font-bold whitespace-nowrap text-white">
@@ -109,10 +142,29 @@ function Hero({ flip, onFlip, calm }) {
   );
 }
 
+const MARQUEE_ITEMS = ['Service Above Self', 'Saturdays at 10 AM', '200+ Projects', 'Since 2019', 'Baneshwor · Kathmandu'];
+
+function Marquee() {
+  const row = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
+  return (
+    <div className="overflow-hidden border-y-2 border-[#241D4D]/10 bg-[#241D4D] py-3" aria-hidden="true">
+      <div className="suk-marquee-track flex w-max items-center gap-8 pr-8">
+        {row.map((item, i) => (
+          <span key={i} className="flex items-center gap-8 text-sm font-black tracking-[0.18em] whitespace-nowrap text-[#FFB86B] uppercase">
+            {item}
+            <img src={LOGOS.wheel} alt="" className="size-5 opacity-80" />
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Footer() {
   return (
     <footer className="mt-14 bg-[#241D4D] px-4 py-8 text-center text-white/75 md:mt-20">
-      <p className="text-sm font-bold text-white">{CLUB.name}</p>
+      <img src={LOGOS.white} alt="Rotaract Club of Sukedhara logo" className="mx-auto h-16 w-auto" loading="lazy" />
+      <p className="mt-3 text-sm font-bold text-white">{CLUB.name}</p>
       <p className="mt-1 text-xs">
         {CLUB.meeting} · {CLUB.venue}
       </p>
@@ -143,11 +195,18 @@ function App() {
     <div className="min-h-screen bg-[#FFF6EC] font-[Inter] text-[#241D4D] antialiased">
       <DemoBanner />
       <Hero flip={flip} onFlip={() => setFlip((f) => f + 1)} calm={calm} />
+      <Marquee />
 
-      <main className="mx-auto max-w-6xl space-y-14 px-4 md:space-y-20 md:px-8">
+      <main className="mx-auto max-w-6xl space-y-14 px-4 pt-10 md:space-y-20 md:px-8 md:pt-14">
         <section aria-label="Club at a glance">
           <StatsBand />
         </section>
+
+        <BoardSection />
+
+        <div className="-mx-4 md:-mx-8">
+          <PresidentsRail />
+        </div>
 
         <div id="hop" className="-mx-4 scroll-mt-4 md:-mx-8">
           <PhoneHop calm={calm} />

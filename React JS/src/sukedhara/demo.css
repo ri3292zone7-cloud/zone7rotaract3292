@@ -23,3 +23,60 @@ h3 {
     radial-gradient(620px 420px at 60% 70%, rgba(224, 71, 95, 0.16), transparent 65%),
     radial-gradient(500px 360px at 15% 20%, rgba(15, 181, 177, 0.1), transparent 65%);
 }
+
+/* Scroll-reveal: hidden state → .suk-revealed on intersection. */
+.suk-reveal {
+  opacity: 0;
+  transform: translateY(var(--suk-y, 28px));
+  filter: blur(6px);
+  transition:
+    opacity 0.7s ease var(--suk-delay, 0ms),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) var(--suk-delay, 0ms),
+    filter 0.7s ease var(--suk-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.suk-reveal.suk-revealed {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .suk-reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
+@keyframes suk-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.suk-marquee-track {
+  animation: suk-marquee 26s linear infinite;
+}
+
+@keyframes suk-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.suk-spin-slow {
+  animation: suk-spin 14s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .suk-marquee-track,
+  .suk-spin-slow {
+    animation: none;
+  }
+}

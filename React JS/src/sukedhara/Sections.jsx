@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { AtSign, CalendarDays, Compass, Globe2, HandHeart, Mail, MapPin, ShieldCheck, Users } from 'lucide-react';
+import Reveal from './Reveal';
+import { LOGOS } from './photos';
 import { CLUB, STATS } from './data';
 
 const GOAL_ICONS = [Users, Globe2, ShieldCheck, Compass];
@@ -90,7 +92,7 @@ export function StatsBand() {
 export function AboutSection() {
   return (
     <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_1fr]">
-      <div>
+      <Reveal>
         <p className="text-xs font-bold tracking-[0.2em] text-[#0FB5B1] uppercase">Who we are</p>
         <h2 className="mt-2 text-3xl font-black text-[#241D4D] md:text-4xl">Small club, big Saturdays.</h2>
         <blockquote className="mt-4 border-l-4 border-[#E0475F] pl-4 text-lg font-medium text-[#4A3F63] italic">
@@ -108,15 +110,17 @@ export function AboutSection() {
             Twins: {CLUB.twins.join(' · ')}
           </span>
         </div>
-      </div>
-      <div className="overflow-hidden rounded-3xl border-4 border-white bg-white shadow-[0_24px_60px_-30px_rgba(160,47,67,.5)]">
+      </Reveal>
+      <Reveal delay={140}>
+      <div className="overflow-hidden rounded-3xl border-4 border-white bg-[#241D4D] shadow-[0_24px_60px_-30px_rgba(160,47,67,.5)]">
         <img
-          src="/media/logos/sukedhara.jpg"
+          src={LOGOS.alt}
           alt="Rotaract Club of Sukedhara logo"
           className="aspect-square w-full object-cover"
           loading="lazy"
         />
       </div>
+      </Reveal>
     </div>
   );
 }
@@ -124,12 +128,15 @@ export function AboutSection() {
 export function GoalsSection() {
   return (
     <div>
-      <p className="text-xs font-bold tracking-[0.2em] text-[#0FB5B1] uppercase">Rota year goals</p>
-      <h2 className="mt-2 text-3xl font-black text-[#241D4D] md:text-4xl">Four promises, in progress.</h2>
+      <Reveal>
+        <p className="text-xs font-bold tracking-[0.2em] text-[#0FB5B1] uppercase">Rota year goals</p>
+        <h2 className="mt-2 text-3xl font-black text-[#241D4D] md:text-4xl">Four promises, in progress.</h2>
+      </Reveal>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {CLUB.goals.map((g, i) => {
           const Icon = GOAL_ICONS[i % GOAL_ICONS.length];
           return (
+            <Reveal key={g.title} delay={(i % 2) * 120}>
             <article
               key={g.title}
               className="group rounded-3xl border border-[#F0D9BE] bg-white/80 p-5 shadow-[0_16px_40px_-24px_rgba(36,29,77,.4)] transition-transform duration-300 hover:-translate-y-1"
@@ -149,6 +156,7 @@ export function GoalsSection() {
                 In progress
               </span>
             </article>
+            </Reveal>
           );
         })}
       </div>
@@ -159,6 +167,7 @@ export function GoalsSection() {
 export function MeetupSection() {
   const countdown = useMeetupCountdown();
   return (
+    <Reveal>
     <div className="overflow-hidden rounded-[2rem] bg-[#241D4D] p-6 text-white shadow-[0_30px_70px_-30px_rgba(36,29,77,.8)] md:p-10">
       <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
         <div>
@@ -200,5 +209,6 @@ export function MeetupSection() {
         </div>
       </div>
     </div>
+    </Reveal>
   );
 }
