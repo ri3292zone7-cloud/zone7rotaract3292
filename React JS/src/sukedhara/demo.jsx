@@ -352,10 +352,10 @@ function App() {
       <Hero calm={calm} gearRef={gearRef} gearBoxRef={gearBoxRef} onSpin={handleSpin} />
       <Ticker />
 
-      <Band
+<Band
         id="story"
         kicker="Story"
-        title="Small club. Big reach."
+        title="Welcome to Sukedhara."
         sub={`${CLUB.identity} since ${CLUB.foundedDisplay} — registered, sponsored, and still logging every single event.`}
       >
         <AboutSection />
