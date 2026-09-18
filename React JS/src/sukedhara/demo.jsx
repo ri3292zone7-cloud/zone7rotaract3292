@@ -4,7 +4,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowLeft, AtSign, Mail, MapPin, MousePointerClick, Sparkles } from 'lucide-react';
 import HeroScene from './HeroScene';
-import PhoneHop from './PhoneHop';
 import Reveal from './Reveal';
 import { BoardSection, PresidentsRail } from './Leadership';
 import { AboutSection, GoalsSection, MeetupSection, StatsBand } from './Sections';
@@ -119,10 +118,10 @@ function Hero({ flip, onFlip, calm }) {
               <MousePointerClick className="size-4" /> Poke the bird
             </button>
             <a
-              href="#hop"
+              href="#story"
               className="inline-flex items-center gap-2 rounded-full border-2 border-[#241D4D]/15 bg-white/70 px-6 py-3 text-sm font-extrabold text-[#241D4D] transition-colors hover:border-[#E0475F] hover:text-[#A82F43]"
             >
-              <Sparkles className="size-4" /> Hop through the club
+              <Sparkles className="size-4" /> Start the story
             </a>
           </div>
           <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-[#6B5B73] md:justify-start">
@@ -160,8 +159,77 @@ function Marquee() {
   );
 }
 
-function Footer() {
+const CHAPTERS = [
+  { id: 'numbers', label: 'Numbers' },
+  { id: 'story', label: 'Story' },
+  { id: 'goals', label: 'Goals' },
+  { id: 'board', label: 'Board' },
+  { id: 'legacy', label: 'Legacy' },
+  { id: 'meetup', label: 'Meetup' }
+];
+
+/* Full-screen slide wrapper with chapter marker. */
+function Slide({ id, index, label, children, className = '' }) {
   return (
+    <section id={id} className={`suk-slide flex min-h-[92vh] scroll-mt-4 flex-col justify-center py-10 md:py-14 ${className}`}>
+      <div className="mb-6 flex items-center gap-3 md:mb-8">
+        <span className="text-sm font-black tracking-[0.2em] text-[#E0475F] tabular-nums">
+          {String(index).padStart(2, '0')} / {String(CHAPTERS.length).padStart(2, '0')}
+        </span>
+        <span className="h-px flex-1 bg-[#241D4D]/15" />
+        <span className="text-xs font-bold tracking-[0.25em] text-[#6B5B73] uppercase">{label}</span>
+      </div>
+      {children}
+    </section>
+  );
+}
+
+/* Fixed chapter dots (desktop). */
+function DotNav() {
+  const [active, setActive] = useState(CHAPTERS[0].id);
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    );
+    CHAPTERS.forEach((c) => {
+      const el = document.getElementById(c.id);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
+  }, []);
+  return (
+    <nav aria-label="Chapters" className="fixed top-1/2 right-4 z-50 hidden -translate-y-1/2 flex-col gap-4 lg:flex">
+      {CHAPTERS.map((c) => (
+        <a
+          key={c.id}
+          href={`#${c.id}`}
+          aria-label={c.label}
+          className="group flex items-center justify-end gap-2"
+        >
+          <span
+            className={`text-[10px] font-bold tracking-widest uppercase transition-all duration-300 ${
+              active === c.id ? 'translate-x-0 text-[#A82F43] opacity-100' : 'translate-x-2 opacity-0 group-hover:opacity-60'
+            }`}
+          >
+            {c.label}
+          </span>
+          <span
+            className={`rounded-full transition-all duration-300 ${
+              active === c.id ? 'size-3 bg-[#E0475F] shadow-[0_0_0_4px_rgba(224,71,95,.2)]' : 'size-2 bg-[#241D4D]/25 group-hover:bg-[#241D4D]/50'
+            }`}
+          />
+        </a>
+      ))}
+    </nav>
+  );
+}
+
+function Footer() {  return (
     <footer className="mt-14 bg-[#241D4D] px-4 py-8 text-center text-white/75 md:mt-20">
       <img src={LOGOS.white} alt="Rotaract Club of Sukedhara logo" className="mx-auto h-16 w-auto" loading="lazy" />
       <p className="mt-3 text-sm font-bold text-white">{CLUB.name}</p>
@@ -191,30 +259,58 @@ function App() {
   const calm = usePrefersReducedMotion();
   const [flip, setFlip] = useState(0);
 
+  /* Scroll-linked slide wipe: each chapter un-clips into full view. */
+  useLayoutEffect(() => {
+    if (calm) return;
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray('.suk-slide').forEach((el) => {
+        gsap.fromTo(
+          el,
+          { clipPath: 'inset(7% 4% 7% 4% round 36px)', scale: 0.985, opacity: 0.35 },
+          {
+            clipPath: 'inset(0% 0% 0% 0% round 0px)',
+            scale: 1,
+            opacity: 1,
+            ease: 'none',
+            scrollTrigger: { trigger: el, start: 'top 94%', end: 'top 42%', scrub: true }
+          }
+        );
+      });
+    });
+    return () => ctx.revert();
+  }, [calm]);
+
   return (
     <div className="min-h-screen bg-[#FFF6EC] font-[Inter] text-[#241D4D] antialiased">
       <DemoBanner />
+      <DotNav />
       <Hero flip={flip} onFlip={() => setFlip((f) => f + 1)} calm={calm} />
       <Marquee />
 
-      <main className="mx-auto max-w-6xl space-y-14 px-4 pt-10 md:space-y-20 md:px-8 md:pt-14">
-        <section aria-label="Club at a glance">
+      <main className="mx-auto max-w-6xl space-y-6 px-4 pt-6 md:space-y-10 md:px-8 md:pt-10">
+        <Slide id="numbers" index={1} label="The club in numbers" data-wipe>
           <StatsBand />
-        </section>
+        </Slide>
 
-        <BoardSection />
+        <Slide id="story" index={2} label="Our story" data-wipe>
+          <AboutSection />
+        </Slide>
 
-        <div className="-mx-4 md:-mx-8">
+        <Slide id="goals" index={3} label="Rota year goals" data-wipe>
+          <GoalsSection />
+        </Slide>
+
+        <Slide id="board" index={4} label="RY 2026-27 board" data-wipe>
+          <BoardSection />
+        </Slide>
+
+        <div id="legacy" className="-mx-4 scroll-mt-4 md:-mx-8">
           <PresidentsRail />
         </div>
 
-        <div id="hop" className="-mx-4 scroll-mt-4 md:-mx-8">
-          <PhoneHop calm={calm} />
-        </div>
-
-        <AboutSection />
-        <GoalsSection />
-        <MeetupSection />
+        <Slide id="meetup" index={6} label="Meet us Saturday" data-wipe>
+          <MeetupSection />
+        </Slide>
       </main>
 
       <Footer />

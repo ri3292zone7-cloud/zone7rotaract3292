@@ -1,8 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AtSign, CalendarDays, Compass, Globe2, HandHeart, Mail, MapPin, ShieldCheck, Users } from 'lucide-react';
 import Reveal from './Reveal';
-import { LOGOS } from './photos';
+import { PRESIDENTS } from './photos';
 import { CLUB, STATS } from './data';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const GOAL_ICONS = [Users, Globe2, ShieldCheck, Compass];
 
@@ -89,11 +93,33 @@ export function StatsBand() {
   );
 }
 
+const COLLAGE = [
+  { p: 3, cls: 'left-0 top-0 -rotate-6', sp: -36 },
+  { p: 5, cls: 'right-0 top-20 rotate-3', sp: 44 },
+  { p: 6, cls: 'bottom-0 left-10 -rotate-2', sp: -60 }
+];
+
 export function AboutSection() {
+  const collageRef = useRef(null);
+
+  useLayoutEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray('[data-plx]').forEach((el) => {
+        gsap.to(el, {
+          y: Number(el.dataset.plx),
+          ease: 'none',
+          scrollTrigger: { trigger: collageRef.current, start: 'top bottom', end: 'bottom top', scrub: true }
+        });
+      });
+    }, collageRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
     <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_1fr]">
       <Reveal>
-        <p className="text-xs font-bold tracking-[0.2em] text-[#0FB5B1] uppercase">Who we are</p>
+        <p className="text-xs font-bold tracking-[0.2em] text-[#0FB5B1] uppercase">Who we are · {CLUB.identity}</p>
         <h2 className="mt-2 text-3xl font-black text-[#241D4D] md:text-4xl">Small club, big Saturdays.</h2>
         <blockquote className="mt-4 border-l-4 border-[#E0475F] pl-4 text-lg font-medium text-[#4A3F63] italic">
           “{CLUB.vision}”
@@ -112,13 +138,23 @@ export function AboutSection() {
         </div>
       </Reveal>
       <Reveal delay={140}>
-      <div className="overflow-hidden rounded-3xl border-4 border-white bg-[#241D4D] shadow-[0_24px_60px_-30px_rgba(160,47,67,.5)]">
-        <img
-          src={LOGOS.alt}
-          alt="Rotaract Club of Sukedhara logo"
-          className="aspect-square w-full object-cover"
-          loading="lazy"
-        />
+      <div ref={collageRef} className="relative h-[400px] sm:h-[440px]">
+        {COLLAGE.map((c, i) => {
+          const person = PRESIDENTS[c.p];
+          return (
+            <figure
+              key={person.term}
+              data-plx={c.sp}
+              className={`absolute w-40 bg-white p-2 pb-9 shadow-[0_20px_45px_-20px_rgba(36,29,77,.5)] sm:w-48 ${c.cls}`}
+              style={{ zIndex: i + 1 }}
+            >
+              <img src={person.img} alt={person.name} loading="lazy" className="aspect-[3/4] w-full object-cover object-top" />
+              <figcaption className="pt-2 text-center text-[11px] font-bold text-[#4A3F63]">
+                {person.name.replace('Rtr. ', '')} · {person.term.replace('RY ', '')}
+              </figcaption>
+            </figure>
+          );
+        })}
       </div>
       </Reveal>
     </div>
