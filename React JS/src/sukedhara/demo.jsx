@@ -2,15 +2,14 @@ import { StrictMode, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowLeft, AtSign, Mail, MapPin, MousePointerClick, Sparkles } from 'lucide-react';
-import HeroScene from './HeroScene';
+import { ArrowDown, ArrowLeft, AtSign, Mail, MapPin, RotateCw, Sparkles } from 'lucide-react';
+import GearScene from './GearScene';
 import Reveal from './Reveal';
 import { Lightbox, ProjectsTimeline, SaturdaySection, VoicesStrip, useLightbox } from './FieldStory';
 import { BoardSection, PresidentsRail } from './Leadership';
 import { AboutSection, GoalsSection, MeetupSection, QuickFacts, StatsBand } from './Sections';
 import { CLUB } from './data';
 import { LOGOS } from './photos';
-import { BIRD_QUIPS } from './stories';
 import './demo.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -84,24 +83,18 @@ function Magnetic({ children }) {
   );
 }
 
-function Hero({ flip, onFlip, calm, quip }) {
+/* Cinematic dark hero: display type + the 3D Rotaract gear. */
+function Hero({ calm, gearRef, gearBoxRef, onSpin }) {
   const rootRef = useRef(null);
   const copyRef = useRef(null);
-  const birdRef = useRef(null);
   const glowRef = useRef(null);
-  const motion = useRef({ flap: 1, squash: 1, lean: 0 });
 
   useLayoutEffect(() => {
     if (calm) return;
     const ctx = gsap.context(() => {
       gsap.to(copyRef.current, {
-        yPercent: -14,
-        opacity: 0.15,
-        ease: 'none',
-        scrollTrigger: { trigger: rootRef.current, start: 'top top', end: 'bottom top', scrub: true }
-      });
-      gsap.to(birdRef.current, {
-        yPercent: 12,
+        yPercent: -10,
+        opacity: 0.25,
         ease: 'none',
         scrollTrigger: { trigger: rootRef.current, start: 'top top', end: 'bottom top', scrub: true }
       });
@@ -109,106 +102,89 @@ function Hero({ flip, onFlip, calm, quip }) {
     return () => ctx.revert();
   }, [calm]);
 
-  /* Scroll velocity → wing flap + lean. One rAF loop, cleaned up on unmount. */
-  useEffect(() => {
-    if (calm) return;
-    let raf = 0;
-    let last = window.scrollY;
-    let flap = 1;
-    let lean = 0;
-    const loop = () => {
-      raf = requestAnimationFrame(loop);
-      const y = window.scrollY;
-      const v = y - last;
-      last = y;
-      const target = 1 + Math.min(Math.abs(v) * 0.09, 2.6);
-      flap += (target - flap) * 0.12;
-      const leanT = Math.max(Math.min(-v * 0.004, 0.32), -0.32);
-      lean += (leanT - lean) * 0.1;
-      motion.current.flap = flap;
-      motion.current.lean = lean;
-    };
-    raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
-  }, [calm]);
-
   const onGlow = (e) => {
     const el = glowRef.current;
     if (!el || e.pointerType !== 'mouse') return;
     const r = rootRef.current.getBoundingClientRect();
-    el.style.transform = `translate(${e.clientX - r.left - 160}px, ${e.clientY - r.top - 160}px)`;
+    el.style.transform = `translate(${e.clientX - r.left - 200}px, ${e.clientY - r.top - 200}px)`;
   };
 
   return (
-    <header ref={rootRef} onPointerMove={onGlow} className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 suk-hero-glow" aria-hidden="true" />
+    <header ref={rootRef} onPointerMove={onGlow} className="relative overflow-hidden bg-[#14122B] text-white">
+      <div className="pointer-events-none absolute inset-0 suk-hero-dark" aria-hidden="true" />
       <div
         ref={glowRef}
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-0 hidden h-80 w-80 rounded-full bg-[#FFB86B]/20 blur-3xl md:block"
+        className="pointer-events-none absolute top-0 left-0 hidden h-[25rem] w-[25rem] rounded-full bg-[#E0475F]/15 blur-3xl md:block"
       />
-      <div className="relative mx-auto grid max-w-6xl items-center gap-1 px-4 pt-4 pb-1 md:grid-cols-2 md:px-8 md:pt-6">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-2 px-4 pt-5 pb-8 md:grid-cols-[1.05fr_1fr] md:px-8 md:pt-8 md:pb-12">
         <div ref={copyRef} className="text-center will-change-transform md:text-left">
           <a
             href="/"
-            className="inline-flex items-center gap-1.5 rounded-full border border-[#F0D9BE] bg-white/70 px-3 py-1.5 text-xs font-bold text-[#6B5B73] transition-colors hover:border-[#E0475F] hover:text-[#A82F43]"
+            className="suk-rise inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-bold text-white/70 transition-colors hover:border-[#FFB86B] hover:text-white"
           >
             <ArrowLeft className="size-3.5" /> Zone 7 home
           </a>
-          <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#241D4D] px-3 py-1.5 text-[11px] font-bold tracking-widest text-white uppercase">
+          <p
+            className="suk-rise mt-5 inline-flex items-center gap-2 rounded-full border border-[#FFB86B]/30 bg-[#FFB86B]/10 px-3 py-1.5 text-[11px] font-bold tracking-widest text-[#FFB86B] uppercase"
+            style={{ animationDelay: '90ms' }}
+          >
             <img src={LOGOS.wheel} alt="" className="suk-spin-slow size-4" />
             Chartered July 1, 2019 · District 3292
           </p>
-          <h1 className="mt-3 text-4xl leading-[1.05] font-black text-[#241D4D] sm:text-5xl lg:text-6xl">
-            Meet <span className="text-[#E0475F]">Sukedhara</span>, the club that hops to service.
+          <h1 className="suk-rise mt-4 text-5xl leading-[1.02] font-black sm:text-6xl lg:text-7xl" style={{ animationDelay: '180ms' }}>
+            Small club.
+            <br />
+            <span className="bg-gradient-to-r from-[#E0475F] via-[#FFB86B] to-[#F2A900] bg-clip-text text-transparent">
+              Big Saturdays.
+            </span>
+            <br />
+            Real change.
           </h1>
-          <p className="mx-auto mt-4 max-w-md leading-relaxed text-[#4A3F63] md:mx-0">
-            {CLUB.meeting} in Baneshwar — service projects, fellowships and twenty people who will learn your name
-            by the second Saturday.
+          <p className="suk-rise mx-auto mt-5 max-w-md leading-relaxed text-white/70 md:mx-0" style={{ animationDelay: '270ms' }}>
+            {CLUB.meeting} in Baneshwar — twenty members, nine field projects this year, and a room that
+            will learn your name by the second Saturday.
           </p>
-          <div className="mt-4 flex flex-wrap justify-center gap-3 md:justify-start">
+          <div className="suk-rise mt-6 flex flex-wrap justify-center gap-3 md:justify-start" style={{ animationDelay: '360ms' }}>
             <Magnetic>
               <button
                 type="button"
-                onClick={(e) => {
-                  popConfetti(e.clientX, e.clientY);
-                  onFlip();
-                }}
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#E0475F] to-[#F2A900] px-6 py-3 text-sm font-extrabold text-white shadow-[0_16px_35px_-15px_rgba(224,71,95,.8)] transition-transform hover:scale-105 active:scale-95"
+                onClick={onSpin}
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#E0475F] to-[#F2A900] px-6 py-3 text-sm font-extrabold text-white shadow-[0_16px_40px_-12px_rgba(224,71,95,.7)] transition-transform hover:scale-105 active:scale-95"
               >
-                <MousePointerClick className="size-4" /> Poke the bird
+                <RotateCw className="size-4" /> Spin the wheel
               </button>
             </Magnetic>
             <Magnetic>
               <a
-                href="#story"
-                className="inline-flex items-center gap-2 rounded-full border-2 border-[#241D4D]/15 bg-white/70 px-6 py-3 text-sm font-extrabold text-[#241D4D] transition-colors hover:border-[#E0475F] hover:text-[#A82F43]"
+                href="#numbers"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-white/25 px-6 py-3 text-sm font-extrabold text-white transition-colors hover:border-[#FFB86B] hover:text-[#FFB86B]"
               >
                 <Sparkles className="size-4" /> Start the story
               </a>
             </Magnetic>
           </div>
-          <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-[#6B5B73] md:justify-start">
+          <p className="suk-rise mt-4 flex items-center justify-center gap-1.5 text-xs text-white/50 md:justify-start" style={{ animationDelay: '440ms' }}>
             <MapPin className="size-3.5" /> {CLUB.venue}
           </p>
         </div>
-        <div ref={birdRef} className="relative h-[260px] will-change-transform sm:h-[320px] md:h-[400px]">
-          <HeroScene flipKey={flip} onFlip={onFlip} calm={calm} motionRef={motion} />
-          {quip && (
-            <p
-              key={quip + flip}
-              className="suk-quip pointer-events-none absolute top-2 left-1/2 -translate-x-1/2 rounded-2xl rounded-bl-sm border border-[#F0D9BE] bg-white px-4 py-2 text-sm font-extrabold whitespace-nowrap text-[#A82F43] shadow-xl"
-            >
-              {quip}
-            </p>
-          )}
-          {!calm && !quip && (
-            <p className="pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-[#241D4D]/70 px-3 py-1 text-[11px] font-bold whitespace-nowrap text-white">
-              Psst — click the bird
+        <div ref={gearBoxRef} className="relative h-[300px] sm:h-[380px] md:h-[520px]">
+          <GearScene ref={gearRef} calm={calm} onSpin={onSpin} />
+          {!calm && (
+            <p className="pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-bold whitespace-nowrap text-white/70 backdrop-blur-sm">
+              Psst — click the wheel
             </p>
           )}
         </div>
       </div>
+      <a
+        href="#numbers"
+        aria-label="Scroll to the story"
+        className="absolute bottom-3 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 text-[10px] font-bold tracking-[0.25em] text-white/40 uppercase transition-colors hover:text-white md:flex"
+      >
+        Scroll
+        <ArrowDown className="size-4 animate-bounce" />
+      </a>
     </header>
   );
 }
@@ -331,17 +307,17 @@ function Footer() {  return (
 
 function App() {
   const calm = usePrefersReducedMotion();
-  const [flip, setFlip] = useState(0);
-  const [quip, setQuip] = useState(null);
+  const gearRef = useRef(null);
+  const gearBoxRef = useRef(null);
   const { box, openGallery, close, step } = useLightbox();
 
-  const handleFlip = () => {
-    setFlip((f) => {
-      setQuip(BIRD_QUIPS[f % BIRD_QUIPS.length]);
-      return f + 1;
-    });
-    window.clearTimeout(handleFlip._t);
-    handleFlip._t = window.setTimeout(() => setQuip(null), 2400);
+  const handleSpin = () => {
+    gearRef.current?.spin(6);
+    const el = gearBoxRef.current;
+    if (el && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const r = el.getBoundingClientRect();
+      popConfetti(r.left + r.width / 2, Math.min(Math.max(r.top + r.height / 2, 120), window.innerHeight * 0.7));
+    }
   };
 
   /* Scroll-linked slide wipe: each chapter un-clips into full view. */
@@ -370,7 +346,7 @@ function App() {
       <div className="suk-grain" aria-hidden="true" />
       <DemoBanner />
       <DotNav />
-      <Hero flip={flip} onFlip={handleFlip} calm={calm} quip={quip} />
+      <Hero calm={calm} gearRef={gearRef} gearBoxRef={gearBoxRef} onSpin={handleSpin} />
       <Marquee />
 
       <main className="mx-auto max-w-6xl space-y-3 px-4 pt-4 md:space-y-5 md:px-8 md:pt-6">

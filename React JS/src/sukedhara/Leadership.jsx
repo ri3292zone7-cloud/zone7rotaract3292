@@ -110,7 +110,7 @@ export function PresidentsRail() {
           <p className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-[#FFB86B] uppercase">
             <Crown className="size-4" /> A line of leadership
           </p>
-          <h2 className="mt-2 text-3xl font-black md:text-4xl">Eight presidents. One unbroken hop.</h2>
+          <h2 className="mt-2 text-3xl font-black md:text-4xl">Eight presidents. One unbroken line.</h2>
           <p className="mt-2 hidden text-sm text-white/60 md:block">Keep scrolling — the wall moves sideways.</p>
         </div>
         <div className="md:overflow-visible">

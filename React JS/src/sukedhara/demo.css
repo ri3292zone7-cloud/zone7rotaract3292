@@ -16,12 +16,28 @@ h3 {
   letter-spacing: -0.01em;
 }
 
-/* Warm radial glow behind the hero scene. */
-.suk-hero-glow {
+/* Deep-space gradients behind the dark hero gear scene. */
+.suk-hero-dark {
   background:
-    radial-gradient(560px 380px at 78% 30%, rgba(242, 169, 0, 0.22), transparent 65%),
-    radial-gradient(620px 420px at 60% 70%, rgba(224, 71, 95, 0.16), transparent 65%),
-    radial-gradient(500px 360px at 15% 20%, rgba(15, 181, 177, 0.1), transparent 65%);
+    radial-gradient(700px 460px at 80% 30%, rgba(242, 169, 0, 0.16), transparent 65%),
+    radial-gradient(760px 520px at 55% 75%, rgba(224, 71, 95, 0.2), transparent 65%),
+    radial-gradient(560px 420px at 8% 15%, rgba(15, 181, 177, 0.12), transparent 65%);
+}
+
+/* Hero entrance: staggered rise on load. */
+@keyframes suk-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.suk-rise {
+  animation: suk-rise 0.8s cubic-bezier(0.2, 0.7, 0.3, 1) both;
 }
 
 /* Scroll-reveal: hidden state → .suk-revealed on intersection. */
@@ -74,22 +90,6 @@ h3 {
   animation: suk-spin 14s linear infinite;
 }
 
-/* Speech-bubble pop for bird quips. */
-@keyframes suk-pop {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, 8px) scale(0.85);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, 0) scale(1);
-  }
-}
-
-.suk-quip {
-  animation: suk-pop 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
-}
-
 /* Film-grain overlay for a handled, photographic feel. */
 .suk-grain {
   position: fixed;
@@ -115,7 +115,7 @@ h3 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .suk-quip,
+  .suk-rise,
   .suk-shimmer {
     animation: none;
   }

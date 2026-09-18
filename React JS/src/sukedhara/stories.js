@@ -85,13 +85,6 @@ export const BOARD_LINES = {
   'Club Advisor': 'The wise voice in the corner.'
 };
 
-export const BIRD_QUIPS = [
-  'See you Saturday!',
-  'Poke = fellowship',
-  'Service looks good on you',
-  '10 AM sharp, hai?'
-];
-
 export const SATURDAY_MOMENTS = [
   {
     time: '9:55 AM',
