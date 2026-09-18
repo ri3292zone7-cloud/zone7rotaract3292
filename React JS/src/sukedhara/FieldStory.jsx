@@ -112,16 +112,18 @@ function TimelineEntry({ p, side, onOpen }) {
   const color = CATEGORY_COLORS[p.category] || '#8B5CF6';
   const textColor = CATEGORY_TEXT[p.category] || 'text-white';
   const [feature, ...rest] = photos;
+  const textHalf = side === 'right' ? 'md:order-2 lg:pl-8' : 'lg:pr-8';
+  const photoHalf = side === 'right' ? 'md:order-1 lg:pr-8' : 'lg:pl-8';
   return (
-    <div className={`relative pl-12 md:w-[calc(50%-2rem)] md:pl-0 ${side === 'right' ? 'md:ml-auto' : 'md:mr-auto'}`}>
+    <div className="relative pl-12 md:pl-0">
       <span
-        className={`suk-tnode absolute top-6 ${side === 'right' ? 'suk-tnode-r' : 'suk-tnode-l'}`}
+        className="suk-tnode absolute top-6 left-4 z-10 -translate-x-1/2 md:left-1/2"
         style={{ backgroundColor: color }}
       />
-      <Reveal>
-        <article className="suk-shadow-lg group rounded-3xl border-2 border-ink bg-white p-5 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:-translate-y-1 hover:-rotate-1 md:p-6">
-          <div className={`grid gap-5 ${feature ? 'sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start' : ''}`}>
-            <div className="min-w-0">
+      <div className="md:grid md:grid-cols-2 md:items-center md:gap-x-8 lg:gap-x-12">
+        <div className={`min-w-0 ${textHalf}`}>
+          <Reveal>
+            <article className="suk-shadow-lg group rounded-3xl border-2 border-ink bg-white p-5 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:-translate-y-1 hover:-rotate-1 md:p-6">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span
                   className={`inline-block rounded-full border-2 border-ink px-3 py-1 text-[11px] font-bold tracking-[0.08em] uppercase -rotate-1 ${textColor}`}
@@ -143,13 +145,17 @@ function TimelineEntry({ p, side, onOpen }) {
                 </>
               )}
               <p className="mt-3 text-xs font-bold tracking-[0.04em] text-mut uppercase">{p.location}</p>
-            </div>
-            {feature && (
+            </article>
+          </Reveal>
+        </div>
+        {feature && (
+          <div className={`${photoHalf} md:flex md:justify-center`}>
+            <Reveal delay={120}>
               <button
                 type="button"
                 onClick={() => onOpen(0)}
                 aria-label={`Open ${p.title} photos`}
-                className="suk-shadow-sm group/photo relative block w-full self-center overflow-hidden rounded-2xl border-2 border-ink transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:-translate-y-1 hover:-rotate-1 sm:w-44 md:w-48"
+                className="suk-shadow-sm group/photo relative block w-full overflow-hidden rounded-2xl border-2 border-ink transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:-translate-y-1 hover:-rotate-1 md:max-w-xs"
               >
                 <img
                   src={feature}
@@ -166,10 +172,10 @@ function TimelineEntry({ p, side, onOpen }) {
                   </span>
                 )}
               </button>
-            )}
+            </Reveal>
           </div>
-        </article>
-      </Reveal>
+        )}
+      </div>
     </div>
   );
 }
