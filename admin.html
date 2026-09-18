@@ -79,6 +79,17 @@
   .no-projects{color:rgba(27,24,54,0.5); font-size:0.9rem; padding:20px 0; text-align:center;}
 
   .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .impact-grid{background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px 18px; margin-bottom:20px;}
+  .impact-head{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:12px;}
+  .impact-head span{font-size:.74rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--magenta-deep);}
+  .impact-head em{font-style:normal; font-size:.74rem; color:rgba(27,24,54,.45);}
+  .impact-grid .field-row{margin-bottom:0;}
+  .unit-wrap{position:relative; display:flex; align-items:center;}
+  .unit-ic{position:absolute; left:13px; font-size:1rem; pointer-events:none; line-height:1;}
+  .unit-wrap input[type="number"]{width:100%; padding:13px 54px 13px 40px; border-radius:12px; border:1.5px solid var(--line); background:var(--cream); font-family:'Inter'; font-size:.95rem; font-weight:700; color:var(--ink); margin-bottom:0;}
+  .unit-wrap input[type="number"]:focus{outline:none; border-color:var(--magenta); box-shadow:0 0 0 3px rgba(225,26,110,.14); background:#fff;}
+  .unit-wrap input[type="number"]::placeholder{font-weight:500; color:rgba(27,24,54,.35);}
+  .unit{position:absolute; right:13px; font-size:.74rem; font-weight:700; color:rgba(27,24,54,.4); pointer-events:none;}
   .img-upload{
     border:1.8px dashed var(--line); border-radius:14px; padding:18px; text-align:center; cursor:pointer;
     margin-bottom:20px; background:#fff;
@@ -546,7 +557,8 @@
 <div id="dashboard">
   <nav class="admin-sidebar" id="adminSidebar">
     <div class="sb-label">Club</div>
-    <div class="sb-item active" data-view="projects"><span class="ic">📁</span>Projects</div>
+    <div class="sb-item active" data-view="projects"><span class="ic">➕</span>New Project</div>
+    <div class="sb-item" data-view="projects-list"><span class="ic">📁</span>Your Projects</div>
     <div class="sb-item" data-view="clubpage"><span class="ic">🏠</span>Club Page (BOD &amp; About)</div>
     <div class="sb-item" data-view="barometer"><span class="ic">🎯</span>District Barometer</div>
     <div class="sb-item" data-view="dues"><span class="ic">💵</span>RI &amp; District Dues</div>
@@ -578,7 +590,7 @@
       </div>
     </div>
 
-    <div class="dash-body view active" id="view-projects">
+    <div class="dash-body view" id="view-projects-list">
       <div class="panel">
         <h3>Your Projects</h3>
         <div style="display:flex; gap:8px; align-items:center; margin-bottom:10px;">
@@ -590,11 +602,10 @@
           <span id="projPageInfo" style="font-size:0.85rem; color:rgba(27,24,54,0.55);"></span>
           <button class="btn btn-ghost" id="projNext">Next →</button>
         </div>
-        <button class="btn btn-primary" style="margin-top:18px;" id="newProjectBtn">+ New Project</button>
       </div>
+    </div>
 
-      <div class="panel">
-        <h3 id="formTitle">New Project</h3>
+    <div class="dash-body view active" id="view-projects">
         <div class="editing-banner" id="editingBanner" style="display:none;">
           <span id="editingBannerText"></span>
           <button type="button" id="editingBannerClear">Clear / New Project</button>
@@ -626,6 +637,20 @@
           <label for="pLocation">Location</label>
           <input type="text" id="pLocation" placeholder="e.g. Baneshwor, Kathmandu">
 
+          <div class="impact-grid">
+            <div class="impact-head"><span>Impact metrics</span><em>Shown on project cards</em></div>
+            <div class="field-row">
+              <div>
+                <label for="pAttendees">Attendees</label>
+                <div class="unit-wrap"><span class="unit-ic" aria-hidden="true">👥</span><input type="number" id="pAttendees" min="0" step="1" placeholder="e.g. 70"><span class="unit">people</span></div>
+              </div>
+              <div>
+                <label for="pHours">Volunteering Hours</label>
+                <div class="unit-wrap"><span class="unit-ic" aria-hidden="true">⏱️</span><input type="number" id="pHours" min="0" step="any" placeholder="e.g. 55"><span class="unit">hrs</span></div>
+              </div>
+            </div>
+          </div>
+
           <label for="pSummary">Short Summary <span style="font-weight:500; color:rgba(27,24,54,0.5);">(shown on the club page card)</span></label>
           <textarea id="pSummary" rows="2" placeholder="One or two sentences about the project"></textarea>
 
@@ -645,7 +670,6 @@
             <button type="button" class="btn btn-danger" id="deleteBtn" style="display:none;">Delete</button>
           </div>
         </form>
-      </div>
     </div>
 
     <div class="view" id="view-clubpage">
@@ -1433,9 +1457,9 @@ document.querySelectorAll(".sb-item[data-view]").forEach(el => {
 });
 
 /* ── Mobile app shell: bottom tab bar + "More" bottom sheet ── */
-var MOB_PRIMARY = ["projects","events","clubpage","dues","guides","zrr","leadership","barometer","analytics","minutes","finance","guests","district","distevents"];
+var MOB_PRIMARY = ["projects","projects-list","events","clubpage","dues","guides","zrr","leadership","barometer","analytics","minutes","finance","guests","district","distevents"];
 var MOB_SHORT = {
-  projects:"Projects", events:"Events", clubpage:"Club Page", dues:"Dues",
+  projects:"New Project", "projects-list":"Your Projects", events:"Events", clubpage:"Club Page", dues:"Dues",
   guides:"Guides", zrr:"ZRR", leadership:"Zonal Team", barometer:"Barometer",
   analytics:"Analytics", minutes:"Minutes", finance:"Treasury",
   guests:"Requests", district:"District", distevents:"Dist. Events"
@@ -2261,9 +2285,9 @@ async function renderProjectList(){
   let projects;
   try {
     if(q){
-      const all = await ZONE7_DB.getProjects(currentClub, { limit: 500 });
-      projects = all.filter(p => `${p.title} ${p.project_code} ${p.category}`.toLowerCase().includes(q));
-      projTotal = projects.length;
+      const found = await ZONE7_DB.searchProjects(currentClub, q, 50);
+      projects = found.rows;
+      projTotal = found.total;
     } else {
       const page = await ZONE7_DB.getProjectsPage(currentClub, projPage * projPageSize, projPageSize);
       projects = page.rows;
@@ -2284,7 +2308,7 @@ async function renderProjectList(){
   }
   list.innerHTML = projects.map(p => `
     <div class="proj-item" data-id="${zone7Esc(p.id)}">
-      <img src="${zone7Esc(p.cover || '')}" alt="">
+      <img src="${zone7Esc(p.cover || '')}" alt="" loading="lazy" decoding="async">
       <div class="info">
         <h4>${zone7Esc(p.title)}</h4>
         <span>${zone7Esc(p.project_code || '–')} · ${zone7Esc(p.category || "Uncategorized")} · ${zone7Esc(p.date || "No date")}</span>
@@ -2310,10 +2334,12 @@ async function renderProjectList(){
   }
 }
 
+let projSearchTimer = null;
 document.getElementById("projSearch").addEventListener("input", (e) => {
   projSearchTerm = e.target.value;
   projPage = 0;
-  renderProjectList();
+  clearTimeout(projSearchTimer);
+  projSearchTimer = setTimeout(renderProjectList, 300);
 });
 
 document.getElementById("projPrev").addEventListener("click", () => {
@@ -2333,6 +2359,8 @@ function resetForm(){
   document.getElementById("pCategory").value = "";
   document.getElementById("pDate").value = "";
   document.getElementById("pLocation").value = "";
+  document.getElementById("pAttendees").value = "";
+  document.getElementById("pHours").value = "";
   document.getElementById("pSummary").value = "";
   document.getElementById("pBody").value = "";
   document.getElementById("coverPreview").style.display = "none";
@@ -2355,6 +2383,8 @@ async function loadProjectIntoForm(id){
   document.getElementById("pCategory").value = p.category || "";
   document.getElementById("pDate").value = p.date || "";
   document.getElementById("pLocation").value = p.location || "";
+  document.getElementById("pAttendees").value = p.attendees ?? "";
+  document.getElementById("pHours").value = p.volunteer_hours ?? "";
   document.getElementById("pSummary").value = p.summary || "";
   document.getElementById("pBody").value = p.body || "";
   const cp = document.getElementById("coverPreview");
@@ -2369,6 +2399,7 @@ async function loadProjectIntoForm(id){
   banner.style.display = "flex";
 
   const formPanel = document.getElementById("formTitle").closest(".panel");
+  switchView("projects");
   window.scrollTo({top: formPanel.offsetTop - 90, behavior:'smooth'});
 }
 
@@ -2440,6 +2471,8 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
     category: document.getElementById("pCategory").value.trim(),
     date: document.getElementById("pDate").value,
     location: document.getElementById("pLocation").value.trim(),
+    attendees: document.getElementById("pAttendees").value.trim(),
+    volunteer_hours: document.getElementById("pHours").value.trim(),
     summary: document.getElementById("pSummary").value.trim(),
     body: document.getElementById("pBody").value.trim(),
     cover: document.getElementById("coverPreview").dataset.value || "",
@@ -2468,6 +2501,7 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
     document.getElementById("editingBanner").style.display = "none";
     await renderProjectList();
     resetForm();
+    switchView("projects-list");
   } catch(err){
     console.error(err);
     showToast("Save failed, check your Supabase setup.");

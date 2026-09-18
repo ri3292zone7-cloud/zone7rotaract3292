@@ -103,6 +103,25 @@
   manifestLink.rel = "manifest";
   manifestLink.href = "/site.webmanifest";
   document.head.appendChild(manifestLink);
+  // --- Footer Contact link. Footers are static per-page markup with varying
+  // shapes, so the shared nav script appends one idempotent link instead of
+  // editing 40+ files. Skipped on contact.html itself.
+  try {
+    var onContact = location.pathname.replace(/\/$/, "") === "/contact";
+    if (!onContact && !document.querySelector('footer a[href="/contact"]')) {
+      var footers = document.querySelectorAll("footer");
+      for (var fi = 0; fi < footers.length; fi++) {
+        (function (ft) {
+          var host = ft.querySelector(".foot-bottom") || ft;
+          host.appendChild(document.createTextNode(" · "));
+          var ca = document.createElement("a");
+          ca.href = "/contact";
+          ca.textContent = "Contact";
+          host.appendChild(ca);
+        })(footers[fi]);
+      }
+    }
+  } catch (e) {}
   var themeColor = document.createElement("meta");
   themeColor.name = "theme-color";
   themeColor.content = z7IsDark() ? "#0E0C1A" : "#FFF8EF";

@@ -268,6 +268,17 @@ function zone7CacheGet(key, ttlMs){
 function zone7CacheSet(key, val){
   try{ localStorage.setItem("z7c_" + key, JSON.stringify({ t: Date.now(), v: val })); }catch(e){}
 }
+/* Drop a club's cached project pages + homepage batch after an admin
+   write, so the next list render refetches instead of showing stale rows. */
+function zone7CacheBustClub(clubSlug){
+  try{
+    for(let i = localStorage.length - 1; i >= 0; i--){
+      const k = localStorage.key(i);
+      if(!k) continue;
+      if(k === "z7c_p_" + clubSlug || k.indexOf("z7c_p_page_" + clubSlug) === 0 || k.indexOf("z7c_batch_") === 0) localStorage.removeItem(k);
+    }
+  }catch(e){}
+}
 
 /* zrrs/leadership are no longer cached (data is small and photo uploads
    must be visible immediately on the next fetch). Drop any stale entries
@@ -438,7 +449,7 @@ const ZONE7_DB = {
       const limit = Math.min(500, want);
       const cached = zone7CacheGet("batch_" + limit, 180000);
       if(cached) return cached;
-      const res = await fetch(`${REST_URL}?select=id,club_slug,title,category,date,location,cover,updated,project_code&club_slug=in.(${slugs.map(s => encodeURIComponent(s)).join(",")})&order=updated.desc&limit=${limit}`, {
+      const res = await fetch(`${REST_URL}?select=id,club_slug,title,category,date,location,cover,updated,project_code,attendees,volunteer_hours&club_slug=in.(${slugs.map(s => encodeURIComponent(s)).join(",")})&order=updated.desc&limit=${limit}`, {
         headers: REST_HEADERS
       });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);
@@ -460,24 +471,70 @@ const ZONE7_DB = {
     }
   },
 
+  /* Paged admin list: stale-while-revalidate. Cached pages render instantly;
+     a background refetch keeps them fresh. 12s timeout so a hung request
+     surfaces the retry UI instead of spinning forever. */
   async getProjectsPage(clubSlug, offset, limit){
+    const key = "p_page_" + clubSlug + "_" + offset + "_" + limit;
+    const cols = "id,club_slug,title,category,date,location,cover,updated,project_code,attendees,volunteer_hours,duration,jointly_with,host_status";
+    const fetchPage = async () => {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 12000);
+      try{
+        const res = await fetch(`${REST_URL}?select=${cols}&club_slug=eq.${encodeURIComponent(clubSlug)}&order=updated.desc&limit=${limit}&offset=${offset}`, {
+          headers: {
+            ...REST_HEADERS,
+            "Prefer": "count=exact",
+            "Range-Unit": "items",
+            "Range": `${offset}-${offset + limit - 1}`
+          },
+          signal: ctrl.signal
+        });
+        if(!res.ok) throw new Error("Fetch failed: " + res.status);
+        const rows = await res.json();
+        const cr = res.headers.get("content-range") || "";
+        const total = parseInt(String(cr).split("/")[1], 10);
+        const out = { rows: rows.map(this._fromRow), total: isNaN(total) ? rows.length : total };
+        zone7CacheSet(key, out);
+        return out;
+      } finally { clearTimeout(timer); }
+    };
+    const cached = zone7CacheGet(key, 120000);
+    if(cached){
+      fetchPage().catch(e => console.warn("page revalidate failed:", e));
+      return cached;
+    }
     try{
-      const cols = "id,club_slug,title,category,date,location,cover,updated,project_code,attendees,volunteer_hours,duration,jointly_with,host_status";
-      const res = await fetch(`${REST_URL}?select=${cols}&club_slug=eq.${encodeURIComponent(clubSlug)}&order=updated.desc`, {
-        headers: {
-          ...REST_HEADERS,
-          "Prefer": "count=exact",
-          "Range-Unit": "items",
-          "Range": `${offset}-${offset + limit - 1}`
-        }
-      });
-      if(!res.ok) throw new Error("Fetch failed: " + res.status);
-      const rows = await res.json();
-      const cr = res.headers.get("content-range") || "";
-      const total = parseInt(String(cr).split("/")[1], 10);
-      return { rows: rows.map(this._fromRow), total: isNaN(total) ? rows.length : total };
+      return await fetchPage();
     } catch(e){
       console.error("ZONE7_DB.getProjectsPage error", e);
+      return { rows: [], total: 0 };
+    }
+  },
+
+  /* Server-side project search for the admin list: filters in PostgREST
+     instead of downloading up to 500 rows and filtering client-side. */
+  async searchProjects(clubSlug, q, limit = 50){
+    try{
+      const clean = String(q || "").replace(/[%(),"]/g, "").trim().slice(0, 60);
+      if(!clean) return { rows: [], total: 0 };
+      const like = encodeURIComponent(`*${clean}*`);
+      const orParam = `(title.ilike.${like},project_code.ilike.${like},category.ilike.${like})`;
+      const cols = "id,club_slug,title,category,date,location,cover,updated,project_code";
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 12000);
+      try{
+        const res = await fetch(`${REST_URL}?select=${cols}&club_slug=eq.${encodeURIComponent(clubSlug)}&or=${orParam}&order=updated.desc&limit=${limit}`, {
+          headers: REST_HEADERS,
+          signal: ctrl.signal
+        });
+        if(!res.ok) throw new Error("Fetch failed: " + res.status);
+        const rows = await res.json();
+        const out = rows.map(this._fromRow);
+        return { rows: out, total: out.length };
+      } finally { clearTimeout(timer); }
+    } catch(e){
+      console.error("ZONE7_DB.searchProjects error", e);
       return { rows: [], total: 0 };
     }
   },
@@ -561,6 +618,7 @@ const ZONE7_DB = {
       const errText = await res.text();
       throw new Error("Save failed: " + res.status + " " + errText);
     }
+    zone7CacheBustClub(clubSlug);
     return true;
   },
 
@@ -573,6 +631,7 @@ const ZONE7_DB = {
     const deleted = await res.json().catch(() => []);
     const row = deleted[0];
     if(row) this.deleteStorageObjects([row.cover, ...(row.gallery || [])]);
+    zone7CacheBustClub(clubSlug);
     return true;
   },
 

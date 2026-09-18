@@ -40,6 +40,7 @@
     { "source": "/ne/about", "destination": "/ne-about.html" },
     { "source": "/ne/join", "destination": "/join.html" },
     { "source": "/club-tools", "destination": "/club-tools.html" },
+    { "source": "/contact", "destination": "/contact.html" },
     { "source": "/club", "destination": "/club.html" },
     { "source": "/pending-applications", "destination": "/pending-applications.html" },
     { "source": "/balkumari", "destination": "/club.html?club=balkumari" },
