@@ -142,7 +142,7 @@ function Hero({ calm, gearRef, gearBoxRef, onSpin }) {
             <br />
             we <span className="text-mint">build</span>,
             <br />
-            <span className="suk-squiggle text-plum">we serve</span>
+            <span className="text-plum">we serve</span>
             <span className="text-gold">.</span>
           </h1>
           <p className="suk-pop mt-6 max-w-xl text-base leading-relaxed text-mut [animation-delay:220ms] md:text-lg">
