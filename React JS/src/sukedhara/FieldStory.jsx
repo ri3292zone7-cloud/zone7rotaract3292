@@ -9,11 +9,11 @@ import { FIELD_NOTES, FIELD_PHOTOS, QUOTES, SATURDAY_MOMENTS } from './stories';
 gsap.registerPlugin(ScrollTrigger);
 
 const CATEGORY_COLORS = {
-  Education: '#2EA5AD',
-  Health: '#E96D51',
-  Leadership: '#123B3C',
-  'Professional Development': '#6A3FA0',
-  Environment: '#7FB84E'
+  Education: '#6C4F75',
+  Health: '#C9A24B',
+  Leadership: '#2A1F2E',
+  'Professional Development': '#C17890',
+  Environment: '#8FA98F'
 };
 
 function galleryFor(p) {
@@ -43,7 +43,7 @@ export function Lightbox({ photos, index, onClose, onStep }) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-teal-ink/95 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-aubergine/95 p-4 backdrop-blur-sm"
       onClick={onClose}
       role="dialog"
       aria-label="Photo viewer"
@@ -105,7 +105,7 @@ function Thumbs({ photos, onOpen }) {
     <div className="mt-4 flex gap-2">
       <button type="button" onClick={() => onOpen(0)} className="group relative overflow-hidden rounded-xl">
         <img src={first} alt="Field moment" loading="lazy" className="h-20 w-28 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <span className="absolute inset-0 grid place-items-center bg-teal-ink/0 transition-colors group-hover:bg-teal-ink/40">
+        <span className="absolute inset-0 grid place-items-center bg-aubergine/0 transition-colors group-hover:bg-aubergine/40">
           <Camera className="size-5 text-white opacity-0 transition-opacity group-hover:opacity-100" />
         </span>
       </button>
@@ -113,7 +113,7 @@ function Thumbs({ photos, onOpen }) {
         <button
           type="button"
           onClick={() => onOpen(1)}
-          className="grid h-20 w-20 place-items-center rounded-xl bg-coral font-mono text-sm font-bold text-white transition-transform hover:scale-105"
+          className="grid h-20 w-20 place-items-center rounded-xl bg-gold font-mono text-sm font-bold text-ink transition-transform hover:scale-105"
         >
           +{rest.length}
         </button>
@@ -125,7 +125,7 @@ function Thumbs({ photos, onOpen }) {
 function TimelineEntry({ p, side, onOpen }) {
   const story = FIELD_NOTES[p.title];
   const photos = galleryFor(p);
-  const color = CATEGORY_COLORS[p.category] || '#2EA5AD';
+  const color = CATEGORY_COLORS[p.category] || '#6C4F75';
   return (
     <div className={`relative pl-12 md:w-[calc(50%-2.25rem)] md:pl-0 ${side === 'right' ? 'md:ml-auto' : 'md:mr-auto'}`}>
       <span
@@ -146,8 +146,8 @@ function TimelineEntry({ p, side, onOpen }) {
           <h3 className="mt-3 font-display text-base leading-snug font-bold text-ink md:text-lg">{p.title}</h3>
           {story && (
             <>
-              <p className="mt-3 border-l-2 border-coral pl-3 text-sm leading-relaxed text-ink/70 italic">{story.note}</p>
-              <p className="mt-3 inline-block rounded-full bg-teal/10 px-2.5 py-1 font-mono text-[10px] font-semibold tracking-[0.08em] text-teal-deep uppercase">
+              <p className="mt-3 border-l-2 border-gold pl-3 text-sm leading-relaxed text-ink/70 italic">{story.note}</p>
+              <p className="mt-3 inline-block rounded-full bg-plum/10 px-2.5 py-1 font-mono text-[10px] font-semibold tracking-[0.08em] text-plum-deep uppercase">
                 {story.impact}
               </p>
             </>
@@ -186,7 +186,7 @@ export function ProjectsTimeline({ onOpenGallery }) {
   return (
     <div ref={rootRef} className="relative mt-7">
         <span className="absolute top-0 bottom-0 left-4 w-1 -translate-x-1/2 rounded-full bg-line md:left-1/2">
-          <span ref={lineRef} className="block h-full w-full origin-top rounded-full bg-gradient-to-b from-coral via-teal to-magenta" />
+          <span ref={lineRef} className="block h-full w-full origin-top rounded-full bg-gradient-to-b from-rose via-gold to-plum" />
         </span>
         <div className="space-y-5 md:space-y-7">
           {PROJECTS.map((p, i) => (
@@ -210,7 +210,7 @@ export function SaturdaySection({ onOpenGallery }) {
                   loading="lazy"
                   className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-108"
                 />
-                <span className="absolute top-3 left-3 rounded-full bg-teal px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.12em] text-white tabular-nums">
+                <span className="absolute top-3 left-3 rounded-full bg-plum px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.12em] text-white tabular-nums">
                   {m.time}
                 </span>
               </button>
@@ -230,10 +230,10 @@ export function VoicesStrip() {
     <div className="grid gap-4 md:grid-cols-3">
         {QUOTES.map((q, i) => (
           <Reveal key={q.by} delay={i * 100} className="h-full">
-            <figure className="flex h-full flex-col rounded-3xl bg-teal-ink p-6 text-white shadow-[0_25px_60px_-35px_rgba(18,59,60,.9)] transition-transform duration-300 hover:-translate-y-1">
-              <Quote className="size-6 text-coral" />
+            <figure className="flex h-full flex-col rounded-3xl bg-aubergine p-6 text-white shadow-[0_25px_60px_-35px_rgba(18,59,60,.9)] transition-transform duration-300 hover:-translate-y-1">
+              <Quote className="size-6 text-gold" />
               <blockquote className="mt-3 flex-1 text-sm leading-relaxed text-white/90 italic">“{q.text}”</blockquote>
-              <figcaption className="mt-4 font-mono text-[10px] font-semibold tracking-[0.14em] text-teal uppercase">— {q.by}</figcaption>
+              <figcaption className="mt-4 font-mono text-[10px] font-semibold tracking-[0.14em] text-gold uppercase">— {q.by}</figcaption>
             </figure>
           </Reveal>
         ))}

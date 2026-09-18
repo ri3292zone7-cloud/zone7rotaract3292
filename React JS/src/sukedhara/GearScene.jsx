@@ -3,9 +3,9 @@ import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { Float, Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 
-const TEAL = '#2EA5AD';
-const CORAL = '#E96D51';
-const CLEAR = '#F4F7F4';
+const PLUM = '#6C4F75';
+const GOLD = '#C9A24B';
+const CLEAR = '#FCFAF5';
 const LOGO_URL = '/media/logos/sukedhara.jpg';
 
 /*
@@ -52,15 +52,15 @@ function LogoWheel({ api, calm, onSpin }) {
           <circleGeometry args={[2.15, 72]} />
           <meshBasicMaterial map={texture} side={THREE.DoubleSide} transparent />
         </mesh>
-        {/* teal rim */}
+        {/* plum rim */}
         <mesh>
           <torusGeometry args={[2.15, 0.085, 24, 96]} />
-          <meshStandardMaterial color={TEAL} metalness={0.65} roughness={0.28} />
+          <meshStandardMaterial color={PLUM} metalness={0.65} roughness={0.28} />
         </mesh>
-        {/* coral counterweight tag */}
+        {/* gold counterweight tag */}
         <mesh position={[0, -2.62, 0]}>
           <boxGeometry args={[0.34, 0.34, 0.34]} />
-          <meshStandardMaterial color={CORAL} metalness={0.4} roughness={0.35} />
+          <meshStandardMaterial color={GOLD} metalness={0.4} roughness={0.35} />
         </mesh>
         {/* soft white halo behind the medal */}
         <mesh position={[0, 0, -0.12]}>
@@ -78,19 +78,19 @@ function Rig({ api, calm, onSpin }) {
       <ambientLight intensity={0.7} />
       <directionalLight position={[4, 5, 6]} intensity={1.2} />
       <LogoWheel api={api} calm={calm} onSpin={onSpin} />
-      <Sparkles count={calm ? 26 : 80} scale={[9, 6, 4]} size={3.2} speed={0.28} color={TEAL} opacity={0.7} />
+      <Sparkles count={calm ? 26 : 80} scale={[9, 6, 4]} size={3.2} speed={0.28} color={PLUM} opacity={0.7} />
       {!calm && (
         <>
           <Float speed={1.6} rotationIntensity={0.7} floatIntensity={1.4} position={[-3.1, 1.2, -1]}>
             <mesh>
               <icosahedronGeometry args={[0.3, 0]} />
-              <meshStandardMaterial color={TEAL} metalness={0.3} roughness={0.35} />
+              <meshStandardMaterial color={PLUM} metalness={0.3} roughness={0.35} />
             </mesh>
           </Float>
           <Float speed={2} rotationIntensity={0.9} floatIntensity={1.6} position={[3.2, -1.3, -0.6]}>
             <mesh>
               <torusGeometry args={[0.24, 0.08, 12, 32]} />
-              <meshStandardMaterial color={CORAL} metalness={0.4} roughness={0.35} />
+              <meshStandardMaterial color={GOLD} metalness={0.4} roughness={0.35} />
             </mesh>
           </Float>
         </>

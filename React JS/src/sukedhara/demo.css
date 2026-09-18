@@ -4,27 +4,27 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
-  --color-page: #f4f7f4;
-  --color-paper: #ffffff;
-  --color-teal: #2ea5ad;
-  --color-teal-deep: #1e6e74;
-  --color-teal-ink: #123b3c;
-  --color-coral: #e96d51;
-  --color-magenta: #d22163;
-  --color-line: #dce7e6;
-  --color-ink: #16383a;
-  --color-mut: #5b7475;
+  --color-page: #f4f0e8;
+  --color-paper: #fcfaf5;
+  --color-plum: #6c4f75;
+  --color-plum-deep: #47324d;
+  --color-aubergine: #2a1f2e;
+  --color-gold: #c9a24b;
+  --color-rose: #c17890;
+  --color-line: #e4dccd;
+  --color-ink: #32292b;
+  --color-mut: #8c8088;
 }
 
 html {
   scroll-behavior: smooth;
-  scrollbar-color: #9fc6c7 #ffffff;
+  scrollbar-color: #d4b76d #f4f0e8;
 }
 
 body {
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
-  background: #f4f7f4;
-  color: #16383a;
+  background: #f4f0e8;
+  color: #32292b;
 }
 
 h1,
@@ -37,12 +37,13 @@ h4 {
 
 /* ---------------------------------------------------------------- hero -- */
 
-/* Soft brand blobs behind the hero. */
+/* Soft cream + rose + gold atmosphere behind the hero. */
 .suk-hero-aqua {
   background:
-    radial-gradient(640px 460px at 88% 24%, rgba(46, 165, 173, 0.24), transparent 64%),
-    radial-gradient(620px 480px at 46% 84%, rgba(233, 109, 81, 0.16), transparent 64%),
-    radial-gradient(520px 400px at 6% 18%, rgba(210, 33, 99, 0.08), transparent 60%);
+    radial-gradient(680px 480px at 85% 22%, rgba(201, 162, 75, 0.22), transparent 64%),
+    radial-gradient(640px 500px at 45% 86%, rgba(193, 120, 144, 0.18), transparent 64%),
+    radial-gradient(540px 420px at 5% 16%, rgba(108, 79, 117, 0.1), transparent 60%),
+    linear-gradient(180deg, #f6f2ea 0%, #f4f0e8 70%);
 }
 
 .suk-hero-title {
@@ -50,7 +51,7 @@ h4 {
   font-weight: 800;
   line-height: 0.98;
   letter-spacing: -0.03em;
-  font-size: clamp(2.8rem, 8vw, 5.8rem);
+  font-size: clamp(2.7rem, 8vw, 5.8rem);
 }
 
 /* -------------------------------------------------------------- motion -- */
@@ -172,7 +173,7 @@ h4 {
   inset: 0;
   z-index: 70;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
 }
 
@@ -190,7 +191,7 @@ h4 {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   width: 40%;
   animation: suk-sweep 2.6s ease-out 0.4s 1;
 }
@@ -212,8 +213,8 @@ h4 {
   height: 1rem;
   left: 0.5rem;
   border-radius: 9999px;
-  border: 3px solid #f4f7f4;
-  box-shadow: 0 0 0 1px rgba(46, 165, 173, 0.55), 0 2px 10px rgba(18, 59, 60, 0.25);
+  border: 3px solid #f4f0e8;
+  box-shadow: 0 0 0 1px rgba(108, 79, 117, 0.45), 0 2px 10px rgba(42, 31, 46, 0.25);
 }
 
 @media (min-width: 768px) {

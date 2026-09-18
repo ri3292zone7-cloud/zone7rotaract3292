@@ -25,8 +25,8 @@ export function BoardSection() {
               loading="lazy"
               className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
             />
-            <span className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-teal-ink via-teal-ink/70 to-transparent" />
-            <span className="absolute top-4 left-4 rounded-full bg-coral px-3 py-1.5 font-mono text-[10px] font-bold tracking-[0.14em] text-white uppercase shadow-lg">
+            <span className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-plum-ink via-gold-ink/70 to-transparent" />
+            <span className="absolute top-4 left-4 rounded-full bg-gold px-3 py-1.5 font-mono text-[10px] font-bold tracking-[0.14em] text-ink uppercase shadow-lg">
               {president.role} · 2026-27
             </span>
             <div className="absolute right-5 bottom-5 left-5">
@@ -50,7 +50,7 @@ export function BoardSection() {
                   className="aspect-[4/5] w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
-              <span className="absolute top-3 left-3 rounded-full bg-teal-ink/85 px-2.5 py-1 font-mono text-[9px] font-bold tracking-[0.1em] text-white uppercase">
+              <span className="absolute top-3 left-3 rounded-full bg-aubergine/85 px-2.5 py-1 font-mono text-[9px] font-bold tracking-[0.1em] text-white uppercase">
                 {p.role}
               </span>
               <div className="p-3.5 md:p-4">
@@ -110,11 +110,11 @@ export function PresidentsRail() {
   return (
     <section
       ref={sectionRef}
-      className="w-full overflow-hidden border-y border-line bg-teal-ink py-8 text-white md:h-screen md:py-0"
+      className="w-full overflow-hidden border-y border-line bg-aubergine py-8 text-white md:h-screen md:py-0"
     >
       <div className="flex h-full flex-col justify-center gap-5 px-4 md:gap-6 md:px-10">
         <div className="max-w-6xl">
-          <p className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold tracking-[0.22em] text-coral uppercase">
+          <p className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold tracking-[0.22em] text-gold uppercase">
             <Crown className="size-4" /> A line of leadership
           </p>
           <h2 className="mt-2 font-display text-3xl font-bold uppercase md:text-5xl">Eight presidents. One unbroken line.</h2>
@@ -130,7 +130,7 @@ export function PresidentsRail() {
             {PRESIDENTS.map((p) => (
               <article
                 key={p.term}
-                className="group w-52 shrink-0 snap-center overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/15 transition-colors hover:ring-coral/60 md:w-64"
+                className="group w-52 shrink-0 snap-center overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/15 transition-colors hover:ring-gold/60 md:w-64"
               >
                 <div className="overflow-hidden">
                   <img
@@ -142,11 +142,11 @@ export function PresidentsRail() {
                 </div>
                 <div className="p-4">
                   <p className="font-display text-sm font-bold text-white">{p.name.replace('Rtr. ', '')}</p>
-                  <p className="mt-1 inline-block rounded-full bg-coral/20 px-2 py-0.5 font-mono text-[10px] font-semibold text-coral">
+                  <p className="mt-1 inline-block rounded-full bg-gold/20 px-2 py-0.5 font-mono text-[10px] font-semibold text-gold">
                     {p.term}
                   </p>
                   {p.current && (
-                    <p className="mt-1.5 font-mono text-[10px] font-bold tracking-[0.14em] text-teal uppercase">
+                    <p className="mt-1.5 font-mono text-[10px] font-bold tracking-[0.14em] text-gold uppercase">
                       Current president
                     </p>
                   )}
@@ -157,7 +157,7 @@ export function PresidentsRail() {
         </div>
         <div className="hidden max-w-6xl md:block">
           <div className="h-1 overflow-hidden rounded-full bg-white/15">
-            <div ref={barRef} className="h-full w-full origin-left scale-x-0 rounded-full bg-gradient-to-r from-coral to-teal" />
+            <div ref={barRef} className="h-full w-full origin-left scale-x-0 rounded-full bg-gradient-to-r from-rose to-gold" />
           </div>
         </div>
       </div>
