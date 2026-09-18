@@ -6,16 +6,16 @@ import {
   AtSign,
   Bolt,
   CalendarDays,
-  Cpu,
   Mail,
   MapPin,
   Power,
   ShieldCheck,
   Signal,
   Target,
+  User,
   Users
 } from 'lucide-react';
-import { CLUB, BOARD, PROJECTS, STATS, GOALS, FACTS } from './data';
+import { CLUB, BOARD, PEOPLE, PROJECTS, STATS, GOALS, FACTS } from './data';
 import './demo.css';
 
 const NOISE_SVG =
@@ -115,25 +115,25 @@ function Device() {
           <Led color="bg-[#ff4757]" glow="shadow-[0_0_10px_rgba(255,71,87,1)]" />
         </div>
 
-        {/* screen */}
-        <div className="ind-scanline relative overflow-hidden rounded-[18px] bg-[#14161b] p-[18px] shadow-[inset_4px_4px_12px_rgba(0,0,0,0.8)] md:p-6">
-          <div className="flex items-center justify-between">
-            <p className="ind-label text-[#8b93a7]">EMPOWER SYSTEM</p>
-            <p className="ind-label flex items-center gap-1.5 text-[#8b93a7]">
-              <span className="inline-block size-1.5 rounded-full bg-[#22c55e]" />
-              LIVE
-            </p>
-          </div>
+{/* screen */}
+          <div className="ind-scanline relative overflow-hidden rounded-[18px] bg-[#14161b] p-[18px] shadow-[inset_4px_4px_12px_rgba(0,0,0,0.8)] md:p-6">
+            <div className="flex items-center justify-between">
+              <p className="ind-label text-[#8b93a7]">EMPOWER SYSTEM</p>
+              <p className="ind-label flex items-center gap-1.5 text-[#8b93a7]">
+                <span className="inline-block size-1.5 rounded-full bg-[#22c55e]" />
+                LIVE
+              </p>
+            </div>
 
-          <div className="mt-5 flex items-center gap-3">
-            <div className="grid size-12 place-items-center rounded-xl bg-[#ff4757]/15">
-              <Cpu className="size-6 text-[#ff4757]" strokeWidth={1.5} />
+            <div className="mt-5 flex items-center gap-3">
+              <span className="grid size-14 place-items-center rounded-xl bg-white p-1 shadow-[var(--shadow-sharp)]">
+                <img src={CLUB.logo} alt={`${CLUB.name} logo`} className="h-full w-full object-contain" loading="eager" />
+              </span>
+              <div>
+                <p className="ind-display text-lg text-white sm:text-2xl">Liberty College</p>
+                <p className="ind-label mt-1 text-[#6b7488]">RAC · D-3292 · ZONE VII</p>
+              </div>
             </div>
-            <div>
-              <p className="ind-display text-2xl text-white">Empower to Impact</p>
-              <p className="ind-label mt-1 text-[#6b7488]">RAC · D-3292 · ZONE VII</p>
-            </div>
-          </div>
 
           {/* dashboard bars */}
           <div className="mt-6 grid grid-cols-3 gap-3">
@@ -194,7 +194,13 @@ function Hero() {
     <header className="relative w-full overflow-hidden pt-10 pb-16 sm:pt-14 sm:pb-20">
       <div className="mx-auto grid max-w-[72rem] items-center gap-12 px-6 md:px-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
         <div className="relative z-10">
-          <p className="ind-label inline-flex items-center gap-2 rounded-md bg-[var(--color-ind-bg)] px-3 py-2 shadow-[var(--shadow-card)]">
+          <span className="inline-flex items-center gap-3 rounded-lg bg-[var(--color-ind-bg)] px-3 py-2 shadow-[var(--shadow-card)]">
+            <span className="grid size-10 shrink-0 place-items-center rounded-md bg-white shadow-[var(--shadow-sharp)]">
+              <img src={CLUB.logo} alt="" className="h-7 w-7 object-contain" aria-hidden="true" />
+            </span>
+            <Label>RAC · LIBERTY COLLEGE</Label>
+          </span>
+          <p className="ind-label mt-3 inline-flex items-center gap-2 rounded-md bg-[var(--color-ind-bg)] px-3 py-2 shadow-[var(--shadow-card)]">
             <Led color="bg-[#ff4757]" glow="shadow-[0_0_8px_rgba(255,71,87,1)]" />
             SYSTEM: {CLUB.identity.toUpperCase()} · STANDBY
           </p>
@@ -230,7 +236,7 @@ function Hero() {
               View mission logs <ArrowRight className="size-4" strokeWidth={2.5} />
             </ButtonPrimary>
             <ButtonChassis href="#board">
-              <Users className="size-4" strokeWidth={2.5} /> Roster
+              <Users className="size-4" strokeWidth={2.5} /> Meet the crew
             </ButtonChassis>
           </div>
         </div>
@@ -267,65 +273,72 @@ function StatsStrip() {
   );
 }
 
-/* -------------------------------------------------------------- roster ----- */
+/* ----------------------------------------------------------- people ------- */
 
-const SLOTS = ['President', 'Vice President', 'Secretary', 'Treasurer', 'Service Chair', 'Public Image', 'Fellowship', 'International Chair'];
+function Portrait({ name, photo }) {
+  if (photo) {
+    return (
+      <img
+        src={photo}
+        alt={name || 'Officer portrait'}
+        loading="lazy"
+        className="h-full w-full object-cover transition-all duration-500 grayscale group-hover:grayscale-0"
+      />
+    );
+  }
+  return (
+    <div className="grid h-full w-full place-items-center bg-gradient-to-br from-[#c8cdd8] to-[#e1e5ec]">
+      <div className="flex flex-col items-center gap-2">
+        <span className="grid size-16 place-items-center rounded-full bg-white/70 shadow-[var(--shadow-sharp)]">
+          <User className="size-9 text-[#8b93a7]" strokeWidth={1.5} />
+        </span>
+        <span className="ind-label rounded-md bg-black/10 px-2 py-1 text-[#4a5568]">PHOTO PENDING</span>
+      </div>
+    </div>
+  );
+}
 
 function BoardSection() {
   return (
     <section id="board" className="w-full scroll-mt-24 py-16 md:py-24">
       <div className="mx-auto max-w-[72rem] px-6 md:px-12">
         <SectionHead
-          code="SR-01 · LEADERSHIP CHANNEL"
-          title="The roster dock."
-          sub={BOARD.length ? 'The officers who run the machine.' : `Officer slots are ready below — names are published on the official club page.`}
+          code="SR-01 · PERSONNEL MANIFEST"
+          title="The people are the machine."
+          sub={`Eight chairs, one crew — the faces that plan, fund and deliver every mission. Real portraits and names land here from the official record; the slots below stand ready.`}
         />
-        <div className="mt-10">
-          {BOARD.length === 0 ? (
-            <>
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {SLOTS.map((slot, i) => (
-                  <Card key={slot} className={i === 0 ? 'bg-[var(--color-ind-panel)]' : ''}>
-                    <div className="flex items-center justify-between">
-                      <Label className="text-[var(--color-ind-accent)]">CH {String(i + 1).padStart(2, '0')}</Label>
-                      <span
-                        className="grid size-10 place-items-center rounded-full bg-[var(--color-ind-bg)] shadow-[var(--shadow-floating)]"
-                        aria-hidden="true"
-                      >
-                        <Users className="size-5 text-[var(--color-ind-mut-text)]" strokeWidth={1.5} />
-                      </span>
-                    </div>
-                    <h3 className="ind-display mt-4 text-xl font-extrabold text-[var(--color-ind-ink)]">{slot}</h3>
-                    <p className="ind-label mt-2 flex items-center gap-2 text-[var(--color-ind-mut-text)]">
-                      <Led color="bg-[#f59e0b]" glow="shadow-[0_0_8px_rgba(245,158,11,1)]" />
-                      PENDING · OFFICIAL PAGE
-                    </p>
-                  </Card>
-                ))}
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {(BOARD.length ? BOARD : PEOPLE).map((p, i) => (
+            <article
+              key={`${p.role}-${i}`}
+              className="ind-lift group relative overflow-hidden rounded-[16px] bg-[var(--color-ind-bg)] shadow-[var(--shadow-card)] md:rounded-[20px]"
+            >
+              <div className="relative h-52 overflow-hidden">
+                <Portrait name={p.name} photo={p.photo} />
+                <span className="ind-label absolute top-3 left-3 flex items-center gap-1.5 rounded-md bg-[#23262e]/85 px-2.5 py-1 text-white backdrop-blur-sm">
+                  <Led color="bg-[#22c55e]" glow="shadow-[0_0_6px_rgba(34,197,94,1)]" />
+                  #{String(i + 1).padStart(2, '0')} · {p.role.toUpperCase()}
+                </span>
               </div>
-              <p className="ind-label mt-8 rounded-lg bg-[var(--color-ind-bg)] px-4 py-3 text-[var(--color-ind-mut-text)] shadow-[var(--shadow-card)]">
-                ▶ The live board list is maintained at the{' '}
-                <a href="/liberty/official" className="text-[#ff4757] underline underline-offset-4">
-                  official Liberty College club page
-                </a>
-                .
-              </p>
-            </>
-          ) : (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {BOARD.map((m, i) => (
-                <Card key={`${m.name}-${i}`} className={i === 0 ? 'bg-[var(--color-ind-panel)]' : ''}>
-                  <div className="flex items-center justify-between">
-                    <Label className="text-[var(--color-ind-accent)]">OFFICER {String(i + 1).padStart(2, '0')}</Label>
-                    <Led color="bg-[#22c55e]" glow="shadow-[0_0_8px_rgba(34,197,94,1)]" />
-                  </div>
-                  <h3 className="ind-display mt-4 text-xl font-extrabold text-[var(--color-ind-ink)]">{m.name}</h3>
-                  <p className="ind-label mt-2 text-[var(--color-ind-mut-text)]">{m.role}</p>
-                </Card>
-              ))}
-            </div>
-          )}
+              <div className="screw relative p-5">
+                <h3 className="ind-display text-lg font-extrabold text-[var(--color-ind-ink)]">
+                  {p.name || 'On the official record'}
+                </h3>
+                <p className="ind-label mt-1.5 text-[var(--color-ind-accent)]">{p.role}</p>
+              </div>
+            </article>
+          ))}
         </div>
+        {!BOARD.length && (
+          <p className="ind-label mt-8 rounded-lg bg-[var(--color-ind-bg)] px-4 py-3 text-[var(--color-ind-mut-text)] shadow-[var(--shadow-card)]">
+            ▶ Names &amp; portraits are published at the{' '}
+            <a href="/liberty/official" className="text-[#ff4757] underline underline-offset-4">
+              official Liberty College club page
+            </a>
+            . Drop real photos into <span className="text-[var(--color-ind-ink)]">media/liberty/</span> and list them in{' '}
+            <span className="text-[var(--color-ind-ink)]">src/liberty/data.js</span> to activate.
+          </p>
+        )}
       </div>
     </section>
   );

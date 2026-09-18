@@ -32,10 +32,21 @@ export const CLUB = {
     'A college-based club housed at Liberty College in Buddha Nagar, Kathmandu, the Rotaract Club of Liberty College is one of the longest-standing clubs in Zone 7, chartered on 1st May 2012 and sponsored by the Rotary Club of Nagarjun. Over more than a decade the club has run 45 events and filed 304 reports, and is twinned with the Rotaract Club of Central Lumbini. Members meet on Tuesdays around midday, and the club\u2019s guiding theme, \u201cEmpower to Impact,\u201d runs through its seven active goals.'
 };
 
-/* Officer roster on record — currently empty in the live database.
-   Add { name, role } objects here (e.g. { name: 'Rtr. Anon', role: 'President' })
-   and the roster dock below the hero renders them as instrument slots. */
+/* Officer roster on record — the live database has no names or photos yet.
+   Add { name, role, photo } entries here (e.g. { name: 'Rtr. Anon', role: 'President',
+   photo: '/media/liberty/anon.jpg' }) and the people grid renders real faces. */
 export const BOARD = [];
+
+export const PEOPLE = [
+  { name: '', role: 'President', photo: '' },
+  { name: '', role: 'Vice President', photo: '' },
+  { name: '', role: 'Secretary', photo: '' },
+  { name: '', role: 'Treasurer', photo: '' },
+  { name: '', role: 'Service Chair', photo: '' },
+  { name: '', role: 'Public Image', photo: '' },
+  { name: '', role: 'Fellowship', photo: '' },
+  { name: '', role: 'International Chair', photo: '' }
+];
 
 export const PROJECTS = [
   {
