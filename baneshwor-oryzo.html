@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  BANESHWOR × ORYZO — DESIGN DEMO ONLY.
+  Standalone concept page. NOT linked from anywhere. Do NOT merge into
+  club.html until the demo is approved. (Sukedhara's agent: untouched.)
+  =====================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BANESHWOR — Zone 7 Rotaract</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --color-warm-cream:#ffedd7;
+  --color-walnut-shadow:#100904;
+  --color-bark-brown:#382416;
+  --color-cork-border:#40372e;
+  --color-driftwood:#6c5f51;
+  --color-ember-accent:#dc5000;
+  --font-halyard-display-variable:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font-arial:Arial,ui-sans-serif,system-ui,sans-serif;
+  --text-subheading:18px; --leading-subheading:1;
+  --text-heading-sm:24px; --leading-heading-sm:1.09;
+  --text-body:29px; --leading-body:1.26;
+  --text-heading:41px; --leading-heading:.9;
+  --text-display:51px; --leading-display:.9;
+  --spacing-6:6px; --spacing-8:8px; --spacing-9:9px; --spacing-10:10px;
+  --spacing-12:12px; --spacing-14:14px; --spacing-18:18px; --spacing-24:24px;
+  --spacing-31:31px; --spacing-41:41px; --spacing-45:45px; --spacing-68:68px;
+  --spacing-204:204px;
+  --radius-cards:12px; --radius-buttons-pill:36px; --radius-buttons-outlined:22.5px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;background:var(--color-walnut-shadow);}
+body{
+  background:var(--color-walnut-shadow); color:var(--color-warm-cream);
+  font-family:var(--font-halyard-display-variable); font-weight:500;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+::selection{background:var(--color-ember-accent); color:var(--color-walnut-shadow);}
+img{display:block; max-width:100%;}
+
+/* ---------- fixed nav ---------- */
+.topnav{
+  position:fixed; inset:0 0 auto 0; z-index:50;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:22px 32px; background:transparent;
+}
+.wordmark{font-size:14px; font-weight:500;  color:var(--color-warm-cream); text-decoration:none;}
+.navlinks{display:flex; gap:34px;}
+.navlinks a{
+  font-size:12px; font-weight:500;  color:var(--color-warm-cream);
+  text-decoration:none; padding-bottom:5px; border-bottom:1px dashed transparent;
+}
+.navlinks a.active{border-bottom-color:var(--color-cork-border);}
+.navlinks a:hover{border-bottom-color:var(--color-warm-cream);}
+
+/* ---------- hero (photographic mode) ---------- */
+.hero{position:relative; min-height:100vh; min-height:100svh; display:flex; overflow:hidden;}
+.hero-bg{position:absolute; inset:0;}
+.hero-bg img{width:100%; height:100%; object-fit:cover;}
+.hero-bg::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(16,9,4,.62) 0%, rgba(16,9,4,.30) 38%, rgba(16,9,4,.88) 100%);
+}
+.hero-inner{position:relative; z-index:2; width:100%; padding:120px 32px 40px; display:flex; flex-direction:column;}
+.hero-tag{font-size:12px;  margin-bottom:18px;}
+.hero-title{font-size:clamp(44px,13.5vw,150px); line-height:.9; font-weight:500; text-transform:uppercase;}
+.hero-side{
+  position:absolute; right:26px; top:50%; transform:translateY(-50%) rotate(90deg);
+  transform-origin:center; font-size:11px;  white-space:nowrap;
+}
+.hero-foot{margin-top:auto; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap;}
+.info-card{
+  max-width:520px; border-radius:var(--radius-cards); padding:24px;
+  background:rgba(16,9,4,.55); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--color-cork-border);
+}
+.info-card h2{font-size:var(--text-subheading); line-height:var(--leading-subheading); text-transform:uppercase; margin-bottom:14px;}
+.info-card hr{border:none; border-top:1px dashed var(--color-cork-border); margin:0 0 14px;}
+.info-card p{font-size:15px; font-weight:400; line-height:1.55; text-transform:none;  color:var(--color-warm-cream);}
+.credit{font-size:12px;  color:var(--color-ember-accent); margin-top:18px; text-transform:uppercase;}
+.credit a{color:inherit;}
+.btn-fill{
+  display:inline-block; background:var(--color-bark-brown); color:var(--color-warm-cream);
+  border-radius:var(--radius-buttons-pill); padding:14px 24px;
+  font-size:14px; font-weight:500; text-transform:uppercase;  text-decoration:none;
+  border:1px solid transparent; white-space:nowrap;
+}
+.btn-fill:hover{background:var(--color-warm-cream); color:var(--color-walnut-shadow);}
+.hero-cta-row{display:flex; gap:14px; align-items:center;}
+
+/* ---------- dividers / sections ---------- */
+.divider{border:none; border-top:1px dashed var(--color-cork-border); margin:0;}
+.section{min-height:100vh; min-height:100svh; padding:110px 32px 90px; position:relative;}
+.kicker{font-size:12px;  color:var(--color-ember-accent); text-transform:uppercase; margin-bottom:22px;}
+.reveal-grid{display:grid; grid-template-columns:1fr minmax(280px,460px) 1fr; gap:18px; align-items:center; max-width:1500px; margin:0 auto;}
+.reveal-grid h2{font-size:var(--text-heading); line-height:var(--leading-heading); text-transform:uppercase;}
+.reveal-grid .bodycopy{font-size:var(--text-body); font-weight:400; line-height:var(--leading-body); text-transform:none; }
+.reveal-grid .left{padding-right:12px;}
+.reveal-grid .right{padding-left:12px;}
+
+/* ---------- medallion (logo as artifact) ---------- */
+.artifact{position:relative; display:flex; justify-content:center; overflow:clip;}
+.artifact::before{
+  content:""; position:absolute; inset:-15% -10%;
+  background:radial-gradient(ellipse at center, rgba(220,80,0,.20), rgba(56,36,22,.35) 55%, transparent 72%);
+  pointer-events:none;
+}
+.plaque{
+  position:relative; background:var(--color-warm-cream); border-radius:var(--radius-cards);
+  padding:44px 40px; width:100%; max-width:460px;
+}
+.plaque img{width:100%; height:auto;}
+.plaque figcaption{
+  margin-top:18px; padding-top:14px; border-top:1px dashed var(--color-cork-border);
+  font-size:10px;  color:#100904; text-transform:uppercase;
+}
+
+/* ---------- stats ---------- */
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; max-width:1500px; margin:90px auto 0; padding-top:34px; border-top:1px dashed var(--color-cork-border);}
+.stat b{display:block; font-size:var(--text-heading); line-height:1; font-weight:500;}
+.stat span{display:block; margin-top:10px; font-size:12px;  text-transform:uppercase; opacity:.65;}
+
+/* ---------- project rail ---------- */
+.rail-head{max-width:1500px; margin:0 auto 34px; display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap;}
+.rail-head h2{font-size:var(--text-heading); line-height:var(--leading-heading); text-transform:uppercase; max-width:12ch;}
+.filters{display:flex; gap:10px; flex-wrap:wrap;}
+.btn-ghost{
+  background:transparent; color:var(--color-warm-cream); border:1px solid var(--color-warm-cream);
+  border-radius:var(--radius-buttons-outlined); padding:7.5px 18px;
+  font-size:12px; font-weight:500; text-transform:uppercase;  cursor:pointer; font-family:inherit;
+}
+.btn-ghost.on{background:var(--color-warm-cream); color:var(--color-walnut-shadow);}
+.rail{
+  display:grid; grid-auto-flow:column; grid-auto-columns:minmax(270px,340px); gap:18px;
+  overflow-x:auto; padding:6px 32px 26px; scroll-snap-type:x mandatory; scrollbar-width:thin;
+}
+.pcard{
+  scroll-snap-align:start; border:1px solid var(--color-cork-border); border-radius:var(--radius-cards);
+  overflow:hidden; background:transparent; text-decoration:none; color:var(--color-warm-cream); display:flex; flex-direction:column;
+}
+.pcard .ph{aspect-ratio:4/3; overflow:hidden; background:var(--color-bark-brown);}
+.pcard .ph img{width:100%; height:100%; object-fit:cover;}
+.pcard .pt{padding:18px;}
+.pcard .ptag{font-size:11px;  color:var(--color-ember-accent); text-transform:uppercase;}
+.pcard h3{font-size:var(--text-heading-sm); line-height:var(--leading-heading-sm); text-transform:uppercase; margin:10px 0 12px;}
+.pcard .pdate{font-size:12px;  opacity:.65; text-transform:uppercase;}
+.pcard:hover{border-color:var(--color-warm-cream);}
+.rail-count{max-width:1500px; margin:6px auto 0; padding:0 0 0 2px; font-size:12px;  opacity:.65; text-transform:uppercase;}
+
+/* ---------- board index ---------- */
+.board-wrap{max-width:1100px; margin:0 auto;}
+.board-wrap h2{font-size:var(--text-heading); line-height:var(--leading-heading); text-transform:uppercase; margin-bottom:8px;}
+.board-sub{font-size:15px; font-weight:400; text-transform:none;  opacity:.75; margin-bottom:40px; max-width:60ch; line-height:1.55;}
+.brow{
+  display:flex; align-items:center; gap:20px; padding:20px 4px;
+  border-bottom:1px dashed var(--color-cork-border); text-decoration:none; color:var(--color-warm-cream);
+}
+.brow:first-of-type{border-top:1px dashed var(--color-cork-border);}
+.bnum{font-size:12px;  color:var(--color-driftwood); min-width:34px;}
+.bthumb{width:52px; height:52px; border-radius:var(--radius-cards); object-fit:cover; background:var(--color-bark-brown); flex-shrink:0;}
+.binit{width:52px; height:52px; border-radius:var(--radius-cards); background:var(--color-bark-brown); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;}
+.bname{font-size:var(--text-subheading); text-transform:uppercase;}
+.brole{margin-left:auto; text-align:right; font-size:12px;  text-transform:uppercase; opacity:.65; max-width:34ch;}
+
+/* ---------- meet / contact ---------- */
+.meet-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; max-width:1500px; margin:0 auto;}
+.meet-grid h2{font-size:var(--text-heading); line-height:var(--leading-heading); text-transform:uppercase; margin-bottom:26px;}
+.mrow{padding:18px 0; border-bottom:1px dashed var(--color-cork-border); font-size:14px;  text-transform:uppercase;}
+.mrow:first-of-type{border-top:1px dashed var(--color-cork-border);}
+.mrow span{opacity:.6; display:block; font-size:11px; margin-bottom:8px;}
+.mlink{color:var(--color-warm-cream); text-decoration:underline; text-underline-offset:4px;}
+.mlink:hover{color:var(--color-ember-accent);}
+.meet-cta{margin-top:34px; display:flex; gap:14px; flex-wrap:wrap;}
+
+/* ---------- footer ---------- */
+footer{padding:60px 32px 46px;}
+.foot-row{display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; align-items:center; margin-top:26px;}
+.legal{font-family:var(--font-arial); font-size:8px; font-weight:500; text-transform:uppercase;  opacity:.7;}
+.foot-credit{font-size:12px;  text-transform:uppercase; color:var(--color-ember-accent);}
+.foot-credit a{color:inherit;}
+
+/* ---------- responsive ---------- */
+@media (max-width:1020px){
+  .reveal-grid{grid-template-columns:1fr; gap:34px;}
+  .reveal-grid .left{padding-right:0;} .reveal-grid .right{padding-left:0;}
+  .reveal-grid .bodycopy{font-size:22px;}
+  .plaque{max-width:420px; margin:0 auto;}
+  .artifact{order:-1;}
+  .meet-grid{grid-template-columns:1fr;}
+  .hero-side{display:none;}
+  .stats{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:640px){
+  .topnav{padding:14px;}
+  .wordmark{font-size:11px; }
+  .navlinks{gap:12px;}
+  .navlinks a{font-size:10px; }
+  .section{padding:84px 18px 70px;}
+  .hero-inner{padding:104px 18px 30px;}
+  .rail{padding:6px 18px 22px;}
+  .reveal-grid h2, .rail-head h2, .board-wrap h2, .meet-grid h2{font-size:32px;}
+  .brole{display:none;}
+  .stats{margin-top:60px;}
+}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="wordmark" href="#top">BANESHWOR</a>
+  <div class="navlinks">
+    <a href="#club" data-spy="club">INTRO</a>
+    <a href="#projects" data-spy="projects">PROJECTS</a>
+    <a href="#board" data-spy="board">BOARD</a>
+    <a href="#meet" data-spy="meet">CONTACT</a>
+  </div>
+</nav>
+
+<!-- HERO : photographic mode -->
+<header class="hero" id="top">
+  <div class="hero-bg"><img id="heroImg" src="media/project-covers/cover-zrr-visit-34dc5124d8ca4722-2dbb8bb4.jpg" alt="Rotaract Club of Baneshwor project in action"></div>
+  <div class="hero-inner">
+    <p class="hero-tag">MADE FOR SERVICE, BUILT FOR BANESHWOR.</p>
+    <h1 class="hero-title">BANESHWOR</h1>
+    <div class="hero-side">RAC BANESHWOR — EST. 2020</div>
+    <div class="hero-foot">
+      <div class="info-card">
+        <h2>THE STEADY-IMPACT CLUB</h2>
+        <hr>
+        <p>Enthusiastic youths committed to the welfare of society — 31 events, 326 reports, and counting. Small, consistent acts of service, every single week.</p>
+        <p class="credit">SPONSORED BY <a href="#meet">ROTARY CLUB OF BANESHWOR</a></p>
+      </div>
+      <div class="hero-cta-row">
+        <a class="btn-fill" href="#projects">SEE THE WORK ↓</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<hr class="divider">
+
+<!-- 01 : VOID REVEAL — THE CLUB -->
+<section class="section" id="club">
+  <p class="kicker">01 — THE CLUB</p>
+  <div class="reveal-grid">
+    <h2 class="left">SMALL ACTS. STEADY IMPACT.</h2>
+    <figure class="artifact">
+      <div class="plaque">
+        <img src="media/logos/baneshwor.jpg" alt="Rotaract Club of Baneshwor logo">
+        <figcaption>RAC BANESHWOR — CLUB SEAL · 2020</figcaption>
+      </div>
+    </figure>
+    <p class="bodycopy right">To become a trusted and inspiring Rotaract Club that creates meaningful community impact through small, consistent acts of service.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b id="stActive">20</b><span>ACTIVE MEMBERS</span></div>
+    <div class="stat"><b id="stEvents">31</b><span>EVENTS LOGGED</span></div>
+    <div class="stat"><b id="stReports">326</b><span>REPORTS FILED</span></div>
+    <div class="stat"><b>2020</b><span>CHARTERED OCT 13</span></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 02 : VOID REVEAL — PROJECTS -->
+<section class="section" id="projects" style="padding-left:0;padding-right:0;">
+  <div style="padding:0 32px;">
+    <p class="kicker">02 — SELECTED WORK</p>
+    <div class="rail-head">
+      <h2>TWELVE PROJECTS. ONE HABIT.</h2>
+      <div class="filters" id="filters"></div>
+    </div>
+  </div>
+  <div class="rail" id="rail"></div>
+  <div style="padding:0 32px;"><p class="rail-count" id="railCount"></p></div>
+</section>
+
+<hr class="divider">
+
+<!-- 03 : BOARD INDEX -->
+<section class="section" id="board">
+  <p class="kicker">03 — THE BOARD</p>
+  <div class="board-wrap">
+    <h2>LED BY TWELVE.</h2>
+    <p class="board-sub">The 2026–27 board of the Rotaract Club of Baneshwor — twelve members carrying the steady-impact habit.</p>
+    <div id="boardRows"></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 04 : MEET / CONTACT -->
+<section class="section" id="meet">
+  <p class="kicker">04 — MEET US</p>
+  <div class="meet-grid">
+    <div>
+      <h2>SATURDAY. 10 AM. DEVKOTA SADAK.</h2>
+      <div class="meet-cta">
+        <a class="btn-fill" href="join.html">JOIN US ↗</a>
+        <a class="btn-ghost" href="https://www.instagram.com/rac_baneshwor" target="_blank" rel="noopener" style="text-decoration:none;align-self:center;">INSTAGRAM ↗</a>
+      </div>
+    </div>
+    <div>
+      <div class="mrow"><span>MEETING</span>SATURDAY — 10:00 AM, MORNING SESSION</div>
+      <div class="mrow"><span>BASE</span>DEVKOTA SADAK, KATHMANDU</div>
+      <div class="mrow"><span>EMAIL</span><a class="mlink" href="mailto:baneshwor@rotaract3292.org">BANESHWOR@ROTARACT3292.ORG</a></div>
+      <div class="mrow"><span>INSTAGRAM</span><a class="mlink" href="https://www.instagram.com/rac_baneshwor" target="_blank" rel="noopener">@RAC_BANESHWOR</a></div>
+      <div class="mrow"><span>TWIN CLUBS</span>CENTRAL SIYARI · ITAHARI</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<footer>
+  <div class="foot-row">
+    <p class="legal">* ROTARACT CLUB OF BANESHWOR — DISTRICT 3292, ZONE 7. CONCEPT DEMO, NOT THE LIVE CLUB PAGE.</p>
+    <p class="foot-credit">BUILT BY <a href="index.html">ZONE 7 ROTARACT</a></p>
+  </div>
+</footer>
+
+<script src="zone7-data.js"></script>
+<script>
+/* Live data first, embedded seed as fallback (demo must survive offline). */
+const SEED_PROJECTS = [
+  {id:"", title:"SESSION ON: TRAFFIC AWARENESS", category:"Road Safety", date:"2025-05-20", cover:"media/project-covers/cover-session-on-traffic-awareness-0104531b219-fedc9d1d.jpg"},
+  {id:"", title:"ZRR VISIT", category:"Club Special Event", date:"2025-05-22", cover:"media/project-covers/cover-zrr-visit-34dc5124d8ca4722-2dbb8bb4.jpg"},
+  {id:"", title:"FIRST CLUB ASSEMBLY", category:"Club Assembly", date:"2024-07-20", cover:"media/project-covers/cover-first-club-assembly-553bb2dde9454693-0354e84d.jpg"},
+  {id:"", title:"DRR VISIT 2024-25", category:"DRR Visit", date:"2025-05-17", cover:"media/project-covers/cover-drr-visit-2024-25-e182ef5b010c4928-bfd19e95.jpg"},
+  {id:"", title:"INTRODUCTION TO LEO AND WOSM", category:"Virtual Activity", date:"2025-05-21", cover:"media/project-covers/cover-introduction-to-leo-and-wosm-223d496931b-cfdc5846.jpg"},
+  {id:"", title:"SECOND CLUB ASSEMBLY", category:"Club Assembly", date:"2025-01-18", cover:"media/project-covers/cover-second-club-assembly-9222ef13d7404977-3568e841.jpg"}
+];
+const SEED_BOARD = [
+  {name:"Rtr. Prashanna Gautam", role:"Club President"},
+  {name:"Rtr. Nabin Bhusal", role:"Vice President"},
+  {name:"Rtr. Amit Maharjan", role:"Secretary"},
+  {name:"Rtr. Rashmi Timalsina", role:"Treasurer"},
+  {name:"Rtr. Hemanta Rawal", role:"Public Image Chair"},
+  {name:"Rtr. Avinav Baral", role:"Membership Chair"}
+];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtDate = d => { const t = new Date(d); return isNaN(t) ? "DATE TBA" : t.toLocaleDateString("en-GB", {day:"2-digit", month:"short", year:"numeric"}).toUpperCase(); };
+
+let allProjects = [];
+function projectCard(p){
+  const href = p.id ? `/project?club=baneshwor&id=${encodeURIComponent(p.id)}` : "#projects";
+  const img = p.cover ? (String(p.cover).startsWith("http") || String(p.cover).startsWith("/") ? p.cover : "/" + String(p.cover).replace(/^\/+/, "")) : "";
+  return `<a class="pcard" href="${href}">
+    <div class="ph">${img ? `<img src="${esc(img)}" alt="" loading="lazy" decoding="async">` : ""}</div>
+    <div class="pt">
+      <p class="ptag">${esc((p.category || "SERVICE").toUpperCase())}</p>
+      <h3>${esc((p.title || "UNTITLED").toUpperCase())}</h3>
+      <p class="pdate">${esc(fmtDate(p.date))}</p>
+    </div>
+  </a>`;
+}
+function renderRail(filter){
+  const list = !filter ? allProjects : allProjects.filter(p => (p.category || "") === filter);
+  document.getElementById("rail").innerHTML = list.map(projectCard).join("") ||
+    `<p class="rail-count">NOTHING FILED UNDER THIS LABEL — YET.</p>`;
+  document.getElementById("railCount").textContent = `SHOWING ${list.length} OF ${allProjects.length} PROJECTS`;
+}
+function renderFilters(){
+  const cats = [...new Set(allProjects.map(p => p.category).filter(Boolean))];
+  const box = document.getElementById("filters");
+  box.innerHTML = [`<button class="btn-ghost on" data-f="">ALL</button>`,
+    ...cats.map(c => `<button class="btn-ghost" data-f="${esc(c)}">${esc(c.toUpperCase())}</button>`)].join("");
+  box.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    box.querySelectorAll("button").forEach(x => x.classList.remove("on"));
+    b.classList.add("on");
+    renderRail(b.dataset.f);
+  }));
+}
+function renderBoard(board){
+  const rows = (board && board.length ? board : SEED_BOARD).map((m, i) => {
+    const photo = m.photo ? (String(m.photo).startsWith("http") || String(m.photo).startsWith("/") || String(m.photo).startsWith("data:") ? m.photo : "/" + String(m.photo).replace(/^\/+/, "")) : "";
+    const thumb = photo ? `<img class="bthumb" src="${esc(photo)}" alt="" loading="lazy">`
+      : `<span class="binit">${esc((m.name || "?").replace(/^Rtr\.\s*/i, "").trim().charAt(0))}</span>`;
+    return `<div class="brow"><span class="bnum">${String(i + 1).padStart(2, "0")}</span>${thumb}
+      <span class="bname">${esc((m.name || "—").toUpperCase())}</span>
+      <span class="brole">${esc((m.role || "").toUpperCase())}</span></div>`;
+  }).join("");
+  document.getElementById("boardRows").innerHTML = rows;
+}
+async function init(){
+  try{
+    const [projects, profile] = await Promise.all([
+      ZONE7_DB.getProjects("baneshwor", { limit: 60 }),
+      ZONE7_DB.getClubProfile("baneshwor")
+    ]);
+    allProjects = (projects && projects.length ? projects : SEED_PROJECTS).slice(0, 12);
+    /* hero wants a photographic cover, not a printed poster */
+    const heroP = allProjects.find(p => /zrr-visit|assembly/i.test(p.cover || "")) || allProjects[0];
+    if(heroP && heroP.cover) document.getElementById("heroImg").src = heroP.cover;
+    renderBoard(profile && profile.board);
+  }catch(e){
+    allProjects = SEED_PROJECTS;
+    renderBoard(null);
+  }
+  renderFilters();
+  renderRail("");
+  /* scroll-spy: dashed underline follows the section in view */
+  const links = [...document.querySelectorAll(".navlinks a")];
+  const secs = ["club", "projects", "board", "meet"].map(id => document.getElementById(id));
+  const spy = new IntersectionObserver(es => es.forEach(e => {
+    if(e.isIntersecting){
+      links.forEach(l => l.classList.toggle("active", l.dataset.spy === e.target.id));
+    }
+  }), { rootMargin: "-45% 0px -45% 0px" });
+  secs.forEach(s => s && spy.observe(s));
+}
+init();
+</script>
+</body>
+</html>
