@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, AtSign, CalendarDays, Compass, Globe2, HandHeart, Mail, MapPin, ShieldCheck, Users } from 'lucide-react';
 import Reveal from './Reveal';
-import { PRESIDENTS, QUICK_FACTS } from './photos';
+import { QUICK_FACTS } from './photos';
 import { CLUB, STATS } from './data';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -71,10 +71,12 @@ export function StatsBand() {
   );
 }
 
+const FIELD = '/media/sukedhara/field/';
+
 const COLLAGE = [
-  { p: 3, cls: '-left-1 -top-3 -rotate-6', sp: -36, tint: 'suk-shadow' },
-  { p: 5, cls: 'right-0 top-16 rotate-3', sp: 44, tint: 'suk-shadow-pink' },
-  { p: 6, cls: '-left-2 bottom-0 -rotate-2', sp: -60, tint: 'suk-shadow' }
+  { img: `${FIELD}meet-02.jpg`, caption: 'Saturday fellowship', cls: '-left-1 -top-3 -rotate-6', sp: -36, tint: 'suk-shadow' },
+  { img: `${FIELD}esrag-05.jpg`, caption: 'ESRAG field day', cls: 'right-0 top-16 rotate-3', sp: 44, tint: 'suk-shadow-pink' },
+  { img: `${FIELD}eye-03.jpg`, caption: 'Eye camp, Lalitpur', cls: '-left-2 bottom-0 -rotate-2', sp: -60, tint: 'suk-shadow' }
 ];
 
 export function AboutSection() {
@@ -120,16 +122,15 @@ export function AboutSection() {
           {/* Mobile: three tidy stickers, no overlapping */}
           <div className="grid grid-cols-3 gap-3 lg:hidden">
             {COLLAGE.map((c, i) => {
-              const person = PRESIDENTS[c.p];
               const tilt = ['-rotate-3', 'rotate-2', '-rotate-1'][i % 3];
               return (
                 <figure
-                  key={person.term}
+                  key={c.caption}
                   className={`${tilt} rounded-2xl border-2 border-ink bg-white p-1.5 pb-4 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:scale-105 ${c.tint}`}
                 >
-                  <img src={person.img} alt={person.name} loading="lazy" className="aspect-[3/4] w-full rounded-xl object-cover object-top" />
+                  <img src={c.img} alt={c.caption} loading="lazy" className="aspect-[3/4] w-full rounded-xl object-cover object-top" />
                   <figcaption className="pt-1.5 text-center text-[9px] font-bold tracking-[0.02em] text-mut uppercase">
-                    {person.name.replace('Rtr. ', '')}
+                    {c.caption}
                   </figcaption>
                 </figure>
               );
@@ -139,17 +140,16 @@ export function AboutSection() {
           <div className="relative hidden h-[360px] sm:h-[440px] lg:block">
             <div aria-hidden="true" className="absolute inset-3 rounded-[3rem] bg-white suk-dots" />
             {COLLAGE.map((c, i) => {
-              const person = PRESIDENTS[c.p];
               return (
                 <figure
-                  key={person.term}
+                  key={c.caption}
                   data-plx={c.sp}
                   className={`absolute w-40 rounded-3xl border-2 border-ink bg-white p-2 pb-6 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:scale-105 hover:-rotate-1 sm:w-48 ${c.cls} ${c.tint}`}
                   style={{ zIndex: i + 1 }}
                 >
-                  <img src={person.img} alt={person.name} loading="lazy" className="aspect-[3/4] w-full rounded-2xl object-cover object-top" />
+                  <img src={c.img} alt={c.caption} loading="lazy" className="aspect-[3/4] w-full rounded-2xl object-cover object-top" />
                   <figcaption className="pt-2 text-center text-[10px] font-bold tracking-[0.04em] text-mut uppercase">
-                    {person.name.replace('Rtr. ', '')} · {person.term.replace('RY ', '')}
+                    {c.caption}
                   </figcaption>
                 </figure>
               );
