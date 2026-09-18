@@ -13,6 +13,7 @@
     "build:vendor-lumos": "vite build --config vite.vendor-lumos.config.js && node scripts/encode-vendor-lumos.mjs",
     "build:vendor-shankharapur": "vite build --config vite.vendor-shankharapur.config.js && node scripts/encode-vendor-shankharapur.mjs",
     "build:vendors": "vite build --config vite.vendors.config.js && node scripts/encode-vendors.mjs",
+    "build:newroadcity": "vite build --config vite.newroadcity.config.js && node scripts/encode-newroadcity.mjs",
     "deploy:merch": "npm run build:merch && node scripts/deploy-merch.mjs",
     "serve:store": "node scripts/serve-store.mjs",
     "lint": "oxlint",
