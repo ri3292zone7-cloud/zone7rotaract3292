@@ -116,24 +116,45 @@ export function AboutSection() {
         </div>
       </Reveal>
       <Reveal delay={140}>
-        <div ref={collageRef} className="relative h-[360px] sm:h-[440px]">
-          <div aria-hidden="true" className="absolute inset-3 rounded-[3rem] bg-white suk-dots" />
-          {COLLAGE.map((c, i) => {
-            const person = PRESIDENTS[c.p];
-            return (
-              <figure
-                key={person.term}
-                data-plx={c.sp}
-                className={`absolute w-40 rounded-3xl border-2 border-ink bg-white p-2 pb-6 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:scale-105 hover:-rotate-1 sm:w-48 ${c.cls} ${c.tint}`}
-                style={{ zIndex: i + 1 }}
-              >
-                <img src={person.img} alt={person.name} loading="lazy" className="aspect-[3/4] w-full rounded-2xl object-cover object-top" />
-                <figcaption className="pt-2 text-center text-[10px] font-bold tracking-[0.04em] text-mut uppercase">
-                  {person.name.replace('Rtr. ', '')} · {person.term.replace('RY ', '')}
-                </figcaption>
-              </figure>
-            );
-          })}
+        <div ref={collageRef}>
+          {/* Mobile: three tidy stickers, no overlapping */}
+          <div className="grid grid-cols-3 gap-3 lg:hidden">
+            {COLLAGE.map((c, i) => {
+              const person = PRESIDENTS[c.p];
+              const tilt = ['-rotate-3', 'rotate-2', '-rotate-1'][i % 3];
+              return (
+                <figure
+                  key={person.term}
+                  className={`${tilt} rounded-2xl border-2 border-ink bg-white p-1.5 pb-4 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:scale-105 ${c.tint}`}
+                >
+                  <img src={person.img} alt={person.name} loading="lazy" className="aspect-[3/4] w-full rounded-xl object-cover object-top" />
+                  <figcaption className="pt-1.5 text-center text-[9px] font-bold tracking-[0.02em] text-mut uppercase">
+                    {person.name.replace('Rtr. ', '')}
+                  </figcaption>
+                </figure>
+              );
+            })}
+          </div>
+          {/* Desktop: offset sticker collage behind the dot grid */}
+          <div className="relative hidden h-[360px] sm:h-[440px] lg:block">
+            <div aria-hidden="true" className="absolute inset-3 rounded-[3rem] bg-white suk-dots" />
+            {COLLAGE.map((c, i) => {
+              const person = PRESIDENTS[c.p];
+              return (
+                <figure
+                  key={person.term}
+                  data-plx={c.sp}
+                  className={`absolute w-40 rounded-3xl border-2 border-ink bg-white p-2 pb-6 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:scale-105 hover:-rotate-1 sm:w-48 ${c.cls} ${c.tint}`}
+                  style={{ zIndex: i + 1 }}
+                >
+                  <img src={person.img} alt={person.name} loading="lazy" className="aspect-[3/4] w-full rounded-2xl object-cover object-top" />
+                  <figcaption className="pt-2 text-center text-[10px] font-bold tracking-[0.04em] text-mut uppercase">
+                    {person.name.replace('Rtr. ', '')} · {person.term.replace('RY ', '')}
+                  </figcaption>
+                </figure>
+              );
+            })}
+          </div>
         </div>
       </Reveal>
     </div>
