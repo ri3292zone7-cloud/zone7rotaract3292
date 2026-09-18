@@ -1,0 +1,270 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --color-page: #fffdf5;
+  --color-paper: #ffffff;
+  --color-plum: #8b5cf6;
+  --color-plum-deep: #7c3aed;
+  --color-aubergine: #1e293b;
+  --color-gold: #fbbf24;
+  --color-rose: #f472b6;
+  --color-mint: #34d399;
+  --color-line: #e2e8f0;
+  --color-ink: #1e293b;
+  --color-mut: #64748b;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: #cbd5e1 #fffdf5;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  background: #fffdf5;
+  color: #1e293b;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Outfit", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.015em;
+}
+
+.suk-hero-title {
+  font-family: "Outfit", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  font-size: clamp(2.7rem, 7.5vw, 5.4rem);
+}
+
+/* ------------------------------------------------------------ hard pops -- */
+
+.suk-shadow {
+  box-shadow: 4px 4px 0 0 #1e293b;
+}
+
+.suk-shadow-lg {
+  box-shadow: 8px 8px 0 0 #e2e8f0;
+}
+
+.suk-shadow-pink {
+  box-shadow: 8px 8px 0 0 #f472b6;
+}
+
+.suk-shadow-sm {
+  box-shadow: 2px 2px 0 0 #1e293b;
+}
+
+.suk-lift {
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.suk-lift:hover {
+  transform: translate(-2px, -2px);
+}
+
+.suk-lift:active {
+  transform: translate(2px, 2px);
+}
+
+/* ----------------------------------------------------------- patterns -- */
+
+.suk-dots {
+  background-image: radial-gradient(#e2e8f0 2.2px, transparent 2.7px);
+  background-size: 22px 22px;
+}
+
+.suk-dots-big {
+  background-image: radial-gradient(#cbd5e1 3px, transparent 3.6px);
+  background-size: 32px 32px;
+}
+
+/* "pop" entrance: scale-in with a bounce. */
+@keyframes suk-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) rotate(-3deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.06) rotate(1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.suk-pop {
+  animation: suk-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* gentle marquee for keywords */
+@keyframes suk-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.suk-ticker-track {
+  animation: suk-ticker 30s linear infinite;
+}
+
+@keyframes suk-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.suk-spin-slow {
+  animation: suk-spin 16s linear infinite;
+}
+
+@keyframes suk-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.35;
+  }
+  94% {
+    opacity: 1;
+  }
+  97% {
+    opacity: 0.6;
+  }
+  98% {
+    opacity: 1;
+  }
+}
+
+.suk-flicker {
+  animation: suk-flicker 7s infinite;
+}
+
+/* icon wiggle when its card group is hovered */
+@keyframes suk-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  33% {
+    transform: rotate(-3deg);
+  }
+  66% {
+    transform: rotate(3deg);
+  }
+}
+
+.suk-wiggle {
+  display: inline-block;
+}
+
+.group:hover .suk-wiggle {
+  animation: suk-wiggle 0.45s ease;
+}
+
+/* scroll reveal */
+.suk-reveal {
+  opacity: 0;
+  transform: translateY(26px) scale(0.98);
+  filter: blur(4px);
+  transition:
+    opacity 0.6s ease var(--suk-delay, 0ms),
+    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) var(--suk-delay, 0ms),
+    filter 0.6s ease var(--suk-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.suk-reveal.suk-revealed {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+@keyframes suk-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(260%);
+  }
+}
+
+.suk-shimmer {
+  animation: suk-shimmer 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .suk-reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+  .suk-pop,
+  .suk-ticker-track,
+  .suk-spin-slow,
+  .suk-flicker,
+  .suk-shimmer,
+  .group:hover .suk-wiggle {
+    animation: none;
+  }
+  .suk-lift:hover,
+  .suk-lift:active {
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------- tint -- */
+
+.suk-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .suk-grain {
+    display: none;
+  }
+}
+
+/* ----------------------------------------------------------- timelines -- */
+
+.suk-tnode {
+  width: 1.05rem;
+  height: 1.05rem;
+  left: 0.5rem;
+  border-radius: 9999px;
+  border: 3px solid #fbbf24;
+  box-shadow: 2px 2px 0 0 #1e293b, 0 0 0 1px #1e293b;
+}
+
+@media (min-width: 768px) {
+  .suk-tnode-l {
+    left: auto;
+    right: calc(2.25rem - 9px);
+  }
+  .suk-tnode-r {
+    left: calc(-2.25rem - 9px);
+  }
+}
