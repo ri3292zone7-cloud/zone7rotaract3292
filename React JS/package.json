@@ -16,6 +16,8 @@
     "build:newroadcity": "vite build --config vite.newroadcity.config.js && node scripts/encode-newroadcity.mjs",
     "build:sukedhara": "vite build --config vite.sukedhara.config.js && node scripts/encode-sukedhara.mjs",
     "build:sankhu": "vite build --config vite.sankhu.config.js && node scripts/encode-sankhu.mjs",
+    "build:liberty": "vite build --config vite.liberty.config.js && node scripts/encode-liberty.mjs",
+    "build:kathmanduheight": "vite build --config vite.kathmanduheight.config.js && node scripts/encode-kathmanduheight.mjs",
     "deploy:merch": "npm run build:merch && node scripts/deploy-merch.mjs",
     "serve:store": "node scripts/serve-store.mjs",
     "lint": "oxlint",
