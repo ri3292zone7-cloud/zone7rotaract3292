@@ -106,39 +106,12 @@ export function Lightbox({ photos, index, onClose, onStep }) {
   );
 }
 
-function Thumbs({ photos, onOpen }) {
-  if (photos.length === 0) return null;
-  const [first, ...rest] = photos;
-  return (
-    <div className="mt-4 flex gap-3">
-      <button
-        type="button"
-        onClick={() => onOpen(0)}
-        className="suk-shadow-sm group relative overflow-hidden rounded-2xl border-2 border-ink transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:-translate-y-1"
-      >
-        <img src={first} alt="Field moment" loading="lazy" className="h-20 w-28 object-cover transition-transform duration-500 group-hover:scale-110" />
-        <span className="absolute inset-0 grid place-items-center bg-ink/0 transition-colors group-hover:bg-ink/40">
-          <Camera className="size-5 text-white opacity-0 transition-opacity group-hover:opacity-100" strokeWidth={2.5} />
-        </span>
-      </button>
-      {rest.length > 0 && (
-        <button
-          type="button"
-          onClick={() => onOpen(1)}
-          className="suk-shadow-sm grid h-20 w-20 place-items-center rounded-2xl border-2 border-ink bg-rose font-bold text-white transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:-translate-y-1 hover:-rotate-2"
-        >
-          +{rest.length}
-        </button>
-      )}
-    </div>
-  );
-}
-
 function TimelineEntry({ p, side, onOpen }) {
   const story = FIELD_NOTES[p.title];
   const photos = galleryFor(p);
   const color = CATEGORY_COLORS[p.category] || '#8B5CF6';
   const textColor = CATEGORY_TEXT[p.category] || 'text-white';
+  const [feature, ...rest] = photos;
   return (
     <div className={`relative pl-12 md:w-[calc(50%-2rem)] md:pl-0 ${side === 'right' ? 'md:ml-auto' : 'md:mr-auto'}`}>
       <span
@@ -147,28 +120,54 @@ function TimelineEntry({ p, side, onOpen }) {
       />
       <Reveal>
         <article className="suk-shadow-lg group rounded-3xl border-2 border-ink bg-white p-5 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:-translate-y-1 hover:-rotate-1 md:p-6">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <span
-              className={`inline-block rounded-full border-2 border-ink px-3 py-1 text-[11px] font-bold tracking-[0.08em] uppercase -rotate-1 ${textColor}`}
-              style={{ backgroundColor: color }}
-            >
-              {p.category}
-            </span>
-            <span className="rounded-xl bg-mut/10 px-2.5 py-1 text-xs font-bold text-mut tabular-nums">{p.date}</span>
+          <div className={`grid gap-5 ${feature ? 'sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start' : ''}`}>
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span
+                  className={`inline-block rounded-full border-2 border-ink px-3 py-1 text-[11px] font-bold tracking-[0.08em] uppercase -rotate-1 ${textColor}`}
+                  style={{ backgroundColor: color }}
+                >
+                  {p.category}
+                </span>
+                <span className="rounded-xl bg-mut/10 px-2.5 py-1 text-xs font-bold text-mut tabular-nums">{p.date}</span>
+              </div>
+              <h3 className="mt-3 font-display text-lg leading-snug font-bold text-ink md:text-xl">{p.title}</h3>
+              {story && (
+                <>
+                  <p className="mt-3 rounded-2xl rounded-bl-none border-2 border-line bg-mut/5 px-4 py-3 text-sm leading-relaxed text-mut italic">
+                    {story.note}
+                  </p>
+                  <p className="mt-3 inline-block rounded-full border-2 border-ink bg-mint px-3 py-1 text-xs font-bold text-ink uppercase">
+                    {story.impact}
+                  </p>
+                </>
+              )}
+              <p className="mt-3 text-xs font-bold tracking-[0.04em] text-mut uppercase">{p.location}</p>
+            </div>
+            {feature && (
+              <button
+                type="button"
+                onClick={() => onOpen(0)}
+                aria-label={`Open ${p.title} photos`}
+                className="suk-shadow-sm group/photo relative block w-full self-center overflow-hidden rounded-2xl border-2 border-ink transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:-translate-y-1 hover:-rotate-1 sm:w-44 md:w-48"
+              >
+                <img
+                  src={feature}
+                  alt={feature === p.img ? 'Project cover' : 'Field photo'}
+                  loading="lazy"
+                  className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover/photo:scale-110"
+                />
+                <span className="absolute inset-0 grid place-items-center bg-ink/0 transition-colors group-hover/photo:bg-ink/40">
+                  <Camera className="size-6 text-white opacity-0 transition-opacity group-hover/photo:opacity-100" strokeWidth={2.5} />
+                </span>
+                {rest.length > 0 && (
+                  <span className="absolute right-2 bottom-2 rounded-full border-2 border-ink bg-rose px-2.5 py-1 text-xs font-bold text-white tabular-nums">
+                    +{rest.length}
+                  </span>
+                )}
+              </button>
+            )}
           </div>
-          <h3 className="mt-3 font-display text-lg leading-snug font-bold text-ink md:text-xl">{p.title}</h3>
-          {story && (
-            <>
-              <p className="mt-3 rounded-2xl rounded-bl-none border-2 border-line bg-mut/5 px-4 py-3 text-sm leading-relaxed text-mut italic">
-                {story.note}
-              </p>
-              <p className="mt-3 inline-block rounded-full border-2 border-ink bg-mint px-3 py-1 text-xs font-bold text-ink uppercase">
-                {story.impact}
-              </p>
-            </>
-          )}
-          <p className="mt-3 text-xs font-bold tracking-[0.04em] text-mut uppercase">{p.location}</p>
-          <Thumbs photos={photos} onOpen={onOpen} />
         </article>
       </Reveal>
     </div>
