@@ -92,9 +92,7 @@ export function AboutSection() {
   return (
     <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_1fr]">
       <Reveal>
-        <p className="font-mono text-[10px] font-semibold tracking-[0.2em] text-coral uppercase">Who we are · {CLUB.identity}</p>
-        <h2 className="mt-3 font-display text-3xl font-bold text-ink md:text-5xl">Small club. Big reach.</h2>
-        <blockquote className="mt-6 border-l-4 border-teal pl-5 text-xl leading-relaxed font-medium text-ink/90 italic md:text-2xl">
+        <blockquote className="border-l-4 border-teal pl-5 text-xl leading-relaxed font-medium text-ink/90 italic md:text-2xl">
           “{CLUB.vision}”
         </blockquote>
         <p className="mt-5 leading-relaxed text-ink/70">{CLUB.about}</p>
@@ -148,12 +146,7 @@ export function QuickFacts() {
 
 export function GoalsSection() {
   return (
-    <div>
-      <Reveal>
-        <p className="font-mono text-[10px] font-semibold tracking-[0.2em] text-coral uppercase">Rota year goals</p>
-        <h2 className="mt-3 font-display text-3xl font-bold text-ink md:text-5xl">Four promises, in progress.</h2>
-      </Reveal>
-      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+    <div className="grid gap-4 sm:grid-cols-2">
         {CLUB.goals.map((g, i) => {
           const Icon = GOAL_ICONS[i % GOAL_ICONS.length];
           return (
@@ -181,7 +174,6 @@ export function GoalsSection() {
             </Reveal>
           );
         })}
-      </div>
     </div>
   );
 }
@@ -190,7 +182,7 @@ export function MeetupSection() {
   const countdown = useMeetupCountdown();
   return (
     <Reveal>
-      <div className="suk-sweep relative overflow-hidden rounded-[2rem] bg-teal-ink p-6 text-white shadow-[0_40px_90px_-40px_rgba(18,59,60,.9)] md:p-10">
+      <div className="suk-sweep relative overflow-hidden bg-teal-ink p-6 text-white md:p-10">
         <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-teal/25 blur-3xl" aria-hidden="true" />
         <div className="absolute -bottom-28 -left-16 h-72 w-72 rounded-full bg-coral/20 blur-3xl" aria-hidden="true" />
         <div className="relative grid items-center gap-8 lg:grid-cols-[1fr_auto]">
@@ -241,6 +233,7 @@ export function MeetupSection() {
             </div>
           </div>
           <div className="rounded-3xl border border-white/15 bg-white/10 px-8 py-7 text-center backdrop-blur-sm">
+            <img src="/media/logos/sukedhara.jpg" alt="Rotaract Club of Sukedhara emblem" loading="lazy" className="mx-auto mb-4 h-24 w-24 rounded-full object-cover ring-2 ring-white/20" />
             <p className="font-mono text-[10px] font-bold tracking-[0.18em] text-teal uppercase">Next meetup in</p>
             <p className="mt-1 font-mono text-3xl font-semibold tabular-nums text-white md:text-4xl">{countdown}</p>
             <p className="mt-2 font-mono text-[10px] font-semibold tracking-[0.14em] text-white/60 uppercase">Saturdays · 10:00 AM NPT</p>

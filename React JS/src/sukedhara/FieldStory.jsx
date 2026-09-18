@@ -184,13 +184,7 @@ export function ProjectsTimeline({ onOpenGallery }) {
   }, []);
 
   return (
-    <div>
-      <Reveal>
-        <p className="font-mono text-[10px] font-semibold tracking-[0.2em] text-coral uppercase">Field logs · {PROJECTS.length} projects</p>
-        <h2 className="mt-3 font-display text-3xl font-bold text-ink md:text-5xl">A year, logged.</h2>
-        <p className="mt-2 text-sm text-mut">August 2024 → June 2025. Scroll to walk it.</p>
-      </Reveal>
-      <div ref={rootRef} className="relative mt-7">
+    <div ref={rootRef} className="relative mt-7">
         <span className="absolute top-0 bottom-0 left-4 w-1 -translate-x-1/2 rounded-full bg-line md:left-1/2">
           <span ref={lineRef} className="block h-full w-full origin-top rounded-full bg-gradient-to-b from-coral via-teal to-magenta" />
         </span>
@@ -199,19 +193,13 @@ export function ProjectsTimeline({ onOpenGallery }) {
             <TimelineEntry key={p.title} p={p} side={i % 2 === 0 ? 'left' : 'right'} onOpen={(idx) => onOpenGallery(galleryFor(p), idx)} />
           ))}
         </div>
-      </div>
     </div>
   );
 }
 
 export function SaturdaySection({ onOpenGallery }) {
   return (
-    <div>
-      <Reveal>
-        <p className="font-mono text-[10px] font-semibold tracking-[0.2em] text-coral uppercase">Every Saturday · 10:00 AM</p>
-        <h2 className="mt-3 font-display text-3xl font-bold text-ink md:text-5xl">A Saturday at ten.</h2>
-      </Reveal>
-      <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {SATURDAY_MOMENTS.map((m, i) => (
           <Reveal key={m.time} delay={(i % 4) * 80} className="h-full">
             <article className={`group flex h-full flex-col rounded-3xl bg-paper shadow-[0_18px_45px_-30px_rgba(18,59,60,.5)] ${i % 2 ? 'sm:translate-y-5' : ''}`}>
@@ -233,19 +221,13 @@ export function SaturdaySection({ onOpenGallery }) {
             </article>
           </Reveal>
         ))}
-      </div>
     </div>
   );
 }
 
 export function VoicesStrip() {
   return (
-    <div>
-      <Reveal>
-        <p className="font-mono text-[10px] font-semibold tracking-[0.2em] text-coral uppercase">Voices</p>
-        <h2 className="mt-3 font-display text-3xl font-bold text-ink md:text-5xl">Why they stay.</h2>
-      </Reveal>
-      <div className="mt-7 grid gap-4 md:grid-cols-3">
+    <div className="grid gap-4 md:grid-cols-3">
         {QUOTES.map((q, i) => (
           <Reveal key={q.by} delay={i * 100} className="h-full">
             <figure className="flex h-full flex-col rounded-3xl bg-teal-ink p-6 text-white shadow-[0_25px_60px_-35px_rgba(18,59,60,.9)] transition-transform duration-300 hover:-translate-y-1">
@@ -255,7 +237,6 @@ export function VoicesStrip() {
             </figure>
           </Reveal>
         ))}
-      </div>
     </div>
   );
 }

@@ -4,11 +4,10 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowDown, AtSign, Mail, MapPin, RotateCw } from 'lucide-react';
 import GearScene from './GearScene';
-import Reveal from './Reveal';
 import { Lightbox, ProjectsTimeline, SaturdaySection, VoicesStrip, useLightbox } from './FieldStory';
 import { BoardSection, PresidentsRail } from './Leadership';
-import { AboutSection, GoalsSection, MeetupSection, QuickFacts, StatsBand } from './Sections';
-import { CLUB } from './data';
+import { AboutSection, GoalsSection, MeetupSection, QuickFacts } from './Sections';
+import { CLUB, STATS } from './data';
 import { LOGOS } from './photos';
 import './demo.css';
 
@@ -50,15 +49,6 @@ function usePrefersReducedMotion() {
   return calm;
 }
 
-const NAV_LINKS = [
-  { id: 'ledger', label: 'Numbers' },
-  { id: 'manifesto', label: 'Story' },
-  { id: 'people', label: 'Board' },
-  { id: 'field', label: 'Field' },
-  { id: 'saturday', label: 'Saturdays' },
-  { id: 'invite', label: 'Join' }
-];
-
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -69,32 +59,37 @@ function Nav() {
   }, []);
   return (
     <header
-      className={`sticky top-0 z-50 border-b transition-all duration-300 ${
-        scrolled
-          ? 'border-line bg-paper/90 shadow-[0_10px_30px_-18px_rgba(18,59,60,.35)] backdrop-blur-md'
-          : 'border-transparent bg-transparent'
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled ? 'bg-paper/90 shadow-[0_10px_30px_-18px_rgba(18,59,60,.35)] backdrop-blur-md' : 'bg-transparent'
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
         <a href="/" className="flex items-center gap-2.5">
-          <img src={LOGOS.alt} alt="Rotaract Club of Sukedhara" className="h-8 w-auto" />
+          <img src={LOGOS.alt} alt="Rotaract Club of Sukedhara" className="h-9 w-auto" />
           <span className="hidden font-mono text-[11px] font-semibold tracking-[0.14em] text-mut uppercase md:block">
-            {CLUB.short}
+            {CLUB.short} · {CLUB.identity}
           </span>
         </a>
         <nav aria-label="Sections" className="hidden items-center gap-6 lg:flex">
-          {NAV_LINKS.map((l) => (
+          {[
+            ['#numbers', 'Numbers'],
+            ['#story', 'Story'],
+            ['#board', 'Board'],
+            ['#field', 'Field'],
+            ['#saturday', 'Saturdays'],
+            ['#join', 'Join']
+          ].map(([href, label]) => (
             <a
-              key={l.id}
-              href={`#${l.id}`}
+              key={href}
+              href={href}
               className="font-mono text-[11px] font-semibold tracking-[0.14em] text-ink/70 uppercase transition-colors hover:text-coral"
             >
-              {l.label}
+              {label}
             </a>
           ))}
         </nav>
         <a
-          href="#invite"
+          href="#join"
           className="rounded-full bg-coral px-5 py-2 font-mono text-[11px] font-bold tracking-[0.12em] text-white uppercase transition-transform hover:scale-105"
         >
           Join us
@@ -134,7 +129,7 @@ function Hero({ calm, gearRef, gearBoxRef, onSpin }) {
     const ctx = gsap.context(() => {
       gsap.to(copyRef.current, {
         yPercent: -8,
-        opacity: 0.35,
+        opacity: 0.4,
         ease: 'none',
         scrollTrigger: { trigger: rootRef.current, start: 'top top', end: 'bottom top', scrub: true }
       });
@@ -146,43 +141,41 @@ function Hero({ calm, gearRef, gearBoxRef, onSpin }) {
     const el = glowRef.current;
     if (!el || e.pointerType !== 'mouse') return;
     const r = rootRef.current.getBoundingClientRect();
-    el.style.transform = `translate(${e.clientX - r.left - 220}px, ${e.clientY - r.top - 220}px)`;
+    el.style.transform = `translate(${e.clientX - r.left - 240}px, ${e.clientY - r.top - 240}px)`;
   };
 
   return (
-    <header ref={rootRef} onPointerMove={onGlow} className="relative overflow-hidden">
+    <header ref={rootRef} onPointerMove={onGlow} className="relative min-h-[100svh] overflow-hidden pt-20">
       <div className="suk-hero-aqua pointer-events-none absolute inset-0" aria-hidden="true" />
       <div
         ref={glowRef}
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-0 hidden h-[24rem] w-[24rem] rounded-full bg-teal/10 blur-3xl md:block"
+        className="pointer-events-none absolute top-0 left-0 hidden h-[26rem] w-[26rem] rounded-full bg-teal/10 blur-3xl md:block"
       />
-      <div className="relative mx-auto grid max-w-6xl items-center gap-2 px-4 pt-8 pb-10 md:grid-cols-[1.08fr_1fr] md:px-8 md:pt-12 md:pb-16">
-        <div ref={copyRef} className="text-center will-change-transform md:text-left">
-          <p
-            className="suk-rise inline-flex items-center gap-2 rounded-full border border-teal/30 bg-paper/80 px-3 py-1.5 font-mono text-[10px] font-semibold tracking-[0.18em] text-teal-deep uppercase"
-            style={{ animationDelay: '60ms' }}
-          >
-            <img src={LOGOS.wheel} alt="" className="suk-spin-slow size-4 opacity-90" />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-0 px-4 pb-14 md:grid-cols-[1.15fr_1fr] md:px-8">
+        <div ref={copyRef} className="text-left will-change-transform">
+          <p className="suk-rise inline-flex items-center gap-2 rounded-full border border-teal/30 bg-paper/80 px-3.5 py-1.5 font-mono text-[10px] font-semibold tracking-[0.18em] text-teal-deep uppercase" style={{ animationDelay: '60ms' }}>
             The Compassion Club · Chartered 2019
           </p>
           <h1 className="suk-rise suk-hero-title mt-5 text-teal-ink" style={{ animationDelay: '150ms' }}>
-            Compassion
+            We show up,
             <br />
-            in <span className="text-teal">action</span>
+            we build,
+            <br />
+            we <span className="text-teal">serve</span>
             <span className="text-coral">.</span>
           </h1>
-          <p className="suk-rise mx-auto mt-6 max-w-xl leading-relaxed text-ink/70 md:mx-0" style={{ animationDelay: '240ms' }}>
-            Twenty members. Nine field projects in a year. A room in Baneshwar that learns your name by
-            the second Saturday. {CLUB.meeting}.
+          <p className="suk-rise mx-0 mt-6 max-w-xl leading-relaxed text-ink/70" style={{ animationDelay: '240ms' }}>
+            {CLUB.identity}, in the true sense — twenty members, nine field projects this year, and a
+            Saturday-morning room in Baneshwar that learns your name by the second visit.
           </p>
-          <div className="suk-rise mt-7 flex flex-wrap justify-center gap-3 md:justify-start" style={{ animationDelay: '330ms' }}>
+          <div className="suk-rise mt-7 flex flex-wrap justify-start gap-3" style={{ animationDelay: '330ms' }}>
             <Magnetic>
               <a
-                href="#manifesto"
+                href="#story"
                 className="inline-flex items-center gap-2 rounded-full bg-teal px-7 py-3.5 font-mono text-xs font-bold tracking-[0.12em] text-white uppercase shadow-[0_16px_38px_-14px_rgba(46,165,173,.9)] transition-transform hover:scale-105 active:scale-95"
               >
-                Take the tour
+                Read the story
               </a>
             </Magnetic>
             <Magnetic>
@@ -191,30 +184,27 @@ function Hero({ calm, gearRef, gearBoxRef, onSpin }) {
                 onClick={onSpin}
                 className="inline-flex items-center gap-2 rounded-full border-2 border-teal/40 bg-paper/70 px-7 py-3.5 font-mono text-xs font-bold tracking-[0.12em] text-teal-deep uppercase transition-colors hover:border-coral hover:text-coral"
               >
-                <RotateCw className="size-4" /> Spin the wheel
+                <RotateCw className="size-4" /> Spin the logo
               </button>
             </Magnetic>
           </div>
-          <p
-            className="suk-rise mt-5 flex items-center justify-center gap-2 font-mono text-[10px] tracking-[0.12em] text-mut uppercase md:justify-start"
-            style={{ animationDelay: '420ms' }}
-          >
-            <MapPin className="size-3.5 text-coral" /> {CLUB.venue} · Kathmandu
+          <p className="suk-rise mt-5 flex items-center gap-2 font-mono text-[10px] tracking-[0.12em] text-mut uppercase" style={{ animationDelay: '420ms' }}>
+            <MapPin className="size-3.5 text-coral" /> {CLUB.venue} · {CLUB.meeting}
           </p>
         </div>
         <div ref={gearBoxRef} className="relative h-[300px] sm:h-[380px] md:h-[540px]">
           <GearScene ref={gearRef} calm={calm} onSpin={onSpin} />
           {!calm && (
             <p className="suk-flicker pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.18em] whitespace-nowrap text-teal-deep/60 uppercase">
-              Click the wheel
+              Poke the logo
             </p>
           )}
         </div>
       </div>
       <a
-        href="#ledger"
+        href="#numbers"
         aria-label="Scroll to the numbers"
-        className="absolute bottom-3 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 font-mono text-[10px] tracking-[0.28em] text-teal-deep/50 uppercase transition-colors hover:text-teal md:flex"
+        className="absolute bottom-4 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 font-mono text-[10px] tracking-[0.28em] text-teal-deep/50 uppercase transition-colors hover:text-teal md:flex"
       >
         Scroll
         <ArrowDown className="size-4 animate-bounce" />
@@ -223,104 +213,59 @@ function Hero({ calm, gearRef, gearBoxRef, onSpin }) {
   );
 }
 
-const TICKER_ITEMS = [
-  'Service Above Self',
-  'Saturdays at 10:00 AM',
-  'The Compassion Club',
-  'Since 2019 · Baneshwor, Kathmandu',
-  'District 3292 · Zone VII'
-];
-
-function Ticker() {
-  const row = [...TICKER_ITEMS, ...TICKER_ITEMS];
+/* Giant numbers on the first full-bleed band. */
+function NumbersBand() {
+  const ref = useRef(null);
+  const [run, setRun] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setRun(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <div className="overflow-hidden bg-teal-deep py-3" aria-hidden="true">
-      <div className="suk-ticker-track flex w-max items-center gap-8 pr-8">
-        {row.map((item, i) => (
-          <span key={i} className="flex items-center gap-8 font-mono text-[11px] font-semibold tracking-[0.2em] whitespace-nowrap text-white/85 uppercase">
-            {item}
-            <span className="text-coral">◆</span>
-          </span>
+    <section id="numbers" ref={ref} className="suk-slide w-full bg-teal-ink">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-y-10 px-4 py-16 md:grid-cols-4 md:px-8 md:py-20">
+        {STATS.map((s) => (
+          <div key={s.label} className="border-l-2 border-teal pl-5">
+            <div className="font-display text-5xl font-bold tabular-nums text-white md:text-7xl">
+              {s.plain ? s.value : `${s.value}${s.suffix}`}
+            </div>
+            <div className="mt-2 font-mono text-[10px] font-semibold tracking-[0.18em] text-coral uppercase">{s.label}</div>
+          </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-const CHAPTERS = [
-  { id: 'ledger', label: 'Numbers', numeral: '01' },
-  { id: 'manifesto', label: 'Story', numeral: '02' },
-  { id: 'promises', label: 'Four promises', numeral: '03' },
-  { id: 'people', label: 'The board', numeral: '04' },
-  { id: 'field', label: 'Field logs', numeral: '05' },
-  { id: 'saturday', label: 'Saturday 10:00', numeral: '06' },
-  { id: 'presidents', label: 'Eight presidents', numeral: '07' },
-  { id: 'voices', label: 'Voices', numeral: '08' },
-  { id: 'invite', label: 'The invite', numeral: '09' }
-];
-
-function Slide({ id, numeral, label, children, className = '' }) {
-  return (
-    <section id={id} className={`suk-slide flex scroll-mt-4 flex-col justify-center py-10 md:py-14 ${className}`}>
-      <div className="mb-6 flex items-baseline gap-4 md:mb-8">
-        <span className="font-mono text-sm font-semibold tracking-[0.1em] text-coral tabular-nums">{numeral}</span>
-        <span className="font-mono text-[11px] font-semibold tracking-[0.3em] text-ink uppercase">{label}</span>
-        <span className="h-px flex-1 bg-line" />
-      </div>
-      {children}
     </section>
   );
 }
 
-function ChapterRail() {
-  const [active, setActive] = useState(CHAPTERS[0].id);
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(e.target.id);
-        });
-      },
-      { rootMargin: '-42% 0px -52% 0px' }
-    );
-    CHAPTERS.forEach((c) => {
-      const el = document.getElementById(c.id);
-      if (el) io.observe(el);
-    });
-    return () => io.disconnect();
-  }, []);
+/* Editorial band with a big statement headline. */
+function Band({ id, kicks, title, sub, children, className = '' }) {
   return (
-    <nav aria-label="Chapters" className="fixed top-1/2 right-5 z-50 hidden -translate-y-1/2 lg:block">
-      <ul className="flex flex-col items-end gap-3">
-        {CHAPTERS.map((c) => (
-          <li key={c.id}>
-            <a href={`#${c.id}`} className="group flex items-center gap-2">
-              <span
-                className={`font-mono text-[10px] tracking-[0.2em] transition-all duration-300 ${
-                  active === c.id ? 'text-teal-deep opacity-100' : 'translate-x-2 opacity-0 group-hover:opacity-50'
-                }`}
-              >
-                {c.numeral}
-              </span>
-              <span
-                className={`block transition-all duration-300 ${
-                  active === c.id
-                    ? 'size-2.5 bg-teal shadow-[0_0_0_4px_rgba(46,165,173,.18)]'
-                    : 'size-1.5 bg-ink/25 group-hover:bg-ink/50'
-                }`}
-              />
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <section id={id} className={`suk-slide w-full py-16 md:py-24 ${className}`}>
+      <div className="mx-auto max-w-6xl px-4 md:px-8">
+        <p className="font-mono text-[10px] font-semibold tracking-[0.2em] text-coral uppercase">{kicks}</p>
+        <h2 className="mt-3 max-w-3xl font-display text-3xl font-bold text-teal-ink md:text-6xl">{title}</h2>
+        {sub && <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink/65 md:text-base">{sub}</p>}
+        <div className="mt-9">{children}</div>
+      </div>
+    </section>
   );
 }
 
 function Footer() {
   return (
-    <footer className="mt-6 bg-teal-ink px-4 py-12 text-center text-white">
-      <img src={LOGOS.white} alt="Rotaract Club of Sukedhara logo" className="mx-auto h-16 w-auto opacity-90" loading="lazy" />
+    <footer className="w-full bg-teal-ink px-4 py-12 text-center text-white">
+      <img src={LOGOS.white} alt="Rotaract Club of Sukedhara logo" className="mx-auto h-14 w-auto opacity-90" loading="lazy" />
       <p className="mt-5 font-display text-lg font-bold text-white">{CLUB.name}</p>
       <p className="mt-1 font-mono text-[11px] tracking-[0.12em] text-white/60 uppercase">
         {CLUB.meeting} · {CLUB.venue}
@@ -365,12 +310,11 @@ function App() {
       gsap.utils.toArray('.suk-slide').forEach((el) => {
         gsap.fromTo(
           el,
-          { clipPath: 'inset(6% 3% 6% 3%)', opacity: 0.3 },
+          { opacity: 0.25 },
           {
-            clipPath: 'inset(0% 0% 0% 0%)',
             opacity: 1,
             ease: 'none',
-            scrollTrigger: { trigger: el, start: 'top 96%', end: 'top 40%', scrub: true }
+            scrollTrigger: { trigger: el, start: 'top 98%', end: 'top 50%', scrub: true }
           }
         );
       });
@@ -382,55 +326,88 @@ function App() {
     <div className="min-h-screen bg-page font-sans text-ink antialiased">
       <div className="suk-grain" aria-hidden="true" />
       <Nav />
-      <ChapterRail />
       <Hero calm={calm} gearRef={gearRef} gearBoxRef={gearBoxRef} onSpin={handleSpin} />
-      <Ticker />
+      <NumbersBand />
 
-      <main className="mx-auto max-w-6xl space-y-2 px-4 md:space-y-4 md:px-8">
-        <Slide id="ledger" numeral="01" label="The club in numbers">
-          <StatsBand />
-        </Slide>
-
-        <Slide id="manifesto" numeral="02" label="Why the club exists">
-          <AboutSection />
-          <div className="mt-6">
-            <QuickFacts />
-          </div>
-        </Slide>
-
-        <Slide id="promises" numeral="03" label="Rota year goals" className="bg-teal/[0.05] -mx-4 px-4 md:-mx-8 md:px-8">
-          <GoalsSection />
-        </Slide>
-
-        <Slide id="people" numeral="04" label="Officers of the board">
-          <BoardSection />
-        </Slide>
-
-        <Slide id="field" numeral="05" label="Field logs · nine projects">
-          <ProjectsTimeline onOpenGallery={openGallery} />
-        </Slide>
-
-        <Slide id="saturday" numeral="06" label="A Saturday at ten" className="bg-paper border-y border-line -mx-4 px-4 md:-mx-8 md:px-8">
-          <SaturdaySection onOpenGallery={openGallery} />
-        </Slide>
-
-        <div id="presidents" className="scroll-mt-4 pt-10 md:pt-14">
-          <div className="mb-6 flex items-baseline gap-4 md:mb-8">
-            <span className="font-mono text-sm font-semibold tracking-[0.1em] text-coral tabular-nums">07</span>
-            <span className="font-mono text-[11px] font-semibold tracking-[0.3em] text-ink uppercase">Eight presidents</span>
-            <span className="h-px flex-1 bg-line" />
-          </div>
-          <PresidentsRail />
+      <Band
+        id="story"
+        kicks="Why the club exists"
+        title="Small club. Big reach. And a laugh every Saturday."
+        sub={`${CLUB.identity} since ${CLUB.foundedDisplay} — registered, sponsored, and still logging every single event.`}
+      >
+        <AboutSection />
+        <div className="mt-12">
+          <QuickFacts />
         </div>
+      </Band>
 
-        <Slide id="voices" numeral="08" label="Why they stay" className="bg-teal/[0.05] -mx-4 px-4 md:-mx-8 md:px-8">
-          <VoicesStrip />
-        </Slide>
+      <Band
+        id="promises"
+        kicks="Rota year goals"
+        title="Four promises we are actively keeping."
+        sub="Member engagement · partnerships · governance · leadership."
+        className="border-y border-line bg-teal/[0.06]"
+      >
+        <GoalsSection />
+      </Band>
 
-        <Slide id="invite" numeral="09" label="Meet us Saturday">
-          <MeetupSection />
-        </Slide>
-      </main>
+      <section id="board" className="suk-slide w-full border-b border-line bg-paper py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <p className="font-mono text-[10px] font-semibold tracking-[0.2em] text-coral uppercase">The people</p>
+          <h2 className="mt-3 max-w-3xl font-display text-3xl font-bold text-teal-ink md:text-6xl">Thirteen faces, one club.</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink/65 md:text-base">
+            Officers who plan, fund, film, and fetch — the president at the head, everyone else hot on her heels.
+          </p>
+          <div className="mt-9">
+            <BoardSection />
+          </div>
+        </div>
+      </section>
+
+      <Band
+        id="field"
+        kicks="Field logs · nine projects"
+        title="A year out there, logged."
+        sub="August 2024 → June 2025. Scroll to walk it — photos in the galleries."
+      >
+        <ProjectsTimeline onOpenGallery={openGallery} />
+      </Band>
+
+      <section id="saturday" className="suk-slide w-full border-y border-line bg-paper py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <p className="font-mono text-[10px] font-semibold tracking-[0.2em] text-coral uppercase">Every Saturday · 10:00 AM</p>
+          <h2 className="mt-3 max-w-3xl font-display text-3xl font-bold text-teal-ink md:text-6xl">A Saturday at ten.</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink/65 md:text-base">
+            Arrival, fellowship, planning, closing circle — four beats, one morning.
+          </p>
+          <div className="mt-9">
+            <SaturdaySection onOpenGallery={openGallery} />
+          </div>
+        </div>
+      </section>
+
+      <div id="presidents" className="scroll-mt-0 w-full">
+        <PresidentsRail />
+      </div>
+
+      <Band
+        id="voices"
+        kicks="Voices"
+        title="Why they stay."
+        className="border-y border-line bg-coral/[0.07]"
+      >
+        <VoicesStrip />
+      </Band>
+
+      <section id="join" className="suk-slide w-full py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <p className="font-mono text-[10px] font-semibold tracking-[0.2em] text-coral uppercase">The invite</p>
+          <h2 className="mt-3 max-w-3xl font-display text-3xl font-bold text-teal-ink md:text-6xl">Turn up, Saturday.</h2>
+          <div className="mt-9">
+            <MeetupSection />
+          </div>
+        </div>
+      </section>
 
       <Footer />
       {box.open && <Lightbox photos={box.photos} index={box.index} onClose={close} onStep={step} />}

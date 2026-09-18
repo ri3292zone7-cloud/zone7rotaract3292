@@ -15,17 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 export function BoardSection() {
   const [president, ...rest] = BOARD_FULL;
   return (
-    <div>
-      <Reveal>
-        <p className="font-mono text-[10px] font-semibold tracking-[0.22em] text-coral uppercase">Leadership · 13 officers</p>
-        <h2 className="mt-3 font-display text-3xl font-bold text-ink md:text-5xl">The people on the board.</h2>
-        <p className="mt-2 max-w-2xl text-sm text-mut">
-          Thirteen officers, one president at the front. Tap through the portraits — every face has the
-          club running behind it.
-        </p>
-      </Reveal>
-
-      <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4 md:gap-4">
+    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 md:gap-4">
         {/* President: the biggest card on the board. */}
         <Reveal className="col-span-2 row-span-2">
           <article className="group relative h-full min-h-[420px] overflow-hidden rounded-3xl shadow-[0_30px_70px_-30px_rgba(18,59,60,.55)] md:min-h-[560px]">
@@ -72,7 +62,6 @@ export function BoardSection() {
             </article>
           </Reveal>
         ))}
-      </div>
     </div>
   );
 }
@@ -121,7 +110,7 @@ export function PresidentsRail() {
   return (
     <section
       ref={sectionRef}
-      className="overflow-hidden rounded-[2rem] bg-teal-ink py-8 text-white shadow-[0_40px_90px_-40px_rgba(18,59,60,.7)] md:h-screen md:py-0"
+      className="w-full overflow-hidden border-y border-line bg-teal-ink py-8 text-white md:h-screen md:py-0"
     >
       <div className="flex h-full flex-col justify-center gap-5 px-4 md:gap-6 md:px-10">
         <div className="max-w-6xl">
