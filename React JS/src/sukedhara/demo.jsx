@@ -2,7 +2,7 @@ import { StrictMode, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowDown, ArrowRight, AtSign, Mail, Menu, MousePointerClick, X } from 'lucide-react';
+import { ArrowDown, ArrowRight, AtSign, Mail, MousePointerClick } from 'lucide-react';
 import GearScene from './GearScene';
 import { Lightbox, ProjectsTimeline, SaturdaySection, VoicesStrip, useLightbox } from './FieldStory';
 import { BoardSection, PresidentsRail } from './Leadership';
@@ -51,88 +51,6 @@ function usePrefersReducedMotion() {
   return calm;
 }
 
-const NAV_LINKS = [
-  ['#story', 'Story'],
-  ['#numbers', 'Numbers'],
-  ['#board', 'Board'],
-  ['#field', 'Field'],
-  ['#saturday', 'Saturdays'],
-  ['#join', 'Join']
-];
-
-function Nav() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-  return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled || open ? 'bg-paper/95 shadow-[0_4px_0_0_#1e293b] backdrop-blur-md' : 'bg-transparent'
-      }`}
-    >
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
-        <a href="/" className="suk-lift flex items-center gap-2.5">
-          <img src={LOGOS.alt} alt="Rotaract Club of Sukedhara" className="h-9 w-auto" />
-          <span className="hidden font-bold tracking-[0.06em] text-ink md:block">
-            {CLUB.short} <span className="text-mut">· {CLUB.identity}</span>
-          </span>
-        </a>
-        <nav aria-label="Sections" className="hidden items-center gap-6 lg:flex">
-          {NAV_LINKS.map(([href, label]) => (
-            <a
-              key={href}
-              href={href}
-              className="rounded-full px-2 py-1 text-sm font-bold text-ink/70 transition-colors hover:text-plum focus-visible:ring-4 focus-visible:ring-plum/40 focus-visible:outline-none"
-            >
-              {label}
-            </a>
-          ))}
-        </nav>
-        <div className="flex items-center gap-2">
-          <a
-            href="#join"
-            className="suk-shadow suk-lift hidden items-center gap-2 rounded-full border-2 border-ink bg-gold px-5 py-2 text-sm font-bold text-ink lg:inline-flex"
-          >
-            Join us
-            <ArrowRight className="size-4" strokeWidth={2.5} />
-          </a>
-          <button
-            type="button"
-            onClick={() => setOpen((o) => !o)}
-            aria-label="Toggle menu"
-            aria-expanded={open}
-            className="suk-shadow-sm grid size-11 place-items-center rounded-full border-2 border-ink bg-white text-ink transition-transform hover:-translate-y-0.5 focus-visible:ring-4 focus-visible:ring-plum/40 focus-visible:outline-none lg:hidden"
-          >
-            {open ? <X className="size-5" strokeWidth={2.5} /> : <Menu className="size-5" strokeWidth={2.5} />}
-          </button>
-        </div>
-      </div>
-      {open && (
-        <nav aria-label="Mobile sections" className="border-t-2 border-ink bg-white px-4 py-3 lg:hidden">
-          <ul className="flex flex-col gap-1.5">
-            {NAV_LINKS.map(([href, label]) => (
-              <li key={href}>
-                <a
-                  href={href}
-                  onClick={() => setOpen(false)}
-                  className="suk-shadow-sm flex items-center justify-between rounded-2xl border-2 border-ink bg-paper px-4 py-3 text-sm font-bold text-ink transition-transform hover:-translate-x-0.5"
-                >
-                  {label}
-                  <ArrowRight className="size-4 text-plum" strokeWidth={2.5} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
-    </header>
-  );
-}
 
 function Magnetic({ children }) {
   const ref = useRef(null);
@@ -203,7 +121,7 @@ function Hero({ calm, gearRef, gearBoxRef, onSpin }) {
   };
 
   return (
-    <header ref={rootRef} onPointerMove={onGlow} className="relative min-h-[100svh] overflow-hidden pt-24 pb-16 md:pt-28">
+    <header ref={rootRef} onPointerMove={onGlow} className="relative min-h-[100svh] overflow-hidden pt-12 pb-16 md:pt-14">
       {/* giant amber sun behind the headline */}
       <div aria-hidden="true" className="suk-shadow absolute -top-24 -left-20 md:top-4 md:left-[2%] h-56 w-56 rounded-full bg-gold md:h-80 md:w-80" />
       <div aria-hidden="true" className="absolute top-16 right-[4%] hidden h-10 w-10 -rotate-12 rounded-xl bg-rose md:block" />
@@ -431,7 +349,6 @@ function App() {
   return (
     <div className="min-h-screen bg-page font-sans text-ink antialiased">
       <div className="suk-grain" aria-hidden="true" />
-      <Nav />
       <Hero calm={calm} gearRef={gearRef} gearBoxRef={gearBoxRef} onSpin={handleSpin} />
       <Ticker />
 

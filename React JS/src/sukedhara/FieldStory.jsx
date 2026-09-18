@@ -51,7 +51,7 @@ export function Lightbox({ photos, index, onClose, onStep }) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/95 p-4"
+      className="fixed inset-0 z-[120] flex items-center justify-center bg-ink/95 p-4"
       onClick={onClose}
       role="dialog"
       aria-label="Photo viewer"
