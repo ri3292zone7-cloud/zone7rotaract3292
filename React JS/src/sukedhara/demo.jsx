@@ -6,7 +6,7 @@ import { ArrowLeft, AtSign, Mail, MapPin, MousePointerClick, Sparkles } from 'lu
 import HeroScene from './HeroScene';
 import Reveal from './Reveal';
 import { BoardSection, PresidentsRail } from './Leadership';
-import { AboutSection, GoalsSection, MeetupSection, StatsBand } from './Sections';
+import { AboutSection, GoalsSection, MeetupSection, ProjectsSection, QuickFacts, StatsBand } from './Sections';
 import { CLUB } from './data';
 import { LOGOS } from './photos';
 import './demo.css';
@@ -87,7 +87,7 @@ function Hero({ flip, onFlip, calm }) {
   return (
     <header ref={rootRef} className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 suk-hero-glow" aria-hidden="true" />
-      <div className="relative mx-auto grid max-w-6xl items-center gap-2 px-4 pt-6 pb-2 md:grid-cols-2 md:px-8 md:pt-10">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-1 px-4 pt-4 pb-1 md:grid-cols-2 md:px-8 md:pt-6">
         <div ref={copyRef} className="text-center will-change-transform md:text-left">
           <a
             href="/"
@@ -99,14 +99,14 @@ function Hero({ flip, onFlip, calm }) {
             <img src={LOGOS.wheel} alt="" className="suk-spin-slow size-4" />
             Chartered July 1, 2019 · District 3292
           </p>
-          <h1 className="mt-4 text-4xl leading-[1.05] font-black text-[#241D4D] sm:text-5xl lg:text-6xl">
+          <h1 className="mt-3 text-4xl leading-[1.05] font-black text-[#241D4D] sm:text-5xl lg:text-6xl">
             Meet <span className="text-[#E0475F]">Sukedhara</span>, the club that hops to service.
           </h1>
           <p className="mx-auto mt-4 max-w-md leading-relaxed text-[#4A3F63] md:mx-0">
             {CLUB.meeting} in Baneshwar — service projects, fellowships and twenty people who will learn your name
             by the second Saturday.
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3 md:justify-start">
+          <div className="mt-4 flex flex-wrap justify-center gap-3 md:justify-start">
             <button
               type="button"
               onClick={(e) => {
@@ -128,7 +128,7 @@ function Hero({ flip, onFlip, calm }) {
             <MapPin className="size-3.5" /> {CLUB.venue}
           </p>
         </div>
-        <div ref={birdRef} className="relative h-[300px] will-change-transform sm:h-[380px] md:h-[480px]">
+        <div ref={birdRef} className="relative h-[260px] will-change-transform sm:h-[320px] md:h-[400px]">
           <HeroScene flipKey={flip} onFlip={onFlip} calm={calm} />
           {!calm && (
             <p className="pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-[#241D4D]/70 px-3 py-1 text-[11px] font-bold whitespace-nowrap text-white">
@@ -146,7 +146,7 @@ const MARQUEE_ITEMS = ['Service Above Self', 'Saturdays at 10 AM', '200+ Project
 function Marquee() {
   const row = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
   return (
-    <div className="overflow-hidden border-y-2 border-[#241D4D]/10 bg-[#241D4D] py-3" aria-hidden="true">
+    <div className="overflow-hidden border-y-2 border-[#241D4D]/10 bg-[#241D4D] py-2" aria-hidden="true">
       <div className="suk-marquee-track flex w-max items-center gap-8 pr-8">
         {row.map((item, i) => (
           <span key={i} className="flex items-center gap-8 text-sm font-black tracking-[0.18em] whitespace-nowrap text-[#FFB86B] uppercase">
@@ -164,6 +164,7 @@ const CHAPTERS = [
   { id: 'story', label: 'Story' },
   { id: 'goals', label: 'Goals' },
   { id: 'board', label: 'Board' },
+  { id: 'projects', label: 'Projects' },
   { id: 'legacy', label: 'Legacy' },
   { id: 'meetup', label: 'Meetup' }
 ];
@@ -171,8 +172,8 @@ const CHAPTERS = [
 /* Full-screen slide wrapper with chapter marker. */
 function Slide({ id, index, label, children, className = '' }) {
   return (
-    <section id={id} className={`suk-slide flex min-h-[92vh] scroll-mt-4 flex-col justify-center py-10 md:py-14 ${className}`}>
-      <div className="mb-6 flex items-center gap-3 md:mb-8">
+    <section id={id} className={`suk-slide flex scroll-mt-4 flex-col justify-center py-6 md:py-8 ${className}`}>
+      <div className="mb-4 flex items-center gap-3 md:mb-5">
         <span className="text-sm font-black tracking-[0.2em] text-[#E0475F] tabular-nums">
           {String(index).padStart(2, '0')} / {String(CHAPTERS.length).padStart(2, '0')}
         </span>
@@ -230,7 +231,7 @@ function DotNav() {
 }
 
 function Footer() {  return (
-    <footer className="mt-14 bg-[#241D4D] px-4 py-8 text-center text-white/75 md:mt-20">
+    <footer className="mt-10 bg-[#241D4D] px-4 py-6 text-center text-white/75 md:mt-12">
       <img src={LOGOS.white} alt="Rotaract Club of Sukedhara logo" className="mx-auto h-16 w-auto" loading="lazy" />
       <p className="mt-3 text-sm font-bold text-white">{CLUB.name}</p>
       <p className="mt-1 text-xs">
@@ -287,28 +288,35 @@ function App() {
       <Hero flip={flip} onFlip={() => setFlip((f) => f + 1)} calm={calm} />
       <Marquee />
 
-      <main className="mx-auto max-w-6xl space-y-6 px-4 pt-6 md:space-y-10 md:px-8 md:pt-10">
-        <Slide id="numbers" index={1} label="The club in numbers" data-wipe>
+      <main className="mx-auto max-w-6xl space-y-3 px-4 pt-4 md:space-y-5 md:px-8 md:pt-6">
+        <Slide id="numbers" index={1} label="The club in numbers">
           <StatsBand />
         </Slide>
 
-        <Slide id="story" index={2} label="Our story" data-wipe>
+        <Slide id="story" index={2} label="Our story">
           <AboutSection />
+          <div className="mt-4">
+            <QuickFacts />
+          </div>
         </Slide>
 
-        <Slide id="goals" index={3} label="Rota year goals" data-wipe>
+        <Slide id="goals" index={3} label="Rota year goals">
           <GoalsSection />
         </Slide>
 
-        <Slide id="board" index={4} label="RY 2026-27 board" data-wipe>
+        <Slide id="board" index={4} label="Club board">
           <BoardSection />
+        </Slide>
+
+        <Slide id="projects" index={5} label="Projects in action">
+          <ProjectsSection />
         </Slide>
 
         <div id="legacy" className="-mx-4 scroll-mt-4 md:-mx-8">
           <PresidentsRail />
         </div>
 
-        <Slide id="meetup" index={6} label="Meet us Saturday" data-wipe>
+        <Slide id="meetup" index={7} label="Meet us Saturday">
           <MeetupSection />
         </Slide>
       </main>

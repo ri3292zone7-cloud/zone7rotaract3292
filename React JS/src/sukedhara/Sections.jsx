@@ -3,10 +3,18 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AtSign, CalendarDays, Compass, Globe2, HandHeart, Mail, MapPin, ShieldCheck, Users } from 'lucide-react';
 import Reveal from './Reveal';
-import { PRESIDENTS } from './photos';
+import { PRESIDENTS, PROJECTS, QUICK_FACTS } from './photos';
 import { CLUB, STATS } from './data';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const CATEGORY_COLORS = {
+  Education: '#E0475F',
+  Health: '#0FB5B1',
+  Leadership: '#F2A900',
+  'Professional Development': '#6A3FA0',
+  Environment: '#1C8A4D'
+};
 
 const GOAL_ICONS = [Users, Globe2, ShieldCheck, Compass];
 
@@ -30,7 +38,7 @@ function useCountUp(target, run, duration = 1200) {
 function Stat({ stat, run }) {
   const v = useCountUp(stat.value, run);
   return (
-    <div className="rounded-2xl border border-[#F0D9BE] bg-white/70 px-4 py-5 text-center shadow-[0_10px_30px_-18px_rgba(160,47,67,.45)]">
+    <div className="rounded-2xl border border-[#F0D9BE] bg-white/70 px-4 py-4 text-center shadow-[0_10px_30px_-18px_rgba(160,47,67,.45)]">
       <div className="text-3xl font-black tabular-nums text-[#A82F43] md:text-4xl">
         {stat.plain ? stat.value : `${v}${stat.suffix}`}
       </div>
@@ -121,11 +129,11 @@ export function AboutSection() {
       <Reveal>
         <p className="text-xs font-bold tracking-[0.2em] text-[#0FB5B1] uppercase">Who we are · {CLUB.identity}</p>
         <h2 className="mt-2 text-3xl font-black text-[#241D4D] md:text-4xl">Small club, big Saturdays.</h2>
-        <blockquote className="mt-4 border-l-4 border-[#E0475F] pl-4 text-lg font-medium text-[#4A3F63] italic">
+        <blockquote className="mt-3 border-l-4 border-[#E0475F] pl-4 text-lg font-medium text-[#4A3F63] italic">
           “{CLUB.vision}”
         </blockquote>
-        <p className="mt-4 leading-relaxed text-[#4A3F63]">{CLUB.about}</p>
-        <div className="mt-5 flex flex-wrap items-center gap-2 text-xs font-semibold">
+        <p className="mt-3 leading-relaxed text-[#4A3F63]">{CLUB.about}</p>
+        <div className="mt-4 flex flex-wrap items-center gap-2 text-xs font-semibold">
           <span className="rounded-full bg-[#A82F43]/10 px-3 py-1.5 text-[#A82F43]">
             Chartered {CLUB.foundedDisplay}
           </span>
@@ -138,7 +146,7 @@ export function AboutSection() {
         </div>
       </Reveal>
       <Reveal delay={140}>
-      <div ref={collageRef} className="relative h-[400px] sm:h-[440px]">
+      <div ref={collageRef} className="relative h-[360px] sm:h-[400px]">
         {COLLAGE.map((c, i) => {
           const person = PRESIDENTS[c.p];
           return (
@@ -161,21 +169,83 @@ export function AboutSection() {
   );
 }
 
+export function ProjectsSection() {
+  const [featured, ...rest] = PROJECTS;
+  return (
+    <div>
+      <Reveal>
+        <p className="text-xs font-bold tracking-[0.2em] text-[#0FB5B1] uppercase">In action · {PROJECTS.length} projects</p>
+        <h2 className="mt-1 text-3xl font-black text-[#241D4D] md:text-4xl">Projects run by this club.</h2>
+      </Reveal>
+      <Reveal delay={100}>
+        <article className="mt-4 grid overflow-hidden rounded-3xl bg-[#241D4D] text-white shadow-[0_24px_55px_-28px_rgba(36,29,77,.7)] md:grid-cols-2">
+          <img src={featured.img} alt={featured.title} loading="lazy" className="h-52 w-full object-cover md:h-full md:min-h-64" />
+          <div className="p-5 md:p-6">
+            <span
+              className="rounded-full px-2.5 py-1 text-[10px] font-black tracking-widest uppercase"
+              style={{ backgroundColor: CATEGORY_COLORS[featured.category], color: '#fff' }}
+            >
+              {featured.category}
+            </span>
+            <h3 className="mt-2 text-xl font-extrabold md:text-2xl">{featured.title}</h3>
+            <p className="mt-2 text-xs leading-relaxed text-white/70">{featured.location}</p>
+            <p className="mt-1 text-xs font-bold text-[#FFB86B] tabular-nums">{featured.date}</p>
+          </div>
+        </article>
+      </Reveal>
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {rest.map((p, i) => (
+          <Reveal key={p.title} delay={(i % 2) * 80}>
+            <article className="flex h-full gap-3 rounded-2xl border border-[#F0D9BE] bg-white/85 p-4 transition-transform duration-300 hover:-translate-y-0.5">
+              <span
+                className="mt-1 size-3 shrink-0 rounded-full"
+                style={{ backgroundColor: CATEGORY_COLORS[p.category] || '#E0475F' }}
+              />
+              <div className="min-w-0">
+                <h3 className="text-sm leading-snug font-extrabold text-[#241D4D]">{p.title}</h3>
+                <p className="mt-1 truncate text-[11px] font-semibold text-[#6B5B73]">{p.location}</p>
+                <p className="mt-1 text-[11px] font-bold text-[#A82F43] tabular-nums">
+                  {p.category} · {p.date}
+                </p>
+              </div>
+            </article>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function QuickFacts() {
+  return (
+    <Reveal>
+      <dl className="grid grid-cols-1 gap-x-6 rounded-3xl border border-[#F0D9BE] bg-white/70 p-5 sm:grid-cols-2 md:p-6">
+        {QUICK_FACTS.map(([k, v]) => (
+          <div key={k} className="flex gap-3 border-b border-[#241D4D]/8 py-2 last:border-0 sm:[&:nth-last-child(2)]:border-0">
+            <dt className="w-40 shrink-0 text-[11px] font-bold tracking-wide text-[#6B5B73] uppercase">{k}</dt>
+            <dd className="text-xs font-semibold text-[#241D4D]">{v}</dd>
+          </div>
+        ))}
+      </dl>
+    </Reveal>
+  );
+}
+
 export function GoalsSection() {
   return (
     <div>
       <Reveal>
         <p className="text-xs font-bold tracking-[0.2em] text-[#0FB5B1] uppercase">Rota year goals</p>
-        <h2 className="mt-2 text-3xl font-black text-[#241D4D] md:text-4xl">Four promises, in progress.</h2>
+        <h2 className="mt-1 text-3xl font-black text-[#241D4D] md:text-4xl">Four promises, in progress.</h2>
       </Reveal>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
         {CLUB.goals.map((g, i) => {
           const Icon = GOAL_ICONS[i % GOAL_ICONS.length];
           return (
             <Reveal key={g.title} delay={(i % 2) * 120}>
             <article
               key={g.title}
-              className="group rounded-3xl border border-[#F0D9BE] bg-white/80 p-5 shadow-[0_16px_40px_-24px_rgba(36,29,77,.4)] transition-transform duration-300 hover:-translate-y-1"
+              className="group rounded-3xl border border-[#F0D9BE] bg-white/80 p-4 shadow-[0_16px_40px_-24px_rgba(36,29,77,.4)] transition-transform duration-300 hover:-translate-y-1"
             >
               <div className="flex items-center gap-3">
                 <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#E0475F] to-[#F2A900] text-white">
@@ -204,8 +274,8 @@ export function MeetupSection() {
   const countdown = useMeetupCountdown();
   return (
     <Reveal>
-    <div className="overflow-hidden rounded-[2rem] bg-[#241D4D] p-6 text-white shadow-[0_30px_70px_-30px_rgba(36,29,77,.8)] md:p-10">
-      <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
+    <div className="overflow-hidden rounded-[2rem] bg-[#241D4D] p-5 text-white shadow-[0_30px_70px_-30px_rgba(36,29,77,.8)] md:p-8">
+      <div className="grid items-center gap-6 lg:grid-cols-[1fr_auto]">
         <div>
           <p className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-[#FFB86B] uppercase">
             <CalendarDays className="size-4" /> Weekly meetup
@@ -237,6 +307,20 @@ export function MeetupSection() {
           <p className="mt-3 flex items-center gap-2 text-xs text-white/60">
             <HandHeart className="size-4" /> Visitors welcome — just show up, or say hi first.
           </p>
+          <div className="mt-4 flex flex-wrap gap-3 border-t border-white/10 pt-4">
+            <a
+              href="/join"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-extrabold text-[#241D4D] transition-transform hover:scale-105"
+            >
+              Fill the Join Form
+            </a>
+            <a
+              href="/#clubs"
+              className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-2.5 text-sm font-bold text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+            >
+              Explore Other Clubs
+            </a>
+          </div>
         </div>
         <div className="rounded-3xl border border-white/15 bg-white/5 px-8 py-6 text-center">
           <p className="text-xs font-bold tracking-[0.2em] text-white/60 uppercase">Next meetup in</p>
