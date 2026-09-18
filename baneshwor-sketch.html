@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  BANESHWOR × HAND-DRAWN — DESIGN DEMO ONLY.
+  Standalone concept page. NOT linked from anywhere. Do NOT merge into
+  club.html until the demo is approved.
+  =====================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baneshwor — sketched with love · Zone 7 Rotaract</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fdfbf7; --pencil:#2d2d2d; --erased:#e5e0d8;
+  --red:#ff4d4d; --blue:#2d5da1; --postit:#fff9c4;
+  --wobbly:255px 15px 225px 15px / 15px 225px 15px 255px;
+  --wobbly-md:125px 12px 115px 12px / 12px 115px 12px 125px;
+  --wobbly-sm:45px 8px 40px 8px / 8px 40px 8px 45px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth; overflow-x:hidden; overflow-x:clip;}
+body{
+  background-color:var(--paper);
+  background-image:radial-gradient(var(--erased) 1px, transparent 1px);
+  background-size:24px 24px;
+  color:var(--pencil); font-family:'Patrick Hand',cursive; font-size:19px; line-height:1.55;
+  overflow-x:hidden;
+}
+::selection{background:var(--postit);}
+h1,h2,h3,.marker{font-family:'Kalam',cursive; font-weight:700; line-height:1.12;}
+img{display:block; max-width:100%;}
+a{color:inherit;}
+.wrap{max-width:1024px; margin:0 auto; padding:0 24px;}
+
+/* ---------- nav ---------- */
+.nav{border-bottom:3px dashed var(--pencil); background:var(--paper); position:sticky; top:0; z-index:50;}
+.nav-in{max-width:1024px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; gap:18px; flex-wrap:wrap;}
+.brand{font-family:'Kalam',cursive; font-weight:700; font-size:24px; text-decoration:none; transform:rotate(-1.5deg); display:inline-block;}
+.brand b{color:var(--red);}
+.nav-links{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap;}
+.nav-links a{
+  text-decoration:none; font-size:19px; padding:2px 4px;
+  background-image:linear-gradient(var(--blue),var(--blue));
+  background-size:0% 3px; background-repeat:no-repeat; background-position:left 95%;
+  transition:background-size .15s;
+}
+.nav-links a:hover{background-size:100% 3px;}
+
+/* ---------- hero ---------- */
+.hero{padding:64px 0 30px;}
+.hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center;}
+.sticky-tag{
+  display:inline-block; background:var(--postit); border:2px solid var(--pencil);
+  border-radius:var(--wobbly-sm); box-shadow:3px 3px 0 0 rgba(45,45,45,.9);
+  padding:8px 18px; font-size:18px; transform:rotate(-2deg); margin-bottom:22px;
+}
+.hero h1{font-size:clamp(44px,7vw,76px); margin-bottom:18px;}
+.hero h1 .bang{display:inline-block; color:var(--red); animation:spin-bang 4s ease-in-out infinite;}
+@keyframes spin-bang{0%,88%,100%{transform:rotate(-8deg);}92%,96%{transform:rotate(14deg) scale(1.15);}}
+.hero p.sub{font-size:22px; max-width:34ch; margin-bottom:30px;}
+.hero p.sub b{background:linear-gradient(transparent 55%, var(--postit) 55%);}
+.cta-row{display:flex; gap:18px; flex-wrap:wrap; align-items:center; position:relative;}
+.btn{
+  display:inline-flex; align-items:center; gap:10px; min-height:52px; padding:12px 30px;
+  font-family:'Patrick Hand',cursive; font-size:21px; background:#fff; color:var(--pencil);
+  border:3px solid var(--pencil); border-radius:var(--wobbly); text-decoration:none; cursor:pointer;
+  box-shadow:4px 4px 0 0 var(--pencil); transition:transform .1s, box-shadow .1s, background .15s;
+}
+.btn:hover{background:var(--red); color:#fff; box-shadow:2px 2px 0 0 var(--pencil); transform:translate(2px,2px);}
+.btn:active{box-shadow:0 0 0 0 var(--pencil); transform:translate(4px,4px);}
+.btn.blue{background:var(--erased);}
+.btn.blue:hover{background:var(--blue); color:#fff;}
+.hero-arrow{position:absolute; left:-72px; top:-6px; width:64px; transform:rotate(12deg);}
+.hero-photo{position:relative; transform:rotate(2deg);}
+.hero-photo img{
+  width:100%; aspect-ratio:4/4.4; object-fit:cover; background:#fff;
+  border:3px solid var(--pencil); border-radius:var(--wobbly-md);
+  box-shadow:8px 8px 0 0 var(--pencil);
+}
+.tape{
+  position:absolute; width:110px; height:32px; background:rgba(45,45,45,.14);
+  border-left:2px dashed rgba(45,45,45,.25); border-right:2px dashed rgba(45,45,45,.25);
+  top:-16px; left:50%; transform:translateX(-50%) rotate(-4deg);
+}
+.hero-photo figcaption{
+  margin-top:16px; text-align:center; font-size:18px;
+}
+.hero-photo figcaption b{color:var(--red);}
+.dot-bounce{
+  position:absolute; right:-24px; bottom:-24px; width:54px; height:54px; background:var(--red);
+  border:3px solid var(--pencil); border-radius:48% 52% 55% 45% / 55% 46% 54% 45%;
+  animation:bounce 3s ease-in-out infinite;
+}
+@keyframes bounce{0%,100%{transform:translateY(0) rotate(-6deg);}50%{transform:translateY(-14px) rotate(8deg);}}
+
+/* ---------- stats ---------- */
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:26px; padding:56px 0 10px;}
+.stat{
+  background:#fff; border:3px solid var(--pencil); text-align:center; padding:26px 10px 20px;
+  box-shadow:4px 4px 0 0 var(--pencil);
+}
+.stat:nth-child(1){border-radius:52% 48% 55% 45% / 46% 55% 45% 54%; transform:rotate(-1.5deg);}
+.stat:nth-child(2){border-radius:45% 55% 46% 54% / 56% 44% 58% 42%; transform:rotate(1.2deg);}
+.stat:nth-child(3){border-radius:55% 45% 52% 48% / 44% 56% 42% 58%; transform:rotate(-1deg);}
+.stat:nth-child(4){border-radius:46% 54% 44% 56% / 58% 42% 56% 44%; transform:rotate(1.6deg); background:var(--postit);}
+.stat b{display:block; font-family:'Kalam',cursive; font-size:44px; line-height:1;}
+.stat span{font-size:17px;}
+
+/* ---------- section scaffolding ---------- */
+section.block{padding:70px 0 10px;}
+.sec-head{display:flex; align-items:flex-end; gap:18px; flex-wrap:wrap; margin-bottom:12px;}
+.sec-head h2{font-size:clamp(36px,5vw,54px);}
+.sec-head h2 u{text-decoration:none; background:linear-gradient(transparent 60%, var(--postit) 60%);}
+.sec-note{font-size:19px; max-width:62ch; margin-bottom:30px;}
+.sec-note b{color:var(--red);}
+.squiggle{display:block; width:100%; height:26px; margin:26px 0 0;}
+
+/* ---------- filters ---------- */
+.filters{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:34px;}
+.chip{
+  font-family:'Patrick Hand',cursive; font-size:18px; padding:8px 20px; min-height:48px;
+  background:#fff; border:3px solid var(--pencil); border-radius:var(--wobbly-sm);
+  box-shadow:3px 3px 0 0 var(--pencil); cursor:pointer; transition:transform .1s, box-shadow .1s, background .15s;
+}
+.chip:hover{transform:translate(1px,1px) rotate(-1deg); box-shadow:2px 2px 0 0 var(--pencil);}
+.chip.on{background:var(--pencil); color:#fff; transform:rotate(1deg);}
+
+/* ---------- project cards: BIG photos ---------- */
+.proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px;}
+.pcard{
+  background:#fff; border:3px solid var(--pencil); border-radius:var(--wobbly-md);
+  box-shadow:6px 6px 0 0 var(--pencil); overflow:hidden; position:relative;
+  transition:transform .1s, box-shadow .1s; display:flex; flex-direction:column; text-decoration:none;
+}
+.pcard:nth-child(odd){transform:rotate(-1deg);}
+.pcard:nth-child(even){transform:rotate(1deg);}
+.pcard:hover{transform:rotate(0deg) translate(-2px,-2px); box-shadow:8px 8px 0 0 var(--pencil);}
+.pcard .ph{overflow:hidden; border-bottom:3px solid var(--pencil); background:var(--erased);}
+.pcard .ph img{width:100%; aspect-ratio:16/10.5; object-fit:cover;}
+.pcard .pt{padding:24px 26px 26px;}
+.ptag{
+  display:inline-block; background:var(--postit); border:2px solid var(--pencil);
+  border-radius:var(--wobbly-sm); padding:4px 14px; font-size:17px;
+  transform:rotate(-2deg); margin-bottom:14px; box-shadow:2px 2px 0 0 rgba(45,45,45,.85);
+}
+.pcard h3{font-size:30px; margin-bottom:10px;}
+.ploc{font-size:18px; margin-bottom:10px;}
+.ploc b{color:var(--red);}
+.psum{
+  font-size:18px; line-height:1.5; margin-bottom:14px;
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+}
+.pmeta{font-size:18px; color:var(--pencil); opacity:.75; margin-bottom:18px;}
+.pmeta b{color:var(--blue);}
+.popen{align-self:flex-start; font-size:19px; text-decoration:underline wavy var(--red) 2px; text-underline-offset:5px;}
+.pcount{margin-top:26px; font-size:18px; opacity:.7;}
+.pcount b{color:var(--red); font-family:'Kalam',cursive; font-size:22px;}
+
+/* ---------- board: BIG portraits ---------- */
+.board-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:36px;}
+.bcard{
+  background:#fff; border:3px solid var(--pencil); border-radius:var(--wobbly-md);
+  box-shadow:5px 5px 0 0 var(--pencil); padding:18px 18px 22px; text-align:center; position:relative;
+  transition:transform .1s;
+}
+.bcard:nth-child(3n+1){transform:rotate(-1.4deg);}
+.bcard:nth-child(3n+2){transform:rotate(1deg);}
+.bcard:nth-child(3n){transform:rotate(-.6deg);}
+.bcard:hover{transform:rotate(0deg) scale(1.02);}
+.tack{
+  position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+  width:26px; height:26px; background:var(--red); border:3px solid var(--pencil); border-radius:50%;
+}
+.bcard img{
+  width:100%; aspect-ratio:1/1; object-fit:cover; background:var(--erased);
+  border:3px solid var(--pencil); border-radius:var(--wobbly-sm); margin-bottom:16px;
+}
+.binit{
+  width:100%; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+  background:var(--postit); border:3px dashed var(--pencil); border-radius:var(--wobbly-sm);
+  font-family:'Kalam',cursive; font-size:72px; margin-bottom:16px;
+}
+.bcard h3{font-size:25px;}
+.bcard p{font-size:18px; color:var(--blue);}
+
+/* ---------- club file ---------- */
+.file-card{
+  background:#fff; border:3px solid var(--pencil); border-radius:var(--wobbly);
+  box-shadow:8px 8px 0 0 var(--pencil); padding:44px 40px; transform:rotate(.4deg); position:relative;
+}
+.file-card .tack{top:-14px;}
+.file-about{font-size:21px; max-width:68ch; margin-bottom:8px;}
+.file-about b{background:linear-gradient(transparent 55%, var(--postit) 55%);}
+.file-vision{
+  font-family:'Kalam',cursive; font-size:clamp(22px,3vw,30px); line-height:1.35;
+  border-left:6px solid var(--red); padding:6px 0 6px 22px; margin:28px 0; max-width:34ch;
+  transform:rotate(-.6deg);
+}
+.facts{display:grid; grid-template-columns:1fr 1fr; gap:0 36px; margin:10px 0 6px;}
+.fact{padding:13px 2px; border-bottom:2px dashed var(--erased); font-size:19px;}
+.fact b{display:block; font-family:'Kalam',cursive; font-size:16px; color:var(--red); text-transform:uppercase; letter-spacing:1px;}
+.fact a{color:var(--blue);}
+.goals{margin-top:26px;}
+.goals h3{font-size:26px; margin-bottom:14px;}
+.goal{
+  display:flex; align-items:center; gap:14px; padding:12px 16px; margin-bottom:12px;
+  background:var(--paper); border:2px dashed var(--pencil); border-radius:var(--wobbly-sm); font-size:19px;
+}
+.goal:nth-child(odd){transform:rotate(-.5deg);}
+.goal:nth-child(even){transform:rotate(.5deg);}
+.gstat{margin-left:auto; flex-shrink:0; font-size:16px; padding:4px 14px; border:2px solid var(--pencil); border-radius:var(--wobbly-sm); background:#fff;}
+.gstat.done{background:var(--red); color:#fff; border-color:var(--pencil);}
+.gstat.off{opacity:.55;}
+
+/* ---------- meet ---------- */
+.meet-card{
+  background:#fff; border:3px solid var(--pencil); border-radius:var(--wobbly);
+  box-shadow:8px 8px 0 0 var(--pencil); padding:44px 40px; transform:rotate(-.5deg);
+  display:grid; grid-template-columns:1fr 1fr; gap:36px;
+}
+.meet-card h2{font-size:clamp(34px,4.5vw,50px); margin-bottom:16px;}
+.meet-card h2 .hl{background:linear-gradient(transparent 60%, var(--postit) 60%);}
+.mrow{padding:14px 2px; border-bottom:2px dashed var(--erased); font-size:20px;}
+.mrow:last-child{border-bottom:none;}
+.mrow b{display:block; font-family:'Kalam',cursive; font-size:17px; color:var(--red); text-transform:uppercase; letter-spacing:1px;}
+.mrow a{color:var(--blue);}
+
+/* ---------- footer ---------- */
+footer{margin-top:80px; border-top:3px dashed var(--pencil); padding:30px 0 46px;}
+.foot-in{max-width:1024px; margin:0 auto; padding:0 24px; display:flex; gap:16px; flex-wrap:wrap; justify-content:space-between; align-items:center;}
+.foot-in nav{display:flex; gap:20px; flex-wrap:wrap;}
+.foot-in nav a{text-decoration:none;}
+.foot-in nav a:hover{text-decoration:line-through; text-decoration-color:var(--red); text-decoration-thickness:3px;}
+.foot-note{font-size:16px; opacity:.65;}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr; gap:36px;}
+  .hero{padding-top:44px;}
+  .hero-arrow{display:none;}
+  .dot-bounce{display:none;}
+  .hero-photo{max-width:520px;}
+  .proj-grid{grid-template-columns:1fr; gap:32px;}
+  .board-grid{grid-template-columns:1fr 1fr; gap:26px;}
+  .meet-card{grid-template-columns:1fr; padding:32px 26px;}
+  .stats{grid-template-columns:1fr 1fr; gap:20px;}
+}
+@media (max-width:520px){
+  body{font-size:18px;}
+  .board-grid{grid-template-columns:1fr;}
+  .bcard{max-width:380px; margin:0 auto; width:100%;}
+  .nav-links{gap:14px;}
+  .nav-links a{font-size:17px;}
+  .stat b{font-size:36px;}
+  section.block{padding:54px 0 6px;}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important; transition:none !important;}
+  html{scroll-behavior:auto;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top">Baneshwor <b>✎</b> zone 7</a>
+    <div class="nav-links">
+      <a href="#file">the file</a>
+      <a href="#projects">projects</a>
+      <a href="#board">board</a>
+      <a href="#meet">meet us</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero wrap" id="top">
+  <div class="hero-grid">
+    <div>
+      <span class="sticky-tag">★ rotaract club of baneshwor · est. 2020</span>
+      <h1>small acts,<br>steady impact<span class="bang">!</span></h1>
+      <p class="sub">We're a bunch of enthusiastic youths doing <b>small, consistent acts of service</b> — 31 events and 326 reports in, and just getting warmed up.</p>
+      <div class="cta-row">
+        <svg class="hero-arrow" viewBox="0 0 64 60" fill="none" aria-hidden="true">
+          <path d="M6 8 C 30 10, 48 22, 50 50 M50 50 l-12 -8 M50 50 l3 -14" stroke="#2d2d2d" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 6"/>
+        </svg>
+        <a class="btn" href="#projects">see the work ↓</a>
+        <a class="btn blue" href="#meet">say hi ✋</a>
+      </div>
+    </div>
+    <figure class="hero-photo">
+      <span class="tape"></span>
+      <img id="heroImg" src="media/project-covers/cover-zrr-visit-34dc5124d8ca4722-2dbb8bb4.jpg" alt="Rotaract Club of Baneshwor, out doing service">
+      <figcaption>exhibit A — <b>the club, mid-service.</b> (real photo, promise.)</figcaption>
+      <span class="dot-bounce"></span>
+    </figure>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>20</b><span>active members</span></div>
+    <div class="stat"><b>31</b><span>events logged</span></div>
+    <div class="stat"><b>326</b><span>reports filed</span></div>
+    <div class="stat"><b>12</b><span>board humans</span></div>
+  </div>
+</header>
+
+<!-- CLUB FILE -->
+<section class="block wrap" id="file">
+  <div class="sec-head"><h2>the club <u>file</u> 📋</h2></div>
+  <p class="sec-note">The official bits — who we are, where we meet, and what we're chasing this year. Straight from the club's own records.</p>
+  <div class="file-card">
+    <span class="tack"></span>
+    <p class="file-about" id="fileAbout"></p>
+    <p class="file-vision" id="fileVision"></p>
+    <div class="facts" id="fileFacts"></div>
+    <div class="goals">
+      <h3>this year's goals <span id="goalCount"></span></h3>
+      <div id="goalList"></div>
+    </div>
+  </div>
+  <svg class="squiggle" viewBox="0 0 600 26" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M4 14 Q 40 4, 76 14 T 148 14 T 220 14 T 292 14 T 364 14 T 436 14 T 508 14 T 596 14" fill="none" stroke="#2d5da1" stroke-width="3" stroke-linecap="round" stroke-dasharray="10 8"/>
+  </svg>
+</section>
+
+<!-- PROJECTS -->
+<section class="block wrap" id="projects">
+  <div class="sec-head"><h2>the <u>project wall</u> 🗂️</h2></div>
+  <p class="sec-note">Every card below is a <b>real, live project</b> pulled from the club's own logbook — big photos on purpose, so you can actually <b>see</b> the work. Tap a label to filter!</p>
+  <div class="filters" id="filters"></div>
+  <div class="proj-grid" id="projGrid"></div>
+  <p class="pcount" id="projCount"></p>
+  <svg class="squiggle" viewBox="0 0 600 26" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M4 14 Q 40 4, 76 14 T 148 14 T 220 14 T 292 14 T 364 14 T 436 14 T 508 14 T 596 14" fill="none" stroke="#2d2d2d" stroke-width="3" stroke-linecap="round" stroke-dasharray="10 8"/>
+  </svg>
+</section>
+
+<!-- BOARD -->
+<section class="block wrap" id="board">
+  <div class="sec-head"><h2>the board, up close 📌</h2></div>
+  <p class="sec-note">Twelve humans keep this club running. <b>Real faces, real names</b> — straight from the club's own records. No tiny thumbnails here.</p>
+  <div class="board-grid" id="boardGrid"></div>
+  <svg class="squiggle" viewBox="0 0 600 26" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M4 14 Q 40 24, 76 14 T 148 14 T 220 14 T 292 14 T 364 14 T 436 14 T 508 14 T 596 14" fill="none" stroke="#ff4d4d" stroke-width="3" stroke-linecap="round" stroke-dasharray="10 8"/>
+  </svg>
+</section>
+
+<!-- MEET -->
+<section class="block wrap" id="meet">
+  <div class="meet-card">
+    <div>
+      <h2>come say hi <span class="hl">saturday, 10am!</span></h2>
+      <p style="font-size:20px; max-width:30ch;">Morning people, this one's for you. ☀️ Meetings, service, twin clubs, questionable chai — all welcome.</p>
+      <div class="cta-row" style="margin-top:26px;">
+        <a class="btn" href="join.html">join us →</a>
+      </div>
+    </div>
+    <div>
+      <div class="mrow"><b>when</b>saturday mornings · 10:00 AM</div>
+      <div class="mrow"><b>where</b>devkota sadak, kathmandu</div>
+      <div class="mrow"><b>email</b><a href="mailto:baneshwor@rotaract3292.org">baneshwor@rotaract3292.org</a></div>
+      <div class="mrow"><b>instagram</b><a href="https://www.instagram.com/rac_baneshwor" target="_blank" rel="noopener">@rac_baneshwor</a></div>
+      <div class="mrow"><b>sponsored by</b>rotary club of baneshwor</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <span class="marker" style="font-size:20px;">baneshwor ✎ zone 7</span>
+    <nav>
+      <a href="#projects">projects</a>
+      <a href="#board">board</a>
+      <a href="#meet">meet us</a>
+      <a href="index.html">← back to zone 7</a>
+    </nav>
+    <span class="foot-note">* concept demo — not the live club page. drawn with a shaky hand.</span>
+  </div>
+</footer>
+
+<script src="zone7-data.js"></script>
+<script>
+/* Live data first, embedded seed as fallback (demo must survive offline). */
+const SEED_PROJECTS = [
+  {id:"", title:"ZRR Visit", category:"Club Special Event", date:"2025-05-22", cover:"media/project-covers/cover-zrr-visit-34dc5124d8ca4722-2dbb8bb4.jpg"},
+  {id:"", title:"First Club Assembly", category:"Club Assembly", date:"2024-07-20", cover:"media/project-covers/cover-first-club-assembly-553bb2dde9454693-0354e84d.jpg"},
+  {id:"", title:"Session on: Traffic Awareness", category:"Road Safety", date:"2025-05-20", cover:"media/project-covers/cover-session-on-traffic-awareness-0104531b219-fedc9d1d.jpg"},
+  {id:"", title:"DRR Visit 2024-25", category:"DRR Visit", date:"2025-05-17", cover:"media/project-covers/cover-drr-visit-2024-25-e182ef5b010c4928-bfd19e95.jpg"},
+  {id:"", title:"Introduction to LEO and WOSM", category:"Virtual Activity", date:"2025-05-21", cover:"media/project-covers/cover-introduction-to-leo-and-wosm-223d496931b-cfdc5846.jpg"},
+  {id:"", title:"Second Club Assembly", category:"Club Assembly", date:"2025-01-18", cover:"media/project-covers/cover-second-club-assembly-9222ef13d7404977-3568e841.jpg"}
+];
+const SEED_BOARD = [
+  {name:"Rtr. Prashanna Gautam", role:"Club President", photo:""},
+  {name:"Rtr. Nabin Bhusal", role:"Vice President", photo:""},
+  {name:"Rtr. Amit Maharjan", role:"Secretary", photo:""},
+  {name:"Rtr. Rashmi Timalsina", role:"Treasurer", photo:""},
+  {name:"Rtr. Hemanta Rawal", role:"Public Image Chair", photo:""},
+  {name:"Rtr. Avinav Baral", role:"Membership Chair", photo:""}
+];
+/* Club record fallback (mirrors club.html; live profile wins when present). */
+const CLUB_SEED = {
+  about:"The Rotaract Club of Baneshwor is a club of enthusiastic youths committed to the welfare of society, sponsored by the Rotary Club of Baneshwor and chartered on 13th October 2020. Based on Devkota Sadak in Kathmandu, the club has been one of the zone's most active, logging 31 events and 326 reports to date.",
+  vision:"To become a trusted and inspiring Rotaract Club that creates meaningful community impact through small, consistent acts of service, empowers future leaders, and builds lasting fellowship.",
+  facts:[
+    ["based in","Devkota Sadak, Kathmandu · Zone VII"],
+    ["chartered","13 Oct 2020"],
+    ["sponsored by","Rotary Club of Baneshwor"],
+    ["members","20 active · 61 alumni"],
+    ["track record","31 events · 326 reports"],
+    ["twin clubs","Central Siyari · Itahari"],
+    ["interact partner","Chelsea International Academy"],
+    ["meets every","Saturday · 10:00 AM"]
+  ],
+  goals:[
+    {t:"Community Impact Initiative", s:"inprogress"},
+    {t:"Lead with Purpose; Build Future Leaders", s:"inprogress"},
+    {t:"Together We Grow", s:"inprogress"},
+    {t:"Strategic Partnerships & Collaboration", s:"inprogress"},
+    {t:"Club Excellence", s:"inprogress"},
+    {t:"Networking & Global Connections", s:"inprogress"}
+  ]
+};
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const src = u => { const s = String(u || ""); if(!s) return ""; if(/^(https?:|data:|\/)/.test(s)) return s; return "/" + s.replace(/^\/+/, ""); };
+const fmtDate = d => { const t = new Date(d); return isNaN(t) ? "date tba" : t.toLocaleDateString("en-GB", {day:"numeric", month:"long", year:"numeric"}); };
+
+let allProjects = [];
+function renderProjects(filter){
+  const list = !filter ? allProjects : allProjects.filter(p => (p.category || "") === filter);
+  document.getElementById("projGrid").innerHTML = list.map((p, i) => {
+    const href = p.id ? `/project?club=baneshwor&id=${encodeURIComponent(p.id)}` : "#projects";
+    const bits = [fmtDate(p.date)];
+    if(p.attendees) bits.push(`👥 ${p.attendees} people`);
+    if(p.volunteer_hours) bits.push(`⏱️ ${p.volunteer_hours} hrs`);
+    return `<a class="pcard" href="${href}">
+      <div class="ph">${p.cover ? `<img src="${esc(src(p.cover))}" alt="${esc(p.title)}" loading="lazy" decoding="async">` : ""}</div>
+      <div class="pt">
+        <span class="ptag">📌 ${esc(p.category || "service")}</span>
+        <h3>${esc(p.title || "untitled project")}</h3>
+        ${p.location ? `<p class="ploc">📍 <b>${esc(p.location)}</b></p>` : ""}
+        ${p.summary ? `<p class="psum">${esc(p.summary)}</p>` : ""}
+        <p class="pmeta">${esc(bits.join(" · "))}</p>
+        <span class="popen">open the file →</span>
+      </div>
+    </a>`;
+  }).join("") || `<p class="sec-note">nothing pinned under this label — yet. ✎</p>`;
+  document.getElementById("projCount").innerHTML = `showing <b>${list.length}</b> of <b>${allProjects.length}</b> pinned projects`;
+}
+function renderFilters(){
+  const cats = [...new Set(allProjects.map(p => p.category).filter(Boolean))];
+  const box = document.getElementById("filters");
+  box.innerHTML = [`<button class="chip on" data-f="">everything! ★</button>`,
+    ...cats.map(c => `<button class="chip" data-f="${esc(c)}">${esc(c)}</button>`)].join("");
+  box.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    box.querySelectorAll("button").forEach(x => x.classList.remove("on"));
+    b.classList.add("on");
+    renderProjects(b.dataset.f);
+  }));
+}
+function renderBoard(board){
+  const rows = (board && board.length ? board : SEED_BOARD);
+  document.getElementById("boardGrid").innerHTML = rows.map(m => {
+    const photo = src(m.photo);
+    const face = photo ? `<img src="${esc(photo)}" alt="${esc(m.name)}" loading="lazy" decoding="async">`
+      : `<div class="binit">${esc((m.name || "?").replace(/^Rtr\.\s*/i, "").trim().split(/\s+/).map(w => w[0]).slice(0, 2).join(""))}</div>`;
+    return `<div class="bcard"><span class="tack"></span>${face}<h3>${esc(m.name || "—")}</h3><p>${esc(m.role || "")}</p></div>`;
+  }).join("");
+}
+function renderFile(profile){
+  const p = profile || {};
+  const about = p.about || CLUB_SEED.about;
+  document.getElementById("fileAbout").innerHTML =
+    esc(about.split(".")[0] + ".") + " " + esc(about.split(".").slice(1).join(".").trim());
+  document.getElementById("fileVision").textContent = `“${p.vision || CLUB_SEED.vision}”`;
+  const facts = (p.facts && p.facts.length ? p.facts : CLUB_SEED.facts).map(f =>
+    Array.isArray(f) ? f : [f.k || f.label || "", f.v || f.value || ""]
+  );
+  document.getElementById("fileFacts").innerHTML = facts.map(([k, v]) =>
+    `<div class="fact"><b>${esc(k)}</b>${esc(v)}</div>`).join("");
+  const goals = (p.goals && p.goals.length ? p.goals : CLUB_SEED.goals);
+  const pill = s => s === "completed" ? `<span class="gstat done">✅ done!</span>`
+    : s === "canceled" ? `<span class="gstat off">✖ shelved</span>`
+    : `<span class="gstat">🔄 in progress</span>`;
+  document.getElementById("goalList").innerHTML = goals.map(g =>
+    `<div class="goal"><span>${esc(g.t || g)}</span>${pill(g.s)}</div>`).join("");
+  document.getElementById("goalCount").textContent = `(${goals.length} on the wall)`;
+}
+async function init(){
+  try{
+    const [projects, profile] = await Promise.all([
+      ZONE7_DB.getProjects("baneshwor", { limit: 60, full: true }),
+      ZONE7_DB.getClubProfile("baneshwor")
+    ]);
+    allProjects = (projects && projects.length ? projects : SEED_PROJECTS).slice(0, 12);
+    renderBoard(profile && profile.board);
+    renderFile(profile);
+  }catch(e){
+    allProjects = SEED_PROJECTS;
+    renderBoard(null);
+    renderFile(null);
+  }
+  renderFilters();
+  renderProjects("");
+}
+init();
+</script>
+</body>
+</html>

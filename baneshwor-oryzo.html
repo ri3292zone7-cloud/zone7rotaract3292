@@ -13,7 +13,7 @@
 <title>BANESHWOR — Zone 7 Rotaract</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --color-warm-cream:#ffedd7;
@@ -40,6 +40,7 @@ html{scroll-behavior:smooth;background:var(--color-walnut-shadow);}
 body{
   background:var(--color-walnut-shadow); color:var(--color-warm-cream);
   font-family:var(--font-halyard-display-variable); font-weight:500;
+  font-feature-settings:"ss01" on;
   -webkit-font-smoothing:antialiased; overflow-x:hidden;
 }
 ::selection{background:var(--color-ember-accent); color:var(--color-walnut-shadow);}
@@ -93,7 +94,18 @@ img{display:block; max-width:100%;}
   border:1px solid transparent; white-space:nowrap;
 }
 .btn-fill:hover{background:var(--color-warm-cream); color:var(--color-walnut-shadow);}
-.hero-cta-row{display:flex; gap:14px; align-items:center;}
+.hero-cta-row{display:flex; gap:14px; align-items:stretch; flex-direction:column;}
+.latest-card{
+  display:flex; gap:14px; align-items:center; border:1px solid var(--color-cork-border);
+  border-radius:var(--radius-cards); padding:10px 16px 10px 10px; text-decoration:none;
+  color:var(--color-warm-cream); background:rgba(16,9,4,.55);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); max-width:340px;
+}
+.latest-card img{width:64px; height:64px; border-radius:8px; object-fit:cover; flex-shrink:0; background:var(--color-bark-brown);}
+.latest-card .lt{font-size:10px; color:var(--color-ember-accent); text-transform:uppercase;}
+.latest-card .lh{font-size:14px; text-transform:uppercase; line-height:1.2; margin-top:4px;}
+.latest-card .go{margin-left:auto; font-size:18px; flex-shrink:0;}
+.latest-card:hover{border-color:var(--color-warm-cream);}
 
 /* ---------- dividers / sections ---------- */
 .divider{border:none; border-top:1px dashed var(--color-cork-border); margin:0;}
@@ -133,8 +145,8 @@ img{display:block; max-width:100%;}
 .filters{display:flex; gap:10px; flex-wrap:wrap;}
 .btn-ghost{
   background:transparent; color:var(--color-warm-cream); border:1px solid var(--color-warm-cream);
-  border-radius:var(--radius-buttons-outlined); padding:7.5px 18px;
-  font-size:12px; font-weight:500; text-transform:uppercase;  cursor:pointer; font-family:inherit;
+  border-radius:var(--radius-buttons-outlined); padding:7.5px 0; min-width:96px; text-align:center;
+  font-size:12px; font-weight:500; text-transform:uppercase; cursor:pointer; font-family:inherit;
 }
 .btn-ghost.on{background:var(--color-warm-cream); color:var(--color-walnut-shadow);}
 .rail{
@@ -239,6 +251,11 @@ footer{padding:60px 32px 46px;}
         <p class="credit">SPONSORED BY <a href="#meet">ROTARY CLUB OF BANESHWOR</a></p>
       </div>
       <div class="hero-cta-row">
+        <a class="latest-card" id="latestCard" href="#projects">
+          <img id="latestImg" src="media/project-covers/cover-zrr-visit-34dc5124d8ca4722-2dbb8bb4.jpg" alt="">
+          <span><span class="lt">LATEST — BANESHWOR</span><span class="lh" id="latestTitle" style="display:block;">ZRR VISIT</span></span>
+          <span class="go">↗</span>
+        </a>
         <a class="btn-fill" href="#projects">SEE THE WORK ↓</a>
       </div>
     </div>
@@ -400,6 +417,13 @@ async function init(){
     /* hero wants a photographic cover, not a printed poster */
     const heroP = allProjects.find(p => /zrr-visit|assembly/i.test(p.cover || "")) || allProjects[0];
     if(heroP && heroP.cover) document.getElementById("heroImg").src = heroP.cover;
+    /* latest card = newest project as the secondary entry point */
+    const newest = allProjects[0];
+    if(newest){
+      if(newest.cover) document.getElementById("latestImg").src = newest.cover;
+      document.getElementById("latestTitle").textContent = (newest.title || "LATEST PROJECT").toUpperCase();
+      if(newest.id) document.getElementById("latestCard").href = `/project?club=baneshwor&id=${encodeURIComponent(newest.id)}`;
+    }
     renderBoard(profile && profile.board);
   }catch(e){
     allProjects = SEED_PROJECTS;
