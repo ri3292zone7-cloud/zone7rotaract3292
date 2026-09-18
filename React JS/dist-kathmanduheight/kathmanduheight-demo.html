@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kathmandu Height — Rotaract Club of Kathmandu Height</title>
+    <meta name="description" content="The Rising Club in soft clay — the Rotaract Club of Kathmandu Height. Chartered 6 January 2026, sponsored by the Rotary Club of Kathmandu Height. Twenty-three members, four projects, Saturdays at 10 AM." />
+    <meta property="og:title" content="Kathmandu Height — Rotaract Club of Kathmandu Height" />
+    <meta property="og:description" content="Developing competent leaders for a brighter tomorrow. Twenty-three members, four projects. Every Saturday, 10:00 AM." />
+    <meta property="og:image" content="/zone7_og_image.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap"
+      rel="stylesheet"
+    />
+  <style>html,body{overflow-x:hidden;overflow-x:clip}html{overscroll-behavior-x:none}body{position:relative}</style>
+  <script>
+    (function () {
+      var t = "light";
+      try { t = localStorage.getItem("z7-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); } catch (e) {}
+      if (t === "dark") document.documentElement.classList.add("dark");
+      document.documentElement.style.background = t === "dark" ? "#1A2027" : "#E0E5EC";
+    })();
+  </script>
+  <script src="/zone7-data.js"></script>
+  <script>
+    if (typeof CLUB_DIRECTORY !== "undefined") {
+      Object.values(CLUB_DIRECTORY).forEach(function (c) {
+        if (c && c.logo && c.logo.indexOf("media/") === 0) c.logo = "/" + c.logo;
+      });
+    }
+  </script>
+    <script type="module" crossorigin src="/React%20JS/dist-kathmanduheight/assets/kathmanduheight-demo-GNfDrw_N.js"></script>
+    <link rel="stylesheet" crossorigin href="/React%20JS/dist-kathmanduheight/assets/kathmanduheight-demo-EHoeXaIJ.css">
+  </head>
+  <body>
+    <div id="siteNav" data-current="clubs" data-cta="join"><style>#siteNav{position:sticky;top:0;z-index:100;background:var(--neu-bg,#E0E5EC);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}a,#siteNav a{text-decoration:none;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.92rem;color:#3D4852}#siteNav .wrap{max-width:1280px;margin:0 auto;padding:0 28px;min-height:64px;display:flex;align-items:center;gap:26px}#siteNav .brand{display:inline-flex;align-items:center;gap:8px}#siteNav .brand .z{width:32px;height:32px;border-radius:12px;background:#6C63FF;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem}#siteNav .navlinks{display:flex;align-items:center;gap:26px;margin-left:6px}#siteNav .btn.nav-cta{margin-left:auto;border-radius:20px;padding:10px 22px;background:#6C63FF;color:#fff;font-weight:700}@media (max-width:920px){#siteNav .wrap{gap:10px;padding:0 16px;min-height:58px}#siteNav .navlinks{display:none}#siteNav .btn.nav-cta{padding:8px 18px;font-size:.8rem}#siteNav .brand{font-size:.95rem}}</style><nav class="wrap" aria-label="Main navigation"><a href="/" aria-label="Zone 7 Rotaract home"><span class="brand"><span class="z">7</span> Zone 7 Rotaract</span></a><div class="navlinks"><a href="/about">About</a><a href="/tutorials">Learn</a><a href="/gallery">Gallery</a><a href="/store">Store</a></div><a href="/join" class="btn nav-cta">Join Us</a></nav></div>
+    <div id="root"></div>
+    <script src="/site-nav.js" defer></script>
+    <script src="/site-transition.js" defer></script>
+  </body>
+</html>

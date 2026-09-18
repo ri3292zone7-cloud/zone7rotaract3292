@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", "DM Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-neu-bg: #E0E5EC;
+  --color-neu-surface: #E0E5EC;
+  --color-neu-ink: #3D4852;
+  --color-neu-mut: #6B7280;
+  --color-neu-acc: #6C63FF;
+  --color-neu-acc-light: #8B84FF;
+  --color-neu-teal: #38B2AC;
+  --color-neu-placeholder: #A0AEC0;
+}
+
+:root {
+  --neu-bg: #E0E5EC;
+  --neu-ink: #3D4852;
+  --neu-mut: #6B7280;
+  --neu-acc: #6C63FF;
+  --neu-teal: #38B2AC;
+
+  /* dual opposing RGBA shadows — the physics of the system */
+  --neu-sh-light: rgba(255, 255, 255, 0.5);
+  --neu-sh-dark: rgb(163, 177, 198, 0.6);
+  --neu-sh-light-hi: rgba(255, 255, 255, 0.6);
+  --neu-sh-dark-hi: rgb(163, 177, 198, 0.7);
+
+  --neu-extruded: 9px 9px 16px var(--neu-sh-dark), -9px -9px 16px var(--neu-sh-light);
+  --neu-extruded-hover: 12px 12px 20px var(--neu-sh-dark-hi), -12px -12px 20px var(--neu-sh-light-hi);
+  --neu-extruded-sm: 5px 5px 10px var(--neu-sh-dark), -5px -5px 10px var(--neu-sh-light);
+  --neu-inset: inset 6px 6px 10px var(--neu-sh-dark), inset -6px -6px 10px var(--neu-sh-light);
+  --neu-inset-deep: inset 10px 10px 20px var(--neu-sh-dark-hi), inset -10px -10px 20px var(--neu-sh-light-hi);
+  --neu-inset-sm: inset 3px 3px 6px var(--neu-sh-dark), inset -3px -3px 6px var(--neu-sh-light);
+}
+
+html.dark {
+  --neu-bg: #1A2027;
+  --neu-ink: #E6EAF0;
+  --neu-mut: #9AA5B1;
+  --neu-acc: #8B84FF;
+  --neu-teal: #4DD0C9;
+
+  --neu-sh-light: rgba(255, 255, 255, 0.05);
+  --neu-sh-dark: rgba(0, 0, 0, 0.55);
+  --neu-sh-light-hi: rgba(255, 255, 255, 0.07);
+  --neu-sh-dark-hi: rgba(0, 0, 0, 0.65);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  background: var(--neu-bg);
+  color: var(--neu-ink);
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.neu-display {
+  font-family: "Plus Jakarta Sans", "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* ------------------------------------------------------- shadow stacks ---- */
+
+.neu-raised { box-shadow: var(--neu-extruded); }
+.neu-raised-lg { box-shadow: var(--neu-extruded-hover); }
+.neu-raised-sm { box-shadow: var(--neu-extruded-sm); }
+.neu-pressed { box-shadow: var(--neu-inset); }
+.neu-pressed-deep { box-shadow: var(--neu-inset-deep); }
+.neu-pressed-sm { box-shadow: var(--neu-inset-sm); }
+
+/* -------------------------------------------------------- micro-physics --- */
+
+.neu-lift {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+.neu-lift:hover {
+  transform: translateY(-2px);
+}
+.neu-card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--neu-extruded-hover);
+}
+.neu-squish {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+.neu-squish:hover { transform: translateY(-1px); box-shadow: var(--neu-extruded-hover); }
+.neu-squish:active { transform: translateY(0.5px); box-shadow: var(--neu-inset-sm); }
+
+/* focus rings — visible accent ring with offset, mandatory on interactive */
+.neu-focus:focus-visible {
+  outline: none;
+  box-shadow: var(--neu-extruded-sm), 0 0 0 2px var(--neu-bg), 0 0 0 4px var(--neu-acc);
+}
+
+/* ----------------------------------------------------------- background --- */
+
+@keyframes neu-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1.5deg); }
+}
+@keyframes neu-float-delayed {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-9px) rotate(-1.5deg); }
+}
+@keyframes neu-float-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(3deg); }
+}
+@keyframes neu-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.neu-anim-float { animation: neu-float 3s ease-in-out infinite; }
+.neu-anim-float-d { animation: neu-float-delayed 3.6s ease-in-out infinite; }
+.neu-anim-float-slow { animation: neu-float-slow 4.2s ease-in-out infinite; }
+.neu-anim-breathe { animation: neu-breathe 5s ease-in-out infinite; }
+
+/* decorative nested circles: extruded->inset->extruded depth play */
+.neu-ring {
+  box-shadow: var(--neu-extruded);
+  transition: transform 0.5s ease-out;
+}
+.neu-ring:hover {
+  transform: scale(1.05);
+}
+.neu-ring.in {
+  box-shadow: var(--neu-inset);
+}
+.neu-ring:hover .neu-ring-inner {
+  transform: rotate(180deg);
+}
+.neu-ring-inner {
+  transition: transform 0.5s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neu-anim-float, .neu-anim-float-d, .neu-anim-float-slow, .neu-anim-breathe { animation: none; }
+  .neu-lift:hover, .neu-squish:hover, .neu-card-lift:hover { transform: none; }
+}
