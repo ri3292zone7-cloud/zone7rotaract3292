@@ -3,18 +3,10 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AtSign, CalendarDays, Compass, Globe2, HandHeart, Mail, MapPin, ShieldCheck, Users } from 'lucide-react';
 import Reveal from './Reveal';
-import { PRESIDENTS, PROJECTS, QUICK_FACTS } from './photos';
+import { PRESIDENTS, QUICK_FACTS } from './photos';
 import { CLUB, STATS } from './data';
 
 gsap.registerPlugin(ScrollTrigger);
-
-const CATEGORY_COLORS = {
-  Education: '#E0475F',
-  Health: '#0FB5B1',
-  Leadership: '#F2A900',
-  'Professional Development': '#6A3FA0',
-  Environment: '#1C8A4D'
-};
 
 const GOAL_ICONS = [Users, Globe2, ShieldCheck, Compass];
 
@@ -169,53 +161,6 @@ export function AboutSection() {
   );
 }
 
-export function ProjectsSection() {
-  const [featured, ...rest] = PROJECTS;
-  return (
-    <div>
-      <Reveal>
-        <p className="text-xs font-bold tracking-[0.2em] text-[#0FB5B1] uppercase">In action · {PROJECTS.length} projects</p>
-        <h2 className="mt-1 text-3xl font-black text-[#241D4D] md:text-4xl">Projects run by this club.</h2>
-      </Reveal>
-      <Reveal delay={100}>
-        <article className="mt-4 grid overflow-hidden rounded-3xl bg-[#241D4D] text-white shadow-[0_24px_55px_-28px_rgba(36,29,77,.7)] md:grid-cols-2">
-          <img src={featured.img} alt={featured.title} loading="lazy" className="h-52 w-full object-cover md:h-full md:min-h-64" />
-          <div className="p-5 md:p-6">
-            <span
-              className="rounded-full px-2.5 py-1 text-[10px] font-black tracking-widest uppercase"
-              style={{ backgroundColor: CATEGORY_COLORS[featured.category], color: '#fff' }}
-            >
-              {featured.category}
-            </span>
-            <h3 className="mt-2 text-xl font-extrabold md:text-2xl">{featured.title}</h3>
-            <p className="mt-2 text-xs leading-relaxed text-white/70">{featured.location}</p>
-            <p className="mt-1 text-xs font-bold text-[#FFB86B] tabular-nums">{featured.date}</p>
-          </div>
-        </article>
-      </Reveal>
-      <div className="mt-3 grid gap-3 sm:grid-cols-2">
-        {rest.map((p, i) => (
-          <Reveal key={p.title} delay={(i % 2) * 80}>
-            <article className="flex h-full gap-3 rounded-2xl border border-[#F0D9BE] bg-white/85 p-4 transition-transform duration-300 hover:-translate-y-0.5">
-              <span
-                className="mt-1 size-3 shrink-0 rounded-full"
-                style={{ backgroundColor: CATEGORY_COLORS[p.category] || '#E0475F' }}
-              />
-              <div className="min-w-0">
-                <h3 className="text-sm leading-snug font-extrabold text-[#241D4D]">{p.title}</h3>
-                <p className="mt-1 truncate text-[11px] font-semibold text-[#6B5B73]">{p.location}</p>
-                <p className="mt-1 text-[11px] font-bold text-[#A82F43] tabular-nums">
-                  {p.category} · {p.date}
-                </p>
-              </div>
-            </article>
-          </Reveal>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export function QuickFacts() {
   return (
     <Reveal>
@@ -254,7 +199,10 @@ export function GoalsSection() {
                 <h3 className="text-lg font-extrabold text-[#241D4D]">{g.title}</h3>
               </div>
               <p className="mt-3 text-sm leading-relaxed text-[#4A3F63]">{g.body}</p>
-              <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-[#0B7C7A]">
+              <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[#241D4D]/8" aria-hidden="true">
+                <div className="suk-shimmer h-full w-2/5 rounded-full bg-gradient-to-r from-[#E0475F] to-[#F2A900]" />
+              </div>
+              <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-[#0B7C7A]">
                 <span className="relative flex size-2">
                   <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#0FB5B1] opacity-60" />
                   <span className="relative inline-flex size-2 rounded-full bg-[#0FB5B1]" />

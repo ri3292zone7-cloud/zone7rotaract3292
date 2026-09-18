@@ -58,6 +58,10 @@ const Bird = forwardRef(function Bird({ motionRef, flipKey = 0, calm = false, ..
       }
     }
     g.position.y = y;
+    /* Scroll-velocity lean, written by the parent each frame (0 when idle). */
+    if (motion && typeof motion.lean === 'number') {
+      g.rotation.z += (motion.lean - g.rotation.z) * Math.min(d * 8, 1);
+    }
   });
 
   const feather = { color: ROSE, roughness: 0.6, flatShading: true };

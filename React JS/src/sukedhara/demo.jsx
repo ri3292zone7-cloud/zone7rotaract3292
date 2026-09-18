@@ -5,10 +5,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowLeft, AtSign, Mail, MapPin, MousePointerClick, Sparkles } from 'lucide-react';
 import HeroScene from './HeroScene';
 import Reveal from './Reveal';
+import { Lightbox, ProjectsTimeline, SaturdaySection, VoicesStrip, useLightbox } from './FieldStory';
 import { BoardSection, PresidentsRail } from './Leadership';
-import { AboutSection, GoalsSection, MeetupSection, ProjectsSection, QuickFacts, StatsBand } from './Sections';
+import { AboutSection, GoalsSection, MeetupSection, QuickFacts, StatsBand } from './Sections';
 import { CLUB } from './data';
 import { LOGOS } from './photos';
+import { BIRD_QUIPS } from './stories';
 import './demo.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -61,10 +63,33 @@ function DemoBanner() {
   );
 }
 
-function Hero({ flip, onFlip, calm }) {
+/* Magnetic wrapper: CTAs lean gently toward the cursor (fine pointers only). */
+function Magnetic({ children }) {
+  const ref = useRef(null);
+  const onMove = (e) => {
+    const el = ref.current;
+    if (!el || e.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const r = el.getBoundingClientRect();
+    const dx = e.clientX - (r.left + r.width / 2);
+    const dy = e.clientY - (r.top + r.height / 2);
+    el.style.transform = `translate(${dx * 0.12}px, ${dy * 0.18}px)`;
+  };
+  const onLeave = () => {
+    if (ref.current) ref.current.style.transform = '';
+  };
+  return (
+    <span ref={ref} onPointerMove={onMove} onPointerLeave={onLeave} className="inline-block transition-transform duration-200 will-change-transform">
+      {children}
+    </span>
+  );
+}
+
+function Hero({ flip, onFlip, calm, quip }) {
   const rootRef = useRef(null);
   const copyRef = useRef(null);
   const birdRef = useRef(null);
+  const glowRef = useRef(null);
+  const motion = useRef({ flap: 1, squash: 1, lean: 0 });
 
   useLayoutEffect(() => {
     if (calm) return;
@@ -84,9 +109,44 @@ function Hero({ flip, onFlip, calm }) {
     return () => ctx.revert();
   }, [calm]);
 
+  /* Scroll velocity → wing flap + lean. One rAF loop, cleaned up on unmount. */
+  useEffect(() => {
+    if (calm) return;
+    let raf = 0;
+    let last = window.scrollY;
+    let flap = 1;
+    let lean = 0;
+    const loop = () => {
+      raf = requestAnimationFrame(loop);
+      const y = window.scrollY;
+      const v = y - last;
+      last = y;
+      const target = 1 + Math.min(Math.abs(v) * 0.09, 2.6);
+      flap += (target - flap) * 0.12;
+      const leanT = Math.max(Math.min(-v * 0.004, 0.32), -0.32);
+      lean += (leanT - lean) * 0.1;
+      motion.current.flap = flap;
+      motion.current.lean = lean;
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, [calm]);
+
+  const onGlow = (e) => {
+    const el = glowRef.current;
+    if (!el || e.pointerType !== 'mouse') return;
+    const r = rootRef.current.getBoundingClientRect();
+    el.style.transform = `translate(${e.clientX - r.left - 160}px, ${e.clientY - r.top - 160}px)`;
+  };
+
   return (
-    <header ref={rootRef} className="relative overflow-hidden">
+    <header ref={rootRef} onPointerMove={onGlow} className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 suk-hero-glow" aria-hidden="true" />
+      <div
+        ref={glowRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 left-0 hidden h-80 w-80 rounded-full bg-[#FFB86B]/20 blur-3xl md:block"
+      />
       <div className="relative mx-auto grid max-w-6xl items-center gap-1 px-4 pt-4 pb-1 md:grid-cols-2 md:px-8 md:pt-6">
         <div ref={copyRef} className="text-center will-change-transform md:text-left">
           <a
@@ -107,30 +167,42 @@ function Hero({ flip, onFlip, calm }) {
             by the second Saturday.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-3 md:justify-start">
-            <button
-              type="button"
-              onClick={(e) => {
-                popConfetti(e.clientX, e.clientY);
-                onFlip();
-              }}
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#E0475F] to-[#F2A900] px-6 py-3 text-sm font-extrabold text-white shadow-[0_16px_35px_-15px_rgba(224,71,95,.8)] transition-transform hover:scale-105 active:scale-95"
-            >
-              <MousePointerClick className="size-4" /> Poke the bird
-            </button>
-            <a
-              href="#story"
-              className="inline-flex items-center gap-2 rounded-full border-2 border-[#241D4D]/15 bg-white/70 px-6 py-3 text-sm font-extrabold text-[#241D4D] transition-colors hover:border-[#E0475F] hover:text-[#A82F43]"
-            >
-              <Sparkles className="size-4" /> Start the story
-            </a>
+            <Magnetic>
+              <button
+                type="button"
+                onClick={(e) => {
+                  popConfetti(e.clientX, e.clientY);
+                  onFlip();
+                }}
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#E0475F] to-[#F2A900] px-6 py-3 text-sm font-extrabold text-white shadow-[0_16px_35px_-15px_rgba(224,71,95,.8)] transition-transform hover:scale-105 active:scale-95"
+              >
+                <MousePointerClick className="size-4" /> Poke the bird
+              </button>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href="#story"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-[#241D4D]/15 bg-white/70 px-6 py-3 text-sm font-extrabold text-[#241D4D] transition-colors hover:border-[#E0475F] hover:text-[#A82F43]"
+              >
+                <Sparkles className="size-4" /> Start the story
+              </a>
+            </Magnetic>
           </div>
           <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-[#6B5B73] md:justify-start">
             <MapPin className="size-3.5" /> {CLUB.venue}
           </p>
         </div>
         <div ref={birdRef} className="relative h-[260px] will-change-transform sm:h-[320px] md:h-[400px]">
-          <HeroScene flipKey={flip} onFlip={onFlip} calm={calm} />
-          {!calm && (
+          <HeroScene flipKey={flip} onFlip={onFlip} calm={calm} motionRef={motion} />
+          {quip && (
+            <p
+              key={quip + flip}
+              className="suk-quip pointer-events-none absolute top-2 left-1/2 -translate-x-1/2 rounded-2xl rounded-bl-sm border border-[#F0D9BE] bg-white px-4 py-2 text-sm font-extrabold whitespace-nowrap text-[#A82F43] shadow-xl"
+            >
+              {quip}
+            </p>
+          )}
+          {!calm && !quip && (
             <p className="pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-[#241D4D]/70 px-3 py-1 text-[11px] font-bold whitespace-nowrap text-white">
               Psst — click the bird
             </p>
@@ -165,6 +237,7 @@ const CHAPTERS = [
   { id: 'goals', label: 'Goals' },
   { id: 'board', label: 'Board' },
   { id: 'projects', label: 'Projects' },
+  { id: 'saturday', label: 'Saturdays' },
   { id: 'legacy', label: 'Legacy' },
   { id: 'meetup', label: 'Meetup' }
 ];
@@ -259,6 +332,17 @@ function Footer() {  return (
 function App() {
   const calm = usePrefersReducedMotion();
   const [flip, setFlip] = useState(0);
+  const [quip, setQuip] = useState(null);
+  const { box, openGallery, close, step } = useLightbox();
+
+  const handleFlip = () => {
+    setFlip((f) => {
+      setQuip(BIRD_QUIPS[f % BIRD_QUIPS.length]);
+      return f + 1;
+    });
+    window.clearTimeout(handleFlip._t);
+    handleFlip._t = window.setTimeout(() => setQuip(null), 2400);
+  };
 
   /* Scroll-linked slide wipe: each chapter un-clips into full view. */
   useLayoutEffect(() => {
@@ -283,9 +367,10 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#FFF6EC] font-[Inter] text-[#241D4D] antialiased">
+      <div className="suk-grain" aria-hidden="true" />
       <DemoBanner />
       <DotNav />
-      <Hero flip={flip} onFlip={() => setFlip((f) => f + 1)} calm={calm} />
+      <Hero flip={flip} onFlip={handleFlip} calm={calm} quip={quip} />
       <Marquee />
 
       <main className="mx-auto max-w-6xl space-y-3 px-4 pt-4 md:space-y-5 md:px-8 md:pt-6">
@@ -308,20 +393,29 @@ function App() {
           <BoardSection />
         </Slide>
 
-        <Slide id="projects" index={5} label="Projects in action">
-          <ProjectsSection />
+        <Slide id="projects" index={5} label="A year in the field">
+          <ProjectsTimeline onOpenGallery={openGallery} />
+        </Slide>
+
+        <Slide id="saturday" index={6} label="Saturday at ten">
+          <SaturdaySection onOpenGallery={openGallery} />
         </Slide>
 
         <div id="legacy" className="-mx-4 scroll-mt-4 md:-mx-8">
           <PresidentsRail />
         </div>
 
-        <Slide id="meetup" index={7} label="Meet us Saturday">
+        <div className="pt-2">
+          <VoicesStrip />
+        </div>
+
+        <Slide id="meetup" index={8} label="Meet us Saturday">
           <MeetupSection />
         </Slide>
       </main>
 
       <Footer />
+      {box.open && <Lightbox photos={box.photos} index={box.index} onClose={close} onStep={step} />}
     </div>
   );
 }

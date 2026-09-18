@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Crown } from 'lucide-react';
 import Reveal from './Reveal';
 import { BOARD_FULL, PRESIDENTS } from './photos';
+import { BOARD_LINES } from './stories';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,6 +32,9 @@ export function BoardSection() {
                 {president.role}
               </span>
               <h3 className="mt-1.5 text-xl font-extrabold text-white">{president.name}</h3>
+              {BOARD_LINES[president.role] && (
+                <p className="text-xs font-semibold text-white/75 italic">{BOARD_LINES[president.role]}</p>
+              )}
             </div>
           </article>
         </Reveal>
@@ -46,6 +50,9 @@ export function BoardSection() {
               <div className="min-w-0">
                 <h3 className="truncate text-sm font-extrabold text-[#241D4D]">{p.name}</h3>
                 <p className="truncate text-[11px] font-semibold text-[#6B5B73]">{p.role}</p>
+                {BOARD_LINES[p.role] && (
+                  <p className="truncate text-[11px] text-[#A82F43] italic">{BOARD_LINES[p.role]}</p>
+                )}
               </div>
             </article>
           </Reveal>

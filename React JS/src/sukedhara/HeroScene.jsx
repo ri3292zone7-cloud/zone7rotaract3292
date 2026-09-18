@@ -76,8 +76,8 @@ function Burst({ burstKey }) {
   );
 }
 
-export default function HeroScene({ flipKey, onFlip, calm }) {
-  const motion = useRef({ flap: 1, squash: 1 });
+export default function HeroScene({ flipKey, onFlip, calm, motionRef }) {
+  const fallback = useRef({ flap: 1, squash: 1 });
 
   return (
     <Canvas
@@ -103,7 +103,7 @@ export default function HeroScene({ flipKey, onFlip, calm }) {
           document.body.style.cursor = '';
         }}
       >
-        <Bird motionRef={motion} flipKey={flipKey} calm={calm} />
+        <Bird motionRef={motionRef || fallback} flipKey={flipKey} calm={calm} />
       </group>
 
       <Float speed={1.6} rotationIntensity={0.6} floatIntensity={1.4} position={[2.7, 0.9, -1]}>
