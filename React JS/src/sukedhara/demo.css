@@ -4,24 +4,27 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
-  --color-ink: #0a0a0f;
-  --color-panel: #12131c;
-  --color-raise: #171924;
-  --color-hair: #24252f;
-  --color-bone: #f2eee3;
-  --color-mut: #8b8e9e;
-  --color-flame: #ff4d1c;
-  --color-volt: #37d6c0;
+  --color-page: #f4f7f4;
+  --color-paper: #ffffff;
+  --color-teal: #2ea5ad;
+  --color-teal-deep: #1e6e74;
+  --color-teal-ink: #123b3c;
+  --color-coral: #e96d51;
+  --color-magenta: #d22163;
+  --color-line: #dce7e6;
+  --color-ink: #16383a;
+  --color-mut: #5b7475;
 }
 
 html {
-  scrollbar-color: #3a3b4a #0a0a0f;
+  scroll-behavior: smooth;
+  scrollbar-color: #9fc6c7 #ffffff;
 }
 
 body {
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
-  background: #0a0a0f;
-  color: #f2eee3;
+  background: #f4f7f4;
+  color: #16383a;
 }
 
 h1,
@@ -34,28 +37,20 @@ h4 {
 
 /* ---------------------------------------------------------------- hero -- */
 
-/* Deep velvets behind the gear scene. */
-.suk-hero-dark {
+/* Soft brand blobs behind the hero. */
+.suk-hero-aqua {
   background:
-    radial-gradient(760px 520px at 82% 28%, rgba(255, 77, 28, 0.16), transparent 66%),
-    radial-gradient(820px 560px at 48% 78%, rgba(55, 214, 192, 0.12), transparent 66%),
-    radial-gradient(600px 460px at 4% 12%, rgba(242, 238, 227, 0.05), transparent 60%),
-    linear-gradient(180deg, #0d0d14 0%, #0a0a0f 70%);
+    radial-gradient(640px 460px at 88% 24%, rgba(46, 165, 173, 0.24), transparent 64%),
+    radial-gradient(620px 480px at 46% 84%, rgba(233, 109, 81, 0.16), transparent 64%),
+    radial-gradient(520px 400px at 6% 18%, rgba(210, 33, 99, 0.08), transparent 60%);
 }
 
-/* Subtle corner vignette over the whole page. */
-.suk-vignette {
-  background: radial-gradient(140% 110% at 50% 6%, transparent 60%, rgba(0, 0, 0, 0.55) 100%);
-}
-
-/* Big display fill on the hero headline. */
 .suk-hero-title {
   font-family: "Space Grotesk", sans-serif;
   font-weight: 800;
-  line-height: 0.96;
-  letter-spacing: -0.035em;
-  text-transform: uppercase;
-  font-size: clamp(2.9rem, 9vw, 6.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  font-size: clamp(2.8rem, 8vw, 5.8rem);
 }
 
 /* -------------------------------------------------------------- motion -- */
@@ -63,7 +58,7 @@ h4 {
 @keyframes suk-rise {
   from {
     opacity: 0;
-    transform: translateY(26px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -72,7 +67,7 @@ h4 {
 }
 
 .suk-rise {
-  animation: suk-rise 0.8s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  animation: suk-rise 0.75s cubic-bezier(0.2, 0.7, 0.3, 1) both;
 }
 
 @keyframes suk-ticker {
@@ -85,7 +80,7 @@ h4 {
 }
 
 .suk-ticker-track {
-  animation: suk-ticker 32s linear infinite;
+  animation: suk-ticker 30s linear infinite;
 }
 
 @keyframes suk-spin {
@@ -95,7 +90,7 @@ h4 {
 }
 
 .suk-spin-slow {
-  animation: suk-spin 14s linear infinite;
+  animation: suk-spin 16s linear infinite;
 }
 
 @keyframes suk-flicker {
@@ -124,15 +119,15 @@ h4 {
   animation: suk-flicker 7s infinite;
 }
 
-/* Scroll-reveal: hidden state → .suk-revealed on intersection. */
+/* Scroll-reveal. */
 .suk-reveal {
   opacity: 0;
-  transform: translateY(30px);
-  filter: blur(8px);
+  transform: translateY(26px);
+  filter: blur(6px);
   transition:
-    opacity 0.75s ease var(--suk-delay, 0ms),
-    transform 0.75s cubic-bezier(0.2, 0.7, 0.3, 1) var(--suk-delay, 0ms),
-    filter 0.75s ease var(--suk-delay, 0ms);
+    opacity 0.7s ease var(--suk-delay, 0ms),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) var(--suk-delay, 0ms),
+    filter 0.7s ease var(--suk-delay, 0ms);
   will-change: opacity, transform, filter;
 }
 
@@ -159,7 +154,6 @@ h4 {
 
 /* ---------------------------------------------------------------- tint -- */
 
-/* Indeterminate shimmer for in-progress goal bars. */
 @keyframes suk-shimmer {
   0% {
     transform: translateX(-100%);
@@ -173,17 +167,15 @@ h4 {
   animation: suk-shimmer 2.4s ease-in-out infinite;
 }
 
-/* Film-grain overlay for a handled, cinema feel. */
 .suk-grain {
   position: fixed;
   inset: 0;
   z-index: 70;
   pointer-events: none;
-  opacity: 0.06;
+  opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
 }
 
-/* Light sweep across a panel once it arrives on screen. */
 @keyframes suk-sweep {
   0% {
     transform: translateX(-120%) skewX(-18deg);
@@ -198,7 +190,7 @@ h4 {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgba(242, 238, 227, 0.07), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
   width: 40%;
   animation: suk-sweep 2.6s ease-out 0.4s 1;
 }
@@ -220,8 +212,8 @@ h4 {
   height: 1rem;
   left: 0.5rem;
   border-radius: 9999px;
-  border: 3px solid #0a0a0f;
-  box-shadow: 0 0 0 1px rgba(242, 238, 227, 0.35), 0 2px 10px rgba(0, 0, 0, 0.6);
+  border: 3px solid #f4f7f4;
+  box-shadow: 0 0 0 1px rgba(46, 165, 173, 0.55), 0 2px 10px rgba(18, 59, 60, 0.25);
 }
 
 @media (min-width: 768px) {

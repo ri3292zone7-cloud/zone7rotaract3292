@@ -2,13 +2,15 @@ import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, Sparkles } from '@react-three/drei';
 
-const BONE = '#F2EEE3';
-const FLAME = '#FF4D1C';
-const FLAME_DEEP = '#C93910';
-const VOLT = '#37D6C0';
+const TEAL = '#2EA5AD';
+const TEAL_DEEP = '#1E6E74';
+const CORAL = '#E96D51';
+const MAGENTA = '#D22163';
+const CLEAR = '#F4F7F4';
 
 /*
- * A Rotaract-style gear in bone + flame, floating over a particle field.
+ * A Rotaract-style gear in the club's teal + coral, floating over a
+ * particle field.
  * - Constant slow spin, boosted by scroll velocity (the faster you scroll,
  *   the harder the wheel turns) and by click impulse.
  * - Gentle mouse tilt for depth; still framed when reduced-motion is on.
@@ -45,35 +47,35 @@ function GearWheel({ api, calm, onSpin }) {
         {/* outer ring */}
         <mesh>
           <torusGeometry args={[1.5, 0.12, 16, 72]} />
-          <meshStandardMaterial color={BONE} metalness={0.75} roughness={0.28} />
+          <meshStandardMaterial color={TEAL} metalness={0.7} roughness={0.28} />
         </mesh>
         {/* teeth */}
         {teeth.map((a) => (
           <mesh key={a} position={[Math.cos(a) * 1.66, Math.sin(a) * 1.66, 0]} rotation={[0, 0, a]}>
             <boxGeometry args={[0.2, 0.2, 0.2]} />
-            <meshStandardMaterial color={BONE} metalness={0.75} roughness={0.3} />
+            <meshStandardMaterial color={TEAL} metalness={0.7} roughness={0.3} />
           </mesh>
         ))}
-        {/* six rose spokes */}
+        {/* six coral spokes */}
         {spokes.map((a) => (
           <mesh key={a} rotation={[0, 0, a]}>
             <boxGeometry args={[0.17, 2.72, 0.17]} />
-            <meshStandardMaterial color={FLAME} metalness={0.45} roughness={0.4} />
+            <meshStandardMaterial color={CORAL} metalness={0.4} roughness={0.4} />
           </mesh>
         ))}
         {/* glowing inner ring */}
         <mesh>
           <torusGeometry args={[0.98, 0.045, 12, 64]} />
-          <meshStandardMaterial color={FLAME_DEEP} emissive={FLAME} emissiveIntensity={1.4} toneMapped={false} />
+          <meshStandardMaterial color={MAGENTA} emissive={MAGENTA} emissiveIntensity={1.4} toneMapped={false} />
         </mesh>
         {/* hub */}
         <mesh rotation={[Math.PI / 2, 0, 0]}>
           <cylinderGeometry args={[0.44, 0.44, 0.3, 32]} />
-          <meshStandardMaterial color={BONE} metalness={0.8} roughness={0.25} />
+          <meshStandardMaterial color={TEAL} metalness={0.75} roughness={0.25} />
         </mesh>
         <mesh>
           <sphereGeometry args={[0.2, 24, 24]} />
-          <meshStandardMaterial color={FLAME} emissive={FLAME} emissiveIntensity={1.1} toneMapped={false} />
+          <meshStandardMaterial color={MAGENTA} emissive={MAGENTA} emissiveIntensity={1.1} toneMapped={false} />
         </mesh>
       </group>
     </group>
@@ -85,22 +87,22 @@ function Rig({ api, calm, onSpin }) {
     <>
       <ambientLight intensity={0.55} />
       <directionalLight position={[4, 5, 6]} intensity={1.6} />
-      <pointLight position={[-5, -1, 3]} intensity={30} color={FLAME} />
-      <pointLight position={[5, 2, 2]} intensity={24} color={BONE} />
+      <pointLight position={[-5, -1, 3]} intensity={30} color={CORAL} />
+      <pointLight position={[5, 2, 2]} intensity={24} color={TEAL} />
       <GearWheel api={api} calm={calm} onSpin={onSpin} />
-      <Sparkles count={calm ? 30 : 90} scale={[9, 6, 4]} size={3.2} speed={0.28} color={BONE} opacity={0.75} />
+      <Sparkles count={calm ? 30 : 90} scale={[9, 6, 4]} size={3.2} speed={0.28} color={CLEAR} opacity={0.85} />
       {!calm && (
         <>
           <Float speed={1.6} rotationIntensity={0.7} floatIntensity={1.4} position={[-3.1, 1.2, -1]}>
             <mesh>
               <icosahedronGeometry args={[0.32, 0]} />
-              <meshStandardMaterial color={VOLT} metalness={0.4} roughness={0.4} />
+              <meshStandardMaterial color={CLEAR} metalness={0.3} roughness={0.35} />
             </mesh>
           </Float>
           <Float speed={2} rotationIntensity={0.9} floatIntensity={1.6} position={[3.2, -1.3, -0.6]}>
             <mesh>
               <torusGeometry args={[0.26, 0.09, 12, 32]} />
-              <meshStandardMaterial color={FLAME} metalness={0.5} roughness={0.35} />
+              <meshStandardMaterial color={CORAL} metalness={0.4} roughness={0.35} />
             </mesh>
           </Float>
         </>

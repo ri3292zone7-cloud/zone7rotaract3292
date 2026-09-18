@@ -2,7 +2,7 @@ import { StrictMode, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowDown, ArrowLeft, AtSign, Mail, MapPin, RotateCw } from 'lucide-react';
+import { ArrowDown, AtSign, Mail, MapPin, RotateCw } from 'lucide-react';
 import GearScene from './GearScene';
 import Reveal from './Reveal';
 import { Lightbox, ProjectsTimeline, SaturdaySection, VoicesStrip, useLightbox } from './FieldStory';
@@ -14,14 +14,13 @@ import './demo.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const CONFETTI_COLORS = ['#FF4D1C', '#37D6C0', '#F2EEE3', '#FFB86B', '#6A3FA0'];
+const CONFETTI_COLORS = ['#2EA5AD', '#E96D51', '#D22163', '#123B3C', '#F2A900'];
 
-/* DOM confetti burst at a point. */
 function popConfetti(x, y, count = 46) {
   for (let i = 0; i < count; i++) {
     const bit = document.createElement('span');
-    const size = 4 + Math.random() * 7;
-    bit.style.cssText = `position:fixed;left:${x}px;top:${y}px;width:${size}px;height:${size * 0.7}px;z-index:90;pointer-events:none;border-radius:1px;background:${CONFETTI_COLORS[i % CONFETTI_COLORS.length]};`;
+    const size = 5 + Math.random() * 7;
+    bit.style.cssText = `position:fixed;left:${x}px;top:${y}px;width:${size}px;height:${size * 0.7}px;z-index:90;pointer-events:none;border-radius:2px;background:${CONFETTI_COLORS[i % CONFETTI_COLORS.length]};`;
     document.body.appendChild(bit);
     const dx = (Math.random() - 0.5) * 440;
     const dy = -80 - Math.random() * 280;
@@ -51,18 +50,60 @@ function usePrefersReducedMotion() {
   return calm;
 }
 
-function DemoBanner() {
+const NAV_LINKS = [
+  { id: 'ledger', label: 'Numbers' },
+  { id: 'manifesto', label: 'Story' },
+  { id: 'people', label: 'Board' },
+  { id: 'field', label: 'Field' },
+  { id: 'saturday', label: 'Saturdays' },
+  { id: 'invite', label: 'Join' }
+];
+
+function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   return (
-    <div className="border-b border-hair bg-ink px-4 py-2 text-center font-mono text-[10px] tracking-[0.18em] text-mut uppercase">
-      Demo concept for the {CLUB.name} — not the official page.{' '}
-      <a href="/sukedhara" className="font-semibold text-flame underline underline-offset-2 hover:text-bone">
-        See the official club page →
-      </a>
-    </div>
+    <header
+      className={`sticky top-0 z-50 border-b transition-all duration-300 ${
+        scrolled
+          ? 'border-line bg-paper/90 shadow-[0_10px_30px_-18px_rgba(18,59,60,.35)] backdrop-blur-md'
+          : 'border-transparent bg-transparent'
+      }`}
+    >
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
+        <a href="/" className="flex items-center gap-2.5">
+          <img src={LOGOS.alt} alt="Rotaract Club of Sukedhara" className="h-8 w-auto" />
+          <span className="hidden font-mono text-[11px] font-semibold tracking-[0.14em] text-mut uppercase md:block">
+            {CLUB.short}
+          </span>
+        </a>
+        <nav aria-label="Sections" className="hidden items-center gap-6 lg:flex">
+          {NAV_LINKS.map((l) => (
+            <a
+              key={l.id}
+              href={`#${l.id}`}
+              className="font-mono text-[11px] font-semibold tracking-[0.14em] text-ink/70 uppercase transition-colors hover:text-coral"
+            >
+              {l.label}
+            </a>
+          ))}
+        </nav>
+        <a
+          href="#invite"
+          className="rounded-full bg-coral px-5 py-2 font-mono text-[11px] font-bold tracking-[0.12em] text-white uppercase transition-transform hover:scale-105"
+        >
+          Join us
+        </a>
+      </div>
+    </header>
   );
 }
 
-/* Magnetic wrapper: CTAs lean gently toward the cursor. */
 function Magnetic({ children }) {
   const ref = useRef(null);
   const onMove = (e) => {
@@ -83,7 +124,6 @@ function Magnetic({ children }) {
   );
 }
 
-/* Issue-cover hero: the headline, the wheel, and nothing else. */
 function Hero({ calm, gearRef, gearBoxRef, onSpin }) {
   const rootRef = useRef(null);
   const copyRef = useRef(null);
@@ -93,8 +133,8 @@ function Hero({ calm, gearRef, gearBoxRef, onSpin }) {
     if (calm) return;
     const ctx = gsap.context(() => {
       gsap.to(copyRef.current, {
-        yPercent: -9,
-        opacity: 0.18,
+        yPercent: -8,
+        opacity: 0.35,
         ease: 'none',
         scrollTrigger: { trigger: rootRef.current, start: 'top top', end: 'bottom top', scrub: true }
       });
@@ -110,33 +150,37 @@ function Hero({ calm, gearRef, gearBoxRef, onSpin }) {
   };
 
   return (
-    <header ref={rootRef} onPointerMove={onGlow} className="suk-vignette relative overflow-hidden bg-ink text-bone">
-      <div className="suk-hero-dark pointer-events-none absolute inset-0" aria-hidden="true" />
+    <header ref={rootRef} onPointerMove={onGlow} className="relative overflow-hidden">
+      <div className="suk-hero-aqua pointer-events-none absolute inset-0" aria-hidden="true" />
       <div
         ref={glowRef}
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-0 hidden h-[26rem] w-[26rem] rounded-full bg-flame/10 blur-3xl md:block"
+        className="pointer-events-none absolute top-0 left-0 hidden h-[24rem] w-[24rem] rounded-full bg-teal/10 blur-3xl md:block"
       />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-2 px-4 pt-5 pb-10 md:grid-cols-[1.08fr_1fr] md:px-8 md:pt-7 md:pb-14">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-2 px-4 pt-8 pb-10 md:grid-cols-[1.08fr_1fr] md:px-8 md:pt-12 md:pb-16">
         <div ref={copyRef} className="text-center will-change-transform md:text-left">
-          <p className="suk-rise inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.22em] text-volt uppercase" style={{ animationDelay: '60ms' }}>
+          <p
+            className="suk-rise inline-flex items-center gap-2 rounded-full border border-teal/30 bg-paper/80 px-3 py-1.5 font-mono text-[10px] font-semibold tracking-[0.18em] text-teal-deep uppercase"
+            style={{ animationDelay: '60ms' }}
+          >
             <img src={LOGOS.wheel} alt="" className="suk-spin-slow size-4 opacity-90" />
-            District 3292 · Chartered 01.07.2019
+            The Compassion Club · Chartered 2019
           </p>
-          <h1 className="suk-rise suk-hero-title mt-5 text-bone" style={{ animationDelay: '150ms' }}>
-            Compassion,
+          <h1 className="suk-rise suk-hero-title mt-5 text-teal-ink" style={{ animationDelay: '150ms' }}>
+            Compassion
             <br />
-            in action<span className="text-flame">.</span>
+            in <span className="text-teal">action</span>
+            <span className="text-coral">.</span>
           </h1>
-          <p className="suk-rise mx-auto mt-6 max-w-xl leading-relaxed text-bone/70 md:mx-0" style={{ animationDelay: '240ms' }}>
-            Twenty members. Nine field projects in one year. A room in Baneshwar that learns your name
-            by the second Saturday. {CLUB.meeting}.
+          <p className="suk-rise mx-auto mt-6 max-w-xl leading-relaxed text-ink/70 md:mx-0" style={{ animationDelay: '240ms' }}>
+            Twenty members. Nine field projects in a year. A room in Baneshwar that learns your name by
+            the second Saturday. {CLUB.meeting}.
           </p>
           <div className="suk-rise mt-7 flex flex-wrap justify-center gap-3 md:justify-start" style={{ animationDelay: '330ms' }}>
             <Magnetic>
               <a
-                href="#ledger"
-                className="inline-flex items-center gap-2 bg-flame px-7 py-3.5 font-mono text-xs font-semibold tracking-[0.16em] text-ink uppercase transition-transform hover:scale-105 active:scale-95"
+                href="#manifesto"
+                className="inline-flex items-center gap-2 rounded-full bg-teal px-7 py-3.5 font-mono text-xs font-bold tracking-[0.12em] text-white uppercase shadow-[0_16px_38px_-14px_rgba(46,165,173,.9)] transition-transform hover:scale-105 active:scale-95"
               >
                 Take the tour
               </a>
@@ -145,20 +189,23 @@ function Hero({ calm, gearRef, gearBoxRef, onSpin }) {
               <button
                 type="button"
                 onClick={onSpin}
-                className="inline-flex items-center gap-2 border border-bone/30 bg-bone/5 px-7 py-3.5 font-mono text-xs font-semibold tracking-[0.16em] text-bone uppercase transition-colors hover:border-flame hover:text-flame"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-teal/40 bg-paper/70 px-7 py-3.5 font-mono text-xs font-bold tracking-[0.12em] text-teal-deep uppercase transition-colors hover:border-coral hover:text-coral"
               >
                 <RotateCw className="size-4" /> Spin the wheel
               </button>
             </Magnetic>
           </div>
-          <p className="suk-rise mt-5 flex items-center justify-center gap-2 font-mono text-[10px] tracking-[0.14em] text-mut uppercase md:justify-start" style={{ animationDelay: '420ms' }}>
-            <MapPin className="size-3.5 text-flame" /> {CLUB.venue} · Kathmandu
+          <p
+            className="suk-rise mt-5 flex items-center justify-center gap-2 font-mono text-[10px] tracking-[0.12em] text-mut uppercase md:justify-start"
+            style={{ animationDelay: '420ms' }}
+          >
+            <MapPin className="size-3.5 text-coral" /> {CLUB.venue} · Kathmandu
           </p>
         </div>
         <div ref={gearBoxRef} className="relative h-[300px] sm:h-[380px] md:h-[540px]">
           <GearScene ref={gearRef} calm={calm} onSpin={onSpin} />
           {!calm && (
-            <p className="suk-flicker pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.18em] whitespace-nowrap text-bone/50 uppercase">
+            <p className="suk-flicker pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.18em] whitespace-nowrap text-teal-deep/60 uppercase">
               Click the wheel
             </p>
           )}
@@ -166,8 +213,8 @@ function Hero({ calm, gearRef, gearBoxRef, onSpin }) {
       </div>
       <a
         href="#ledger"
-        aria-label="Scroll to the ledger"
-        className="absolute bottom-3 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 font-mono text-[10px] tracking-[0.28em] text-bone/35 uppercase transition-colors hover:text-bone md:flex"
+        aria-label="Scroll to the numbers"
+        className="absolute bottom-3 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 font-mono text-[10px] tracking-[0.28em] text-teal-deep/50 uppercase transition-colors hover:text-teal md:flex"
       >
         Scroll
         <ArrowDown className="size-4 animate-bounce" />
@@ -187,12 +234,12 @@ const TICKER_ITEMS = [
 function Ticker() {
   const row = [...TICKER_ITEMS, ...TICKER_ITEMS];
   return (
-    <div className="overflow-hidden border-y border-hair bg-panel py-3" aria-hidden="true">
+    <div className="overflow-hidden bg-teal-deep py-3" aria-hidden="true">
       <div className="suk-ticker-track flex w-max items-center gap-8 pr-8">
         {row.map((item, i) => (
-          <span key={i} className="flex items-center gap-8 font-mono text-[11px] font-semibold tracking-[0.2em] whitespace-nowrap text-bone/55 uppercase">
+          <span key={i} className="flex items-center gap-8 font-mono text-[11px] font-semibold tracking-[0.2em] whitespace-nowrap text-white/85 uppercase">
             {item}
-            <span className="text-flame">✳</span>
+            <span className="text-coral">◆</span>
           </span>
         ))}
       </div>
@@ -201,10 +248,10 @@ function Ticker() {
 }
 
 const CHAPTERS = [
-  { id: 'ledger', label: 'Ledger', numeral: '01' },
-  { id: 'manifesto', label: 'Manifesto', numeral: '02' },
+  { id: 'ledger', label: 'Numbers', numeral: '01' },
+  { id: 'manifesto', label: 'Story', numeral: '02' },
   { id: 'promises', label: 'Four promises', numeral: '03' },
-  { id: 'people', label: 'The people', numeral: '04' },
+  { id: 'people', label: 'The board', numeral: '04' },
   { id: 'field', label: 'Field logs', numeral: '05' },
   { id: 'saturday', label: 'Saturday 10:00', numeral: '06' },
   { id: 'presidents', label: 'Eight presidents', numeral: '07' },
@@ -212,21 +259,19 @@ const CHAPTERS = [
   { id: 'invite', label: 'The invite', numeral: '09' }
 ];
 
-/* Editorial chapter block. */
 function Slide({ id, numeral, label, children, className = '' }) {
   return (
     <section id={id} className={`suk-slide flex scroll-mt-4 flex-col justify-center py-10 md:py-14 ${className}`}>
       <div className="mb-6 flex items-baseline gap-4 md:mb-8">
-        <span className="font-mono text-sm font-semibold tracking-[0.1em] text-flame tabular-nums">{numeral}</span>
-        <span className="font-mono text-[11px] font-semibold tracking-[0.3em] text-bone uppercase">{label}</span>
-        <span className="h-px flex-1 bg-hair" />
+        <span className="font-mono text-sm font-semibold tracking-[0.1em] text-coral tabular-nums">{numeral}</span>
+        <span className="font-mono text-[11px] font-semibold tracking-[0.3em] text-ink uppercase">{label}</span>
+        <span className="h-px flex-1 bg-line" />
       </div>
       {children}
     </section>
   );
 }
 
-/* Fixed chapter index (desktop). */
 function ChapterRail() {
   const [active, setActive] = useState(CHAPTERS[0].id);
   useEffect(() => {
@@ -252,7 +297,7 @@ function ChapterRail() {
             <a href={`#${c.id}`} className="group flex items-center gap-2">
               <span
                 className={`font-mono text-[10px] tracking-[0.2em] transition-all duration-300 ${
-                  active === c.id ? 'text-bone opacity-100' : 'translate-x-2 opacity-0 group-hover:opacity-50'
+                  active === c.id ? 'text-teal-deep opacity-100' : 'translate-x-2 opacity-0 group-hover:opacity-50'
                 }`}
               >
                 {c.numeral}
@@ -260,8 +305,8 @@ function ChapterRail() {
               <span
                 className={`block transition-all duration-300 ${
                   active === c.id
-                    ? 'size-2.5 bg-flame shadow-[0_0_0_4px_rgba(255,77,28,.18)]'
-                    : 'size-1.5 bg-bone/25 group-hover:bg-bone/50'
+                    ? 'size-2.5 bg-teal shadow-[0_0_0_4px_rgba(46,165,173,.18)]'
+                    : 'size-1.5 bg-ink/25 group-hover:bg-ink/50'
                 }`}
               />
             </a>
@@ -274,29 +319,26 @@ function ChapterRail() {
 
 function Footer() {
   return (
-    <footer className="mt-6 border-t border-hair bg-panel px-4 py-10 text-center">
-      <img src={LOGOS.white} alt="Rotaract Club of Sukedhara logo" className="mx-auto h-16 w-auto opacity-80" loading="lazy" />
-      <p className="mt-4 font-display text-lg font-bold text-bone">{CLUB.name}</p>
-      <p className="mt-1 font-mono text-[11px] tracking-[0.12em] text-mut uppercase">
+    <footer className="mt-6 bg-teal-ink px-4 py-12 text-center text-white">
+      <img src={LOGOS.white} alt="Rotaract Club of Sukedhara logo" className="mx-auto h-16 w-auto opacity-90" loading="lazy" />
+      <p className="mt-5 font-display text-lg font-bold text-white">{CLUB.name}</p>
+      <p className="mt-1 font-mono text-[11px] tracking-[0.12em] text-white/60 uppercase">
         {CLUB.meeting} · {CLUB.venue}
       </p>
-      <div className="mt-5 flex flex-wrap items-center justify-center gap-5 font-mono text-xs font-semibold">
-        <a href={CLUB.igUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-bone/70 transition-colors hover:text-flame">
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-5 font-mono text-xs font-semibold">
+        <a href={CLUB.igUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-white/80 transition-colors hover:text-coral">
           <AtSign className="size-4" /> @{CLUB.ig}
         </a>
-        <a href={`mailto:${CLUB.emails[0]}`} className="inline-flex items-center gap-2 text-bone/70 transition-colors hover:text-flame">
+        <a href={`mailto:${CLUB.emails[0]}`} className="inline-flex items-center gap-2 text-white/80 transition-colors hover:text-coral">
           <Mail className="size-4" /> {CLUB.emails[0]}
         </a>
       </div>
-      <p className="mt-6 font-mono text-[10px] tracking-[0.16em] text-mut/70 uppercase">
+      <p className="mt-7 font-mono text-[10px] tracking-[0.16em] text-white/40 uppercase">
         Demo concept — for the real thing, visit the{' '}
-        <a href="/sukedhara" className="text-volt underline underline-offset-2 hover:text-bone">
+        <a href="/sukedhara" className="text-teal underline underline-offset-2 hover:text-white">
           official club page
         </a>
         .
-      </p>
-      <p className="mt-3 font-mono text-[10px] tracking-[0.16em] text-mut/50 uppercase">
-        Compassion, in action. / vol. 01 — demo
       </p>
     </footer>
   );
@@ -317,7 +359,6 @@ function App() {
     }
   };
 
-  /* Scroll-linked slide wipe: each chapter resolves into full view. */
   useLayoutEffect(() => {
     if (calm) return;
     const ctx = gsap.context(() => {
@@ -338,9 +379,9 @@ function App() {
   }, [calm]);
 
   return (
-    <div className="min-h-screen bg-ink font-sans text-bone antialiased">
+    <div className="min-h-screen bg-page font-sans text-ink antialiased">
       <div className="suk-grain" aria-hidden="true" />
-      <DemoBanner />
+      <Nav />
       <ChapterRail />
       <Hero calm={calm} gearRef={gearRef} gearBoxRef={gearBoxRef} onSpin={handleSpin} />
       <Ticker />
@@ -357,7 +398,7 @@ function App() {
           </div>
         </Slide>
 
-        <Slide id="promises" numeral="03" label="Rota year goals">
+        <Slide id="promises" numeral="03" label="Rota year goals" className="bg-teal/[0.05] -mx-4 px-4 md:-mx-8 md:px-8">
           <GoalsSection />
         </Slide>
 
@@ -369,20 +410,20 @@ function App() {
           <ProjectsTimeline onOpenGallery={openGallery} />
         </Slide>
 
-        <Slide id="saturday" numeral="06" label="A Saturday at ten">
+        <Slide id="saturday" numeral="06" label="A Saturday at ten" className="bg-paper border-y border-line -mx-4 px-4 md:-mx-8 md:px-8">
           <SaturdaySection onOpenGallery={openGallery} />
         </Slide>
 
         <div id="presidents" className="scroll-mt-4 pt-10 md:pt-14">
           <div className="mb-6 flex items-baseline gap-4 md:mb-8">
-            <span className="font-mono text-sm font-semibold tracking-[0.1em] text-flame tabular-nums">07</span>
-            <span className="font-mono text-[11px] font-semibold tracking-[0.3em] text-bone uppercase">Eight presidents</span>
-            <span className="h-px flex-1 bg-hair" />
+            <span className="font-mono text-sm font-semibold tracking-[0.1em] text-coral tabular-nums">07</span>
+            <span className="font-mono text-[11px] font-semibold tracking-[0.3em] text-ink uppercase">Eight presidents</span>
+            <span className="h-px flex-1 bg-line" />
           </div>
           <PresidentsRail />
         </div>
 
-        <Slide id="voices" numeral="08" label="Why they stay">
+        <Slide id="voices" numeral="08" label="Why they stay" className="bg-teal/[0.05] -mx-4 px-4 md:-mx-8 md:px-8">
           <VoicesStrip />
         </Slide>
 

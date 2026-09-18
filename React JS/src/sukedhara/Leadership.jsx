@@ -8,50 +8,65 @@ import { BOARD_LINES } from './stories';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* Official 13-member board: president featured, rest in a tight ledger grid. */
+/*
+ * The board, photo-first: the president anchors the grid at 2×2, everyone
+ * else gets a large portrait card. Only the president is bigger.
+ */
 export function BoardSection() {
   const [president, ...rest] = BOARD_FULL;
   return (
     <div>
       <Reveal>
-        <p className="font-mono text-[10px] font-semibold tracking-[0.22em] text-volt uppercase">Leadership · 13 officers</p>
-        <h2 className="mt-3 font-display text-3xl font-bold text-bone uppercase md:text-5xl">The people on the board.</h2>
+        <p className="font-mono text-[10px] font-semibold tracking-[0.22em] text-coral uppercase">Leadership · 13 officers</p>
+        <h2 className="mt-3 font-display text-3xl font-bold text-ink md:text-5xl">The people on the board.</h2>
+        <p className="mt-2 max-w-2xl text-sm text-mut">
+          Thirteen officers, one president at the front. Tap through the portraits — every face has the
+          club running behind it.
+        </p>
       </Reveal>
-      <div className="mt-6 grid gap-px bg-hair sm:grid-cols-2 lg:grid-cols-4">
-        <Reveal className="sm:col-span-2 lg:row-span-2">
-          <article className="group relative h-full min-h-72 overflow-hidden border border-hair">
+
+      <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4 md:gap-4">
+        {/* President: the biggest card on the board. */}
+        <Reveal className="col-span-2 row-span-2">
+          <article className="group relative h-full min-h-[420px] overflow-hidden rounded-3xl shadow-[0_30px_70px_-30px_rgba(18,59,60,.55)] md:min-h-[560px]">
             <img
               src={president.img}
               alt={president.name}
               loading="lazy"
               className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
             />
-            <span className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-ink via-ink/75 to-transparent" />
-            <div className="absolute right-4 bottom-4 left-4">
-              <span className="bg-flame px-2.5 py-1 font-mono text-[9px] font-bold tracking-[0.16em] text-ink uppercase">
-                {president.role}
-              </span>
-              <h3 className="mt-2 font-display text-2xl font-bold text-bone">{president.name.replace('Rtr. ', '')}</h3>
+            <span className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-teal-ink via-teal-ink/70 to-transparent" />
+            <span className="absolute top-4 left-4 rounded-full bg-coral px-3 py-1.5 font-mono text-[10px] font-bold tracking-[0.14em] text-white uppercase shadow-lg">
+              {president.role} · 2026-27
+            </span>
+            <div className="absolute right-5 bottom-5 left-5">
+              <h3 className="font-display text-2xl font-bold text-white md:text-4xl">{president.name.replace('Rtr. ', '')}</h3>
               {BOARD_LINES[president.role] && (
-                <p className="mt-1 text-xs font-medium text-bone/70 italic">{BOARD_LINES[president.role]}</p>
+                <p className="mt-1.5 text-sm font-medium text-white/75 italic">{BOARD_LINES[president.role]}</p>
               )}
             </div>
           </article>
         </Reveal>
+
+        {/* Officers: large portraits, second only to the president. */}
         {rest.map((p, i) => (
-          <Reveal key={p.name} delay={(i % 4) * 70} className="h-full">
-            <article className="group flex h-full items-center gap-3 bg-panel p-3 transition-colors hover:bg-raise">
-              <img
-                src={p.img}
-                alt={p.name}
-                loading="lazy"
-                className="size-13 shrink-0 border border-hair object-cover object-top grayscale-[20%]"
-              />
-              <div className="min-w-0">
-                <p className="font-mono text-[9px] font-semibold tracking-[0.12em] text-mut uppercase">{p.role}</p>
-                <h3 className="truncate text-sm font-bold text-bone">{p.name.replace('Rtr. ', '')}</h3>
+          <Reveal key={p.name} delay={(i % 4) * 80} className="h-full">
+            <article className="group relative overflow-hidden rounded-3xl bg-paper shadow-[0_18px_45px_-28px_rgba(18,59,60,.4)] transition-transform duration-300 hover:-translate-y-1.5">
+              <div className="overflow-hidden">
+                <img
+                  src={p.img}
+                  alt={p.name}
+                  loading="lazy"
+                  className="aspect-[4/5] w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <span className="absolute top-3 left-3 rounded-full bg-teal-ink/85 px-2.5 py-1 font-mono text-[9px] font-bold tracking-[0.1em] text-white uppercase">
+                {p.role}
+              </span>
+              <div className="p-3.5 md:p-4">
+                <h3 className="truncate font-display text-sm font-bold text-ink md:text-base">{p.name.replace('Rtr. ', '')}</h3>
                 {BOARD_LINES[p.role] && (
-                  <p className="truncate text-[11px] text-flame/90 italic">{BOARD_LINES[p.role]}</p>
+                  <p className="mt-0.5 line-clamp-2 text-[11px] font-medium text-mut italic md:text-xs">{BOARD_LINES[p.role]}</p>
                 )}
               </div>
             </article>
@@ -104,14 +119,17 @@ export function PresidentsRail() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="overflow-hidden border-y border-hair bg-raise py-8 text-bone md:h-screen md:py-0">
-      <div className="flex h-full flex-col justify-center gap-5 px-4 md:gap-6 md:px-8">
+    <section
+      ref={sectionRef}
+      className="overflow-hidden rounded-[2rem] bg-teal-ink py-8 text-white shadow-[0_40px_90px_-40px_rgba(18,59,60,.7)] md:h-screen md:py-0"
+    >
+      <div className="flex h-full flex-col justify-center gap-5 px-4 md:gap-6 md:px-10">
         <div className="max-w-6xl">
-          <p className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold tracking-[0.22em] text-flame uppercase">
+          <p className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold tracking-[0.22em] text-coral uppercase">
             <Crown className="size-4" /> A line of leadership
           </p>
           <h2 className="mt-2 font-display text-3xl font-bold uppercase md:text-5xl">Eight presidents. One unbroken line.</h2>
-          <p className="mt-2 hidden font-mono text-[10px] tracking-[0.14em] text-mut uppercase md:block">
+          <p className="mt-2 hidden font-mono text-[10px] tracking-[0.14em] text-white/50 uppercase md:block">
             Keep scrolling — the wall moves sideways →
           </p>
         </div>
@@ -123,7 +141,7 @@ export function PresidentsRail() {
             {PRESIDENTS.map((p) => (
               <article
                 key={p.term}
-                className="group w-52 shrink-0 snap-center overflow-hidden border border-hair bg-panel transition-colors hover:border-flame/50 md:w-64"
+                className="group w-52 shrink-0 snap-center overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/15 transition-colors hover:ring-coral/60 md:w-64"
               >
                 <div className="overflow-hidden">
                   <img
@@ -134,12 +152,12 @@ export function PresidentsRail() {
                   />
                 </div>
                 <div className="p-4">
-                  <p className="font-display text-sm font-bold text-bone">{p.name.replace('Rtr. ', '')}</p>
-                  <p className="mt-1 inline-block border border-volt/40 bg-volt/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-volt">
+                  <p className="font-display text-sm font-bold text-white">{p.name.replace('Rtr. ', '')}</p>
+                  <p className="mt-1 inline-block rounded-full bg-coral/20 px-2 py-0.5 font-mono text-[10px] font-semibold text-coral">
                     {p.term}
                   </p>
                   {p.current && (
-                    <p className="mt-1.5 font-mono text-[10px] font-bold tracking-[0.14em] text-flame uppercase">
+                    <p className="mt-1.5 font-mono text-[10px] font-bold tracking-[0.14em] text-teal uppercase">
                       Current president
                     </p>
                   )}
@@ -149,8 +167,8 @@ export function PresidentsRail() {
           </div>
         </div>
         <div className="hidden max-w-6xl md:block">
-          <div className="h-0.5 overflow-hidden bg-hair">
-            <div ref={barRef} className="h-full w-full origin-left scale-x-0 bg-gradient-to-r from-flame to-volt" />
+          <div className="h-1 overflow-hidden rounded-full bg-white/15">
+            <div ref={barRef} className="h-full w-full origin-left scale-x-0 rounded-full bg-gradient-to-r from-coral to-teal" />
           </div>
         </div>
       </div>
