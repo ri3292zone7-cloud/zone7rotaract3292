@@ -50,6 +50,7 @@ PAGE_REWRITES = {
     "/vendor/shankharapur-pustak-pasal": "/React JS/dist-vendor-shankharapur/vendor-shankharapur.html",
     "/vendor/shankharapur-pustak-pasal/": "/React JS/dist-vendor-shankharapur/vendor-shankharapur.html",
     "/vendors": "/React JS/dist-vendors/vendors-react.html",
+    "/sukedhara-demo": "/React JS/dist-sukedhara/sukedhara-demo.html",
     "/district-overview": "/district-overview.html",
     "/selftest": "/selftest.html",
     "/ne-about": "/ne-about.html",
