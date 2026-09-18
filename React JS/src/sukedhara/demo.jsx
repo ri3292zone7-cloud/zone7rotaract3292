@@ -395,7 +395,7 @@ function App() {
         id="field"
         kicker="Field logs"
         title="A year out there, logged."
-        sub="August 2024 → June 2025. Scroll to walk it — tap the photos to open the galleries."
+        sub="Nine projects from one year of Saturdays — tap a photo (or hit Open gallery) to see the field shots."
       >
         <ProjectsTimeline onOpenGallery={openGallery} />
       </Band>
