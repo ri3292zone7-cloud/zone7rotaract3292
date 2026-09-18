@@ -1,12 +1,9 @@
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { Camera, Quote, X } from 'lucide-react';
 import Reveal from './Reveal';
 import { PROJECTS } from './photos';
 import { FIELD_NOTES, FIELD_PHOTOS, QUOTES, SATURDAY_MOMENTS } from './stories';
 
-gsap.registerPlugin(ScrollTrigger);
 
 const CATEGORY_COLORS = {
   Education: '#8B5CF6',
@@ -106,113 +103,84 @@ export function Lightbox({ photos, index, onClose, onStep }) {
   );
 }
 
-function TimelineEntry({ p, side, onOpen }) {
-  const story = FIELD_NOTES[p.title];
-  const photos = galleryFor(p);
-  const color = CATEGORY_COLORS[p.category] || '#8B5CF6';
-  const textColor = CATEGORY_TEXT[p.category] || 'text-white';
-  const [feature, ...rest] = photos;
-  const textHalf = side === 'right' ? 'md:order-2 lg:pl-8' : 'lg:pr-8';
-  const photoHalf = side === 'right' ? 'md:order-1 lg:pr-8' : 'lg:pl-8';
+export function ProjectsTimeline({ onOpenGallery }) {
   return (
-    <div className="relative pl-12 md:pl-0">
-      <span
-        className="suk-tnode absolute top-6 left-4 z-10 -translate-x-1/2 md:left-1/2"
-        style={{ backgroundColor: color }}
-      />
-      <div className="md:grid md:grid-cols-2 md:items-center md:gap-x-8 lg:gap-x-12">
-        <div className={`min-w-0 ${textHalf}`}>
-          <Reveal>
-            <article className="suk-shadow-lg group rounded-3xl border-2 border-ink bg-white p-5 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:-translate-y-1 hover:-rotate-1 md:p-6">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <span
-                  className={`inline-block rounded-full border-2 border-ink px-3 py-1 text-[11px] font-bold tracking-[0.08em] uppercase -rotate-1 ${textColor}`}
+    <div className="grid gap-7 md:grid-cols-2 md:gap-8">
+      {PROJECTS.map((p, i) => {
+        const photos = galleryFor(p);
+        const color = CATEGORY_COLORS[p.category] || '#8B5CF6';
+        const textColor = CATEGORY_TEXT[p.category] || 'text-white';
+        const story = FIELD_NOTES[p.title];
+        const logNo = String(i + 1).padStart(3, '0');
+        const turn = i % 2 ? 'md:rotate-1' : 'md:-rotate-1';
+        return (
+          <Reveal key={p.title} delay={(i % 2) * 100} className="h-full">
+            <article className={`suk-shadow group flex h-full flex-col overflow-hidden rounded-3xl border-2 border-ink bg-white transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:-translate-y-1.5 ${turn}`}>
+              {photos.length > 0 ? (
+                <button
+                  type="button"
+                  onClick={() => onOpenGallery(photos, 0)}
+                  aria-label={`Open ${p.title} photos`}
+                  className="group/photo relative block w-full overflow-hidden border-b-2 border-ink"
+                >
+                  <img
+                    src={photos[0]}
+                    alt={p.title}
+                    loading="lazy"
+                    className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover/photo:scale-110"
+                  />
+                  <span className="suk-shadow-sm absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-white/95 px-3 py-1 text-xs font-bold text-ink">
+                    <Camera className="size-4" strokeWidth={2.5} />
+                    Gallery{photos.length > 1 ? ' +' + (photos.length - 1) : ''}
+                  </span>
+                </button>
+              ) : (
+                <div
+                  className="relative flex aspect-[16/6] items-end border-b-2 border-ink px-5 pb-3"
                   style={{ backgroundColor: color }}
                 >
-                  {p.category}
-                </span>
-                <span className="rounded-xl bg-mut/10 px-2.5 py-1 text-xs font-bold text-mut tabular-nums">{p.date}</span>
-              </div>
-              <h3 className="mt-3 font-display text-lg leading-snug font-bold text-ink md:text-xl">{p.title}</h3>
-              {story && (
-                <>
-                  <p className="mt-3 rounded-2xl rounded-bl-none border-2 border-line bg-mut/5 px-4 py-3 text-sm leading-relaxed text-mut italic">
-                    {story.note}
-                  </p>
-                  <p className="mt-3 inline-block rounded-full border-2 border-ink bg-mint px-3 py-1 text-xs font-bold text-ink uppercase">
-                    {story.impact}
-                  </p>
-                </>
+                  <span className={`font-display text-5xl font-extrabold ${textColor}`}>{logNo}</span>
+                  <span className={`ml-auto pb-1 text-xs font-bold tracking-[0.14em] uppercase opacity-80 ${textColor}`}>
+                    Field log
+                  </span>
+                </div>
               )}
-              <p className="mt-3 text-xs font-bold tracking-[0.04em] text-mut uppercase">{p.location}</p>
+              <div className="flex flex-1 flex-col p-5 md:p-6">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span
+                    className={`inline-block -rotate-1 rounded-full border-2 border-ink px-3 py-1 text-[11px] font-bold tracking-[0.08em] uppercase ${textColor}`}
+                    style={{ backgroundColor: color }}
+                  >
+                    {p.category}
+                  </span>
+                  <span className="rounded-xl bg-mut/10 px-2.5 py-1 text-xs font-bold text-mut tabular-nums">{p.date}</span>
+                </div>
+                <h3 className="mt-3 font-display text-xl leading-snug font-bold text-ink md:text-2xl">{p.title}</h3>
+                {story && (
+                  <>
+                    <p className="mt-3 rounded-2xl rounded-bl-none border-2 border-line bg-mut/5 px-4 py-3 text-sm leading-relaxed text-mut italic">
+                      {story.note}
+                    </p>
+                    <p className="mt-3 inline-block self-start rounded-full border-2 border-ink bg-mint px-3 py-1 text-xs font-bold text-ink uppercase">
+                      {story.impact}
+                    </p>
+                  </>
+                )}
+                <p className="mt-4 text-xs font-bold tracking-[0.06em] text-mut uppercase">{p.location}</p>
+                {photos.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => onOpenGallery(photos, 0)}
+                    className="suk-shadow-sm mt-4 inline-flex items-center gap-2 self-start rounded-full border-2 border-ink bg-plum px-4 py-2 text-xs font-bold text-white transition-transform duration-300 hover:-translate-y-0.5"
+                  >
+                    <Camera className="size-4" strokeWidth={2.5} /> Open gallery
+                  </button>
+                )}
+              </div>
             </article>
           </Reveal>
-        </div>
-        {feature && (
-          <div className={`${photoHalf} md:flex md:justify-center`}>
-            <Reveal delay={120}>
-              <button
-                type="button"
-                onClick={() => onOpen(0)}
-                aria-label={`Open ${p.title} photos`}
-                className="suk-shadow-sm group/photo relative block w-full overflow-hidden rounded-2xl border-2 border-ink transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] hover:-translate-y-1 hover:-rotate-1 md:max-w-xs"
-              >
-                <img
-                  src={feature}
-                  alt={feature === p.img ? 'Project cover' : 'Field photo'}
-                  loading="lazy"
-                  className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover/photo:scale-110"
-                />
-                <span className="absolute inset-0 grid place-items-center bg-ink/0 transition-colors group-hover/photo:bg-ink/40">
-                  <Camera className="size-6 text-white opacity-0 transition-opacity group-hover/photo:opacity-100" strokeWidth={2.5} />
-                </span>
-                {rest.length > 0 && (
-                  <span className="absolute right-2 bottom-2 rounded-full border-2 border-ink bg-rose px-2.5 py-1 text-xs font-bold text-white tabular-nums">
-                    +{rest.length}
-                  </span>
-                )}
-              </button>
-            </Reveal>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-export function ProjectsTimeline({ onOpenGallery }) {
-  const rootRef = useRef(null);
-  const lineRef = useRef(null);
-
-  useLayoutEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      if (lineRef.current) lineRef.current.style.transform = 'scaleY(1)';
-      return;
-    }
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        lineRef.current,
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: 'none',
-          scrollTrigger: { trigger: rootRef.current, start: 'top 72%', end: 'bottom 55%', scrub: true }
-        }
-      );
-    }, rootRef);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <div ref={rootRef} className="relative mt-6">
-      <span className="absolute top-0 bottom-0 left-4 w-2 -translate-x-1/2 rounded-full bg-mut/20 md:left-1/2">
-        <span ref={lineRef} className="block h-full w-full origin-top rounded-full bg-ink" />
-      </span>
-      <div className="space-y-7 md:space-y-9">
-        {PROJECTS.map((p, i) => (
-          <TimelineEntry key={p.title} p={p} side={i % 2 === 0 ? 'left' : 'right'} onOpen={(idx) => onOpenGallery(galleryFor(p), idx)} />
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 }
