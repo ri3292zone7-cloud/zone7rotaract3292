@@ -1,0 +1,103 @@
+insert into projects (id, club_slug, title, category, date, location, summary, body, cover, gallery, updated)
+values
+(
+  'classroom-to-career-2026',
+  'baneshwor',
+  'From Classroom to Career — Preparing for the Professional World',
+  'Collaboration / Partnership / Volunteering',
+  '2026-02-21',
+  'Google Meet (Virtual)',
+  'Career-readiness session on communication, resumes, and interviews with RAC People''s Campus and RAC Itahari.',
+  'The Rotaract Club of Itahari, jointly with the Rotaract Club of People''s Campus, organized the professional development session "From Classroom to Career: Preparing for the Professional World" on 21 February 2026 via Google Meet, with the Rotaract Club of Baneshwor proudly participating as co-host. Two facilitators led the session: Rtr. Jenisha Suman, public speaker and communicator from NIRN Nepal, on confidence, communication skills, body language, and interview readiness; and Bijisha Parsain, People and Culture Officer at ARKBO Technologies Pvt. Ltd., with hands-on guidance on resume building, cover letters, recruiter perspectives, and mock-based interview scenarios. Coordinated by Amit Maharjan with 5 club members present, 40 Rotaractors took part over 2 hours, contributing 12 volunteering hours.',
+  'media/baneshwor/career-1.jpg',
+  '["media/baneshwor/career-1.jpg", "media/baneshwor/career-2.jpg", "media/baneshwor/career-3.png", "media/baneshwor/career-4.png", "media/baneshwor/career-5.png", "media/baneshwor/career-6.png"]'::jsonb,
+  1750000000000
+),
+(
+  'personal-finance-orientation-2026',
+  'baneshwor',
+  'An Orientation on Personal Finance',
+  'Financial Literacy',
+  '2026-02-14',
+  'Google Meet (Virtual)',
+  'Personal finance session with CFA Kaustubh Agashe, co-hosted with RAC Bengaluru HSR (RID 3191), reaching 140+ participants.',
+  'The Rotaract Club of Bengaluru HSR (RID 3191) organized the online session "An Orientation on Personal Finance" on 14 February 2026, with the Rotaract Club of Baneshwor as co-host. Featuring Mr. Kaustubh Agashe (CFA) -- IIMA alumnus, SEBI Registered Investment Adviser, and finance mentor -- the session equipped participants with essentials of managing personal finances: why to start early, fundamental financial terms, the financialization of the Indian economy, the speaker''s personal investment approach, the Rule of 72, interest rates, compounding, and common investing misconceptions, with real-life examples and motivational insights. Planned for Zoom but smoothly shifted to Google Meet, the event drew an impressive 140+ participants. Coordinated by Amit Maharjan with 5 club members and 142 Rotaractors present, the one-hour session contributed 6 volunteering hours.',
+  'media/baneshwor/finance-1.png',
+  '["media/baneshwor/finance-1.png", "media/baneshwor/finance-2.png", "media/baneshwor/finance-3.png", "media/baneshwor/finance-4.png", "media/baneshwor/finance-5.png", "media/baneshwor/finance-6.jpg"]'::jsonb,
+  1750000000000
+),
+(
+  'free-drinking-water-pashupatinath-2026',
+  'baneshwor',
+  'Free Drinking Water Distribution at Pashupatinath',
+  'Donation',
+  '2026-02-19',
+  'Pashupatinath Temple',
+  '10 cases of safe drinking water distributed to devotees and visitors at Pashupatinath Temple.',
+  'The Rotaract Club of Baneshwor conducted a Free Drinking Water Distribution Service at Pashupatinath Temple on 19 February 2026, distributing 10 cases of water to temple visitors and devotees. Considering the large daily footfall at the temple, the initiative ensured easy access to safe drinking water while promoting public welfare, compassion, and social responsibility. Coordinated by Pushkal Rijal with 7 club members present, the 2-hour service contributed 16 volunteering hours at a total expense of NRs. 1,500, aligned with SDG 3: Good Health and Well-Being.',
+  'media/baneshwor/water-1.jpg',
+  '["media/baneshwor/water-1.jpg", "media/baneshwor/water-2.jpg", "media/baneshwor/water-3.jpg", "media/baneshwor/water-4.jpg"]'::jsonb,
+  1750000000000
+),
+(
+  'excel-essentials-2025',
+  'baneshwor',
+  'Excel Essentials: Mastering the Basics',
+  'Training / Workshops',
+  '2025-11-28',
+  'Google Meet (Virtual)',
+  'Excel training by CA Sunil Timalsina with 14 co-host clubs and 45 Rotaractors.',
+  'The Rotaract Club of Baneshwor hosted the online training session "Excel Essentials: Mastering the Basics" on 28 November 2025 via Google Meet, bringing together members from 14 co-host clubs -- RAC Jawalakhel Manjushree, RAC Itahari, RAC Himalaya Patan, RAC Patan, RAC Rudramati, RAC Butwal South, RAC Birat Medical College Fusion, RAC Sankhu, RAC Gyaneswor CiST, RAC Tribhuvan University, RAC Tinkune Kathmandu, RAC Sukedhara, RAC Lumbini Stars -- plus the Interact Club of Chelsea International Academy. Facilitated by CA Sunil Timalsina (Chartered Accountancy, ICAI; experienced in internal and statutory auditing, payroll, tax audit, and financial statements), the session covered formulas, formatting, shortcuts, data organization, and real-world applications, with participants practicing along and raising professional use cases. Coordinated by Rashmi Timalsina and Prashanna Gautam with 10 club members present, 45 Rotaractors took part over 1 hour 15 minutes, contributing 14 volunteering hours.',
+  'media/baneshwor/excel-1.jpg',
+  '["media/baneshwor/excel-1.jpg", "media/baneshwor/excel-2.jpg", "media/baneshwor/excel-3.jpg", "media/baneshwor/excel-4.jpg"]'::jsonb,
+  1750000000000
+),
+(
+  'birthday-of-compassion-2025',
+  'baneshwor',
+  'Birthday of Compassion',
+  'Donation',
+  '2025-09-07',
+  'Nisahaya Sewa Sadan (Jestha Nagarik Awash Griha), Shantinagar',
+  'Remembrance of Late Ramanand Prasad Pandit turned into celebration with elderly residents: T-shirts, shawls, and cake.',
+  'The Rotaract Club of Baneshwor organized "Birthday of Compassion" on 7 September 2025 at Nisahaya Sewa Sadan (Jestha Nagarik Awash Griha), Shantinagar, honoring the memory of Late Ramanand Prasad Pandit, father of fellow Rotaractor Rtr. Srijana Pandit, by spreading love and joy among elderly residents. T-shirts, shawls, and cakes were distributed -- the cake generously sponsored by De Cake Paradise -- and the day was spent interacting with residents, listening to their stories, and sharing warm conversations. Coordinated by Srijana Pandit and Amit Maharjan with 10 club members and 2 other visitors present, the 1.5-hour event contributed 21 volunteering hours at a total expense of NRs. 16,000, aligned with SDG 3.',
+  'media/baneshwor/birthday-1.png',
+  '["media/baneshwor/birthday-1.png", "media/baneshwor/birthday-2.png", "media/baneshwor/birthday-3.png", "media/baneshwor/birthday-4.png", "media/baneshwor/birthday-5.png", "media/baneshwor/birthday-6.png"]'::jsonb,
+  1750000000000
+),
+(
+  'feed-the-fur-3-2025',
+  'baneshwor',
+  'Feed the Fur 3.0 — Pamper the Paws',
+  'Signature Project',
+  '2025-08-16',
+  'Pashupatinath Temple and Kamalpokhari, Kathmandu',
+  'Signature animal-welfare project feeding street dogs, pigeons, monkeys, and fish with 8 clubs across two districts.',
+  'The Rotaract Club of Baneshwor (RID 3292) and the Rotaract Club of Kolhapur Midtown Phoenix (RID 3170), in collaboration with six other clubs -- RAC Itahari, RAC Sankhu, RAC Itabhatta Municipal, RAC Mechinagar, and RAC Tribhuvan University -- organized "Feed the Fur 3.0; Pamper the Paws" on 16 August 2025, near Shree Krishna Janmashtami. At Pashupatinath Temple, food was distributed to dogs, pigeons, and monkeys; at Kamalpokhari, participants fed fishes -- extending love and compassion to street and neglected animals while spreading awareness on protecting all living beings. Coordinated by Amit Maharjan with 8 club members, 13 Rotaractors, and 1 other visitor present, the 3-hour signature project contributed 66 volunteering hours at a total expense of NRs. 1,630, aligned with SDG 2.',
+  'media/baneshwor/feedfur-1.png',
+  '["media/baneshwor/feedfur-1.png", "media/baneshwor/feedfur-2.jpg", "media/baneshwor/feedfur-3.jpg", "media/baneshwor/feedfur-4.jpg", "media/baneshwor/feedfur-5.jpg", "media/baneshwor/feedfur-6.jpg"]'::jsonb,
+  1750000000000
+),
+(
+  'honoring-wisdom-fathers-day-2025',
+  'baneshwor',
+  'Honoring Wisdom: Father''s Day',
+  'Donation',
+  '2025-08-23',
+  'Nisahaya Sewa Sadan (Jestha Nagarik Awash Griha), Shantinagar',
+  'Father''s Day celebration with elderly residents: tika, juices, rice, sugar, and spices with heartfelt interaction.',
+  'The Rotaract Club of Baneshwor organized "Honoring Wisdom: Father''s Day" on 23 August 2025 at Nisahaya Sewa Sadan (Jestha Nagarik Awash Griha), Shantinagar, celebrating Father''s Day with elderly residents. The program included heartfelt conversations, putting tika, sharing juices, and handing over rice, sugar, and spices -- creating a warm, family-like atmosphere that reduced loneliness and honored the wisdom of elders. Coordinated by Amit Maharjan and Yatra Kalakheti with 4 club members present, the one-hour celebration contributed 4 volunteering hours at a total expense of NRs. 5,130, aligned with SDG 3.',
+  'media/baneshwor/fathersday-1.png',
+  '["media/baneshwor/fathersday-1.png", "media/baneshwor/fathersday-2.png", "media/baneshwor/fathersday-3.png", "media/baneshwor/fathersday-4.png", "media/baneshwor/fathersday-5.png", "media/baneshwor/fathersday-6.jpg"]'::jsonb,
+  1750000000000
+)
+on conflict (id) do update set
+  title = excluded.title,
+  category = excluded.category,
+  date = excluded.date,
+  location = excluded.location,
+  summary = excluded.summary,
+  body = excluded.body,
+  cover = excluded.cover,
+  gallery = excluded.gallery,
+  updated = excluded.updated;
