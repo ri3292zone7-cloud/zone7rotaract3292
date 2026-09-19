@@ -28,7 +28,7 @@
 <style>
   :root{--ink:#1B1836;--magenta:#E11A6E;--magenta-deep:#A80F52;--gold:#F2A900;--cream:#FFF8EF;--paper:#FFFDF9;--line:rgba(27,24,54,0.1);}
   *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth;scrollbar-gutter:stable;}
   html{overflow-x:hidden;overflow-x:clip;font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);}
   h1,h2,h3,h4{font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-0.02em;}
   a{color:inherit;text-decoration:none;} img{max-width:100%;display:block;}
@@ -273,16 +273,20 @@
   body.vw ::-webkit-scrollbar-thumb{background:linear-gradient(#FF00FF,#00FFFF);border-radius:0;}
 
   /* Global CRT scanlines + faint RGB chromatic wash (visual only).
-     Fixed overlays start below the sticky nav (60px) so skin graphics
-     never spill over the universal navbar. */
+     Painted BELOW the universal navbar in z-order (nav is z-100), so skin
+     graphics can never spill over the nav or its open mobile dropdown.
+     Switched off on phones, where the lines read as dirt, not style. */
   body.vw::before{
-    content:"";position:fixed;left:0;right:0;bottom:0;top:60px;z-index:9999;pointer-events:none;
+    content:"";position:fixed;inset:0;z-index:99;pointer-events:none;
     background:linear-gradient(rgba(18,16,20,0) 50%,rgba(0,0,0,.25) 50%);
     background-size:100% 4px;
   }
   body.vw::after{
-    content:"";position:fixed;left:0;right:0;bottom:0;top:60px;z-index:9998;pointer-events:none;
+    content:"";position:fixed;inset:0;z-index:98;pointer-events:none;
     background:linear-gradient(90deg,rgba(255,0,0,.06),rgba(0,255,0,.02),rgba(0,0,255,.06));
+  }
+  @media (max-width:640px){
+    body.vw::before,body.vw::after{display:none;}
   }
 
   /* Site nav stays identical on every club page — no per-club reskin. */
@@ -528,10 +532,10 @@
   body.bot a:focus-visible,body.bot button:focus-visible{outline:2px solid var(--bot-sage);outline-offset:3px;}
 
   /* Paper grain overlay (mandatory) — fixed SVG fractal noise at 1.5%
-     opacity; starts below the sticky nav (60px) so it never spills over
-     the universal navbar. */
+     opacity; painted below the universal navbar (nav is z-100) and
+     switched off on phones, where grain reads as dirt, not paper. */
   body.bot::before{
-    content:"";position:fixed;left:0;right:0;bottom:0;top:60px;z-index:999;pointer-events:none;opacity:.015;
+    content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.015;
     background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     background-repeat:repeat;
   }
@@ -539,9 +543,9 @@
   /* Site nav stays identical on every club page — no per-club reskin. */
   body.bot #siteNav{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;}
 
-  /* Skin overlays track the shorter mobile nav (56px below 920px). */
-  @media (max-width:920px){
-    body.vw::before,body.vw::after,body.bot::before{top:56px;}
+  /* Paper grain off on phones (see note at body.bot::before). */
+  @media (max-width:640px){
+    body.bot::before{display:none;}
   }
 
   /* HERO — sun-warmed alabaster with soft garden washes */
@@ -764,7 +768,37 @@
 }
 </script>
 <script>document.documentElement.classList.add("pt-enter","z7-famA");try{var t=localStorage.getItem("z7-theme");if(!t){var h=localStorage.getItem("hb-theme");if(h==="dark"||h==="light"){localStorage.setItem("z7-theme",h);t=h}}if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}document.documentElement.style.background=document.documentElement.classList.contains("dark")?"#0E0C1A":"#FFF8EF";</script>  </head>
-<body><div id="siteNav" data-current="clubs" data-cta="join"><style> #siteNav{display:block;position:sticky;top:0;z-index:100;background:#FFF8EF;border-bottom:1px solid rgba(27,24,54,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)} #siteNav .wrap{max-width:1180px;margin:0 auto;padding:0 28px;min-height:60px;display:flex;align-items:center;gap:26px} #siteNav a{text-decoration:none;font-family:'Inter',sans-serif;font-weight:600;font-size:.92rem;color:#1B1836} #siteNav .brand{display:inline-flex;align-items:center;gap:8px;opacity:1} #siteNav .brand .z{width:32px;height:32px;border-radius:10px;background:#A80F52;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem} #siteNav .navlinks{display:flex;align-items:center;gap:26px;margin-left:6px} #siteNav .btn.nav-cta{margin-left:auto;border:1px solid #A80F52;border-radius:999px;padding:10px 22px;background:#A80F52;color:#fff;font-weight:700} @media (max-width:920px){#siteNav .wrap{gap:10px;padding:0 16px;min-height:56px}#siteNav .navlinks{display:none}#siteNav .btn.nav-cta{padding:8px 18px;font-size:.8rem}#siteNav .brand{font-size:.95rem}} </style><nav class="wrap" aria-label="Main navigation"><a href="/" aria-label="Zone 7 Rotaract home"><span class="brand"><span class="z">7</span> Zone 7 Rotaract</span></a><div class="navlinks"><a href="/about">About</a><a href="/tutorials">Learn</a><a href="/gallery">Gallery</a><a href="/store">Store</a></div><a href="/join" class="btn nav-cta">Join Us</a></nav></div>
+<body><div id="siteNav" data-current="clubs" data-cta="join"><style>
+/* Pre-hydration nav: pixel-matches what site-nav.js renders (same file ships
+   every club page), so club-to-club hops never visibly restyle the navbar.
+   site-nav.js replaces this whole block on load — identical paint, no snap. */
+:root{--nav-bg:#FFFDF9;--nav-surface:#FFFDF9;--nav-border:rgba(27,24,54,.1);--nav-ink:#1B1836;--nav-ink-soft:rgba(27,24,54,.52);--nav-ink-dim:rgba(27,24,54,.45);--nav-brand:#A80F52;--nav-brand-strong:#E11A6E;--nav-tint:rgba(225,26,110,.07);--nav-tint2:rgba(225,26,110,.09);}
+:root.dark{--nav-bg:#151327;--nav-surface:#151327;--nav-border:rgba(233,231,247,.12);--nav-ink:#CBC9DE;--nav-ink-soft:rgba(233,231,247,.62);--nav-ink-dim:rgba(233,231,247,.45);--nav-brand:#E06093;--nav-brand-strong:#E06093;--nav-tint:rgba(225,26,110,.16);--nav-tint2:rgba(225,26,110,.2);}
+#siteNav{display:block;position:sticky;top:0;z-index:100;background:var(--nav-bg);border-bottom:1px solid var(--nav-border);}
+#siteNav a{text-decoration:none;}
+#siteNav .wrap{padding:0 28px;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;height:72px;gap:22px;max-width:none;margin:0;}
+#siteNav .wrap>a{justify-self:start;}
+#siteNav .brand{display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-weight:800;font-size:1.05rem;color:var(--nav-ink);white-space:nowrap;}
+#siteNav .brand .z{background:#E11A6E;color:#fff;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Poppins',sans-serif;font-weight:800;}
+#siteNav .nav-center{display:flex;align-items:center;gap:18px;justify-self:center;}
+#siteNav .navlinks{display:flex;gap:26px;font-family:'Inter',sans-serif;font-weight:600;font-size:.92rem;align-items:center;}
+#siteNav .navlinks>a{position:relative;padding:4px 0;color:var(--nav-ink);opacity:.75;}
+#siteNav .nav-drop{position:relative;}
+#siteNav .nav-drop-trigger{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:.92rem;color:var(--nav-ink);opacity:.75;padding:4px 0;}
+#siteNav .nav-search-pill{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px 0 14px;margin-left:6px;border:1px solid var(--nav-border);background:var(--nav-surface);color:var(--nav-ink-soft);border-radius:100px;font-family:'Inter',sans-serif;font-size:.84rem;font-weight:600;white-space:nowrap;cursor:pointer;}
+#siteNav .nav-search-pill .ns-ico{display:inline-flex;color:var(--nav-ink-dim);}
+#siteNav .nav-search-pill kbd{background:var(--nav-tint2);color:var(--nav-brand-strong);padding:2px 6px;border-radius:6px;font-family:'Inter',sans-serif;font-size:.68rem;font-weight:700;line-height:1.4;border:1px solid var(--nav-border);border-bottom-width:2px;}
+#siteNav .nav-duo{display:none;}
+#siteNav .nav-actions{display:flex;align-items:center;gap:14px;justify-self:end;}
+#siteNav .nav-admin{font-family:'Inter',sans-serif;font-weight:700;font-size:.84rem;color:var(--nav-brand);opacity:.85;white-space:nowrap;}
+#siteNav .nav-cta{background:#1B1836;color:#fff;padding:10px 20px;border-radius:100px;font-family:'Inter',sans-serif;font-weight:700;font-size:.85rem;white-space:nowrap;}
+#siteNav .nav-theme{width:42px;height:38px;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--nav-border);background:var(--nav-surface);color:var(--nav-ink);border-radius:100px;cursor:pointer;flex-shrink:0;}
+#siteNav .nav-rgpt{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--nav-border);background:var(--nav-surface);color:var(--nav-ink);cursor:pointer;flex-shrink:0;}
+#siteNav .nav-store{display:none;}
+@media (max-width:1100px){#siteNav .nav-search-pill .ns-label{display:none;}#siteNav .nav-search-pill{padding:0 11px;gap:6px;}}
+@media (max-width:920px){#siteNav .navlinks,#siteNav .nav-admin,#siteNav .nav-cta,#siteNav .nav-store,#siteNav #navSearchBtn,#siteNav #navThemeBtn,#siteNav .nav-rgpt{display:none;}#siteNav .wrap{gap:10px;padding:0 14px;}#siteNav .brand{font-size:.95rem;}#siteNav .brand .z{width:30px;height:30px;font-size:.95rem;}#siteNav .bt-r{display:none;}#siteNav .nav-actions{gap:8px;}#siteNav .nav-duo{display:inline-flex;align-items:stretch;height:44px;border:1.5px solid var(--nav-border);border-radius:100px;background:var(--nav-surface);overflow:hidden;flex-shrink:0;}#siteNav .nav-duo-btn{display:inline-flex;align-items:center;gap:7px;background:none;border:none;color:var(--nav-ink);font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;white-space:nowrap;cursor:pointer;}#siteNav .nav-duo-search{padding:0 14px;}#siteNav .nav-duo-theme{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border-left:1px solid var(--nav-border);}}
+@media (max-width:380px){#siteNav .wrap{padding:0 10px;gap:8px;}#siteNav .brand{font-size:.85rem;gap:6px;}#siteNav .brand .z{width:26px;height:26px;font-size:.85rem;}#siteNav .bt-z7{display:none;}#siteNav .nav-duo-search span{display:none;}#siteNav .nav-duo-search{padding:0 12px;}}
+</style><nav class="wrap" aria-label="Main navigation"><a href="/" aria-label="Zone 7 Rotaract home"><span class="brand"><span class="z">7</span> <span class="bt-z7">Zone 7</span> <span class="bt-r">Rotaract</span></span></a><div class="nav-center"><div class="navlinks"><a href="/about">About</a><div class="nav-drop"><button type="button" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false" style="opacity:1;color:#A80F52">Clubs <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div><div class="nav-drop"><button type="button" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false">Learn <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div><a href="/gallery">Gallery</a><a href="/store">Store</a></div><button type="button" id="navSearchBtn" class="nav-search-pill" aria-label="Search the whole site"><span class="ns-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="ns-label">Search</span><kbd>/</kbd></button><span class="nav-duo" role="group" aria-label="Search and night mode"><button type="button" class="nav-duo-btn nav-duo-search" aria-label="Search the whole site"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Search</span></button><button type="button" class="nav-duo-btn nav-duo-theme" aria-label="Toggle night mode"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.8 6.8 0 0 0 9.8 9.8z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg></button></span></div><div class="nav-actions"><a href="/admin" class="nav-admin">Club Admin</a><a href="/join" class="nav-cta">Join Us</a><button type="button" id="navThemeBtn" class="nav-theme" aria-label="Toggle night mode"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.8 6.8 0 0 0 9.8 9.8z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg></button><button type="button" class="nav-rgpt" aria-label="Open RotaGPT chat"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5c.6 4.6 2.4 7.4 10.5 10.5C14.4 15.1 12.6 17.9 12 22.5c-.6-4.6-2.4-7.4-10.5-10.5C9.6 8.9 11.4 6.1 12 1.5z"/></svg></button><a href="/store" class="nav-store" aria-label="Zone 7 Store"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5.5 8h13l-1.1 12.5H6.6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Store</span></a></div></nav></div>
 
 
 <script src="site-nav.js" defer></script>

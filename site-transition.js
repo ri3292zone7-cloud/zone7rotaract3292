@@ -7,9 +7,11 @@
    - This file (defer) adds the opacity rules, then removes "pt-enter" once
      the page is actually painted (DOM ready + React root mounted), so the
      fade-in reveals real content, never an empty shell.
-   - Clicking a same-origin cross-page link fades the current page out over
-     the same cream, then navigates — both sides of the switch match, so the
-     user never sees a cut.
+    - Clicking a same-origin cross-page link fades the current page out over
+      the same cream, then navigates — both sides of the switch match, so the
+      user never sees a cut. The shared navbar (#siteNav) never takes part in
+      these fades: it is pixel-identical on every page, so it stays pinned
+      while only the content beneath it dissolves.
 
    Safety: prefers-reduced-motion, new-tab/download/mailto/hash links, and
    bfcache restores (back button) are all handled; nothing can be stuck
@@ -36,9 +38,13 @@
     /Chrome\/|Edg\/|Chromium\//.test(navigator.userAgent);
 
   var style = document.createElement("style");
+  // The shared navbar (#siteNav) is deliberately EXCLUDED from every fade:
+  // it paints identically on all pages (solid background, pre-hydrated
+  // markup), so it stays pinned at full opacity while page content flows
+  // beneath it. Only body content cross-fades — the nav never moves.
   style.textContent =
-    "body{transition:opacity " + ENTER_MS + "ms cubic-bezier(.25,.6,.35,1)}" +
-    "html.pt-enter body{opacity:0}";
+    "body>:not(#siteNav){transition:opacity " + ENTER_MS + "ms cubic-bezier(.25,.6,.35,1)}" +
+    "html.pt-enter body>:not(#siteNav){opacity:0}";
   document.head.appendChild(style);
 
   function reveal() {
@@ -68,8 +74,7 @@
     if (e.persisted) {
       leaving = false;
       html.classList.remove("pt-enter");
-      document.body.style.transition = "";
-      document.body.style.opacity = "";
+      clearSiblingFades();
     }
   });
 
@@ -85,13 +90,30 @@
     return document.documentElement.classList.contains("dark") ? "#0E0C1A" : "#FAFAFA";
   }
 
+  function contentNodes() {
+    return Array.prototype.filter.call(document.body.children, function (el) {
+      return el.id !== "siteNav";
+    });
+  }
+  function fadeSiblings(transition, opacity) {
+    contentNodes().forEach(function (el) {
+      el.style.transition = transition;
+      el.style.opacity = opacity;
+    });
+  }
+  function clearSiblingFades() {
+    contentNodes().forEach(function (el) {
+      el.style.transition = "";
+      el.style.opacity = "";
+    });
+  }
+
   function leave(url) {
     if (leaving) return;
     leaving = true;
     html.classList.remove("pt-enter");
     html.style.background = pageBackground();
-    document.body.style.transition = "opacity " + EXIT_MS + "ms cubic-bezier(.4,0,.6,1)";
-    document.body.style.opacity = "0";
+    fadeSiblings("opacity " + EXIT_MS + "ms cubic-bezier(.4,0,.6,1)", "0");
     var start = performance.now();
     function finish(now) {
       if (document.hidden) { location.assign(url); return; }
