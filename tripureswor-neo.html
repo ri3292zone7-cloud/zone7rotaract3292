@@ -383,6 +383,10 @@ dialog#lightbox img{width:100%; max-height:76vh; object-fit:contain; background:
   .sec-title{font-size:2.1rem;}
   .proj-grid{grid-template-columns:1fr;}
   .proj-grid.two{grid-template-columns:1fr;}
+  .proj-grid > .pcard:first-child{display:flex; flex-direction:column;}
+  .proj-grid > .pcard:first-child .ph{border-right:none; border-bottom:1px solid var(--border);}
+  .proj-grid > .pcard:first-child .ph-fallback{min-height:0;}
+  .proj-grid > .pcard:first-child h3{font-size:1.35rem;}
   .facts{grid-template-columns:1fr;}
   .card,.grad-border > div,.goals{padding:30px 26px;}
   .btn{width:100%; justify-content:center;}

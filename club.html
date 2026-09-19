@@ -257,20 +257,8 @@
     --vw-sun:#FF9900;
     --vw-border:#2D1B4E;
     --vw-grad:linear-gradient(to right,#FF9900,#FF00FF 45%,#00FFFF);
-    /* Re-tint the shared universal nav (rendered by site-nav.js) via
-       its own custom properties — page-scoped, no other page sees this. */
-    --nav-bg:rgba(9,0,20,.92);
-    --nav-surface:#1a103c;
-    --nav-border:#2D1B4E;
-    --nav-border-soft:rgba(45,27,78,.7);
-    --nav-ink:#E0E0E0;
-    --nav-ink-soft:rgba(224,224,224,.66);
-    --nav-ink-dim:rgba(224,224,224,.45);
-    --nav-brand:#00FFFF;
-    --nav-brand-strong:#FF00FF;
-    --nav-tint:rgba(0,255,255,.08);
-    --nav-tint2:rgba(255,0,255,.12);
-    --nav-shadow:0 0 24px rgba(255,0,255,.18);
+    /* Universal nav immunity: the shared nav keeps :root tokens and Inter
+       on every club page — skins must not re-tint or re-type it. */
     background:var(--vw-void);
     color:var(--vw-text);
     color-scheme:dark;
@@ -296,6 +284,7 @@
   }
 
   /* Site nav stays identical on every club page — no per-club reskin. */
+  body.vw #siteNav{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;}
 
   /* HERO — void, floating sun, perspective grid floor */
   body.vw .chero{background:transparent;color:var(--vw-text);}
@@ -525,20 +514,8 @@
     --bot-border:#E6E2DA;
     --bot-terra:#C27B66;
     --bot-forest:#2D3A31;
-    /* Re-tint the shared universal nav (rendered by site-nav.js) via
-       its own custom properties — page-scoped, no other page sees this. */
-    --nav-bg:rgba(249,248,244,.92);
-    --nav-surface:#FFFFFF;
-    --nav-border:#E6E2DA;
-    --nav-border-soft:#E6E2DA;
-    --nav-ink:#2D3A31;
-    --nav-ink-soft:rgba(45,58,49,.62);
-    --nav-ink-dim:rgba(45,58,49,.45);
-    --nav-brand:#2D3A31;
-    --nav-brand-strong:#C27B66;
-    --nav-tint:rgba(140,154,132,.14);
-    --nav-tint2:rgba(140,154,132,.18);
-    --nav-shadow:0 20px 40px -10px rgba(45,58,49,.12);
+    /* Universal nav immunity: the shared nav keeps :root tokens and Inter
+       on every club page — skins must not re-tint or re-type it. */
     background:var(--bot-bg);
     color:var(--bot-ink);
     color-scheme:light;
@@ -557,6 +534,7 @@
   }
 
   /* Site nav stays identical on every club page — no per-club reskin. */
+  body.bot #siteNav{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;}
 
   /* HERO — sun-warmed alabaster with soft garden washes */
   body.bot .chero{background:var(--bot-bg);color:var(--bot-ink);}
