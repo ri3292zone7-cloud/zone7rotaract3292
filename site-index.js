@@ -28,7 +28,7 @@ window.SITE_INDEX = (function () {
     { t: "Flood Help & Emergency", d: "Rescue helplines, missing-person reports and the Rasuwa flood GIS map - a historical response record.", h: "/flood-help", k: ["flood", "emergency", "help", "missing", "rescue", "rasuwa", "1149", "100", "helpline"] },
     { t: "Rasuwa Flood GIS Map", d: "Interactive GIS record of the Sept 2026 Rasuwa flood: 51 affected local units, risk zones and settlements.", h: "/rasuwa-flood-map", k: ["map", "gis", "flood", "rasuwa", "satellite", "affected", "corridor", "settlement", "risk", "tour"] },
     { t: "Volunteer Registration", d: "Flood-relief volunteer registration for District 3292 - mobilised only via authorities when needed.", h: "/volunteers", k: ["volunteer", "register", "registration", "relief", "rescue", "rasuwa", "join", "help"] },
-    { t: "Meetings", d: "Meeting guides - moved to the Tutorials section.", h: "/meetings", k: ["meeting", "minutes", "agenda"] }
+    { t: "Meetings", d: "Meeting guides - moved to the Tutorials section.", h: "/tutorials#meetings", k: ["meeting", "minutes", "agenda"] }
   ];
 
   function clubItems() {

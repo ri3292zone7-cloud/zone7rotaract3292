@@ -119,10 +119,18 @@
     window.addEventListener(ev, kick, { once: true, passive: true, capture: true });
   });
 
-  // Background preload once the main thread is idle (~4 s cap) for passive readers.
+  // Hover or keyboard-focus on any search trigger: warm the engines before the
+  // click, so the very first "/" or search-button press opens with zero wait.
+  ["pointerover", "focusin"].forEach(function (ev) {
+    document.addEventListener(ev, function (e) {
+      if (isSearchTrigger(e.target)) inject(SEARCH, "search");
+    }, true);
+  });
+
+  // Background preload once the main thread is idle (~1.5 s cap) for passive readers.
   function idleLoad() { inject(SEARCH, "search"); inject(CHAT, "chat"); }
-  if ("requestIdleCallback" in window) window.requestIdleCallback(idleLoad, { timeout: 4000 });
-  else setTimeout(idleLoad, 4000);
+  if ("requestIdleCallback" in window) window.requestIdleCallback(idleLoad, { timeout: 1500 });
+  else setTimeout(idleLoad, 1500);
 })();
 
 /* Instant-navigation prefetch: warms the cache for the static shell (nav renders
