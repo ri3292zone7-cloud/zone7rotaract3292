@@ -189,7 +189,7 @@ This project is released under the **MIT License**. Take it, use it, change it, 
 </p>
 
 <p align="center">
-  Made with ❤️ (and a lot of chiya) by the clubs and members of <strong>Zone 7, Rotaract District 3292 Nepal–Bhutan</strong>.
+  Designed and built by <strong>Ar. Rajay Bajracharya</strong> · Made with ❤️ (and a lot of chiya) for the clubs and members of <strong>Zone 7, Rotaract District 3292 Nepal–Bhutan</strong>.
 </p>
 
 <p align="center">
