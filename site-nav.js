@@ -11,9 +11,23 @@
     var vpMeta = document.querySelector('meta[name="viewport"]');
     if (vpMeta && window.screen && window.screen.width &&
         document.documentElement.clientWidth > window.screen.width + 5) {
-      vpMeta.setAttribute("content", "width=" + window.screen.width + ", initial-scale=1.0");
-    }
+        vpMeta.setAttribute("content", "width=" + window.screen.width + ", initial-scale=1.0");
+      }
   } catch (e) {}
+
+  // --- Club logo URLs must stay root-absolute. CLUB_DIRECTORY stores them
+  // as relative "media/logos/…" paths, which resolve fine on root-level
+  // pages but 404 on subpath pages (e.g. /React%20JS/dist-*/…) in every
+  // browser. Normalize through zone7MediaPath when present.
+  function z7Logo(p) {
+    try {
+      if (!p) return "";
+      if (typeof zone7MediaPath === "function") return zone7MediaPath(p);
+      var s = String(p);
+      if (/^(https?:)?\/\//.test(s) || /^data:/.test(s) || s.charAt(0) === "/") return s;
+      return "/" + s.replace(/^\/+/, "");
+    } catch (err) { return p || ""; }
+  }
 
   // --- Universal night mode. All pages run an early-paint head snippet that
   // applies the class before CSS renders, so there is no light flash. Storage
@@ -597,7 +611,7 @@
       if (clubs.length) {
         grid.innerHTML = clubs.map(function (e) {
           var slug = e[0], c = e[1];
-          var logo = (c && c.logo) ? c.logo : "";
+          var logo = z7Logo(c && c.logo);
           var name = c && c.name ? c.name.replace("Rotaract Club of ", "") : slug;
           var src = logo ? '<img src="' + logo + '" alt="' + name + '" loading="lazy">' : '<div style="width:28px;height:28px;border-radius:8px;background:rgba(225,26,110,.12);flex-shrink:0"></div>';
           return '<a class="clubs-drop-item" href="/' + encodeURIComponent(slug) + '">' + src + "<span>" + name + "</span></a>";
@@ -762,7 +776,7 @@
       z7ClubsHtml = '<div class="sh-group">Clubs</div>' + (z7ClubDir.length ? z7ClubDir.map(function (e) {
         var slug = e[0], c = e[1];
         var cname = c && c.name ? c.name.replace("Rotaract Club of ", "") : slug;
-        var clogo = c && c.logo ? c.logo : "";
+        var clogo = z7Logo(c && c.logo);
         var cicon = clogo
           ? '<span style="position:relative;display:inline-flex;width:22px;height:22px;align-items:center;justify-content:center;">👥<img src="' + clogo + '" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:6px;background:#fff;" onerror="this.remove()"></span>'
           : "👥";

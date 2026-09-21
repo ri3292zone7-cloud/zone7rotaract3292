@@ -717,21 +717,32 @@ function renderFile(profile){
   document.getElementById("goalCount").textContent = `(${goals.length} goals)`;
 }
 async function init(){
+  /* Instant paint first: seed renders All + all 7 cards with zero network,
+     so slow mobile connections never see an empty grid or dead tags. */
+  allProjects = SEED_PROJECTS.slice(0, 12);
+  renderFilters();
+  renderProjects("");
   try{
-    const [projects, profile] = await Promise.all([
-      ZONE7_DB.getProjects("tripureswor", { limit: 60, full: true }),
-      ZONE7_DB.getClubProfile("tripureswor")
+    const slow = new Promise((_, rej) => setTimeout(() => rej(new Error("live-slow")), 8000));
+    const [projects, profile] = await Promise.race([
+      Promise.all([
+        ZONE7_DB.getProjects("tripureswor", { limit: 60, full: true }),
+        ZONE7_DB.getClubProfile("tripureswor")
+      ]),
+      slow
     ]);
-    allProjects = (projects && projects.length ? projects : SEED_PROJECTS).slice(0, 12);
+    if(projects && projects.length){
+      allProjects = projects.slice(0, 12);
+      const active = document.querySelector("#filters .chip.on");
+      renderFilters();
+      renderProjects(active && active.dataset ? (active.dataset.f || "") : "");
+    }
     renderBoard(profile && profile.board);
     renderFile(profile);
   }catch(e){
-    allProjects = SEED_PROJECTS;
     renderBoard(null);
     renderFile(null);
   }
-  renderFilters();
-  renderProjects("");
   watchReveals(document);
 }
 /* Animated impact counters (additive). */
@@ -772,5 +783,6 @@ lb.addEventListener("click", e => { if(e.target === lb) lb.close(); });
 watchReveals(document);
 init();
 </script>
-</body>
+
+<script defer src="/z7-lazy.js"></script></body>
 </html>
