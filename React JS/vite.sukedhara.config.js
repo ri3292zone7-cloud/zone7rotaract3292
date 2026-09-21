@@ -10,7 +10,7 @@ export default defineConfig({
     outDir: 'dist-sukedhara',
     emptyOutDir: true,
     rollupOptions: {
-      input: 'sukedhara-demo.html'
+      input: 'sukedhara.html'
     }
   }
 })

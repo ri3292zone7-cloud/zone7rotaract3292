@@ -302,7 +302,7 @@ function Footer() {
         </a>
       </div>
       <p className="mt-8 text-xs font-semibold tracking-[0.1em] text-white/60 uppercase">
-        Demo concept — for the real thing, visit the{' '}
+        The Compassion Club — for reports and records, visit the{' '}
         <a href="/sukedhara/official" className="font-bold text-rose underline underline-offset-2 hover:text-gold">
           official club page
         </a>

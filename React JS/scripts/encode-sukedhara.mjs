@@ -9,9 +9,9 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const htmlPath = resolve(root, 'dist-sukedhara', 'sukedhara-demo.html');
+const htmlPath = resolve(root, 'dist-sukedhara', 'sukedhara.html');
 
 const html = readFileSync(htmlPath, 'utf8');
 const out = html.replaceAll('/React JS/', '/React%20JS/');
 writeFileSync(htmlPath, out);
-console.log('sukedhara-demo.html asset URLs encoded -> /React%20JS/dist-sukedhara/');
+console.log('sukedhara.html asset URLs encoded -> /React%20JS/dist-sukedhara/');
