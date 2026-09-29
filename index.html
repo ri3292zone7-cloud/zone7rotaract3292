@@ -440,7 +440,12 @@
   dialog#skyView.is-carousel .sv-nophoto{flex:0 0 80%; width:80%; height:100%;}
 
   @media (max-width:899px){
-    dialog#skyView{width:92vw; height:90vh; height:90dvh; border-radius:24px; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain;}
+    dialog#skyView{
+      width:92vw; height:90vh; height:90dvh; border-radius:24px;
+      overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain;
+      /* iOS only honours momentum scrolling inside a modal with this set */
+      -webkit-overflow-scrolling:touch;
+    }
     .sv-panel{display:flex; flex-direction:column; height:auto; min-height:100%;}
     .sv-bar{
       position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; gap:14px;
@@ -449,11 +454,20 @@
     }
     .sv-bar .sv-eyebrow{margin-bottom:3px;}
     .sv-bar .t{font-family:'Poppins'; font-weight:700; font-size:1rem; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-    .sv-text{padding:22px 18px 26px; gap:18px; border-right:0; border-bottom:1px solid var(--line);}
+    /* On phones the dialog is the ONE scroller. The text pane and stage must
+       stop being scroll containers here: Chrome keeps an overflow:auto box as
+       a scroll container even when it has nothing to scroll, and its
+       overscroll-behavior:contain then blocks the gesture from chaining up to
+       the dialog — so every swipe that started on the text was swallowed and
+       the card appeared frozen. */
+    .sv-text{padding:22px 18px 26px; gap:18px; border-right:0; border-bottom:1px solid var(--line); overflow:visible; overscroll-behavior:auto;}
+    /* the caption bar is sticky at the bottom, so the text column needs room
+       to scroll its last element (the CTA) clear of it */
+    .sv-text{padding-bottom:74px;}
     .sv-text h2{font-size:1.7rem;}
     .sv-meta{grid-template-columns:1fr; gap:12px;}
-    .sv-pages{height:auto; overflow:visible;}
-    .sv-stage{min-height:0;}
+    .sv-pages{height:auto; overflow:visible; overscroll-behavior:auto;}
+    .sv-stage{min-height:0; overflow:visible;}
     .sv-capbar{
       position:sticky; bottom:0; z-index:15; display:block; margin:0; padding:11px 16px;
       background:rgba(255,253,249,.95); border-top:1px solid var(--line);
@@ -1496,16 +1510,24 @@
 
   function svFigs(){ return svPages ? Array.from(svPages.children) : []; }
   function svVisible(){
-    const figs=svFigs(); if(!figs.length) return 0;
-    const vertical=svDlg.classList.contains("is-carousel") && window.matchMedia("(max-width:899px)").matches;
-    const top=svPages.getBoundingClientRect().top;
-    let best=0, bestD=Infinity;
-    figs.forEach((f,i)=>{
-      const r=f.getBoundingClientRect();
-      const d=Math.abs((vertical ? r.top : r.left) - top);
-      if(d<bestD){ bestD=d; best=i; }
-    });
-    return best;
+    const figs=svFigs();
+    if(!figs.length) return 0;
+    /* Anchor to whichever box is actually scrolling. On desktop, and in
+       carousel mode, the photo stack scrolls inside the stage. On phones the
+       whole card scrolls in one column, so measuring against the stage picked
+       a frame that was still below the fold and the caption opened on
+       "photo 2". Fall back to the first frame when none is on screen yet. */
+    const ownScroller = svPages.scrollHeight > svPages.clientHeight + 2;
+    const box = ownScroller ? svPages.getBoundingClientRect() : svDlg.getBoundingClientRect();
+    const horizontal = ownScroller && window.getComputedStyle(svPages).flexDirection === "row";
+    for(let i=0;i<figs.length;i++){
+      const r=figs[i].getBoundingClientRect();
+      const onScreen = horizontal
+        ? (r.right > box.left + 8 && r.left < box.right - 8)
+        : (r.bottom > box.top + 8 && r.top < box.bottom - 8);
+      if(onScreen) return i;
+    }
+    return 0;
   }
   function svSync(){
     const figs=svFigs(), n=figs.length;
