@@ -261,6 +261,220 @@
     .mosaic-col{min-width:26px; width:auto;}
     .mosaic-frame{padding:20px 14px 14px;}
   }
+
+  /* ---------- SKYLINE QUICK VIEW (Dekibyu-style project card) ----------
+     One reusable <dialog> for every tile. Same anatomy as the Dekibyu
+     project quick view — springy card, glass text pane on the left,
+     scrolling photo stage on the right, plus a gallery mode that
+     collapses the text pane and turns the stack into a peek carousel. */
+  dialog#skyView{
+    position:fixed; inset:0; margin:auto; padding:0; border:0; overflow:hidden;
+    width:80vw; max-width:1500px; height:84vh; height:84dvh;
+    background:var(--paper); color:var(--ink);
+    border-radius:28px; box-shadow:0 48px 120px -28px rgba(27,24,54,.55);
+    outline:none;
+  }
+  dialog#skyView::backdrop{
+    background:rgba(27,24,54,.5);
+    -webkit-backdrop-filter:blur(22px) saturate(1.2); backdrop-filter:blur(22px) saturate(1.2);
+    animation:sv-bg-in .4s ease both;
+  }
+  @keyframes sv-bg-in{from{opacity:0}to{opacity:1}}
+  .sv-panel{height:100%; display:grid; grid-template-columns:5fr 7fr; animation:sv-in .7s cubic-bezier(.3,1.55,.5,1) both;}
+  @keyframes sv-in{
+    0%{opacity:0; transform:scale(.78) translateY(44px);}
+    55%{opacity:1; transform:scale(1.045) translateY(-8px) rotate(-.4deg);}
+    75%{transform:scale(.985) translateY(2px);}
+    100%{opacity:1; transform:none;}
+  }
+  dialog#skyView.sv-out .sv-panel{animation:sv-out .24s cubic-bezier(.5,-.2,.8,.4) both;}
+  dialog#skyView.sv-out::backdrop{animation:sv-bg-out .24s ease .05s both;}
+  @keyframes sv-out{from{opacity:1; transform:none}to{opacity:0; transform:scale(.86) translateY(30px)}}
+  @keyframes sv-bg-out{from{opacity:1}to{opacity:0}}
+  .sv-bar{display:none;}
+  .sv-capbar{display:none;}
+  .sv-no-scrollbar{scrollbar-width:none; -ms-overflow-style:none;}
+  .sv-no-scrollbar::-webkit-scrollbar{display:none;}
+
+  /* left — text pane */
+  .sv-text{
+    position:relative; display:flex; flex-direction:column; gap:22px; min-width:0;
+    overflow-y:auto; overscroll-behavior:contain;
+    padding:44px; border-right:1px solid var(--line);
+    background:linear-gradient(to bottom, rgba(255,255,255,.8), rgba(255,253,249,.5));
+  }
+  .sv-riser{opacity:0; animation:sv-rise .5s ease both; animation-delay:calc(.25s + var(--i,0) * .08s);}
+  @keyframes sv-rise{from{opacity:0; transform:translateY(18px)}to{opacity:1; transform:none}}
+  .sv-eyebrow{font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.12em; color:var(--magenta-deep);}
+  .sv-text h2{
+    font-family:'Poppins'; font-weight:800; letter-spacing:-.02em; line-height:.98;
+    font-size:clamp(1.6rem,2.7vw,2.6rem); margin:10px 0 8px; text-wrap:balance;
+  }
+  .sv-subline{font-size:.86rem; color:rgba(27,24,54,.55);}
+  .sv-meta{
+    display:grid; grid-template-columns:1fr 1fr; gap:16px 26px;
+    margin:0; padding:18px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .sv-meta dt{font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:rgba(27,24,54,.42);}
+  .sv-meta dd{margin:5px 0 0; font-size:.86rem; line-height:1.4;}
+  .sv-sum{font-size:.95rem; line-height:1.8; color:rgba(27,24,54,.78); margin:0; white-space:pre-line;}
+  .sv-loading{font-size:.8rem; color:rgba(27,24,54,.5); margin:0;}
+  .sv-actions{display:flex; align-items:center; gap:12px; margin-top:auto; padding-top:8px;}
+  .sv-cta{
+    display:inline-flex; align-items:center; gap:9px; border-radius:12px;
+    background:var(--ink); color:var(--cream); padding:15px 24px; border:0; cursor:pointer;
+    font-family:'Poppins'; font-size:.74rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+    text-decoration:none; transition:transform .35s cubic-bezier(.34,1.56,.64,1), background-color .3s;
+  }
+  .sv-cta:hover{transform:translateY(-3px) scale(1.03); background:var(--magenta-deep); color:#fff;}
+  .sv-cta:active{transform:scale(.96);}
+  .sv-cta .arr{transition:transform .3s ease;}
+  .sv-cta:hover .arr{transform:translateX(5px);}
+  .sv-ext{
+    display:inline-grid; place-items:center; width:46px; height:46px; border-radius:12px;
+    background:rgba(27,24,54,.06); color:var(--ink); font-size:1rem; text-decoration:none;
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1), background-color .3s, color .3s;
+  }
+  .sv-ext:hover{transform:translateY(-3px) rotate(6deg); background:var(--ink); color:var(--cream);}
+  .sv-ext:active{transform:scale(.92);}
+  .sv-close{
+    display:grid; place-items:center; width:36px; height:36px; flex-shrink:0;
+    border:0; border-radius:12px; background:rgba(27,24,54,.05); color:var(--ink);
+    font-size:.82rem; line-height:1; cursor:pointer;
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1), background-color .3s, color .3s;
+  }
+  .sv-close:hover{transform:rotate(90deg); background:var(--ink); color:var(--cream);}
+
+  /* right — photo stage */
+  .sv-stage{position:relative; min-height:0; overflow:hidden; background:var(--cream);}
+  .sv-pages{position:relative; height:100%; overflow-y:auto; overscroll-behavior:contain;}
+  .sv-page{margin:0; line-height:0; animation:sv-page-pop .75s cubic-bezier(.28,1.6,.6,1) both; animation-delay:calc(.18s + var(--i,0) * .12s);}
+  .sv-page img{display:block; width:100%; height:auto;}
+  .sv-pages{animation:sv-pages-in .5s ease .15s both;}
+  @keyframes sv-pages-in{from{opacity:0}to{opacity:1}}
+  @keyframes sv-page-pop{from{opacity:0; transform:translateY(56px) scale(.92); filter:brightness(1.4)}to{opacity:1; transform:none; filter:none}}
+  .sv-nophoto{
+    height:100%; min-height:260px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+    background:linear-gradient(150deg, var(--pBg, var(--magenta)), var(--magenta-deep)); color:#fff; text-align:center; padding:32px;
+  }
+  .sv-nophoto .ic{font-size:3.4rem; line-height:1;}
+  .sv-nophoto p{margin:0; font-size:.74rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; opacity:.85;}
+  .sv-glasspill{
+    position:absolute; top:16px; left:50%; transform:translateX(-50%); z-index:10;
+    display:flex; align-items:center; gap:10px; padding:6px 6px 6px 14px; border-radius:100px;
+    background:linear-gradient(to bottom, rgba(255,255,255,.85), rgba(255,255,255,.55));
+    border:1px solid rgba(255,255,255,.6); box-shadow:0 2px 24px rgba(27,24,54,.18);
+    -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px);
+  }
+  .sv-glasspill .z{
+    background:var(--magenta); color:#fff; width:22px; height:22px; border-radius:6px;
+    display:grid; place-items:center; font-family:'Poppins'; font-weight:800; font-size:.7rem;
+  }
+  .sv-glasspill .cnt{font-family:'Poppins'; font-size:.66rem; font-weight:700; letter-spacing:.14em; color:rgba(27,24,54,.6); white-space:nowrap;}
+  .sv-glasspill .sv-close{width:28px; height:28px; border-radius:100px; background:rgba(27,24,54,.08);}
+  .sv-spot{
+    position:absolute; inset:0; z-index:5; pointer-events:none; opacity:0; transition:opacity .35s ease; mix-blend-mode:screen;
+    background:radial-gradient(340px circle at var(--sx,50%) var(--sy,40%), rgba(255,255,255,.18), rgba(255,255,255,0) 70%);
+  }
+  .sv-stage:hover .sv-spot{opacity:1;}
+
+  /* gallery mode — text pane collapses to 0fr, pages become a peek carousel */
+  .sv-mode{
+    align-self:flex-start; display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    height:44px; padding:0 15px; border-radius:12px; cursor:pointer; color:var(--ink);
+    background:rgba(27,24,54,.035); border:1px solid rgba(27,24,54,.1);
+    font-family:'Poppins'; font-size:.69rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; white-space:nowrap;
+    transition:background-color .3s, color .3s, transform .25s, border-color .3s;
+  }
+  .sv-mode:hover{background:rgba(27,24,54,.07); border-color:rgba(27,24,54,.22); transform:translateY(-1px);}
+  .sv-mode:active{transform:scale(.97);}
+  .sv-mode svg{width:18px; height:18px; flex:0 0 auto;}
+  .sv-mode .i-collapse{display:none;}
+  .sv-mode[aria-pressed="true"]{background:var(--ink); color:var(--cream); border-color:var(--ink);}
+  .sv-mode[aria-pressed="true"] .i-grid{display:none;}
+  .sv-mode[aria-pressed="true"] .i-collapse{display:inline;}
+  .sv-exit{display:none;}
+  .sv-nav{position:absolute; inset:0; z-index:9; display:none; pointer-events:none;}
+  .sv-nav-btn{
+    position:absolute; top:50%; transform:translateY(-50%); pointer-events:auto; cursor:pointer;
+    display:grid; place-items:center; width:44px; height:44px; border-radius:100px;
+    background:rgba(255,253,249,.92); color:var(--ink); border:1px solid rgba(27,24,54,.14);
+    box-shadow:0 4px 20px rgba(27,24,54,.24); font-size:1rem; line-height:1;
+    transition:background-color .25s, transform .25s, opacity .3s;
+  }
+  .sv-nav-btn--prev{left:16px;} .sv-nav-btn--next{right:16px;}
+  .sv-nav-btn:hover:not([aria-disabled="true"]){background:#fff; transform:translateY(-50%) scale(1.06);}
+  .sv-nav-btn[aria-disabled="true"]{opacity:.22; cursor:default;}
+  dialog#skyView.is-carousel .sv-exit{
+    display:grid; position:absolute; top:16px; left:16px; z-index:12; pointer-events:auto; cursor:pointer;
+    place-items:center; width:40px; height:40px; border-radius:100px; background:rgba(255,253,249,.86);
+    color:var(--ink); border:1px solid rgba(27,24,54,.14); box-shadow:0 4px 18px rgba(27,24,54,.22);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  }
+  dialog#skyView.is-carousel .sv-exit svg{width:17px; height:17px;}
+  dialog#skyView.is-carousel .sv-exit:hover{background:#fff; transform:scale(1.06);}
+  dialog#skyView.is-carousel .sv-glasspill .z{display:none;}
+  dialog#skyView.is-carousel .sv-nav{display:block;}
+  dialog#skyView.is-carousel .sv-spot{display:none;}
+  dialog#skyView.sv-single .sv-mode,
+  dialog#skyView.sv-single .sv-nav,
+  dialog#skyView.sv-single .sv-exit{display:none;}
+  @media (min-width:900px){
+    .sv-panel{transition:grid-template-columns .45s cubic-bezier(.16,1,.3,1);}
+    /* minmax(0,0fr) is required: a bare 0fr track implies minmax(auto,0fr),
+       and that auto floor pins the column at the text's min-content width. */
+    dialog#skyView.is-carousel .sv-panel{grid-template-columns:minmax(0,0fr) minmax(0,12fr);}
+    dialog#skyView.is-carousel .sv-text{opacity:0; overflow:hidden; padding:0; border-right:0; visibility:hidden;}
+  }
+  dialog#skyView.is-carousel .sv-pages{
+    display:flex; flex-direction:row; align-items:center; gap:2%; height:100%;
+    overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+  }
+  dialog#skyView.is-carousel .sv-page{
+    flex:0 0 80%; width:80%; height:auto; max-height:100%; scroll-snap-align:start; scroll-snap-stop:always;
+    display:flex; align-items:center; animation:sv-car-in .45s cubic-bezier(.16,1,.3,1) both; animation-delay:calc(var(--i,0) * .06s);
+  }
+  dialog#skyView.is-carousel .sv-page img{width:100%; height:auto; max-height:100%; object-fit:contain;}
+  @keyframes sv-car-in{from{opacity:0; transform:translateX(28px) scale(.96)}to{opacity:1; transform:none}}
+  dialog#skyView.is-carousel .sv-nophoto{flex:0 0 80%; width:80%; height:100%;}
+
+  @media (max-width:899px){
+    dialog#skyView{width:92vw; height:90vh; height:90dvh; border-radius:24px; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain;}
+    .sv-panel{display:flex; flex-direction:column; height:auto; min-height:100%;}
+    .sv-bar{
+      position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:13px 16px; background:rgba(255,253,249,.95);
+      -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border-bottom:1px solid var(--line);
+    }
+    .sv-bar .sv-eyebrow{margin-bottom:3px;}
+    .sv-bar .t{font-family:'Poppins'; font-weight:700; font-size:1rem; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .sv-text{padding:22px 18px 26px; gap:18px; border-right:0; border-bottom:1px solid var(--line);}
+    .sv-text h2{font-size:1.7rem;}
+    .sv-meta{grid-template-columns:1fr; gap:12px;}
+    .sv-pages{height:auto; overflow:visible;}
+    .sv-stage{min-height:0;}
+    .sv-capbar{
+      position:sticky; bottom:0; z-index:15; display:block; margin:0; padding:11px 16px;
+      background:rgba(255,253,249,.95); border-top:1px solid var(--line);
+      -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+      font-size:.66rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:rgba(27,24,54,.6);
+    }
+    dialog#skyView.is-carousel .sv-stage{display:grid; grid-template-rows:minmax(0,1fr) auto; height:62vh; height:62dvh;}
+    dialog#skyView.is-carousel .sv-pages{width:100%; height:100%; min-height:0; flex-direction:column; overflow-x:hidden; overflow-y:auto; scroll-snap-type:y mandatory;}
+    dialog#skyView.is-carousel .sv-page{width:100%; height:80%; max-height:none;}
+    dialog#skyView.is-carousel .sv-page img{width:100%; height:100%; object-fit:contain;}
+    dialog#skyView.is-carousel .sv-nophoto{flex:none; width:100%; height:80%; max-height:none;}
+    /* rotate the horizontal glyphs so prev/next read as up/down */
+    dialog#skyView.is-carousel .sv-nav-btn span{display:block; transform:rotate(90deg);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .sv-panel,.sv-pages,.sv-page,.sv-page img,dialog#skyView::backdrop,.sv-riser{animation:none;}
+    .sv-riser{opacity:1;}
+    dialog#skyView.sv-out .sv-panel{animation:none;}
+    .sv-cta,.sv-ext,.sv-close,.sv-mode,.sv-exit,.sv-nav-btn,.sv-text,.sv-panel{transition:none;}
+    .sv-spot{display:none;}
+  }
   .pillar{
     background:var(--cream); border:1px solid var(--line); border-radius:18px; padding:28px 30px;
     display:flex; gap:20px; align-items:flex-start;
@@ -1010,10 +1224,76 @@
       </div>
     </div>
     <div class="mosaic-frame"><div class="mosaic-columns" id="mosaicColumns"></div></div>
-    <p class="mosaic-note">Mockup preview. Live club-uploaded projects populate this automatically; hover or tap any tile for the full project name.</p>
+    <p class="mosaic-note">Mockup preview. Live club-uploaded projects populate this automatically; hover any tile for its name, press one to open the project.</p>
   </div>
 </section>
 <div class="mosaic-popup" id="mosaicPopup"><span class="mp-tag" id="mpTag"></span><h5 id="mpTitle"></h5><p id="mpClub"></p></div>
+
+<!-- Skyline quick view — one dialog, populated per tile press -->
+<dialog id="skyView" aria-labelledby="svTitle">
+  <!-- mobile: sticky title bar — the project name never scrolls away -->
+  <header class="sv-bar">
+    <div style="min-width:0">
+      <p class="sv-eyebrow" id="svBarEyebrow"></p>
+      <p class="t" id="svBarTitle"></p>
+    </div>
+    <button type="button" class="sv-close" data-sv-close aria-label="Close project view"><span>✕</span></button>
+  </header>
+
+  <div class="sv-panel">
+    <!-- left: text pane -->
+    <aside class="sv-text sv-no-scrollbar">
+      <button type="button" class="sv-mode" data-sv-mode aria-pressed="false">
+        <span class="sv-mode__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <g class="i-grid"><rect x="3" y="3" width="7.6" height="7.6" rx="1.9"/><rect x="13.4" y="3" width="7.6" height="7.6" rx="1.9"/><rect x="3" y="13.4" width="7.6" height="7.6" rx="1.9"/><rect x="13.4" y="13.4" width="7.6" height="7.6" rx="1.9"/></g>
+            <g class="i-collapse"><path d="M6.5 4h11A1.5 1.5 0 0 1 19 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18.5v-13A1.5 1.5 0 0 1 6.5 4Z"/><path d="m9.4 14.4 2.6-2.6 2.6 2.6"/></g>
+          </svg>
+        </span>
+        <span data-sv-mode-label>Gallery</span>
+      </button>
+
+      <div class="sv-riser" style="--i:0">
+        <p class="sv-eyebrow" id="svEyebrow"></p>
+        <h2 id="svTitle"></h2>
+        <p class="sv-subline" id="svSubline"></p>
+      </div>
+
+      <dl class="sv-meta sv-riser" id="svMeta" style="--i:1"></dl>
+      <p class="sv-sum sv-riser" id="svSum" style="--i:2"></p>
+      <p class="sv-loading sv-riser" id="svLoading" hidden>Loading the full file…</p>
+
+      <div class="sv-actions sv-riser" style="--i:3">
+        <a class="sv-cta" id="svCta" href="#">Open the file <span class="arr">→</span></a>
+        <a class="sv-ext" id="svExt" href="#" aria-label="Open the full project page"><span aria-hidden="true">↗</span></a>
+      </div>
+    </aside>
+
+    <!-- right: photo stage -->
+    <div class="sv-stage">
+      <div class="sv-pages sv-no-scrollbar" id="svPages"></div>
+      <button type="button" class="sv-exit" data-sv-mode aria-label="Back to project details">
+        <span aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.5 4h11A1.5 1.5 0 0 1 19 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18.5v-13A1.5 1.5 0 0 1 6.5 4Z"/><path d="m9.4 14.4 2.6-2.6 2.6 2.6"/>
+          </svg>
+        </span>
+      </button>
+      <div class="sv-nav">
+        <button type="button" class="sv-nav-btn sv-nav-btn--prev" data-sv-prev aria-label="Previous photo"><span aria-hidden="true">←</span></button>
+        <button type="button" class="sv-nav-btn sv-nav-btn--next" data-sv-next aria-label="Next photo"><span aria-hidden="true">→</span></button>
+      </div>
+      <div class="sv-spot" aria-hidden="true"></div>
+      <div class="sv-glasspill">
+        <span class="z" aria-hidden="true">7</span>
+        <span class="cnt"><span data-sv-count>01</span> / <span data-sv-total>01</span></span>
+        <button type="button" class="sv-close" data-sv-close aria-label="Close project view"><span>✕</span></button>
+      </div>
+    </div>
+  </div>
+  <p class="sv-capbar" data-sv-cap aria-live="polite"></p>
+</dialog>
+
 <script>
 (async function(){
   // curated, brand-adjacent palette — no raw neon, everything sits in the same tonal family
@@ -1088,6 +1368,7 @@
         c:(p.category||"").trim() || "Uncategorized",
         club:p.club_slug,
         cn:(CLUB_DIRECTORY[p.club_slug] && CLUB_DIRECTORY[p.club_slug].name.replace(/^Rotaract Club of /i,"")) || p.club_slug,
+        d:p.date || "",
         id:p.id
       }));
       isLive=true;
@@ -1106,8 +1387,8 @@
   const keyFor={ category:p=>p.c, club:p=>p.cn, az:p=>p.t[0].toUpperCase(), avenue:p=>p.av };
   const noteEl=document.querySelector(".mosaic-note");
   if(noteEl) noteEl.textContent = isLive
-    ? `Live · ${MOSAIC.length} project${MOSAIC.length===1?"":"s"} uploaded by Zone 7 clubs. Codes are short labels; hover or tap any tile for the full project name.`
-    : "Mockup preview · real club-uploaded projects will populate this automatically. Codes are short labels; hover or tap any tile for the full project name.";
+    ? `Live · ${MOSAIC.length} project${MOSAIC.length===1?"":"s"} uploaded by Zone 7 clubs. Codes are short labels — hover any tile for its name, press one to open the project card.`
+    : "Mockup preview · real club-uploaded projects will populate this automatically. Codes are short labels — hover any tile for its name, press one to open the project card.";
 
   function render(mode){
     const key=keyFor[mode];
@@ -1121,7 +1402,7 @@
       const stacksHtml=chunks.map(chunk=>`
         <div class="mosaic-stack">${chunk.map(p=>{
           const gi=MOSAIC.indexOf(p);
-          return `<div class="mosaic-tile" style="background:${p.bg}" data-i="${gi}">${p.ic}</div>`;
+          return `<div class="mosaic-tile" role="button" style="background:${p.bg}" data-i="${gi}" aria-label="${p.t} — Rotaract Club of ${p.cn}">${p.ic}</div>`;
         }).join("")}</div>
       `).join("");
       return `
@@ -1131,40 +1412,247 @@
         </div>
       `;
     }).join("");
+  }
 
-    cols.querySelectorAll(".mosaic-col").forEach(colEl=>{
-      colEl.addEventListener("mouseenter",()=>{ cols.classList.add("dim"); colEl.classList.add("hi"); });
-      colEl.addEventListener("mouseleave",()=>{ cols.classList.remove("dim"); colEl.classList.remove("hi"); });
+  /* ---- one delegated listener set for the whole mosaic ----
+     Attached once, outside render(): render() only swaps cols.innerHTML, so
+     binding on `cols` survives every tab switch. Binding inside render() used
+     to stack a fresh set on each switch (5 clicks after 4 tabs). */
+  function popAt(x, y, mode){
+    const left = mode === "touch" ? x + 8 : Math.min(x + 16, window.innerWidth - 246);
+    const top = mode === "touch" ? Math.min(y - 96, window.innerHeight - 150) : Math.min(y + 16, window.innerHeight - 100);
+    pop.style.left = left + "px";
+    pop.style.top = top + "px";
+  }
+  function showFor(el, x, y, mode){
+    const p = MOSAIC[el.dataset.i];
+    if(!p) return;
+    popAt(x, y, mode);
+    mpTag.textContent = p.c; mpTitle.textContent = p.t; mpClub.textContent = "Rotaract Club of " + p.cn;
+    pop.classList.add("show");
+  }
+  cols.addEventListener("mousemove", (e) => {
+    const el = e.target.closest(".mosaic-tile");
+    if(el) showFor(el, e.clientX, e.clientY, "mouse");
+  });
+  cols.addEventListener("mouseleave", () => pop.classList.remove("show"));
+  /* column dim/highlight, delegated so it survives every render() */
+  cols.addEventListener("mouseover", (e) => {
+    const colEl = e.target.closest(".mosaic-col");
+    if(!colEl) return;
+    cols.classList.add("dim"); colEl.classList.add("hi");
+  });
+  cols.addEventListener("mouseout", (e) => {
+    const colEl = e.target.closest(".mosaic-col");
+    if(!colEl || colEl.contains(e.relatedTarget)) return;
+    cols.classList.remove("dim"); colEl.classList.remove("hi");
+  });
+  cols.addEventListener("touchstart", (e) => {
+    const el = e.target.closest(".mosaic-tile");
+    if(el) showFor(el, e.touches[0].clientX, e.touches[0].clientY, "touch");
+  }, {passive:true});
+  cols.addEventListener("touchend", () => { setTimeout(() => pop.classList.remove("show"), 2400); }, {passive:true});
+  /* click (not pointerdown): a swipe that starts on a tile is a scroll, and
+     pointerdown would open the card mid-drag. Modern mobile browsers drop
+     the 300ms click delay when the viewport isn't zoomed. */
+  cols.addEventListener("click", (e) => {
+    const el = e.target.closest(".mosaic-tile");
+    if(!el) return;
+    const p = MOSAIC[el.dataset.i];
+    if(p){ pop.classList.remove("show"); svOpen(p); }
+  });
+
+  /* ===================================================================
+     SKYLINE QUICK VIEW — Dekibyu-style project card.
+
+     The skyline fetch (getAllProjects) only returns id/title/category/date,
+     so the card paints instantly from that and then upgrades itself with
+     one lazy request for the full record. Nothing here waits on the
+     network to be readable, and a slow or failed upgrade never blanks
+     what is already on screen.
+     =================================================================== */
+  const svDlg=document.getElementById("skyView");
+  const svPages=document.getElementById("svPages");
+  const svEls={
+    eyebrow:document.getElementById("svEyebrow"), title:document.getElementById("svTitle"),
+    subline:document.getElementById("svSubline"), meta:document.getElementById("svMeta"),
+    sum:document.getElementById("svSum"), loading:document.getElementById("svLoading"),
+    cta:document.getElementById("svCta"), ext:document.getElementById("svExt"),
+    count:document.querySelector("[data-sv-count]"), total:document.querySelector("[data-sv-total]"),
+    cap:document.querySelector("[data-sv-cap]"),
+    barEyebrow:document.getElementById("svBarEyebrow"), barTitle:document.getElementById("svBarTitle"),
+    modeLabel:document.querySelector("[data-sv-mode-label]")
+  };
+  const svEsc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const svMedia=u=>{
+    const s=String(u||"");
+    if(!s) return "";
+    if(typeof zone7MediaPath==="function") return zone7MediaPath(s);
+    return /^(https?:)?\/\//.test(s)||/^data:/.test(s)||s.charAt(0)==="/" ? s : "/"+s.replace(/^\/+/,"");
+  };
+  const svDate=d=>{ const t=new Date(d); return isNaN(t) ? "" : t.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}); };
+  const svTitleOf=p=>((p&&p.t)||(p&&p.title)||"");
+  let svCur=null, svToken=0, svWired=false;
+
+  function svFigs(){ return svPages ? Array.from(svPages.children) : []; }
+  function svVisible(){
+    const figs=svFigs(); if(!figs.length) return 0;
+    const vertical=svDlg.classList.contains("is-carousel") && window.matchMedia("(max-width:899px)").matches;
+    const top=svPages.getBoundingClientRect().top;
+    let best=0, bestD=Infinity;
+    figs.forEach((f,i)=>{
+      const r=f.getBoundingClientRect();
+      const d=Math.abs((vertical ? r.top : r.left) - top);
+      if(d<bestD){ bestD=d; best=i; }
     });
-    // Delegated listeners — one set for the whole mosaic instead of per-tile,
-    // so 300 tiles cost ~6 listeners instead of ~2,400.
-    function popAt(x, y, mode){
-      const left = mode === "touch" ? x + 8 : Math.min(x + 16, window.innerWidth - 246);
-      const top = mode === "touch" ? Math.min(y - 96, window.innerHeight - 150) : Math.min(y + 16, window.innerHeight - 100);
-      pop.style.left = left + "px";
-      pop.style.top = top + "px";
+    return best;
+  }
+  function svSync(){
+    const figs=svFigs(), n=figs.length;
+    svEls.total.textContent=String(Math.max(n,1)).padStart(2,"0");
+    if(!n) return;
+    const i=svVisible();
+    svEls.count.textContent=String(i+1).padStart(2,"0");
+    const cap=figs[i] && figs[i].dataset.cap;
+    svEls.cap.textContent=cap||"";
+  }
+  function svStep(dir){
+    const figs=svFigs(); if(!figs.length) return;
+    const i=Math.min(figs.length-1, Math.max(0, svVisible()+dir));
+    figs[i].scrollIntoView({behavior:"smooth", block:"start", inline:"start"});
+    svSync();
+  }
+  function svSetMode(on){
+    svDlg.classList.toggle("is-carousel", !!on);
+    svDlg.querySelectorAll("[data-sv-mode]").forEach(b=>b.setAttribute("aria-pressed", on?"true":"false"));
+    if(svEls.modeLabel) svEls.modeLabel.textContent = on ? "Stack" : "Gallery";
+    svPages.scrollTop=0; svPages.scrollLeft=0;
+    requestAnimationFrame(svSync);
+  }
+  function svPaintPhotos(list, p){
+    /* with fewer than two frames the gallery toggle and prev/next are dead
+       chrome — the toggle is only mounted when there is something to switch to */
+    svDlg.classList.toggle("sv-single", list.length < 2);
+    if(!list.length){
+      svPages.innerHTML=`<div class="sv-nophoto" style="--pBg:${p.bg||"var(--magenta)"}"><span class="ic" aria-hidden="true">${p.ic||"✦"}</span><p>No photo filed yet</p></div>`;
+      return;
     }
-    function showFor(el, x, y, mode){
-      const p = MOSAIC[el.dataset.i];
-      if(!p) return;
-      popAt(x, y, mode);
-      mpTag.textContent = p.c; mpTitle.textContent = p.t; mpClub.textContent = "Rotaract Club of " + p.cn;
-      pop.classList.add("show");
+    svPages.innerHTML=list.map((src,i)=>
+      `<figure class="sv-page" style="--i:${i}" data-cap="${svEsc(svTitleOf(p))} · photo ${i+1} of ${list.length}"><img src="${svEsc(src)}" alt="${svEsc(svTitleOf(p))}, photo ${i+1} of ${list.length}" loading="${i<2?"eager":"lazy"}" decoding="async"></figure>`
+    ).join("");
+  }
+  function svPaintText(p, full){
+    const f=full||p;
+    /* the mosaic row carries short keys (t/c/d), the full record long ones */
+    const title=svTitleOf(f)||svTitleOf(p)||"Untitled project";
+    const clubName="Rotaract Club of "+(p.cn||p.club||"");
+    const eyebrow=[f.c||f.category||p.c, p.av].filter(Boolean).join(" · ");
+    svEls.eyebrow.textContent=eyebrow;
+    svEls.barEyebrow.textContent=clubName;
+    svEls.title.textContent=title;
+    svEls.barTitle.textContent=title;
+    const bits=[f.loc||f.location, svDate(f.d||f.date)].filter(Boolean);
+    svEls.subline.textContent=bits.join(" · ");
+
+    const rows=[
+      ["Avenue", p.av],
+      ["Date", svDate(f.d||f.date)],
+      ["Location", f.loc||f.location],
+      ["Category", f.c||f.category],
+      ["Attendees", f.attendees? f.attendees+" people" : ""],
+      ["Volunteer hours", f.volunteer_hours? f.volunteer_hours+" hrs" : ""],
+      ["Duration", f.duration],
+      ["With", f.jointly_with],
+      ["Code", f.project_code]
+    ].filter(r=>r[1]);
+    svEls.meta.innerHTML=rows.map(([k,v])=>`<div><dt>${svEsc(k)}</dt><dd>${svEsc(v)}</dd></div>`).join("");
+
+    const sum=f.sum||f.summary;
+    svEls.sum.textContent=sum||"";
+    svEls.sum.hidden=!sum;
+
+    const href=`/project?club=${encodeURIComponent(p.club||"")}&id=${encodeURIComponent(p.id||"")}`;
+    svEls.cta.href=href; svEls.ext.href=href;
+    if(!String(p.id||"").startsWith("mock-")){
+      svEls.cta.textContent="Open the file ";
+      svEls.cta.insertAdjacentHTML("beforeend",'<span class="arr">→</span>');
     }
-    cols.addEventListener("mousemove", (e) => {
-      const el = e.target.closest(".mosaic-tile");
-      if(el) showFor(el, e.clientX, e.clientY, "mouse");
+  }
+  function svUpgrade(p){
+    const token=++svToken;
+    if(typeof ZONE7_DB==="undefined" || !p.club || String(p.id||"").startsWith("mock-")){ svEls.loading.hidden=true; return; }
+    svEls.loading.hidden=false;
+    const slow=new Promise((_,rej)=>setTimeout(()=>rej(new Error("slow")),8000));
+    Promise.race([ZONE7_DB.getProject(p.club,p.id), slow]).then(full=>{
+      if(token!==svToken || !full) return;
+      svPaintText(p, full);
+      const imgs=[full.cover, ...(Array.isArray(full.gallery)?full.gallery:[])].map(svMedia).filter(Boolean);
+      svPaintPhotos(imgs, p);
+      svSetMode(false);
+    }).catch(()=>{
+      if(token!==svToken) return;
+      /* keep the card readable on a failed upgrade — the skyline row already
+         carries title, club, category and date */
+      svEls.loading.textContent="Full record unavailable right now — the summary below is what the club filed.";
+    }).finally(()=>{ if(token===svToken) svEls.loading.hidden=true; });
+  }
+  function svOpen(p){
+    if(!p || !svDlg) return;
+    svCur=p;
+    svPaintText(p,null);
+    svPaintPhotos([], p);
+    svSetMode(false);
+    svEls.loading.textContent="Loading the full file…";
+    document.body.style.overflow="hidden";
+    if(!svDlg.open) svDlg.showModal();
+    /* Park focus on the dialog itself. The first [data-sv-close] lives in the
+       mobile bar, which is display:none on desktop, so focusing a button here
+       is a no-op half the time; the dialog element is always rendered. */
+    svDlg.setAttribute("tabindex","-1");
+    svDlg.focus({preventScroll:true});
+    svSync();
+    svUpgrade(p);
+  }
+  function svClose(){
+    if(!svDlg.open) return;
+    svDlg.classList.add("sv-out");
+    setTimeout(()=>{ svDlg.classList.remove("sv-out"); if(svDlg.open) svDlg.close(); }, 200);
+  }
+  if(svDlg && !svWired){
+    svWired=true;
+    svDlg.querySelectorAll("[data-sv-close]").forEach(b=>b.addEventListener("click", svClose));
+    svDlg.querySelectorAll("[data-sv-mode]").forEach(b=>b.addEventListener("click",()=>svSetMode(!svDlg.classList.contains("is-carousel"))));
+    svDlg.querySelector("[data-sv-prev]").addEventListener("click",()=>svStep(-1));
+    svDlg.querySelector("[data-sv-next]").addEventListener("click",()=>svStep(1));
+    svPages.addEventListener("scroll", ()=>{ if(!svFigs().length) return; svSync(); }, {passive:true});
+    /* click the backdrop (outside the card) to dismiss */
+    svDlg.addEventListener("click", (e)=>{ if(e.target===svDlg) svClose(); });
+    /* document-level, not dialog-level: the mosaic tiles are divs, so nothing
+       lands focus inside the dialog on its own and a dialog-scoped listener
+       would never see the arrow keys. */
+    document.addEventListener("keydown", (e)=>{
+      if(!svDlg.open || !svDlg.classList.contains("is-carousel")) return;
+      const fwd=e.key==="ArrowRight"||e.key==="ArrowDown", back=e.key==="ArrowLeft"||e.key==="ArrowUp";
+      if(!fwd&&!back) return;
+      e.preventDefault(); svStep(fwd?1:-1);
     });
-    cols.addEventListener("mouseleave", () => pop.classList.remove("show"));
-    cols.addEventListener("touchstart", (e) => {
-      const el = e.target.closest(".mosaic-tile");
-      if(el) showFor(el, e.touches[0].clientX, e.touches[0].clientY, "touch");
-    }, {passive:true});
-    cols.addEventListener("touchend", () => { setTimeout(() => pop.classList.remove("show"), 2400); }, {passive:true});
-    cols.addEventListener("click", (e) => {
-      const el = e.target.closest(".mosaic-tile");
-      if(el){ const p = MOSAIC[el.dataset.i]; if(p) location.href = `/project?club=${p.club}&id=${encodeURIComponent(p.id)}`; }
+    svDlg.addEventListener("close", ()=>{
+      document.body.style.overflow="";
+      svToken++;                      /* drop any in-flight upgrade */
+      svSetMode(false);
+      svPages.scrollTop=0; svPages.scrollLeft=0; svDlg.scrollTop=0;
+      svCur=null;
     });
+    /* pointer-following glow over the photo stage */
+    const spot=svDlg.querySelector(".sv-spot"), stage=svDlg.querySelector(".sv-stage");
+    if(spot && stage && window.matchMedia("(hover:hover) and (pointer:fine)").matches){
+      stage.addEventListener("mousemove",(e)=>{
+        const r=stage.getBoundingClientRect();
+        spot.style.setProperty("--sx", ((e.clientX-r.left)/r.width*100).toFixed(1)+"%");
+        spot.style.setProperty("--sy", ((e.clientY-r.top)/r.height*100).toFixed(1)+"%");
+      });
+    }
+    window.addEventListener("resize", ()=>{ if(svDlg.open) requestAnimationFrame(svSync); });
   }
 
   document.querySelectorAll(".mt").forEach(tab=>{
