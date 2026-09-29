@@ -248,14 +248,20 @@
   }
   .mosaic-note{margin-top:14px; font-size:0.78rem; color:rgba(27,24,54,0.4);}
   .mosaic-popup{
-    position:fixed; z-index:500; width:230px; background:var(--paper); border:1px solid var(--line);
+    position:fixed; z-index:500; width:230px; max-width:calc(100vw - 20px);
+    background:var(--paper); border:1px solid var(--line);
     border-radius:14px; padding:14px 16px; box-shadow:0 20px 40px rgba(27,24,54,0.22); pointer-events:none;
     opacity:0; transform:translateY(6px); transition:opacity .15s, transform .15s;
   }
   .mosaic-popup.show{opacity:1; transform:translateY(0);}
   .mosaic-popup .mp-tag{font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--magenta-deep); background:rgba(225,26,110,0.09); padding:3px 9px; border-radius:100px; display:inline-block; margin-bottom:8px;}
-  .mosaic-popup h5{font-size:0.9rem; margin-bottom:4px; font-family:'Poppins'; font-weight:700;}
+  .mosaic-popup h5{font-size:0.9rem; margin-bottom:4px; font-family:'Poppins'; font-weight:700; overflow-wrap:anywhere;}
   .mosaic-popup p{font-size:0.76rem; color:rgba(27,24,54,0.55); margin:0;}
+  /* narrow phones: keep the card off the edges and give long club names room */
+  @media (max-width:600px){
+    .mosaic-popup{width:min(230px, calc(100vw - 20px)); padding:12px 14px; border-radius:12px;}
+    .mosaic-popup h5{font-size:0.86rem; line-height:1.3;}
+  }
   @media (max-width:600px){
     .mosaic-tile{width:26px; height:26px; font-size:0.72rem;}
     .mosaic-col{min-width:26px; width:auto;}
@@ -1432,17 +1438,41 @@
      Attached once, outside render(): render() only swaps cols.innerHTML, so
      binding on `cols` survives every tab switch. Binding inside render() used
      to stack a fresh set on each switch (5 clicks after 4 tabs). */
+  /* Place the brief card fully inside the viewport.
+     The old version only clamped the pointer axis and left touch mode
+     unclamped horizontally, so tapping a tile in the right-hand columns pushed
+     up to 159px of a 230px card off the right edge of a 390px screen. Measure
+     the card (its height grows with the title), flip to the other side when
+     there is no room, then clamp as a final guarantee. */
+  const POP_GAP = 14, POP_EDGE = 10;
   function popAt(x, y, mode){
-    const left = mode === "touch" ? x + 8 : Math.min(x + 16, window.innerWidth - 246);
-    const top = mode === "touch" ? Math.min(y - 96, window.innerHeight - 150) : Math.min(y + 16, window.innerHeight - 100);
-    pop.style.left = left + "px";
-    pop.style.top = top + "px";
+    pop.style.left = "0px"; pop.style.top = "0px";
+    const w = pop.offsetWidth, h = pop.offsetHeight;
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const maxLeft = Math.max(POP_EDGE, vw - w - POP_EDGE);
+    const maxTop = Math.max(POP_EDGE, vh - h - POP_EDGE);
+    let left, top;
+    if(mode === "touch"){
+      left = x - w / 2;                 /* centred under the finger */
+      top = y + POP_GAP + 18;           /* clear the fingertip */
+      if(top > maxTop) top = y - h - POP_GAP;
+    } else {
+      left = x + POP_GAP;
+      top = y + POP_GAP;
+      if(left > maxLeft) left = x - w - POP_GAP;   /* flip to the cursor's left */
+      if(top > maxTop) top = y - h - POP_GAP;
+    }
+    pop.style.left = Math.round(Math.min(Math.max(left, POP_EDGE), maxLeft)) + "px";
+    pop.style.top = Math.round(Math.min(Math.max(top, POP_EDGE), maxTop)) + "px";
   }
   function showFor(el, x, y, mode){
     const p = MOSAIC[el.dataset.i];
     if(!p) return;
-    popAt(x, y, mode);
+    /* content first: popAt measures the card, and its height depends on how
+       long the title is. Positioning before the text lands measures an empty
+       card and lets a long title spill past the bottom edge. */
     mpTag.textContent = p.c; mpTitle.textContent = p.t; mpClub.textContent = "Rotaract Club of " + p.cn;
+    popAt(x, y, mode);
     pop.classList.add("show");
   }
   cols.addEventListener("mousemove", (e) => {
