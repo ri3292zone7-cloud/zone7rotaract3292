@@ -2692,9 +2692,9 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
 
 <section class="section" id="dcal" style="padding-top:90px; padding-bottom:20px;">
   <div class="wrap">
-    <span class="section-tag">District 3292 · RY 2026&ndash;27</span>
+    <span class="section-tag">District 3292 · Live calendar</span>
     <h2>District event calendar.</h2>
-    <p class="sub">Swipe or use the arrows to browse the Rotary year, month by month.</p>
+    <p class="sub">Swipe or use the arrows to browse month by month — new events appear here on their own as soon as clubs post them.</p>
     <div class="dcal-card" style="margin-top:40px;">
       <div class="dcal-topbar">
         <button class="dcal-nav" id="dcalPrev" aria-label="Previous month">&larr;</button>
@@ -2745,11 +2745,24 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   #dcalSwipe.swap .dcal-inner{animation:dcalSwap .3s ease;}
   @keyframes dcalSwap{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
   @media (prefers-reduced-motion:reduce){ #dcalSwipe.swap .dcal-inner{animation:none;} }
-  .dcal-dots{display:flex; justify-content:center; gap:7px; padding:0 0 22px;}
+  .dcal-dots{display:flex; justify-content:center; flex-wrap:wrap; gap:7px; padding:0 20px 22px;}
   .dcal-dots span{width:6px; height:6px; border-radius:100px; background:var(--line); cursor:pointer; transition:width .25s, background .25s;}
   .dcal-dots span.active{background:var(--magenta); width:22px;}
   .dcal-grid{background:#fff; border:1px solid var(--line); border-radius:14px; padding:10px; align-content:start;}
   @media (max-width:760px){ .dcal-inner{grid-template-columns:1fr; padding:20px;} .dcal-grid{max-width:320px; margin:0 auto;} .dcal-nav{width:42px; height:42px;} .dcal-cell{font-size:0.86rem;} }
+  /* live-calendar states (rendered by initDCal, shared with the events list) */
+  #dcalList li.dcal-empty{background:transparent; border-style:dashed; color:rgba(27,24,54,0.5);}
+  .events-empty{padding:30px 0; color:rgba(27,24,54,0.5); font-size:0.9rem;}
+  html.dark .dcal-nav{background:#1C1A33;}
+  html.dark .dcal-grid{background:#1A1730;}
+  html.dark .dcal-dow{color:rgba(233,231,247,.45);}
+  html.dark .dcal-cell{color:rgba(233,231,247,.6);}
+  html.dark .dcal-cell.today{color:#FF8FB5;}
+  html.dark .dcal-title span.theme{color:#FF8FB5; background:rgba(224,96,147,.16);}
+  html.dark .dcal-title span.count{color:rgba(233,231,247,.5);}
+  html.dark #dcalList li{background:#1A1730; color:rgba(233,231,247,.8);}
+  html.dark #dcalList li.dcal-empty{background:transparent; color:rgba(233,231,247,.55);}
+  html.dark .events-empty{color:rgba(233,231,247,.55);}
 </style>
 
 <section class="events" id="events">
@@ -2763,29 +2776,30 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
 </section>
 
 <script>
-const DISTRICT_CALENDAR = [
-[2026,6,"Maternal & Child Health Month",[1,2,7,11,30],["1 Jul – Club President & DG Installation","2 Jul – District Interact Rep. Installation","7 Jul – Guru Purnima","11 Jul – DRR Installation","30 Jul – International Friendship Day","Jul–Aug – Zonal COTS & Club Installation"]],
-[2026,7,"Membership & New Club Development Month",[1,12,19,28,29],["1 Aug – Grant Management Seminar","12 Aug – International Youth Day","19 Aug – World Photography Day","28 Aug – Janai Purnima (Raksha Bandhan)","29 Aug – Gai Jatra","Jul–Aug – Zonal COTS & Club Installation"]],
-[2026,8,"Basic Education & Literacy Month",[4,5,8,11,12,13,14,19,25,26],["From Sep – DRR Visit","4 Sep – Gaura Parba / Krishna Janmashtami","5 Sep – Int'l Day of Charity","8 Sep – Gen-Z Sahid Diwas","11–13 Sep – SEARIC Summit, Sri Lanka","14 Sep – Hartalika Teej (women only)","19 Sep – Constitution Day","19 Sep – Nationwide Inter College Quiz (Region-wise)","25–26 Sep – President Night 2026"]],
-[2026,9,"Community Economic Development Month",[5,10,11,16,17,18,19,20,21],["5 Oct – World Teachers' Day (UNESCO)","10 Oct – World Mental Health Day","11 Oct – Int'l Day of the Girl Child","11 Oct – Dashain (Ghatasthapana)","16 Oct – World Food Day","17–21 Oct – Dashain Week"]],
-[2026,10,"Rotary Foundation Month",[6,7,8,9,10,15,20,21,24,25,28],["6–10 Nov – Laxmi Puja to Bhai Tika","15 Nov – Chhath Parba","20 Nov – Universal Children's Day","21 Nov – 1st President-Secretary Meet","24 Nov – Guru Nanak Jayanti (Sikhs only)","25 Nov – Elimination of Violence Against Women","28 Nov – 13th Late Rtr. Sachin Memorial Blood Donation"]],
-[2026,11,"Disease Prevention & Treatment Month",[3,5,7,8,9,10,11,12,13,19,24,25,30],["3 Dec – Int'l Day of Disabled Persons","5 Dec – International Volunteer Day","7–13 Dec – Computer Science Education Week","10 Dec – Human Rights Day","19 Dec – Nationwide Futsal Tournament (Zonal Round)","24 Dec – Udauli Parwa / Yomari Purnima","25 Dec – Christmas (Christians only)","30 Dec – Tamu Lhosar","Dec – District Fundraiser: Rotaract Sahayatra"]],
-[2027,0,"Vocational Service Month",[1,11,14,29,30],["1 Jan – Gregorian New Year","11 Jan – Prithvi Jayanti","14 Jan – Maghe Sankranti","29 Jan – Nationwide Inter College Quiz (Final)","29–30 Jan – 19th Rotaract District Conference","30 Jan – Martyrs' Day","Jan – District Fundraiser: Rotaract Sahayatra"]],
-[2027,1,"Peacebuilding & Conflict Prevention Month",[4,5,6,7,11,19],["4–7 Feb – ROTASIA Indore","5–6 Feb – 19th District Rotary Conference","7 Feb – Sonam Lohsar","11 Feb – Saraswati Puja","19 Feb – Democracy Day","Feb – District Fundraiser: Rotaract Sahayatra"]],
-[2027,2,"Water, Sanitation & Hygiene Month",[6,8,9,13,21,22,27],["6 Mar – Maha Shivaratri","8 Mar – International Women's Day","8–14 Mar – Rotaract Week","9 Mar – Gyalpo Lohsar","13 Mar – World Rotaract Day","21–22 Mar – Holi Festival","22 Mar – World Water Day","27 Mar – 2nd PS Meet & PETS-SETS"]],
-[2027,3,"Environmental Month",[6,7,10,14,22,24],["6 Apr – Ghode Jatra","7 Apr – World Health Day","10 Apr – Late Rtr. Santosh Memorial ROTA Quiz (Zonal)","14 Apr – Nepali New Year + Bisket Jatra","22 Apr – World Earth Day","24 Apr – Nationwide Futsal Tournament (Regional)"]],
-[2027,4,"Youth Service Month",[1,8,20,29],["1 May – Labour Day","8 May – Late Rtr. Santosh Memorial ROTA Quiz (Cluster)","20 May – Buddha Jayanti","29 May – Nationwide Futsal Tournament (Final)","29 May – Republic Day"]],
-[2027,5,"Rotary Fellowships Month",[5,19,21,26,27,28,29,30],["5 Jun – World Environment Day","19 Jun – 20th Rotaract District Assembly, DLTS & Recognition","19 Jun – Late Rtr. Santosh Memorial ROTA Quiz (Final)","19 Jun – Nepal Investigative Journalism Award","21 Jun – International Day of Yoga","26–30 Jun – RI Convention 2027, Barcelona"]],
-];
+/* ---------- district calendar: months built from the LIVE events table ----------
+   (Previously a hardcoded DISTRICT_CALENDAR array for one Rotary year that went
+   stale every July. Now initDCal groups dated rows from Supabase by month, so
+   saving an event in Club Admin → Zone Events redraws this calendar within
+   minutes — no code edit, no deploy. Events with no fixed date ("TBD") have no
+   month to sit in; they stay visible in the "What's Coming Up" list below.) */
 const DOW = ["S","M","T","W","T","F","S"];
 const MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-let dcalIndex = (() => {
-  const now = new Date(), y = now.getFullYear(), m = now.getMonth();
-  let idx = DISTRICT_CALENDAR.findIndex(([cy, cm]) => cy === y && cm === m);
-  if (idx !== -1) return idx;
-  idx = DISTRICT_CALENDAR.findIndex(([cy, cm]) => cy > y || (cy === y && cm >= m));
-  return idx === -1 ? DISTRICT_CALENDAR.length - 1 : idx;
-})();
+const MON_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+/* Rotary's monthly themes repeat every Rotary year, so this 12-entry map never
+   goes stale the way a hardcoded year of dates did. */
+const ROTARY_THEMES = ["Vocational Service Month","Peacebuilding & Conflict Prevention Month","Water, Sanitation & Hygiene Month","Environmental Month","Youth Service Month","Rotary Fellowships Month","Maternal & Child Health Month","Membership & New Club Development Month","Basic Education & Literacy Month","Community Economic Development Month","Rotary Foundation Month","Disease Prevention & Treatment Month"];
+/* Months holding dated events: [{y, m, days:[…], items:["21 Nov – …", …]}] */
+let dcalMonths = [];
+let dcalIndex = 0;
+
+function dcalParseDate(ds){
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(ds || ""));
+  if(!m) return null;
+  const y = +m[1], mo = +m[2] - 1, d = +m[3];
+  const dt = new Date(y, mo, d);
+  if(dt.getFullYear() !== y || dt.getMonth() !== mo || dt.getDate() !== d) return null;
+  return { y, m: mo, d };
+}
 
 function buildGrid(year, month, hlDays){
   const firstDow = new Date(year, month, 1).getDay();
@@ -2801,15 +2815,26 @@ function buildGrid(year, month, hlDays){
 }
 
 function renderDCal(){
-  const [year, month, theme, hlDays, items] = DISTRICT_CALENDAR[dcalIndex];
-  document.getElementById("dcalMonthLabel").textContent = `${MONTH_NAMES[month]} ${year}`;
-  document.getElementById("dcalTheme").textContent = theme;
-  document.getElementById("dcalCount").textContent = `${items.length} event${items.length === 1 ? "" : "s"}`;
-  document.getElementById("dcalGrid").innerHTML = buildGrid(year, month, hlDays);
-  document.getElementById("dcalList").innerHTML = items.map(x => `<li>${x}</li>`).join("");
   document.querySelectorAll(".dcal-dots span").forEach((d,i) => d.classList.toggle("active", i === dcalIndex));
-  document.getElementById("dcalPrev").disabled = dcalIndex === 0;
-  document.getElementById("dcalNext").disabled = dcalIndex === DISTRICT_CALENDAR.length - 1;
+  const prev = document.getElementById("dcalPrev"), next = document.getElementById("dcalNext");
+  if(!dcalMonths.length){
+    const t = new Date();
+    document.getElementById("dcalMonthLabel").textContent = `${MONTH_NAMES[t.getMonth()]} ${t.getFullYear()}`;
+    document.getElementById("dcalTheme").textContent = ROTARY_THEMES[t.getMonth()];
+    document.getElementById("dcalCount").textContent = "0 events";
+    document.getElementById("dcalGrid").innerHTML = buildGrid(t.getFullYear(), t.getMonth(), []);
+    document.getElementById("dcalList").innerHTML = `<li class="dcal-empty">No dated events yet — post one from Club Admin → Zone Events and it appears here automatically.</li>`;
+    prev.disabled = true; next.disabled = true;
+    return;
+  }
+  const cur = dcalMonths[dcalIndex];
+  document.getElementById("dcalMonthLabel").textContent = `${MONTH_NAMES[cur.m]} ${cur.y}`;
+  document.getElementById("dcalTheme").textContent = ROTARY_THEMES[cur.m];
+  document.getElementById("dcalCount").textContent = `${cur.items.length} event${cur.items.length === 1 ? "" : "s"}`;
+  document.getElementById("dcalGrid").innerHTML = buildGrid(cur.y, cur.m, cur.days);
+  document.getElementById("dcalList").innerHTML = cur.items.join("");
+  prev.disabled = dcalIndex === 0;
+  next.disabled = dcalIndex === dcalMonths.length - 1;
   const swipe = document.getElementById("dcalSwipe");
   swipe.classList.remove("swap");
   void swipe.offsetWidth;
@@ -2817,17 +2842,15 @@ function renderDCal(){
 }
 
 function goDCal(delta){
-  dcalIndex = Math.max(0, Math.min(DISTRICT_CALENDAR.length - 1, dcalIndex + delta));
+  if(!dcalMonths.length) return;
+  dcalIndex = Math.max(0, Math.min(dcalMonths.length - 1, dcalIndex + delta));
   renderDCal();
 }
 
-(function initDCal(){
-  document.getElementById("dcalDots").innerHTML = DISTRICT_CALENDAR.map((_,i) => `<span data-i="${i}"></span>`).join("");
-  document.querySelectorAll(".dcal-dots span").forEach(dot => {
-    dot.addEventListener("click", () => { dcalIndex = Number(dot.dataset.i); renderDCal(); });
-  });
-  document.getElementById("dcalPrev").addEventListener("click", () => goDCal(-1));
-  document.getElementById("dcalNext").addEventListener("click", () => goDCal(1));
+(async function initDCal(){
+  const prev = document.getElementById("dcalPrev"), next = document.getElementById("dcalNext");
+  prev.addEventListener("click", () => goDCal(-1));
+  next.addEventListener("click", () => goDCal(1));
 
   const swipeEl = document.getElementById("dcalSwipe");
   let touchStartX = 0;
@@ -2837,17 +2860,60 @@ function goDCal(delta){
     if(Math.abs(dx) > 40) goDCal(dx < 0 ? 1 : -1);
   }, {passive:true});
 
+  /* loading state: this month's grid with a note, until the live rows land */
+  const t = new Date();
+  document.getElementById("dcalMonthLabel").textContent = `${MONTH_NAMES[t.getMonth()]} ${t.getFullYear()}`;
+  document.getElementById("dcalTheme").textContent = ROTARY_THEMES[t.getMonth()];
+  document.getElementById("dcalCount").textContent = "…";
+  document.getElementById("dcalGrid").innerHTML = buildGrid(t.getFullYear(), t.getMonth(), []);
+  document.getElementById("dcalList").innerHTML = `<li class="dcal-empty">Loading live calendar…</li>`;
+  prev.disabled = true; next.disabled = true;
+
+  /* same cached fetch the events list below uses, so both views agree */
+  const events = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getEvents() : [];
+  const byMonth = new Map();
+  events.forEach(ev => {
+    const p = dcalParseDate(ev.event_date);
+    if(!p) return;
+    const key = p.y * 12 + p.m;
+    if(!byMonth.has(key)) byMonth.set(key, { y: p.y, m: p.m, days: new Set(), items: [] });
+    const g = byMonth.get(key);
+    g.days.add(p.d);
+    /* DB text is untrusted — escape it (the old static strings were not). */
+    g.items.push({ d: p.d, html: `<li>${p.d} ${MON_SHORT[p.m]} – ${zone7Esc(ev.title || "Untitled event")}</li>` });
+  });
+  dcalMonths = [...byMonth.values()]
+    .sort((a,b) => (a.y - b.y) || (a.m - b.m))
+    .map(g => ({ y: g.y, m: g.m,
+      days: [...g.days].sort((x,y) => x - y),
+      items: g.items.sort((a,b) => a.d - b.d).map(i => i.html) }));
+  dcalIndex = (() => {
+    const now = new Date(), y = now.getFullYear(), m = now.getMonth();
+    let idx = dcalMonths.findIndex(g => g.y === y && g.m === m);
+    if(idx !== -1) return idx;
+    idx = dcalMonths.findIndex(g => g.y > y || (g.y === y && g.m >= m));
+    return idx === -1 ? Math.max(0, dcalMonths.length - 1) : idx;
+  })();
+
+  document.getElementById("dcalDots").innerHTML = dcalMonths.map((_,i) => `<span data-i="${i}"></span>`).join("");
+  document.querySelectorAll(".dcal-dots span").forEach(dot => {
+    dot.addEventListener("click", () => { dcalIndex = Number(dot.dataset.i); renderDCal(); });
+  });
   renderDCal();
 })();
 
 (async () => {
   const list = document.getElementById("eventsList");
   const events = (typeof ZONE7_DB !== "undefined") ? await ZONE7_DB.getEvents() : [];
-  if(!events.length){
-    list.innerHTML = `<p style="padding:30px 0; color:rgba(27,24,54,0.5); font-size:0.9rem;">No upcoming events posted yet. Check back soon.</p>`;
+  /* "What's Coming Up" keeps the future plus the undated (TBD) — a past event
+     retires itself the morning after, with no admin action needed. */
+  const todayStr = new Date().toISOString().slice(0,10);
+  const upcoming = events.filter(ev => !/^\d{4}-\d{2}-\d{2}/.test(String(ev.event_date || "")) || String(ev.event_date) >= todayStr);
+  if(!upcoming.length){
+    list.innerHTML = `<p class="events-empty">No upcoming events posted yet. Check back soon.</p>`;
     return;
   }
-  list.innerHTML = events.map(ev => {
+  list.innerHTML = upcoming.map(ev => {
     const [year, ...rest] = (ev.event_date || "TBD").split("-");
     const label = ev.event_date && ev.event_date !== "TBD" ? new Date(ev.event_date).toLocaleDateString('en-US',{month:'short', day:'numeric'}) : "TBD";
     const yr = ev.event_date && ev.event_date !== "TBD" ? new Date(ev.event_date).getFullYear() : (year || "2026");
