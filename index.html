@@ -2172,61 +2172,85 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   <div class="wrap">
     <span class="section-tag">Faces of Zone 7</span>
     <h2>The people behind the projects.</h2>
-    <p class="sub faces-count" id="facesCount">Loading faces…</p>
   </div>
-  <div class="faces-wall" id="facesWall" aria-label="Wall of Zone 7 faces. Drag a row to explore, tap a face to flip it.">
+  <div class="faces-wall" id="facesWall" aria-label="Wall of Zone 7 faces. Drag a row to explore, tap a face to open their club.">
     <div class="faces-drift" id="facesRowA" role="region" aria-label="Faces row one, draggable"></div>
     <div class="faces-drift" id="facesRowB" role="region" aria-label="Faces row two, draggable"></div>
   </div>
-  <div class="wrap">
-    <p class="faces-note" id="facesNote" aria-live="polite"></p>
-  </div>
 </section>
+<dialog id="faceView" aria-labelledby="fvName">
+  <div class="fv-inner">
+    <div class="fv-photo"><img id="fvImg" alt=""></div>
+    <div class="fv-text">
+      <p class="fv-club" id="fvClub"></p>
+      <h3 id="fvName"></h3>
+      <p class="fv-role" id="fvRole"></p>
+      <div class="fv-actions">
+        <a class="fv-cta" id="fvCta" href="#">Open board →</a>
+        <button type="button" class="fv-ghost" data-fv-close>Back to wall</button>
+      </div>
+    </div>
+    <button type="button" class="fv-x" data-fv-close aria-label="Close face view"><span aria-hidden="true">✕</span></button>
+  </div>
+</dialog>
 
 <style>
   /* FACES OF ZONE 7 — the wall: two full-bleed drifting rows of faces.
-     Tiles are 100% photo; a sliding plate and a flip-back carry the words. */
+     Tiles are 100% photo with the name always on show; a tap pops a
+     projects-style zoom card whose CTA opens that person's club board. */
   .faces{padding-top:70px; padding-bottom:26px;}
-  .faces-count{margin-top:10px;}
   .faces-wall{margin-top:30px; display:flex; flex-direction:column; gap:12px;}
   .faces-drift{overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); touch-action:pan-y; cursor:grab;}
   .faces-drift.dragging{cursor:grabbing;}
   .faces-track{display:flex; gap:12px; width:max-content; will-change:transform;}
-  .face-tile{flex:0 0 200px; aspect-ratio:3/4; perspective:800px;}
-  .face-tile:focus-visible{outline:3px solid var(--magenta); outline-offset:3px; border-radius:16px;}
-  .face-flip{position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .65s cubic-bezier(.34,1.4,.64,1);}
-  .face-tile.flipped .face-flip{transform:rotateY(180deg);}
-  .face-front,.face-back{position:absolute; inset:0; border-radius:16px; overflow:hidden; backface-visibility:hidden; -webkit-backface-visibility:hidden;}
-  .face-front{background:#1B1836;}
-  .face-front img{width:100%; height:100%; object-fit:cover; object-position:top center; display:block; pointer-events:none;}
-  .face-front img[data-failed="1"]{display:none;}
-  .face-plate{position:absolute; left:0; right:0; bottom:0; padding:28px 12px 10px; background:linear-gradient(180deg,transparent,rgba(10,8,25,.88)); color:#fff; opacity:0; transform:translateY(8px); transition:opacity .25s, transform .25s; pointer-events:none;}
-  .face-tile:hover .face-plate, .face-tile:focus-visible .face-plate{opacity:1; transform:none;}
-  .face-plate b{display:block; font-family:'Poppins'; font-size:0.82rem; font-weight:700; line-height:1.25;}
-  .face-plate span{font-size:0.66rem; font-weight:600; opacity:0.85;}
-  .face-back{transform:rotateY(180deg); background:#1B1836; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:16px 12px; text-align:center;}
-  .face-back b{font-family:'Poppins'; font-size:0.86rem; line-height:1.3;}
-  .back-role{font-size:0.66rem; font-weight:600; opacity:0.75;}
-  .back-club{font-size:0.6rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; background:var(--tint,#E11A6E); border-radius:100px; padding:4px 10px; max-width:100%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
-  .back-link{margin-top:6px; font-size:0.68rem; font-weight:800; color:#fff; border:1.5px solid rgba(255,255,255,.5); border-radius:100px; padding:6px 12px; text-decoration:none; transition:background .2s, border-color .2s;}
-  .back-link:hover{background:var(--tint,#E11A6E); border-color:transparent;}
-  .faces-note{margin:18px 0 0; font-size:0.8rem; color:rgba(27,24,54,0.5);}
-  .faces-empty{padding:26px 4px; color:rgba(27,24,54,0.45); font-size:0.88rem;}
-  @media (hover:none){
-    .face-plate{opacity:1; transform:none;}
-    .faces-drift{cursor:default;}
+  .face-tile{position:relative; flex:0 0 200px; aspect-ratio:3/4; border-radius:16px; overflow:hidden; background:#1B1836; cursor:pointer; border:0; padding:0; text-align:left; transition:transform .18s cubic-bezier(.34,1.4,.64,1), box-shadow .18s;}
+  .face-tile:focus-visible{outline:3px solid var(--magenta); outline-offset:3px;}
+  .face-tile img{width:100%; height:100%; object-fit:cover; object-position:top center; display:block; pointer-events:none;}
+  .face-tile img[data-failed="1"]{visibility:hidden;}
+  .face-plate{position:absolute; left:0; right:0; bottom:0; padding:30px 12px 10px; background:linear-gradient(180deg,transparent,rgba(10,8,25,.9)); color:#fff; pointer-events:none;}
+  .face-plate b{display:block; font-family:'Poppins'; font-size:0.82rem; font-weight:700; line-height:1.25; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;}
+  .face-plate span{display:block; margin-top:2px; font-size:0.66rem; font-weight:600; opacity:0.88; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+  @media (hover:hover) and (pointer:fine){
+    .face-tile:hover{transform:translateY(-5px) scale(1.03); box-shadow:0 16px 30px rgba(27,24,54,.3); z-index:2;}
   }
+  .face-tile:active{transform:scale(.97);}
+  .faces-empty{padding:26px 4px; color:rgba(27,24,54,0.45); font-size:0.88rem;}
+  /* ---------- FACE QUICK VIEW — projects-style zoom card ----------
+     Same anatomy as the skyline quick view: springy dialog, photo stage
+     on the left, text pane on the right, CTA straight to the club board. */
+  dialog#faceView{position:fixed; inset:0; margin:auto; padding:0; border:0; overflow:hidden; width:min(760px,92vw); background:var(--paper); color:var(--ink); border-radius:24px; box-shadow:0 48px 120px -28px rgba(27,24,54,.55); outline:none;}
+  dialog#faceView::backdrop{background:rgba(27,24,54,.5); backdrop-filter:blur(3px);}
+  .fv-inner{position:relative; display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); min-height:min(440px,80vh);}
+  .fv-photo{background:#1B1836; min-height:100%;}
+  .fv-photo img{width:100%; height:100%; max-height:80vh; object-fit:cover; object-position:top center; display:block;}
+  .fv-text{padding:30px 28px; display:flex; flex-direction:column; justify-content:center; gap:8px;}
+  .fv-club{margin:0; font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:0.07em; color:var(--magenta-deep);}
+  .fv-text h3{margin:0; font-family:'Poppins'; font-size:1.5rem; line-height:1.2;}
+  .fv-role{margin:0; font-size:0.86rem; color:rgba(27,24,54,.6);}
+  .fv-actions{margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;}
+  .fv-cta{display:inline-flex; align-items:center; min-height:44px; padding:10px 20px; border-radius:100px; background:var(--magenta); color:#fff; font-weight:800; font-size:0.84rem; text-decoration:none; transition:transform .15s, background .2s;}
+  .fv-cta:hover{background:var(--magenta-deep);}
+  .fv-cta:active{transform:scale(.95);}
+  .fv-ghost{min-height:44px; padding:10px 18px; border-radius:100px; border:1.5px solid var(--line); background:transparent; color:inherit; font-weight:700; font-size:0.84rem; cursor:pointer;}
+  .fv-ghost:active{transform:scale(.95);}
+  .fv-x{position:absolute; top:10px; right:10px; width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background:rgba(255,253,249,.9); color:inherit; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center;}
+  .fv-x:active{transform:scale(.92);}
   @media (max-width:600px){
     .face-tile{flex-basis:148px;}
     .faces-wall{gap:10px;}
     .faces-track{gap:10px;}
+    .face-plate b{font-size:0.74rem;}
+    .fv-inner{grid-template-columns:1fr; min-height:0; max-height:88vh; max-height:88dvh; overflow:auto;}
+    .fv-photo img{max-height:46vh;}
+    .fv-text{padding:20px 20px 26px;}
+    .fv-text h3{font-size:1.25rem;}
   }
   @media (prefers-reduced-motion:reduce){
-    .face-flip{transition:none;}
+    .face-tile{transition:none;}
   }
-  html.dark .face-back{background:#232040;}
-  html.dark .faces-note{color:rgba(233,231,247,.55);}
   html.dark .faces-empty{color:rgba(233,231,247,.55);}
+  html.dark .fv-role{color:rgba(233,231,247,.6);}
+  html.dark .fv-x{background:rgba(21,19,39,.9);}
   /* still used by the Recent Work head below */
   .bod-carousel-head{margin-bottom:6px;}
 </style>
@@ -2235,11 +2259,13 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   const wall = document.getElementById("facesWall");
   const rowA = document.getElementById("facesRowA");
   const rowB = document.getElementById("facesRowB");
-  const count = document.getElementById("facesCount");
-  const note = document.getElementById("facesNote");
-  const slugs = Object.keys(CLUB_DIRECTORY);
-  const TINT = { balkumari:"#1c8a4d", baneshwor:"#E11A6E", liberty:"#3a3170", kathmanduwest:"#F2A900",
-    kathmanduheight:"#8a6300", sankhu:"#c1502e", newroadcity:"#0052FF", sukedhara:"#A80F52", tripureswor:"#1B1836" };
+  const dlg = document.getElementById("faceView");
+  const fvImg = document.getElementById("fvImg");
+  const fvClub = document.getElementById("fvClub");
+  const fvName = document.getElementById("fvName");
+  const fvRole = document.getElementById("fvRole");
+  const fvCta = document.getElementById("fvCta");
+  const slugs = Object.keys(CLUB_DIRECTORY); /* always 9 clubs */
   const shortName = slug => String((CLUB_DIRECTORY[slug] && CLUB_DIRECTORY[slug].name) || slug).replace("Rotaract Club of ","");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const mod = (v, m) => ((v % m) + m) % m;
@@ -2248,7 +2274,6 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   /* faces only: members with a filed photo. Round-robin across clubs so the
      wall reads as the zone, not one club - new photos join on their own. */
   const queues = [];
-  const photoClubs = [];
   profiles.forEach((profile, idx) => {
     const slug = slugs[idx];
     const rows = (profile && profile.board || [])
@@ -2257,7 +2282,6 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
         photo: String(m.photo).trim(), slug }));
     if(!rows.length) return;
     queues.push(rows);
-    photoClubs.push(slug);
   });
   const faces = [];
   for(let i = 0; queues.some(q => q.length); i++){
@@ -2265,32 +2289,48 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
     if(q.length) faces.push(q.shift());
   }
   if(!faces.length){
-    count.textContent = "No member photos published yet.";
-    wall.style.display = "none";
-    note.textContent = "Faces appear here as soon as clubs add member photos from Club Admin.";
+    wall.innerHTML = `<div class="wrap"><p class="faces-empty">No member photos published yet — faces appear here as soon as clubs add them from Club Admin.</p></div>`;
     return;
   }
-  count.textContent = `${faces.length} faces · ${photoClubs.length} club${photoClubs.length === 1 ? "" : "s"}`;
 
   const half = [[], []];
   faces.forEach((m, i) => half[i % 2].push(m));
   const tileHTML = m => {
     const sub = m.role ? `${m.role} · ${shortName(m.slug)}` : shortName(m.slug);
-    return `<div class="face-tile" tabindex="0" role="button" aria-label="Flip card for ${zone7Esc(m.name)}">
-      <div class="face-flip">
-        <div class="face-front">
-          <img src="${zone7Esc(zone7MediaPath(m.photo))}" alt="${zone7Esc(m.name)}" loading="lazy" decoding="async" draggable="false" onerror="this.dataset.failed='1'">
-          <div class="face-plate"><b>${zone7Esc(m.name)}</b><span>${zone7Esc(sub)}</span></div>
-        </div>
-        <div class="face-back" style="--tint:${TINT[m.slug] || "#E11A6E"}">
-          <b>${zone7Esc(m.name)}</b>
-          ${m.role ? `<span class="back-role">${zone7Esc(m.role)}</span>` : ""}
-          <span class="back-club">${zone7Esc(shortName(m.slug))}</span>
-          <a class="back-link" href="/${m.slug}#board">View board →</a>
-        </div>
-      </div>
+    return `<div class="face-tile" tabindex="0" role="button" data-slug="${zone7Esc(m.slug)}" data-name="${zone7Esc(m.name)}" data-role="${zone7Esc(m.role)}" data-photo="${zone7Esc(m.photo)}" aria-label="View ${zone7Esc(m.name)} from Rotaract Club of ${zone7Esc(shortName(m.slug))}">
+      <img src="${zone7Esc(zone7MediaPath(m.photo))}" alt="${zone7Esc(m.name)}" loading="lazy" decoding="async" draggable="false" onerror="this.dataset.failed='1'">
+      <div class="face-plate"><b>${zone7Esc(m.name)}</b><span>${zone7Esc(sub)}</span></div>
     </div>`;
   };
+
+  /* projects-style quick view: the tap pops a zoom card first, and its CTA
+     is what actually opens the person's club board. */
+  function faceOpen(tile){
+    if(!tile || !dlg) return;
+    const slug = tile.dataset.slug || "";
+    const name = tile.dataset.name || "";
+    const role = tile.dataset.role || "";
+    const photo = tile.dataset.photo || "";
+    fvImg.src = zone7MediaPath(photo);
+    fvImg.alt = name;
+    fvClub.textContent = "Rotaract Club of " + shortName(slug);
+    fvName.textContent = name;
+    fvRole.textContent = role || "Zone 7 member";
+    fvCta.href = "/" + slug + "#board";
+    fvCta.textContent = "Open " + shortName(slug) + " board →";
+    document.body.style.overflow = "hidden";
+    if(!dlg.open) dlg.showModal();
+    dlg.setAttribute("tabindex", "-1");
+    dlg.focus({ preventScroll: true });
+  }
+  function faceClose(){
+    if(dlg && dlg.open) dlg.close();
+  }
+  if(dlg){
+    dlg.querySelectorAll("[data-fv-close]").forEach(b => b.addEventListener("click", faceClose));
+    dlg.addEventListener("click", e => { if(e.target === dlg) faceClose(); });
+    dlg.addEventListener("close", () => { document.body.style.overflow = ""; });
+  }
 
   /* one shared rAF loop drives both rows: slow auto-drift, eased hover
      slowdown, drag with momentum. Transform-only, so it stays buttery. */
@@ -2343,17 +2383,16 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
     };
     rowEl.addEventListener("pointerup", endDrag);
     rowEl.addEventListener("pointercancel", endDrag);
-    /* a real drag must never flip a card (capture phase beats the link too) */
+    /* a real drag must never open a card (capture phase wins) */
     rowEl.addEventListener("click", e => {
       if(st.moved > 8){ e.preventDefault(); e.stopPropagation(); return; }
-      if(e.target.closest("a")) return;
       const tile = e.target.closest(".face-tile");
-      if(tile) tile.classList.toggle("flipped");
+      if(tile) faceOpen(tile);
     }, true);
     rowEl.addEventListener("keydown", e => {
       if(e.key !== "Enter" && e.key !== " ") return;
       const tile = e.target.closest(".face-tile");
-      if(tile){ e.preventDefault(); tile.classList.toggle("flipped"); }
+      if(tile){ e.preventDefault(); faceOpen(tile); }
     });
     drifts.push(st);
   }
@@ -2377,11 +2416,6 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
     requestAnimationFrame(loop);
   }
   requestAnimationFrame(loop);
-
-  const missing = slugs.filter(s => !photoClubs.includes(s));
-  note.textContent = missing.length
-    ? `${missing.map(shortName).join(", ")} ${missing.length === 1 ? "has" : "have"}n't added member photos yet — ${missing.length === 1 ? "its faces join" : "their faces join"} the wall as soon as ${missing.length === 1 ? "it does" : "they do"}.`
-    : "";
 })();
 </script>
 
