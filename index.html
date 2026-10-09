@@ -2013,8 +2013,9 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
         <button type="button" class="rc-arrow" id="recentNext" aria-label="Scroll projects right"><span aria-hidden="true">&rarr;</span></button>
       </div>
     </div>
-    <div class="recent-filters">
-      <div class="recent-chips" id="recentChips" role="group" aria-label="Filter projects by club"></div>
+    <div class="dock-row">
+      <div class="dock" id="clubDock" role="toolbar" aria-label="Filter projects by club"></div>
+      <p class="dock-caption" id="dockCaption" aria-live="polite"></p>
     </div>
     <div class="recent-strip" id="recentStrip" tabindex="0" role="region" aria-label="Recent projects, scrollable"></div>
   </div>
@@ -2023,23 +2024,110 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
 <style>
   .recent-head{display:flex; justify-content:space-between; align-items:flex-end; gap:26px; flex-wrap:wrap; margin-bottom:6px;}
   .recent-sub{margin:8px 0 0; font-size:0.82rem; color:rgba(27,24,54,0.5);}
-  /* chips get their own row: eight club labels plus the arrows never fit beside
-     the heading, and letting the cluster wrap dropped the arrows onto a line
-     of their own */
-  .recent-filters{margin-top:16px;}
-  .recent-chips{
-    display:flex; gap:5px; background:var(--paper); border:1px solid var(--line); border-radius:100px;
-    padding:4px; width:max-content; max-width:100%; overflow-x:auto; scrollbar-width:none;
+  /* ---------- magnification dock ----------
+     A vanilla port of the MagnificationDock (framer-motion spring + cosine
+     falloff). index.html is a zero-build static page, so the component's
+     physics are reproduced with a small rAF damped-spring loop rather than
+     pulling React + framer-motion into the page. */
+
+  /* The page's tokens, hoisted into one scope so the dock can be themed or
+     rescaled by editing a single place. */
+  .dock-row{
+    --dock-base:50px;      /* resting icon size (matches baseItemSize 50) */
+    --dock-max:80px;       /* fully magnified icon size (magnification 80) */
+    --dock-gap:12px;
+    --dock-pad:10px;
+    --dock-panel:68px;     /* resting panel height (panelHeight 68) */
+    --dock-panel-hi:112px; /* grown on hover so magnified icons have room */
+    /* the top margin is the tooltip's airspace: the pill pops up roughly 46px
+       above the panel, and a tight margin let it cover the count line */
+    margin-top:42px;
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap;
   }
-  .recent-chips::-webkit-scrollbar{display:none;}
-  .rc-chip{
-    font-size:0.7rem; font-weight:700; color:rgba(27,24,54,0.5); cursor:pointer; text-transform:uppercase;
-    letter-spacing:0.04em; padding:8px 13px; border-radius:100px; border:0; background:none;
-    font-family:inherit; min-height:36px; transition:background .2s, color .2s;
+  .dock{
+    position:relative;
+    display:flex; align-items:flex-end; gap:var(--dock-gap);
+    padding:var(--dock-pad); height:var(--dock-panel);
+    background:rgba(255,253,249,0.72);
+    -webkit-backdrop-filter:blur(14px) saturate(1.4); backdrop-filter:blur(14px) saturate(1.4);
+    border:1px solid var(--line); border-radius:28px;
+    box-shadow:0 10px 30px rgba(27,24,54,0.1);
+    max-width:100%;
+    /* NOT a scroll container on desktop: one axis set to auto forces the
+       other to compute as auto, which silently clipped the tooltip to the
+       dock's box. The row fits at desktop widths, so only the small-screen
+       layout below turns on scrolling (and it hides the tooltips anyway). */
+    overflow:visible;
+    /* grow the panel so the magnified icons have somewhere to go */
+    transition:height .45s cubic-bezier(.16,1,.3,1), box-shadow .35s;
   }
-  .rc-chip:hover{color:var(--magenta-deep);}
-  .rc-chip.on{color:#fff; background:var(--magenta);}
-  .rc-chip:focus-visible{outline:2px solid var(--magenta); outline-offset:2px;}
+  .dock::-webkit-scrollbar{display:none;}
+  @media (hover:hover) and (pointer:fine){
+    .dock:hover{height:var(--dock-panel-hi); box-shadow:0 18px 44px rgba(27,24,54,0.16);}
+  }
+
+  .dock-item{
+    position:relative; flex:0 0 auto;
+    width:var(--dock-base); height:var(--dock-base);
+    padding:0; border:0; border-radius:50%; background:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    /* scale is written by the spring loop; keep the transform cheap and
+       anchored to the bottom so icons grow upward like the real dock */
+    transform-origin:50% 100%;
+    will-change:transform;
+  }
+  .dock-ico{
+    width:100%; height:100%; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:#fff; border:1px solid var(--line);
+    box-shadow:0 4px 12px rgba(27,24,54,0.14);
+    overflow:hidden;
+    transition:border-color .25s, box-shadow .25s;
+  }
+  .dock-ico img{width:100%; height:100%; object-fit:contain; padding:4px; display:block;}
+  .z7mark{
+    background:var(--magenta); color:#fff; font-family:'Poppins'; font-weight:800;
+    font-size:1.15rem; width:100%; height:100%; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .dock-item:hover .dock-ico{border-color:rgba(225,26,110,0.45); box-shadow:0 8px 20px rgba(27,24,54,0.2);}
+  .dock-item:focus-visible{outline:2px solid var(--magenta); outline-offset:3px;}
+
+  /* active club: a coloured ring in the club's own tint */
+  .dock-item[aria-pressed="true"] .dock-ico{
+    border-color:var(--tint, var(--magenta));
+    box-shadow:0 0 0 3px var(--tint-ring, rgba(225,26,110,0.22)), 0 6px 16px rgba(27,24,54,0.18);
+  }
+
+  .dock-tip{
+    position:absolute; bottom:calc(100% + 12px); left:50%; transform:translateX(-50%) translateY(6px);
+    padding:7px 11px; border-radius:10px; white-space:nowrap; pointer-events:none;
+    background:var(--ink); color:var(--cream); font-size:0.72rem; font-weight:600;
+    box-shadow:0 8px 20px rgba(27,24,54,0.24);
+    opacity:0; transition:opacity .18s, transform .18s;
+  }
+  .dock-item:hover .dock-tip, .dock-item:focus-visible .dock-tip{opacity:1; transform:translateX(-50%) translateY(0);}
+  .dock-tip b{font-weight:700;}
+  .dock-tip em{font-style:normal; opacity:0.7;}
+
+  .dock-caption{margin:0; font-size:0.78rem; color:rgba(27,24,54,0.45);}
+
+  @media (max-width:760px){
+    /* touch: no magnification, so icons stay at a 44px touch target and the
+       dock becomes a swipeable row with the next logo peeking */
+    .dock-row{--dock-base:44px; --dock-gap:9px; --dock-pad:9px; --dock-panel:62px; margin-top:22px;}
+    .dock{
+      border-radius:24px; margin-left:calc(var(--dock-pad) * -1); margin-right:calc(var(--dock-pad) * -1);
+      padding-left:var(--dock-pad); padding-right:var(--dock-pad);
+      overflow-x:auto; overflow-y:hidden; scrollbar-width:none; scroll-snap-type:x proximity;
+    }
+    .dock-item{scroll-snap-align:center;}
+    .dock-tip{display:none;}
+    .dock-caption{width:100%;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .dock{transition:none;}
+  }
   .recent-arrows{display:flex; gap:8px;}
   .rc-arrow{
     width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background:var(--paper);
@@ -2135,7 +2223,8 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
 (async () => {
   const strip = document.getElementById("recentStrip");
   const subEl = document.getElementById("recentSub");
-  const chipBox = document.getElementById("recentChips");
+  const dock = document.getElementById("clubDock");
+  const caption = document.getElementById("dockCaption");
   const prevBtn = document.getElementById("recentPrev");
   const nextBtn = document.getElementById("recentNext");
   const slugs = Object.keys(CLUB_DIRECTORY);
@@ -2179,7 +2268,6 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
 
   if(!totalWithPhotos){
     strip.innerHTML = `<p class="rc-empty">Projects appear here as soon as clubs upload a cover photo.</p>`;
-    chipBox.innerHTML = "";
     return;
   }
 
@@ -2221,25 +2309,140 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
     </a>`;
   }
 
-  let filter = "all";
+  /* ---- build the dock: the Zone 7 mark, then one logo per club ---- */
+  const ALL_SLUG = "all";
+  const dockItems = [];
+  function addDockItem(slug, label, count, iconHTML, tint){
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "dock-item";
+    b.dataset.club = slug;
+    b.setAttribute("aria-pressed", slug === ALL_SLUG ? "true" : "false");
+    b.setAttribute("aria-label", count ? `${label} — ${count} projects with photos` : label);
+    if(tint) b.style.setProperty("--tint", tint);
+    if(tint) b.style.setProperty("--tint-ring", tint + "38");
+    b.innerHTML = `<span class="dock-ico">${iconHTML}</span><span class="dock-tip" role="tooltip"><b>${esc(label)}</b>${count ? ` <em>· ${count}</em>` : ""}</span>`;
+    dock.appendChild(b);
+    dockItems.push(b);
+  }
+  addDockItem(ALL_SLUG, "All Zone 7 clubs", totalWithPhotos, `<span class="z7mark">7</span>`, "#E11A6E");
+  clubOrder.forEach(c => {
+    const dir = CLUB_DIRECTORY[c.slug] || {};
+    const raw = dir.logo || "";
+    const src = typeof zone7MediaPath === "function" ? zone7MediaPath(raw) : raw;
+    const icon = src
+      ? `<img src="${esc(src)}" alt="" loading="lazy" decoding="async">`
+      : `<span class="z7mark" style="background:${CLUB_TINT[c.slug] || "#E11A6E"}">${esc(c.name.charAt(0))}</span>`;
+    addDockItem(c.slug, c.name, c.n, icon, CLUB_TINT[c.slug] || "#E11A6E");
+  });
+
+  /* ---- magnification: framer-motion's spring, done by hand ----
+     The original maps mouse distance to a target size through a cosine
+     falloff and springs that value (mass 0.1, stiffness 150, damping 12).
+     Same integrator here: one rAF loop driving every icon, so a single pass
+     moves all of them together instead of N independent transitions. */
+  const MAG = { distance:200, ratio:80/50, stiffness:150, damping:12, mass:0.1 };
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const springs = dockItems.map(() => ({ v:1, vel:0, target:1 }));
+  let pointerX = Infinity, rafId = null;
+  let paintHook = null;
+
+  function falloff(d){
+    const t = Math.max(-1, Math.min(1, d / MAG.distance));
+    return 0.5 + 0.5 * Math.cos(Math.PI * t);
+  }
+  /* Sub-stepped so the spring cannot blow up.
+     stiffness 150 / mass 0.1 gives k = 1500, damping 12 / mass 0.1 gives
+     c = 120, and explicit Euler is only stable while dt < 2/c = 1/60s — a
+     60fps frame lands exactly on that boundary and the integrator diverges
+     (measured scales of 12,671). Stepping at 1/360s inside each frame keeps
+     the same feel and is unconditionally safe. */
+  const SPRING_DT = 1/360, MAX_SUBSTEPS = 12;
+  let lastT = 0;
+  function tick(now){
+    const k = MAG.stiffness / MAG.mass, c = MAG.damping / MAG.mass;
+    const elapsed = lastT ? Math.min((now - lastT) / 1000, 0.064) : 1/60;
+    lastT = now;
+    const steps = Math.min(MAX_SUBSTEPS, Math.max(1, Math.ceil(elapsed / SPRING_DT)));
+    const dt = elapsed / steps;
+    let moving = false;
+    for(let s = 0; s < steps; s++){
+      for(let i = 0; i < springs.length; i++){
+        const sp = springs[i];
+        const a = -k * (sp.v - sp.target) - c * sp.vel;   /* a = -k(x - target) - c·x' */
+        sp.vel += a * dt;
+        sp.v += sp.vel * dt;
+      }
+    }
+    dockItems.forEach((el, i) => {
+      const sp = springs[i];
+      if(Math.abs(sp.v - sp.target) > 0.0008 || Math.abs(sp.vel) > 0.0008) moving = true;
+      else { sp.v = sp.target; sp.vel = 0; }
+      el.style.transform = `scale(${sp.v.toFixed(4)})`;
+    });
+    rafId = moving ? requestAnimationFrame(tick) : null;
+    if(!rafId) lastT = 0;
+  }
+  function kick(){
+    if(reduceMotion.matches){
+      /* no spring when motion is reduced: land straight on the target */
+      springs.forEach((s, i) => {
+        s.v = s.target; s.vel = 0;
+        dockItems[i].style.transform = `scale(${s.target.toFixed(4)})`;
+      });
+      if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
+      return;
+    }
+    if(!rafId){ lastT = 0; rafId = requestAnimationFrame(tick); }
+  }
+  function retarget(){
+    springs.forEach((s, i) => {
+      if(!Number.isFinite(pointerX)){ s.target = 1; return; }
+      const r = dockItems[i].getBoundingClientRect();
+      const centre = r.left + r.width / 2;
+      s.target = 1 + (MAG.ratio - 1) * falloff(pointerX - centre);
+    });
+    kick();
+  }
+  if(dock){
+    dock.addEventListener("pointermove", e => {
+      if(!finePointer.matches) return;
+      if(e.pointerType === "touch") return;
+      pointerX = e.clientX;
+      retarget();
+    });
+    dock.addEventListener("pointerleave", () => {
+      if(!finePointer.matches) return;
+      pointerX = Infinity;
+      retarget();
+    });
+    /* icons keep their magnitude after a tap-filter repaint */
+    paintHook = retarget;
+  }
+
+  let filter = ALL_SLUG;
   function paint(){
-    const list = filter === "all" ? all : all.filter(p => p.clubSlug === filter);
+    const list = filter === ALL_SLUG ? all : all.filter(p => p.clubSlug === filter);
     if(!list.length){
       strip.innerHTML = `<p class="rc-empty">No projects with photos from that club yet.</p>`;
     } else {
       strip.innerHTML = list.map(cardHTML).join("");
       strip.scrollTo({ left:0, behavior:"auto" });
     }
-    chipBox.querySelectorAll(".rc-chip").forEach(c => {
-      const on = c.dataset.club === filter;
-      c.classList.toggle("on", on);
-      c.setAttribute("aria-pressed", on ? "true" : "false");
+    dockItems.forEach(b => {
+      const on = b.dataset.club === filter;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
     });
     const n = list.length;
-    if(subEl) subEl.textContent = filter === "all"
+    if(subEl) subEl.textContent = filter === ALL_SLUG
       ? `${totalWithPhotos} project${totalWithPhotos === 1 ? "" : "s"} with photos filed by Zone 7 clubs — newest first.`
       : `${n} project${n === 1 ? "" : "s"} with photos from ${clubOrder.find(c => c.slug === filter).name}.`;
+    if(caption) caption.textContent = filter === ALL_SLUG
+      ? "Tap a club logo to see only its projects"
+      : clubOrder.find(c => c.slug === filter).name;
     syncArrows();
+    if(typeof paintHook === "function") paintHook();
   }
   function syncArrows(){
     /* Mandatory snap settles the strip a few px in (its own padding counts as
@@ -2258,11 +2461,8 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
     strip.scrollBy({ left: dir * amount, behavior: reduce ? "auto" : "smooth" });
   }
 
-  chipBox.innerHTML = [{ slug:"all", name:"All", n: totalWithPhotos }].concat(clubOrder)
-    .map(c => `<button type="button" class="rc-chip${c.slug === "all" ? " on" : ""}" data-club="${c.slug}" aria-pressed="${c.slug === "all"}">${esc(c.name)}</button>`)
-    .join("");
-  chipBox.addEventListener("click", e => {
-    const b = e.target.closest(".rc-chip");
+  dock.addEventListener("click", e => {
+    const b = e.target.closest(".dock-item");
     if(!b) return;
     filter = b.dataset.club;
     paint();
