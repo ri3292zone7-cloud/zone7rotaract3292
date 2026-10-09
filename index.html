@@ -763,14 +763,16 @@
   /* EVENTS — the next two upcoming, as feature cards (never more than two;
      everything else lives one click away in the live calendar above) */
   .events{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
-  .events-list{margin-top:44px; display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .events-list{margin-top:44px; display:grid; grid-template-columns:1fr 1fr; gap:18px; perspective:1000px;}
   .ev-card{
     position:relative; overflow:hidden; background:var(--paper);
     border:1px solid var(--line); border-radius:22px; padding:28px 26px 24px;
     display:flex; flex-direction:column; gap:16px; color:inherit;
     box-shadow:0 6px 18px rgba(27,24,54,0.08);
     transform:rotate(var(--tilt,0deg));
-    transition:transform .32s cubic-bezier(.34,1.4,.64,1), box-shadow .32s;
+    /* springy release curve: the overshoot past 1 settles like a bounce */
+    transition:transform .5s cubic-bezier(.34,1.56,.64,1), box-shadow .32s;
+    will-change:transform;
   }
   .ev-card:first-child{--tilt:-0.6deg;}
   .ev-card:nth-child(2){--tilt:0.5deg;}
@@ -778,6 +780,10 @@
   .ev-card::before{content:""; position:absolute; left:0; right:0; top:0; height:6px; background:linear-gradient(90deg, var(--magenta), var(--magenta-deep));}
   .ev-card:nth-child(2)::before{background:linear-gradient(90deg, var(--gold), var(--magenta));}
   a.ev-card:hover{transform:rotate(0deg) translateY(-8px); box-shadow:0 20px 40px rgba(27,24,54,0.16);}
+  /* press-and-hold (mouse or touch) squashes the card; release springs back
+     through the overshoot curve above */
+  a.ev-card:active{transform:rotate(0deg) scale(.94); transition-duration:.1s;}
+  div.ev-card:active{transform:rotate(0deg) scale(.96); transition-duration:.1s;}
   a.ev-card:focus-visible{outline:3px solid var(--magenta); outline-offset:3px; transform:rotate(0deg);}
   .ev-when{display:flex; align-items:flex-end; gap:14px;}
   .ev-when b{font-family:'Poppins'; font-weight:800; font-size:3.2rem; line-height:0.9; letter-spacing:-0.02em; color:var(--magenta);}
@@ -794,6 +800,7 @@
   .ev-cta.dim{color:rgba(27,24,54,0.45); font-weight:600;}
   .ev-more{grid-column:1 / -1; justify-self:center; display:inline-flex; align-items:center; gap:8px; font-size:0.84rem; font-weight:800; color:var(--magenta); border:1.5px solid var(--line); border-radius:100px; padding:10px 22px; background:transparent; transition:background .2s, color .2s, border-color .2s, transform .2s;}
   .ev-more:hover{background:var(--magenta); border-color:var(--magenta); color:#fff; transform:translateY(-2px);}
+  .ev-more:active{transform:scale(.93); transition-duration:.1s;}
   @media (max-width:760px){
     .events-list{grid-template-columns:1fr; margin-top:34px;}
     .ev-card{--tilt:0deg;}
@@ -2971,6 +2978,28 @@ function goDCal(delta){
       ${hasLink ? `<span class="ev-cta">RSVP now <i>→</i></span>` : `<span class="ev-cta dim">Details soon</span>`}
     ${close}`;
   }).join("") + (more > 0 ? `<a class="ev-more" href="#dcal">+${more} more in the calendar ↑</a>` : "");
+
+  /* bouncy tilt: each card leans toward the pointer and springs back straight
+     on release. Mouse/trackpad only - touch uses the press-squash above and
+     must never fight the scroll. Skipped entirely under reduced-motion. */
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches
+     && window.matchMedia("(hover: hover) and (pointer: fine)").matches){
+    list.querySelectorAll(".ev-card").forEach(card => {
+      card.addEventListener("pointermove", e => {
+        if(e.pointerType === "touch") return;
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - .5;
+        const py = (e.clientY - r.top) / r.height - .5;
+        card.style.transition = "transform .1s ease-out";
+        card.style.transform =
+          `rotate(0deg) perspective(1000px) rotateY(${(px*10).toFixed(2)}deg) rotateX(${(-py*10).toFixed(2)}deg) translateY(-6px) scale(1.02)`;
+      });
+      card.addEventListener("pointerleave", () => {
+        card.style.transition = "";
+        card.style.transform = "";
+      });
+    });
+  }
 })();
 </script>
 
