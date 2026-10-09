@@ -2172,91 +2172,59 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   <div class="wrap">
     <span class="section-tag">Faces of Zone 7</span>
     <h2>The people behind the projects.</h2>
-    <p class="sub faces-count" id="facesCount">Loading club boards…</p>
-    <div class="faces-row" id="facesPresRow">
-      <h3 class="faces-subhead">Your presidents</h3>
-      <div class="recent-arrows">
-        <button type="button" class="rc-arrow" id="facesPrev" aria-label="Scroll presidents left"><span aria-hidden="true">&larr;</span></button>
-        <button type="button" class="rc-arrow" id="facesNext" aria-label="Scroll presidents right"><span aria-hidden="true">&rarr;</span></button>
-      </div>
-    </div>
-    <div class="faces-pres" id="facesPres" tabindex="0" role="region" aria-label="Club presidents, scrollable"></div>
-    <h3 class="faces-subhead">The full boards</h3>
-    <div class="faces-chips" id="facesChips" role="toolbar" aria-label="Filter board members by club"></div>
-    <div class="faces-grid" id="facesGrid"></div>
+    <p class="sub faces-count" id="facesCount">Loading faces…</p>
+  </div>
+  <div class="faces-wall" id="facesWall" aria-label="Wall of Zone 7 faces. Drag a row to explore, tap a face to flip it.">
+    <div class="faces-drift" id="facesRowA" role="region" aria-label="Faces row one, draggable"></div>
+    <div class="faces-drift" id="facesRowB" role="region" aria-label="Faces row two, draggable"></div>
+  </div>
+  <div class="wrap">
     <p class="faces-note" id="facesNote" aria-live="polite"></p>
   </div>
 </section>
 
 <style>
-  /* FACES OF ZONE 7 — a presidents spotlight plus a filterable board grid.
-     Replaces the old passive marquee with something explorable: every card
-     is a link to its club board, photo-less members get intentional tinted
-     medallions instead of a broken-looking fallback. */
-  .faces{padding-top:70px; padding-bottom:10px;}
+  /* FACES OF ZONE 7 — the wall: two full-bleed drifting rows of faces.
+     Tiles are 100% photo; a sliding plate and a flip-back carry the words. */
+  .faces{padding-top:70px; padding-bottom:26px;}
   .faces-count{margin-top:10px;}
-  .faces-row{display:flex; justify-content:space-between; align-items:flex-end; gap:16px; flex-wrap:wrap; margin-top:42px;}
-  .faces-subhead{font-size:1.05rem; font-family:'Poppins'; font-weight:700; margin:42px 0 0;}
-  .faces-row .faces-subhead{margin-top:0;}
-  .faces-pres{display:flex; gap:18px; margin-top:18px; padding:6px 4px 18px; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scrollbar-width:thin; scrollbar-color:rgba(225,26,110,0.35) transparent;}
-  .faces-pres::-webkit-scrollbar{height:8px;}
-  .faces-pres::-webkit-scrollbar-thumb{background:rgba(225,26,110,0.3); border-radius:100px;}
-  .faces-pres::-webkit-scrollbar-track{background:transparent;}
-  .faces-pres:focus-visible{outline:2px solid var(--magenta); outline-offset:4px; border-radius:8px;}
-  .pres-card{
-    flex:0 0 232px; scroll-snap-align:start; position:relative; overflow:hidden;
-    background:var(--paper); border:1px solid var(--line); border-radius:22px;
-    display:flex; flex-direction:column; align-items:center; text-align:center;
-    padding:24px 18px 20px; text-decoration:none; color:inherit;
-    box-shadow:0 6px 18px rgba(27,24,54,0.08);
-    transform:rotate(var(--tilt,0deg));
-    transition:transform .5s cubic-bezier(.34,1.56,.64,1), box-shadow .32s;
-    will-change:transform;
-  }
-  .pres-card:nth-child(odd){--tilt:-0.6deg;}
-  .pres-card:nth-child(even){--tilt:0.5deg;}
-  .pres-card::before{content:""; position:absolute; left:0; right:0; top:0; height:6px; background:linear-gradient(90deg, var(--gold), var(--magenta));}
-  .pres-card:hover{transform:rotate(0deg) translateY(-8px); box-shadow:0 20px 40px rgba(27,24,54,0.16);}
-  .pres-card:active{transform:rotate(0deg) scale(.94); transition-duration:.1s;}
-  .pres-card:focus-visible{outline:3px solid var(--magenta); outline-offset:3px;}
-  .pres-card h4{font-size:1rem; margin:12px 0 2px; line-height:1.3;}
-  .pres-role{font-size:0.7rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:var(--magenta);}
-  .pres-club{margin-top:10px; font-size:0.66rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:#fff; background:var(--tint,#E11A6E); border-radius:100px; padding:6px 13px; max-width:100%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
-  .faces-medal{width:88px; height:88px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'Poppins'; font-weight:800; font-size:1.7rem; color:var(--tint,#E11A6E); background:var(--tint-soft,rgba(225,26,110,0.12)); overflow:hidden;}
-  .faces-medal img{width:100%; height:100%; object-fit:cover; object-position:top; display:block;}
-  .faces-medal img[data-failed="1"]{display:none;}
-  .pres-card .faces-medal{width:100px; height:100px; font-size:2rem; box-shadow:0 0 0 3px var(--paper), 0 0 0 6px var(--gold);}
-  .faces-chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px;}
-  .face-chip{border:1.5px solid var(--line); background:transparent; color:var(--ink); border-radius:100px; padding:8px 15px; font-size:0.78rem; font-weight:700; cursor:pointer; transition:background .2s, color .2s, border-color .2s, transform .2s;}
-  .face-chip small{font-weight:600; opacity:0.55;}
-  .face-chip:not(:disabled):hover{border-color:var(--tint,#E11A6E); transform:translateY(-2px);}
-  .face-chip:not(:disabled):active{transform:scale(.93); transition-duration:.1s;}
-  .face-chip[aria-pressed="true"]{background:var(--tint,#E11A6E); border-color:transparent; color:#fff;}
-  .face-chip[aria-pressed="true"] small{opacity:0.8;}
-  .face-chip:disabled{opacity:0.45; cursor:default;}
-  .face-chip:focus-visible{outline:2px solid var(--magenta); outline-offset:2px;}
-  .faces-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(158px,1fr)); gap:14px; margin-top:20px;}
-  .face-card{background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:20px 12px 16px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:7px; text-decoration:none; color:inherit; animation:faceIn .5s cubic-bezier(.22,1,.36,1) backwards; animation-delay:calc(var(--i,0)*35ms); transition:transform .5s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;}
-  .face-card:hover{transform:translateY(-6px); box-shadow:0 16px 32px rgba(27,24,54,0.14);}
-  .face-card:active{transform:scale(.93); transition-duration:.1s;}
-  .face-card:focus-visible{outline:2px solid var(--magenta); outline-offset:2px;}
-  .face-card h5{font-size:0.84rem; font-weight:700; font-family:'Poppins'; line-height:1.3;}
-  .face-role{font-size:0.7rem; font-weight:700; color:var(--magenta);}
-  .face-club{font-size:0.62rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:var(--tint,#E11A6E);}
-  @keyframes faceIn{from{opacity:0; transform:translateY(16px) scale(.95);} to{opacity:1; transform:none;}}
-  .faces-note{margin:16px 0 0; font-size:0.8rem; color:rgba(27,24,54,0.5);}
+  .faces-wall{margin-top:30px; display:flex; flex-direction:column; gap:12px;}
+  .faces-drift{overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); touch-action:pan-y; cursor:grab;}
+  .faces-drift.dragging{cursor:grabbing;}
+  .faces-track{display:flex; gap:12px; width:max-content; will-change:transform;}
+  .face-tile{flex:0 0 200px; aspect-ratio:3/4; perspective:800px;}
+  .face-tile:focus-visible{outline:3px solid var(--magenta); outline-offset:3px; border-radius:16px;}
+  .face-flip{position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .65s cubic-bezier(.34,1.4,.64,1);}
+  .face-tile.flipped .face-flip{transform:rotateY(180deg);}
+  .face-front,.face-back{position:absolute; inset:0; border-radius:16px; overflow:hidden; backface-visibility:hidden; -webkit-backface-visibility:hidden;}
+  .face-front{background:#1B1836;}
+  .face-front img{width:100%; height:100%; object-fit:cover; object-position:top center; display:block; pointer-events:none;}
+  .face-front img[data-failed="1"]{display:none;}
+  .face-plate{position:absolute; left:0; right:0; bottom:0; padding:28px 12px 10px; background:linear-gradient(180deg,transparent,rgba(10,8,25,.88)); color:#fff; opacity:0; transform:translateY(8px); transition:opacity .25s, transform .25s; pointer-events:none;}
+  .face-tile:hover .face-plate, .face-tile:focus-visible .face-plate{opacity:1; transform:none;}
+  .face-plate b{display:block; font-family:'Poppins'; font-size:0.82rem; font-weight:700; line-height:1.25;}
+  .face-plate span{font-size:0.66rem; font-weight:600; opacity:0.85;}
+  .face-back{transform:rotateY(180deg); background:#1B1836; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:16px 12px; text-align:center;}
+  .face-back b{font-family:'Poppins'; font-size:0.86rem; line-height:1.3;}
+  .back-role{font-size:0.66rem; font-weight:600; opacity:0.75;}
+  .back-club{font-size:0.6rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; background:var(--tint,#E11A6E); border-radius:100px; padding:4px 10px; max-width:100%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+  .back-link{margin-top:6px; font-size:0.68rem; font-weight:800; color:#fff; border:1.5px solid rgba(255,255,255,.5); border-radius:100px; padding:6px 12px; text-decoration:none; transition:background .2s, border-color .2s;}
+  .back-link:hover{background:var(--tint,#E11A6E); border-color:transparent;}
+  .faces-note{margin:18px 0 0; font-size:0.8rem; color:rgba(27,24,54,0.5);}
   .faces-empty{padding:26px 4px; color:rgba(27,24,54,0.45); font-size:0.88rem;}
+  @media (hover:none){
+    .face-plate{opacity:1; transform:none;}
+    .faces-drift{cursor:default;}
+  }
   @media (max-width:600px){
-    .faces-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px;}
-    .pres-card{flex-basis:210px;}
+    .face-tile{flex-basis:148px;}
+    .faces-wall{gap:10px;}
+    .faces-track{gap:10px;}
   }
   @media (prefers-reduced-motion:reduce){
-    .face-card{animation:none;}
-    .pres-card, .face-card, .face-chip{transition:none; transform:none;}
+    .face-flip{transition:none;}
   }
-  html.dark .pres-card{box-shadow:0 6px 18px rgba(0,0,0,.45);}
-  html.dark .pres-card:hover{box-shadow:0 20px 40px rgba(0,0,0,.55);}
-  html.dark .face-card:hover{box-shadow:0 16px 32px rgba(0,0,0,.5);}
+  html.dark .face-back{background:#232040;}
   html.dark .faces-note{color:rgba(233,231,247,.55);}
   html.dark .faces-empty{color:rgba(233,231,247,.55);}
   /* still used by the Recent Work head below */
@@ -2264,161 +2232,156 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
 </style>
 <script>
 (async () => {
-  const grid = document.getElementById("facesGrid");
-  const pres = document.getElementById("facesPres");
-  const presRow = document.getElementById("facesPresRow");
-  const chips = document.getElementById("facesChips");
+  const wall = document.getElementById("facesWall");
+  const rowA = document.getElementById("facesRowA");
+  const rowB = document.getElementById("facesRowB");
   const count = document.getElementById("facesCount");
   const note = document.getElementById("facesNote");
-  const prevBtn = document.getElementById("facesPrev");
-  const nextBtn = document.getElementById("facesNext");
   const slugs = Object.keys(CLUB_DIRECTORY);
-  /* same per-club palette as Recent Work, so a member's colours match their projects */
   const TINT = { balkumari:"#1c8a4d", baneshwor:"#E11A6E", liberty:"#3a3170", kathmanduwest:"#F2A900",
     kathmanduheight:"#8a6300", sankhu:"#c1502e", newroadcity:"#0052FF", sukedhara:"#A80F52", tripureswor:"#1B1836" };
   const shortName = slug => String((CLUB_DIRECTORY[slug] && CLUB_DIRECTORY[slug].name) || slug).replace("Rotaract Club of ","");
-  const isPresRole = r => /^\s*president\s*$/i.test(String(r || ""));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const mod = (v, m) => ((v % m) + m) % m;
 
   const profiles = await Promise.all(slugs.map(s => ZONE7_DB.getClubProfile(s).catch(() => null)));
-  const clubs = [];
+  /* faces only: members with a filed photo. Round-robin across clubs so the
+     wall reads as the zone, not one club - new photos join on their own. */
+  const queues = [];
+  const photoClubs = [];
   profiles.forEach((profile, idx) => {
     const slug = slugs[idx];
-    /* junk rows with neither a name nor a photo never reach the wall */
-    const rows = (profile && profile.board || []).filter(m => m && (String(m.name || "").trim() || String(m.photo || "").trim()));
+    const rows = (profile && profile.board || [])
+      .filter(m => m && String(m.photo || "").trim() && String(m.name || "").trim())
+      .map(m => ({ name: String(m.name).trim(), role: String(m.role || "").trim(),
+        photo: String(m.photo).trim(), slug }));
     if(!rows.length) return;
-    const fallbackPres = !rows.some(m => isPresRole(m.role));
-    clubs.push({ slug, members: rows.map((m, i) => ({
-      name: String(m.name || "").trim() || "Unnamed member",
-      role: String(m.role || "").trim(),
-      photo: String(m.photo || "").trim(),
-      president: isPresRole(m.role) || (fallbackPres && i === 0)
-    }))});
+    queues.push(rows);
+    photoClubs.push(slug);
   });
-
-  const total = clubs.reduce((n, c) => n + c.members.length, 0);
-  const missing = slugs.filter(s => !clubs.some(c => c.slug === s));
-  if(!clubs.length){
-    count.textContent = "No club boards published yet.";
-    presRow.style.display = "none";
-    pres.style.display = "none";
-    chips.style.display = "none";
-    grid.innerHTML = `<p class="faces-empty">Boards appear here as soon as clubs publish them from Club Admin.</p>`;
+  const faces = [];
+  for(let i = 0; queues.some(q => q.length); i++){
+    const q = queues[i % queues.length];
+    if(q.length) faces.push(q.shift());
+  }
+  if(!faces.length){
+    count.textContent = "No member photos published yet.";
+    wall.style.display = "none";
+    note.textContent = "Faces appear here as soon as clubs add member photos from Club Admin.";
     return;
   }
-  count.textContent = `${total} board member${total === 1 ? "" : "s"} · ${clubs.length} club${clubs.length === 1 ? "" : "s"}`;
+  count.textContent = `${faces.length} faces · ${photoClubs.length} club${photoClubs.length === 1 ? "" : "s"}`;
 
-  const initials = n => String(n).split(/\s+/).map(w => w[0] || "").join("").replace(/[^A-Za-z]/g,"").slice(0,2).toUpperCase() || "7";
-  const vars = slug => `--tint:${TINT[slug] || "#E11A6E"};--tint-soft:${TINT[slug] || "#E11A6E"}1F`;
-  const medal = m => m.photo
-    ? `<span class="faces-medal"><img src="${zone7Esc(zone7MediaPath(m.photo))}" alt="" loading="lazy" decoding="async" onerror="this.dataset.failed='1'"></span>`
-    : `<span class="faces-medal" aria-hidden="true">${zone7Esc(initials(m.name))}</span>`;
+  const half = [[], []];
+  faces.forEach((m, i) => half[i % 2].push(m));
+  const tileHTML = m => {
+    const sub = m.role ? `${m.role} · ${shortName(m.slug)}` : shortName(m.slug);
+    return `<div class="face-tile" tabindex="0" role="button" aria-label="Flip card for ${zone7Esc(m.name)}">
+      <div class="face-flip">
+        <div class="face-front">
+          <img src="${zone7Esc(zone7MediaPath(m.photo))}" alt="${zone7Esc(m.name)}" loading="lazy" decoding="async" draggable="false" onerror="this.dataset.failed='1'">
+          <div class="face-plate"><b>${zone7Esc(m.name)}</b><span>${zone7Esc(sub)}</span></div>
+        </div>
+        <div class="face-back" style="--tint:${TINT[m.slug] || "#E11A6E"}">
+          <b>${zone7Esc(m.name)}</b>
+          ${m.role ? `<span class="back-role">${zone7Esc(m.role)}</span>` : ""}
+          <span class="back-club">${zone7Esc(shortName(m.slug))}</span>
+          <a class="back-link" href="/${m.slug}#board">View board →</a>
+        </div>
+      </div>
+    </div>`;
+  };
 
-  /* ---- presidents spotlight: one card per club, in directory order ---- */
-  pres.innerHTML = clubs.map(c => {
-    const p = c.members.find(m => m.president) || c.members[0];
-    return `<a class="pres-card" href="/${c.slug}#board" style="${vars(c.slug)}">
-      ${medal(p)}
-      <h4>${zone7Esc(p.name)}</h4>
-      <span class="pres-role">President</span>
-      <span class="pres-club">${zone7Esc(shortName(c.slug))}</span>
-    </a>`;
-  }).join("");
-
-  function syncFacesArrows(){
-    const TOL = 12;
-    const max = pres.scrollWidth - pres.clientWidth;
-    prevBtn.setAttribute("aria-disabled", pres.scrollLeft <= TOL ? "true" : "false");
-    nextBtn.setAttribute("aria-disabled", pres.scrollLeft >= max - TOL ? "true" : "false");
-  }
-  function stepFaces(dir){
-    const card = pres.querySelector(".pres-card");
-    const amount = card ? card.getBoundingClientRect().width + 18 : pres.clientWidth * 0.8;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    pres.scrollBy({ left: dir * amount, behavior: reduce ? "auto" : "smooth" });
-  }
-  prevBtn.addEventListener("click", () => stepFaces(-1));
-  nextBtn.addEventListener("click", () => stepFaces(1));
-  pres.addEventListener("scroll", syncFacesArrows, { passive:true });
-  window.addEventListener("resize", syncFacesArrows);
-  syncFacesArrows();
-
-  /* ---- filter chips + member grid ---- */
-  const ALL = "all";
-  let filter = ALL;
-  const chipBtns = [];
-  function addChip(slug, label, n, disabled){
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "face-chip";
-    b.dataset.club = slug;
-    if(TINT[slug]) b.style.setProperty("--tint", TINT[slug]);
-    if(disabled){
-      b.disabled = true;
-      b.innerHTML = `${zone7Esc(label)} <small>soon</small>`;
-      b.setAttribute("aria-label", `${label} board coming soon`);
-    } else {
-      b.setAttribute("aria-pressed", slug === ALL ? "true" : "false");
-      b.innerHTML = `${zone7Esc(label)} <small>· ${n}</small>`;
+  /* one shared rAF loop drives both rows: slow auto-drift, eased hover
+     slowdown, drag with momentum. Transform-only, so it stays buttery. */
+  const drifts = [];
+  function makeDrift(rowEl, tiles, dir, pxPerSec){
+    const track = document.createElement("div");
+    track.className = "faces-track";
+    track.innerHTML = tiles.map(tileHTML).join("");
+    track.innerHTML += track.innerHTML + track.innerHTML; /* 3 sets: always a viewport of runway */
+    rowEl.appendChild(track);
+    const st = { rowEl, track, dir, base: reduceMotion ? 0 : pxPerSec,
+      setW: 1, x: 0, vel: 0, dragging: false, hover: 0, hoverTarget: 0, moved: 0 };
+    const measure = () => {
+      st.setW = track.scrollWidth / 3 || 1;
+      st.x = mod(st.x, st.setW);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    st.x = Math.random() * st.setW;
+    if(window.matchMedia("(hover: hover)").matches){
+      rowEl.addEventListener("pointerenter", () => { st.hoverTarget = 1; });
+      rowEl.addEventListener("pointerleave", () => { st.hoverTarget = 0; });
     }
-    chips.appendChild(b);
-    chipBtns.push(b);
-  }
-  addChip(ALL, "All clubs", total, false);
-  clubs.forEach(c => addChip(c.slug, shortName(c.slug), c.members.length, false));
-  missing.forEach(slug => addChip(slug, shortName(slug), 0, true));
-
-  function paintFaces(){
-    const list = [];
-    (filter === ALL ? clubs : clubs.filter(c => c.slug === filter)).forEach(c => {
-      c.members.forEach(m => list.push({ ...m, slug: c.slug }));
+    rowEl.addEventListener("pointerdown", e => {
+      st.dragging = true;
+      st.moved = 0;
+      st.vel = 0;
+      st.downX = e.clientX;
+      st.xStart = st.x;
+      rowEl.classList.add("dragging");
+      try{ rowEl.setPointerCapture(e.pointerId); }catch(_){}
     });
-    grid.innerHTML = list.length ? list.map((m, i) => `
-      <a class="face-card" href="/${m.slug}#board" style="${vars(m.slug)}--i:${Math.min(i,14)};">
-        ${medal(m)}
-        <h5>${zone7Esc(m.name)}</h5>
-        ${m.role ? `<span class="face-role">${zone7Esc(m.role)}</span>` : ""}
-        <span class="face-club">${zone7Esc(shortName(m.slug))}</span>
-      </a>`).join("")
-      : `<p class="faces-empty">No board members found.</p>`;
-    chipBtns.forEach(b => { if(!b.disabled) b.setAttribute("aria-pressed", b.dataset.club === filter ? "true" : "false"); });
-    bindTilt(grid);
-  }
-  chips.addEventListener("click", e => {
-    const b = e.target.closest(".face-chip");
-    if(!b || b.disabled) return;
-    filter = b.dataset.club;
-    paintFaces();
-  });
-
-  /* bouncy tilt shared with the event cards: lean toward the pointer, spring
-     back straight on release; touch keeps the press-squash instead. */
-  function bindTilt(scope){
-    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches
-       || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    scope.querySelectorAll(".pres-card, .face-card").forEach(card => {
-      if(card.dataset.tiltBound) return;
-      card.dataset.tiltBound = "1";
-      card.addEventListener("pointermove", e => {
-        if(e.pointerType === "touch") return;
-        const r = card.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width - .5;
-        const py = (e.clientY - r.top) / r.height - .5;
-        card.style.transition = "transform .1s ease-out";
-        card.style.transform =
-          `rotate(0deg) perspective(900px) rotateY(${(px*8).toFixed(2)}deg) rotateX(${(-py*8).toFixed(2)}deg) translateY(-4px)`;
-      });
-      card.addEventListener("pointerleave", () => {
-        card.style.transition = "";
-        card.style.transform = "";
-      });
+    rowEl.addEventListener("pointermove", e => {
+      if(!st.dragging) return;
+      const dx = e.clientX - (st.lastX ?? e.clientX);
+      st.lastX = e.clientX;
+      const now = performance.now();
+      const dtm = Math.max(8, now - (st.lastT || now));
+      st.lastT = now;
+      st.x = mod(st.x - dx, st.setW);
+      st.moved = Math.max(st.moved, Math.abs(e.clientX - st.downX));
+      st.vel = st.vel * 0.7 + (-dx * 1000 / dtm) * 0.3;
     });
+    const endDrag = () => {
+      if(!st.dragging) return;
+      st.dragging = false;
+      delete st.lastX;
+      delete st.lastT;
+      rowEl.classList.remove("dragging");
+    };
+    rowEl.addEventListener("pointerup", endDrag);
+    rowEl.addEventListener("pointercancel", endDrag);
+    /* a real drag must never flip a card (capture phase beats the link too) */
+    rowEl.addEventListener("click", e => {
+      if(st.moved > 8){ e.preventDefault(); e.stopPropagation(); return; }
+      if(e.target.closest("a")) return;
+      const tile = e.target.closest(".face-tile");
+      if(tile) tile.classList.toggle("flipped");
+    }, true);
+    rowEl.addEventListener("keydown", e => {
+      if(e.key !== "Enter" && e.key !== " ") return;
+      const tile = e.target.closest(".face-tile");
+      if(tile){ e.preventDefault(); tile.classList.toggle("flipped"); }
+    });
+    drifts.push(st);
   }
+  makeDrift(rowA, half[0], 1, 30);
+  makeDrift(rowB, half[1], -1, 22);
 
+  let last = 0;
+  function loop(now){
+    const dt = Math.min((now - last) / 1000 || 0, 0.05);
+    last = now;
+    drifts.forEach(st => {
+      st.hover += (st.hoverTarget - st.hover) * Math.min(1, dt * 4);
+      const speed = st.base * (1 - 0.8 * st.hover);
+      if(!st.dragging){
+        st.x = mod(st.x + (st.dir * speed + st.vel) * dt, st.setW);
+        st.vel *= Math.pow(0.05, dt);
+        if(Math.abs(st.vel) < 2) st.vel = 0;
+      }
+      st.track.style.transform = `translate3d(${(-st.x).toFixed(1)}px,0,0)`;
+    });
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  const missing = slugs.filter(s => !photoClubs.includes(s));
   note.textContent = missing.length
-    ? `${missing.map(shortName).join(" and ")} ${missing.length === 1 ? "has" : "have"}n't published ${missing.length === 1 ? "its" : "their"} board yet — ${missing.length === 1 ? "it joins" : "they join"} this wall as soon as ${missing.length === 1 ? "it does" : "they do"}.`
+    ? `${missing.map(shortName).join(", ")} ${missing.length === 1 ? "has" : "have"}n't added member photos yet — ${missing.length === 1 ? "its faces join" : "their faces join"} the wall as soon as ${missing.length === 1 ? "it does" : "they do"}.`
     : "";
-  paintFaces();
-  bindTilt(pres);
 })();
 </script>
 
