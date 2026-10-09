@@ -711,16 +711,26 @@
   .club-card{
     background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:26px 22px;
     transition:transform .25s, box-shadow .25s, border-color .25s;
-    display:block; cursor:pointer;
+    display:block; cursor:pointer; overflow:hidden;
   }
   .club-card:hover{transform:translateY(-6px); box-shadow:0 20px 40px rgba(27,24,54,0.1); border-color:transparent;}
   .club-card.no-link{cursor:pointer;}
+  /* Logo as masthead: a full-bleed white stage at the top of the card so
+     every crest renders large (~116px tall) and stays readable. The stage
+     stays white in dark mode on purpose — most crests need the light bed. */
   .club-mark{
-    width:52px; height:52px; border-radius:14px; background:#fff; border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden;
-    padding:6px;
+    width:calc(100% + 44px); height:156px; margin:-26px -22px 20px;
+    border:0; border-bottom:1px solid var(--line); border-radius:0;
+    background:#fff; display:flex; align-items:center; justify-content:center;
+    padding:20px 24px; overflow:hidden;
   }
-  .club-mark img{width:100%; height:100%; object-fit:contain;}
+  .club-mark img{width:100%; height:100%; object-fit:contain; transition:transform .3s cubic-bezier(.34,1.4,.64,1);}
+  .club-card:hover .club-mark img{transform:scale(1.05);}
+  @media (prefers-reduced-motion:reduce){
+    .club-card, .club-mark img{transition:none;}
+    .club-card:hover{transform:none;}
+    .club-card:hover .club-mark img{transform:none;}
+  }
   .club-card h4{font-size:1rem; margin-bottom:6px;}
   .club-card p{font-size:0.85rem; color:rgba(27,24,54,0.55);}
   .club-ig{
