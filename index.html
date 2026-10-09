@@ -716,16 +716,31 @@
   }
   .club-card:hover{transform:translateY(-3px); box-shadow:0 8px 24px -12px rgba(27,24,54,.25); border-color:rgba(27,24,54,.2);}
   .club-card.no-link{cursor:pointer;}
-  /* Circular crest on a clean white stage: the rectangular card stays crisp
-     and professional while every round logo reads at full size. The stage
-     stays white in dark mode on purpose — crests need the light bed. */
+  /* Mixed-fit big logos on a clean stage: each crest uses its natural shape.
+     Circles stay circles (Balkumari, Sukedhara); wide lockups run edge to
+     edge (Baneshwor, Liberty, Height, Sankhu, New Road); tall emblems stand
+     full height (West, Tripureswor). Stages stay light except West's black. */
   .club-mark{
-    width:calc(100% + 48px); height:160px; margin:-24px -24px 20px;
+    width:calc(100% + 48px); height:210px; margin:-24px -24px 20px;
     border:0; border-bottom:1px solid rgba(27,24,54,.08); border-radius:0;
     background:#fff; display:flex; align-items:center; justify-content:center;
-    padding:24px; overflow:hidden;
+    padding:0; overflow:hidden;
   }
-  .club-mark img{width:112px; height:112px; object-fit:contain; background:#fff; border-radius:50%; padding:8px; border:1px solid rgba(27,24,54,.12); box-shadow:0 6px 16px -8px rgba(27,24,54,.25);}
+  .club-mark img{width:100%; height:100%; object-fit:contain; background:#fff; border:0; border-radius:0; box-shadow:none; padding:0;}
+  .club-mark.fit-circle{padding:21px;}
+  .club-mark.fit-circle img{width:168px; height:168px; object-fit:cover; border-radius:50%; padding:0; border:1px solid rgba(27,24,54,.14); box-shadow:0 10px 22px -12px rgba(27,24,54,.4);}
+  .club-mark.fit-wide{padding:18px 20px;}
+  .club-mark.fit-wide img{object-fit:contain; transform:scale(1.15);}
+  .club-mark.fit-cover{padding:18px 20px;}
+  .club-mark.fit-cover img{object-fit:contain; object-position:center; transform:scale(1.6);}
+  .club-mark.fit-ring{padding:14px 20px;}
+  .club-mark.fit-ring img{object-fit:contain; object-position:center;}
+  .club-mark.fit-photo{padding:18px 20px;}
+  .club-mark.fit-photo img{object-fit:contain; object-position:center;}
+  .club-mark.fit-tall{padding:10px 20px;}
+  .club-mark.fit-tall img{object-fit:contain;}
+  .club-mark.stage-dark{background:#0a0a0b; border-bottom-color:rgba(255,255,255,.14);}
+  .club-mark.stage-dark img{background:#0a0a0b;}
   @media (prefers-reduced-motion:reduce){
     .club-card, .club-mark img{transition:none;}
     .club-card:hover{transform:none;}
@@ -2143,39 +2158,39 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
 
     <div class="clubs-grid">
       <div class="club-card" onclick="location.href='/balkumari'">
-        <div class="club-mark"><img src="media/logos/balkumari.jpg" alt="BK logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Balkumari</h4><p>Chyasal Marg, Lalitpur · Zone 7</p>
+        <div class="club-mark fit-circle"><img src="media/logos/balkumari.jpg" alt="BK logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Balkumari</h4><p>Chyasal Marg, Lalitpur · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rac_balkumari/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rac_balkumari</a>
       </div>
       <div class="club-card" onclick="location.href='/baneshwor'">
-        <div class="club-mark"><img src="media/logos/baneshwor.jpg" alt="BN logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Baneshwor</h4><p>Devkota Sadak, Kathmandu · Zone 7</p>
+        <div class="club-mark fit-wide"><img src="media/logos/baneshwor.jpg" alt="BN logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Baneshwor</h4><p>Devkota Sadak, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/racbaneshwor/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racbaneshwor</a>
       </div>
       <div class="club-card" onclick="location.href='/kathmanduheight'">
-        <div class="club-mark"><img src="media/logos/kathmanduheight.jpg" alt="KH logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Kathmandu Height</h4><p>Baneshwar, Kathmandu · Zone 7</p>
+        <div class="club-mark fit-ring"><img src="media/logos/kathmanduheight.jpg" alt="KH logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Kathmandu Height</h4><p>Baneshwar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rackathmanduheight/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rackathmanduheight</a>
       </div>
       <div class="club-card" onclick="location.href='/kathmanduwest'">
-        <div class="club-mark"><img src="media/logos/kathmanduwest.jpg" alt="KW logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Kathmandu West</h4><p>Baghbazar, Kathmandu · Zone 7</p>
+        <div class="club-mark fit-tall stage-dark"><img src="media/logos/kathmanduwest.jpg" alt="KW logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Kathmandu West</h4><p>Baghbazar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/kathmanduwest/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @kathmanduwest</a>
       </div>
       <div class="club-card" onclick="location.href='/liberty'">
-        <div class="club-mark"><img src="media/logos/liberty.jpg" alt="LC logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Liberty College</h4><p>Buddha Nagar, Kathmandu · Zone 7</p>
+        <div class="club-mark fit-cover"><img src="media/logos/liberty.jpg" alt="LC logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Liberty College</h4><p>Buddha Nagar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rotaractcluboflibertycollege/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rotaractcluboflibertycollege</a>
       </div>
       <div class="club-card" onclick="location.href='/newroadcity'">
-        <div class="club-mark"><img src="media/logos/newroadcity.jpg" alt="NR logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of New Road City Kathmandu</h4><p>Makkhan Tol, Kathmandu · Zone 7</p>
+        <div class="club-mark fit-photo"><img src="media/logos/newroadcity.jpg" alt="NR logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of New Road City Kathmandu</h4><p>Makkhan Tol, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/racnewroadcity1/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racnewroadcity1</a>
       </div>
       <div class="club-card" onclick="location.href='/sankhu'">
-        <div class="club-mark"><img src="media/logos/sankhu.jpg" alt="SK logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Sankhu</h4><p>Sankhu, Kathmandu · Zone 7</p>
+        <div class="club-mark fit-photo"><img src="media/logos/sankhu.jpg" alt="SK logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Sankhu</h4><p>Sankhu, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/racsankhu/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @racsankhu</a>
       </div>
       <div class="club-card" onclick="location.href='/sukedhara'">
-        <div class="club-mark"><img src="media/logos/sukedhara.jpg" alt="SD logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Sukedhara</h4><p>Baneshwar, Kathmandu · Zone 7</p>
+        <div class="club-mark fit-circle"><img src="media/logos/sukedhara.jpg" alt="SD logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Sukedhara</h4><p>Baneshwar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/rac_sukedhara/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @rac_sukedhara</a>
       </div>
       <div class="club-card" onclick="location.href='/tripureswor'">
-        <div class="club-mark"><img src="media/logos/tripureswor.jpg" alt="TP logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Tripureswor</h4><p>Baneshwar, Kathmandu · Zone 7</p>
+        <div class="club-mark fit-tall"><img src="media/logos/tripureswor.jpg" alt="TP logo" loading="lazy" width="500" height="500"></div><h4>Rotaract Club of Tripureswor</h4><p>Baneshwar, Kathmandu · Zone 7</p>
         <a class="club-ig" href="https://www.instagram.com/ractripureswor/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/></svg> @ractripureswor</a>
       </div>
     </div>
