@@ -709,42 +709,41 @@
     display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:56px;
   }
   .club-card{
-    background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:24px 24px 22px;
-    box-shadow:0 1px 2px rgba(27,24,54,.05), 0 12px 32px -16px rgba(27,24,54,.18);
-    transition:transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s, border-color .3s;
+    background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:24px 24px 20px;
+    box-shadow:0 1px 2px rgba(27,24,54,.06);
+    transition:transform .25s ease-out, box-shadow .25s ease-out, border-color .25s ease-out;
     display:block; cursor:pointer; overflow:hidden;
   }
-  .club-card:hover{transform:translateY(-6px); box-shadow:0 2px 4px rgba(27,24,54,.05), 0 26px 52px -22px rgba(27,24,54,.28); border-color:rgba(27,24,54,.16);}
+  .club-card:hover{transform:translateY(-3px); box-shadow:0 8px 24px -12px rgba(27,24,54,.25); border-color:rgba(27,24,54,.2);}
   .club-card.no-link{cursor:pointer;}
   /* Circular crest on a clean white stage: the rectangular card stays crisp
      and professional while every round logo reads at full size. The stage
      stays white in dark mode on purpose — crests need the light bed. */
   .club-mark{
-    width:calc(100% + 48px); height:184px; margin:-24px -24px 22px;
+    width:calc(100% + 48px); height:160px; margin:-24px -24px 20px;
     border:0; border-bottom:1px solid rgba(27,24,54,.08); border-radius:0;
     background:#fff; display:flex; align-items:center; justify-content:center;
     padding:24px; overflow:hidden;
   }
-  .club-mark img{width:136px; height:136px; object-fit:contain; background:#fff; border-radius:50%; padding:10px; border:1px solid rgba(27,24,54,.1); box-shadow:0 12px 26px -12px rgba(27,24,54,.28); transition:transform .45s cubic-bezier(.16,1,.3,1);}
-  .club-card:hover .club-mark img{transform:scale(1.05);}
+  .club-mark img{width:112px; height:112px; object-fit:contain; background:#fff; border-radius:50%; padding:8px; border:1px solid rgba(27,24,54,.12); box-shadow:0 6px 16px -8px rgba(27,24,54,.25);}
   @media (prefers-reduced-motion:reduce){
     .club-card, .club-mark img{transition:none;}
     .club-card:hover{transform:none;}
     .club-card:hover .club-mark img{transform:none;}
   }
-  .club-card h4{font-family:'Poppins'; font-size:1.04rem; font-weight:700; letter-spacing:-0.01em; line-height:1.35; margin-bottom:6px;}
-  .club-card p{font-size:0.82rem; letter-spacing:0.01em; color:rgba(27,24,54,0.52);}
+  .club-card h4{font-family:'Poppins'; font-size:0.98rem; font-weight:700; letter-spacing:-0.005em; line-height:1.4; margin-bottom:4px;}
+  .club-card p{font-size:0.8rem; letter-spacing:0.02em; color:rgba(27,24,54,0.52);}
   .club-ig{
-    display:inline-flex; align-items:center; gap:7px; margin-top:16px; padding:8px 14px;
-    font-size:0.78rem; font-weight:700; color:var(--ink); background:rgba(27,24,54,0.05);
-    border-radius:100px; position:relative; z-index:2; width:fit-content;
-    transition:background .2s;
+    display:inline-flex; align-items:center; gap:6px; margin-top:12px; padding:8px 0;
+    font-size:0.8rem; font-weight:600; color:rgba(27,24,54,0.65);
+    position:relative; z-index:2; width:fit-content;
+    transition:color .2s;
   }
-  .club-ig:hover{background:rgba(27,24,54,0.1); text-decoration:none;}
+  .club-ig:hover{color:var(--ink); text-decoration:underline; text-underline-offset:3px;}
   .club-ig svg{flex-shrink:0;}
   html.dark .club-card p{color:rgba(233,231,247,.6);}
-  html.dark .club-ig{background:rgba(255,255,255,.08);}
-  html.dark .club-ig:hover{background:rgba(255,255,255,.14);}
+  html.dark .club-ig{color:rgba(233,231,247,.65);}
+  html.dark .club-ig:hover{color:#fff;}
   .club-ig svg{flex-shrink:0;}
   .club-card.no-link .club-ig{color:rgba(27,24,54,0.4); font-weight:600;}
   .clubs-note{
