@@ -760,24 +760,55 @@
   .logo-chip img.square{border-radius:18px;}
   @media (max-width:600px){ .logo-track{gap:22px;} .logo-chip img{width:64px; height:64px;} }
 
-  /* EVENTS */
+  /* EVENTS — the next two upcoming, as feature cards (never more than two;
+     everything else lives one click away in the live calendar above) */
   .events{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
-  .events-list{margin-top:56px; display:flex; flex-direction:column;}
-  .event-row{
-    display:grid; grid-template-columns:110px 1fr auto; gap:30px; align-items:center;
-    padding:26px 0; border-bottom:1px solid var(--line);
+  .events-list{margin-top:44px; display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .ev-card{
+    position:relative; overflow:hidden; background:var(--paper);
+    border:1px solid var(--line); border-radius:22px; padding:28px 26px 24px;
+    display:flex; flex-direction:column; gap:16px; color:inherit;
+    box-shadow:0 6px 18px rgba(27,24,54,0.08);
+    transform:rotate(var(--tilt,0deg));
+    transition:transform .32s cubic-bezier(.34,1.4,.64,1), box-shadow .32s;
   }
-  .event-row:first-child{border-top:1px solid var(--line);}
-  .event-date{font-family:'Poppins'; font-weight:800; color:var(--magenta-deep); line-height:1.2;}
-  .event-date small{display:block; font-weight:600; color:rgba(27,24,54,0.45); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;}
-  .event-info h4{font-size:1.05rem; margin-bottom:6px;}
-  .event-info p{font-size:0.88rem; color:rgba(27,24,54,0.55);}
-  .event-arrow{
-    width:40px; height:40px; border-radius:50%; border:1.5px solid var(--line);
-    display:flex; align-items:center; justify-content:center; transition:background .2s, transform .2s;
+  .ev-card:first-child{--tilt:-0.6deg;}
+  .ev-card:nth-child(2){--tilt:0.5deg;}
+  /* accent bar along the head: magenta on the first card, gold on the second */
+  .ev-card::before{content:""; position:absolute; left:0; right:0; top:0; height:6px; background:linear-gradient(90deg, var(--magenta), var(--magenta-deep));}
+  .ev-card:nth-child(2)::before{background:linear-gradient(90deg, var(--gold), var(--magenta));}
+  a.ev-card:hover{transform:rotate(0deg) translateY(-8px); box-shadow:0 20px 40px rgba(27,24,54,0.16);}
+  a.ev-card:focus-visible{outline:3px solid var(--magenta); outline-offset:3px; transform:rotate(0deg);}
+  .ev-when{display:flex; align-items:flex-end; gap:14px;}
+  .ev-when b{font-family:'Poppins'; font-weight:800; font-size:3.2rem; line-height:0.9; letter-spacing:-0.02em; color:var(--magenta);}
+  .ev-when span{font-family:'Poppins'; font-weight:700; font-size:1rem; line-height:1.3; text-transform:uppercase; letter-spacing:0.06em;}
+  .ev-when small{display:block; font-family:'Inter'; font-weight:600; font-size:0.72rem; letter-spacing:0.08em; color:rgba(27,24,54,0.45); margin-top:2px;}
+  .ev-when.tbd b{font-size:1.5rem; letter-spacing:0.04em; line-height:1.2;}
+  .ev-main{display:flex; flex-direction:column; gap:9px; flex:1;}
+  .ev-count{align-self:flex-start; font-size:0.68rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:var(--magenta); background:rgba(225,26,110,0.1); border-radius:100px; padding:5px 12px;}
+  .ev-main h4{font-size:1.14rem; line-height:1.35;}
+  .ev-main p{font-size:0.9rem; color:rgba(27,24,54,0.6); line-height:1.6;}
+  .ev-cta{margin-top:auto; padding-top:6px; display:inline-flex; align-items:center; gap:10px; font-weight:800; font-size:0.86rem; color:var(--magenta);}
+  .ev-cta i{width:34px; height:34px; border-radius:50%; border:1.5px solid var(--line); display:inline-flex; align-items:center; justify-content:center; font-style:normal; transition:background .2s, color .2s, border-color .2s, transform .2s;}
+  a.ev-card:hover .ev-cta i{background:var(--magenta); border-color:var(--magenta); color:#fff; transform:rotate(45deg);}
+  .ev-cta.dim{color:rgba(27,24,54,0.45); font-weight:600;}
+  .ev-more{grid-column:1 / -1; justify-self:center; display:inline-flex; align-items:center; gap:8px; font-size:0.84rem; font-weight:800; color:var(--magenta); border:1.5px solid var(--line); border-radius:100px; padding:10px 22px; background:transparent; transition:background .2s, color .2s, border-color .2s, transform .2s;}
+  .ev-more:hover{background:var(--magenta); border-color:var(--magenta); color:#fff; transform:translateY(-2px);}
+  @media (max-width:760px){
+    .events-list{grid-template-columns:1fr; margin-top:34px;}
+    .ev-card{--tilt:0deg;}
   }
-  .event-row:hover .event-arrow{background:var(--magenta); border-color:var(--magenta); transform:rotate(45deg);}
-  .event-row:hover .event-arrow svg path{stroke:#fff;}
+  @media (prefers-reduced-motion:reduce){
+    .ev-card, .ev-cta i{transition:none;}
+    .ev-card{transform:none;}
+    a.ev-card:hover{transform:none;}
+  }
+  html.dark .ev-card{box-shadow:0 6px 18px rgba(0,0,0,.45);}
+  html.dark a.ev-card:hover{box-shadow:0 20px 40px rgba(0,0,0,.55);}
+  html.dark .ev-when small{color:rgba(233,231,247,.5);}
+  html.dark .ev-count{background:rgba(224,96,147,.16);}
+  html.dark .ev-main p{color:rgba(233,231,247,.65);}
+  html.dark .ev-cta.dim{color:rgba(233,231,247,.5);}
 
   /* GALLERY / SOCIAL */
   .social{padding:110px 0; text-align:center;}
@@ -844,7 +875,6 @@
     .ig-grid{grid-template-columns:repeat(3,1fr);}
     .stat-row{grid-template-columns:repeat(2,1fr); row-gap:30px; margin-top:50px;}
     .foot-grid{grid-template-columns:1fr 1fr; row-gap:40px;}
-    .event-row{grid-template-columns:70px 1fr auto; gap:16px;}
     .join-card{padding:44px 26px;}
     footer{padding:56px 0 26px;}
   }
@@ -949,10 +979,6 @@
     .stat b{font-size:1.9rem;}
     .foot-grid{grid-template-columns:1fr; row-gap:30px;}
     .foot-bottom{flex-direction:column; gap:6px;}
-    .event-row{grid-template-columns:1fr auto; gap:10px 16px;}
-    .event-row .event-date{grid-row:1; grid-column:1;}
-    .event-row .event-arrow{grid-row:1; grid-column:2;}
-    .event-row .event-info{grid-column:1 / -1;}
   }
   @media (max-width: 600px){
     .stat-strip{grid-template-columns:repeat(2,1fr);}
@@ -2913,22 +2939,38 @@ function goDCal(delta){
     list.innerHTML = `<p class="events-empty">No upcoming events posted yet. Check back soon.</p>`;
     return;
   }
-  list.innerHTML = upcoming.map(ev => {
-    const [year, ...rest] = (ev.event_date || "TBD").split("-");
-    const label = ev.event_date && ev.event_date !== "TBD" ? new Date(ev.event_date).toLocaleDateString('en-US',{month:'short', day:'numeric'}) : "TBD";
-    const yr = ev.event_date && ev.event_date !== "TBD" ? new Date(ev.event_date).getFullYear() : (year || "2026");
-    const href = ev.rsvp_link || "#";
+  /* never more than two: the two soonest upcoming events become feature cards,
+     the rest stay one click away in the live calendar just above. */
+  const next2 = upcoming.slice(0, 2);
+  const more = upcoming.length - next2.length;
+  const today0 = new Date(); today0.setHours(0,0,0,0);
+  function evWhen(ev){
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(ev.event_date || ""));
+    if(!m) return { tbd:true, day:"TBD", mon:"To be dated", sub:"date to be announced", count:"Date TBD" };
+    const dt = new Date(+m[1], +m[2]-1, +m[3]);
+    const diff = Math.round((dt - today0) / 86400000);
+    const count = diff <= 0 ? "Today" : (diff === 1 ? "Tomorrow" : `In ${diff} days`);
+    return { tbd:false, day:String(+m[3]),
+      mon: dt.toLocaleDateString('en-US',{month:'long'}),
+      sub: String(dt.getFullYear()), count };
+  }
+  list.innerHTML = next2.map(ev => {
+    const w = evWhen(ev);
     const hasLink = !!ev.rsvp_link;
-    const rowStyle = "text-decoration:none; color:inherit; display:grid;";
-    return `
-      ${hasLink
-        ? `<a class="event-row" href="${zone7Esc(href)}" target="_blank" rel="noopener" style="${rowStyle}">`
-        : `<div class="event-row" style="${rowStyle}">`}
-        <div class="event-date">${zone7Esc(label)}<small>${zone7Esc(String(yr))}</small></div>
-        <div class="event-info"><h4>${zone7Esc(ev.title)}</h4><p>${zone7Esc(ev.description || "")}${hasLink ? "" : ' <em style="color:rgba(27,24,54,.45);font-style:normal;">(RSVP link coming soon)</em>'}</p></div>
-        <div class="event-arrow" style="${hasLink ? "" : "opacity:.22"}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      ${hasLink ? "</a>" : "</div>"}`;
-  }).join("");
+    const open = hasLink
+      ? `<a class="ev-card" href="${zone7Esc(ev.rsvp_link)}" target="_blank" rel="noopener">`
+      : `<div class="ev-card">`;
+    const close = hasLink ? `</a>` : `</div>`;
+    return `${open}
+      <div class="ev-when${w.tbd ? " tbd" : ""}"><b>${zone7Esc(w.day)}</b><span>${zone7Esc(w.mon)}<small>${zone7Esc(w.sub)}</small></span></div>
+      <div class="ev-main">
+        <span class="ev-count">${zone7Esc(w.count)}</span>
+        <h4>${zone7Esc(ev.title)}</h4>
+        ${ev.description ? `<p>${zone7Esc(ev.description)}</p>` : ""}
+      </div>
+      ${hasLink ? `<span class="ev-cta">RSVP now <i>→</i></span>` : `<span class="ev-cta dim">Details soon</span>`}
+    ${close}`;
+  }).join("") + (more > 0 ? `<a class="ev-more" href="#dcal">+${more} more in the calendar ↑</a>` : "");
 })();
 </script>
 
