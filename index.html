@@ -195,13 +195,49 @@
   /* SKYLINE PROJECT MOSAIC — refined */
   .mosaic-head{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:14px; margin:36px 0 22px;}
   .mosaic-head h3{font-size:1.2rem;}
-  .mosaic-tabs{display:flex; gap:6px; background:var(--paper); border:1px solid var(--line); border-radius:100px; padding:4px;}
-  .mt{
-    font-size:0.74rem; font-weight:700; color:rgba(27,24,54,0.45); cursor:pointer; text-transform:uppercase;
-    letter-spacing:0.04em; padding:7px 14px; border-radius:100px; transition:background .2s, color .2s;
+  .mosaic-tabs{
+    display:flex; gap:6px; background:var(--paper); border:1px solid var(--line);
+    border-radius:100px; padding:4px 4px 9px;   /* room for the active dot */
   }
-  .mt.active{color:#fff; background:var(--ink);}
-  .mt:hover:not(.active){color:var(--magenta-deep);}
+  /* ---- rising-circle pills (port of the PillNav hover) ----
+     The circle is sized from the pill's own geometry so it always covers the
+     pill exactly, then scaled up from the bottom edge on hover while the label
+     rolls up and a duplicate label fades in on top. Driven by JS (WAAPI), so
+     the CSS here only holds the parts that need to survive a re-layout. */
+  .mt{
+    position:relative; overflow:hidden; isolation:isolate; display:inline-flex;
+    align-items:center; justify-content:center;
+    font-size:0.74rem; font-weight:700; color:rgba(27,24,54,0.5); cursor:pointer;
+    text-transform:uppercase; letter-spacing:0.04em; padding:8px 16px; border-radius:100px;
+    background:#fff; border:1px solid var(--line); min-height:40px;
+    transition:color .2s, border-color .2s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mt:hover:not(.active){color:var(--ink); border-color:rgba(225,26,110,0.35);}
+  .mt .hover-circle{
+    position:absolute; left:50%; bottom:0; border-radius:50%;
+    background:var(--ink); z-index:0; pointer-events:none; opacity:0;
+    will-change:transform,opacity; transform:translateX(-50%) scale(0);
+  }
+  .mt .label-stack{
+    position:relative; z-index:1; display:inline-block; line-height:1;
+    overflow:hidden; padding:1px 0;
+  }
+  .mt .pill-label{position:relative; z-index:1; display:inline-block; will-change:transform;}
+  .mt .pill-label-hover{
+    position:absolute; left:0; top:1px; width:100%; text-align:center;
+    color:#fff; opacity:0; pointer-events:none; will-change:transform,opacity;
+  }
+  .mt.active{color:#fff; background:var(--ink); border-color:var(--ink);}
+  /* Hovering a pill fills it exactly like the selected one, so the component's
+     active-dot is what tells "selected" apart from "hovered". */
+  .mt.active::after{
+    content:""; position:absolute; left:50%; bottom:-5px; width:5px; height:5px;
+    border-radius:50%; background:var(--magenta); transform:translateX(-50%); z-index:2;
+  }
+  /* an already-filled pill has nothing for the circle to reveal */
+  .mt.active .hover-circle,
+  .mt.active .pill-label-hover{display:none;}
   .mosaic-frame{
     background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:28px 24px 20px;
     position:relative; overflow:hidden;
@@ -1236,7 +1272,7 @@
 
     <div class="mosaic-head">
       <h3>Every Zone 7 project, one skyline.</h3>
-      <div class="mosaic-tabs" id="mosaicTabs">
+      <div class="mosaic-tabs" id="mosaicTabs" role="tablist" aria-label="Group projects by">
         <span class="mt active" data-mode="category">By Category</span>
         <span class="mt" data-mode="avenue">By Avenue</span>
         <span class="mt" data-mode="club">By Club</span>
@@ -1707,13 +1743,141 @@
     window.addEventListener("resize", ()=>{ if(svDlg.open) requestAnimationFrame(svSync); });
   }
 
+  /* ---------- rising-circle pill interaction (PillNav port) ----------
+     Same geometry as the component: derive the radius that makes a circle
+     circumscribe the pill, hang it below the baseline, and scale it up from a
+     transform-origin on that baseline so it appears to rise and fill.
+     GSAP isn't available in this zero-build page, so the tweens run on the
+     Web Animations API with GSAP's power3.out / power3.in as cubic-beziers
+     and `fill:forwards` + cancel to reproduce `overwrite:'auto'`. */
+  const pills = Array.from(document.querySelectorAll(".mt"));
+  const PILL_EASE_OUT = "cubic-bezier(0.165,0.84,0.44,1)";   /* power3.out  */
+  const PILL_EASE_IN  = "cubic-bezier(0.55,0.055,0.675,0.19)"; /* power3.in  */
+  const pillReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function pillTween(el, keyframes, dur, easing){
+    if(!el) return;
+    if(el._tw) el._tw.cancel();               /* overwrite:'auto' */
+    el._tw = el.animate(keyframes, { duration:dur, easing, fill:"forwards" });
+  }
+
+  /* Wrap the label so it can roll up behind a duplicate copy. */
+  pills.forEach(tab => {
+    const text = tab.textContent.trim();
+    tab.setAttribute("role","tab");
+    tab.setAttribute("tabindex","0");
+    /* seed the selected state so it is correct before any click, not just after */
+    tab.setAttribute("aria-selected", tab.classList.contains("active") ? "true" : "false");
+    tab.innerHTML =
+      `<span class="hover-circle" aria-hidden="true"></span>` +
+      `<span class="label-stack">` +
+        `<span class="pill-label">${zone7Esc(text)}</span>` +
+        `<span class="pill-label-hover" aria-hidden="true">${zone7Esc(text)}</span>` +
+      `</span>`;
+  });
+
+  /* Circle geometry, straight from the component's layout(). */
+  function pillLayout(){
+    pills.forEach(tab => {
+      const circle = tab.querySelector(".hover-circle");
+      if(!circle) return;
+      const w = tab.offsetWidth, h = tab.offsetHeight;
+      if(!w || !h){ circle.style.width = circle.style.height = "0px"; return; }
+      const R = ((w * w) / 4 + h * h) / (2 * h);
+      const D = Math.ceil(2 * R) + 2;
+      const delta = Math.ceil(R - Math.sqrt(Math.max(0, R * R - (w * w) / 4))) + 1;
+      circle.style.width = D + "px";
+      circle.style.height = D + "px";
+      circle.style.bottom = (-delta) + "px";
+      circle.style.transformOrigin = `50% ${D - delta}px`;
+      circle.style.transform = "translateX(-50%) scale(0)";
+      tab._h = h;
+    });
+  }
+
+  function pillEnter(tab){
+    const circle = tab.querySelector(".hover-circle");
+    const label = tab.querySelector(".pill-label");
+    const hover = tab.querySelector(".pill-label-hover");
+    if(!circle || tab.classList.contains("active")) return;
+    const h = tab._h || tab.offsetHeight;
+    if(pillReduce.matches){
+      /* keep the affordance, drop the motion */
+      circle.style.opacity = "1";
+      circle.style.transform = "translateX(-50%) scale(1.2)";
+      label.style.transform = `translateY(${-(h + 8)}px)`;
+      hover.style.opacity = "1";
+      hover.style.transform = "translateY(0)";
+      return;
+    }
+    circle.style.opacity = "1";
+    pillTween(circle,
+      [{ transform:"translateX(-50%) scale(0)" }, { transform:"translateX(-50%) scale(1.2)" }],
+      800, PILL_EASE_OUT);
+    pillTween(label,
+      [{ transform:"translateY(0)" }, { transform:`translateY(${-(h + 8)}px)` }],
+      600, PILL_EASE_OUT);
+    pillTween(hover,
+      [{ transform:`translateY(${Math.ceil(h + 20)}px)`, opacity:0 },
+       { transform:"translateY(0)", opacity:1 }],
+      600, PILL_EASE_OUT);
+  }
+  function pillLeave(tab){
+    const circle = tab.querySelector(".hover-circle");
+    const label = tab.querySelector(".pill-label");
+    const hover = tab.querySelector(".pill-label-hover");
+    if(!circle) return;
+    if(pillReduce.matches){
+      circle.style.opacity = "0";
+      circle.style.transform = "translateX(-50%) scale(0)";
+      label.style.transform = "translateY(0)";
+      hover.style.opacity = "0";
+      return;
+    }
+    pillTween(circle,
+      [{ transform:"translateX(-50%) scale(1.2)" }, { transform:"translateX(-50%) scale(0)" }],
+      300, PILL_EASE_IN);
+    pillTween(label,
+      [{ transform:`translateY(${-(h8(tab))}px)` }, { transform:"translateY(0)" }],
+      300, PILL_EASE_IN);
+    pillTween(hover,
+      [{ transform:"translateY(0)", opacity:1 },
+       { transform:`translateY(${Math.ceil(h8(tab) + 20)}px)`, opacity:0 }],
+      300, PILL_EASE_IN);
+    setTimeout(() => { circle.style.opacity = "0"; }, 300);
+  }
+  function h8(tab){ return (tab._h || tab.offsetHeight) + 8; }
+
+  pills.forEach(tab => {
+    tab.addEventListener("pointerenter", () => pillEnter(tab));
+    tab.addEventListener("pointerleave", () => pillLeave(tab));
+    tab.addEventListener("focus", () => pillEnter(tab));
+    tab.addEventListener("blur", () => pillLeave(tab));
+  });
+
   document.querySelectorAll(".mt").forEach(tab=>{
     tab.addEventListener("click",()=>{
-      document.querySelectorAll(".mt").forEach(t=>t.classList.remove("active"));
+      document.querySelectorAll(".mt").forEach(t=>{
+        t.classList.remove("active");
+        t.setAttribute("aria-selected","false");
+        /* a pill that was mid-hover must not keep its circle when it deselects */
+        if(t !== tab) pillLeave(t);
+      });
       tab.classList.add("active");
+      tab.setAttribute("aria-selected","true");
       render(tab.dataset.mode);
+      /* labels reflow per tab (A–Z is shorter than By Category) */
+      requestAnimationFrame(pillLayout);
+    });
+    tab.addEventListener("keydown", e => {
+      if(e.key !== "Enter" && e.key !== " "){ return; }
+      e.preventDefault();
+      tab.click();
     });
   });
+  window.addEventListener("resize", pillLayout);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(pillLayout).catch(()=>{});
+  pillLayout();
   render("category");
 })();
 </script>
