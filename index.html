@@ -709,45 +709,23 @@
     display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:56px;
   }
   .club-card{
-    --accent:#E11A6E;
-    background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:24px 24px 22px;
+    background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:24px 24px 22px;
     box-shadow:0 1px 2px rgba(27,24,54,.05), 0 12px 32px -16px rgba(27,24,54,.18);
     transition:transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s, border-color .3s;
     display:block; cursor:pointer; overflow:hidden;
   }
-  /* per-club identity, in grid order: balkumari, baneshwor, kathmanduheight,
-     kathmanduwest, liberty, newroadcity, sankhu, sukedhara, tripureswor */
-  .clubs-grid .club-card:nth-child(1){--accent:#1c8a4d;}
-  .clubs-grid .club-card:nth-child(2){--accent:#E11A6E;}
-  .clubs-grid .club-card:nth-child(3){--accent:#8a6300;}
-  .clubs-grid .club-card:nth-child(4){--accent:#F2A900;}
-  .clubs-grid .club-card:nth-child(5){--accent:#3a3170;}
-  .clubs-grid .club-card:nth-child(6){--accent:#0052FF;}
-  .clubs-grid .club-card:nth-child(7){--accent:#c1502e;}
-  .clubs-grid .club-card:nth-child(8){--accent:#A80F52;}
-  .clubs-grid .club-card:nth-child(9){--accent:#1B1836;}
-  .club-card:hover{transform:translateY(-6px); border-color:rgba(27,24,54,.16); box-shadow:0 2px 4px rgba(27,24,54,.05), 0 26px 52px -22px rgba(27,24,54,.28); border-color:color-mix(in srgb, var(--accent) 55%, rgba(27,24,54,.16)); box-shadow:0 2px 4px rgba(27,24,54,.05), 0 26px 60px -22px color-mix(in srgb, var(--accent) 45%, rgba(27,24,54,.28));}
+  .club-card:hover{transform:translateY(-6px); box-shadow:0 2px 4px rgba(27,24,54,.05), 0 26px 52px -22px rgba(27,24,54,.28); border-color:rgba(27,24,54,.16);}
   .club-card.no-link{cursor:pointer;}
-  /* Logo as masthead: a full-bleed stage washed with the club's own color,
-     so every crest renders large and each card feels like its club. The
-     stage stays light in dark mode on purpose — crests need the light bed. */
+  /* Circular crest on a clean white stage: the rectangular card stays crisp
+     and professional while every round logo reads at full size. The stage
+     stays white in dark mode on purpose — crests need the light bed. */
   .club-mark{
-    position:relative; isolation:isolate;
-    width:calc(100% + 48px); height:190px; margin:-24px -24px 22px;
-    border:0; border-bottom:2px solid rgba(27,24,54,.08);
-    border-bottom-color:color-mix(in srgb, var(--accent) 45%, transparent);
-    border-radius:0; background:#fff;
-    display:flex; align-items:center; justify-content:center;
-    padding:24px 30px; overflow:hidden;
+    width:calc(100% + 48px); height:184px; margin:-24px -24px 22px;
+    border:0; border-bottom:1px solid rgba(27,24,54,.08); border-radius:0;
+    background:#fff; display:flex; align-items:center; justify-content:center;
+    padding:24px; overflow:hidden;
   }
-  .club-mark::before{
-    content:""; position:absolute; inset:0; z-index:0;
-    background:radial-gradient(120% 110% at 50% 0%, rgba(225,26,110,.12), transparent 70%);
-    background:radial-gradient(120% 110% at 50% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
-  }
-  /* the crest sits on a white medallion tile: the JPG whites melt into the
-     tile, and the tile floats on the club-tinted stage as a deliberate shape */
-  .club-mark img{position:relative; z-index:1; width:148px; height:148px; object-fit:contain; background:#fff; border-radius:20px; padding:12px; box-shadow:0 14px 28px -12px rgba(27,24,54,.3); transition:transform .45s cubic-bezier(.16,1,.3,1);}
+  .club-mark img{width:136px; height:136px; object-fit:contain; background:#fff; border-radius:50%; padding:10px; border:1px solid rgba(27,24,54,.1); box-shadow:0 12px 26px -12px rgba(27,24,54,.28); transition:transform .45s cubic-bezier(.16,1,.3,1);}
   .club-card:hover .club-mark img{transform:scale(1.05);}
   @media (prefers-reduced-motion:reduce){
     .club-card, .club-mark img{transition:none;}
@@ -762,7 +740,7 @@
     border-radius:100px; position:relative; z-index:2; width:fit-content;
     transition:background .2s;
   }
-  .club-ig:hover{background:var(--accent); color:#fff; text-decoration:none;}
+  .club-ig:hover{background:rgba(27,24,54,0.1); text-decoration:none;}
   .club-ig svg{flex-shrink:0;}
   html.dark .club-card p{color:rgba(233,231,247,.6);}
   html.dark .club-ig{background:rgba(255,255,255,.08);}
