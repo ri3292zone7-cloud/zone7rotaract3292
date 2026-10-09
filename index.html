@@ -44,6 +44,40 @@
     --paper:#FFFDF9;
     --line: rgba(27,24,54,0.1);
   }
+  /* ---- dark mode (same palette as site-nav.js) ----
+     The page reads its surfaces off var(--ink/--paper/--cream/--line), so the
+     token swap below re-themes every var()-driven rule at once. What follows
+     covers only the hardcoded light values this page owns: secondary text in
+     rgba(27,24,54,…) ink, white pill/dock/icon fills, and the light dock
+     panel. Mirrors site-nav.js so the homepage stays consistent with the
+     other 54 pages even if that script loads late. */
+  html.dark{color-scheme:dark; --ink:#CBC9DE; --cream:#0E0C1A; --paper:#151327; --line:rgba(233,231,247,.14);}
+  html.dark:not(.z7-famB){--magenta:#E06093; --gold:#D9A648;}
+  html.dark body{color:#CBC9DE; background:#0E0C1A;}
+  html.dark .about-copy p{color:rgba(233,231,247,.72);}
+  html.dark .mt{background:#1C1A33; color:rgba(233,231,247,.6);}
+  html.dark .mt:hover:not(.active){color:#CBC9DE; border-color:rgba(224,96,147,.45);}
+  html.dark .mt .hover-circle{background:#E06093;}
+  html.dark .mt .pill-label-hover{color:#fff;}
+  html.dark .mt.active{background:#E06093; border-color:#E06093; color:#fff;}
+  html.dark .mt.active::after{background:var(--gold);}
+  html.dark .mosaic-col-code{color:rgba(233,231,247,.45);}
+  html.dark .mosaic-note{color:rgba(233,231,247,.45);}
+  html.dark .mosaic-popup p{color:rgba(233,231,247,.6);}
+  html.dark .mosaic-popup .mp-tag{background:rgba(224,96,147,.16);}
+  html.dark .recent-sub{color:rgba(233,231,247,.55);}
+  html.dark .dock{background:rgba(21,19,39,.72); box-shadow:0 10px 30px rgba(0,0,0,.5);}
+  html.dark .dock-ico{background:#1C1A33;}
+  html.dark .dock-caption{color:rgba(233,231,247,.5);}
+  html.dark .dock-tip{background:#E06093; color:#fff;}
+  html.dark .rc-card{box-shadow:0 6px 18px rgba(0,0,0,.45);}
+  html.dark .rc-card:hover{box-shadow:0 20px 40px rgba(0,0,0,.55);}
+  html.dark .rc-where{color:rgba(233,231,247,.6);}
+  html.dark .rc-empty{color:rgba(233,231,247,.5);}
+  html.dark .rc-arrow{background:var(--paper); color:var(--ink);}
+  html.dark .rc-arrow:hover:not([aria-disabled="true"]){background:var(--magenta); color:#fff; border-color:var(--magenta);}
+  html.dark .sv-glasspill .cnt{color:rgba(233,231,247,.65);}
+  html.dark .sv-glasspill .sv-close{background:rgba(233,231,247,.1);}
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   html{overflow-x:hidden;overflow-x:clip;
@@ -2208,6 +2242,11 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
     margin-top:42px;
     display:flex; align-items:center; gap:16px; flex-wrap:wrap;
   }
+  /* desktop: the dock pill sits centred, its caption centred below it */
+  @media (min-width:761px){
+    .dock-row{justify-content:center; text-align:center;}
+    .dock-caption{flex-basis:100%; text-align:center;}
+  }
   .dock{
     position:relative;
     display:flex; align-items:flex-end; gap:var(--dock-gap);
@@ -2438,7 +2477,18 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   const clubOrder = [];
   all.forEach(p => { if(!clubOrder.some(c => c.slug === p.clubSlug)) clubOrder.push({ slug:p.clubSlug, name:p.clubName, n:0 }); });
   all.forEach(p => { const c = clubOrder.find(c => c.slug === p.clubSlug); if(c) c.n++; });
-  clubOrder.sort((a,b) => b.n - a.n);
+  /* every Zone 7 club gets a dock icon even before it files a photo-backed
+     project — otherwise a club with zero real covers (e.g. Tripureswor)
+     silently vanishes from this section. Zero-count clubs sort after the
+     clubs with photos, alphabetically. */
+  slugs.forEach(slug => {
+    if(!clubOrder.some(c => c.slug === slug)){
+      const club = CLUB_DIRECTORY[slug] || {};
+      const nm = club.name ? club.name.replace("Rotaract Club of ","") : slug;
+      clubOrder.push({ slug, name:nm, n:0 });
+    }
+  });
+  clubOrder.sort((a,b) => (b.n - a.n) || a.name.localeCompare(b.name));
 
   const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const fmtDate = ds => {
