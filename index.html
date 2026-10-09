@@ -709,35 +709,42 @@
     display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:56px;
   }
   .club-card{
-    background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:26px 22px;
-    transition:transform .25s, box-shadow .25s, border-color .25s;
+    background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:24px 24px 22px;
+    box-shadow:0 1px 2px rgba(27,24,54,.05), 0 12px 32px -16px rgba(27,24,54,.18);
+    transition:transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s, border-color .3s;
     display:block; cursor:pointer; overflow:hidden;
   }
-  .club-card:hover{transform:translateY(-6px); box-shadow:0 20px 40px rgba(27,24,54,0.1); border-color:transparent;}
+  .club-card:hover{transform:translateY(-6px); box-shadow:0 2px 4px rgba(27,24,54,.05), 0 26px 52px -22px rgba(27,24,54,.28); border-color:rgba(27,24,54,.16);}
   .club-card.no-link{cursor:pointer;}
   /* Logo as masthead: a full-bleed white stage at the top of the card so
-     every crest renders large (~116px tall) and stays readable. The stage
-     stays white in dark mode on purpose — most crests need the light bed. */
+     every crest renders large and stays readable. The stage stays white in
+     dark mode on purpose — most crests need the light bed. */
   .club-mark{
-    width:calc(100% + 44px); height:156px; margin:-26px -22px 20px;
-    border:0; border-bottom:1px solid var(--line); border-radius:0;
+    width:calc(100% + 48px); height:168px; margin:-24px -24px 22px;
+    border:0; border-bottom:1px solid rgba(27,24,54,.08); border-radius:0;
     background:#fff; display:flex; align-items:center; justify-content:center;
-    padding:20px 24px; overflow:hidden;
+    padding:22px 28px; overflow:hidden;
   }
-  .club-mark img{width:100%; height:100%; object-fit:contain; transition:transform .3s cubic-bezier(.34,1.4,.64,1);}
-  .club-card:hover .club-mark img{transform:scale(1.05);}
+  .club-mark img{width:100%; height:100%; object-fit:contain; transition:transform .45s cubic-bezier(.16,1,.3,1);}
+  .club-card:hover .club-mark img{transform:scale(1.04);}
   @media (prefers-reduced-motion:reduce){
     .club-card, .club-mark img{transition:none;}
     .club-card:hover{transform:none;}
     .club-card:hover .club-mark img{transform:none;}
   }
-  .club-card h4{font-size:1rem; margin-bottom:6px;}
-  .club-card p{font-size:0.85rem; color:rgba(27,24,54,0.55);}
+  .club-card h4{font-family:'Poppins'; font-size:1.04rem; font-weight:700; letter-spacing:-0.01em; line-height:1.35; margin-bottom:6px;}
+  .club-card p{font-size:0.82rem; letter-spacing:0.01em; color:rgba(27,24,54,0.52);}
   .club-ig{
-    display:flex; align-items:center; gap:7px; margin-top:14px; font-size:0.82rem; font-weight:700;
-    color:var(--magenta-deep); position:relative; z-index:2; width:fit-content;
+    display:inline-flex; align-items:center; gap:7px; margin-top:16px; padding:8px 14px;
+    font-size:0.78rem; font-weight:700; color:var(--ink); background:rgba(27,24,54,0.05);
+    border-radius:100px; position:relative; z-index:2; width:fit-content;
+    transition:background .2s;
   }
-  .club-ig:hover{text-decoration:underline;}
+  .club-ig:hover{background:rgba(27,24,54,0.1); text-decoration:none;}
+  .club-ig svg{flex-shrink:0;}
+  html.dark .club-card p{color:rgba(233,231,247,.6);}
+  html.dark .club-ig{background:rgba(255,255,255,.08);}
+  html.dark .club-ig:hover{background:rgba(255,255,255,.14);}
   .club-ig svg{flex-shrink:0;}
   .club-card.no-link .club-ig{color:rgba(27,24,54,0.4); font-weight:600;}
   .clubs-note{
