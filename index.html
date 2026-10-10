@@ -2532,8 +2532,10 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
     width:var(--dock-base); height:var(--dock-base);
     padding:0; border:0; border-radius:50%; background:none; cursor:pointer;
     display:flex; align-items:center; justify-content:center;
-    /* scale is written by the spring loop; keep the transform cheap and
-       anchored to the bottom so icons grow upward like the real dock */
+  }
+  /* the pill never moves: the spring scales only the logo living inside it,
+     anchored to the bottom so logos grow upward like the real dock */
+  .dock-ico img, .dock-ico .z7mark{
     transform-origin:50% 100%;
     will-change:transform;
   }
@@ -2819,6 +2821,8 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const springs = dockItems.map(() => ({ v:1, vel:0, target:1 }));
+  /* the pill stays fixed: only the logo inside it magnifies */
+  const dockInners = dockItems.map(el => el.querySelector(".dock-ico img, .dock-ico .z7mark"));
   let pointerX = Infinity, rafId = null;
   let paintHook = null;
 
@@ -2853,7 +2857,8 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
       const sp = springs[i];
       if(Math.abs(sp.v - sp.target) > 0.0008 || Math.abs(sp.vel) > 0.0008) moving = true;
       else { sp.v = sp.target; sp.vel = 0; }
-      el.style.transform = `scale(${sp.v.toFixed(4)})`;
+      const inner = dockInners[i];
+      if(inner) inner.style.transform = `scale(${sp.v.toFixed(4)})`;
     });
     rafId = moving ? requestAnimationFrame(tick) : null;
     if(!rafId) lastT = 0;
@@ -2863,7 +2868,8 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
       /* no spring when motion is reduced: land straight on the target */
       springs.forEach((s, i) => {
         s.v = s.target; s.vel = 0;
-        dockItems[i].style.transform = `scale(${s.target.toFixed(4)})`;
+        const inner = dockInners[i];
+        if(inner) inner.style.transform = `scale(${s.target.toFixed(4)})`;
       });
       if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
       return;
