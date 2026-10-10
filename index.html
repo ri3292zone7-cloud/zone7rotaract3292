@@ -2244,10 +2244,10 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   @media (hover:hover) and (pointer:fine){
     .face-tile:hover{transform:translateY(-5px) scale(1.03); box-shadow:0 16px 30px rgba(27,24,54,.3); z-index:2;}
   }
-  .face-tile.is-president:hover{box-shadow:0 0 0 3px var(--gold), 0 0 34px rgba(242,169,0,.9), 0 16px 30px rgba(27,24,54,.3);}
+  .face-tile.is-president:hover{box-shadow:0 0 0 2px rgba(255,255,255,.95), 0 0 0 4.5px var(--magenta), 0 0 34px rgba(225,26,110,.7), 0 16px 30px rgba(27,24,54,.3);}
   .face-tile:active{transform:scale(.97);}
-  /* Presidents carry a gold outer stroke + glow so they read instantly on the wall. */
-  .face-tile.is-president{box-shadow:0 0 0 3px var(--gold), 0 0 26px rgba(242,169,0,.75), 0 10px 24px rgba(27,24,54,.3); z-index:1;}
+  /* Sitting Presidents carry a quiet brand-magenta ring + soft pink glow. */
+  .face-tile.is-president{box-shadow:0 0 0 2px rgba(255,255,255,.9), 0 0 0 4px var(--magenta), 0 0 26px rgba(225,26,110,.55), 0 10px 24px rgba(27,24,54,.3); z-index:1;}
   .faces-empty{padding:26px 4px; color:rgba(27,24,54,0.45); font-size:0.88rem;}
   /* ---------- FACE QUICK VIEW — projects-style zoom card ----------
      Same anatomy as the skyline quick view: springy dialog, photo stage
@@ -2301,6 +2301,8 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   const fvCta = document.getElementById("fvCta");
   const slugs = Object.keys(CLUB_DIRECTORY); /* always 9 clubs */
   const shortName = slug => String((CLUB_DIRECTORY[slug] && CLUB_DIRECTORY[slug].name) || slug).replace("Rotaract Club of ","");
+  /* sitting Presidents only: Vice, (Immediate) Past, Elect and friends stay plain. */
+  const isPresident = r => /president/i.test(r || "") && !/(vice|past|immediate|elect|former|deputy|assistant)/i.test(r || "");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const mod = (v, m) => ((v % m) + m) % m;
 
@@ -2331,7 +2333,7 @@ document.addEventListener("keydown", (e) => { if(e.key === "Escape") zrrOverlay.
   faces.forEach((m, i) => half[i % 2].push(m));
   const tileHTML = m => {
     const sub = m.role ? `${m.role} · ${shortName(m.slug)}` : shortName(m.slug);
-    const pres = /president/i.test(m.role || "") ? " is-president" : "";
+    const pres = isPresident(m.role) ? " is-president" : "";
     return `<div class="face-tile${pres}" tabindex="0" role="button" data-slug="${zone7Esc(m.slug)}" data-name="${zone7Esc(m.name)}" data-role="${zone7Esc(m.role)}" data-photo="${zone7Esc(m.photo)}" aria-label="View ${zone7Esc(m.name)} from Rotaract Club of ${zone7Esc(shortName(m.slug))}">
       <img src="${zone7Esc(zone7MediaPath(m.photo))}" alt="${zone7Esc(m.name)}" loading="lazy" decoding="async" draggable="false" onerror="this.dataset.failed='1'">
       <div class="face-plate"><b>${zone7Esc(m.name)}</b><span>${zone7Esc(sub)}</span></div>
