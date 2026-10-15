@@ -168,6 +168,16 @@
   .board-empty b{color:var(--magenta-deep);}
   .no-goals{color:rgba(27,24,54,.5);font-size:.92rem;margin-top:20px;}
 
+  /* MEMBERS — full roster grid (district software, photos local). Reuses
+     board-card look in a wrapping grid instead of the horizontal track. */
+  .members-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:16px;margin-top:28px;}
+  .members-grid .board-card{flex:none;}
+  .members-grid .board-photo{aspect-ratio:1/1;}
+  .member-meta{font-size:.7rem;font-weight:600;color:rgba(27,24,54,.5);margin-top:4px;}
+  html.dark .member-meta{color:rgba(230,227,245,.55);}
+  .members-count{font-size:.82rem;color:rgba(27,24,54,.55);font-weight:600;margin-top:10px;}
+  html.dark .members-count{color:rgba(230,227,245,.6);}
+
   /* PROJECTS MASONRY */
   .pmasonry{column-count:3;column-gap:16px;margin-top:36px;}
   .pcard{break-inside:avoid;margin-bottom:16px;border-radius:18px;overflow:hidden;position:relative;cursor:pointer;background:var(--ink);}
@@ -1221,6 +1231,18 @@ if(club){(async () => {
         </div>`).join("")}</div>` : `<div class="board-empty reveal">This club hasn't added its board lineup yet. <b>Club officers</b> can add photos and roles for the President and team via the Club Admin panel.</div>`}
     </section>
 
+    <section class="csec board-sec wrap" id="members">
+      <div class="board-head">
+        <div>
+          <span class="csec-tag reveal">Roster</span>
+          <h2 class="reveal">All members of this club.</h2>
+          <p class="members-count reveal" id="membersCount">Loading members…</p>
+        </div>
+        <a class="link-chip reveal" href="/members">View Zone 7 directory →</a>
+      </div>
+      <div class="members-grid reveal" id="membersGrid"></div>
+    </section>
+
     <section class="csec goals-sec" id="goals">
       <div class="wrap">
         <div class="goals-head-row">
@@ -1287,6 +1309,27 @@ if(club){(async () => {
   } else {
     pm.innerHTML = `<div class="no-projects-note">This club hasn't published any projects yet. Club officers can add projects from the <a href="/admin" style="color:var(--magenta-deep); font-weight:700;">Club Admin panel</a>.</div>`;
   }
+
+  /* Full roster — privacy-safe static JSON (name, photo, role, club, join
+     year only; no phones or emails). Generated from district software. */
+  try{
+    const mr = await fetch("/data/members-zone7.json", { cache: "force-cache" });
+    if(mr.ok){
+      const all = await mr.json();
+      const list = all.filter(m => m.club_slug === clubSlug);
+      const grid = document.getElementById("membersGrid");
+      const cnt = document.getElementById("membersCount");
+      const roleLabel = r => (!r || r === "N/A") ? "Member" : r;
+      if(cnt) cnt.textContent = list.length ? `${list.length} member${list.length===1?"":"s"} · from district roster` : "No roster entries yet for this club.";
+      if(grid){
+        grid.innerHTML = list.map(m => `
+          <div class="board-card">
+            <div class="board-photo">${m.photo ? `<img loading="lazy" decoding="async" src="/${esc(m.photo)}" alt="${esc(m.name)}" onerror="this.remove()">` : `<span class="board-initials">${esc((m.name||"").replace(/^Rtr\.\s*/i,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase() || "-")}</span>`}</div>
+            <div class="board-info"><h5>${esc(m.name)}</h5><span>${esc(roleLabel(m.role))}</span><div class="member-meta">${m.join_year ? "Joined " + esc(String(m.join_year)) : esc(m.joined || "")}</div></div>
+          </div>`).join("");
+      }
+    }
+  }catch(e){ console.warn("members roster failed:", e); }
   initReveal();
 })();
 } else {

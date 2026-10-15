@@ -42,6 +42,7 @@
     { "source": "/club-tools", "destination": "/club-tools.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/club", "destination": "/club.html" },
+    { "source": "/members", "destination": "/members.html" },
     { "source": "/pending-applications", "destination": "/pending-applications.html" },
     { "source": "/balkumari", "destination": "/club.html?club=balkumari" },
     { "source": "/baneshwor", "destination": "/baneshwor.html" },
