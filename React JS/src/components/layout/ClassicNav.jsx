@@ -86,6 +86,9 @@ export default function ClassicNav({ current = '', cta = 'join' }) {
                   </Link>
                 ))}
               </div>
+              <Link to="/members" className="clubs-drop-members" onClick={closeAll} style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 10, padding: '11px 12px', borderRadius: 12, background: 'rgba(225,26,110,.07)', fontSize: '.84rem', fontWeight: 700, color: '#A80F52', textDecoration: 'none' }}>
+                👥 Member Directory — search all members →
+              </Link>
               <div className="clubs-drop-foot">
                 <span>{clubs.length} clubs in Zone 7</span>
                 <Link to="/#clubs" onClick={closeAll}>All clubs on the homepage →</Link>
@@ -163,6 +166,7 @@ export default function ClassicNav({ current = '', cta = 'join' }) {
         <Link to="/about" className={current === 'about' ? 'current' : ''} onClick={closeAll}>About</Link>
         <div className="mm-group">Clubs</div>
         <Link to="/#clubs" onClick={closeAll}>All 9 Clubs in Zone 7</Link>
+        <Link to="/members" onClick={closeAll}>🔍 Member Directory</Link>
         <div className="mm-group">Learn</div>
         <Link to="/tutorials" onClick={closeAll}>Tutorials</Link>
         <Link to="/handbook" onClick={closeAll}>Handbook</Link>
