@@ -72,6 +72,7 @@ PAGE_REWRITES = {
     "/ne/join": "/join.html",
     "/club-tools": "/club-tools.html",
     "/club": "/club.html",
+    "/members": "/members.html",
     "/pending-applications": "/pending-applications.html",
     "/rkt-quiz": "/rkt-quiz.html",
     "/admin": "/admin.html",
