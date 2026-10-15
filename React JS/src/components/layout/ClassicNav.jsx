@@ -85,10 +85,11 @@ export default function ClassicNav({ current = '', cta = 'join' }) {
                     <span>{c.name.replace('Rotaract Club of ', '')}</span>
                   </Link>
                 ))}
+                <Link to="/members" className="clubs-drop-item" onClick={closeAll}>
+                  <img src="/favicon-192.png" alt="Zone 7" loading="lazy" />
+                  <span>Club Members</span>
+                </Link>
               </div>
-              <Link to="/members" className="clubs-drop-members" onClick={closeAll} style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 10, padding: '11px 12px', borderRadius: 12, background: 'rgba(225,26,110,.07)', fontSize: '.84rem', fontWeight: 700, color: '#A80F52', textDecoration: 'none' }}>
-                👥 Member Directory — search all members →
-              </Link>
               <div className="clubs-drop-foot">
                 <span>{clubs.length} clubs in Zone 7</span>
                 <Link to="/#clubs" onClick={closeAll}>All clubs on the homepage →</Link>
