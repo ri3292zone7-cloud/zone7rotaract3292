@@ -411,8 +411,6 @@
     "#siteNav .clubs-drop-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--nav-border)}",
     "#siteNav .clubs-drop-foot span{font-size:.74rem;color:var(--nav-ink-dim)}",
     "#siteNav .clubs-drop-foot a{font-size:.8rem;font-weight:700;color:var(--nav-brand)}",
-    "#siteNav .clubs-drop-members{display:flex;align-items:center;gap:10px;margin-top:10px;padding:11px 12px;border-radius:12px;background:var(--nav-tint);font-size:.84rem;font-weight:700;color:var(--nav-brand);transition:background .15s}",
-    "#siteNav .clubs-drop-members:hover{background:var(--nav-tint2)}",
     "#siteNav .learn-drop-panel{width:350px}",
     "#siteNav .res-drop-item{display:flex;gap:12px;padding:11px 10px;border-radius:12px;transition:background .15s;align-items:flex-start}",
     "#siteNav .res-drop-item:hover,#siteNav .res-drop-item.current{background:var(--nav-tint)}",
@@ -570,7 +568,6 @@
     '<div class="nav-drop" id="clubsDrop">' +
     '<button type="button" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false"' + (current === "clubs" ? ' style="opacity:1;color:#A80F52"' : "") + '>Clubs ' + CHEV + "</button>" +
     '<div class="nav-drop-panel clubs-drop-panel"><div class="clubs-drop-grid" id="clubsDropGrid"></div>' +
-    '<a class="clubs-drop-members" href="/members">👥 Member Directory — search all members →</a>' +
     '<div class="clubs-drop-foot"><span id="clubCount">9 clubs in Zone 7</span><a href="/#clubs">All clubs on the homepage →</a></div></div>' +
     "</div>" +
     '<div class="nav-drop" id="learnDrop">' +
@@ -618,7 +615,7 @@
           var name = c && c.name ? c.name.replace("Rotaract Club of ", "") : slug;
           var src = logo ? '<img src="' + logo + '" alt="' + name + '" loading="lazy">' : '<div style="width:28px;height:28px;border-radius:8px;background:rgba(225,26,110,.12);flex-shrink:0"></div>';
           return '<a class="clubs-drop-item" href="/' + encodeURIComponent(slug) + '">' + src + "<span>" + name + "</span></a>";
-        }).join("");
+        }).join("") + '<a class="clubs-drop-item" href="/members"><img src="/favicon-192.png" alt="Zone 7" loading="lazy"><span>Club Members</span></a>';
         if (count) count.textContent = clubs.length + " clubs in Zone 7";
       }
     } catch (err) { /* keep the empty grid harmless */ }
