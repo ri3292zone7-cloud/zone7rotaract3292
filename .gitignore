@@ -15,6 +15,14 @@ __pycache__/
 # Local backup of the old site (keep out of the repo)
 ../zone7-backup-old-site/
 
+# District sync: credentials + bulky run artifacts stay local.
+# (sync/district-sync-state.json IS tracked — it's the incremental watermark.)
+sync/district-credentials.json
+sync/district-*.jsonl
+sync/district-extract*.csv
+sync/image-map.json
+sync/import-log.csv
+
 # Raw source media (AI chapter images, store/vendor clips) — referenced by nothing,
 # kept only as build source. The pre-reorg backup holds the originals.
 _source-media/

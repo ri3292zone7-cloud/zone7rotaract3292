@@ -1,0 +1,54 @@
+# Zone 7 district sync — fully automatic, no AI agent or local PC needed.
+#
+# What it does: pulls new Zone VII reports from my.rotaract3292.org
+# (read-only on the district side), rehosts images, and upserts into the
+# Zone 7 Supabase projects table that the live site reads. The website
+# updates itself within minutes of a successful run — no redeploy needed.
+#
+# Schedule: every Sunday 21:00 NPT (15:15 UTC). Manual runs anytime via
+# the "Run workflow" button (Actions tab → District sync).
+#
+# Required repo secrets (Settings → Secrets and variables → Actions):
+#   DISTRICT_EMAIL     district login email (dedicated automation account)
+#   DISTRICT_PASSWORD  district login password
+#
+# The watermark (sync/district-sync-state.json) is committed back after
+# every successful run, so consecutive runs stay incremental.
+name: District sync
+
+on:
+  schedule:
+    - cron: "15 15 * * 0" # Sundays 21:00 NPT
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sync
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run district sync
+        env:
+          DISTRICT_EMAIL: ${{ secrets.DISTRICT_EMAIL }}
+          DISTRICT_PASSWORD: ${{ secrets.DISTRICT_PASSWORD }}
+        run: python3 sync_district.py
+
+      - name: Commit watermark back
+        run: |
+          git config user.name "zone7-sync"
+          git config user.email "zone7-sync@users.noreply.github.com"
+          git add district-sync-state.json
+          git diff --cached --quiet || (git commit -m "District sync watermark $(date -u +%F)" && git push)
