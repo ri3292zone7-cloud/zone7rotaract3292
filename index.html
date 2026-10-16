@@ -302,7 +302,8 @@
      layout, not a dark theme. Tiles keep .mosaic-tile + data-i, so hover
      cards, touch popups and quick view keep working untouched. */
   .mosaic-frame.archive{background:var(--paper);}
-  .mosaic-tile.photo{padding:0; overflow:hidden;}
+  .mosaic-tile.photo{padding:0; overflow:hidden; background:rgba(225,26,110,.10);}
+  html.dark .mosaic-tile.photo{background:rgba(224,96,147,.16);}
   .mosaic-tile.photo img{width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;}
   /* ---- archive wall: one dense photo mosaic in a fixed-height scroller ----
      All-years holds 1000+ tiles, so instead of stacking category columns
@@ -1636,6 +1637,7 @@
     : (() => null);
   const ryLabel = (typeof zone7RYLabel === "function") ? zone7RYLabel : (ry => ry ? `RY ${ry}` : "Archive · all");
   let MOSAIC = MOCK_DEMO, isLive = false, skyYear = "2026-27", liveTotal = 0;
+  let lastYear = "2026-27"; /* last real year viewed — grouping pills in Archive return here */
   const toTile = p => ({
     t: p.title || "Untitled Project",
     c: (p.category || "").trim() || "Uncategorized",
@@ -1671,7 +1673,7 @@
   /* Archive wall paging: first paint stays small (~200 tiles), the rest
      streams in as the wall's own sentinel scrolls into view — the page
      itself never grows past the wall's fixed max-height. */
-  const ARCHIVE_FIRST = 120, ARCHIVE_PAGE = 200;
+  const ARCHIVE_FIRST = window.innerWidth <= 600 ? 60 : 120, ARCHIVE_PAGE = 200;
   let archiveShown = ARCHIVE_FIRST, awObserver = null, awTicking = false;
   // Shuffle every (icon,color) combo, then hand out one unique pair per project —
   // guarantees no two tiles ever repeat the same icon+color combination.
@@ -1782,6 +1784,7 @@
   }
   function skyPick(ry){
     skyYear = (ry === "archive") ? null : ry;
+    if (!isArchive()) lastYear = skyYear;
     if (isArchive()) archiveShown = ARCHIVE_FIRST;
     skyBuildYears();
     skyMenuOpen(false);
@@ -1823,8 +1826,9 @@
   });
 
   function render(mode){
-    /* Archive ignores the grouping tabs: one dense photo mosaic instead of
-       hundreds of category columns. Year modes keep the grouped skyline. */
+    /* Archive renders one dense photo mosaic instead of hundreds of
+       category columns; the grouping pills exit Archive back to the
+       last-viewed year (see the .mt click handler) — year modes group. */
     if (isArchive()){ renderWall(); return; }
     const key=keyFor[mode];
     const groups={};
@@ -2319,7 +2323,17 @@
       });
       tab.classList.add("active");
       tab.setAttribute("aria-selected","true");
-      render(tab.dataset.mode);
+      /* Grouping needs a year scope: from the Archive wall a pill tap
+         returns to the last-viewed year, grouped by the tapped pill —
+         so the tabs always do something, on touch screens too. */
+      if (typeof isArchive === "function" && isArchive() && typeof skyYears === "function"){
+        const yrs = skyYears();
+        skyYear = (lastYear && yrs.includes(lastYear)) ? lastYear
+          : (yrs.includes("2026-27") ? "2026-27" : (yrs[0] || null));
+        if (skyYear !== null){ skyBuildYears(); skyApply(); }
+        else render(tab.dataset.mode);
+      }
+      else render(tab.dataset.mode);
       /* labels reflow per tab (A–Z is shorter than By Category) */
       requestAnimationFrame(pillLayout);
     });

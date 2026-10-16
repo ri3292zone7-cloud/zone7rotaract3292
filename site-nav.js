@@ -773,7 +773,7 @@
     var z7ClubsHtml = "";
     try {
       var z7ClubDir = (typeof CLUB_DIRECTORY !== "undefined" && CLUB_DIRECTORY) ? Object.entries(CLUB_DIRECTORY) : [];
-      z7ClubsHtml = '<div class="sh-group">Clubs</div>' + (z7ClubDir.length ? z7ClubDir.map(function (e) {
+      z7ClubsHtml = '<div class="sh-group">Clubs</div>' + z7SheetItem("/members", "👥", "All Club Members") + (z7ClubDir.length ? z7ClubDir.map(function (e) {
         var slug = e[0], c = e[1];
         var cname = c && c.name ? c.name.replace("Rotaract Club of ", "") : slug;
         var clogo = z7Logo(c && c.logo);
@@ -791,7 +791,6 @@
       z7SheetItem("/about", "ℹ️", "About Us") +
       z7SheetItem("/gallery", "🖼️", "Gallery") +
       z7ClubsHtml +
-      z7SheetItem("/members", "🔍", "Member Directory — all members") +
       '<div class="sh-group">Service</div>' +
       z7SheetItem("/flood-help", "🛟", "Flood Help") +
       z7SheetItem("/volunteers", "🚨", "Volunteer") +
