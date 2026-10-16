@@ -1747,7 +1747,7 @@
       lastScopeTotal = isArchive() ? liveTotal : s.total;
       paintCombos(MOSAIC);
       skyBuildYears();
-      if (frameEl) frameEl.classList.toggle("archive", isArchive());
+      if (frameEl) frameEl.classList.toggle("archive", isArchive() || skyModeNow() === "category");
     }
   } catch(e){ console.error("Mosaic: falling back to demo projects", e); }
   if (!isLive) paintCombos(MOSAIC);
@@ -1762,7 +1762,7 @@
       noteEl.textContent = "Club projects will appear here automatically.";
       return;
     }
-    const shown = isArchive() ? Math.min(archiveShown, MOSAIC.length) : MOSAIC.length;
+    const shown = (isArchive() || skyModeNow() === "category") ? Math.min(archiveShown, MOSAIC.length) : MOSAIC.length;
     if (isArchive()){
       const over = shown < liveTotal ? ` · showing ${shown}` : "";
       noteEl.textContent = `${liveTotal} entries · Archive · every year${over} — scroll the wall for more, tap a tile to view.`;
@@ -1770,6 +1770,10 @@
     }
     const scopeTotal = lastScopeTotal;
     const over = shown < scopeTotal ? ` · showing ${shown}` : "";
+    if (skyModeNow() === "category"){
+      noteEl.textContent = `${scopeTotal} projects · ${ryLabel(skyYear)}${over} — scroll the wall for more, tap a tile to view.`;
+      return;
+    }
     noteEl.textContent = `${scopeTotal} projects · ${ryLabel(skyYear)}${over} — tap a tile to view.`;
   }
   skylineNote();
@@ -1781,12 +1785,16 @@
     const a = document.querySelector("#mosaicTabs .mt.active");
     return (a && a.dataset.mode) || "category";
   }
+  /* Category renders the same dense photo wall as the Archive — scoped to
+     the selected RY instead of every year. Avenue / Club / A–Z stay columns. */
+  function isWallMode(){ return isArchive() || skyModeNow() === "category"; }
   function skyApply(){
     const s = skylineSet();
     MOSAIC = s.tiles;
     lastScopeTotal = isArchive() ? liveTotal : s.total;
+    if (isWallMode()) archiveShown = ARCHIVE_FIRST; /* fresh wall, scroll back to top */
     paintCombos(MOSAIC); /* always: coverless tiles fall back to icons in any mode */
-    if (frameEl) frameEl.classList.toggle("archive", isArchive());
+    if (frameEl) frameEl.classList.toggle("archive", isWallMode());
     skylineNote();
     render(skyModeNow());
   }
@@ -1842,7 +1850,7 @@
   function skyPick(ry){
     skyYear = (ry === "archive") ? null : ry;
     if (!isArchive()) lastYear = skyYear;
-    if (isArchive()) archiveShown = ARCHIVE_FIRST;
+    if (isArchive() || skyModeNow() === "category") archiveShown = ARCHIVE_FIRST;
     skyBuildYears();
     skyMenuOpen(false);
     skyApply();
@@ -1890,10 +1898,10 @@
   });
 
   function render(mode){
-    /* Archive renders one dense photo mosaic instead of hundreds of
-       category columns; the grouping pills exit Archive back to the
-       last-viewed year (see the .mt click handler) — year modes group. */
-    if (isArchive()){ renderWall(); return; }
+    /* Archive and Category render one dense photo mosaic instead of hundreds
+       of columns; the grouping pills exit Archive back to the last-viewed
+       year (see the .mt click handler) — avenue / club / az group. */
+    if (isArchive() || mode === "category"){ renderWall(); return; }
     const key=keyFor[mode];
     const groups={};
     MOSAIC.slice().sort((a,b)=> mode==="az" ? a.t.localeCompare(b.t) : 0)
@@ -1916,6 +1924,7 @@
         </div>
       `;
     }).join("");
+    skylineNote(); /* pills re-render without skyApply — keep the caption in sync */
   }
 
   /* ---- archive wall: photos-first dense mosaic, paged in ----
@@ -1963,7 +1972,8 @@
     awWatch();
   }
   function awMore(){
-    if (awTicking || !isArchive()) return;
+    if (awTicking) return;
+    if (!isArchive() && skyModeNow() !== "category") return;
     const order = wallOrder();
     if (archiveShown >= order.length) return;
     awTicking = true;
@@ -2437,7 +2447,13 @@
         if (skyYear !== null){ skyBuildYears(); skyApply(); }
         else render(tab.dataset.mode);
       }
-      else render(tab.dataset.mode);
+      else {
+        /* Entering the Category wall starts it at the top with photo-wall
+           styling; the other pills restore the icon columns. */
+        if (tab.dataset.mode === "category") archiveShown = ARCHIVE_FIRST;
+        if (frameEl) frameEl.classList.toggle("archive", tab.dataset.mode === "category");
+        render(tab.dataset.mode);
+      }
       /* labels reflow per tab (A–Z is shorter than By Category) */
       requestAnimationFrame(pillLayout);
     });
