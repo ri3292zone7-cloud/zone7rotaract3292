@@ -269,21 +269,37 @@
      takes class .mt, so the generic tab handlers can't mistake it for a
      grouping mode. */
   .mosaic-tabs{position:relative;}
-  #mosaicYearBtn{gap:6px; border-style:solid;}
+  #mosaicYearBtn{gap:6px; border-style:solid; transition:color .2s, border-color .2s, background-color .2s, transform .12s ease;}
+  #mosaicYearBtn:active{transform:scale(.94);}
+  #mosaicYearBtn .ry-chev{display:inline-block; transition:transform .22s cubic-bezier(.16,1,.3,1); font-size:.68em;}
+  #mosaicYearBtn[aria-expanded="true"] .ry-chev{transform:rotate(180deg);}
   .ry-menu{
     position:absolute; top:calc(100% + 8px); right:0; z-index:60; min-width:190px;
-    max-height:min(320px, 60vh); overflow:auto; padding:6px;
+    max-height:min(320px, 60vh); overflow:auto; overscroll-behavior:contain; padding:6px;
     background:var(--paper); border:1px solid var(--line); border-radius:14px;
     box-shadow:0 20px 40px rgba(27,24,54,0.22);
+    scrollbar-width:thin; scrollbar-color:rgba(168,15,82,.35) transparent;
+    /* animated open/close (JS toggles .open; [hidden] only applies past the fade) */
+    opacity:0; transform:translateY(-6px) scale(.98); transform-origin:top right;
+    visibility:hidden; transition:opacity .16s ease-in, transform .16s ease-in, visibility 0s .16s;
   }
+  .ry-menu.open{
+    opacity:1; transform:none; visibility:visible;
+    transition:opacity .2s ease-out, transform .22s cubic-bezier(.16,1,.3,1);
+  }
+  .ry-menu::-webkit-scrollbar{width:8px;}
+  .ry-menu::-webkit-scrollbar-thumb{background:rgba(168,15,82,.3); border-radius:8px;}
+  .ry-menu::-webkit-scrollbar-track{background:transparent;}
   .ry-menu[hidden]{display:none;}
   .ry-opt{
     display:flex; align-items:center; gap:10px; width:100%; text-align:left;
     font-size:0.78rem; font-weight:700; letter-spacing:0.03em; color:var(--ink);
     padding:9px 12px; border-radius:9px; cursor:pointer; border:0; background:transparent;
     -webkit-tap-highlight-color:transparent;
+    transition:background-color .15s ease, transform .1s ease;
   }
   .ry-opt:hover{background:rgba(225,26,110,0.08);}
+  .ry-opt:active{background:rgba(225,26,110,0.16); transform:scale(.985);}
   .ry-opt:focus-visible{outline:2px solid var(--magenta); outline-offset:-2px;}
   .ry-opt .dot{width:6px; height:6px; border-radius:50%; background:currentColor; opacity:0.25; flex:0 0 auto;}
   .ry-opt[aria-selected="true"]{background:rgba(225,26,110,0.1);}
@@ -295,7 +311,7 @@
   html.dark .ry-opt:hover{background:rgba(224,96,147,.14);}
   html.dark .ry-opt[aria-selected="true"]{background:rgba(224,96,147,.18);}
   html.dark .ry-sep{background:rgba(233,231,247,.14);}
-  @media (prefers-reduced-motion: reduce){ .ry-opt{transition:none;} }
+  @media (prefers-reduced-motion: reduce){ .ry-opt{transition:none;} .ry-menu{transition:none;} #mosaicYearBtn, #mosaicYearBtn .ry-chev{transition:none;} }
   /* ---- archive photo-mosaic: the same tiles, but 100% cover photos ----
      Standard light frame (same paper + pink glow as year modes) — the
      all-years view reads as a Zone 7 photo wall through its dense mosaic
@@ -1486,7 +1502,7 @@
         <span class="mt" data-mode="avenue">By Avenue</span>
         <span class="mt" data-mode="club">By Club</span>
         <span class="mt" data-mode="az">A&ndash;Z</span>
-        <span class="ms" id="mosaicYearBtn" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" title="Filter projects by Rotary Year">RY 26&ndash;27 &#9662;</span>
+        <span class="ms" id="mosaicYearBtn" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" title="Filter projects by Rotary Year">RY 26&ndash;27 <span class="ry-chev" aria-hidden="true">&#9662;</span></span>
         <div class="ry-menu" id="mosaicYearMenu" role="listbox" aria-label="Rotary Year" hidden></div>
       </div>
     </div>
@@ -1767,8 +1783,18 @@
   }
   function skyMenuOpen(open){
     if (!yearMenu || !yearBtn) return;
-    yearMenu.hidden = !open;
     yearBtn.setAttribute("aria-expanded", String(!!open));
+    /* CSS handles the fade/slide via .open; [hidden] only applies after
+       the close transition so the menu never blinks out mid-animation. */
+    if (open){
+      clearTimeout(yearMenu._ht);
+      yearMenu.hidden = false;
+      requestAnimationFrame(() => requestAnimationFrame(() => yearMenu.classList.add("open")));
+    } else {
+      yearMenu.classList.remove("open");
+      clearTimeout(yearMenu._ht);
+      yearMenu._ht = setTimeout(() => { if (!yearMenu.classList.contains("open")) yearMenu.hidden = true; }, 170);
+    }
   }
   function skyBuildYears(){
     if (!yearMenu || !yearBtn) return;
@@ -1776,7 +1802,7 @@
     const years = skyYears();
     if (skyYear !== null && !years.includes(skyYear)) skyYear = years.includes("2026-27") ? "2026-27" : (years[0] || null);
     const counts = skyCounts();
-    yearBtn.innerHTML = (isArchive() ? "Archive · all" : ryLabel(skyYear)) + " &#9662;";
+    yearBtn.innerHTML = (isArchive() ? "Archive · all" : ryLabel(skyYear)) + ' <span class="ry-chev" aria-hidden="true">&#9662;</span>';
     yearBtn.classList.toggle("on", isArchive());
     yearMenu.innerHTML = years.map(y =>
       `<button type="button" class="ry-opt" role="option" data-ry="${y}" aria-selected="${y === skyYear}"><span class="dot"></span>${ryLabel(y)}<span class="n">${counts[y] || 0}</span></button>`
@@ -1792,8 +1818,10 @@
     if (yearBtn) yearBtn.focus({ preventScroll: true });
   }
   function skyToggleMenu(){
-    if (!yearMenu) return;
-    skyMenuOpen(yearMenu.hidden);
+    if (!yearMenu || !yearBtn) return;
+    /* aria-expanded is the source of truth — [hidden] lags during the
+       close fade, so toggling on it would swallow fast re-open taps. */
+    skyMenuOpen(yearBtn.getAttribute("aria-expanded") !== "true");
   }
   if (yearBtn){
     yearBtn.addEventListener("click", e => { e.stopPropagation(); skyToggleMenu(); });
