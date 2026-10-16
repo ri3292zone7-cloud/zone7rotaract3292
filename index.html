@@ -270,7 +270,13 @@
      grouping mode. */
   .mosaic-tabs{position:relative;}
   #mosaicYearBtn{gap:6px; border-style:solid; transition:color .2s, border-color .2s, background-color .2s, transform .12s ease;}
-  #mosaicYearBtn:active{transform:scale(.94);}
+  /* shrink-on-press is mouse-only: on touch :active can stick after the
+     finger lifts, leaving the button looking squashed. Touch keeps the
+     background press below via .ry-opt-style feedback on the button too. */
+  @media (hover: hover) and (pointer: fine){
+    #mosaicYearBtn:active{transform:scale(.94);}
+  }
+  #mosaicYearBtn:active{background:rgba(225,26,110,.12);}
   #mosaicYearBtn .ry-chev{display:inline-block; transition:transform .22s cubic-bezier(.16,1,.3,1); font-size:.68em;}
   #mosaicYearBtn[aria-expanded="true"] .ry-chev{transform:rotate(180deg);}
   .ry-menu{
@@ -299,7 +305,10 @@
     transition:background-color .15s ease, transform .1s ease;
   }
   .ry-opt:hover{background:rgba(225,26,110,0.08);}
-  .ry-opt:active{background:rgba(225,26,110,0.16); transform:scale(.985);}
+  .ry-opt:active{background:rgba(225,26,110,0.16);}
+  @media (hover: hover) and (pointer: fine){
+    .ry-opt:active{transform:scale(.985);}
+  }
   .ry-opt:focus-visible{outline:2px solid var(--magenta); outline-offset:-2px;}
   .ry-opt .dot{width:6px; height:6px; border-radius:50%; background:currentColor; opacity:0.25; flex:0 0 auto;}
   .ry-opt[aria-selected="true"]{background:rgba(225,26,110,0.1);}
@@ -1802,7 +1811,17 @@
     const years = skyYears();
     if (skyYear !== null && !years.includes(skyYear)) skyYear = years.includes("2026-27") ? "2026-27" : (years[0] || null);
     const counts = skyCounts();
-    yearBtn.innerHTML = (isArchive() ? "Archive · all" : ryLabel(skyYear)) + ' <span class="ry-chev" aria-hidden="true">&#9662;</span>';
+    /* Reuse the chevron span across label rebuilds so its rotate-back
+       transition survives a year pick instead of snapping. */
+    const chevHtml = '<span class="ry-chev" aria-hidden="true">&#9662;</span>';
+    let chev = yearBtn.querySelector(".ry-chev");
+    yearBtn.textContent = (isArchive() ? "Archive · all" : ryLabel(skyYear)) + " ";
+    if (!chev){
+      const t = document.createElement("template");
+      t.innerHTML = chevHtml;
+      chev = t.content.firstChild;
+    }
+    yearBtn.appendChild(chev);
     yearBtn.classList.toggle("on", isArchive());
     yearMenu.innerHTML = years.map(y =>
       `<button type="button" class="ry-opt" role="option" data-ry="${y}" aria-selected="${y === skyYear}"><span class="dot"></span>${ryLabel(y)}<span class="n">${counts[y] || 0}</span></button>`
@@ -1849,6 +1868,11 @@
   document.addEventListener("click", e => {
     if (yearMenu && !yearMenu.hidden && !e.target.closest("#mosaicTabs")) skyMenuOpen(false);
   });
+  /* The menu is absolutely positioned: if the page scrolls under it the
+     dropdown detaches from its button and looks broken — tuck it away. */
+  window.addEventListener("scroll", () => {
+    if (yearMenu && !yearMenu.hidden && yearMenu.classList.contains("open")) skyMenuOpen(false);
+  }, { passive: true });
   document.addEventListener("keydown", e => {
     if (e.key === "Escape" && yearMenu && !yearMenu.hidden) skyMenuOpen(false);
   });
