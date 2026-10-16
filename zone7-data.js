@@ -192,12 +192,28 @@ const ROTARY_FOCUS_AREAS = {
   "Environment": ["environment","tree","plantation","clean-up","cleanup","climate"]
 };
 
+/* Rotary Year of a project date: RY starts 1 Jul, so Jul 2026–Jun 2027
+   is "2026-27". Returns null for missing/unparseable dates. */
+function zone7RYOf(dateStr){
+  if(!dateStr) return null;
+  const d = new Date(dateStr);
+  if(isNaN(d)) return null;
+  const y = d.getFullYear(), m = d.getMonth(); /* 0-based; Jul = 6 */
+  const start = (m >= 6) ? y : y - 1;
+  return `${start}-${String((start + 1) % 100).padStart(2, "0")}`;
+}
+
+/* Short label for year pills: "2026-27" -> "RY 26–27". Pass null for Archive. */
+function zone7RYLabel(ry){
+  if(!ry) return "Archive · all";
+  const m = String(ry).match(/(\d{4})-(\d{2,4})/);
+  if(!m) return `RY ${ry}`;
+  return `RY ${m[1].slice(2)}–${m[2].slice(-2)}`;
+}
+
 /* Is a project's date within Rotary Year 2026-27 (1 Jul 2026 – 30 Jun 2027)? */
 function zone7InRY2627(dateStr){
-  if(!dateStr) return false;
-  const d = new Date(dateStr);
-  if(isNaN(d)) return false;
-  return d >= new Date('2026-07-01') && d <= new Date('2027-06-30T23:59:59');
+  return zone7RYOf(dateStr) === "2026-27";
 }
 
 /* Deterministic 4-digit confirmation code per club+barometer-item, so a
@@ -394,7 +410,7 @@ const ZONE7_DB = {
         const cached = zone7CacheGet("all_" + limit, 180000);
         if(cached){ this._allCache = cached; return cached; }
       }
-      const res = await fetch(`${REST_URL}?select=id,club_slug,title,category,date,updated&order=updated.desc&limit=${limit}&offset=${offset}`, {
+      const res = await fetch(`${REST_URL}?select=id,club_slug,title,category,date,cover,updated&order=updated.desc&limit=${limit}&offset=${offset}`, {
         headers: withCount ? { ...REST_HEADERS, "Prefer": "count=exact" } : REST_HEADERS
       });
       if(!res.ok) throw new Error("Fetch failed: " + res.status);

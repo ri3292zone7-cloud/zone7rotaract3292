@@ -41,7 +41,7 @@ window.SITE_INDEX = (function () {
           t: c.name,
           d: "Rotaract club in the Kathmandu Valley.",
           s: "Clubs",
-          h: "/club?club=" + encodeURIComponent(slug),
+          h: "/" + encodeURIComponent(slug),
           icon: "🏛",
           tag: "Club",
           k: ["club", slug, String(c.name).replace(/^Rotaract Club of /i, "")]

@@ -158,7 +158,7 @@
 
   function renderRow(what, item){
     var href = item.h, tag = item.tag || "";
-    if(what === "clubs"){ tag = "Club"; href = "/club?club=" + encodeURIComponent(item.slug); }
+    if(what === "clubs"){ tag = "Club"; href = "/" + encodeURIComponent(item.slug); }
     else if(what === "projects"){ tag = (item.category||"Project"); href = "/project?club=" + encodeURIComponent(item.club_slug) + "&id=" + encodeURIComponent(item.id); }
     else if(what === "guides"){ tag = (item.category||item.tag||"Guide"); href = "/guides#" + encodeURIComponent(item.id); }
     else if(what === "events"){ tag = (item.event_date ? new Date(item.event_date).toLocaleDateString("en-US",{month:"short",day:"numeric"}) : "Event"); href = item.rsvp_link || "/#events"; }

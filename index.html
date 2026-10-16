@@ -56,13 +56,16 @@
   html.dark body{color:#CBC9DE; background:#0E0C1A;}
   html.dark .about-copy p{color:rgba(233,231,247,.72);}
   html.dark .mt{background:#1C1A33; color:rgba(233,231,247,.6);}
-  html.dark .mt:hover:not(.active){color:#CBC9DE; border-color:rgba(224,96,147,.45);}
+  html.dark .mt:hover:not(.active),html.dark .ms:hover{color:#CBC9DE; border-color:rgba(224,96,147,.45);}
+  html.dark .ms{background:transparent; color:rgba(233,231,247,.6);}
+  html.dark .ms.on{color:#fff; border-color:rgba(224,96,147,.6); background:rgba(224,96,147,.14);}
+  html.dark .ms.on::before{background:var(--magenta);}
   html.dark .mt .hover-circle{background:#E06093;}
   html.dark .mt .pill-label-hover{color:#fff;}
   html.dark .mt.active{background:#E06093; border-color:#E06093; color:#fff;}
   html.dark .mt.active::after{background:var(--gold);}
   html.dark .mosaic-col-code{color:rgba(233,231,247,.45);}
-  html.dark .mosaic-note{color:rgba(233,231,247,.45);}
+  html.dark .mosaic-note{color:rgba(233,231,247,.7);}
   html.dark .mosaic-popup p{color:rgba(233,231,247,.6);}
   html.dark .mosaic-popup .mp-tag{background:rgba(224,96,147,.16);}
   html.dark .recent-sub{color:rgba(233,231,247,.55);}
@@ -227,10 +230,10 @@
   .about-copy p{color:rgba(27,24,54,0.72); line-height:1.85; margin-bottom:22px; font-size:1.02rem;}
 
   /* SKYLINE PROJECT MOSAIC — refined */
-  .mosaic-head{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:14px; margin:36px 0 22px;}
-  .mosaic-head h3{font-size:1.2rem;}
+  .mosaic-head{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px; margin:40px 0 24px;}
+  .mosaic-head h3{font-size:1.2rem; line-height:1.2; margin:0; letter-spacing:-0.01em;}
   .mosaic-tabs{
-    display:flex; gap:6px; background:var(--paper); border:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:6px; max-width:100%; background:var(--paper); border:1px solid var(--line);
     border-radius:100px; padding:4px 4px 9px;   /* room for the active dot */
   }
   /* ---- rising-circle pills (port of the PillNav hover) ----
@@ -238,7 +241,7 @@
      pill exactly, then scaled up from the bottom edge on hover while the label
      rolls up and a duplicate label fades in on top. Driven by JS (WAAPI), so
      the CSS here only holds the parts that need to survive a re-layout. */
-  .mt{
+  .mt,.ms{
     position:relative; overflow:hidden; isolation:isolate; display:inline-flex;
     align-items:center; justify-content:center;
     font-size:0.74rem; font-weight:700; color:rgba(27,24,54,0.5); cursor:pointer;
@@ -247,7 +250,108 @@
     transition:color .2s, border-color .2s;
     -webkit-tap-highlight-color:transparent;
   }
-  .mt:hover:not(.active){color:var(--ink); border-color:rgba(225,26,110,0.35);}
+  .mt:hover:not(.active),.ms:hover{color:var(--ink); border-color:rgba(225,26,110,0.35);}
+  /* Scope toggle: a quieter outline sibling, deliberately NOT a fifth tab —
+     dashed transparent shell with its own leading status dot instead of the
+     tab fill + bottom active-dot. Never add class .mt here: JS tab handlers
+     bind on .mt and would treat the toggle as a grouping mode. */
+  .ms{background:transparent; border-style:dashed; gap:8px;}
+  .ms::before{
+    content:""; width:6px; height:6px; border-radius:50%;
+    background:currentColor; opacity:0.45; flex:0 0 auto;
+  }
+  .ms.on{color:var(--ink); border-color:rgba(225,26,110,0.55); border-style:solid; background:rgba(225,26,110,0.08);}
+  .ms.on::before{background:var(--magenta); opacity:1;}
+  .mt:focus-visible,.ms:focus-visible{outline:2px solid var(--magenta); outline-offset:2px;}
+  /* ---- RY year toggle: a dropdown next to A–Z, defaulting to the current
+     Rotary Year. The full year list lives in the menu (18+ years won't fit
+     as pills). .ms base comes from the shared rule above; the button never
+     takes class .mt, so the generic tab handlers can't mistake it for a
+     grouping mode. */
+  .mosaic-tabs{position:relative;}
+  #mosaicYearBtn{gap:6px; border-style:solid;}
+  .ry-menu{
+    position:absolute; top:calc(100% + 8px); right:0; z-index:60; min-width:190px;
+    max-height:min(320px, 60vh); overflow:auto; padding:6px;
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    box-shadow:0 20px 40px rgba(27,24,54,0.22);
+  }
+  .ry-menu[hidden]{display:none;}
+  .ry-opt{
+    display:flex; align-items:center; gap:10px; width:100%; text-align:left;
+    font-size:0.78rem; font-weight:700; letter-spacing:0.03em; color:var(--ink);
+    padding:9px 12px; border-radius:9px; cursor:pointer; border:0; background:transparent;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .ry-opt:hover{background:rgba(225,26,110,0.08);}
+  .ry-opt:focus-visible{outline:2px solid var(--magenta); outline-offset:-2px;}
+  .ry-opt .dot{width:6px; height:6px; border-radius:50%; background:currentColor; opacity:0.25; flex:0 0 auto;}
+  .ry-opt[aria-selected="true"]{background:rgba(225,26,110,0.1);}
+  .ry-opt[aria-selected="true"] .dot{background:var(--magenta); opacity:1;}
+  .ry-opt .n{margin-left:auto; font-weight:600; opacity:0.5; font-size:0.72rem;}
+  .ry-sep{height:1px; background:var(--line); margin:5px 8px;}
+  html.dark .ry-menu{background:#1C1A33; border-color:rgba(233,231,247,.14); box-shadow:0 20px 40px rgba(0,0,0,.5);}
+  html.dark .ry-opt{color:#E9E7F7;}
+  html.dark .ry-opt:hover{background:rgba(224,96,147,.14);}
+  html.dark .ry-opt[aria-selected="true"]{background:rgba(224,96,147,.18);}
+  html.dark .ry-sep{background:rgba(233,231,247,.14);}
+  @media (prefers-reduced-motion: reduce){ .ry-opt{transition:none;} }
+  /* ---- archive photo-mosaic: the same tiles, but 100% cover photos ----
+     Standard light frame (same paper + pink glow as year modes) — the
+     all-years view reads as a Zone 7 photo wall through its dense mosaic
+     layout, not a dark theme. Tiles keep .mosaic-tile + data-i, so hover
+     cards, touch popups and quick view keep working untouched. */
+  .mosaic-frame.archive{background:var(--paper);}
+  .mosaic-tile.photo{padding:0; overflow:hidden;}
+  .mosaic-tile.photo img{width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;}
+  /* ---- archive wall: one dense photo mosaic in a fixed-height scroller ----
+     All-years holds 1000+ tiles, so instead of stacking category columns
+     (which pushed the page many screens tall) the Archive renders a
+     grid-flow-dense mosaic: photos-first, feature tiles at 2x2 / 2x1 / 1x2,
+     inside a ~440px box that scrolls internally. Tiles are paged in
+     (~200 first, then +240 as the sentinel scrolls into view), each with
+     content-visibility so first paint stays fast. Tiles keep .mosaic-tile
+     + data-i, so hover cards, touch popups and quick view keep working. */
+  .archive-wall{
+    flex:1 1 100%; width:100%;
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(72px, 1fr));
+    grid-auto-rows:72px; grid-auto-flow:dense; gap:6px;
+    max-height:440px; overflow-y:auto; overscroll-behavior:contain;
+    padding:4px 2px 10px; scrollbar-width:thin; scrollbar-color:rgba(168,15,82,.35) transparent;
+  }
+  .archive-wall::-webkit-scrollbar{width:8px;}
+  .archive-wall::-webkit-scrollbar-thumb{background:rgba(168,15,82,.3); border-radius:8px;}
+  .archive-wall::-webkit-scrollbar-track{background:transparent;}
+  html.dark .archive-wall{scrollbar-color:rgba(255,255,255,.3) transparent;}
+  html.dark .archive-wall::-webkit-scrollbar-thumb{background:rgba(255,255,255,.28);}
+  .archive-wall .mosaic-tile{
+    width:100%; height:100%; min-width:0; border-radius:9px; font-size:1rem;
+    content-visibility:auto; contain-intrinsic-size:72px;
+  }
+  .archive-wall .mosaic-tile.photo{border-radius:9px;}
+  .archive-wall .aw-big{grid-column:span 2; grid-row:span 2; font-size:1.5rem; border-radius:12px;}
+  .archive-wall .aw-big.photo{border-radius:12px;}
+  .archive-wall .aw-wide{grid-column:span 2;}
+  .archive-wall .aw-tall{grid-row:span 2;}
+  .aw-more{
+    grid-column:1 / -1; justify-self:center; margin:10px 0 4px; padding:10px 24px;
+    border-radius:100px; border:1.5px dashed rgba(225,26,110,.5); background:transparent;
+    color:var(--ink); font-family:inherit; font-size:.8rem; font-weight:700; letter-spacing:.02em;
+    cursor:pointer; -webkit-tap-highlight-color:transparent;
+  }
+  .aw-more:hover{border-style:solid; background:rgba(225,26,110,.08);}
+  .aw-more:focus-visible{outline:2px solid #fff; outline-offset:2px;}
+  @media (max-width:600px){
+    .archive-wall{grid-template-columns:repeat(auto-fill, minmax(56px, 1fr)); grid-auto-rows:56px; max-height:380px;}
+    .archive-wall .mosaic-tile{contain-intrinsic-size:56px;}
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .archive-wall .mosaic-tile:hover{transform:translateY(-3px) scale(1.03); z-index:3; filter:brightness(1.08);}
+    .archive-wall .mosaic-tile.photo:hover img{transform:scale(1.07);}
+    .archive-wall .mosaic-tile.photo img{transition:transform .25s;}
+  }
+  @media (prefers-reduced-motion: reduce){ .archive-wall .mosaic-tile, .archive-wall .mosaic-tile.photo img{transition:none;} }
+  @media (prefers-reduced-motion: reduce){ .mt,.ms{transition:none;} }
   .mt .hover-circle{
     position:absolute; left:50%; bottom:0; border-radius:50%;
     background:var(--ink); z-index:0; pointer-events:none; opacity:0;
@@ -316,7 +420,10 @@
   @media (hover: hover) and (pointer: fine) {
     .mosaic-col:hover .mosaic-col-code{color:var(--magenta-deep);}
   }
-  .mosaic-note{margin-top:14px; font-size:0.78rem; color:rgba(27,24,54,0.4);}
+  .mosaic-note{
+    margin:16px auto 0; max-width:60ch; font-size:0.85rem; line-height:1.6;
+    text-align:center; text-wrap:balance; color:rgba(27,24,54,0.64);
+  }
   .mosaic-popup{
     position:fixed; z-index:500; width:230px; max-width:calc(100vw - 20px);
     background:var(--paper); border:1px solid var(--line);
@@ -336,6 +443,9 @@
     .mosaic-tile{width:26px; height:26px; font-size:0.72rem;}
     .mosaic-col{min-width:26px; width:auto;}
     .mosaic-frame{padding:20px 14px 14px;}
+    /* header stacks: pills wrap to two rows inside a softer rect, no sideways scroll */
+    .mosaic-head{align-items:flex-start; gap:16px; margin:32px 0 20px;}
+    .mosaic-tabs{border-radius:22px;}
   }
 
   /* ---------- SKYLINE QUICK VIEW (Dekibyu-style project card) ----------
@@ -1375,6 +1485,8 @@
         <span class="mt" data-mode="avenue">By Avenue</span>
         <span class="mt" data-mode="club">By Club</span>
         <span class="mt" data-mode="az">A&ndash;Z</span>
+        <span class="ms" id="mosaicYearBtn" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" title="Filter projects by Rotary Year">RY 26&ndash;27 &#9662;</span>
+        <div class="ry-menu" id="mosaicYearMenu" role="listbox" aria-label="Rotary Year" hidden></div>
       </div>
     </div>
     <div class="mosaic-frame"><div class="mosaic-columns" id="mosaicColumns"></div></div>
@@ -1513,38 +1625,207 @@
 
   // Pull every real project every club has uploaded via the Club Admin panel (Supabase-backed,
   // same source club.html/project read from) — falls back to the mock set only if empty.
-  let MOSAIC=MOCK_DEMO, isLive=false;
-  try{
-    const live=(typeof ZONE7_DB!=="undefined") ? await ZONE7_DB.getAllProjects({ limit: 400 }) : [];
-    if(live && live.length){
-      MOSAIC=live.slice(0, 300).map(p=>({
-        t:p.title || "Untitled Project",
-        c:(p.category||"").trim() || "Uncategorized",
-        club:p.club_slug,
-        cn:(CLUB_DIRECTORY[p.club_slug] && CLUB_DIRECTORY[p.club_slug].name.replace(/^Rotaract Club of /i,"")) || p.club_slug,
-        d:p.date || "",
-        id:p.id
-      }));
-      isLive=true;
-    }
-  } catch(e){ console.error("Mosaic: falling back to demo projects", e); }
-
+  // SKYLINE SCOPE: one pill per Rotary Year found in the data (default RY 2026-27,
+  // so the tile DOM stays bounded as history grows into the thousands) plus an
+  // Archive pill that swaps the icon skyline for a photo wall of every year.
+  // Counts in the note are always shown-vs-scope, so projects are never
+  // silently dropped.
+  const RY_CAP = 600, ARCHIVE_CAP = 1200, FETCH_CAP = 3000;
+  const ryOf = (typeof zone7RYOf === "function")
+    ? (d => { try { return zone7RYOf(d); } catch(e){ return null; } })
+    : (() => null);
+  const ryLabel = (typeof zone7RYLabel === "function") ? zone7RYLabel : (ry => ry ? `RY ${ry}` : "Archive · all");
+  let MOSAIC = MOCK_DEMO, isLive = false, skyYear = "2026-27", liveTotal = 0;
+  const toTile = p => ({
+    t: p.title || "Untitled Project",
+    c: (p.category || "").trim() || "Uncategorized",
+    club: p.club_slug,
+    cn: (CLUB_DIRECTORY[p.club_slug] && CLUB_DIRECTORY[p.club_slug].name.replace(/^Rotaract Club of /i, "")) || p.club_slug,
+    d: p.date || "",
+    id: p.id,
+    cover: p.cover || ""
+  });
+  let ALLTILES = [];
+  const isArchive = () => skyYear === null;
+  function skylineSet(){
+    if (!isLive) return { tiles: MOSAIC.slice(0, RY_CAP), total: MOSAIC.length };
+    const base = isArchive() ? ALLTILES : ALLTILES.filter(p => ryOf(p.d) === skyYear);
+    return { tiles: base.slice(0, isArchive() ? ARCHIVE_CAP : RY_CAP), total: base.length };
+  }
+  function skyYears(){
+    const seen = [];
+    ALLTILES.forEach(p => {
+      const r = ryOf(p.d);
+      if (!r) return;
+      const start = parseInt(r.slice(0, 4), 10);
+      /* Guard against typo dates in old hand-entered rows (Bikram Sambat
+         years like 2069, far-future 2032, etc.) — they stay visible in the
+         Archive, they just don't earn a year pill. */
+      if (!(start >= 2009 && start <= 2027)) return;
+      if (!seen.includes(r)) seen.push(r);
+    });
+    seen.sort().reverse();
+    return seen;
+  }
+  let lastScopeTotal = 0;
+  /* Archive wall paging: first paint stays small (~200 tiles), the rest
+     streams in as the wall's own sentinel scrolls into view — the page
+     itself never grows past the wall's fixed max-height. */
+  const ARCHIVE_FIRST = 120, ARCHIVE_PAGE = 200;
+  let archiveShown = ARCHIVE_FIRST, awObserver = null, awTicking = false;
   // Shuffle every (icon,color) combo, then hand out one unique pair per project —
   // guarantees no two tiles ever repeat the same icon+color combination.
-  const combos=[];
-  ICONS.forEach(ic=>COLORS.forEach(c=>combos.push({ic,c})));
-  for(let i=combos.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [combos[i],combos[j]]=[combos[j],combos[i]]; }
-  MOSAIC.forEach((p,i)=>{ const combo=combos[i%combos.length]; p.ic=combo.ic; p.bg=combo.c; p.av=avenueFor(p); });
+  const combos = [];
+  ICONS.forEach(ic => COLORS.forEach(c => combos.push({ ic, c })));
+  for (let i = combos.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [combos[i], combos[j]] = [combos[j], combos[i]]; }
+  function paintCombos(set){ set.forEach((p, i) => { const combo = combos[i % combos.length]; p.ic = combo.ic; p.bg = combo.c; p.av = avenueFor(p); }); }
+  const frameEl = document.querySelector(".mosaic-frame");
+  const yearBtn = document.getElementById("mosaicYearBtn");
+  const yearMenu = document.getElementById("mosaicYearMenu");
+  try{
+    // Paged fetch: the table now holds thousands of rows (full district
+    // history), far past one API page. Walk offsets so every year is
+    // represented — otherwise year pills would filter an incomplete set.
+    let live = [];
+    if (typeof ZONE7_DB !== "undefined"){
+      for (let off = 0; off < FETCH_CAP; off += 1000){
+        const batch = await ZONE7_DB.getAllProjects({ limit: 1000, offset: off });
+        if (!batch || !batch.length) break;
+        live = live.concat(batch);
+        if (batch.length < 1000) break;
+      }
+    }
+    if (live && live.length){
+      ALLTILES = live.map(toTile);
+      liveTotal = ALLTILES.length;
+      isLive = true;
+      if (skyYear !== null && !ALLTILES.some(p => ryOf(p.d) === skyYear)) {
+        const yrs = skyYears();
+        skyYear = yrs.includes("2026-27") ? "2026-27" : (yrs[0] || null);
+      }
+      const s = skylineSet();
+      MOSAIC = s.tiles;
+      lastScopeTotal = isArchive() ? liveTotal : s.total;
+      paintCombos(MOSAIC);
+      skyBuildYears();
+      if (frameEl) frameEl.classList.toggle("archive", isArchive());
+    }
+  } catch(e){ console.error("Mosaic: falling back to demo projects", e); }
+  if (!isLive) paintCombos(MOSAIC);
 
   const cols=document.getElementById("mosaicColumns");
   const pop=document.getElementById("mosaicPopup"), mpTag=document.getElementById("mpTag"), mpTitle=document.getElementById("mpTitle"), mpClub=document.getElementById("mpClub");
   const keyFor={ category:p=>p.c, club:p=>p.cn, az:p=>p.t[0].toUpperCase(), avenue:p=>p.av };
-  const noteEl=document.querySelector(".mosaic-note");
-  if(noteEl) noteEl.textContent = isLive
-    ? `Live · ${MOSAIC.length} project${MOSAIC.length===1?"":"s"} uploaded by Zone 7 clubs. Codes are short labels — hover any tile for its name, press one to open the project card.`
-    : "Mockup preview · real club-uploaded projects will populate this automatically. Codes are short labels — hover any tile for its name, press one to open the project card.";
+  const noteEl = document.querySelector(".mosaic-note");
+  function skylineNote(){
+    if (!noteEl) return;
+    if (!isLive){
+      noteEl.textContent = "Club projects will appear here automatically.";
+      return;
+    }
+    const shown = isArchive() ? Math.min(archiveShown, MOSAIC.length) : MOSAIC.length;
+    if (isArchive()){
+      const over = shown < liveTotal ? ` · showing ${shown}` : "";
+      noteEl.textContent = `${liveTotal} entries · Archive · every year${over} — scroll the wall for more, tap a tile to view.`;
+      return;
+    }
+    const scopeTotal = lastScopeTotal;
+    const over = shown < scopeTotal ? ` · showing ${shown}` : "";
+    noteEl.textContent = `${scopeTotal} projects · ${ryLabel(skyYear)}${over} — tap a tile to view.`;
+  }
+  skylineNote();
+  /* ---- skyline year filter: one pill per Rotary Year + Archive photo wall ----
+     Re-tiles from the already-fetched set, so switching never refetches.
+     Archive mode adds .archive on the frame (photo styling) and renders
+     cover-photo tiles with icon fallback; year modes render icon tiles. */
+  function skyModeNow(){
+    const a = document.querySelector("#mosaicTabs .mt.active");
+    return (a && a.dataset.mode) || "category";
+  }
+  function skyApply(){
+    const s = skylineSet();
+    MOSAIC = s.tiles;
+    lastScopeTotal = isArchive() ? liveTotal : s.total;
+    paintCombos(MOSAIC); /* always: coverless tiles fall back to icons in any mode */
+    if (frameEl) frameEl.classList.toggle("archive", isArchive());
+    skylineNote();
+    render(skyModeNow());
+  }
+  /* ---- RY year toggle: dropdown in the tab row, current RY by default ----
+     Re-tiles from the already-fetched set, so switching never refetches.
+     Archive mode adds .archive on the frame (photo styling) and renders
+     cover-photo tiles with icon fallback; year modes render icon tiles. */
+  function skyCounts(){
+    const counts = {};
+    ALLTILES.forEach(p => {
+      const r = ryOf(p.d);
+      if (r) counts[r] = (counts[r] || 0) + 1;
+    });
+    return counts;
+  }
+  function skyMenuOpen(open){
+    if (!yearMenu || !yearBtn) return;
+    yearMenu.hidden = !open;
+    yearBtn.setAttribute("aria-expanded", String(!!open));
+  }
+  function skyBuildYears(){
+    if (!yearMenu || !yearBtn) return;
+    if (!isLive){ yearMenu.innerHTML = ""; return; }
+    const years = skyYears();
+    if (skyYear !== null && !years.includes(skyYear)) skyYear = years.includes("2026-27") ? "2026-27" : (years[0] || null);
+    const counts = skyCounts();
+    yearBtn.innerHTML = (isArchive() ? "Archive · all" : ryLabel(skyYear)) + " &#9662;";
+    yearBtn.classList.toggle("on", isArchive());
+    yearMenu.innerHTML = years.map(y =>
+      `<button type="button" class="ry-opt" role="option" data-ry="${y}" aria-selected="${y === skyYear}"><span class="dot"></span>${ryLabel(y)}<span class="n">${counts[y] || 0}</span></button>`
+    ).join("") + `<div class="ry-sep"></div><button type="button" class="ry-opt" role="option" data-ry="archive" aria-selected="${isArchive()}" title="Every Rotary Year as a photo wall"><span class="dot"></span>Archive · all<span class="n">${liveTotal}</span></button>`;
+  }
+  function skyPick(ry){
+    skyYear = (ry === "archive") ? null : ry;
+    if (isArchive()) archiveShown = ARCHIVE_FIRST;
+    skyBuildYears();
+    skyMenuOpen(false);
+    skyApply();
+    if (yearBtn) yearBtn.focus({ preventScroll: true });
+  }
+  function skyToggleMenu(){
+    if (!yearMenu) return;
+    skyMenuOpen(yearMenu.hidden);
+  }
+  if (yearBtn){
+    yearBtn.addEventListener("click", e => { e.stopPropagation(); skyToggleMenu(); });
+    yearBtn.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " " && e.key !== "ArrowDown"){ return; }
+      e.preventDefault();
+      skyMenuOpen(true);
+      const first = yearMenu && yearMenu.querySelector(".ry-opt");
+      if (first) first.focus();
+    });
+  }
+  if (yearMenu){
+    yearMenu.addEventListener("click", e => {
+      const el = e.target.closest(".ry-opt");
+      if (el) skyPick(el.dataset.ry);
+    });
+    yearMenu.addEventListener("keydown", e => {
+      if (e.key === "Escape"){ skyMenuOpen(false); if (yearBtn) yearBtn.focus(); return; }
+      if (e.key !== "Enter" && e.key !== " "){ return; }
+      const el = e.target.closest(".ry-opt");
+      if (!el) return;
+      e.preventDefault(); skyPick(el.dataset.ry);
+    });
+  }
+  document.addEventListener("click", e => {
+    if (yearMenu && !yearMenu.hidden && !e.target.closest("#mosaicTabs")) skyMenuOpen(false);
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && yearMenu && !yearMenu.hidden) skyMenuOpen(false);
+  });
 
   function render(mode){
+    /* Archive ignores the grouping tabs: one dense photo mosaic instead of
+       hundreds of category columns. Year modes keep the grouped skyline. */
+    if (isArchive()){ renderWall(); return; }
     const key=keyFor[mode];
     const groups={};
     MOSAIC.slice().sort((a,b)=> mode==="az" ? a.t.localeCompare(b.t) : 0)
@@ -1556,6 +1837,7 @@
       const stacksHtml=chunks.map(chunk=>`
         <div class="mosaic-stack">${chunk.map(p=>{
           const gi=MOSAIC.indexOf(p);
+          if (isArchive() && p.cover) return `<div class="mosaic-tile photo" role="button" data-i="${gi}" aria-label="${p.t} — Rotaract Club of ${p.cn}"><img src="${p.cover}" alt="" loading="lazy" decoding="async"></div>`;
           return `<div class="mosaic-tile" role="button" style="background:${p.bg}" data-i="${gi}" aria-label="${p.t} — Rotaract Club of ${p.cn}">${p.ic}</div>`;
         }).join("")}</div>
       `).join("");
@@ -1567,6 +1849,80 @@
       `;
     }).join("");
   }
+
+  /* ---- archive wall: photos-first dense mosaic, paged in ----
+     wallOrder() is stable: cover photos lead (the art), icon tiles fill
+     the gaps. Feature slots (2x2 / 2x1 / 1x2) repeat every 12 tiles so
+     grid-auto-flow:dense packs without holes. awMore() appends the next
+     chunk in place — no full re-render, so the wall keeps its scroll. */
+  function wallOrder(){
+    return MOSAIC.map((p, gi) => ({ p, gi }))
+      .sort((a, b) => ((b.p.cover ? 1 : 0) - (a.p.cover ? 1 : 0)));
+  }
+  function awClass(i){
+    const m = i % 12;
+    if (m === 0) return "aw-big";
+    if (m === 5) return "aw-wide";
+    if (m === 9) return "aw-tall";
+    return "";
+  }
+  function awTileHTML(entry, i){
+    const p = entry.p, gi = entry.gi, cls = awClass(i);
+    if (p.cover) return `<div class="mosaic-tile photo ${cls}" role="button" data-i="${gi}" aria-label="${p.t} — Rotaract Club of ${p.cn}"><img src="${p.cover}" alt="" loading="lazy" decoding="async"></div>`;
+    return `<div class="mosaic-tile ${cls}" role="button" style="background:${p.bg}" data-i="${gi}" aria-label="${p.t} — Rotaract Club of ${p.cn}">${p.ic}</div>`;
+  }
+  function awSentinelHTML(remaining){
+    return `<button type="button" class="aw-more" data-aw-more>Show more · ${remaining} remaining</button>`;
+  }
+  function awWatch(){
+    if (awObserver) awObserver.disconnect();
+    const more = cols.querySelector("[data-aw-more]");
+    const wall = cols.querySelector(".archive-wall");
+    if (!more || !wall || !("IntersectionObserver" in window)) return;
+    awObserver = new IntersectionObserver(entries => {
+      if (entries.some(e => e.isIntersecting)) awMore();
+    }, { root: wall, rootMargin: "300px" });
+    awObserver.observe(more);
+  }
+  function renderWall(){
+    const order = wallOrder();
+    const first = order.slice(0, archiveShown);
+    const remaining = order.length - first.length;
+    cols.innerHTML = `<div class="archive-wall" tabindex="0" aria-label="Archive photo wall — scroll for more">${
+      first.map((e, i) => awTileHTML(e, i)).join("")
+    }${remaining > 0 ? awSentinelHTML(remaining) : ""}</div>`;
+    skylineNote();
+    awWatch();
+  }
+  function awMore(){
+    if (awTicking || !isArchive()) return;
+    const order = wallOrder();
+    if (archiveShown >= order.length) return;
+    awTicking = true;
+    try{
+      const wall = cols.querySelector(".archive-wall");
+      const more = cols.querySelector("[data-aw-more]");
+      const next = order.slice(archiveShown, archiveShown + ARCHIVE_PAGE);
+      const frag = document.createElement("template");
+      frag.innerHTML = next.map((e, k) => awTileHTML(e, archiveShown + k)).join("");
+      if (wall){
+        wall.insertBefore(frag.content, more || null);
+        archiveShown += next.length;
+        const remaining = order.length - archiveShown;
+        if (more && remaining > 0) more.textContent = `Show more · ${remaining} remaining`;
+        else if (more) more.remove();
+      } else {
+        archiveShown += next.length;
+      }
+      skylineNote();
+      awWatch();
+    } finally {
+      awTicking = false;
+    }
+  }
+  cols.addEventListener("click", e => {
+    if (e.target.closest("[data-aw-more]")) awMore();
+  });
 
   /* ---- one delegated listener set for the whole mosaic ----
      Attached once, outside render(): render() only swaps cols.innerHTML, so

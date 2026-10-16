@@ -85,7 +85,7 @@ let ALL = [], activeClub = "All", q = "";
 const grid = document.getElementById("mGrid");
 function esc(s){ return (typeof zone7Esc === "function") ? zone7Esc(s) : String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 function shortClub(slug){ return (typeof CLUB_DIRECTORY !== "undefined" && CLUB_DIRECTORY[slug]) ? CLUB_DIRECTORY[slug].name.replace("Rotaract Club of ","") : slug; }
-function clubLink(slug){ return "/club?club=" + encodeURIComponent(slug); }
+function clubLink(slug){ return "/" + encodeURIComponent(slug); }
 function roleLabel(r){ return (!r || r === "N/A") ? "Member" : r; }
 function initials(name){ return (name||"").replace(/^Rtr\.\s*/i,"").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase() || "-"; }
 function renderChips(){

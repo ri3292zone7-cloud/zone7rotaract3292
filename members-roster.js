@@ -25,24 +25,47 @@
     });
   }
 
+  /* Per-club accent: matches each custom page's own brand, so the injected
+     roster reads as part of that page instead of default Zone 7 pink.
+     club.html-routed clubs already theme via CLUB_THEMES; this covers the
+     hand-built + React shells where the roster is injected. */
+  var CLUB_ACCENT = {
+    balkumari: "#12633a",
+    baneshwor: "#d43d3d",
+    liberty: "#ff4757",
+    kathmanduwest: "#5c4300",
+    kathmanduheight: "#6C63FF",
+    sankhu: "#7C3AED",
+    newroadcity: "#8a1538",
+    sukedhara: "#a82f43",
+    tripureswor: "#0052FF"
+  };
+
   function injectCSS() {
     if (document.getElementById("z7m-style")) return;
     var css = [
-      "#z7-members{max-width:1100px;margin:0 auto;padding:28px 24px 64px;}",
-      "#z7-members .z7m-kicker{display:inline-block;font:700 .72rem/1 Inter,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#A80F52;background:rgba(225,26,110,.09);padding:8px 14px;border-radius:100px;margin-bottom:12px;}",
-      "#z7-members h2{font:800 clamp(1.4rem,3vw,2rem)/1.15 Poppins,Inter,system-ui,sans-serif;letter-spacing:-.02em;color:inherit;margin:0 0 6px;}",
-      "#z7-members .z7m-count{font:600 .85rem/1.5 Inter,system-ui,sans-serif;opacity:.6;margin:0 0 20px;}",
+      "#z7-members{max-width:1100px;margin:0 auto;padding:28px 24px 64px;font-family:inherit;}",
+      "#z7-members .z7m-kicker{display:inline-block;font-weight:700;font-size:.72rem;line-height:1;letter-spacing:.14em;text-transform:uppercase;color:var(--z7m-accent,#A80F52);background:var(--z7m-soft,rgba(225,26,110,.09));padding:8px 14px;border-radius:100px;margin-bottom:12px;font-family:inherit;}",
+      "#z7-members h2{font-weight:800;font-size:clamp(1.4rem,3vw,2rem);line-height:1.15;letter-spacing:-.02em;color:inherit;margin:0 0 6px;font-family:inherit;}",
+      "#z7-members .z7m-count{font-weight:600;font-size:.85rem;line-height:1.5;opacity:.6;margin:0 0 20px;font-family:inherit;}",
       "#z7-members .z7m-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;}",
       "#z7-members .z7m-card{background:#fff;border:1px solid rgba(27,24,54,.1);border-radius:18px;overflow:hidden;transition:transform .2s,box-shadow .2s;}",
       "#z7-members .z7m-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(27,24,54,.12);}",
-      "#z7-members .z7m-ph{aspect-ratio:1/1;background:linear-gradient(150deg,rgba(225,26,110,.14),rgba(242,169,0,.12));display:flex;align-items:center;justify-content:center;font:800 1.5rem/1 Poppins,Inter,sans-serif;color:#A80F52;overflow:hidden;}",
+      "#z7-members .z7m-ph{aspect-ratio:1/1;background:var(--z7m-soft,rgba(225,26,110,.12));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.5rem;line-height:1;color:var(--z7m-accent,#A80F52);overflow:hidden;font-family:inherit;}",
       "#z7-members .z7m-ph img{width:100%;height:100%;object-fit:cover;display:block;}",
       "#z7-members .z7m-info{padding:12px 14px 16px;}",
-      "#z7-members .z7m-info h5{font:700 .9rem/1.3 Poppins,Inter,sans-serif;color:#1B1836;margin:0 0 2px;}",
-      "#z7-members .z7m-role{font:700 .74rem/1.4 Inter,sans-serif;color:#A80F52;display:block;}",
-      "#z7-members .z7m-meta{font:600 .7rem/1.4 Inter,sans-serif;color:rgba(27,24,54,.5);margin-top:4px;}",
-      "#z7-members .z7m-link{display:inline-block;margin-top:16px;font:700 .82rem/1 Inter,sans-serif;color:#A80F52;}",
-      "#z7-members .z7m-empty{padding:40px 20px;text-align:center;opacity:.55;font:500 .9rem/1.5 Inter,sans-serif;}"
+      "#z7-members .z7m-info h5{font-weight:700;font-size:.9rem;line-height:1.3;color:#1B1836;margin:0 0 2px;font-family:inherit;}",
+      "#z7-members .z7m-role{font-weight:700;font-size:.74rem;line-height:1.4;color:var(--z7m-accent,#A80F52);display:block;font-family:inherit;}",
+      "#z7-members .z7m-meta{font-weight:600;font-size:.7rem;line-height:1.4;color:rgba(27,24,54,.5);margin-top:4px;font-family:inherit;}",
+      "#z7-members .z7m-link{display:inline-block;margin-top:16px;font-weight:700;font-size:.82rem;line-height:1;color:var(--z7m-accent,#A80F52);font-family:inherit;}",
+      "#z7-members .z7m-empty{padding:40px 20px;text-align:center;opacity:.55;font-weight:500;font-size:.9rem;line-height:1.5;font-family:inherit;}",
+      "/* Baneshwor sketch page: pencil borders, hard offset shadow, post-it initials. */",
+      '#z7-members[data-club=\"baneshwor\"] .z7m-card{border:2.5px solid #2d2d2d;border-radius:14px 18px 15px 19px;box-shadow:4px 4px 0 0 #2d2d2d;}',
+      '#z7-members[data-club=\"baneshwor\"] .z7m-card:nth-child(odd){transform:rotate(-.5deg);}',
+      '#z7-members[data-club=\"baneshwor\"] .z7m-card:hover{transform:rotate(0deg) translateY(-3px);}',
+      '#z7-members[data-club=\"baneshwor\"] .z7m-ph{background:#fff9c4;}',
+      "/* Tripureswor neo page: sharper geometry like its own cards. */",
+      '#z7-members[data-club=\"tripureswor\"] .z7m-card{border-radius:12px;}'
     ].join("\n");
     var st = document.createElement("style");
     st.id = "z7m-style";
@@ -62,6 +85,15 @@
     var sec = document.createElement("section");
     sec.id = "z7-members";
     sec.setAttribute("aria-label", "All members of this club");
+    if (slug) {
+      sec.setAttribute("data-club", slug);
+      /* Paint the roster in the host page's own club colour. */
+      var accent = CLUB_ACCENT[slug];
+      if (accent) {
+        sec.style.setProperty("--z7m-accent", accent);
+        sec.style.setProperty("--z7m-soft", accent + "1A");
+      }
+    }
     var cards = list.slice().sort(function (a, b) {
       return String(a.name).localeCompare(String(b.name));
     }).map(function (m) {
