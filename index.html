@@ -469,9 +469,20 @@
     .mosaic-tile{width:26px; height:26px; font-size:0.72rem;}
     .mosaic-col{min-width:26px; width:auto;}
     .mosaic-frame{padding:20px 14px 14px;}
-    /* header stacks: pills wrap to two rows inside a softer rect, no sideways scroll */
+    /* header stacks; the tab row itself stays ONE line: abbreviated labels
+       (JS swaps via data-short) + compact pills. No overflow-x here — a
+       scroll container would clip the absolutely-positioned RY dropdown. */
     .mosaic-head{align-items:flex-start; gap:16px; margin:32px 0 20px;}
-    .mosaic-tabs{border-radius:22px;}
+    .mosaic-tabs{flex-wrap:nowrap; gap:4px; padding:3px; border-radius:100px;}
+    .mosaic-tabs .mt,.mosaic-tabs .ms{
+      font-size:.64rem; letter-spacing:.03em; padding:7px 11px; min-height:34px;
+      flex:0 0 auto; white-space:nowrap;
+    }
+  }
+  @media (max-width:380px){
+    /* smallest phones: squeeze a little more so the row still fits */
+    .mosaic-tabs{gap:3px;}
+    .mosaic-tabs .mt,.mosaic-tabs .ms{font-size:.6rem; padding:6px 9px; min-height:32px;}
   }
 
   /* ---------- SKYLINE QUICK VIEW (Dekibyu-style project card) ----------
@@ -1507,10 +1518,10 @@
     <div class="mosaic-head">
       <h3>Every Zone 7 project, one skyline.</h3>
       <div class="mosaic-tabs" id="mosaicTabs" role="tablist" aria-label="Group projects by">
-        <span class="mt active" data-mode="category">By Category</span>
-        <span class="mt" data-mode="avenue">By Avenue</span>
-        <span class="mt" data-mode="club">By Club</span>
-        <span class="mt" data-mode="az">A&ndash;Z</span>
+        <span class="mt active" data-mode="category" data-short="Category">By Category</span>
+        <span class="mt" data-mode="avenue" data-short="Avenue">By Avenue</span>
+        <span class="mt" data-mode="club" data-short="Club">By Club</span>
+        <span class="mt" data-mode="az" data-short="A–Z">A&ndash;Z</span>
         <span class="ms" id="mosaicYearBtn" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" title="Filter projects by Rotary Year">RY 26&ndash;27 <span class="ry-chev" aria-hidden="true">&#9662;</span></span>
         <div class="ry-menu" id="mosaicYearMenu" role="listbox" aria-label="Rotary Year" hidden></div>
       </div>
@@ -2274,6 +2285,7 @@
   /* Wrap the label so it can roll up behind a duplicate copy. */
   pills.forEach(tab => {
     const text = tab.textContent.trim();
+    tab._full = text; /* phones show data-short instead (see pillLabels) */
     tab.setAttribute("role","tab");
     tab.setAttribute("tabindex","0");
     /* seed the selected state so it is correct before any click, not just after */
@@ -2285,6 +2297,22 @@
         `<span class="pill-label-hover" aria-hidden="true">${zone7Esc(text)}</span>` +
       `</span>`;
   });
+
+  /* Phones keep the tab row on one line: short labels under 600px
+     (full text is restored on wider screens / rotation). Geometry for the
+     hover circle is re-measured after every swap. */
+  const pillNarrow = window.matchMedia("(max-width: 600px)");
+  function pillLabels(){
+    const narrow = pillNarrow.matches;
+    pills.forEach(tab => {
+      const t = (narrow && tab.dataset.short) || tab._full || tab.textContent.trim();
+      tab.querySelectorAll(".pill-label,.pill-label-hover").forEach(s => { s.textContent = t; });
+    });
+    requestAnimationFrame(pillLayout);
+  }
+  pillLabels();
+  if (typeof pillNarrow.addEventListener === "function") pillNarrow.addEventListener("change", pillLabels);
+  else if (typeof pillNarrow.addListener === "function") pillNarrow.addListener(pillLabels);
 
   /* Circle geometry, straight from the component's layout(). */
   function pillLayout(){
