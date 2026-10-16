@@ -481,16 +481,21 @@
        (JS swaps via data-short) + compact pills. No overflow-x here — a
        scroll container would clip the absolutely-positioned RY dropdown. */
     .mosaic-head{align-items:flex-start; gap:16px; margin:32px 0 20px;}
-    .mosaic-tabs{flex-wrap:nowrap; gap:4px; padding:3px; border-radius:100px;}
+    .mosaic-tabs{flex-wrap:nowrap; gap:3px; padding:3px; border-radius:100px;}
     .mosaic-tabs .mt,.mosaic-tabs .ms{
-      font-size:.7rem; letter-spacing:.02em; padding:6px 9px; min-height:34px;
+      font-size:.66rem; letter-spacing:0; padding:6px 7px; min-height:34px;
       flex:0 0 auto; white-space:nowrap;
     }
+    #mosaicYearBtn{max-width:128px;}
+    /* The year button's label gets its own span so it can ellipsize instead
+       of pushing the pill past the row edge on narrow phones. */
+    #mosaicYearBtn .ry-label{min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
   }
   @media (max-width:380px){
     /* smallest phones: squeeze a little more so the row still fits */
     .mosaic-tabs{gap:3px;}
-    .mosaic-tabs .mt,.mosaic-tabs .ms{font-size:.6rem; padding:6px 9px; min-height:32px;}
+    .mosaic-tabs .mt,.mosaic-tabs .ms{font-size:.6rem; letter-spacing:0; padding:6px 6px; min-height:32px;}
+    #mosaicYearBtn{max-width:108px;}
   }
 
   /* ---------- SKYLINE QUICK VIEW (Dekibyu-style project card) ----------
@@ -1530,7 +1535,7 @@
         <span class="mt" data-mode="avenue" data-short="Avenue">By Avenue</span>
         <span class="mt" data-mode="club" data-short="Club">By Club</span>
         <span class="mt" data-mode="az" data-short="A–Z">A&ndash;Z</span>
-        <span class="ms" id="mosaicYearBtn" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" title="Filter projects by Rotary Year">RY 26&ndash;27 <span class="ry-chev" aria-hidden="true">&#9662;</span></span>
+        <span class="ms" id="mosaicYearBtn" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" title="Filter projects by Rotary Year"><span class="ry-label">RY 26&ndash;27</span> <span class="ry-chev" aria-hidden="true">&#9662;</span></span>
         <div class="ry-menu" id="mosaicYearMenu" role="listbox" aria-label="Rotary Year" hidden></div>
       </div>
     </div>
@@ -1842,7 +1847,19 @@
        transition survives a year pick instead of snapping. */
     const chevHtml = '<span class="ry-chev" aria-hidden="true">&#9662;</span>';
     let chev = yearBtn.querySelector(".ry-chev");
-    yearBtn.textContent = (isArchive() ? "Archive · all" : ryLabel(skyYear)) + " ";
+    /* Phones keep the tab row on one line: short labels under 600px
+       ("26–27" / "Archive"), mirroring the data-short swap on .mt pills.
+       Full labels return on wider screens / rotation. */
+    const narrowYear = window.matchMedia && window.matchMedia("(max-width: 600px)").matches;
+    const shortYear = ry => String(ryLabel(ry)).replace(/^RY\s+/, "");
+    const btnLabel = isArchive() ? (narrowYear ? "Archive" : "Archive · all")
+                                 : (narrowYear ? shortYear(skyYear) : ryLabel(skyYear));
+    yearBtn.textContent = "";
+    const lab = document.createElement("span");
+    lab.className = "ry-label";
+    lab.textContent = btnLabel;
+    yearBtn.appendChild(lab);
+    yearBtn.appendChild(document.createTextNode(" "));
     if (!chev){
       const t = document.createElement("template");
       t.innerHTML = chevHtml;
@@ -2343,8 +2360,9 @@
     requestAnimationFrame(pillLayout);
   }
   pillLabels();
-  if (typeof pillNarrow.addEventListener === "function") pillNarrow.addEventListener("change", pillLabels);
-  else if (typeof pillNarrow.addListener === "function") pillNarrow.addListener(pillLabels);
+  function pillBreakpoint(){ pillLabels(); if (typeof skyBuildYears === "function") skyBuildYears(); }
+  if (typeof pillNarrow.addEventListener === "function") pillNarrow.addEventListener("change", pillBreakpoint);
+  else if (typeof pillNarrow.addListener === "function") pillNarrow.addListener(pillBreakpoint);
 
   /* Circle geometry, straight from the component's layout(). */
   function pillLayout(){
