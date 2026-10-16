@@ -5,7 +5,7 @@
 # Zone 7 Supabase projects table that the live site reads. The website
 # updates itself within minutes of a successful run — no redeploy needed.
 #
-# Schedule: every Sunday 21:00 NPT (15:15 UTC). Manual runs anytime via
+# Schedule: daily 21:00 NPT (15:15 UTC). Manual runs anytime via
 # the "Run workflow" button (Actions tab → District sync).
 #
 # Required repo secrets (Settings → Secrets and variables → Actions):
@@ -18,7 +18,7 @@ name: District sync
 
 on:
   schedule:
-    - cron: "15 15 * * 0" # Sundays 21:00 NPT
+    - cron: "15 15 * * *" # daily 21:00 NPT
   workflow_dispatch:
 
 permissions:

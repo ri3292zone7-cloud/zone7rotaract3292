@@ -52,8 +52,8 @@ then write it into `district-sync-state.json`:
 
 ## Schedule — AUTOMATIC via GitHub (primary)
 
-`.github/workflows/district-sync.yml` runs `sync/sync_district.py` every
-**Sunday 21:00 NPT** plus on-demand ("Run workflow" in the Actions tab).
+`.github/workflows/district-sync.yml` runs `sync/sync_district.py` **daily
+21:00 NPT** plus on-demand ("Run workflow" in the Actions tab).
 No AI agent, no local PC needed. The watermark
 (`sync/district-sync-state.json`, tracked) is committed back after every
 successful run, so runs stay incremental. The live site reads Supabase
