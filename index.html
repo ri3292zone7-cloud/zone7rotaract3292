@@ -340,8 +340,8 @@
      + data-i, so hover cards, touch popups and quick view keep working. */
   .archive-wall{
     flex:1 1 100%; width:100%;
-    display:grid; grid-template-columns:repeat(auto-fill, minmax(72px, 1fr));
-    grid-auto-rows:72px; grid-auto-flow:dense; gap:6px;
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(96px, 1fr));
+    grid-auto-rows:96px; grid-auto-flow:dense; gap:8px;
     max-height:440px; overflow-y:auto; overscroll-behavior:contain;
     padding:4px 2px 10px; scrollbar-width:thin; scrollbar-color:rgba(168,15,82,.35) transparent;
   }
@@ -351,11 +351,15 @@
   html.dark .archive-wall{scrollbar-color:rgba(255,255,255,.3) transparent;}
   html.dark .archive-wall::-webkit-scrollbar-thumb{background:rgba(255,255,255,.28);}
   .archive-wall .mosaic-tile{
-    width:100%; height:100%; min-width:0; border-radius:9px; font-size:1rem;
-    content-visibility:auto; contain-intrinsic-size:72px;
+    width:100%; height:100%; min-width:0; border-radius:12px; font-size:1.2rem;
+    content-visibility:auto; contain-intrinsic-size:96px;
+    /* entrance cascade: fresh nodes replay this on every pill/RY switch;
+       JS sets a capped per-tile animation-delay so it lands in ~0.5s. */
+    animation:aw-in .32s cubic-bezier(.16,1,.3,1) backwards;
   }
-  .archive-wall .mosaic-tile.photo{border-radius:9px;}
-  .archive-wall .aw-big{grid-column:span 2; grid-row:span 2; font-size:1.5rem; border-radius:12px;}
+  @keyframes aw-in{from{opacity:0; transform:scale(.82) translateY(12px);} to{opacity:1; transform:none;}}
+  .archive-wall .mosaic-tile.photo{border-radius:12px;}
+  .archive-wall .aw-big{grid-column:span 2; grid-row:span 2; font-size:1.8rem; border-radius:14px;}
   .archive-wall .aw-big.photo{border-radius:12px;}
   .archive-wall .aw-wide{grid-column:span 2;}
   .archive-wall .aw-tall{grid-row:span 2;}
@@ -368,15 +372,15 @@
   .aw-more:hover{border-style:solid; background:rgba(225,26,110,.08);}
   .aw-more:focus-visible{outline:2px solid #fff; outline-offset:2px;}
   @media (max-width:600px){
-    .archive-wall{grid-template-columns:repeat(auto-fill, minmax(56px, 1fr)); grid-auto-rows:56px; max-height:380px;}
-    .archive-wall .mosaic-tile{contain-intrinsic-size:56px;}
+    .archive-wall{grid-template-columns:repeat(auto-fill, minmax(72px, 1fr)); grid-auto-rows:72px; max-height:380px;}
+    .archive-wall .mosaic-tile{contain-intrinsic-size:72px;}
   }
   @media (hover: hover) and (pointer: fine) {
     .archive-wall .mosaic-tile:hover{transform:translateY(-3px) scale(1.03); z-index:3; filter:brightness(1.08);}
     .archive-wall .mosaic-tile.photo:hover img{transform:scale(1.07);}
     .archive-wall .mosaic-tile.photo img{transition:transform .25s;}
   }
-  @media (prefers-reduced-motion: reduce){ .archive-wall .mosaic-tile, .archive-wall .mosaic-tile.photo img{transition:none;} }
+  @media (prefers-reduced-motion: reduce){ .archive-wall .mosaic-tile, .archive-wall .mosaic-tile.photo img{transition:none; animation:none;} .mosaic-columns .mosaic-col{animation:none;} }
   @media (prefers-reduced-motion: reduce){ .mt,.ms{transition:none;} }
   .mt .hover-circle{
     position:absolute; left:50%; bottom:0; border-radius:50%;
@@ -422,6 +426,9 @@
   .mosaic-columns.dim .mosaic-col{opacity:0.25;}
   .mosaic-columns.dim .mosaic-col.hi{opacity:1;}
   .mosaic-substacks{display:flex; flex-wrap:wrap; align-items:flex-end; align-content:flex-end; gap:3px; max-width:100%;}
+  /* column entrance to match the wall cascade (JS caps the per-column delay) */
+  .mosaic-columns .mosaic-col{animation:mc-in .26s cubic-bezier(.16,1,.3,1) backwards;}
+  @keyframes mc-in{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;}}
   .mosaic-stack{display:flex; flex-direction:column-reverse; gap:2px; position:relative; z-index:1;}
   .mosaic-tile{
     width:32px; height:32px; border-radius:7px; cursor:pointer;
@@ -1519,7 +1526,7 @@
     <div class="mosaic-head">
       <h3>Every Zone 7 project, one skyline.</h3>
       <div class="mosaic-tabs" id="mosaicTabs" role="tablist" aria-label="Group projects by">
-        <span class="mt active" data-mode="category" data-short="Category">By Category</span>
+        <span class="mt active" data-mode="category" data-short="Photo Wall">Our Photo Wall</span>
         <span class="mt" data-mode="avenue" data-short="Avenue">By Avenue</span>
         <span class="mt" data-mode="club" data-short="Club">By Club</span>
         <span class="mt" data-mode="az" data-short="A–Z">A&ndash;Z</span>
@@ -1897,6 +1904,16 @@
     if (e.key === "Escape" && yearMenu && !yearMenu.hidden) skyMenuOpen(false);
   });
 
+  /* Morph between pill layouts: a fast fade-and-rise on the container while
+     the tiles/columns cascade on top — reads as one morph, over in ~0.4s. */
+  function morphCols(){
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!cols.animate) return;
+    cols.animate(
+      [{ opacity: 0, transform: "translateY(10px) scale(.996)" }, { opacity: 1, transform: "none" }],
+      { duration: 200, easing: "cubic-bezier(.16,1,.3,1)" });
+  }
+
   function render(mode){
     /* Archive and Category render one dense photo mosaic instead of hundreds
        of columns; the grouping pills exit Archive back to the last-viewed
@@ -1918,13 +1935,14 @@
         }).join("")}</div>
       `).join("");
       return `
-        <div class="mosaic-col" data-ci="${ci}">
+        <div class="mosaic-col" data-ci="${ci}" style="animation-delay:${Math.min(ci * 24, 192)}ms">
           <div class="mosaic-substacks">${stacksHtml}</div>
           <div class="mosaic-col-code" title="${label}">${codeFor(label,mode)}</div>
         </div>
       `;
     }).join("");
     skylineNote(); /* pills re-render without skyApply — keep the caption in sync */
+    morphCols();
   }
 
   /* ---- archive wall: photos-first dense mosaic, paged in ----
@@ -1945,8 +1963,10 @@
   }
   function awTileHTML(entry, i){
     const p = entry.p, gi = entry.gi, cls = awClass(i);
-    if (p.cover) return `<div class="mosaic-tile photo ${cls}" role="button" data-i="${gi}" aria-label="${p.t} — Rotaract Club of ${p.cn}"><img src="${p.cover}" alt="" loading="lazy" decoding="async"></div>`;
-    return `<div class="mosaic-tile ${cls}" role="button" style="background:${p.bg}" data-i="${gi}" aria-label="${p.t} — Rotaract Club of ${p.cn}">${p.ic}</div>`;
+    /* capped stagger: the cascade reads top-to-bottom but always lands in ~0.5s */
+    const dl = ` style="${p.cover ? "" : `background:${p.bg};`}animation-delay:${Math.min(i * 10, 200)}ms"`;
+    if (p.cover) return `<div class="mosaic-tile photo ${cls}" role="button" data-i="${gi}"${dl} aria-label="${p.t} — Rotaract Club of ${p.cn}"><img src="${p.cover}" alt="" loading="lazy" decoding="async"></div>`;
+    return `<div class="mosaic-tile ${cls}" role="button"${dl} data-i="${gi}" aria-label="${p.t} — Rotaract Club of ${p.cn}">${p.ic}</div>`;
   }
   function awSentinelHTML(remaining){
     return `<button type="button" class="aw-more" data-aw-more>Show more · ${remaining} remaining</button>`;
@@ -1969,6 +1989,7 @@
       first.map((e, i) => awTileHTML(e, i)).join("")
     }${remaining > 0 ? awSentinelHTML(remaining) : ""}</div>`;
     skylineNote();
+    morphCols();
     awWatch();
   }
   function awMore(){
@@ -2454,7 +2475,7 @@
         if (frameEl) frameEl.classList.toggle("archive", tab.dataset.mode === "category");
         render(tab.dataset.mode);
       }
-      /* labels reflow per tab (A–Z is shorter than By Category) */
+      /* labels reflow per tab (A–Z is shorter than Our Photo Wall) */
       requestAnimationFrame(pillLayout);
     });
     tab.addEventListener("keydown", e => {
