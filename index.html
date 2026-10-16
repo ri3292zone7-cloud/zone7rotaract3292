@@ -475,7 +475,7 @@
     .mosaic-head{align-items:flex-start; gap:16px; margin:32px 0 20px;}
     .mosaic-tabs{flex-wrap:nowrap; gap:4px; padding:3px; border-radius:100px;}
     .mosaic-tabs .mt,.mosaic-tabs .ms{
-      font-size:.64rem; letter-spacing:.03em; padding:7px 11px; min-height:34px;
+      font-size:.7rem; letter-spacing:.02em; padding:6px 9px; min-height:34px;
       flex:0 0 auto; white-space:nowrap;
     }
   }
@@ -2338,6 +2338,11 @@
     const label = tab.querySelector(".pill-label");
     const hover = tab.querySelector(".pill-label-hover");
     if(!circle || tab.classList.contains("active")) return;
+    /* Touch has no hover: the roll-and-fill would play on every tap and,
+       with no pointerleave to undo it, leave the label stuck mid-roll and
+       illegible. Taps get the instant .active fill instead (click below). */
+    if (window.matchMedia("(hover: none)").matches) return;
+    tab._entered = true;
     const h = tab._h || tab.offsetHeight;
     if(pillReduce.matches){
       /* keep the affordance, drop the motion */
@@ -2365,6 +2370,8 @@
     const label = tab.querySelector(".pill-label");
     const hover = tab.querySelector(".pill-label-hover");
     if(!circle) return;
+    if(!tab._entered) return; /* never rolled: nothing to undo, skip the flicker */
+    tab._entered = false;
     if(pillReduce.matches){
       circle.style.opacity = "0";
       circle.style.transform = "translateX(-50%) scale(0)";
@@ -2385,6 +2392,21 @@
     setTimeout(() => { circle.style.opacity = "0"; }, 300);
   }
   function h8(tab){ return (tab._h || tab.offsetHeight) + 8; }
+  /* Instantly park a pill in its resting look: cancels any in-flight roll
+     tween and clears the inline styles WAAPI left behind, so a tapped pill
+     can never keep a half-rolled label. */
+  function pillReset(tab){
+    if(!tab) return;
+    tab._entered = false;
+    const circle = tab.querySelector(".hover-circle");
+    const label = tab.querySelector(".pill-label");
+    const hover = tab.querySelector(".pill-label-hover");
+    [circle, label, hover].forEach(el => { if(el && el._tw){ el._tw.cancel(); el._tw = null; } });
+    if(circle){ circle.style.opacity = ""; circle.style.transform = ""; }
+    if(label){ label.style.transform = ""; }
+    if(hover){ hover.style.opacity = ""; hover.style.transform = ""; }
+    requestAnimationFrame(pillLayout);
+  }
 
   pills.forEach(tab => {
     tab.addEventListener("pointerenter", () => pillEnter(tab));
@@ -2403,6 +2425,7 @@
       });
       tab.classList.add("active");
       tab.setAttribute("aria-selected","true");
+      pillReset(tab); /* taps must land on a clean, fully-legible label */
       /* Grouping needs a year scope: from the Archive wall a pill tap
          returns to the last-viewed year, grouped by the tapped pill —
          so the tabs always do something, on touch screens too. */
