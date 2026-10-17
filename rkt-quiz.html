@@ -46,7 +46,7 @@
   .hero .note{margin-top:18px; font-size:0.84rem; color:rgba(27,24,54,0.55); border-left:3px solid var(--gold); padding-left:14px; max-width:640px; line-height:1.6;}
   .hero .note a{color:var(--magenta-deep); font-weight:700; text-decoration:underline;}
 
-  /* Fig 01 — Rota Quiz map (minimal) */
+  /* Fig 01 — Rota Quiz service map (minimal) */
   .fig-card{background:var(--paper); border:1px solid var(--line); border-radius:24px; padding:22px 22px 18px; margin:6px 0 26px; box-shadow:0 18px 50px rgba(27,24,54,.08); position:relative; overflow:hidden;}
   .fig-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:6px;}
   .fig-no{font-size:.72rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--magenta-deep);}
@@ -54,7 +54,7 @@
   .fig-stage{width:100%; height:auto; display:block; border-radius:16px; background:#FCFBF7; border:1px solid var(--line);}
   .fig-bar{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:10px;}
   .fig-hint{font-size:.78rem; color:rgba(27,24,54,.55);}
-  .fig-read{margin-left:auto; font-size:.82rem; font-weight:700; background:rgba(27,24,54,.05); border:1px solid var(--line); border-radius:100px; padding:8px 16px; min-height:36px; display:flex; align-items:center; gap:8px;}
+  .fig-read{margin-left:auto; font-size:.8rem; font-weight:600; color:rgba(27,24,54,.55);}
   .fig-read .ok{color:#1c8a4d;}
   .fig-open{border:1.5px solid var(--magenta); color:var(--magenta-deep); background:#fff; border-radius:100px; padding:8px 18px; font-weight:800; font-size:.8rem; cursor:pointer;}
   .fig-open:hover{background:rgba(225,26,110,.08);}
@@ -235,14 +235,12 @@
   <section class="fig-card" id="quizMap" aria-labelledby="quizMapTitle">
     <div class="fig-top"><span class="fig-no">Fig 01</span><span class="fig-title" id="quizMapTitle">The Rota Quiz, mapped</span></div>
     <div class="fig-scroll">
-      <svg class="fig-stage" id="figStage" viewBox="36 80 780 496" role="img" aria-label="Minimal map of the Rota Quiz: eight topic rows on the left with card counts, the Rota Quiz hub in the centre, the three ways to train on the right, and the two official source packs at the bottom."></svg>
+      <svg class="fig-stage" id="figStage" viewBox="36 26 748 480" role="img" aria-label="Service map of the Rota Quiz: Study Deck, Quiz Challenge and Acronym Sprint run as three colored lines through the eight topic stations, with a stop marker at every topic each line covers, and live card counts."></svg>
     </div>
     <div class="fig-bar">
-      <span class="fig-hint">Hover or tap a row · swipe on phones</span>
       <span class="fig-read" id="figRead" aria-live="polite">8 topics · 3 ways to train</span>
       <button class="fig-open" id="figOpen" hidden>Open →</button>
     </div>
-    <p class="fig-cap">Eight topic decks on the left and the three ways to train on the right, both drawn from the two official source packs. Card counts are read live from the question bank below.</p>
   </section>
   <div class="modes">
     <button class="mode-card" id="modeStudy">
@@ -955,10 +953,10 @@
 })();
 </script>
 <script>
-/* Fig 01 — Rota Quiz, mapped. Minimal cross-link map: eight topic rows
-   on the left, the Rota Quiz hub in the middle, three ways to train on
-   the right, both official source packs at the bottom. Counts read live
-   from window.Z7Quiz; hard-coded numbers are a fallback only. */
+/* Fig 01 — Rota Quiz service map. Minimal transit-style diagram: the
+   three ways to train run as three colored lines down the figure, the
+   eight topics are stations, and a bullet marks every stop a line makes.
+   Counts read live from window.Z7Quiz; hard-coded numbers are a fallback. */
 (function(){
   "use strict";
   var stage = document.getElementById("figStage");
@@ -980,11 +978,12 @@
   var Z = window.Z7Quiz || null;
   var ORDER = ["founder","history","nepal","foundation","rotaract","rules","general","acronyms"];
   var FULL  = { founder:"Founder & Early Days", history:"Rotary Through the Years", nepal:"Nepal & District 3292", foundation:"Foundation & Polio", rotaract:"Rotaract & Youth", rules:"Meetings, Dues & Rules", general:"General Knowledge", acronyms:"Acronyms" };
-  var MODES = [
-    { title:"Study Deck", sub:"every card, tap to flip", panel:"panelStudy", feed:[0,1,2,3,4,5,6,7] },
-    { title:"Quiz Challenge", sub:"10 questions · 3 hearts · streaks", panel:"panelQuiz", feed:[0,1,2,3,4,5,6] },
-    { title:"Acronym Sprint", sub:"15 rounds · 6 seconds each", panel:"panelSprint", feed:[7] }
+  var LINES = [
+    { title:"Study Deck",     color:"#E11A6E", wash:"#FBE9F1", txt:"#A80F52", panel:"panelStudy"  },
+    { title:"Quiz Challenge", color:"#1B1836", wash:"#ECEBF2", txt:"#1B1836", panel:"panelQuiz"   },
+    { title:"Acronym Sprint", color:"#B8860B", wash:"#FAF0DC", txt:"#8A6200", panel:"panelSprint" }
   ];
+  function served(i, j){ return j === 0 || (j === 1 && i < 7) || (j === 2 && i === 7); }
   function counts(){
     var c = {}, i, q;
     if (Z && Z.bank && Z.bank.length){
@@ -1001,34 +1000,24 @@
   }
   var CC = counts();
   var TOTAL = 0; ORDER.forEach(function(k){ TOTAL += CC[k] || 0; });
-
-  var INK = "#1B1836", MUT = "rgba(27,24,54,0.55)", HAIR = "rgba(27,24,54,0.22)", HAIRD = "rgba(27,24,54,0.3)", HOT = "#E11A6E", ACC = "#A80F52";
-  var LAB = { "font-weight":700, "letter-spacing":"2", fill:"rgba(27,24,54,0.45)" };
-
-  /* ---- groups: wires under nodes ---- */
-  var gWire = el("g", {}), gNode = el("g", {});
-
-  /* ---- wires: hairline cross-links ---- */
-  var pillWires = [];
-  for (var i = 0; i < 8; i++){
-    var ry = 132 + i * 52;
-    pillWires.push(el("path", { d: "M310," + ry + " C346," + ry + " 344,314 380,314", fill: "none", stroke: HAIR, "stroke-width": 1.2 }, gWire));
+  function lineCount(j){
+    if (j === 0) return TOTAL;
+    if (j === 1){ var s = 0, k; for (k = 0; k < 7; k++) s += CC[ORDER[k]]; return s; }
+    return CC[ORDER[7]];
   }
-  var modeWires = [262, 314, 366].map(function(my){
-    return el("path", { d: "M560,314 C592,314 576," + my + " 602," + my, fill: "none", stroke: HAIR, "stroke-width": 1.2 }, gWire);
+
+  var ROWY = []; for (var ri = 0; ri < 8; ri++) ROWY.push(110 + ri * 52);
+  var COLS = [340, 510, 680];
+
+  var gRoot = el("g", {});
+  var gGuide = el("g", {}, gRoot), gRows = el("g", {}, gRoot), gLines = el("g", {}, gRoot), gBul = el("g", {}, gRoot);
+
+  /* row guides */
+  ROWY.forEach(function(y){
+    el("line", { x1: 250, y1: y, x2: 700, y2: y, stroke: "rgba(27,24,54,0.07)", "stroke-width": 1 }, gGuide);
   });
-  var docWires = [
-    el("path", { d: "M452,356 C430,430 345,462 345,520", fill: "none", stroke: HAIRD, "stroke-width": 1.2, "stroke-dasharray": "3 4" }, gWire),
-    el("path", { d: "M488,356 C470,440 345,482 345,552", fill: "none", stroke: HAIRD, "stroke-width": 1.2, "stroke-dasharray": "3 4" }, gWire)
-  ];
 
-  /* ---- column labels ---- */
-  txt(gWire, 48, 100, 9.5, LAB).textContent = "TOPICS · 8";
-  txt(gWire, 300, 100, 9.5, { "font-weight":700, "letter-spacing":"2", fill:"rgba(27,24,54,0.45)", "text-anchor":"end" }).textContent = "CARDS";
-  txt(gWire, 615, 100, 9.5, LAB).textContent = "WAYS TO TRAIN · 3";
-  txt(gWire, 345, 488, 9.5, LAB).textContent = "SOURCES";
-
-  /* ---- nodes ---- */
+  /* nodes */
   var nodes = [];
   function reg(g, info){
     g.classList.add("fig-node");
@@ -1040,42 +1029,43 @@
     return g;
   }
 
-  /* topic rows (left) */
+  /* topic stations (rows) */
+  var rowGs = [];
   ORDER.forEach(function(key, i){
-    var ry = 132 + i * 52;
-    var g = el("g", {}, gNode);
-    txt(g, 48, ry + 4, 10.5, { fill:"rgba(27,24,54,0.4)", "letter-spacing":"1" }).textContent = (i + 1 < 10 ? "0" : "") + (i + 1);
-    txt(g, 86, ry + 4.5, 13, { "class":"nm", "font-weight":600, fill: INK }).textContent = FULL[key];
-    txt(g, 300, ry + 4.5, 12, { "class":"ct", "text-anchor":"end", fill: MUT }).textContent = CC[key];
-    el("circle", { "class":"dt", cx: 310, cy: ry, r: 2.4, fill: "rgba(27,24,54,0.35)" }, g);
-    reg(g, { kind:"topic", key:key, label: FULL[key] + " · " + CC[key] + " cards" });
+    var y = ROWY[i];
+    var g = el("g", {}, gRows);
+    el("rect", { x: 40, y: y - 26, width: 660, height: 52, fill: "rgba(0,0,0,0)" }, g);
+    txt(g, 60, y + 4.5, 13, { "class":"nm", "font-weight":600, fill:"#1B1836" }).textContent = FULL[key];
+    txt(g, 240, y + 4.5, 12, { "class":"ct", "text-anchor":"end", fill:"rgba(27,24,54,0.55)" }).textContent = CC[key];
+    reg(g, { kind:"row", i:i, label: FULL[key] + " · " + CC[key] + " cards" });
+    rowGs.push(g);
   });
 
-  /* hub (centre) */
-  var hub = el("g", { "class":"fig-hub" }, gNode);
-  el("rect", { x: 380, y: 272, width: 180, height: 84, rx: 14, fill: INK, stroke: "none", "stroke-width": 2 }, hub);
-  txt(hub, 470, 308, 21, { "text-anchor":"middle", "font-weight":700, fill:"#FFF8EF" }).textContent = "Rota Quiz";
-  txt(hub, 470, 330, 10, { "text-anchor":"middle", fill:"rgba(255,255,255,0.55)", "letter-spacing":"1" }).textContent = "District 3292 · 25–26";
-  reg(hub, { kind:"center", label:"Rota Quiz overview" });
-
-  /* ways to train (right) */
-  [262, 314, 366].forEach(function(my, i){
-    var g = el("g", {}, gNode);
-    el("circle", { "class":"dt", cx: 602, cy: my + 4, r: 2.4, fill: "rgba(27,24,54,0.35)" }, g);
-    txt(g, 615, my, 14, { "class":"nm", "font-weight":600, fill: INK }).textContent = MODES[i].title;
-    txt(g, 615, my + 18, 11, { "class":"sb", fill: MUT }).textContent = MODES[i].sub;
-    reg(g, { kind:"mode", i:i, label: MODES[i].title + " game" });
+  /* the three lines + their badges */
+  var lineGs = [], chipRects = [];
+  LINES.forEach(function(L, j){
+    var x = COLS[j], endY = j === 1 ? ROWY[6] : ROWY[7];
+    var g = el("g", {}, gLines);
+    el("path", { d: "M" + x + ",82 L" + x + "," + endY, fill: "none", stroke: "rgba(0,0,0,0)", "stroke-width": 18, "stroke-linecap": "round" }, g);
+    el("path", { d: "M" + x + ",82 L" + x + "," + endY, fill: "none", stroke: L.color, "stroke-width": 3, "stroke-linecap": "round" }, g);
+    var chip = el("rect", { x: x - 80, y: 46, width: 160, height: 36, rx: 18, fill: L.wash, stroke: "none", "stroke-width": 2 }, g);
+    chipRects.push(chip);
+    el("circle", { cx: x - 58, cy: 64, r: 4.5, fill: L.color }, g);
+    txt(g, x - 46, 68.5, 12.5, { "font-weight":600, fill: L.txt }).textContent = L.title + " · " + lineCount(j);
+    reg(g, { kind:"line", j:j, label: L.title + " game" });
+    lineGs.push(g);
   });
 
-  /* sources (bottom) */
-  [
-    { y: 524, t: "Rotary–Rotaract Reading Materials 2025-26" },
-    { y: 556, t: "Rota Quiz 25-26 Reading Materials" }
-  ].forEach(function(d, i){
-    var g = el("g", {}, gNode);
-    el("circle", { "class":"dt", cx: 345, cy: d.y - 4, r: 2.4, fill: "rgba(27,24,54,0.35)" }, g);
-    txt(g, 360, d.y, 12, { "class":"nm", fill:"rgba(27,24,54,0.78)" }).textContent = d.t;
-    reg(g, { kind:"doc", i:i, label: d.t + " · official source" });
+  /* stop bullets */
+  var bullets = [];
+  ROWY.forEach(function(y, i){
+    COLS.forEach(function(cx, j){
+      if (!served(i, j)) return;
+      var b = el("circle", { cx: cx, cy: y, r: 5, fill: LINES[j].color, stroke: "#FCFBF7", "stroke-width": 2.5 }, gBul);
+      bullets.push({ i: i, j: j, el: b });
+      b.addEventListener("pointerenter", function(){ paint({ kind:"row", i:i }); });
+      b.addEventListener("click", function(){ sticky = { kind:"row", i:i }; paint(sticky); });
+    });
   });
 
   /* ---- behaviour ---- */
@@ -1088,7 +1078,7 @@
     readEl.innerHTML = text;
     if (panelIdx > -1){
       openB.hidden = false;
-      openB.textContent = "Open " + MODES[panelIdx].title + " →";
+      openB.textContent = "Open " + LINES[panelIdx].title + " →";
       openB._panel = panelIdx;
     } else openB.hidden = true;
   }
@@ -1099,60 +1089,42 @@
   }
 
   function paint(sel){
-    var pillsHot = {}, modeHot = {}, docHot = {};
-    if (sel){
-      if (sel.kind === "mode"){ modeHot[sel.i] = 1; MODES[sel.i].feed.forEach(function(f){ pillsHot[f] = 1; }); }
-      else if (sel.kind === "topic"){
-        var oi = ORDER.indexOf(sel.key);
-        pillsHot[oi] = 1;
-        MODES.forEach(function(m, j){ if (m.feed.indexOf(oi) > -1) modeHot[j] = 1; });
-      }
-      else if (sel.kind === "doc") docHot[sel.i] = 1;
-    }
-    nodes.forEach(function(n){
-      var f = n._info, hot = false;
-      if (sel){
-        if (f.kind === "topic") hot = !!pillsHot[ORDER.indexOf(f.key)];
-        else if (f.kind === "mode") hot = !!modeHot[f.i];
-        else if (f.kind === "doc") hot = !!docHot[f.i];
-        else hot = sel.kind === "center";
-      }
-      n.setAttribute("opacity", hot || !sel ? 1 : 0.45);
-      n.classList.toggle("sel", hot);
+    var lineOn = [false, false, false];
+    if (sel && sel.kind === "row") lineOn = [served(sel.i, 0), served(sel.i, 1), served(sel.i, 2)];
+    else if (sel && sel.kind === "line") lineOn[sel.j] = true;
+    lineGs.forEach(function(g, j){
+      g.setAttribute("opacity", !sel || lineOn[j] ? 1 : 0.2);
+      chipRects[j].setAttribute("stroke", sel && sel.kind === "line" && sel.j === j ? LINES[j].color : "none");
     });
-    pillWires.forEach(function(w, i){
-      w.setAttribute("stroke", pillsHot[i] ? HOT : HAIR);
-      w.setAttribute("stroke-width", pillsHot[i] ? 1.8 : 1.2);
+    rowGs.forEach(function(g, i){
+      g.setAttribute("opacity", !sel ? 1 : (sel.kind === "row" ? (i === sel.i ? 1 : 0.5) : (served(i, sel.j) ? 1 : 0.3)));
+      g.classList.toggle("sel", !!sel && sel.kind === "row" && sel.i === i);
     });
-    docWires.forEach(function(w, i){
-      w.setAttribute("stroke", docHot[i] ? HOT : HAIRD);
-      w.setAttribute("stroke-width", docHot[i] ? 1.8 : 1.2);
-    });
-    modeWires.forEach(function(w, i){
-      w.setAttribute("stroke", modeHot[i] ? HOT : HAIR);
-      w.setAttribute("stroke-width", modeHot[i] ? 1.8 : 1.2);
+    bullets.forEach(function(b){
+      var on;
+      if (!sel) on = 1;
+      else if (sel.kind === "line") on = b.j === sel.j ? 1 : 0.12;
+      else on = (b.i === sel.i && lineOn[b.j]) ? 1 : 0.12;
+      b.el.setAttribute("opacity", on);
+      var grow = sel && ((sel.kind === "line" && b.j === sel.j) || (sel.kind === "row" && b.i === sel.i));
+      b.el.setAttribute("r", grow ? 6.5 : 5);
     });
     if (!sel){
       read("8 topics · 3 ways to train · " + TOTAL + " cards live", -1);
       return;
     }
-    if (sel.kind === "mode"){
-      var m = MODES[sel.i];
-      var used = m.feed.reduce(function(a, f){ return a + (CC[ORDER[f]] || 0); }, 0);
-      read("<b>" + m.title + "</b> · " + (sel.i === 0 ? "every card, tap to flip — all " + TOTAL : sel.i === 1 ? "10 questions · 3 hearts · streaks — " + used + " topic cards" : "15 rounds · 6 seconds each — " + used + " acronyms"), sel.i);
-    } else if (sel.kind === "topic"){
-      var oi2 = ORDER.indexOf(sel.key);
-      var users = MODES.filter(function(m){ return m.feed.indexOf(oi2) > -1; }).map(function(m){ return m.title; });
-      read("<b>" + FULL[sel.key] + "</b> · " + CC[sel.key] + " cards — used by " + listNames(users), -1);
-    } else if (sel.kind === "doc"){
-      read("<b>" + ["Rotary–Rotaract Reading Materials 2025-26", "Rota Quiz 25-26 Reading Materials"][sel.i] + "</b> · official source", -1);
+    if (sel.kind === "line"){
+      var j = sel.j;
+      read("<b>" + LINES[j].title + "</b> · " + lineCount(j) + " cards — " + (j === 0 ? "every topic" : j === 1 ? "skips Acronyms" : "Acronyms only"), j);
     } else {
-      read("<b>Rota Quiz 25-26</b> · 8 topics · 3 ways to train · " + TOTAL + " cards live", -1);
+      var i2 = sel.i, users = [], jj;
+      for (jj = 0; jj < 3; jj++) if (served(i2, jj)) users.push(LINES[jj].title);
+      read("<b>" + FULL[ORDER[i2]] + "</b> · " + CC[ORDER[i2]] + " cards — " + listNames(users), -1);
     }
   }
 
   openB.addEventListener("click", function(){
-    var name = MODES[openB._panel].panel;
+    var name = LINES[openB._panel].panel;
     if (Z && Z.show) Z.show(name);
     else { var b = { panelStudy:"modeStudy", panelQuiz:"modeQuiz", panelSprint:"modeSprint" }[name]; if (b) document.getElementById(b).click(); }
     var pan = document.getElementById(name);
@@ -1165,9 +1137,10 @@
     g.addEventListener("focus", function(){ paint(g._info); });
     g.addEventListener("keydown", function(e){
       if (e.key === "Enter" || e.key === " "){ e.preventDefault(); sticky = g._info; paint(g._info); }
-      else if (e.key === "ArrowRight" || e.key === "ArrowLeft"){
+      else if (e.key === "ArrowRight" || e.key === "ArrowLeft" || e.key === "ArrowUp" || e.key === "ArrowDown"){
         e.preventDefault();
-        var nx = e.key === "ArrowRight" ? (i + 1) % nodes.length : (i - 1 + nodes.length) % nodes.length;
+        var back = e.key === "ArrowLeft" || e.key === "ArrowUp";
+        var nx = back ? (i - 1 + nodes.length) % nodes.length : (i + 1) % nodes.length;
         nodes[nx].focus();
         sticky = nodes[nx]._info;
         paint(nodes[nx]._info);
@@ -1178,17 +1151,11 @@
 
   /* ---- entrance: one calm fade (skipped for reduced motion) ---- */
   if (!reduce && "IntersectionObserver" in window){
-    gWire.style.opacity = "0";
-    gNode.style.opacity = "0";
-    gWire.style.transition = "opacity .5s ease";
-    gNode.style.transition = "opacity .5s ease";
+    gRoot.style.opacity = "0";
+    gRoot.style.transition = "opacity .5s ease";
     var played = false;
     new IntersectionObserver(function(es){
-      if (es[0].isIntersecting && !played){
-        played = true;
-        gWire.style.opacity = "1";
-        gNode.style.opacity = "1";
-      }
+      if (es[0].isIntersecting && !played){ played = true; gRoot.style.opacity = "1"; }
     }, { threshold: 0.2 }).observe(stage);
   }
 
