@@ -220,12 +220,22 @@
   .about .section-tag{
     display:inline-flex; align-items:center; gap:8px; background:rgba(225,26,110,0.09); color:var(--magenta-deep);
     padding:7px 16px; border-radius:100px; margin-bottom:0;
+    font-size:.82rem; letter-spacing:.16em;
   }
   .about .section-tag::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--gold); display:inline-block;}
-  .about h2{margin-top:18px;}
+  .about h2{
+    margin-top:20px;
+    font-family:'Poppins'; font-weight:800;
+    font-size:clamp(2.2rem, 4.6vw, 3.3rem); line-height:1.08; letter-spacing:-.025em;
+    text-wrap:balance;
+  }
   .about h2 .mark{
     background:linear-gradient(100deg, var(--magenta), var(--magenta-deep));
     -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .about p.sub{
+    font-size:1.18rem; line-height:1.8;
+    color:rgba(27,24,54,.72); margin-top:10px;
   }
   .about-copy p{color:rgba(27,24,54,0.72); line-height:1.85; margin-bottom:22px; font-size:1.02rem;}
 
@@ -334,16 +344,14 @@
      All-years holds 1000+ tiles, so instead of stacking category columns
      (which pushed the page many screens tall) the Archive renders a
      grid-flow-dense mosaic: photos-first, feature tiles at 2x2 / 2x1 / 1x2,
-     inside a ~440px box that scrolls internally. Tiles are paged in
-     (~200 first, then +240 as the sentinel scrolls into view), each with
      content-visibility so first paint stays fast. Tiles keep .mosaic-tile
      + data-i, so hover cards, touch popups and quick view keep working. */
   .archive-wall{
     flex:1 1 100%; width:100%;
-    display:grid; grid-template-columns:repeat(auto-fill, minmax(96px, 1fr));
-    grid-auto-rows:96px; grid-auto-flow:dense; gap:8px;
-    max-height:440px; overflow-y:auto; overscroll-behavior:contain;
-    padding:4px 2px 10px; scrollbar-width:thin; scrollbar-color:rgba(168,15,82,.35) transparent;
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr));
+    grid-auto-rows:170px; grid-auto-flow:dense; gap:12px;
+    max-height:min(70vh, 780px); overflow-y:auto; overscroll-behavior:contain;
+    scrollbar-width:thin; scrollbar-color:rgba(168,15,82,.35) transparent;
   }
   .archive-wall::-webkit-scrollbar{width:8px;}
   .archive-wall::-webkit-scrollbar-thumb{background:rgba(168,15,82,.3); border-radius:8px;}
@@ -352,12 +360,17 @@
   html.dark .archive-wall::-webkit-scrollbar-thumb{background:rgba(255,255,255,.28);}
   .archive-wall .mosaic-tile{
     width:100%; height:100%; min-width:0; border-radius:12px; font-size:1.2rem;
-    content-visibility:auto; contain-intrinsic-size:96px;
+    content-visibility:auto; contain-intrinsic-size:170px;
     /* entrance cascade: fresh nodes replay this on every pill/RY switch;
-       JS sets a capped per-tile animation-delay so it lands in ~0.5s. */
-    animation:aw-in .32s cubic-bezier(.16,1,.3,1) backwards;
+       JS sets a capped per-tile animation-delay so it lands in ~0.6s.
+       Overshoot keyframes make the pop read springy, not rubbery. */
+    animation:aw-in .4s cubic-bezier(.16,1,.3,1) backwards;
   }
-  @keyframes aw-in{from{opacity:0; transform:scale(.82) translateY(12px);} to{opacity:1; transform:none;}}
+  @keyframes aw-in{
+    0%{opacity:0; transform:scale(.8) translateY(14px);}
+    62%{opacity:1; transform:scale(1.055) translateY(-3px);}
+    100%{opacity:1; transform:none;}
+  }
   .archive-wall .mosaic-tile.photo{border-radius:12px;}
   .archive-wall .aw-big{grid-column:span 2; grid-row:span 2; font-size:1.8rem; border-radius:14px;}
   .archive-wall .aw-big.photo{border-radius:12px;}
@@ -371,16 +384,72 @@
   }
   .aw-more:hover{border-style:solid; background:rgba(225,26,110,.08);}
   .aw-more:focus-visible{outline:2px solid #fff; outline-offset:2px;}
-  @media (max-width:600px){
-    .archive-wall{grid-template-columns:repeat(auto-fill, minmax(72px, 1fr)); grid-auto-rows:72px; max-height:380px;}
-    .archive-wall .mosaic-tile{contain-intrinsic-size:72px;}
+  /* size ladder — bigger cells on everything, phone steps keep a small
+     inside gutter so tiles don't kiss the screen edge unreadably */
+  @media (max-width:1100px){
+    .archive-wall{grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); grid-auto-rows:140px; max-height:min(62vh, 700px);}
+    .archive-wall .mosaic-tile{contain-intrinsic-size:140px;}
+  }
+  @media (max-width:640px){
+    .archive-wall{grid-template-columns:repeat(auto-fill, minmax(112px, 1fr)); grid-auto-rows:112px; max-height:min(58vh, 560px); padding:0 12px 6px;}
+    .archive-wall .mosaic-tile{contain-intrinsic-size:112px;}
+  }
+  @media (max-width:420px){
+    .archive-wall{grid-template-columns:repeat(auto-fill, minmax(92px, 1fr)); grid-auto-rows:92px; max-height:min(56vh, 500px);}
+    .archive-wall .mosaic-tile{contain-intrinsic-size:92px;}
   }
   @media (hover: hover) and (pointer: fine) {
-    .archive-wall .mosaic-tile:hover{transform:translateY(-3px) scale(1.03); z-index:3; filter:brightness(1.08);}
-    .archive-wall .mosaic-tile.photo:hover img{transform:scale(1.07);}
-    .archive-wall .mosaic-tile.photo img{transition:transform .25s;}
+    .archive-wall .mosaic-tile:hover{transform:translateY(-5px) scale(1.06); z-index:3; filter:brightness(1.08);}
+    .archive-wall .mosaic-tile.photo:hover img{transform:scale(1.1);}
+    .archive-wall .mosaic-tile.photo img{transition:transform .25s cubic-bezier(.34,1.4,.64,1);}
   }
-  @media (prefers-reduced-motion: reduce){ .archive-wall .mosaic-tile, .archive-wall .mosaic-tile.photo img{transition:none; animation:none;} .mosaic-columns .mosaic-col{animation:none;} }
+  /* press feedback works on every pointer type (touch included): quick squish */
+  .archive-wall .mosaic-tile:active{transform:scale(.95);}
+  /* feature tiles breathe: a barely-there Ken Burns drift (16-22s cycles).
+     The animation owns transform on the img, so the hover zoom idles on
+     features — the tile lift still gives pointer feedback there. */
+  @keyframes aw-kb{
+    from{transform:scale(1) translateY(0);}
+    to{transform:scale(1.055) translateY(-1.5%);}
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .archive-wall .aw-big.photo img{animation:aw-kb 16s ease-in-out infinite alternate;}
+    .archive-wall .aw-wide.photo img{animation:aw-kb 19s ease-in-out infinite alternate;}
+    .archive-wall .aw-tall.photo img{animation:aw-kb 22s ease-in-out infinite alternate;}
+  }
+  /* ---- on-image name reveal (photo wall): the name lives on the photo
+     itself — gradient scrim + title + club rise from the bottom on hover.
+     Replaces the floating popup for photo tiles; icon-tile modes keep the popup ---- */
+  .aw-name{
+    position:absolute; left:0; right:0; bottom:0; z-index:2;
+    padding:26px 12px 10px;
+    background:linear-gradient(180deg, rgba(10,8,20,0), rgba(10,8,20,.68) 72%);
+    opacity:0; transform:translateY(10px);
+    transition:opacity .3s ease, transform .35s cubic-bezier(.16,1,.3,1);
+    pointer-events:none;
+  }
+  .aw-n-t{display:block; color:#fff; font-family:'Poppins'; font-weight:800; font-size:.78rem; line-height:1.25; overflow-wrap:anywhere; text-shadow:0 1px 5px rgba(10,8,20,.55);}
+  .aw-n-c{display:block; margin-top:2px; color:rgba(247,242,255,.82); font-size:.6rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; text-shadow:0 1px 4px rgba(10,8,20,.5);}
+  @media (hover: hover) and (pointer: fine) {
+    .archive-wall .mosaic-tile.photo:hover .aw-name{opacity:1; transform:translateY(0);}
+  }
+  @media (max-width:1100px){ .aw-name{padding:20px 10px 8px;} .aw-n-t{font-size:.68rem;} }
+  @media (max-width:480px){ .aw-name{padding:14px 8px 7px;} .aw-n-t{font-size:.58rem;} .aw-n-c{display:none;} }
+  /* ---- crossfade layer for the breathing wall: the incoming photo over the
+     outgoing one, swapped in place (data-i + aria-label follow it), so hover
+     cards, touch popups and quick view always track what's displayed ---- */
+  .mosaic-tile.photo{position:relative;}
+  .mosaic-tile.photo img.aw-fade{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    opacity:0; transition:opacity 1.15s ease; pointer-events:none; z-index:1;
+  }
+  .mosaic-tile.photo img.aw-fade.on{opacity:1;}
+  @media (prefers-reduced-motion: reduce){
+    .archive-wall .mosaic-tile, .archive-wall .mosaic-tile.photo img{transition:none; animation:none;}
+    .mosaic-columns .mosaic-col{animation:none;}
+    .mosaic-tile.photo img.aw-fade{transition:none;}
+    .aw-name{transition:none;}
+  }
   @media (prefers-reduced-motion: reduce){ .mt,.ms{transition:none;} }
   .mt .hover-circle{
     position:absolute; left:50%; bottom:0; border-radius:50%;
@@ -407,12 +476,23 @@
   .mt.active .hover-circle,
   .mt.active .pill-label-hover{display:none;}
   .mosaic-frame{
-    background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:28px 24px 20px;
+    /* full bleed, defined but subtle: hairline top/bottom, barely-there
+       shadow under the bottom edge — the wall sits in the page, not above it */
+    background:transparent; border-radius:0; padding:0;
+    margin:46px 0 26px;
+    border-top:1px solid rgba(27,24,54,.1);
+    border-bottom:1px solid rgba(27,24,54,.12);
+    box-shadow:0 16px 30px -28px rgba(27,24,54,.22);
     position:relative; overflow:hidden;
   }
   .mosaic-frame::before{
     content:""; position:absolute; top:-80px; right:-60px; width:280px; height:280px; border-radius:50%;
-    background:radial-gradient(circle, rgba(225,26,110,0.06), transparent 70%); pointer-events:none;
+    background:radial-gradient(circle, rgba(225,26,110,0.06), transparent 70%); pointer-events:none; z-index:1;
+  }
+  html.dark .mosaic-frame{
+    border-top-color:rgba(233,231,247,.11);
+    border-bottom-color:rgba(233,231,247,.14);
+    box-shadow:0 18px 34px -30px rgba(0,0,0,.4);
   }
   .mosaic-columns{
     position:relative; display:flex; flex-wrap:wrap; align-items:flex-end; align-content:flex-end;
@@ -476,7 +556,7 @@
   @media (max-width:600px){
     .mosaic-tile{width:26px; height:26px; font-size:0.72rem;}
     .mosaic-col{min-width:26px; width:auto;}
-    .mosaic-frame{padding:20px 14px 14px;}
+    .mosaic-frame{padding:0; margin:24px 0 16px;}
     /* header stacks; the tab row itself stays ONE line: abbreviated labels
        (JS swaps via data-short) + compact pills. No overflow-x here — a
        scroll container would clip the absolutely-positioned RY dropdown. */
@@ -1526,7 +1606,7 @@
   <div class="wrap">
     <span class="section-tag">Who we are</span>
     <h2>Service above self, <span class="mark">led by youth.</span></h2>
-    <p class="sub">Rotaract is Rotary International's club for young adults aged 18&ndash;30, sponsored by local Rotary clubs and entirely run by Rotaractors. Zone 7 unites 9 such clubs across the Kathmandu Valley under District 3292. <a href="/about" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline;">Read our full story →</a></p>
+    <p class="sub">Rotaract is Rotary International&rsquo;s club for young adults aged 18&ndash;30 &mdash; sponsored by local Rotary clubs, planned and run entirely by Rotaractors like us. Nine clubs across the Kathmandu Valley under District 3292 share one habit: when something needs doing, we show up. Every photo on this wall is proof &mdash; a project someone our age decided to lead. <a href="/about" style="color:var(--magenta-deep); font-weight:700; text-decoration:underline; white-space:nowrap;">Read our full story &rarr;</a></p>
 
     <div class="mosaic-head">
       <h3>Every Zone 7 project, one skyline.</h3>
@@ -1539,9 +1619,10 @@
         <div class="ry-menu" id="mosaicYearMenu" role="listbox" aria-label="Rotary Year" hidden></div>
       </div>
     </div>
-    <div class="mosaic-frame"><div class="mosaic-columns" id="mosaicColumns"></div></div>
-    <p class="mosaic-note">Mockup preview. Live club-uploaded projects populate this automatically; hover any tile for its name, press one to open the project.</p>
   </div>
+  <!-- the wall itself: full bleed, breaks out of the container -->
+  <div class="mosaic-frame"><div class="mosaic-columns" id="mosaicColumns"></div></div>
+  <div class="wrap"><p class="mosaic-note">Mockup preview. Live club-uploaded projects populate this automatically; photos quietly trade places — hover to pause and see each project's name right on its picture, press one to open it.</p></div>
 </section>
 <div class="mosaic-popup" id="mosaicPopup"><span class="mp-tag" id="mpTag"></span><h5 id="mpTitle"></h5><p id="mpClub"></p></div>
 
@@ -1982,11 +2063,14 @@
     const p = entry.p, gi = entry.gi, cls = awClass(i);
     /* capped stagger: the cascade reads top-to-bottom but always lands in ~0.5s */
     const dl = ` style="${p.cover ? "" : `background:${p.bg};`}animation-delay:${Math.min(i * 10, 200)}ms"`;
-    if (p.cover) return `<div class="mosaic-tile photo ${cls}" role="button" data-i="${gi}"${dl} aria-label="${p.t} — Rotaract Club of ${p.cn}"><img src="${p.cover}" alt="" loading="lazy" decoding="async"></div>`;
+    if (p.cover) return `<div class="mosaic-tile photo ${cls}" role="button" data-i="${gi}"${dl} aria-label="${p.t} — Rotaract Club of ${p.cn}"><img src="${p.cover}" alt="" loading="lazy" decoding="async"><span class="aw-name" aria-hidden="true"><span class="aw-n-t">${awEsc(p.t)}</span><span class="aw-n-c">${awEsc(p.cn)}</span></span></div>`;
     return `<div class="mosaic-tile ${cls}" role="button"${dl} data-i="${gi}" aria-label="${p.t} — Rotaract Club of ${p.cn}">${p.ic}</div>`;
   }
   function awSentinelHTML(remaining){
     return `<button type="button" class="aw-more" data-aw-more>Show more · ${remaining} remaining</button>`;
+  }
+  function awEsc(s){
+    return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
   function awWatch(){
     if (awObserver) awObserver.disconnect();
@@ -2040,6 +2124,103 @@
     if (e.target.closest("[data-aw-more]")) awMore();
   });
 
+  /* ---- the breathing wall ----------------------------------------------
+     Visible photo tiles quietly trade slots: every ~2.2-3.4s one or two
+     pairs cross-fade into each other's positions over ~1.2s. Tiles never
+     move — only the photo (img) plus data-i and aria-label swap together,
+     so hover cards, touch popups and quick view always track the photo.
+     Zero network cost: pairs only exchange covers already in the wall.
+     Pauses when the pointer is over the frame, the tab is hidden, the
+     section is scrolled out of view, or the user prefers reduced motion. */
+  const AWB = { hover: false, inView: false };
+
+  function awVisibleTiles(){
+    const wall = cols.querySelector(".archive-wall");
+    if (!wall) return null;
+    const vr = wall.getBoundingClientRect();
+    return [...wall.querySelectorAll(".mosaic-tile.photo")].filter(t => {
+      if (t.dataset.awFading) return false;
+      const r = t.getBoundingClientRect();
+      return r.bottom > vr.top + 26 && r.top < vr.bottom - 26 &&
+             r.right > vr.left && r.left < vr.right;
+    });
+  }
+
+  function awFadeTo(tile, gi){
+    const p = MOSAIC[gi];
+    if (!p || !p.cover) return;
+    const base = tile.querySelector("img");
+    if (!base) return;
+    tile.dataset.i = String(gi);
+    /* the on-image label belongs to whoever's photo is showing */
+    const nt = tile.querySelector(".aw-n-t"), nc = tile.querySelector(".aw-n-c");
+    if (nt) nt.textContent = p.t;
+    if (nc) nc.textContent = p.cn;
+    tile.setAttribute("aria-label", `${p.t} — Rotaract Club of ${p.cn}`);
+    let inc = tile.querySelector("img.aw-fade");
+    if (!inc){
+      inc = base.cloneNode(false);
+      inc.classList.add("aw-fade");
+      inc.removeAttribute("src");
+      base.insertAdjacentElement("afterend", inc);
+    }
+    const promote = () => {
+      if (tile.dataset.awFading !== "1" || !inc.isConnected) return;
+      base.src = inc.src;                 /* settled photo moves to the base layer */
+      inc.classList.remove("on");
+      inc.style.display = "none";
+      inc.removeAttribute("src");
+      inc.removeEventListener("transitionend", promote);
+      delete tile.dataset.awFading;
+    };
+    /* transitionend can be lost (hidden tab, paint skipping) — always also
+       fire a fallback promote shortly after the fade duration */
+    inc.addEventListener("transitionend", promote, { once: true });
+    setTimeout(promote, 1450);
+    tile.dataset.awFading = "1";
+    inc.style.display = "";
+    void inc.offsetWidth;                 /* flush so the fade restarts cleanly */
+    inc.src = p.cover;
+    if (inc.complete && inc.naturalWidth) inc.classList.add("on");
+  }
+
+  function awBreathe(){
+    if (document.hidden || AWB.hover || !AWB.inView) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const vis = awVisibleTiles();
+    if (!vis || vis.length < 4) return;
+    for (let i = vis.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [vis[i], vis[j]] = [vis[j], vis[i]];
+    }
+    const pairs = vis.length >= 26 ? 2 : 1;
+    for (let k = 0; k < pairs; k++){
+      const a = vis[2 * k], b = vis[2 * k + 1];
+      if (!a || !b || a.dataset.i === b.dataset.i) continue;
+      const ia = a.dataset.i, ib = b.dataset.i;   /* read BOTH before either write */
+      awFadeTo(a, Number(ib));
+      awFadeTo(b, Number(ia));
+    }
+  }
+
+  (function awArm(){
+    const frame = document.querySelector(".mosaic-frame");
+    if (!frame) return;
+    if ("IntersectionObserver" in window){
+      new IntersectionObserver(es => { AWB.inView = es[0].isIntersecting; }, { threshold: 0.05 })
+        .observe(frame);
+    } else { AWB.inView = true; }
+    frame.addEventListener("pointerenter", () => { AWB.hover = true; });
+    frame.addEventListener("pointerleave", () => { AWB.hover = false; });
+    /* touch taps don't reliably fire pointerleave — auto-release shortly */
+    frame.addEventListener("pointerdown", () => { AWB.hover = true; setTimeout(() => { AWB.hover = false; }, 900); });
+    (function loop(){
+      setTimeout(() => { awBreathe(); loop(); }, 2200 + Math.random() * 1200);
+    })();
+  })();
+  window.__awBreathe = awBreathe;  /* verification hook */
+  window.__awMosaic = () => MOSAIC; /* verification: index <-> cover checks */
+
   /* ---- one delegated listener set for the whole mosaic ----
      Attached once, outside render(): render() only swaps cols.innerHTML, so
      binding on `cols` survives every tab switch. Binding inside render() used
@@ -2072,6 +2253,9 @@
     pop.style.top = Math.round(Math.min(Math.max(top, POP_EDGE), maxTop)) + "px";
   }
   function showFor(el, x, y, mode){
+    /* photo tiles carry their name on the image itself — the floating
+       popup stays reserved for the little icon tiles (avenue/club/az). */
+    if(el.classList.contains("photo")) return;
     const p = MOSAIC[el.dataset.i];
     if(!p) return;
     /* content first: popAt measures the card, and its height depends on how

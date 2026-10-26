@@ -43,7 +43,8 @@ function parseStatsFromText(text) {
   if (volM) s.vol_hours = volM[1];
 
   // Expense: "NRs. 2,000" / "NRs 5,000" / "NRs. 95.98" / "Rs. 2000"
-  const expM = text.match(/NRs?\.?\s*([\d,]+(?:\.\d+)?)/i) || text.match(/Rs\.?\s*([\d,]+(?:\.\d+)?)/i);
+  // \b + leading digit required — otherwise "Rotaractors," matches "Rs ,"
+  const expM = text.match(/\bNRs?\.?\s*(\d[\d,]*(?:\.\d+)?)/i) || text.match(/\bRs\.?\s*(\d[\d,]*(?:\.\d+)?)/i);
   if (expM) s.expense = 'NRs ' + expM[1];
 
   // Trees planted
